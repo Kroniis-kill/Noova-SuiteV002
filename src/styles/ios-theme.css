@@ -1,0 +1,276 @@
+
+/* 
+  NEBULA MANAGER - iOS / VisionOS Theme System (2025)
+  Identity: Deep Space, Glassmorphism, Vivid Gradients
+  Brand: NOOVA
+*/
+
+:root {
+  /* Palette - NOOVA Official */
+  --ios-bg: #050506;
+  --ios-surface: #0E0E12;
+  --ios-surface-2: #18181B;
+  
+  /* Brand Gradients */
+  --ios-gradient-primary: linear-gradient(135deg, #6A2CFF 0%, #FF1493 100%); /* Purple to Fuchsia */
+  --ios-gradient-success: linear-gradient(135deg, #30d158 0%, #0a84ff 100%); /* Green to Blue */
+  --ios-gradient-fire: linear-gradient(135deg, #ff453a 0%, #ff9f0a 100%);    /* Red to Orange */
+  
+  /* Glass Materials */
+  --ios-glass-border: rgba(255, 255, 255, 0.06);
+  --ios-glass-highlight: rgba(106, 44, 255, 0.3);
+  --ios-glass-bg: rgba(14, 14, 18, 0.75);
+  --ios-glass-bg-thick: rgba(10, 10, 12, 0.90);
+  
+  /* Spacing & Radius */
+  --ios-radius-lg: 40px;
+  --ios-radius-md: 24px;
+  --ios-radius-sm: 16px;
+  
+  /* Shadows */
+  --ios-shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+  --ios-shadow-float: 0 20px 60px -15px rgba(0, 0, 0, 0.8);
+  --ios-shadow-glow: 0 0 30px rgba(106, 44, 255, 0.35);
+}
+
+/* --- 1. GLOBAL ATMOSPHERE --- */
+
+body {
+  background-color: var(--ios-bg);
+  background-image: none;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 2. UTILITY CLASSES (VisionOS Style) --- */
+
+/* Containers & Cards */
+.ios-card {
+  background: rgba(14, 14, 18, 0.6);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--ios-glass-border);
+  border-radius: var(--ios-radius-lg);
+  box-shadow: var(--ios-shadow-card);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, background-color 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.ios-card:hover {
+  transform: translateY(-4px) scale(1.005);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7);
+  border-color: var(--ios-glass-highlight);
+  background: rgba(14, 14, 18, 0.8);
+}
+
+/* Heavy Glass (Sidebar, Modals) */
+.ios-glass {
+  background: var(--ios-glass-bg-thick);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid var(--ios-glass-border);
+  box-shadow: var(--ios-shadow-float);
+}
+
+/* Buttons */
+.ios-btn-primary {
+  background: var(--ios-gradient-primary);
+  color: white;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--ios-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--ios-shadow-glow);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ios-btn-primary:hover {
+  box-shadow: 0 0 40px rgba(255, 20, 147, 0.5);
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.ios-btn-primary:active {
+  transform: scale(0.96);
+  box-shadow: none;
+}
+
+.ios-btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: var(--ios-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.ios-btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ios-btn-glass:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Inputs */
+.ios-input {
+  background: rgba(5, 5, 6, 0.6); /* Fondo oscuro inputs */
+  border: 1px solid var(--ios-glass-border);
+  border-radius: var(--ios-radius-md);
+  padding: 14px 18px;
+  color: white;
+  font-size: 15px;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ios-input:focus {
+  background: rgba(5, 5, 6, 0.9);
+  border-color: #6A2CFF;
+  box-shadow: 0 0 0 4px rgba(106, 44, 255, 0.2);
+  outline: none;
+}
+
+.ios-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Selects (Custom Arrow) */
+.ios-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+/* Navigation */
+.ios-nav {
+  background: rgba(14, 14, 18, 0.8);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+}
+
+/* List Items */
+.ios-list-item {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+
+.ios-list-item:last-child {
+  border-bottom: none;
+}
+
+.ios-list-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Avatars & Rings */
+.ios-ring {
+  position: relative;
+  z-index: 1;
+}
+
+.ios-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--ios-gradient-primary);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* Headers */
+.ios-header {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(to bottom, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.ios-section-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8e8e93;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-left: 4px;
+}
+
+/* --- 3. ANIMATIONS --- */
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes smoothPulse {
+  0% { box-shadow: 0 0 0 0 rgba(106, 44, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(106, 44, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(106, 44, 255, 0); }
+}
+
+@keyframes softSlide {
+  from { transform: translateX(10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Animation Utilities */
+.animate-ios-fade-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-ios-pulse {
+  animation: smoothPulse 2s infinite;
+}
+
+.animate-ios-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scrollbar Hiding */
+.ios-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

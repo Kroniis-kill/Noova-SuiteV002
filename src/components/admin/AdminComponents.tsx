@@ -1,0 +1,69 @@
+import React, { useState } from 'react';
+import { User, Calendar, CheckCircle, XCircle, Search, CreditCard, Clock } from 'lucide-react';
+import { UserSubscription, PLAN_LABELS } from '../../types/subscriptionTypes';
+
+interface StatCardProps {
+  title: string;
+  value: string | number;
+  icon: React.ElementType;
+  color: string;
+}
+
+export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
+  <div className="bg-surface-1 backdrop-blur-xl border border-white/[0.08] rounded-xl p-5 relative overflow-hidden group shadow-sm">
+    <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-[50px] opacity-20 ${color}`} />
+    <div className="relative z-10">
+      <div className="flex justify-between items-start mb-4">
+        <div className={`w-10 h-10 rounded-sm flex items-center justify-center text-white shadow-lg ${color}`}>
+          <Icon size={20} />
+        </div>
+      </div>
+      <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">{title}</p>
+      <h4 className="text-2xl font-bold text-white mt-1">{value}</h4>
+    </div>
+  </div>
+);
+
+interface SubscriptionRowProps {
+  sub: UserSubscription;
+  onToggle: () => void;
+}
+
+export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle }) => {
+  const isExpired = new Date(sub.expires_at) < new Date();
+  
+  return (
+    <div className="bg-surface-1 border border-white/[0.08] rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+      <div className="flex items-center gap-4">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-semibold text-xs">
+           {sub.user_email ? sub.user_email.substring(0,2).toUpperCase() : 'U'}
+        </div>
+        <div>
+           <p className="text-white font-bold text-sm">{sub.user_email || sub.user_id}</p>
+           <div className="flex items-center gap-2 mt-1">
+              <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/5 text-zinc-400">
+                 {PLAN_LABELS[sub.plan]}
+              </span>
+              <span className={`text-[10px] px-2 py-0.5 rounded border ${isExpired ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
+                 {isExpired ? 'Expirado' : 'Vigente'}
+              </span>
+           </div>
+        </div>
+      </div>
+      
+      <div className="flex items-center gap-4 justify-between md:justify-end">
+         <div className="text-right">
+            <p className="text-[10px] text-zinc-500 font-bold uppercase">Vence</p>
+            <p className="text-xs text-zinc-300 font-mono">{new Date(sub.expires_at).toLocaleDateString()}</p>
+         </div>
+         
+         <button 
+           onClick={onToggle}
+           className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${sub.is_active ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-red-500/10 border-red-500/20 text-red-400'}`}
+         >
+            {sub.is_active ? <CheckCircle size={18} /> : <XCircle size={18} />}
+         </button>
+      </div>
+    </div>
+  );
+};
