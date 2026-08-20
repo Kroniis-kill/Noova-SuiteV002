@@ -36,10 +36,10 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
        </div>
 
        <div className="grid grid-cols-2 gap-3">
-          <StatBox label="Total" value={data.totalUsers} icon={Users} color="text-blue-400" />
-          <StatBox label="Activos" value={data.activeUsers} icon={Activity} color="text-emerald-400" />
-          <StatBox label="Suspendidos" value={data.suspendedUsers} icon={AlertOctagon} color="text-orange-400" />
-          <StatBox label="Expirados" value={data.expiredUsers} icon={UserX} color="text-red-400" />
+          <StatBox label="Total" value={data.totalUsers} icon={Users} color="text-status-info-soft" />
+          <StatBox label="Activos" value={data.activeUsers} icon={Activity} color="text-status-success-soft" />
+          <StatBox label="Suspendidos" value={data.suspendedUsers} icon={AlertOctagon} color="text-status-expiring-soft" />
+          <StatBox label="Expirados" value={data.expiredUsers} icon={UserX} color="text-status-danger-soft" />
        </div>
 
        <AnalyticsCharts data={data} />
@@ -48,7 +48,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           <h3 className="text-sm font-bold text-white uppercase tracking-wider">Detalles Críticos</h3>
           <div className="flex justify-between items-center py-2 border-b border-white/5">
              <span className="text-xs text-zinc-400">Próximo a expirar</span>
-             <span className="text-xs font-semibold text-amber-400 text-right">
+             <span className="text-xs font-semibold text-status-warning-soft text-right">
                 {data.nextToExpire ? `${data.nextToExpire.email} (${new Date(data.nextToExpire.date).toLocaleDateString()})` : 'N/A'}
              </span>
           </div>

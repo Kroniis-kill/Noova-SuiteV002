@@ -101,7 +101,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
           </div>
           <button 
              onClick={props.onNewExpense}
-             className="w-10 h-10 bg-secondary rounded-md flex items-center justify-center text-white shadow-glow active:scale-90 transition-all shadow-secondary/20"
+             className="w-10 h-10 bg-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-90 transition-all shadow-brand-accent/20"
           >
              <Receipt size={18} strokeWidth={2.5} />
           </button>
@@ -178,7 +178,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                             {(props.reportData?.topServicesProfit || []).slice(0, 3).map((svc: any) => (
                                <div key={svc.id} className="flex justify-between items-center p-3 bg-white/5 rounded-2xl border border-white/5">
                                   <span className="text-xs font-semibold text-white">{svc.name}</span>
-                                  <span className="text-[11px] font-mono font-black text-emerald-400">{formatCurrency(svc.value)}</span>
+                                  <span className="text-[11px] font-mono font-black text-status-success-soft">{formatCurrency(svc.value)}</span>
                                </div>
                             ))}
                             {(!props.reportData?.topServicesProfit || props.reportData.topServicesProfit.length === 0) && (
@@ -216,7 +216,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                 >
                    <div className="flex justify-between items-center px-1">
                       <h3 className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em]">Cuentas de Origen</h3>
-                      <button onClick={props.onNewAccount} className={`text-[8px] font-black text-primary uppercase tracking-widest bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20 ${isHighlighted ? 'ring-4 ring-primary animate-pulse' : ''}`}>
+                      <button onClick={props.onNewAccount} className={`text-[8px] font-black text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-3 py-1.5 rounded-full border border-brand-primary/20 ${isHighlighted ? 'ring-4 ring-brand-primary animate-pulse' : ''}`}>
                         + Nueva
                       </button>
                    </div>
@@ -242,7 +242,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                          return (
                             <div key={mov.id} className="flex items-center justify-between p-4 bg-surface-1 rounded-lg border border-white/[0.05]">
                                <div className="flex items-center gap-4">
-                                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${isInc ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${isInc ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
                                      {isInc ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
                                   </div>
                                   <div className="min-w-0">
@@ -250,7 +250,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                                      <p className="text-[9px] font-black tracking-widest text-zinc-500 mt-1 uppercase">{new Date(mov.date).toLocaleDateString()}</p>
                                   </div>
                                </div>
-                               <span className={`text-sm font-bold font-mono ${isInc ? 'text-emerald-400' : 'text-red-400'}`}>
+                               <span className={`text-sm font-bold font-mono ${isInc ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                                   {isInc ? '+' : '-'}{formatCurrency(mov.amount)}
                                </span>
                             </div>

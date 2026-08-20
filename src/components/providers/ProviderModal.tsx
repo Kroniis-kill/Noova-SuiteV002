@@ -115,7 +115,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
                      key={star}
                      type="button"
                      onClick={() => setQualityScore(star)}
-                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-amber-400' : 'text-zinc-600'}`}
+                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-status-warning-soft' : 'text-zinc-600'}`}
                    >
                       <Star size={24} fill={qualityScore >= star ? "currentColor" : "none"} />
                    </button>

@@ -160,8 +160,8 @@ const DashboardProDesktop: React.FC = () => {
 
 const KPICard = ({ title, value, icon: Icon, color, trend, desc }: any) => {
     const colorStyles: Record<string, string> = {
-        blue: "text-blue-400 bg-blue-500/10 border-blue-500/20",
-        emerald: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+        blue: "text-status-info-soft bg-status-info/10 border-status-info/20",
+        emerald: "text-status-success-soft bg-status-success/10 border-status-success/20",
         indigo: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
         purple: "text-purple-400 bg-purple-500/10 border-purple-500/20",
     };

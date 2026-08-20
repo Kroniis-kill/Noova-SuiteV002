@@ -93,13 +93,13 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Detalle Movimiento">
             <div className="pt-2 pb-4 space-y-4">
-                <div className={`p-5 rounded-xl text-center border relative overflow-hidden ${isIncome ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-red-500/10 border-red-500/20'}`}>
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 ${isIncome ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
+                <div className={`p-5 rounded-xl text-center border relative overflow-hidden ${isIncome ? 'bg-status-success/10 border-status-success/20' : 'bg-status-danger/10 border-status-danger/20'}`}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 ${isIncome ? 'bg-status-success/20 text-status-success-soft' : 'bg-status-danger/20 text-status-danger-soft'}`}>
                         {isIncome ? <ArrowUpRight size={24} /> : <ArrowDownRight size={24} />}
                     </div>
                     <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-2">{isIncome ? 'Ingreso Registrado' : 'Egreso Registrado'}</p>
                     <div className="flex flex-col gap-1 items-center justify-center">
-                        <p className={`text-3xl font-extrabold ${isIncome ? 'text-emerald-400' : 'text-red-400'}`}>
+                        <p className={`text-3xl font-extrabold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                             {isIncome ? '+' : '-'}{amountMain.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} <span className="text-sm font-medium opacity-70">{mainCurrency}</span>
                         </p>
                         {subCurrency && (
@@ -228,13 +228,13 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
       const config: any = {
         'sale': { label: 'Vender', icon: ShoppingCart, color: 'text-brand-primary group-hover:bg-brand-primary', onClick: () => setIsSaleModalOpen(true) },
         'expense': { label: 'Gasto', icon: Receipt, color: 'text-brand-accent group-hover:bg-brand-accent', onClick: () => setIsExpenseModalOpen(true) },
-        'stock': { label: 'Stock', icon: Search, color: 'text-emerald-500 group-hover:bg-emerald-500', onClick: () => { setSelectedStockService(null); setIsStockFinderOpen(true); } },
-        'services': { label: 'Servicios', icon: Layers, color: 'text-blue-400 group-hover:bg-blue-400', onClick: () => setIsServiceModalOpen(true) },
-        'expired': { label: 'Vencidas', icon: AlertOctagon, color: 'text-red-400 group-hover:bg-red-400', onClick: () => setView('expired') },
+        'stock': { label: 'Stock', icon: Search, color: 'text-status-success group-hover:bg-status-success', onClick: () => { setSelectedStockService(null); setIsStockFinderOpen(true); } },
+        'services': { label: 'Servicios', icon: Layers, color: 'text-status-info-soft group-hover:bg-status-info-soft', onClick: () => setIsServiceModalOpen(true) },
+        'expired': { label: 'Vencidas', icon: AlertOctagon, color: 'text-status-danger-soft group-hover:bg-status-danger-soft', onClick: () => setView('expired') },
         'add_client': { label: 'Cliente', icon: UserPlus, color: 'text-indigo-400 group-hover:bg-indigo-400', onClick: () => setIsClientModalOpen(true) },
-        'add_reseller': { label: 'Revendedor', icon: Briefcase, color: 'text-amber-400 group-hover:bg-amber-400', onClick: () => setIsResellerModalOpen(true) },
+        'add_reseller': { label: 'Revendedor', icon: Briefcase, color: 'text-status-warning-soft group-hover:bg-status-warning-soft', onClick: () => setIsResellerModalOpen(true) },
         'add_provider': { label: 'Proveedor', icon: Truck, color: 'text-cyan-400 group-hover:bg-cyan-400', onClick: () => setIsProviderModalOpen(true) },
-        'agenda': { label: 'Agenda', icon: ClipboardList, color: 'text-red-400 group-hover:bg-red-400', onClick: () => setView('agenda') },
+        'agenda': { label: 'Agenda', icon: ClipboardList, color: 'text-status-danger-soft group-hover:bg-status-danger-soft', onClick: () => setView('agenda') },
         'trash': { label: 'Papelera', icon: Trash2, color: 'text-zinc-500 group-hover:bg-zinc-500', onClick: () => setView('trash') },
         'reports': { label: 'Reportes', icon: BarChart3, color: 'text-purple-400 group-hover:bg-purple-400', onClick: () => setView('reports') },
       };
@@ -250,7 +250,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
   const isPro = subscription && subscription.plan !== 'free';
   const logoWrapperStyle = isAdmin 
-    ? "bg-gradient-to-br from-amber-400 to-yellow-600 shadow-[0_0_20px_rgba(251,191,36,0.6)] border border-yellow-500/50" 
+    ? "bg-gradient-to-br from-status-warning-soft to-yellow-600 shadow-[0_0_20px_rgba(251,191,36,0.6)] border border-yellow-500/50" 
     : isPro
       ? "bg-gradient-to-tr from-brand-primary to-brand-accent shadow-[0_0_15px_rgba(106,44,255,0.4)]" 
       : "bg-gradient-to-tr from-zinc-500 to-zinc-700 border border-zinc-600 shadow-sm"; 
@@ -357,8 +357,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
   const getProfitStyle = () => {
       switch(profitStatus) {
-          case 'loss': return 'bg-[#0F0505] border border-red-500 shadow-[0_0_20px_-5px_rgba(239,68,68,0.2)]';
-          case 'low': return 'bg-[#120F05] border border-amber-500 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]';
+          case 'loss': return 'bg-[#0F0505] border border-status-danger shadow-[0_0_20px_-5px_rgba(239,68,68,0.2)]';
+          case 'low': return 'bg-[#120F05] border border-status-warning shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]';
           default: return 'bg-surface-1 border border-white/[0.08] shadow-lg';
       }
   };
@@ -436,11 +436,11 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                      <RefreshCw size={16} className="text-brand-primary" />
                    </motion.div>
                 ) : !isOnline ? (
-                   <CloudOff size={16} className="text-red-500" />
+                   <CloudOff size={16} className="text-status-danger" />
                 ) : pendingCount > 0 ? (
                    <UploadCloud size={16} className="text-brand-lime" />
                 ) : (
-                   <Cloud size={16} className="text-emerald-500" />
+                   <Cloud size={16} className="text-status-success" />
                 )}
              </motion.button>
              <motion.button 
@@ -509,7 +509,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
                     <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider relative z-20">
                         <div className="flex items-center gap-2 text-zinc-500">
-                             <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'} animate-pulse`} />
+                             <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-status-success shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-status-danger shadow-[0_0_8px_rgba(239,68,68,0.5)]'} animate-pulse`} />
                              {isOnline ? 'Sincronizado' : 'Offline'}
                         </div>
                         <button 
@@ -529,12 +529,12 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             <div className="grid grid-cols-2 gap-3">
               <motion.div 
                 whileHover={{ y: -2 }}
-                className="bg-surface-1/50 border border-white/[0.05] rounded-lg p-4 shadow-sm hover:border-emerald-500/30 transition-all group overflow-hidden relative"
+                className="bg-surface-1/50 border border-white/[0.05] rounded-lg p-4 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
               >
-                <div className="absolute -top-6 -right-6 w-16 h-16 bg-emerald-500/5 blur-2xl rounded-full" />
+                <div className="absolute -top-6 -right-6 w-16 h-16 bg-status-success/5 blur-2xl rounded-full" />
                 <div className="flex items-center justify-between mb-4">
                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-sm bg-emerald-500/10 text-emerald-400 flex items-center justify-center transition-transform group-hover:scale-105">
+                      <div className="w-8 h-8 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
                          <TrendingUp size={16} strokeWidth={2.5} />
                       </div>
                       <p className="text-[10px] text-zinc-300 font-black uppercase tracking-[0.05em]">VENTAS</p>
@@ -624,7 +624,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                     className="bg-surface-1 border border-white/[0.08] rounded-xl p-3 flex items-center justify-between active:scale-[0.98] transition-all cursor-pointer shadow-sm"
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isIncome ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isIncome ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
                         {isIncome ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
                       </div>
                       <div className="min-w-0">
@@ -633,7 +633,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                       </div>
                     </div>
                     <div className="flex flex-col items-end shrink-0 ml-2">
-                      <span className={`text-sm font-bold ${isIncome ? 'text-emerald-400' : 'text-red-400'}`}>
+                      <span className={`text-sm font-bold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                         {isIncome ? '+' : '-'}{mov.amount}
                       </span>
                       <span className="text-[9px] text-zinc-500 uppercase">{mov.paymentMethod || 'Manual'}</span>
@@ -675,14 +675,14 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   <button 
                      key={s.id} 
                      onClick={() => setSelectedStockService(s)}
-                     className="w-full p-4 rounded-lg bg-surface-1 border border-white/5 flex justify-between items-center hover:border-emerald-500/40 transition-all active:scale-[0.98]"
+                     className="w-full p-4 rounded-lg bg-surface-1 border border-white/5 flex justify-between items-center hover:border-status-success/40 transition-all active:scale-[0.98]"
                   >
                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20"><Layers size={20} /></div>
+                        <div className="w-10 h-10 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20"><Layers size={20} /></div>
                         <span className="text-sm font-bold text-white">{s.name}</span>
                      </div>
                      <div className="text-right">
-                        <span className="text-lg font-black text-emerald-400 block leading-none">{s.totalFree}</span>
+                        <span className="text-lg font-black text-status-success-soft block leading-none">{s.totalFree}</span>
                         <span className="text-[8px] text-zinc-600 font-semibold uppercase tracking-widest">Cupos Libres</span>
                      </div>
                   </button>
@@ -713,7 +713,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                           </div>
                           <div className="flex items-center gap-3 shrink-0">
                               <div className="text-right">
-                                  <span className="text-base font-black text-emerald-400 leading-none">{acc.available}</span>
+                                  <span className="text-base font-black text-status-success-soft leading-none">{acc.available}</span>
                                   <p className="text-[7px] text-zinc-600 font-bold uppercase text-right">Cupos</p>
                               </div>
                               <button 

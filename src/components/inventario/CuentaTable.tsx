@@ -70,21 +70,21 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                          <div className="flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button 
                                onClick={() => onToggleFailure(acc)} 
-                               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-orange-500/20 text-orange-500 border-orange-500/20' : 'bg-white/5 hover:bg-orange-500/10 text-zinc-400 hover:text-orange-400 border-transparent'}`} 
+                               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-status-expiring/20 text-status-expiring border-status-expiring/20' : 'bg-white/5 hover:bg-status-expiring/10 text-zinc-400 hover:text-status-expiring-soft border-transparent'}`} 
                                title={isFailing ? 'Quitar Reporte Falla' : 'Reportar Falla'}
                             >
                                <AlertTriangle size={14} />
                             </button>
-                            <button onClick={() => onRenew(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-primary/20 text-zinc-400 hover:text-primary rounded-lg transition-all border border-transparent hover:border-primary/20" title="Renovar">
+                            <button onClick={() => onRenew(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-brand-primary/20 text-zinc-400 hover:text-brand-primary rounded-lg transition-all border border-transparent hover:border-brand-primary/20" title="Renovar">
                                <RefreshCw size={14} />
                             </button>
                             <button onClick={() => onEdit(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white rounded-lg transition-all" title="Editar">
                                <Edit2 size={14} />
                             </button>
-                            <button onClick={() => onToggleStatus(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-orange-400 rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
+                            <button onClick={() => onToggleStatus(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-status-expiring-soft rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
                                <Power size={14} />
                             </button>
-                            <button onClick={() => onDelete(acc.id)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 rounded-lg transition-all border border-transparent hover:border-red-500/20" title="Eliminar">
+                            <button onClick={() => onDelete(acc.id)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-status-danger/20 text-zinc-400 hover:text-status-danger-soft rounded-lg transition-all border border-transparent hover:border-status-danger/20" title="Eliminar">
                                <Trash2 size={14} />
                             </button>
                          </div>

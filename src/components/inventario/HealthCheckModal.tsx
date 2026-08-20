@@ -49,9 +49,9 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
 
   const getStatusColor = (status: HealthStatus) => {
       switch(status) {
-          case 'verde': return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
-          case 'amarillo': return 'text-amber-400 bg-amber-500/10 border-amber-500/20';
-          case 'rojo': return 'text-red-400 bg-red-500/10 border-red-500/20';
+          case 'verde': return 'text-status-success-soft bg-status-success/10 border-status-success/20';
+          case 'amarillo': return 'text-status-warning-soft bg-status-warning/10 border-status-warning/20';
+          case 'rojo': return 'text-status-danger-soft bg-status-danger/10 border-status-danger/20';
       }
   };
 
@@ -156,18 +156,18 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
     <Modal isOpen={isOpen} onClose={onClose} title="Auditoría de Salud" zIndex={20000}>
        <div className="flex flex-col h-[80vh] md:h-[600px] pt-1">
           
-          <div className="flex items-center justify-between mb-4 bg-blue-500/10 border border-blue-500/20 p-3 rounded-md">
+          <div className="flex items-center justify-between mb-4 bg-status-info/10 border border-status-info/20 p-3 rounded-md">
               <div className="flex items-center gap-2">
-                  <div className="bg-blue-500/20 p-1.5 rounded-full text-blue-400"><Activity size={16} /></div>
+                  <div className="bg-status-info/20 p-1.5 rounded-full text-status-info-soft"><Activity size={16} /></div>
                   <div className="flex flex-col">
                       <span className="text-xs font-semibold text-blue-300">Corrector de Inventario</span>
-                      <span className="text-[9px] text-blue-400/80">Sincroniza ventas vs stock automáticamente</span>
+                      <span className="text-[9px] text-status-info-soft/80">Sincroniza ventas vs stock automáticamente</span>
                   </div>
               </div>
               <button 
                 onClick={handleSyncStock} 
                 disabled={isSyncing}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-[10px] font-semibold flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-blue-500/20 active:scale-95 disabled:opacity-50 min-w-[120px]"
+                className="px-4 py-2 bg-status-info hover:bg-blue-600 text-white rounded-xl text-[10px] font-semibold flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-status-info/20 active:scale-95 disabled:opacity-50 min-w-[120px]"
               >
                  {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
                  {isSyncing ? 'Procesando...' : 'Corregir Stock'}
@@ -176,17 +176,17 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
 
           <div className="grid grid-cols-3 gap-2 mb-4 shrink-0">
               <div className="bg-surface-zinc border border-white/10 p-3 rounded-md text-center">
-                  <div className="flex justify-center mb-1"><CheckCircle2 size={18} className="text-emerald-400" /></div>
+                  <div className="flex justify-center mb-1"><CheckCircle2 size={18} className="text-status-success-soft" /></div>
                   <p className="text-[10px] text-zinc-500 font-bold uppercase">Rentables</p>
                   <p className="text-lg font-bold text-white">{stats.verde}</p>
               </div>
               <div className="bg-surface-zinc border border-white/10 p-3 rounded-md text-center">
-                  <div className="flex justify-center mb-1"><AlertTriangle size={18} className="text-amber-400" /></div>
+                  <div className="flex justify-center mb-1"><AlertTriangle size={18} className="text-status-warning-soft" /></div>
                   <p className="text-[10px] text-zinc-500 font-bold uppercase">En Riesgo</p>
                   <p className="text-lg font-bold text-white">{stats.amarillo}</p>
               </div>
               <div className="bg-surface-zinc border border-white/10 p-3 rounded-md text-center">
-                  <div className="flex justify-center mb-1"><XCircle size={18} className="text-red-400" /></div>
+                  <div className="flex justify-center mb-1"><XCircle size={18} className="text-status-danger-soft" /></div>
                   <p className="text-[10px] text-zinc-500 font-bold uppercase">Pérdida</p>
                   <p className="text-lg font-bold text-white">{stats.rojo}</p>
               </div>
@@ -195,7 +195,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
           <div className="bg-surface-3 border border-white/10 rounded-lg p-4 mb-4 flex justify-between items-center shrink-0">
               <div>
                   <p className="text-[10px] text-zinc-500 font-bold uppercase">Balance Estimado</p>
-                  <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {settings.currency} {formatMoney(stats.totalProfit + stats.totalLoss)}
                   </p>
               </div>
@@ -232,9 +232,9 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                       <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                               <span className={`w-2 h-2 rounded-full ${
-                                  item.status === 'verde' ? 'bg-emerald-500 shadow-[0_0_5px_#10b981]' : 
-                                  item.status === 'amarillo' ? 'bg-amber-500 shadow-[0_0_5px_#f59e0b]' : 
-                                  'bg-red-500 shadow-[0_0_5px_#ef4444]'
+                                  item.status === 'verde' ? 'bg-status-success shadow-[0_0_5px_#10b981]' : 
+                                  item.status === 'amarillo' ? 'bg-status-warning shadow-[0_0_5px_#f59e0b]' : 
+                                  'bg-status-danger shadow-[0_0_5px_#ef4444]'
                               }`} />
                               <h4 className="text-sm font-bold text-white truncate">{item.accountEmail}</h4>
                           </div>
@@ -242,7 +242,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                       </div>
                       
                       <div className="flex flex-col items-end ml-4">
-                          <span className={`font-mono font-bold text-sm ${item.profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                          <span className={`font-mono font-bold text-sm ${item.profit >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                               {item.profit >= 0 ? '+' : ''}{formatMoney(item.profit)}
                           </span>
                           <div className="flex items-center gap-1 text-[10px] text-zinc-600">
@@ -300,16 +300,16 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                        <div className="grid grid-cols-2 gap-4">
                            <div className="bg-surface-zinc p-4 rounded-lg border border-white/5">
                                <p className="text-[10px] text-zinc-500 font-bold uppercase mb-1">Ingresos</p>
-                               <p className="text-lg font-bold text-emerald-400">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
+                               <p className="text-lg font-bold text-status-success-soft">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-white/5">
                                <p className="text-[10px] text-zinc-500 font-bold uppercase mb-1">Costo Base</p>
-                               <p className="text-lg font-bold text-red-400">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
+                               <p className="text-lg font-bold text-status-danger-soft">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-white/5">
                                <p className="text-[10px] text-zinc-500 font-bold uppercase mb-1">Días Activos</p>
                                <div className="flex items-center gap-2 text-white font-bold">
-                                   <Calendar size={16} className="text-blue-400" /> {selectedHealth.daysActive}d
+                                   <Calendar size={16} className="text-status-info-soft" /> {selectedHealth.daysActive}d
                                </div>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-white/5">
@@ -323,13 +323,13 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                        <div className="bg-surface-zinc p-5 rounded-xl border border-white/5">
                            <div className="flex justify-between mb-2">
                                <span className="text-xs font-semibold text-zinc-400">Retorno de Inversión (ROI)</span>
-                               <span className={`text-xs font-semibold ${selectedHealth.roi >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>{selectedHealth.roi.toFixed(1)}%</span>
+                               <span className={`text-xs font-semibold ${selectedHealth.roi >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{selectedHealth.roi.toFixed(1)}%</span>
                            </div>
                            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
                                <motion.div 
                                  initial={{ width: 0 }}
                                  animate={{ width: `${Math.min(100, Math.max(0, selectedHealth.roi + 100))}%` }} 
-                                 className={`h-full rounded-full ${selectedHealth.roi >= 0 ? 'bg-emerald-500' : 'bg-red-500'}`}
+                                 className={`h-full rounded-full ${selectedHealth.roi >= 0 ? 'bg-status-success' : 'bg-status-danger'}`}
                                />
                            </div>
                        </div>

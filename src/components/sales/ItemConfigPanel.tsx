@@ -66,7 +66,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
               <div className="flex gap-2">
                 <button onClick={() => { haptic('nav'); props.openAccountSearch(); }} disabled={!props.tempServiceId} className={`flex-1 bg-surface-zinc border border-white/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!props.tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
                   <div className="flex items-center gap-4 min-w-0">
-                    <div className="w-12 h-12 rounded-md bg-surface-sunken border border-white/5 flex items-center justify-center text-emerald-500 shrink-0">
+                    <div className="w-12 h-12 rounded-md bg-surface-sunken border border-white/5 flex items-center justify-center text-status-success shrink-0">
                       <Mail size={22} />
                     </div>
                     <div className="text-left min-w-0">
@@ -108,10 +108,10 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
               <div>
                 <div className="flex justify-between items-center mb-3 px-1">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Precio de Venta</label>
-                  {props.isResellerClient && <span className="text-[9px] bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase">Tarifa Socio</span>}
+                  {props.isResellerClient && <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa Socio</span>}
                 </div>
                 <div className="relative h-[60px] bg-surface-zinc rounded-lg border border-white/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
-                  <DollarSign size={24} className="text-emerald-500 mr-2" />
+                  <DollarSign size={24} className="text-status-success mr-2" />
                   <input type="number" value={props.tempAmount} onChange={e => props.setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-white outline-none placeholder:text-zinc-700" placeholder="0.00" inputMode="decimal" />
                 </div>
               </div>
@@ -145,8 +145,8 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
 
               {/* CREDENCIALES EXTRA */}
               {(isUniqueUser || isFullAccount) && (
-                <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-lg space-y-4">
-                  <div className="flex items-center gap-2 text-blue-400 mb-1">
+                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
+                  <div className="flex items-center gap-2 text-status-info-soft mb-1">
                     <Info size={16} />
                     <span className="text-xs font-semibold uppercase">Credenciales de Acceso</span>
                   </div>

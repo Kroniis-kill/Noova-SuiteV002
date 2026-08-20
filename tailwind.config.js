@@ -29,6 +29,12 @@ export default {
         'status-danger': 'rgb(var(--status-danger) / <alpha-value>)',
         'status-warning': 'rgb(var(--status-warning) / <alpha-value>)',
         'status-info': 'rgb(var(--status-info) / <alpha-value>)',
+        'status-success-soft': 'rgb(var(--status-success-soft) / <alpha-value>)',
+        'status-danger-soft': 'rgb(var(--status-danger-soft) / <alpha-value>)',
+        'status-warning-soft': 'rgb(var(--status-warning-soft) / <alpha-value>)',
+        'status-info-soft': 'rgb(var(--status-info-soft) / <alpha-value>)',
+        'status-expiring': 'rgb(var(--status-expiring) / <alpha-value>)',
+        'status-expiring-soft': 'rgb(var(--status-expiring-soft) / <alpha-value>)',
 
         hairline: 'var(--border-hairline)',
         'border-subtle': 'var(--border-subtle)',
@@ -51,6 +57,14 @@ export default {
         'glow-primary': 'var(--glow-primary)',
         'glow-primary-sm': 'var(--glow-primary-sm)',
         'glow-accent': 'var(--glow-accent)',
+        // Alias: antes `shadow-glow`/`shadow-glow-sm` solo existían en el
+        // script de respaldo de Tailwind cargado en index.html (ya
+        // eliminado). Se agregan acá, apuntando a los mismos tokens
+        // oficiales de marca, para que las ~83 clases que ya los usan en
+        // toda la app sigan funcionando exactamente igual sin depender de
+        // un script externo.
+        glow: 'var(--glow-primary)',
+        'glow-sm': 'var(--glow-primary-sm)',
       },
       backgroundImage: {
         'brand-gradient': 'var(--brand-gradient)',

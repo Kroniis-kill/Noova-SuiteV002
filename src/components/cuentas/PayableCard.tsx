@@ -13,19 +13,19 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
   
   let urgencyColor = 'text-zinc-500';
   let urgencyBg = 'bg-zinc-500/5 border-zinc-500/10';
-  let iconColor = 'text-blue-500';
+  let iconColor = 'text-status-info';
   let statusText = `${item.daysRemaining}d`;
   
   if (item.daysRemaining < 0) {
-     urgencyColor = 'text-red-400';
-     urgencyBg = 'bg-red-500/5 border-red-500/10';
+     urgencyColor = 'text-status-danger-soft';
+     urgencyBg = 'bg-status-danger/5 border-status-danger/10';
      statusText = `Vencido`;
-     iconColor = 'text-red-400';
+     iconColor = 'text-status-danger-soft';
   } else if (item.daysRemaining === 0) {
-     urgencyColor = 'text-orange-400';
-     urgencyBg = 'bg-orange-500/5 border-orange-500/10';
+     urgencyColor = 'text-status-expiring-soft';
+     urgencyBg = 'bg-status-expiring/5 border-status-expiring/10';
      statusText = 'Hoy';
-     iconColor = 'text-orange-400';
+     iconColor = 'text-status-expiring-soft';
   }
 
   return (
@@ -57,7 +57,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
        </div>
 
        <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.03] pl-2">
-          <button onClick={() => onDelete(item.id)} className="w-7 h-7 rounded-full bg-white/[0.01] text-zinc-700 hover:text-red-400 flex items-center justify-center transition-colors">
+          <button onClick={() => onDelete(item.id)} className="w-7 h-7 rounded-full bg-white/[0.01] text-zinc-700 hover:text-status-danger-soft flex items-center justify-center transition-colors">
              <Trash2 size={13} />
           </button>
           <button onClick={() => onEdit(item)} className="w-7 h-7 rounded-full bg-white/[0.01] text-zinc-700 hover:text-white flex items-center justify-center transition-colors">
@@ -65,7 +65,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
           </button>
           <button 
             onClick={() => onPay(item)}
-            className="h-7 px-3 bg-emerald-500/5 hover:bg-emerald-500/10 border border-emerald-500/10 rounded-xs text-[9px] font-black uppercase tracking-widest text-emerald-500 transition-all ml-auto"
+            className="h-7 px-3 bg-status-success/5 hover:bg-status-success/10 border border-status-success/10 rounded-xs text-[9px] font-black uppercase tracking-widest text-status-success transition-all ml-auto"
           >
              Pagar
           </button>

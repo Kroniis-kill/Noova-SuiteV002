@@ -109,22 +109,22 @@ export const DataSection = () => {
                         {statusMessage || 'Procesando...'}
                     </p>
                     <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.3s]" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.15s]" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-status-info animate-bounce [animation-delay:-0.3s]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-status-info animate-bounce [animation-delay:-0.15s]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-status-info animate-bounce" />
                     </div>
                 </div>
              )}
 
              <div className={styles.card}>
-                <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2 text-blue-400">
+                <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2 text-status-info-soft">
                     <Database size={20} /> Seguridad de Datos
                 </h3>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                     <button onClick={handleBackup} disabled={loading} className="aspect-square bg-surface-sunken border border-white/10 hover:bg-white/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group relative overflow-hidden active:scale-95">
                         {loading && <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10"><RefreshCw className="animate-spin text-white" /></div>}
-                        <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-full bg-status-success/10 border border-status-success/20 flex items-center justify-center text-status-success-soft group-hover:scale-110 transition-transform">
                            <Save size={24} />
                         </div>
                         <div className="text-center px-2">
@@ -134,7 +134,7 @@ export const DataSection = () => {
                     </button>
 
                     <button onClick={() => fileInputRef.current?.click()} disabled={loading} className="aspect-square bg-surface-sunken border border-white/10 hover:bg-white/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group active:scale-95">
-                        <div className="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-full bg-status-info/10 border border-status-info/20 flex items-center justify-center text-status-info-soft group-hover:scale-110 transition-transform">
                            <Upload size={24} />
                         </div>
                         <div className="text-center px-2">
@@ -167,7 +167,7 @@ export const DataSection = () => {
                 <div className="space-y-3">
                     <button onClick={handleExcelExport} disabled={loading} className="w-full h-[60px] bg-surface-sunken border border-white/10 rounded-lg flex items-center justify-between px-5 hover:bg-white/5 transition-colors group active:scale-[0.98]">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                            <div className="w-10 h-10 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft">
                                 <Download size={20} />
                             </div>
                             <div className="text-left">

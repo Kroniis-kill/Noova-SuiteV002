@@ -24,8 +24,8 @@ export const NotificationSettings = () => {
 
     return (
         <div className="space-y-6 animate-fade-in">
-             <div className="bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20 p-4 rounded-xl flex items-start gap-4">
-                 <div className="bg-blue-500/10 p-2.5 rounded-full text-blue-400 border border-blue-500/20 shrink-0">
+             <div className="bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-status-info/20 p-4 rounded-xl flex items-start gap-4">
+                 <div className="bg-status-info/10 p-2.5 rounded-full text-status-info-soft border border-status-info/20 shrink-0">
                      <Rocket size={20} />
                  </div>
                  <div>
@@ -47,7 +47,7 @@ export const NotificationSettings = () => {
                 <div className="space-y-3">
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><Clock size={16} className="text-red-400" /></div>
+                            <div className="p-2 bg-white/5 rounded-full"><Clock size={16} className="text-status-danger-soft" /></div>
                             <span className="text-sm font-bold text-white">Vencimientos</span>
                         </div>
                         <ToggleSwitch checked={perms.expiry} onChange={() => handlePermToggle('expiry')} />
@@ -55,7 +55,7 @@ export const NotificationSettings = () => {
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><Briefcase size={16} className="text-blue-400" /></div>
+                            <div className="p-2 bg-white/5 rounded-full"><Briefcase size={16} className="text-status-info-soft" /></div>
                             <span className="text-sm font-bold text-white">Inventario / Stock</span>
                         </div>
                         <ToggleSwitch checked={perms.stock} onChange={() => handlePermToggle('stock')} />
@@ -63,7 +63,7 @@ export const NotificationSettings = () => {
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><DollarSign size={16} className="text-amber-400" /></div>
+                            <div className="p-2 bg-white/5 rounded-full"><DollarSign size={16} className="text-status-warning-soft" /></div>
                             <span className="text-sm font-bold text-white">Pagos Pendientes</span>
                         </div>
                         <ToggleSwitch checked={perms.payments} onChange={() => handlePermToggle('payments')} />
@@ -71,7 +71,7 @@ export const NotificationSettings = () => {
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><BellRing size={16} className="text-emerald-400" /></div>
+                            <div className="p-2 bg-white/5 rounded-full"><BellRing size={16} className="text-status-success-soft" /></div>
                             <div>
                                 <span className="text-sm font-bold text-white block">Resumen de Inicio</span>
                                 <span className="text-[9px] text-zinc-500">Mostrar recordatorios al entrar</span>

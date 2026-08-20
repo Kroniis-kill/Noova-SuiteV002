@@ -180,10 +180,10 @@ const AdminDesktop: React.FC = () => {
 
       {/* METRICS */}
       <div className="grid grid-cols-4 gap-4">
-        <KPICard title="Ingresos (MRR)" value={`$${metrics.totalMRR.toFixed(0)}`} icon={DollarSign} accent="text-emerald-400" bg="bg-emerald-500/10" />
+        <KPICard title="Ingresos (MRR)" value={`$${metrics.totalMRR.toFixed(0)}`} icon={DollarSign} accent="text-status-success-soft" bg="bg-status-success/10" />
         <KPICard title="Usuarios activos" value={metrics.active} icon={ShieldCheck} accent="text-brand-primary" bg="bg-brand-primary/10" />
-        <KPICard title="Total registros" value={metrics.total} icon={Users} accent="text-blue-400" bg="bg-blue-500/10" />
-        <KPICard title="Bloqueados" value={metrics.banned} icon={AlertOctagon} accent="text-red-400" bg="bg-red-500/10" />
+        <KPICard title="Total registros" value={metrics.total} icon={Users} accent="text-status-info-soft" bg="bg-status-info/10" />
+        <KPICard title="Bloqueados" value={metrics.banned} icon={AlertOctagon} accent="text-status-danger-soft" bg="bg-status-danger/10" />
       </div>
 
       {activeTab === 'main' && (
@@ -270,7 +270,7 @@ const AdminDesktop: React.FC = () => {
                                 {PLAN_LABELS[sub.plan]}
                               </span>
                               {isBanned && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 font-semibold uppercase">
+                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 font-semibold uppercase">
                                   Bloqueado
                                 </span>
                               )}
@@ -282,7 +282,7 @@ const AdminDesktop: React.FC = () => {
                               {isLifetime ? (
                                 <span className="text-brand-accent text-xs font-semibold flex items-center gap-1"><Infinity size={14} /> Vitalicio</span>
                               ) : (
-                                <span className={`text-xs font-mono ${isExpired ? 'text-red-400' : 'text-zinc-300'}`}>
+                                <span className={`text-xs font-mono ${isExpired ? 'text-status-danger-soft' : 'text-zinc-300'}`}>
                                   {formatDate(sub.expires_at)}
                                 </span>
                               )}
@@ -292,7 +292,7 @@ const AdminDesktop: React.FC = () => {
                             <div className="flex justify-end gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button
                                 onClick={(e) => { e.stopPropagation(); setExtensionTarget(sub); setIsExtensionModalOpen(true); }}
-                                className="w-8 h-8 rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 flex items-center justify-center transition-all"
+                                className="w-8 h-8 rounded-md bg-status-success/10 text-status-success-soft hover:bg-status-success/20 flex items-center justify-center transition-all"
                                 title="Extender"
                               ><PlusCircle size={14} /></button>
                               <button
@@ -322,7 +322,7 @@ const AdminDesktop: React.FC = () => {
                 <h3 className="text-sm font-semibold text-white flex items-center gap-2">
                   <TrendingUp size={15} className="text-brand-primary" /> Crecimiento semanal
                 </h3>
-                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+12.5%</span>
+                <span className="text-[10px] font-semibold text-status-success-soft bg-status-success/10 px-2 py-0.5 rounded">+12.5%</span>
               </div>
               <div className="h-32 relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
@@ -351,7 +351,7 @@ const AdminDesktop: React.FC = () => {
 
             <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                <Server size={15} className="text-emerald-400" /> Estado del sistema
+                <Server size={15} className="text-status-success-soft" /> Estado del sistema
               </h3>
               <div className="space-y-3">
                 <HealthRow label="API Core" status="Operativo" color="emerald" />
@@ -417,7 +417,7 @@ const AdminDesktop: React.FC = () => {
                 <p className="text-sm text-zinc-200 flex-1">{a.message}</p>
                 <button
                   onClick={async () => { await deleteAnnouncement(a.id); loadData(); }}
-                  className="text-zinc-500 hover:text-red-400 transition-colors"
+                  className="text-zinc-500 hover:text-status-danger-soft transition-colors"
                 ><Trash2 size={15} /></button>
               </div>
             ))}
@@ -455,8 +455,8 @@ const AdminDesktop: React.FC = () => {
             <p className="text-[11px] text-zinc-500 mt-2">Se mostrará a usuarios bloqueados o con suscripción expirada.</p>
           </div>
 
-          <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-lg flex gap-3">
-            <ShieldAlert size={18} className="text-amber-400 shrink-0 mt-0.5" />
+          <div className="p-4 bg-status-warning/5 border border-status-warning/20 rounded-lg flex gap-3">
+            <ShieldAlert size={18} className="text-status-warning-soft shrink-0 mt-0.5" />
             <div>
               <h4 className="text-amber-300 font-semibold text-xs">Modo mantenimiento</h4>
               <p className="text-[11px] text-zinc-400 mt-1 leading-relaxed">Próximamente. Permitirá pausar el acceso a toda la plataforma.</p>
@@ -480,17 +480,17 @@ const AdminDesktop: React.FC = () => {
       <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Eliminar usuario">
         <div className="space-y-5 pt-2">
           <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4">
+            <div className="w-16 h-16 rounded-xl bg-status-danger/10 border border-status-danger/20 flex items-center justify-center text-status-danger-soft mb-4">
               <Trash2 size={28} />
             </div>
             <p className="text-zinc-200 text-sm leading-relaxed">
               ¿Eliminar permanentemente a <strong className="text-white">{deleteConfirm?.user_email}</strong>?
             </p>
-            <p className="text-[11px] text-red-400 mt-2">Esta acción borra todos sus datos y es irreversible.</p>
+            <p className="text-[11px] text-status-danger-soft mt-2">Esta acción borra todos sus datos y es irreversible.</p>
           </div>
           <div className="flex gap-3">
             <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-zinc-300 rounded-lg text-sm font-medium transition-all">Cancelar</button>
-            <button onClick={handleDelete} className="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-semibold transition-all">Eliminar</button>
+            <button onClick={handleDelete} className="flex-1 py-3 bg-status-danger hover:bg-red-600 text-white rounded-lg text-sm font-semibold transition-all">Eliminar</button>
           </div>
         </div>
       </Modal>
@@ -511,8 +511,8 @@ const KPICard = ({ title, value, icon: Icon, accent, bg }: any) => (
 );
 
 const HealthRow = ({ label, status, color }: { label: string; status: string; color: 'emerald' | 'blue' }) => {
-  const dot = color === 'emerald' ? 'bg-emerald-400' : 'bg-blue-400';
-  const text = color === 'emerald' ? 'text-emerald-400' : 'text-blue-400';
+  const dot = color === 'emerald' ? 'bg-status-success-soft' : 'bg-status-info-soft';
+  const text = color === 'emerald' ? 'text-status-success-soft' : 'text-status-info-soft';
   return (
     <div className="flex justify-between items-center">
       <span className="text-xs text-zinc-400">{label}</span>

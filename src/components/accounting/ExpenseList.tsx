@@ -29,7 +29,7 @@ const ExpenseList: React.FC = () => {
             className="bg-surface-1 border border-white/[0.04] rounded-lg p-3.5 flex items-center justify-between group active:scale-[0.99] transition-all"
           >
              <div className="flex items-center gap-3.5 min-w-0">
-                <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shrink-0 ${item.type === 'expense' ? 'bg-red-500/5 text-red-400 border-red-500/10' : 'bg-orange-500/5 text-orange-400 border-orange-500/10'}`}>
+                <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shrink-0 ${item.type === 'expense' ? 'bg-status-danger/5 text-status-danger-soft border-status-danger/10' : 'bg-status-expiring/5 text-status-expiring-soft border-status-expiring/10'}`}>
                    {item.type === 'expense' ? <FileText size={16} /> : <ShoppingBag size={16} />}
                 </div>
                 <div className="min-w-0">
@@ -37,7 +37,7 @@ const ExpenseList: React.FC = () => {
                       {item.label || 'Concepto'}
                    </h4>
                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className={`text-[7px] font-black uppercase px-1.5 py-0.5 rounded border ${item.type === 'expense' ? 'text-red-400/70 border-red-500/10' : 'text-orange-400/70 border-orange-500/10'}`}>
+                      <span className={`text-[7px] font-black uppercase px-1.5 py-0.5 rounded border ${item.type === 'expense' ? 'text-status-danger-soft/70 border-status-danger/10' : 'text-status-expiring-soft/70 border-status-expiring/10'}`}>
                         {item.displayCategory}
                       </span>
                       <span className="text-[8px] text-zinc-600 flex items-center gap-1 font-mono tracking-tighter">
@@ -59,7 +59,7 @@ const ExpenseList: React.FC = () => {
                 
                 <button 
                   onClick={() => item.type === 'expense' ? deleteExpense(item.id) : deleteSupply(item.id)}
-                  className="w-7 h-7 rounded-full bg-white/[0.02] text-zinc-700 hover:text-red-400 transition-colors"
+                  className="w-7 h-7 rounded-full bg-white/[0.02] text-zinc-700 hover:text-status-danger-soft transition-colors"
                 >
                    <Trash2 size={14} />
                 </button>

@@ -68,7 +68,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
       animate={{ opacity: 1, y: 0 }}
       className="bg-surface-3 border border-white/10 rounded-xl p-5 relative overflow-hidden shadow-lg mb-4"
     >
-        <div className={`absolute top-0 bottom-0 left-0 w-1 ${isExpired ? 'bg-red-500' : isWarning ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+        <div className={`absolute top-0 bottom-0 left-0 w-1 ${isExpired ? 'bg-status-danger' : isWarning ? 'bg-status-warning' : 'bg-status-success'}`} />
 
         <div className="flex justify-between items-start mb-5 pl-3">
             <div className="flex items-center gap-3">
@@ -82,7 +82,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                   </p>
                 </div>
             </div>
-            <div className={`px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase border ${isExpired ? 'bg-red-500/10 text-red-500 border-red-500/20' : isWarning ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'}`}>
+            <div className={`px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase border ${isExpired ? 'bg-status-danger/10 text-status-danger border-status-danger/20' : isWarning ? 'bg-status-warning/10 text-status-warning border-status-warning/20' : 'bg-status-success/10 text-status-success border-status-success/20'}`}>
               {isExpired ? 'Vencido' : `${daysLeft} días`}
             </div>
         </div>
@@ -364,8 +364,8 @@ const PortalPage: React.FC = () => {
   if (view === 'error') {
     return (
       <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center">
-         <div className="w-20 h-20 bg-red-500/10 rounded-xl flex items-center justify-center mb-6 border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.2)]">
-            <ShieldAlert size={32} className="text-red-500" />
+         <div className="w-20 h-20 bg-status-danger/10 rounded-xl flex items-center justify-center mb-6 border border-status-danger/20 shadow-[0_0_40px_rgba(239,68,68,0.2)]">
+            <ShieldAlert size={32} className="text-status-danger" />
          </div>
          <h1 className="text-2xl font-bold text-white mb-2">Acceso Denegado</h1>
          <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">{errorMessage}</p>
@@ -402,7 +402,7 @@ const PortalPage: React.FC = () => {
                         ))}
                     </div>
 
-                    {pinError && <p className="text-red-400 text-xs mt-6 font-bold bg-red-500/10 py-2 px-4 rounded-full inline-block animate-pulse border border-red-500/20">{pinError}</p>}
+                    {pinError && <p className="text-status-danger-soft text-xs mt-6 font-bold bg-status-danger/10 py-2 px-4 rounded-full inline-block animate-pulse border border-status-danger/20">{pinError}</p>}
                 </div>
                 
                 <div className="grid grid-cols-3 gap-3 w-full mb-6 select-none">
@@ -458,7 +458,7 @@ const PortalPage: React.FC = () => {
                   <div>
                      <h1 className="text-2xl font-bold text-white">{clientData?.name || 'Cliente'}</h1>
                      <div className="flex items-center gap-2 mt-1">
-                        <span className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-semibold rounded uppercase">
+                        <span className="px-2 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[10px] font-semibold rounded uppercase">
                             Activo
                         </span>
                         <span className="text-zinc-500 text-xs font-mono">{clientData?.phone}</span>

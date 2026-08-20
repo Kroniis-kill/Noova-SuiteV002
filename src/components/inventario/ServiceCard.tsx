@@ -72,21 +72,21 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
           
           <div className="relative z-10 w-full mt-3 flex flex-wrap gap-1.5">
              {hasFailure && (
-                 <div className="flex-1 bg-orange-500/20 border border-orange-500/30 rounded-xs py-1 px-2 flex items-center justify-center gap-1">
-                    <AlertTriangle size={10} className="text-orange-500" />
-                    <span className="text-[9px] font-bold text-orange-400">{stats.fallando}</span>
+                 <div className="flex-1 bg-status-expiring/20 border border-status-expiring/30 rounded-xs py-1 px-2 flex items-center justify-center gap-1">
+                    <AlertTriangle size={10} className="text-status-expiring" />
+                    <span className="text-[9px] font-bold text-status-expiring-soft">{stats.fallando}</span>
                  </div>
              )}
              {(hasExpired || hasWarning) && (
-                 <div className={`flex-1 ${hasExpired ? 'bg-red-500/10 border-red-500/20' : 'bg-amber-500/10 border-amber-500/20'} rounded-xs py-1 flex items-center justify-center`}>
-                    <span className={`text-[9px] font-bold ${hasExpired ? 'text-red-400' : 'text-amber-400'}`}>
+                 <div className={`flex-1 ${hasExpired ? 'bg-status-danger/10 border-status-danger/20' : 'bg-status-warning/10 border-status-warning/20'} rounded-xs py-1 flex items-center justify-center`}>
+                    <span className={`text-[9px] font-bold ${hasExpired ? 'text-status-danger-soft' : 'text-status-warning-soft'}`}>
                       {hasExpired ? `${stats.vencida} Venc.` : `${stats.por_vencer} Aler.`}
                     </span>
                  </div>
              )}
              {!hasExpired && !hasWarning && !hasFailure && (
-                 <div className="w-full bg-emerald-500/5 border border-emerald-500/10 rounded-xs py-1 flex items-center justify-center">
-                    <span className="text-[9px] font-bold text-emerald-500">Estado Óptimo</span>
+                 <div className="w-full bg-status-success/5 border border-status-success/10 rounded-xs py-1 flex items-center justify-center">
+                    <span className="text-[9px] font-bold text-status-success">Estado Óptimo</span>
                  </div>
              )}
           </div>
@@ -121,9 +121,9 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
         </div>
         
         <div className="flex items-center gap-2 relative z-10">
-            {hasFailure && <AlertTriangle size={12} className="text-orange-400 animate-pulse" />}
+            {hasFailure && <AlertTriangle size={12} className="text-status-expiring-soft animate-pulse" />}
             {(hasExpired || hasWarning) && !hasFailure && (
-                <div className={`w-2 h-2 rounded-full ${hasExpired ? 'bg-red-400' : 'bg-amber-400'} animate-pulse`} />
+                <div className={`w-2 h-2 rounded-full ${hasExpired ? 'bg-status-danger-soft' : 'bg-status-warning-soft'} animate-pulse`} />
             )}
             <span className={`text-[10px] font-mono ${isActive ? 'text-white/80' : 'text-zinc-600 group-hover:text-zinc-400'}`}>
                 {stats.total}

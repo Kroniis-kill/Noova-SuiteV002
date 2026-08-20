@@ -362,7 +362,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     <div className="space-y-3">
                         <div className="flex justify-between items-center px-1">
                             <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Pago y Billetera</label>
-                            {isConversionActive && (<span className="text-[9px] bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
+                            {isConversionActive && (<span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
                         </div>
                         
                         <div className="bg-surface-zinc rounded-xl p-4 border border-white/5 space-y-4">
@@ -391,7 +391,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
                             {/* Input de Monto */}
                             <div className="relative h-[60px] bg-surface-sunken rounded-lg border border-white/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
-                                <DollarSign size={24} className="text-emerald-500 mr-2" />
+                                <DollarSign size={24} className="text-status-success mr-2" />
                                 <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-white outline-none placeholder:text-zinc-700" placeholder="0.00" inputMode="decimal" />
                                 {selectedWallet && <span className="text-xs font-semibold text-zinc-500 absolute right-5 top-1/2 -translate-y-1/2">{selectedWallet.currency}</span>}
                             </div>
@@ -400,7 +400,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
                     {estimatedProfit !== 0 && (
                         <div className="flex justify-center">
-                            <span className={`text-[10px] font-semibold px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${estimatedProfit > 0 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
+                            <span className={`text-[10px] font-semibold px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${estimatedProfit > 0 ? 'bg-status-success/10 text-status-success-soft border-status-success/20' : 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'}`}>
                                 <TrendingUp size={12} /> Ganancia Est.: {settings.currency} {estimatedProfit.toFixed(2)}
                             </span>
                         </div>

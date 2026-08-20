@@ -62,7 +62,7 @@ const GlobalModalLayer: React.FC = () => {
                     <button onClick={closeModal} className="flex-1 py-3 bg-white/5 rounded-md text-zinc-400 text-xs font-semibold">Cancelar</button>
                     <button 
                         onClick={() => { activeModal.props?.onConfirm(); closeModal(); }} 
-                        className="flex-1 py-3 bg-red-500 text-white text-xs font-semibold shadow-glow"
+                        className="flex-1 py-3 bg-status-danger text-white text-xs font-semibold shadow-glow"
                     >
                         Confirmar
                     </button>

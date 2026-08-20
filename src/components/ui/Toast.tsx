@@ -24,9 +24,9 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
     },
     error: {
       icon: <AlertTriangle size={20} className="text-status-danger" />,
-      bgIcon: 'bg-red-500/10',
-      border: 'border-red-500/20',
-      textTitle: 'text-red-500'
+      bgIcon: 'bg-status-danger/10',
+      border: 'border-status-danger/20',
+      textTitle: 'text-status-danger'
     },
     info: {
       icon: <BellRing size={20} className="text-brand-primary" />,

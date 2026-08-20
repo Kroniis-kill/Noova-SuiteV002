@@ -211,7 +211,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
           <Section icon={<Package size={14} />} title="2. Servicio activo">
             {activeSales.length === 0 ? (
               <div className="text-center py-6 px-3 rounded-xl bg-surface-sunken border border-white/[0.06]">
-                <AlertTriangle size={20} className="mx-auto text-amber-400 mb-2" />
+                <AlertTriangle size={20} className="mx-auto text-status-warning-soft mb-2" />
                 <p className="text-xs text-zinc-400">Este cliente no tiene servicios activos.</p>
               </div>
             ) : (
@@ -312,12 +312,12 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 240, damping: 24 }}
-              className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.08] via-surface-3 to-surface-3 p-5"
+              className="relative overflow-hidden rounded-2xl border border-status-success/30 bg-gradient-to-br from-status-success/[0.08] via-surface-3 to-surface-3 p-5"
             >
-              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-emerald-500/20 blur-3xl" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-status-success/20 blur-3xl" />
 
               <div className="relative z-10 text-center mb-5">
-                <p className="text-[11px] uppercase tracking-widest text-emerald-400 font-bold mb-1">Reembolso de</p>
+                <p className="text-[11px] uppercase tracking-widest text-status-success-soft font-bold mb-1">Reembolso de</p>
                 <p className="text-4xl font-black text-white tracking-tight">
                   ${fmt(result.refund)} <span className="text-base font-bold text-zinc-400">{mainCurrency}</span>
                 </p>
@@ -338,8 +338,8 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 <ResultRow icon="💚" label="Reembolso estimado" value={`$${fmt(result.refund)} ${mainCurrency}`} sub={`$${fmt(result.refundSub)} ${subCurrency}`} tone="emerald" bold />
               </div>
 
-              <div className="relative z-10 mt-5 p-3 rounded-xl bg-amber-500/5 border border-amber-500/20 flex gap-2.5">
-                <AlertTriangle size={14} className="text-amber-400 shrink-0 mt-0.5" />
+              <div className="relative z-10 mt-5 p-3 rounded-xl bg-status-warning/5 border border-status-warning/20 flex gap-2.5">
+                <AlertTriangle size={14} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <p className="text-[11px] leading-relaxed text-zinc-400">
                   Este cálculo es una <span className="text-amber-300">estimación basada en el costo diario proporcional</span>. El monto real puede variar según las políticas de reembolso de <span className="font-bold text-white">{result.saleName}</span>. Te recomendamos contactar directamente con el servicio para gestionar la devolución.
                 </p>
@@ -375,8 +375,8 @@ const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, 
 
 const Mini: React.FC<{ icon: React.ReactNode; label: string; value: string; tone: 'amber' | 'emerald' }> = ({ icon, label, value, tone }) => {
   const colors = tone === 'amber'
-    ? 'bg-amber-500/10 border-amber-500/20 text-amber-300'
-    : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300';
+    ? 'bg-status-warning/10 border-status-warning/20 text-amber-300'
+    : 'bg-status-success/10 border-status-success/20 text-emerald-300';
   return (
     <div className={`rounded-xl border px-3 py-2 ${colors}`}>
       <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-semibold opacity-80">
@@ -393,7 +393,7 @@ const ResultRow: React.FC<{
 }> = ({ icon, label, value, sub, tone, bold }) => {
   const valueColor = tone === 'red' ? 'text-red-300' : tone === 'emerald' ? 'text-emerald-300' : 'text-white';
   return (
-    <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-white/[0.05] ${bold ? 'border-emerald-500/30' : ''}`}>
+    <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-white/[0.05] ${bold ? 'border-status-success/30' : ''}`}>
       <div className="flex items-center gap-2.5 min-w-0">
         <span className="text-base">{icon}</span>
         <span className="text-[12px] text-zinc-300 font-medium truncate">{label}</span>

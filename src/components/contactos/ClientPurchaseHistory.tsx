@@ -68,11 +68,11 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                   </div>
                </div>
                <div className="text-right shrink-0">
-                  <div className="flex items-center justify-end gap-1 text-emerald-400">
+                  <div className="flex items-center justify-end gap-1 text-status-success-soft">
                      <DollarSign size={14} className="stroke-[3]" />
                      <span className="text-lg font-black tracking-tighter tabular-nums">{sale.amount.toFixed(2)}</span>
                   </div>
-                  <p className={`text-[9px] font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-amber-500' : 'text-zinc-600'}`}>
+                  <p className={`text-[9px] font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-status-warning' : 'text-zinc-600'}`}>
                     {sale.isPartial ? 'Pago Pendiente' : 'Completado'}
                   </p>
                </div>

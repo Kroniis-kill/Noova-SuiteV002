@@ -182,8 +182,8 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
             </div>
 
             {conversionInfo && (
-               <div className="flex gap-2 items-start bg-amber-500/10 p-2.5 rounded-sm border border-amber-500/20">
-                  <AlertCircle size={14} className="text-amber-500 shrink-0 mt-0.5" />
+               <div className="flex gap-2 items-start bg-status-warning/10 p-2.5 rounded-sm border border-status-warning/20">
+                  <AlertCircle size={14} className="text-status-warning shrink-0 mt-0.5" />
                   <p className="text-[10px] text-amber-200/80 leading-snug">{conversionInfo}</p>
                </div>
             )}

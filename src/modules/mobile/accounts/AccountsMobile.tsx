@@ -270,7 +270,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
                     <>
-                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-white/10 flex items-center justify-center text-emerald-400 active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
+                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-white/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
                         <button onClick={() => setViewLevel('trash')} className="w-[43px] h-10 rounded-md bg-surface-1 border border-white/10 flex items-center justify-center text-zinc-400 active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
@@ -347,8 +347,8 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                                             </div>
                                         </div>
                                         <div className="flex gap-2">
-                                            <button onClick={(e) => { e.stopPropagation(); handleRestore(acc); }} className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 active:scale-90" title="Restaurar"><RotateCcw size={16} /></button>
-                                            <button onClick={(e) => { e.stopPropagation(); setAccountToDelete(acc); }} className="p-2 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 active:scale-90" title="Borrar para siempre"><Trash2 size={16} /></button>
+                                            <button onClick={(e) => { e.stopPropagation(); handleRestore(acc); }} className="p-2 rounded-lg bg-status-success/10 text-status-success-soft border border-status-success/20 active:scale-90" title="Restaurar"><RotateCcw size={16} /></button>
+                                            <button onClick={(e) => { e.stopPropagation(); setAccountToDelete(acc); }} className="p-2 rounded-lg bg-status-danger/10 text-status-danger-soft border border-status-danger/20 active:scale-90" title="Borrar para siempre"><Trash2 size={16} /></button>
                                         </div>
                                     </div>
                                 );
@@ -418,8 +418,8 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
 
         <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro" zIndex={60000}>
           <div className="space-y-5 pt-2">
-              <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start">
-                  <div className="bg-red-500/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-red-500" /></div>
+              <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+                  <div className="bg-status-danger/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-status-danger" /></div>
                   <div>
                       <h4 className="text-white font-bold text-sm">Gestión de Eliminación</h4>
                       <p className="text-zinc-400 text-xs mt-1 leading-relaxed">
@@ -437,12 +437,12 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     <RotateCcw size={16} className="text-zinc-600 group-hover:text-brand-primary transition-colors" />
                   </button>
                 )}
-                <button onClick={confirmDelete} className="w-full p-4 rounded-lg bg-red-500/5 border border-red-500/10 hover:bg-red-500/10 text-left flex justify-between items-center transition-all group">
+                <button onClick={confirmDelete} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-all group">
                   <div>
-                    <span className="block text-red-400 font-bold text-sm">Eliminar para siempre</span>
-                    <span className="block text-red-400/50 text-[10px]">El registro será borrado definitivamente del sistema.</span>
+                    <span className="block text-status-danger-soft font-bold text-sm">Eliminar para siempre</span>
+                    <span className="block text-status-danger-soft/50 text-[10px]">El registro será borrado definitivamente del sistema.</span>
                   </div>
-                  <Trash2 size={16} className="text-red-400/50 group-hover:text-red-400 transition-colors" />
+                  <Trash2 size={16} className="text-status-danger-soft/50 group-hover:text-status-danger-soft transition-colors" />
                 </button>
               </div>
               <button onClick={() => setAccountToDelete(null)} className="w-full py-3 text-zinc-500 text-xs font-semibold mt-1 active:text-white">Cancelar</button>

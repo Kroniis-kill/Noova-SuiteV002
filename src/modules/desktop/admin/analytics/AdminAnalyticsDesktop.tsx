@@ -36,10 +36,10 @@ const AdminAnalyticsDesktop: React.FC<{ onBack: () => void }> = ({ onBack }) => 
        </div>
 
        <div className="grid grid-cols-4 gap-6">
-          <StatCard title="Total Usuarios" value={data.totalUsers} icon={Users} color="text-blue-400" />
-          <StatCard title="Activos" value={data.activeUsers} icon={Activity} color="text-emerald-400" />
-          <StatCard title="Suspendidos" value={data.suspendedUsers} icon={AlertOctagon} color="text-orange-400" />
-          <StatCard title="Expirados" value={data.expiredUsers} icon={UserX} color="text-red-400" />
+          <StatCard title="Total Usuarios" value={data.totalUsers} icon={Users} color="text-status-info-soft" />
+          <StatCard title="Activos" value={data.activeUsers} icon={Activity} color="text-status-success-soft" />
+          <StatCard title="Suspendidos" value={data.suspendedUsers} icon={AlertOctagon} color="text-status-expiring-soft" />
+          <StatCard title="Expirados" value={data.expiredUsers} icon={UserX} color="text-status-danger-soft" />
        </div>
 
        <div className="grid grid-cols-2 gap-8">

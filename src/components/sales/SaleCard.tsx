@@ -47,23 +47,23 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
 
     if (minD < 0) return { 
         statusText: `${Math.abs(minD)}D(V)`, 
-        timeColor: 'text-red-400', 
+        timeColor: 'text-status-danger-soft', 
         cardStyle: baseStyle,
-        indicatorColor: 'bg-red-500',
+        indicatorColor: 'bg-status-danger',
         minD, isUrgent
     };
     if (minD === 0) return { 
         statusText: 'HOY', 
-        timeColor: 'text-orange-500',
+        timeColor: 'text-status-expiring',
         cardStyle: baseStyle,
-        indicatorColor: 'bg-orange-500',
+        indicatorColor: 'bg-status-expiring',
         minD, isUrgent
     };
     if (minD <= warningThreshold) return { 
         statusText: `${minD}D`, 
-        timeColor: 'text-amber-400',
+        timeColor: 'text-status-warning-soft',
         cardStyle: baseStyle,
-        indicatorColor: 'bg-amber-400',
+        indicatorColor: 'bg-status-warning-soft',
         minD, isUrgent
     };
     
@@ -125,17 +125,17 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
 
                 <div className="flex gap-1">
                     {hasFailingAccount && (
-                        <div className="text-orange-500 bg-orange-500/10 p-0.5 rounded-md" title="Falla Detectada">
+                        <div className="text-status-expiring bg-status-expiring/10 p-0.5 rounded-md" title="Falla Detectada">
                             <AlertTriangle size={10} strokeWidth={3} />
                         </div>
                     )}
                     {hasPendingFailInAgenda && (
-                        <div className="text-red-500 bg-red-500/10 p-0.5 rounded-md" title="En Agenda de Fallas">
+                        <div className="text-status-danger bg-status-danger/10 p-0.5 rounded-md" title="En Agenda de Fallas">
                             <AlertCircle size={10} strokeWidth={3} />
                         </div>
                     )}
                     {isReseller && (
-                       <div className="text-amber-500 bg-amber-500/10 p-0.5 rounded-md" title="Cliente de Revendedor">
+                       <div className="text-status-warning bg-status-warning/10 p-0.5 rounded-md" title="Cliente de Revendedor">
                            <Briefcase size={10} strokeWidth={3} />
                        </div>
                     )}
@@ -169,7 +169,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 </button>
                 <button 
                   onClick={(e) => { e.stopPropagation(); onDelete(group); }} 
-                  className="w-8 h-8 rounded-full bg-white/5 text-zinc-600 border border-white/[0.05] flex items-center justify-center hover:text-red-400 transition-all active:scale-90"
+                  className="w-8 h-8 rounded-full bg-white/5 text-zinc-600 border border-white/[0.05] flex items-center justify-center hover:text-status-danger-soft transition-all active:scale-90"
                 >
                    <Trash2 size={12} />
                 </button>
@@ -205,7 +205,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     <p className="text-sm text-zinc-300 font-medium mb-4">Selecciona la moneda</p>
                     <div className="grid grid-cols-2 gap-3">
                       <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.currency}</span></button>
-                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-emerald-400 mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.subCurrency}</span></button>
+                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.subCurrency}</span></button>
                     </div>
                 </div>
                 <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-zinc-500 text-xs font-semibold">Cancelar</button>
@@ -230,12 +230,12 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                   <Avatar name={group.clientName} size={48} className="rounded-full shadow-lg border border-white/[0.08]" />
                   <div className="absolute -top-1 -right-1 flex gap-1">
                       {hasFailingAccount && (
-                          <div className="bg-orange-500 text-black p-1 rounded-full border-2 border-surface-1 animate-pulse">
+                          <div className="bg-status-expiring text-black p-1 rounded-full border-2 border-surface-1 animate-pulse">
                               <AlertTriangle size={10} strokeWidth={3} />
                           </div>
                       )}
                       {hasPendingFailInAgenda && (
-                          <div className="bg-red-500 text-white p-1 rounded-full border-2 border-surface-1">
+                          <div className="bg-status-danger text-white p-1 rounded-full border-2 border-surface-1">
                               <AlertCircle size={10} strokeWidth={3} />
                           </div>
                       )}
@@ -244,7 +244,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
               <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-sm font-medium text-white truncate leading-tight not-italic">{group.clientName}</h3>
-                      {isReseller && <span className="flex items-center gap-1 text-[9px] bg-amber-500/10 text-amber-500 px-1.5 py-0.5 rounded border border-amber-500/20 font-bold uppercase"><Briefcase size={8} /> Socio</span>}
+                      {isReseller && <span className="flex items-center gap-1 text-[9px] bg-status-warning/10 text-status-warning px-1.5 py-0.5 rounded border border-status-warning/20 font-bold uppercase"><Briefcase size={8} /> Socio</span>}
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-zinc-400 flex items-center gap-1"><Layers size={12} /> {totalScreens} Cupos</span>
@@ -264,7 +264,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     {isUrgent ? <BellRing size={14} fill="currentColor" /> : <MessageCircle size={14} />}
                     {isUrgent ? 'Recordar' : 'WhatsApp'}
                   </button>
-                  <button onClick={(e) => { e.stopPropagation(); onDelete(group); }} className="h-9 w-9 rounded-full bg-red-500/10 text-red-400 border-red-500/20 flex items-center justify-center hover:bg-red-500/20 transition-colors active:scale-95"><Trash2 size={16} /></button>
+                  <button onClick={(e) => { e.stopPropagation(); onDelete(group); }} className="h-9 w-9 rounded-full bg-status-danger/10 text-status-danger-soft border-status-danger/20 flex items-center justify-center hover:bg-status-danger/20 transition-colors active:scale-95"><Trash2 size={16} /></button>
               </div>
             </div>
         </div>
@@ -298,7 +298,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 <p className="text-sm text-zinc-300 font-medium mb-4">Selecciona la moneda</p>
                 <div className="grid grid-cols-2 gap-3">
                   <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.currency}</span></button>
-                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-emerald-400 mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.subCurrency}</span></button>
+                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-white/5 border border-white/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-white uppercase">{settings.subCurrency}</span></button>
                 </div>
             </div>
             <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-zinc-500 text-xs font-semibold">Cancelar</button>

@@ -29,11 +29,11 @@ const AccessBlocked: React.FC = () => {
            className="relative z-10 max-w-md w-full bg-surface-1/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl flex flex-col items-center"
         >
             <div className="mb-6 relative">
-                 <div className="absolute inset-0 bg-red-500/20 blur-[40px] rounded-full" />
+                 <div className="absolute inset-0 bg-status-danger/20 blur-[40px] rounded-full" />
                  <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-surface-3 to-black border border-white/10 flex items-center justify-center shadow-2xl relative z-10">
-                     <Lock size={40} className="text-red-500" />
+                     <Lock size={40} className="text-status-danger" />
                  </div>
-                 <div className="absolute -top-2 -right-2 w-10 h-10 bg-red-500 rounded-full flex items-center justify-center border-4 border-surface-1 z-20">
+                 <div className="absolute -top-2 -right-2 w-10 h-10 bg-status-danger rounded-full flex items-center justify-center border-4 border-surface-1 z-20">
                      <AlertTriangle size={18} className="text-white" />
                  </div>
             </div>
@@ -46,7 +46,7 @@ const AccessBlocked: React.FC = () => {
             <div className="w-full space-y-3">
                 <button 
                   onClick={handleSupport}
-                  className="w-full h-[56px] rounded-lg bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold text-sm shadow-[0_0_30px_-10px_rgba(239,68,68,0.5)] flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all"
+                  className="w-full h-[56px] rounded-lg bg-gradient-to-r from-status-danger to-status-expiring text-white font-bold text-sm shadow-[0_0_30px_-10px_rgba(239,68,68,0.5)] flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all"
                 >
                     <MessageCircle size={18} /> Solicitar Activación
                 </button>

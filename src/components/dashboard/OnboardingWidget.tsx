@@ -173,7 +173,7 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
                      className={`flex items-center justify-between p-3 rounded-md transition-all ${step.done ? 'opacity-50' : 'hover:bg-white/5'}`}
                    >
                        <div className="flex items-center gap-3.5">
-                           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-emerald-500/20 text-emerald-500' : 'bg-zinc-800 text-zinc-500 border border-zinc-700'}`}>
+                           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-status-success/20 text-status-success' : 'bg-zinc-800 text-zinc-500 border border-zinc-700'}`}>
                                {step.done ? <CheckCircle2 size={14} /> : <span className="text-[10px] font-semibold">{idx + 1}</span>}
                            </div>
                            <div>

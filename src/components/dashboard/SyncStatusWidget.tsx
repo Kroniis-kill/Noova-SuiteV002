@@ -31,7 +31,7 @@ const SyncStatusWidget: React.FC = () => {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       className={`mb-6 p-5 rounded-xl border flex items-center justify-between shadow-2xl transition-all duration-500 overflow-hidden relative group overflow-hidden ${
         !isOnline 
-          ? 'bg-red-500/10 border-red-500/20 text-red-400' 
+          ? 'bg-status-danger/10 border-status-danger/20 text-status-danger-soft' 
           : 'bg-surface-1/80 backdrop-blur-xl border-white/[0.08] text-zinc-100 shadow-glow-sm'
       }`}
     >
@@ -39,7 +39,7 @@ const SyncStatusWidget: React.FC = () => {
       
       <div className="flex items-center gap-4 relative z-10">
         <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-          !isOnline ? 'bg-red-500/20 text-red-400 shadow-lg' : 'bg-brand-primary/10 text-brand-primary shadow-inner'
+          !isOnline ? 'bg-status-danger/20 text-status-danger-soft shadow-lg' : 'bg-brand-primary/10 text-brand-primary shadow-inner'
         }`}>
           {!isOnline ? <WifiOff size={22} /> : <Wifi size={22} className={isSyncing ? 'animate-pulse' : ''} />}
         </div>
@@ -69,7 +69,7 @@ const SyncStatusWidget: React.FC = () => {
           </motion.button>
         )}
         {!isOnline && (
-          <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider bg-red-500/20 border border-red-500/20 px-3 py-1.5 rounded-full">
+          <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider bg-status-danger/20 border border-status-danger/20 px-3 py-1.5 rounded-full">
             <AlertCircle size={12} strokeWidth={3} />
             Offline
           </div>

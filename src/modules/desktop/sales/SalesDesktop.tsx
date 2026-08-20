@@ -122,7 +122,7 @@ const SalesDesktop: React.FC = () => {
                 </>
               )}
 
-              <button onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-amber-500/10 border-amber-500 text-amber-500' : 'bg-white/[0.02] border border-white/5 text-zinc-400 hover:text-white'}`}><ClipboardList size={20} /></button>
+              <button onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-white/[0.02] border border-white/5 text-zinc-400 hover:text-white'}`}><ClipboardList size={20} /></button>
               <button onClick={handleNewSale} className="h-12 px-6 bg-gradient-to-r from-brand-primary to-brand-accent rounded-2xl flex items-center justify-center gap-2 text-white font-bold text-sm shadow-glow active:scale-95"><Plus size={20} strokeWidth={2.5} /> Nueva Venta</button>
           </div>
       </div>
@@ -133,7 +133,7 @@ const SalesDesktop: React.FC = () => {
                 {/* Stats Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-white/[0.04] transition-all">
-                        <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 shadow-inner">
+                        <div className="w-14 h-14 rounded-2xl bg-status-danger/10 flex items-center justify-center text-status-danger shadow-inner">
                             <AlertCircle size={28} strokeWidth={2.5} />
                         </div>
                         <div>
@@ -142,7 +142,7 @@ const SalesDesktop: React.FC = () => {
                         </div>
                     </div>
                     <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-white/[0.04] transition-all">
-                        <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 shadow-inner">
+                        <div className="w-14 h-14 rounded-2xl bg-status-warning/10 flex items-center justify-center text-status-warning shadow-inner">
                             <AlertTriangle size={28} strokeWidth={2.5} />
                         </div>
                         <div>
@@ -212,7 +212,7 @@ const SalesDesktop: React.FC = () => {
                                     onClick={() => setSelectedFailure(failure)} 
                                     className="relative bg-surface-1 border border-white/[0.08] rounded-xl p-4 h-[150px] cursor-pointer flex flex-col justify-between group active:scale-95 transition-all duration-300 overflow-hidden hover:border-white/[0.15] shadow-sm"
                                 >
-                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500" />
+                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-status-danger" />
                                     
                                     <div className="flex justify-between items-center w-full z-10 pl-2">
                                         <div className="flex items-center gap-1 text-[9px] text-zinc-500 font-medium bg-white/[0.03] px-1.5 py-0.5 rounded-md -mt-[2px]">
@@ -221,11 +221,11 @@ const SalesDesktop: React.FC = () => {
                                         </div>
 
                                         <div className="flex gap-1">
-                                            <div className="text-red-500 bg-red-500/10 p-0.5 rounded-md" title="Falla Reportada">
+                                            <div className="text-status-danger bg-status-danger/10 p-0.5 rounded-md" title="Falla Reportada">
                                                 <AlertCircle size={10} strokeWidth={3} className={`${isUrgent ? 'animate-pulse' : ''} -mt-[2px]`} />
                                             </div>
                                             {isUrgent && (
-                                                <div className="text-red-500 bg-red-500/20 px-1.5 py-0.5 rounded-md text-[7px] font-black uppercase tracking-tighter border border-red-500/30 -mt-[2px]">
+                                                <div className="text-status-danger bg-status-danger/20 px-1.5 py-0.5 rounded-md text-[7px] font-black uppercase tracking-tighter border border-status-danger/30 -mt-[2px]">
                                                     Urgente
                                                 </div>
                                             )}
@@ -249,7 +249,7 @@ const SalesDesktop: React.FC = () => {
                                     <div className="mt-2 w-full shrink-0 pl-2">
                                         <button 
                                           onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                          className="w-full h-[31px] rounded-md bg-white/5 text-zinc-500 border border-white/[0.05] flex items-center justify-center gap-2 hover:text-red-500 hover:bg-red-500/10 hover:border-red-500/20 transition-all active:scale-95 text-[11px]"
+                                          className="w-full h-[31px] rounded-md bg-white/5 text-zinc-500 border border-white/[0.05] flex items-center justify-center gap-2 hover:text-status-danger hover:bg-status-danger/10 hover:border-status-danger/20 transition-all active:scale-95 text-[11px]"
                                         >
                                            <Trash2 size={11} />
                                            <span className="text-[8px] font-black uppercase tracking-widest">Eliminar Reporte</span>
@@ -277,20 +277,20 @@ const SalesDesktop: React.FC = () => {
                                         key={account.id} 
                                         className={`relative w-full p-4 rounded-xl border transition-all duration-300 cursor-pointer group overflow-hidden shadow-sm bg-surface-1 border-white/[0.08] hover:border-white/[0.15] active:scale-[0.99]`}
                                     >
-                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500" />
+                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-status-expiring" />
 
                                         <div className="flex flex-col gap-4 pl-3">
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                                     <div className="w-10 h-10 rounded-xl bg-surface-sunken flex items-center justify-center border border-white/5 overflow-hidden shrink-0 shadow-lg">
-                                                        {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={16} className="text-orange-400" />}
+                                                        {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={16} className="text-status-expiring-soft" />}
                                                     </div>
                                                     <div className="min-w-0">
                                                         <div className="flex items-center gap-2 mb-0.5">
                                                             <h4 className="text-[13px] font-bold truncate text-white tracking-tight font-sans">
                                                                 {account.email}
                                                             </h4>
-                                                            <AlertTriangle size={14} className="text-orange-500 animate-pulse shrink-0" />
+                                                            <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-white/[0.08]">
@@ -309,7 +309,7 @@ const SalesDesktop: React.FC = () => {
                                                         </div>
                                                         <div className="w-full h-2 bg-surface-sunken rounded-full overflow-hidden border border-white/[0.08]">
                                                             <div 
-                                                                className={`h-full rounded-full transition-all duration-500 ${occupancy >= 100 ? 'bg-red-500' : 'bg-orange-500'}`} 
+                                                                className={`h-full rounded-full transition-all duration-500 ${occupancy >= 100 ? 'bg-status-danger' : 'bg-status-expiring'}`} 
                                                                 style={{ width: `${occupancy}%` }} 
                                                             />
                                                         </div>
@@ -326,7 +326,7 @@ const SalesDesktop: React.FC = () => {
                                                     </button>
                                                     <button 
                                                         onClick={(e) => { e.stopPropagation(); onHandleSolveAccountFailure(account); }} 
-                                                        className="h-[35px] px-4 rounded-md bg-emerald-500 text-white shadow-glow-sm flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-90"
+                                                        className="h-[35px] px-4 rounded-md bg-status-success text-white shadow-glow-sm flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-90"
                                                     >
                                                         <CheckCircle2 size={14} strokeWidth={3} />
                                                         <span className="text-[10px] font-semibold uppercase tracking-widest">Resolver</span>
@@ -344,10 +344,10 @@ const SalesDesktop: React.FC = () => {
                                                         className="overflow-hidden"
                                                     >
                                                         <div className="pt-2 border-t border-white/[0.05]">
-                                                            <div className="bg-orange-500/5 rounded-md p-4 border border-orange-500/10">
+                                                            <div className="bg-status-expiring/5 rounded-md p-4 border border-status-expiring/10">
                                                                 <div className="flex items-center gap-2 mb-2">
-                                                                    <AlertCircle size={14} className="text-orange-500" />
-                                                                    <span className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Reporte de Falla Crítico</span>
+                                                                    <AlertCircle size={14} className="text-status-expiring" />
+                                                                    <span className="text-[10px] font-bold text-status-expiring uppercase tracking-widest">Reporte de Falla Crítico</span>
                                                                 </div>
                                                                 <p className="text-[12px] text-zinc-400 italic leading-relaxed">
                                                                     Esta cuenta maestra ha sido reportada con fallas técnicas. Es necesario verificar el acceso y el estado de la suscripción. Una vez solucionado, presione el botón "Resolver" para limpiar el estado de la cuenta.
@@ -413,7 +413,7 @@ const SalesDesktop: React.FC = () => {
                      <div className="flex items-center gap-6 bg-white/[0.02] p-6 rounded-2xl border border-white/5">
                          {/* ... Display Code ... */}
                          <div className="w-20 h-20 rounded-xl bg-surface-sunken flex items-center justify-center border border-white/5 overflow-hidden shrink-0 shadow-lg">
-                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <MonitorPlay size={32} className="text-emerald-400" />}
+                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <MonitorPlay size={32} className="text-status-success-soft" />}
                         </div>
                         <div className="flex-1 min-w-0">
                             <h4 className="text-2xl font-black text-white truncate uppercase tracking-tight">{sale?.serviceName}</h4>
@@ -423,9 +423,9 @@ const SalesDesktop: React.FC = () => {
                         </div>
                      </div>
                      {/* ... Rest of the modal (Credentials, Note, Buttons) same as previous version ... */}
-                      <div className="bg-amber-500/[0.03] border border-amber-500/10 rounded-2xl p-8 space-y-4">
+                      <div className="bg-status-warning/[0.03] border border-status-warning/10 rounded-2xl p-8 space-y-4">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3 text-amber-500">
+                            <div className="flex items-center gap-3 text-status-warning">
                                 <FileText size={20} />
                                 <span className="text-xs font-semibold uppercase tracking-[0.2em]">Nota del Problema</span>
                             </div>
@@ -454,7 +454,7 @@ const SalesDesktop: React.FC = () => {
       <ImportGuideModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} onConfirm={() => fileInputRef.current?.click()} title="Importar Ventas" type="sales" />
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />
       <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filtrar Ventas"><div className="space-y-3 pt-2">{filterOptions.map(opt => (<button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-white/5 hover:bg-white/5'}`}><span className={`text-sm font-bold ${statusFilter === opt.id ? 'text-white' : 'text-zinc-400 group-hover:text-white'}`}>{opt.label}</span>{statusFilter === opt.id && <Check size={18} className="text-brand-primary" strokeWidth={3} />}</button>))}</div></Modal>
-      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Venta" zIndex={60000}><div className="pt-2 pb-4 space-y-6"><div className="bg-red-500/10 border border-red-500/20 p-6 rounded-2xl flex gap-5 items-start"><div className="bg-red-500/20 p-4 rounded-lg shrink-0 text-red-500"><Trash2 size={28} /></div><div><h4 className="text-white font-bold text-lg">¿Confirmar eliminación?</h4><p className="text-zinc-400 text-sm">Se eliminarán todos los servicios vinculados a este cliente. Los cupos en las cuentas maestras se liberarán automáticamente.</p></div></div><div className="flex justify-end gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="px-8 py-3 bg-white/5 border border-white/10 text-zinc-400 rounded-lg font-bold text-sm">Cancelar</button><button onClick={confirmDelete} className="px-8 py-3 bg-red-500 text-white rounded-lg font-bold text-sm shadow-glow active:scale-95">Confirmar Eliminación</button></div></div></Modal>
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Venta" zIndex={60000}><div className="pt-2 pb-4 space-y-6"><div className="bg-status-danger/10 border border-status-danger/20 p-6 rounded-2xl flex gap-5 items-start"><div className="bg-status-danger/20 p-4 rounded-lg shrink-0 text-status-danger"><Trash2 size={28} /></div><div><h4 className="text-white font-bold text-lg">¿Confirmar eliminación?</h4><p className="text-zinc-400 text-sm">Se eliminarán todos los servicios vinculados a este cliente. Los cupos en las cuentas maestras se liberarán automáticamente.</p></div></div><div className="flex justify-end gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="px-8 py-3 bg-white/5 border border-white/10 text-zinc-400 rounded-lg font-bold text-sm">Cancelar</button><button onClick={confirmDelete} className="px-8 py-3 bg-status-danger text-white rounded-lg font-bold text-sm shadow-glow active:scale-95">Confirmar Eliminación</button></div></div></Modal>
       <SaleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} initialData={editingSale} zIndex={60000} />
       <EditSaleModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} sale={editingSale} zIndex={60000} />
     </div>

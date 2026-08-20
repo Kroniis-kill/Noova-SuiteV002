@@ -210,8 +210,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
       {/* Brand Header - Premium Style */}
       <div className={`flex items-center gap-3 ${isDesktop ? 'px-6 py-8' : 'px-6 pt-12 pb-8'} shrink-0 group/header`}>
          <div className="relative">
-            <div className={`absolute -inset-1 blur-xl opacity-20 group-hover/header:opacity-40 transition-opacity bg-gradient-to-br ${isAdmin ? 'from-amber-400 to-orange-600' : 'from-brand-primary to-brand-accent'}`} />
-            <div className={`${isDesktop ? 'w-10 h-10' : 'w-12 h-12'} rounded-md p-[1.5px] relative z-10 ${isAdmin ? 'bg-gradient-to-br from-amber-400 to-orange-600' : 'bg-gradient-to-br from-brand-primary to-brand-accent'} shadow-glow-sm transition-all duration-500`}>
+            <div className={`absolute -inset-1 blur-xl opacity-20 group-hover/header:opacity-40 transition-opacity bg-gradient-to-br ${isAdmin ? 'from-status-warning-soft to-orange-600' : 'from-brand-primary to-brand-accent'}`} />
+            <div className={`${isDesktop ? 'w-10 h-10' : 'w-12 h-12'} rounded-md p-[1.5px] relative z-10 ${isAdmin ? 'bg-gradient-to-br from-status-warning-soft to-orange-600' : 'bg-gradient-to-br from-brand-primary to-brand-accent'} shadow-glow-sm transition-all duration-500`}>
                 <div className="w-full h-full rounded-sm bg-surface-sunken flex items-center justify-center overflow-hidden">
                    <AnimatedLogo size={isDesktop ? 24 : 28} isStatic={true} showFill={true} />
                 </div>
@@ -219,7 +219,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
          <div className="flex flex-col relative z-20">
             <span className={`${isDesktop ? 'text-xl' : 'text-2xl'} font-black text-white tracking-tighter leading-none`}>NOOVA</span>
-            <span className={`text-[10px] font-bold tracking-[0.3em] uppercase mt-1 ${isAdmin ? 'text-amber-400' : 'text-brand-primary'}`}>
+            <span className={`text-[10px] font-bold tracking-[0.3em] uppercase mt-1 ${isAdmin ? 'text-status-warning-soft' : 'text-brand-primary'}`}>
                {isAdmin ? 'MASTER' : 'SUITE'}
             </span>
          </div>
@@ -243,7 +243,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
       <div className={`${isDesktop ? 'px-3' : 'p-4'} mt-auto shrink-0 pb-6`}>
          <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group mb-2 shadow-inner">
             <div className="relative shrink-0 cursor-pointer" onClick={() => setView('settings')}>
-               <div className={`${isDesktop ? 'w-8 h-8' : 'w-12 h-12'} rounded-full p-[1.5px] ${isAdmin ? 'bg-gradient-to-tr from-amber-400 to-orange-600' : 'bg-gradient-to-tr from-brand-primary to-brand-accent'}`}>
+               <div className={`${isDesktop ? 'w-8 h-8' : 'w-12 h-12'} rounded-full p-[1.5px] ${isAdmin ? 'bg-gradient-to-tr from-status-warning-soft to-orange-600' : 'bg-gradient-to-tr from-brand-primary to-brand-accent'}`}>
                   <Avatar 
                     name={user?.name || 'User'} 
                     image={avatarImage} 
@@ -257,14 +257,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
                <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} font-bold text-white truncate leading-tight`}>
                  {user?.name?.split(' ')[0]}
                </span>
-               <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border mt-1.5 w-fit uppercase tracking-wider ${isAdmin ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'}`}>
+               <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border mt-1.5 w-fit uppercase tracking-wider ${isAdmin ? 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'}`}>
                   {planLabel}
                </span>
             </div>
 
              <button 
                 onClick={(e) => { e.stopPropagation(); haptic('heavy'); logout(); }} 
-                className={`${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-white/5 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 transition-all active:scale-90 border border-white/5 shrink-0`}
+                className={`${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-white/5 text-zinc-500 hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-white/5 shrink-0`}
                 title="Cerrar Sesión"
              >
                 <LogOut size={isDesktop ? 16 : 18} />

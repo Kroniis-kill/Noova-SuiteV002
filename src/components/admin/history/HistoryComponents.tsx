@@ -10,12 +10,12 @@ interface HistoryItemProps {
 export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
   const getActionConfig = () => {
     switch (item.action) {
-      case 'CREATED': return { icon: UserPlus, color: 'text-emerald-400', bg: 'bg-emerald-500/10' };
-      case 'UPDATED': return { icon: Edit, color: 'text-blue-400', bg: 'bg-blue-500/10' };
+      case 'CREATED': return { icon: UserPlus, color: 'text-status-success-soft', bg: 'bg-status-success/10' };
+      case 'UPDATED': return { icon: Edit, color: 'text-status-info-soft', bg: 'bg-status-info/10' };
       case 'RENEWED': return { icon: RefreshCcw, color: 'text-indigo-400', bg: 'bg-indigo-500/10' };
-      case 'SUSPENDED': return { icon: ShieldAlert, color: 'text-orange-400', bg: 'bg-orange-500/10' };
-      case 'REACTIVATED': return { icon: Clock, color: 'text-emerald-400', bg: 'bg-emerald-500/10' };
-      case 'DELETED': return { icon: UserMinus, color: 'text-red-400', bg: 'bg-red-500/10' };
+      case 'SUSPENDED': return { icon: ShieldAlert, color: 'text-status-expiring-soft', bg: 'bg-status-expiring/10' };
+      case 'REACTIVATED': return { icon: Clock, color: 'text-status-success-soft', bg: 'bg-status-success/10' };
+      case 'DELETED': return { icon: UserMinus, color: 'text-status-danger-soft', bg: 'bg-status-danger/10' };
       default: return { icon: Clock, color: 'text-zinc-400', bg: 'bg-zinc-500/10' };
     }
   };
@@ -41,7 +41,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
            <div className="mt-2 text-[11px] bg-white/5 p-2 rounded-lg border border-white/5">
               {item.old_plan && <span className="text-zinc-500">{item.old_plan}</span>}
               {item.old_plan && item.new_plan && <span className="mx-2 text-zinc-600">→</span>}
-              {item.new_plan && <span className="text-emerald-400 font-bold">{item.new_plan}</span>}
+              {item.new_plan && <span className="text-status-success-soft font-bold">{item.new_plan}</span>}
            </div>
         )}
       </div>

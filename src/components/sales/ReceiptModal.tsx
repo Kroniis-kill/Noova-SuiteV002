@@ -169,7 +169,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                                <div className="flex flex-col">
                                    <span className="text-black font-semibold text-xs">{s.serviceName}</span>
                                    <span className="text-[9px] text-zinc-500">{s.saleType?.replace('_', ' ')}</span>
-                                   {isPartial && <span className="text-[9px] text-red-500 font-bold">Debe: {displayCurrency}{calculateAmount(debt).toFixed(2)}</span>}
+                                   {isPartial && <span className="text-[9px] text-status-danger font-bold">Debe: {displayCurrency}{calculateAmount(debt).toFixed(2)}</span>}
                                </div>
                                <span className="text-black text-xs font-mono font-bold">{displayCurrency}{calculateAmount(s.amount).toFixed(2)}</span>
                            </div>
@@ -190,12 +190,12 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                                <span className="text-emerald-600 font-bold text-sm">{displayCurrency}{displayPaid.toFixed(2)}</span>
                            </div>
                            <div className="flex justify-between items-center pt-2 border-t border-zinc-100">
-                               <span className="text-red-500 text-xs font-semibold uppercase">Pendiente</span>
-                               <span className="text-red-500 font-bold text-base">{displayCurrency}{displayDebt.toFixed(2)}</span>
+                               <span className="text-status-danger text-xs font-semibold uppercase">Pendiente</span>
+                               <span className="text-status-danger font-bold text-base">{displayCurrency}{displayDebt.toFixed(2)}</span>
                            </div>
                        </>
                    ) : (
-                       <div className="mt-2 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2 flex items-center justify-center gap-2">
+                       <div className="mt-2 bg-status-success/10 border border-status-success/20 rounded-lg p-2 flex items-center justify-center gap-2">
                            <CheckCircle2 size={14} className="text-emerald-600" />
                            <span className="text-[10px] font-semibold text-emerald-600 uppercase">Pagado Completamente</span>
                        </div>

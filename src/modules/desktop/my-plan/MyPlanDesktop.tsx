@@ -88,24 +88,24 @@ const MyPlanDesktop: React.FC = () => {
                animate={{ opacity: 1, y: 0 }}
                className="relative rounded-xl overflow-hidden shadow-2xl border border-white/[0.08] bg-surface-1 p-8"
              >
-                <div className={`absolute top-0 right-0 w-[400px] h-[400px] blur-[80px] rounded-full pointer-events-none ${isLifetime ? 'bg-amber-500/10' : 'bg-brand-primary/10'}`} />
+                <div className={`absolute top-0 right-0 w-[400px] h-[400px] blur-[80px] rounded-full pointer-events-none ${isLifetime ? 'bg-status-warning/10' : 'bg-brand-primary/10'}`} />
                 
                 <div className="flex flex-col gap-6 relative z-10">
                    <div className="flex items-center gap-5">
-                      <div className={`w-20 h-20 rounded-xl flex items-center justify-center text-3xl shadow-lg border border-white/10 ${isLifetime ? 'bg-gradient-to-br from-amber-500 to-yellow-600 text-white' : isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent text-white' : 'bg-surface-4 text-zinc-400'}`}>
+                      <div className={`w-20 h-20 rounded-xl flex items-center justify-center text-3xl shadow-lg border border-white/10 ${isLifetime ? 'bg-gradient-to-br from-status-warning to-yellow-600 text-white' : isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent text-white' : 'bg-surface-4 text-zinc-400'}`}>
                          {isLifetime ? <Crown size={32} fill="currentColor" /> : isPro ? <Star size={32} fill="currentColor" /> : <Zap size={32} />}
                       </div>
                       <div>
                          <div className="flex items-center gap-2 mb-1">
                             <h2 className="text-2xl font-bold text-white tracking-tight">{PLAN_LABELS[currentPlan]}</h2>
-                            {isPro && <span className={`text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm ${isLifetime ? 'bg-amber-500' : 'bg-brand-accent'}`}>{isLifetime ? 'VITALICIO' : 'PRO'}</span>}
+                            {isPro && <span className={`text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm ${isLifetime ? 'bg-status-warning' : 'bg-brand-accent'}`}>{isLifetime ? 'VITALICIO' : 'PRO'}</span>}
                          </div>
                          <div className="flex items-center gap-2 text-zinc-400 text-xs font-medium">
-                            <span className={`w-2 h-2 rounded-full ${displaySub.is_active ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-red-400'}`} />
+                            <span className={`w-2 h-2 rounded-full ${displaySub.is_active ? 'bg-status-success-soft shadow-[0_0_8px_#34d399]' : 'bg-status-danger-soft'}`} />
                             {displaySub.is_active ? 'Suscripción Activa' : 'Inactiva'} 
                             <span className="text-zinc-600">•</span>
                             {isLifetime ? (
-                                <span className="flex items-center gap-1 text-amber-400 font-bold"><Infinity size={14} /> Sin Vencimiento</span>
+                                <span className="flex items-center gap-1 text-status-warning-soft font-bold"><Infinity size={14} /> Sin Vencimiento</span>
                             ) : (
                                 <span>Vence: {expiryDate.toLocaleDateString()}</span>
                             )}
@@ -123,7 +123,7 @@ const MyPlanDesktop: React.FC = () => {
                          <span className="text-white font-bold text-sm">{usageClients} <span className="text-zinc-500 font-normal">/ {isPro ? '∞' : limitClients}</span></span>
                       </div>
                       <div className="w-full h-2.5 bg-surface-3 rounded-full overflow-hidden border border-white/5">
-                          <div className={`h-full rounded-full transition-all duration-1000 ${isLifetime ? 'bg-gradient-to-r from-amber-500 to-yellow-500' : 'bg-gradient-to-r from-brand-primary to-brand-primary-hi'}`} style={{ width: `${pctClients}%` }} />
+                          <div className={`h-full rounded-full transition-all duration-1000 ${isLifetime ? 'bg-gradient-to-r from-status-warning to-yellow-500' : 'bg-gradient-to-r from-brand-primary to-brand-primary-hi'}`} style={{ width: `${pctClients}%` }} />
                       </div>
                    </div>
                 </div>
@@ -138,8 +138,8 @@ const MyPlanDesktop: React.FC = () => {
                             title="Renovar Plan" 
                             desc="Gestionar pagos" 
                             icon={CreditCard} 
-                            color="text-emerald-400" 
-                            bg="bg-emerald-500/10 border border-emerald-500/20"
+                            color="text-status-success-soft" 
+                            bg="bg-status-success/10 border border-status-success/20"
                             onClick={() => handleSupport('renew')} 
                          />
                      )}
@@ -147,8 +147,8 @@ const MyPlanDesktop: React.FC = () => {
                         title="Soporte Técnico" 
                         desc="Reportar fallos" 
                         icon={HelpCircle} 
-                        color="text-blue-400" 
-                        bg="bg-blue-500/10 border border-blue-500/20"
+                        color="text-status-info-soft" 
+                        bg="bg-status-info/10 border border-status-info/20"
                         onClick={() => handleSupport('tech')} 
                      />
                      <SupportCard 
@@ -185,7 +185,7 @@ const MyPlanDesktop: React.FC = () => {
                              </div>
                              <div className="text-right">
                                 <p className="text-sm font-bold text-white">${inv.amount}</p>
-                                <span className={`text-[10px] uppercase font-semibold ${inv.status === 'paid' ? 'text-emerald-400' : 'text-amber-400'}`}>{inv.status}</span>
+                                <span className={`text-[10px] uppercase font-semibold ${inv.status === 'paid' ? 'text-status-success-soft' : 'text-status-warning-soft'}`}>{inv.status}</span>
                              </div>
                              <button className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-500 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
                                 <Download size={14} />

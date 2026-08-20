@@ -22,10 +22,10 @@ const SubscriptionAlert: React.FC = () => {
       : `Tu plan vence en ${daysRemaining} días. Evita el bloqueo.`;
   
   const gradient = isTrial 
-      ? 'from-amber-500/10 to-orange-500/10 border-amber-500/20' 
-      : 'from-red-500/10 to-pink-500/10 border-red-500/20';
+      ? 'from-status-warning/10 to-status-expiring/10 border-status-warning/20' 
+      : 'from-status-danger/10 to-pink-500/10 border-status-danger/20';
       
-  const iconColor = isTrial ? 'text-amber-400' : 'text-red-400';
+  const iconColor = isTrial ? 'text-status-warning-soft' : 'text-status-danger-soft';
 
   return (
     <AnimatePresence>

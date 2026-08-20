@@ -36,7 +36,7 @@ export const BusinessIdentitySection = () => {
         <div className="space-y-6 animate-fade-in">
              <div className={styles.card}>
                 <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                    <Building size={20} className="text-blue-400" /> Identidad del Negocio
+                    <Building size={20} className="text-status-info-soft" /> Identidad del Negocio
                 </h3>
 
                 <div className="space-y-5">
@@ -67,7 +67,7 @@ export const BusinessIdentitySection = () => {
                             <div className="mt-4 flex flex-col items-center">
                                 <div className="w-24 h-24 rounded-lg bg-black border border-white/10 overflow-hidden p-2 relative group">
                                     <img src={logo} alt="Logo Preview" className="w-full h-full object-contain" />
-                                    <button onClick={() => setLogo('')} className="absolute top-1 right-1 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => setLogo('')} className="absolute top-1 right-1 p-1 bg-status-danger rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
                                         <X size={12} />
                                     </button>
                                 </div>

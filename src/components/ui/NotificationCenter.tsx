@@ -53,10 +53,10 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
   }, [notifications, categoryFilter, timeFilter]);
 
   const getIcon = (type: string, priority: string, size = 18) => {
-      if (priority === 'high') return <AlertCircle size={size} className="text-red-500" />;
+      if (priority === 'high') return <AlertCircle size={size} className="text-status-danger" />;
       switch(type) {
-          case 'payment': return <CreditCard size={size} className="text-amber-500" />;
-          case 'stock': return <Layers size={size} className="text-blue-500" />;
+          case 'payment': return <CreditCard size={size} className="text-status-warning" />;
+          case 'stock': return <Layers size={size} className="text-status-info" />;
           case 'expiry': return <Calendar size={size} className="text-brand-primary" />;
           default: return <Bell size={size} className="text-zinc-400" />;
       }
@@ -64,8 +64,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
 
   const getPriorityBadge = (priority: string) => {
     switch (priority) {
-      case 'high': return <span className="px-2 py-0.5 rounded-full bg-red-500/10 text-red-500 text-[9px] font-black uppercase tracking-widest border border-red-500/20">Urgente</span>;
-      case 'medium': return <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[9px] font-black uppercase tracking-widest border border-amber-500/20">Pendiente</span>;
+      case 'high': return <span className="px-2 py-0.5 rounded-full bg-status-danger/10 text-status-danger text-[9px] font-black uppercase tracking-widest border border-status-danger/20">Urgente</span>;
+      case 'medium': return <span className="px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning text-[9px] font-black uppercase tracking-widest border border-status-warning/20">Pendiente</span>;
       default: return <span className="px-2 py-0.5 rounded-full bg-zinc-500/10 text-zinc-500 text-[9px] font-black uppercase tracking-widest border border-zinc-500/20">Info</span>;
     }
   };
@@ -119,7 +119,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
           
           <div className="flex items-start gap-4 mb-6 relative z-10">
-            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shrink-0 shadow-inner ${n.priority === 'high' ? 'bg-red-500/10 border border-red-500/20' : 'bg-brand-primary/10 border border-brand-primary/20'}`}>
+            <div className={`w-14 h-14 rounded-lg flex items-center justify-center shrink-0 shadow-inner ${n.priority === 'high' ? 'bg-status-danger/10 border border-status-danger/20' : 'bg-brand-primary/10 border border-brand-primary/20'}`}>
               {getIcon(n.type, n.priority, 24)}
             </div>
             <div className="min-w-0">
@@ -253,7 +253,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                <div className="space-y-2.5 pb-4 animate-in fade-in duration-500">
                   {filtered.length === 0 ? (
                       <div className="h-full flex flex-col items-center justify-center text-zinc-500 py-20 px-6 border border-dashed border-white/5 rounded-2xl bg-white/[0.01]">
-                        <div className="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-emerald-500/40" /></div>
+                        <div className="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-status-success/40" /></div>
                         <h3 className="text-sm font-bold text-white uppercase tracking-widest">Sin pendientes</h3>
                         <p className="text-xs mt-1 text-zinc-500 italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
                       </div>
@@ -264,11 +264,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                           onClick={() => setSelectedNotification(item)}
                           className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.98] group relative overflow-hidden flex items-start gap-4 bg-surface-1 border-white/5 hover:bg-surface-3 hover:border-white/20 shadow-sm`}
                         >
-                            {item.priority === 'high' && <div className="absolute left-0 top-3 bottom-3 w-1 bg-red-500 rounded-r-full" />}
+                            {item.priority === 'high' && <div className="absolute left-0 top-3 bottom-3 w-1 bg-status-danger rounded-r-full" />}
                             
                             <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border transition-all ${
                               item.priority === 'high' 
-                                ? 'bg-red-500/10 border-red-500/20 text-red-500' 
+                                ? 'bg-status-danger/10 border-status-danger/20 text-status-danger' 
                                 : 'bg-white/5 border-white/5 text-zinc-400 group-hover:text-white'
                             }`}>
                               {getIcon(item.type, item.priority)}
@@ -282,7 +282,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                                 <p className="text-[11px] text-zinc-400 leading-snug line-clamp-1">{item.message}</p>
                                 <div className="flex items-center gap-2 mt-2">
                                   <span className="text-[9px] font-black uppercase text-zinc-600 tracking-wider bg-white/5 px-1.5 rounded">{item.type}</span>
-                                  {item.priority === 'high' && <span className="text-[9px] font-black uppercase text-red-500/80 animate-pulse">Urgente</span>}
+                                  {item.priority === 'high' && <span className="text-[9px] font-black uppercase text-status-danger/80 animate-pulse">Urgente</span>}
                                 </div>
                             </div>
                             <div className="self-center opacity-40 group-hover:opacity-100 transition-opacity -mr-1 text-zinc-500"><ChevronRight size={14} /></div>

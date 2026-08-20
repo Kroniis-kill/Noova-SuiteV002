@@ -96,9 +96,9 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
 
   const filterOptions = [
     { id: 'all', label: 'Todas las Ventas', color: 'text-zinc-400' },
-    { id: 'active', label: 'Vigentes', color: 'text-emerald-400' },
-    { id: 'warning', label: 'Próximas a vencer', color: 'text-amber-400' },
-    { id: 'expired', label: 'Ya vencidas', color: 'text-red-400' }
+    { id: 'active', label: 'Vigentes', color: 'text-status-success-soft' },
+    { id: 'warning', label: 'Próximas a vencer', color: 'text-status-warning-soft' },
+    { id: 'expired', label: 'Ya vencidas', color: 'text-status-danger-soft' }
   ];
 
   useEffect(() => {
@@ -275,7 +275,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                 <Layers size={10} strokeWidth={3} />
                                                 <span>{sale?.screensCount || 1}</span>
                                             </div>
-                                            <div className="text-red-500 -mt-[7px]">
+                                            <div className="text-status-danger -mt-[7px]">
                                                 <AlertCircle size={10} strokeWidth={3} />
                                             </div>
                                         </div>
@@ -286,7 +286,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                             </div>
                                             <div className="text-center w-full">
                                                 <p className="text-[9px] text-zinc-500 font-medium truncate px-1 not-italic">{client?.name || 'Cliente'}</p>
-                                                <div className="flex items-center justify-center gap-1 text-[7px] text-red-500 font-black uppercase mt-0.5">
+                                                <div className="flex items-center justify-center gap-1 text-[7px] text-status-danger font-black uppercase mt-0.5">
                                                     <AlertCircle size={7} strokeWidth={3} />
                                                     <span>En Falla</span>
                                                 </div>
@@ -303,7 +303,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                             </button>
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                                className="w-8 h-8 rounded-full bg-white/5 text-zinc-500 flex items-center justify-center border border-white/5 active:bg-red-500/10 active:text-red-500 transition-all"
+                                                className="w-8 h-8 rounded-full bg-white/5 text-zinc-500 flex items-center justify-center border border-white/5 active:bg-status-danger/10 active:text-status-danger transition-all"
                                                 title="Eliminar"
                                             >
                                                 <Trash2 size={14} />
@@ -333,7 +333,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                 <div className="flex items-center justify-between gap-3">
                                                     <div className="flex items-center gap-3 min-w-0 flex-1">
                                                         <div className="w-12 h-12 rounded-sm bg-surface-sunken flex items-center justify-center border border-white/5 overflow-hidden shrink-0 shadow-sm">
-                                                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={20} className="text-orange-400" />}
+                                                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={20} className="text-status-expiring-soft" />}
                                                         </div>
                                                         <div className="min-w-0 flex-1">
                                                             <h4 className="text-sm font-bold text-white truncate uppercase tracking-tight">
@@ -349,7 +349,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                     {/* Right side info - Only visible when expanded */}
                                                     {isExpanded && (
                                                         <div className="flex flex-col items-end gap-1.5">
-                                                            <div className="text-orange-500 bg-orange-500/10 p-2 rounded-xl border border-orange-500/10">
+                                                            <div className="text-status-expiring bg-status-expiring/10 p-2 rounded-xl border border-status-expiring/10">
                                                                 <AlertTriangle size={16} strokeWidth={2.5} className="animate-pulse" />
                                                             </div>
                                                             <div className="flex items-center gap-1 text-[10px] font-semibold text-zinc-500 bg-white/5 px-2 py-0.5 rounded-lg">
@@ -380,7 +380,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                     </div>
                                                                     <div className="bg-surface-sunken rounded-sm p-3 border border-white/5">
                                                                         <span className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest block mb-1">Estado</span>
-                                                                        <div className="flex items-center gap-2 text-[10px] font-bold text-orange-500 uppercase">
+                                                                        <div className="flex items-center gap-2 text-[10px] font-bold text-status-expiring uppercase">
                                                                             <AlertCircle size={10} />
                                                                             <span>Falla Crítica</span>
                                                                         </div>
@@ -435,10 +435,10 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="bg-red-500/5 rounded-sm p-4 border border-red-500/10">
+                                                                <div className="bg-status-danger/5 rounded-sm p-4 border border-status-danger/10">
                                                                     <div className="flex items-center gap-2 mb-2">
-                                                                        <AlertCircle size={14} className="text-red-500" />
-                                                                        <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest">Reporte de Falla Crítico</span>
+                                                                        <AlertCircle size={14} className="text-status-danger" />
+                                                                        <span className="text-[10px] font-bold text-status-danger uppercase tracking-widest">Reporte de Falla Crítico</span>
                                                                     </div>
                                                                     <p className="text-[11px] text-zinc-400 leading-relaxed font-medium">
                                                                         Esta cuenta maestra ha sido reportada con problemas técnicos. Se recomienda verificar las credenciales de acceso y el estado del servicio directamente en el proveedor.
@@ -454,7 +454,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                     <div className="flex gap-2">
                                                         <button 
                                                             onClick={(e) => { e.stopPropagation(); onHandleSolveAccountFailure(account); }} 
-                                                            className="flex-1 h-12 rounded-md bg-emerald-500 text-black flex items-center justify-center gap-2 shadow-glow-sm active:scale-95 transition-all"
+                                                            className="flex-1 h-12 rounded-md bg-status-success text-black flex items-center justify-center gap-2 shadow-glow-sm active:scale-95 transition-all"
                                                         >
                                                             <CheckCircle2 size={16} strokeWidth={2.5} />
                                                             <span className="text-[10px] font-semibold uppercase tracking-widest">Resolver</span>
@@ -585,7 +585,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
       
       {/* SaleDetail Page uses onEdit which now should redirect to the page */}
       <SaleDetailPage isOpen={isDetailOpen} onClose={() => setIsDetailOpen(false)} group={mobileSelectedGroup} onEdit={handleEditSale} onDelete={handleDeleteSingleSale} />
-      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Venta" zIndex={60000}><div className="pt-2 pb-4 space-y-6"><div className="bg-red-500/10 border border-red-500/20 p-5 rounded-xl flex gap-4 items-start shadow-sm"><div className="bg-red-500/20 p-3 rounded-full shrink-0 text-red-500"><Trash2 size={24} /></div><div><h4 className="text-white font-bold text-sm">¿Confirmar eliminación?</h4><p className="text-zinc-400 text-xs mt-1 leading-relaxed">Esta acción es permanente y eliminará todas las suscripciones vigentes para este cliente agrupado.</p></div></div><div className="flex gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 h-14 bg-white/5 border border-white/10 text-zinc-400 rounded-2xl font-semibold text-xs active:scale-95">Cancelar</button><button onClick={confirmDelete} className="flex-1 h-14 bg-red-500 text-white rounded-2xl font-bold text-xs shadow-[0_0_20px_rgba(239,68,68,0.4)] active:scale-95">Eliminar Todo</button></div></div></Modal>
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Venta" zIndex={60000}><div className="pt-2 pb-4 space-y-6"><div className="bg-status-danger/10 border border-status-danger/20 p-5 rounded-xl flex gap-4 items-start shadow-sm"><div className="bg-status-danger/20 p-3 rounded-full shrink-0 text-status-danger"><Trash2 size={24} /></div><div><h4 className="text-white font-bold text-sm">¿Confirmar eliminación?</h4><p className="text-zinc-400 text-xs mt-1 leading-relaxed">Esta acción es permanente y eliminará todas las suscripciones vigentes para este cliente agrupado.</p></div></div><div className="flex gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 h-14 bg-white/5 border border-white/10 text-zinc-400 rounded-2xl font-semibold text-xs active:scale-95">Cancelar</button><button onClick={confirmDelete} className="flex-1 h-14 bg-status-danger text-white rounded-2xl font-bold text-xs shadow-[0_0_20px_rgba(239,68,68,0.4)] active:scale-95">Eliminar Todo</button></div></div></Modal>
       <ScrollFloatingActions onAdd={handleNewSale} onBack={onBack} />
       <SaleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} initialData={editingSale} zIndex={60000} />
       <EditSaleModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} sale={editingSale} zIndex={60000} />

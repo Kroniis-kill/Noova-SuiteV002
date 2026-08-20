@@ -181,7 +181,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
 
   const styles = {
     sectionLabel: "text-[10px] font-bold text-zinc-600 uppercase tracking-[0.15em] mb-3 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-zinc border border-white/5 rounded-md h-[52px] transition-all focus-within:border-primary/40",
+    inputContainer: "relative flex items-center bg-surface-zinc border border-white/5 rounded-md h-[52px] transition-all focus-within:border-brand-primary/40",
     input: "w-full h-full bg-transparent text-sm text-white placeholder:text-zinc-700 px-4 outline-none font-medium",
     iconElement: "absolute left-4 text-zinc-600 pointer-events-none",
     cardDark: "bg-surface-sunken border border-white/[0.03] rounded-xl p-5 shadow-inner",
@@ -339,7 +339,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                 value={formData.notes || ''} 
                 onChange={e => setFormData({...formData, notes: e.target.value})} 
                 placeholder="Escribe detalles adicionales sobre esta cuenta..." 
-                className="w-full bg-surface-zinc border border-white/5 rounded-md pl-12 pr-4 pt-4 pb-4 text-sm text-white outline-none focus:border-primary/40 transition-all placeholder:text-zinc-700 min-h-[120px] font-medium resize-none leading-relaxed"
+                className="w-full bg-surface-zinc border border-white/5 rounded-md pl-12 pr-4 pt-4 pb-4 text-sm text-white outline-none focus:border-brand-primary/40 transition-all placeholder:text-zinc-700 min-h-[120px] font-medium resize-none leading-relaxed"
               />
             </div>
           </div>
@@ -350,7 +350,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                 type="submit" 
                 className="w-full h-[60px] bg-surface-3 border border-white/10 text-white rounded-lg font-bold text-sm flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl"
              >
-                <Check size={20} className="text-emerald-400" strokeWidth={3} /> Guardar Cambios
+                <Check size={20} className="text-status-success-soft" strokeWidth={3} /> Guardar Cambios
              </button>
           </div>
 
@@ -367,7 +367,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={handleServiceSelect}
         filterFn={(s, q) => s.name.toLowerCase().includes(q)}
         renderItem={(s) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-white/5 hover:border-primary/40 transition-all text-left">
+          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-white/5 hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md bg-surface-sunken flex items-center justify-center text-zinc-600 border border-white/5 overflow-hidden shrink-0">
                 {s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={22} />}
               </div>
@@ -389,7 +389,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={(p) => setFormData(prev => ({ ...prev, providerId: p?.id || '' }))}
         filterFn={(p, q) => p.name.toLowerCase().includes(q)}
         renderItem={(p) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-white/5 hover:border-primary/40 transition-all text-left">
+          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-white/5 hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md flex items-center justify-center text-white font-semibold text-xs shrink-0" style={{ backgroundColor: p.color }}>
                 {p.name.substring(0,2).toUpperCase()}
               </div>

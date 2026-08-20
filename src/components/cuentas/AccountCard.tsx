@@ -113,15 +113,15 @@ const AccountCard: React.FC<AccountCardProps> = ({
       </div>
 
       <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-white/[0.03]">
-         <button onClick={() => onFund(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-emerald-500/[0.02] text-emerald-500 border border-emerald-500/10 active:scale-95 transition-all">
+         <button onClick={() => onFund(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-success/[0.02] text-status-success border border-status-success/10 active:scale-95 transition-all">
             <TrendingUp size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Entrada</span>
          </button>
-         <button onClick={() => onWithdraw(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-red-500/[0.02] text-red-500 border border-red-500/10 active:scale-95 transition-all">
+         <button onClick={() => onWithdraw(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-danger/[0.02] text-status-danger border border-status-danger/10 active:scale-95 transition-all">
             <TrendingDown size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Salida</span>
          </button>
-         <button onClick={() => onTransfer(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-primary/[0.02] text-primary border border-primary/10 active:scale-95 transition-all">
+         <button onClick={() => onTransfer(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-brand-primary/[0.02] text-brand-primary border border-brand-primary/10 active:scale-95 transition-all">
             <ArrowRightLeft size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Mover</span>
          </button>

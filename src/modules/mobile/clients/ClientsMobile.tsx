@@ -220,7 +220,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
              </div>
              <div className="bg-surface-1/50 backdrop-blur-md p-1 rounded-lg flex border border-white/[0.08] relative shadow-2xl mb-5">
                  <button onClick={() => onHandleTabChange('active')} className={`flex-1 py-2 rounded-md text-[9px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'active' ? 'bg-surface-3 text-white shadow-xl border border-white/5' : 'text-zinc-500 hover:text-zinc-300'}`}>
-                    <UserCheck size={14} className={activeTab === 'active' ? 'text-emerald-400' : ''} />
+                    <UserCheck size={14} className={activeTab === 'active' ? 'text-status-success-soft' : ''} />
                     Activos <span className="bg-white/10 px-1.5 py-0.5 rounded-full text-[8px] ml-0.5">{stats.active}</span>
                  </button>
                  <button onClick={() => onHandleTabChange('inactive')} className={`flex-1 py-2 rounded-md text-[9px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'inactive' ? 'bg-surface-3 text-white shadow-xl border border-white/5' : 'text-zinc-500 hover:text-zinc-300'}`}>

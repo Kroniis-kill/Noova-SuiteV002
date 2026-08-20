@@ -89,7 +89,7 @@ export const AccountSecuritySettings = () => {
                      <div className={`w-24 h-24 rounded-full p-[3px] bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow`}>
                          <Avatar name={name} image={previewAvatar} size="100%" className="rounded-full w-full h-full border-4 border-surface-1" />
                      </div>
-                     {isAdmin && <div className="absolute bottom-0 right-0 bg-amber-400 text-black text-[9px] font-bold px-2 py-0.5 rounded-full border-2 border-surface-1">ADMIN</div>}
+                     {isAdmin && <div className="absolute bottom-0 right-0 bg-status-warning-soft text-black text-[9px] font-bold px-2 py-0.5 rounded-full border-2 border-surface-1">ADMIN</div>}
                  </div>
 
                  <div className="space-y-4 text-left mt-2">
@@ -138,7 +138,7 @@ export const AccountSecuritySettings = () => {
 
              <div className={styles.card}>
                  <h3 className="text-white font-bold text-sm mb-4 flex items-center gap-2">
-                    <Lock size={16} className="text-emerald-400" /> Cambiar Contraseña
+                    <Lock size={16} className="text-status-success-soft" /> Cambiar Contraseña
                  </h3>
                  <div className="space-y-4">
                      <div>
@@ -157,7 +157,7 @@ export const AccountSecuritySettings = () => {
 
              <div className={styles.card}>
                  <h3 className="text-white font-bold text-sm mb-4 flex items-center gap-2">
-                    <ImagePlus size={16} className="text-blue-400" /> Apariencia
+                    <ImagePlus size={16} className="text-status-info-soft" /> Apariencia
                  </h3>
                  <div className="grid grid-cols-3 gap-3">
                      <button onClick={() => toggleTheme('dark')} className={`h-[80px] rounded-md border flex flex-col items-center justify-center gap-2 transition-all ${settings.theme === 'dark' ? 'bg-surface-sunken border-brand-primary text-white shadow-lg' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
@@ -172,8 +172,8 @@ export const AccountSecuritySettings = () => {
                  </div>
              </div>
 
-             <div className="border border-red-500/20 bg-red-500/5 rounded-2xl p-6">
-                 <h3 className="text-red-500 font-bold text-sm mb-6 flex items-center gap-2">
+             <div className="border border-status-danger/20 bg-status-danger/5 rounded-2xl p-6">
+                 <h3 className="text-status-danger font-bold text-sm mb-6 flex items-center gap-2">
                     <AlertTriangle size={18} /> Zona de Peligro
                  </h3>
 
@@ -190,9 +190,9 @@ export const AccountSecuritySettings = () => {
                     <div className="flex items-center gap-3"><Trash2 size={16} /> Eliminar Todos los Datos</div>
                  </button>
 
-                 <div className="w-full h-px bg-red-500/20 my-4" />
+                 <div className="w-full h-px bg-status-danger/20 my-4" />
 
-                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-red-500/50 text-red-500 hover:bg-red-500 hover:text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-white rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
                     <Trash2 size={18} /> Eliminar Cuenta
                  </button>
              </div>

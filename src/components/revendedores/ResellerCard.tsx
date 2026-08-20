@@ -79,7 +79,7 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
           </div>
           <div className="bg-surface-sunken border border-white/5 rounded-md p-2 flex flex-col items-center justify-center min-h-[60px]">
              <span className="text-[10px] text-zinc-500 font-bold uppercase mb-0.5">Generado</span>
-             <span className="text-sm font-bold text-emerald-400">${stats.totalRevenue.toLocaleString()}</span>
+             <span className="text-sm font-bold text-status-success-soft">${stats.totalRevenue.toLocaleString()}</span>
           </div>
        </div>
 

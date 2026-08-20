@@ -42,12 +42,12 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} title="Cambio de Contraseña Detectado" zIndex={20000}>
       <div className="pt-2 space-y-5">
         
-        <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-lg flex gap-4 items-start">
-           <div className="bg-amber-500/20 p-2.5 rounded-full text-amber-500 shrink-0">
+        <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-lg flex gap-4 items-start">
+           <div className="bg-status-warning/20 p-2.5 rounded-full text-status-warning shrink-0">
               <Key size={24} />
            </div>
            <div>
-              <h4 className="text-amber-500 font-bold text-sm mb-1">Actualización Requerida</h4>
+              <h4 className="text-status-warning font-bold text-sm mb-1">Actualización Requerida</h4>
               <p className="text-zinc-300 text-xs leading-relaxed">
                  Has cambiado la contraseña de <strong>{account.email}</strong>. 
                  Hay <strong>{affectedSales.length} clientes</strong> activos usando esta cuenta que perderán el acceso.

@@ -100,9 +100,9 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
   })();
 
   const templateOptions = [
-    { id: 'data', label: 'Datos Acceso', icon: FileText, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-    { id: 'renewal_success', label: 'Renovación', icon: RotateCw, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-    { id: 'password', label: 'Nueva Clave', icon: Key, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+    { id: 'data', label: 'Datos Acceso', icon: FileText, color: 'text-status-info-soft', bg: 'bg-status-info/10' },
+    { id: 'renewal_success', label: 'Renovación', icon: RotateCw, color: 'text-status-success-soft', bg: 'bg-status-success/10' },
+    { id: 'password', label: 'Nueva Clave', icon: Key, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' },
     { id: 'replacement', label: 'Garantía', icon: ShieldCheck, color: 'text-purple-400', bg: 'bg-purple-500/10' },
     { id: 'warrantyExtension', label: 'Extensión', icon: Timer, color: 'text-brand-primary', bg: 'bg-brand-primary/10', badge: compensatedDays > 0 ? `+${compensatedDays}d` : null },
   ];
@@ -157,7 +157,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                                       <p className={`text-[13px] font-bold truncate ${isSelected ? 'text-white' : 'text-zinc-600'}`}>{sale.serviceName}</p>
                                       <div className="flex items-center gap-2">
                                           <span className="text-[9px] text-zinc-500 font-bold uppercase">Corte: {sale.expiryDate}</span>
-                                          {isFailing && <Zap size={10} className="text-amber-500 fill-amber-500 animate-pulse" />}
+                                          {isFailing && <Zap size={10} className="text-status-warning fill-status-warning animate-pulse" />}
                                       </div>
                                   </div>
                                </div>
@@ -204,14 +204,14 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                       <button
                         onClick={() => handleTemplateClick('failure')}
                         disabled={selectedIds.length === 0}
-                        className="flex items-center gap-4 p-3.5 rounded-lg bg-amber-500/5 border border-amber-500/10 text-amber-500 hover:bg-amber-500/10 transition-all disabled:opacity-20 active:scale-[0.98]"
+                        className="flex items-center gap-4 p-3.5 rounded-lg bg-status-warning/5 border border-status-warning/10 text-status-warning hover:bg-status-warning/10 transition-all disabled:opacity-20 active:scale-[0.98]"
                       >
-                         <div className="w-9 h-9 rounded-sm bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                         <div className="w-9 h-9 rounded-sm bg-status-warning/10 flex items-center justify-center border border-status-warning/20">
                             <AlertTriangle size={18} />
                          </div>
                          <div className="text-left flex-1 min-w-0">
                             <span className="block text-[13px] font-semibold uppercase tracking-wider text-white">Reporte de Falla</span>
-                            <p className="text-[9px] text-amber-500/80 truncate">Informa problemas técnicos masivos</p>
+                            <p className="text-[9px] text-status-warning/80 truncate">Informa problemas técnicos masivos</p>
                          </div>
                          <ChevronRight size={18} className="opacity-40" />
                       </button>
@@ -257,7 +257,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                                 <span className="block text-[9px] text-zinc-500 font-semibold uppercase tracking-widest">Incluye link al portal</span>
                             </div>
                         </div>
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all ${includeReceipt ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-zinc-800 bg-black/20'}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all ${includeReceipt ? 'bg-status-success border-status-success text-black' : 'border-zinc-800 bg-black/20'}`}>
                             {includeReceipt && <Check size={14} strokeWidth={4} />}
                         </div>
                     </button>

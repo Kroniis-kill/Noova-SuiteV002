@@ -35,12 +35,12 @@ const FinancialSummaryCard: React.FC = () => {
 
   return (
     <div className="bg-surface-sunken border border-white/[0.06] rounded-xl p-5 shadow-2xl relative overflow-hidden flex flex-col">
-       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
+       <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
 
        <div className="flex justify-between items-start mb-6 relative z-10">
           <div>
              <h2 className="text-sm font-bold text-white flex items-center gap-2 tracking-tight uppercase">
-                <BarChart3 className="text-primary" size={16} />
+                <BarChart3 className="text-brand-primary" size={16} />
                 Inteligencia Real
              </h2>
              <p className="text-zinc-600 text-[8px] font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
@@ -61,7 +61,7 @@ const FinancialSummaryCard: React.FC = () => {
 
        <div className="grid grid-cols-3 gap-3 mb-6 relative z-10">
           <div className="bg-surface-3/40 rounded-lg p-3.5 border border-white/[0.03]">
-             <div className="flex items-center gap-1.5 text-emerald-500 mb-1">
+             <div className="flex items-center gap-1.5 text-status-success mb-1">
                 <ArrowUpRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Ingresos</span>
              </div>
@@ -69,15 +69,15 @@ const FinancialSummaryCard: React.FC = () => {
           </div>
 
           <div className="bg-surface-3/40 rounded-lg p-3.5 border border-white/[0.03]">
-             <div className="flex items-center gap-1.5 text-red-500 mb-1">
+             <div className="flex items-center gap-1.5 text-status-danger mb-1">
                 <ArrowDownRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Egresos</span>
              </div>
              <p className="text-sm font-bold text-white font-mono">{currency}{totalOutflow.toLocaleString()}</p>
           </div>
 
-          <div className="bg-primary/5 rounded-lg p-3.5 border border-primary/10">
-             <div className="flex items-center gap-1.5 text-primary mb-1">
+          <div className="bg-brand-primary/5 rounded-lg p-3.5 border border-brand-primary/10">
+             <div className="flex items-center gap-1.5 text-brand-primary mb-1">
                 <Wallet size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Beneficio</span>
              </div>
@@ -107,7 +107,7 @@ const FinancialSummaryCard: React.FC = () => {
 
        <div className="mt-2 pt-4 border-t border-white/[0.03] flex items-center justify-between relative z-10">
           <div className="flex items-center gap-3">
-             <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shadow-inner ${margin >= 20 ? 'bg-emerald-500/5 text-emerald-500 border-emerald-500/10' : 'bg-amber-500/5 text-amber-500 border-amber-500/10'}`}>
+             <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shadow-inner ${margin >= 20 ? 'bg-status-success/5 text-status-success border-status-success/10' : 'bg-status-warning/5 text-status-warning border-status-warning/10'}`}>
                 <PieChart size={16} strokeWidth={2} />
              </div>
              <div>
@@ -116,7 +116,7 @@ const FinancialSummaryCard: React.FC = () => {
              </div>
           </div>
           
-          <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${margin >= 20 ? 'bg-emerald-500/5 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/5 text-amber-500 border-amber-500/20'}`}>
+          <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${margin >= 20 ? 'bg-status-success/5 text-status-success border-status-success/20' : 'bg-status-warning/5 text-status-warning border-status-warning/20'}`}>
              {margin >= 20 ? 'Status Ok' : 'Low ROI'}
           </span>
        </div>

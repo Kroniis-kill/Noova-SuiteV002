@@ -71,12 +71,12 @@ const ChangePasswordModal: React.FC = () => {
     <Modal isOpen={isOpen} onClose={() => {}} title="Seguridad de la Cuenta">
       <div className="space-y-5 pt-1">
         
-        <div className="bg-amber-500/10 border border-amber-500/20 rounded-md p-4 flex gap-3 items-start">
-           <div className="bg-amber-500/20 p-2 rounded-full shrink-0 text-amber-500">
+        <div className="bg-status-warning/10 border border-status-warning/20 rounded-md p-4 flex gap-3 items-start">
+           <div className="bg-status-warning/20 p-2 rounded-full shrink-0 text-status-warning">
               <ShieldAlert size={20} />
            </div>
            <div>
-              <h4 className="text-amber-500 font-bold text-[13px] mb-1">Actualización Requerida</h4>
+              <h4 className="text-status-warning font-bold text-[13px] mb-1">Actualización Requerida</h4>
               <p className="text-zinc-400 text-[11px] leading-relaxed">
                  Por seguridad, te recomendamos cambiar tu contraseña temporal asignada por el administrador.
               </p>

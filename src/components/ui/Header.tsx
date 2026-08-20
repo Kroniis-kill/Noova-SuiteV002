@@ -18,15 +18,15 @@ const Header: React.FC<HeaderProps> = ({ title, showBack, onBack }) => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
   const getSuiteColor = () => {
-    if (isAdmin) return 'text-amber-400';
+    if (isAdmin) return 'text-status-warning-soft';
     if (!subscription) return 'text-text-disabled';
 
     switch (subscription.plan) {
-      case 'monthly':    return 'text-blue-400';
+      case 'monthly':    return 'text-status-info-soft';
       case 'quarterly':  return 'text-indigo-400';
       case 'semiannual': return 'text-purple-400';
-      case 'annual':     return 'text-emerald-400';
-      case 'lifetime':   return 'text-amber-400';
+      case 'annual':     return 'text-status-success-soft';
+      case 'lifetime':   return 'text-status-warning-soft';
       case 'free':
       default:           return 'text-text-disabled';
     }

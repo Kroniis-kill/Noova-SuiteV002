@@ -193,7 +193,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                  <button 
                     type="button"
                     onClick={handleRevokeClick}
-                    className="w-full h-[48px] bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 rounded-lg font-bold transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[12px]"
+                    className="w-full h-[48px] bg-status-danger/10 hover:bg-status-danger/20 border border-status-danger/20 text-status-danger-soft rounded-lg font-bold transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[12px]"
                  >
                     <ShieldAlert size={16} /> Quitar Plan (Downgrade a Free)
                  </button>
@@ -206,9 +206,9 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
       {/* CONFIRMATION MODAL */}
       <Modal isOpen={isRevokeModalOpen} onClose={() => setIsRevokeModalOpen(false)} title="Revocar Plan">
           <div className="space-y-4 pt-2">
-              <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start">
-                  <div className="bg-red-500/20 p-3 rounded-full shrink-0">
-                      <ShieldAlert size={24} className="text-red-500" />
+              <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+                  <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
+                      <ShieldAlert size={24} className="text-status-danger" />
                   </div>
                   <div>
                       <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
@@ -222,7 +222,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                   <button onClick={() => setIsRevokeModalOpen(false)} className="flex-1 py-3 rounded-md bg-white/5 text-zinc-400 text-xs font-semibold hover:bg-white/10 transition-colors">
                       Cancelar
                   </button>
-                  <button onClick={confirmRevoke} className="flex-1 py-3 rounded-md bg-red-500 text-white text-xs font-semibold hover:bg-red-600 shadow-glow transition-colors">
+                  <button onClick={confirmRevoke} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-glow transition-colors">
                       Sí, Revocar Plan
                   </button>
               </div>

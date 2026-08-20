@@ -23,9 +23,9 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
   const daysLeft = getDaysRemaining(account.endDate);
   const isToday = daysLeft === 0;
 
-  let statusColor = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+  let statusColor = 'bg-status-success/10 text-status-success-soft border-status-success/20';
   let statusText = 'Activa';
-  let statusBorder = 'bg-emerald-500'; 
+  let statusBorder = 'bg-status-success'; 
 
   if (isPaused) { 
       statusColor = 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'; 
@@ -33,24 +33,24 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
       statusBorder = 'bg-zinc-500';
   }
   else if (isFailing) {
-      statusColor = 'bg-orange-500/10 text-orange-400 border-orange-500/20';
+      statusColor = 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20';
       statusText = 'Falla';
-      statusBorder = 'bg-orange-500';
+      statusBorder = 'bg-status-expiring';
   }
   else if (isExpired) { 
-      statusColor = 'bg-red-500/10 text-red-400 border-red-500/20'; 
+      statusColor = 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'; 
       statusText = 'Vencida'; 
-      statusBorder = 'bg-red-500';
+      statusBorder = 'bg-status-danger';
   }
   else if (isToday) {
-      statusColor = 'bg-red-500/20 text-red-500 border-red-500/40 animate-pulse';
+      statusColor = 'bg-status-danger/20 text-status-danger border-status-danger/40 animate-pulse';
       statusText = 'Vence Hoy';
       statusBorder = 'bg-red-600';
   }
   else if (isWarning) { 
-      statusColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20'; 
+      statusColor = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20'; 
       statusText = 'Por Vencer'; 
-      statusBorder = 'bg-amber-500';
+      statusBorder = 'bg-status-warning';
   }
 
   const totalSlots = account.maxScreens || 1;
@@ -58,8 +58,8 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
   const progress = Math.min(100, (usedSlots / totalSlots) * 100);
   
   let progressColor = 'bg-brand-primary';
-  if (progress >= 100) progressColor = 'bg-red-500';
-  else if (progress > 80) progressColor = 'bg-amber-500';
+  if (progress >= 100) progressColor = 'bg-status-danger';
+  else if (progress > 80) progressColor = 'bg-status-warning';
 
   const cardBackground = isActive
      ? 'bg-brand-primary/10 border-brand-primary/50 shadow-glow-primary-sm'
@@ -82,15 +82,15 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
             <div className="min-w-0 flex-1 pr-2">
                <div className="flex items-center gap-2 mb-1">
                   {account.providerId && (
-                     <div className={`bg-blue-500/10 p-1 rounded-md border border-blue-500/20 ${isFailing ? 'opacity-40' : ''}`} title="Cuenta de Proveedor">
-                        <Truck size={10} className="text-blue-400" />
+                     <div className={`bg-status-info/10 p-1 rounded-md border border-status-info/20 ${isFailing ? 'opacity-40' : ''}`} title="Cuenta de Proveedor">
+                        <Truck size={10} className="text-status-info-soft" />
                      </div>
                   )}
                   <Mail size={12} className={`${isActive ? "text-brand-primary" : "text-zinc-500"} ${isFailing ? 'opacity-40' : ''}`} />
                   <h4 className={`text-[13px] font-bold truncate ${isActive ? 'text-white' : 'text-zinc-200 group-hover:text-white'} ${isFailing ? 'opacity-40' : ''}`}>
                      {account.email}
                   </h4>
-                  {isFailing && <AlertTriangle size={14} className="text-orange-500 animate-pulse shrink-0" />}
+                  {isFailing && <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />}
                </div>
                <div className={`flex items-center gap-2 ${isFailing ? 'opacity-40' : ''}`}>
                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-white/[0.08]">
@@ -105,7 +105,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
              <div className={`flex flex-col gap-1 ${isFailing ? 'lg:hidden' : ''}`}>
                 <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider">Vencimiento</span>
                 <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-zinc-300">
-                   <Calendar size={12} className={isExpired || isWarning || isToday ? "text-red-400" : "text-zinc-500"} />
+                   <Calendar size={12} className={isExpired || isWarning || isToday ? "text-status-danger-soft" : "text-zinc-500"} />
                    <span>{account.endDate}</span>
                    <span className="text-[10px] text-zinc-600 font-sans ml-1 opacity-70">
                       ({daysLeft} días)

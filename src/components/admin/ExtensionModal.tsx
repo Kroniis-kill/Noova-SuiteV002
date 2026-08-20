@@ -35,7 +35,7 @@ const ExtensionModal: React.FC<ExtensionModalProps> = ({ isOpen, onClose, user }
             <div className="bg-surface-zinc border border-white/10 rounded-md p-4">
                 <p className="text-zinc-400 text-xs uppercase font-semibold mb-1">Usuario</p>
                 <p className="text-white font-bold text-sm">{user.user_email}</p>
-                <p className="text-zinc-500 text-[10px] mt-1">Plan Actual: <span className="text-emerald-400 uppercase">{user.plan}</span></p>
+                <p className="text-zinc-500 text-[10px] mt-1">Plan Actual: <span className="text-status-success-soft uppercase">{user.plan}</span></p>
             </div>
 
             <div>

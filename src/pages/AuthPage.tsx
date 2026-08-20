@@ -32,7 +32,7 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
              style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
         
         {/* Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-primary/10 blur-[120px] pointer-events-none rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-brand-primary/10 blur-[120px] pointer-events-none rounded-full" />
         
         <div className="relative z-10 w-full max-w-[420px] flex flex-col items-center">
             {children}
@@ -98,12 +98,12 @@ const MobileLogin: React.FC<LoginProps> = ({
                     <motion.div 
                         animate={{ x: [0, 8, 0] }} 
                         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute bottom-4 left-2 w-4 h-4 bg-amber-500 rounded-full blur-[2px]" 
+                        className="absolute bottom-4 left-2 w-4 h-4 bg-status-warning rounded-full blur-[2px]" 
                     />
                     <motion.div 
                         animate={{ x: [0, -8, 0] }} 
                         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute bottom-6 right-0 w-3 h-3 bg-blue-500 rounded-full blur-[1px]" 
+                        className="absolute bottom-6 right-0 w-3 h-3 bg-status-info rounded-full blur-[1px]" 
                     />
                     
                     {/* Central Circle */}
@@ -126,9 +126,9 @@ const MobileLogin: React.FC<LoginProps> = ({
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="w-full bg-red-500/10 border border-red-500/20 rounded-2xl p-4 flex gap-3 mb-6 shrink-0"
+                            className="w-full bg-status-danger/10 border border-status-danger/20 rounded-2xl p-4 flex gap-3 mb-6 shrink-0"
                         >
-                            <AlertTriangle size={18} className="text-red-500 shrink-0" />
+                            <AlertTriangle size={18} className="text-status-danger shrink-0" />
                             <p className="text-xs text-red-200/80 font-medium">
                                 {error}
                             </p>
@@ -141,7 +141,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         <input 
                             value={name} 
                             onChange={e => setName(e.target.value)} 
-                            className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
+                            className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-brand-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
                             placeholder="Nombre" 
                         />
                     )}
@@ -150,7 +150,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         type="email" 
                         value={email} 
                         onChange={e => setEmail(e.target.value)} 
-                        className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
+                        className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 text-white outline-none focus:border-brand-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
                         placeholder="Correo electronico" 
                     />
 
@@ -160,7 +160,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                                 type={showPassword ? "text" : "password"} 
                                 value={password} 
                                 onChange={e => setPassword(e.target.value)} 
-                                className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 pr-14 text-white outline-none focus:border-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
+                                className="w-full h-12 sm:h-14 bg-bg border border-white/10 rounded-2xl px-6 pr-14 text-white outline-none focus:border-brand-primary/50 transition-all placeholder:text-zinc-700 text-sm sm:text-base" 
                                 placeholder="Contraseña" 
                             />
                             <button 
@@ -192,7 +192,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                     {isRegistering && (
                         <div className="flex items-start gap-3 px-1 py-1 sm:py-2">
                             <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-zinc-700 rounded-md shrink-0 flex items-center justify-center">
-                                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-primary rounded-sm opacity-0" />
+                                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-brand-primary rounded-sm opacity-0" />
                             </div>
                             <p className="text-[10px] sm:text-[11px] text-zinc-500 leading-tight">
                                 Al crear una cuenta, esta de acuerdo con nuestros <span className="text-indigo-500 font-bold">Terminos y condiciones</span>
@@ -203,7 +203,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                     <button 
                         type="submit" 
                         disabled={loading} 
-                        className="w-full h-12 sm:h-14 rounded-2xl bg-gradient-to-r from-primary to-secondary text-white font-bold text-sm sm:text-base flex items-center justify-center shadow-glow active:scale-[0.98] transition-all hover:brightness-110 mt-2 sm:mt-4 disabled:opacity-50"
+                        className="w-full h-12 sm:h-14 rounded-2xl bg-brand-gradient text-white font-bold text-sm sm:text-base flex items-center justify-center shadow-glow active:scale-[0.98] transition-all hover:brightness-110 mt-2 sm:mt-4 disabled:opacity-50"
                     >
                         {loading ? 'Procesando...' : (isRecovering ? 'Enviar Enlace' : (isRegistering ? 'Sign up' : 'Iniciar sesion'))}
                     </button>
@@ -238,7 +238,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
         >
             {/* Branding Side */}
             <div className="w-2/5 bg-surface-sunken border-r border-white/5 flex flex-col items-center justify-center p-8 relative overflow-hidden text-center">
-                <div className="absolute top-0 left-0 w-32 h-32 bg-primary/10 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2" />
+                <div className="absolute top-0 left-0 w-32 h-32 bg-brand-primary/10 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2" />
                 
                 <div className="relative z-10 flex flex-col items-center">
                     <AnimatedLogo size={100} showFill={true} isStatic={true} />
@@ -266,8 +266,8 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                             <div className="space-y-2">
                                 <label className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider ml-1">Nombre</label>
                                 <div className="relative group">
-                                    <UserIcon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-primary transition-colors" />
-                                    <input value={props.name} onChange={e => props.setName(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-4 text-white outline-none focus:border-primary/50 transition-all" placeholder="Juan Pérez" />
+                                    <UserIcon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-brand-primary transition-colors" />
+                                    <input value={props.name} onChange={e => props.setName(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-4 text-white outline-none focus:border-brand-primary/50 transition-all" placeholder="Juan Pérez" />
                                 </div>
                             </div>
                         )}
@@ -275,8 +275,8 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                         <div className="space-y-2">
                             <label className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider ml-1">Correo Electrónico</label>
                             <div className="relative group">
-                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-primary transition-colors" />
-                                <input type="email" value={props.email} onChange={e => props.setEmail(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-4 text-white outline-none focus:border-primary/50 transition-all" placeholder="admin@empresa.com" />
+                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-brand-primary transition-colors" />
+                                <input type="email" value={props.email} onChange={e => props.setEmail(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-4 text-white outline-none focus:border-brand-primary/50 transition-all" placeholder="admin@empresa.com" />
                             </div>
                         </div>
 
@@ -285,12 +285,12 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                                 <div className="flex justify-between items-center mb-1">
                                     <label className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider ml-1">Contraseña</label>
                                     {!props.isRegistering && (
-                                        <button type="button" onClick={() => props.setIsRecovering(true)} className="text-[10px] font-semibold text-zinc-600 hover:text-primary transition-colors uppercase">¿Olvidaste?</button>
+                                        <button type="button" onClick={() => props.setIsRecovering(true)} className="text-[10px] font-semibold text-zinc-600 hover:text-brand-primary transition-colors uppercase">¿Olvidaste?</button>
                                     )}
                                 </div>
                                 <div className="relative group">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-primary transition-colors" />
-                                    <input type={props.showPassword ? "text" : "password"} value={props.password} onChange={e => props.setPassword(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-12 text-white outline-none focus:border-primary/50 transition-all font-mono" placeholder="••••••••" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-brand-primary transition-colors" />
+                                    <input type={props.showPassword ? "text" : "password"} value={props.password} onChange={e => props.setPassword(e.target.value)} className="w-full h-12 bg-bg border border-white/10 rounded-2xl pl-11 pr-12 text-white outline-none focus:border-brand-primary/50 transition-all font-mono" placeholder="••••••••" />
                                     <button type="button" onClick={() => props.setShowPassword(!props.showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600">
                                         {props.showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
@@ -301,7 +301,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                         <button 
                             type="submit" 
                             disabled={props.loading} 
-                            className="w-full h-12 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-sm shadow-glow flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all mt-4 disabled:opacity-50"
+                            className="w-full h-12 bg-brand-gradient text-white rounded-2xl font-bold text-sm shadow-glow flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all mt-4 disabled:opacity-50"
                         >
                             {props.loading ? <RefreshCw className="animate-spin" size={18} /> : (props.isRecovering ? 'Continuar' : (props.isRegistering ? 'Confirmar' : 'Acceder ahora'))}
                             {!props.loading && <ArrowRight size={18} />}
@@ -310,7 +310,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
 
                     <div className="mt-8 flex items-center justify-center gap-3">
                         <span className="text-xs text-zinc-600">{props.isRegistering ? '¿Ya eres miembro?' : '¿Nuevo en la plataforma?'}</span>
-                        <button onClick={() => { props.setIsRegistering(!props.isRegistering); props.setIsRecovering(false); }} className="text-xs font-semibold text-primary hover:text-secondary transition-colors uppercase tracking-widest">
+                        <button onClick={() => { props.setIsRegistering(!props.isRegistering); props.setIsRecovering(false); }} className="text-xs font-semibold text-brand-primary hover:text-brand-accent transition-colors uppercase tracking-widest">
                             {props.isRegistering ? 'Login' : 'Crea tu Cuenta'}
                         </button>
                     </div>

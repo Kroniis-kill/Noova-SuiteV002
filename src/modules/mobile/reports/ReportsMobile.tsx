@@ -82,14 +82,14 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
           {/* 2. KPI CARDS (Swipeable Look) */}
           <div className="grid grid-cols-2 gap-3">
              <motion.div variants={itemVariants} className="bg-surface-3 border border-white/[0.08] rounded-xl p-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl -mr-4 -mt-4" />
-                <div className="flex items-center gap-2 mb-2 text-emerald-400">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-status-success/10 rounded-full blur-xl -mr-4 -mt-4" />
+                <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                    <Wallet size={16} />
                    <span className="text-[10px] font-semibold uppercase tracking-wider">Ganancia Neta</span>
                 </div>
                 <p className="text-2xl font-bold text-white tracking-tight">{currency}{formatMoney(metrics.totalProfit)}</p>
                 <div className="flex items-center gap-1 mt-1">
-                   <span className={`text-[10px] font-semibold ${metrics.profitGrowth >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                   <span className={`text-[10px] font-semibold ${metrics.profitGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {metrics.profitGrowth >= 0 ? '+' : ''}{metrics.profitGrowth.toFixed(1)}%
                    </span>
                    <span className="text-[10px] text-zinc-600">vs periodo ant.</span>
@@ -104,7 +104,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                 </div>
                 <p className="text-2xl font-bold text-white tracking-tight">{currency}{formatMoney(metrics.totalSales)}</p>
                 <div className="flex items-center gap-1 mt-1">
-                   <span className={`text-[10px] font-semibold ${metrics.salesGrowth >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                   <span className={`text-[10px] font-semibold ${metrics.salesGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {metrics.salesGrowth >= 0 ? '+' : ''}{metrics.salesGrowth.toFixed(1)}%
                    </span>
                    <span className="text-[10px] text-zinc-600">crecimiento</span>
@@ -183,7 +183,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                 {topClients.map((item, idx) => (
                    <div key={item.id} className="bg-surface-3 border border-white/5 rounded-lg p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-[10px] font-semibold border border-emerald-500/20">
+                         <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft text-[10px] font-semibold border border-status-success/20">
                             <Users size={14} />
                          </div>
                          <span className="text-sm font-bold text-white">{item.name}</span>

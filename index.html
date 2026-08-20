@@ -26,46 +26,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind (respaldo) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              background: "#0a0a0a",
-              surface: "#1c1c1e",
-              primary: "#6A2CFF",
-              secondary: "#FF1493",
-              accent: "#B621FF",
-              success: "#10b981",
-              danger: "#ef4444",
-              warning: "#f59e0b",
-            },
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-              mono: ["Roboto Mono", "monospace"],
-            },
-            boxShadow: {
-              glow: "0 0 25px rgba(106, 44, 255, 0.25)",
-              "glow-sm": "0 0 15px rgba(106, 44, 255, 0.20)",
-              card: "0 20px 40px -10px rgba(0, 0, 0, 0.6)",
-            },
-          },
-        },
-      };
-    </script>
+    <!--
+      El script de respaldo de Tailwind (cdn.tailwindcss.com) que vivía acá
+      se eliminó: cargaba una SEGUNDA copia completa de Tailwind en tiempo
+      de ejecución, con su propia paleta de colores duplicada (y en el caso
+      de "accent", con un valor DISTINTO al real: #B621FF vs el
+      brand-accent real #FF1493). Esto causaba que ~13 componentes de alta
+      visibilidad (dashboard, resumen financiero, cuentas) dependieran por
+      completo de este script externo para pintar sus colores, con riesgo
+      real de romperse en silencio si el CDN fallaba o se bloqueaba, y de
+      verse con una paleta ligeramente distinta al resto de la app.
+      Todas esas dependencias ya se migraron a los tokens reales del
+      sistema de diseño (tailwind.config.js) y se agregó un alias en ese
+      mismo archivo para las clases shadow-glow/shadow-glow-sm, así que
+      quitar este script no cambia el aspecto visual de la app — solo
+      elimina la duplicación y el riesgo.
+    -->
 
     <!-- Estilos base -->
     <style>
-      body {
-        background-color: #0a0a0a;
-        color: #ffffff;
-        font-family: "Inter", system-ui, sans-serif;
-        -webkit-text-size-adjust: 100%;
-      }
-
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;

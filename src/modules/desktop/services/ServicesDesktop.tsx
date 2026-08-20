@@ -103,7 +103,7 @@ const ServicesDesktop: React.FC = () => {
   };
 
   const filtered = services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
-  const inputClass = "w-full bg-surface-sunken border border-white/10 rounded-lg pl-12 pr-4 py-3.5 text-white text-sm outline-none focus:border-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-white/10 rounded-lg pl-12 pr-4 py-3.5 text-white text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-2 block ml-1";
 
   return (
@@ -111,17 +111,17 @@ const ServicesDesktop: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-xl text-primary border border-primary/20"><Layers size={22} /></div>
+              <div className="p-2 bg-brand-primary/10 rounded-xl text-brand-primary border border-brand-primary/20"><Layers size={22} /></div>
               Catálogo de Servicios
            </h2>
            <p className="text-zinc-500 text-sm mt-1">Configura plataformas, costos y precios de venta.</p>
         </div>
         <div className="flex gap-4">
             <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-primary transition-colors" size={18} />
-                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-white/5 rounded-lg pl-11 pr-4 py-3 text-sm text-white outline-none focus:border-primary/50 transition-all" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-brand-primary transition-colors" size={18} />
+                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-white/5 rounded-lg pl-11 pr-4 py-3 text-sm text-white outline-none focus:border-brand-primary/50 transition-all" />
             </div>
-            <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
+            <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-brand-gradient text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
         </div>
       </div>
 
@@ -134,7 +134,7 @@ const ServicesDesktop: React.FC = () => {
                     <motion.div key={service.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} whileHover={{ y: -5 }} className="bg-surface-3 border border-white/10 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
                         <div className="flex justify-between items-start mb-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center text-primary border border-white/5 overflow-hidden">
+                                <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center text-brand-primary border border-white/5 overflow-hidden">
                                     {service.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : getTypeIcon(service.type)}
                                 </div>
                                 <div>
@@ -144,7 +144,7 @@ const ServicesDesktop: React.FC = () => {
                             </div>
                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button onClick={() => openEditModal(service)} className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/5"><Edit2 size={14} /></button>
-                                <button onClick={() => deleteService(service.id)} className="w-9 h-9 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 border border-red-500/10"><Trash2 size={14} /></button>
+                                <button onClick={() => deleteService(service.id)} className="w-9 h-9 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft border border-status-danger/10"><Trash2 size={14} /></button>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
@@ -154,15 +154,15 @@ const ServicesDesktop: React.FC = () => {
                             </div>
                             <div className="bg-surface-sunken border border-white/5 rounded-lg p-4">
                                 <span className="text-[10px] font-semibold text-zinc-500 uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
-                                <p className="text-xl font-bold text-emerald-400 font-mono">${service.publicPrice}</p>
+                                <p className="text-xl font-bold text-status-success-soft font-mono">${service.publicPrice}</p>
                             </div>
                         </div>
-                        <div className="flex items-center justify-between p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                        <div className="flex items-center justify-between p-4 bg-brand-primary/5 border border-brand-primary/20 rounded-lg">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><BarChart2 size={16} /></div>
-                                <div><p className="text-[10px] font-semibold text-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-white font-mono">+${profit.toFixed(1)}</p></div>
+                                <div className="w-8 h-8 rounded-lg bg-brand-primary/20 flex items-center justify-center text-brand-primary"><BarChart2 size={16} /></div>
+                                <div><p className="text-[10px] font-semibold text-brand-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-white font-mono">+${profit.toFixed(1)}</p></div>
                             </div>
-                            <div className="text-right"><span className="text-[10px] font-semibold text-zinc-500 uppercase">ROI</span><p className="text-sm font-bold text-emerald-500">{margin.toFixed(0)}%</p></div>
+                            <div className="text-right"><span className="text-[10px] font-semibold text-zinc-500 uppercase">ROI</span><p className="text-sm font-bold text-status-success">{margin.toFixed(0)}%</p></div>
                         </div>
                     </motion.div>
                 );
@@ -214,7 +214,7 @@ const ServicesDesktop: React.FC = () => {
                            <button 
                              type="button"
                              onClick={() => setImageUrl('')}
-                             className="mt-3 text-red-400 text-xs font-semibold flex items-center gap-1.5 hover:text-red-300 transition-colors"
+                             className="mt-3 text-status-danger-soft text-xs font-semibold flex items-center gap-1.5 hover:text-red-300 transition-colors"
                            >
                              <X size={14} /> Eliminar imagen actual
                            </button>
@@ -240,7 +240,7 @@ const ServicesDesktop: React.FC = () => {
                 </div>
              </div>
              <div className="bg-surface-sunken rounded-xl p-6 border border-white/5">
-                <div className="flex items-center gap-3 mb-6"><div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20"><Calculator size={20} /></div><h4 className="text-white font-bold text-sm">Calculadora Financiera</h4></div>
+                <div className="flex items-center gap-3 mb-6"><div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20"><Calculator size={20} /></div><h4 className="text-white font-bold text-sm">Calculadora Financiera</h4></div>
                 <div className="grid grid-cols-2 gap-6 items-end">
                    <div>
                       <label className={labelClass}>Inversión Total (Costo Cuenta)</label>
@@ -249,8 +249,8 @@ const ServicesDesktop: React.FC = () => {
                          <input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
                       </div>
                    </div>
-                   <div className="bg-primary/10 border border-primary/20 rounded-lg h-[52px] flex items-center justify-between px-6">
-                      <span className="text-xs font-semibold text-primary uppercase">Costo Real Unitario</span>
+                   <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-lg h-[52px] flex items-center justify-between px-6">
+                      <span className="text-xs font-semibold text-brand-primary uppercase">Costo Real Unitario</span>
                       <span className="text-xl font-bold text-white font-mono">${calculatedCost.toFixed(2)}</span>
                    </div>
                 </div>
@@ -260,7 +260,7 @@ const ServicesDesktop: React.FC = () => {
                 <div><label className={labelClass}>Precio Venta Socio</label><input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
              </div>
              <div className="pt-6">
-               <button type="submit" className="w-full h-[60px] bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-extrabold text-sm shadow-glow hover:scale-[1.01] transition-all active:scale-[0.98] flex items-center justify-center gap-3">
+               <button type="submit" className="w-full h-[60px] bg-brand-gradient text-white rounded-xl font-extrabold text-sm shadow-glow hover:scale-[1.01] transition-all active:scale-[0.98] flex items-center justify-center gap-3">
                  <Save size={22} /> {editingService ? 'Actualizar Datos' : 'Registrar Servicio'}
                </button>
              </div>

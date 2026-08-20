@@ -12,8 +12,8 @@ import { useUIStore } from '../../../store/uiStore';
 
 const SecurityHub = () => (
   <div className="space-y-6 animate-fade-in">
-    <div className="bg-emerald-500/10 border border-emerald-500/20 p-5 rounded-xl flex items-center gap-4">
-      <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+    <div className="bg-status-success/10 border border-status-success/20 p-5 rounded-xl flex items-center gap-4">
+      <div className="w-12 h-12 rounded-full bg-status-success/20 flex items-center justify-center text-status-success-soft">
         <ShieldCheck size={24} />
       </div>
       <div>
@@ -32,21 +32,21 @@ const SecurityHub = () => (
             <Lock size={16} className="text-brand-primary" />
             <span className="text-sm text-zinc-200">Encriptación en Reposo</span>
           </div>
-          <span className="text-[10px] font-semibold text-emerald-400 uppercase">AES-256</span>
+          <span className="text-[10px] font-semibold text-status-success-soft uppercase">AES-256</span>
         </div>
         <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
           <div className="flex items-center gap-3">
             <Smartphone size={16} className="text-brand-primary" />
             <span className="text-sm text-zinc-200">Acceso al Portal</span>
           </div>
-          <span className="text-[10px] font-semibold text-emerald-400 uppercase">Protegido por PIN</span>
+          <span className="text-[10px] font-semibold text-status-success-soft uppercase">Protegido por PIN</span>
         </div>
         <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
           <div className="flex items-center gap-3">
             <Database size={16} className="text-brand-primary" />
             <span className="text-sm text-zinc-200">Sincronización Segura</span>
           </div>
-          <span className="text-[10px] font-semibold text-emerald-400 uppercase">SSL / TLS 1.3</span>
+          <span className="text-[10px] font-semibold text-status-success-soft uppercase">SSL / TLS 1.3</span>
         </div>
       </div>
     </div>
@@ -61,10 +61,10 @@ const SecurityHub = () => (
             <span className="text-xs text-white font-bold">Este dispositivo</span>
             <span className="text-[10px] text-zinc-500">Activo ahora mismo</span>
           </div>
-          <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+          <span className="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_#10b981]" />
         </div>
       </div>
-      <button className="w-full mt-6 py-3 border border-red-500/30 text-red-400 text-[10px] font-semibold uppercase rounded-xl active:bg-red-500/10 transition-colors">
+      <button className="w-full mt-6 py-3 border border-status-danger/30 text-status-danger-soft text-[10px] font-semibold uppercase rounded-xl active:bg-status-danger/10 transition-colors">
         Cerrar todas las demás sesiones
       </button>
     </div>

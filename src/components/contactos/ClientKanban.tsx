@@ -24,9 +24,9 @@ interface KanbanColumn {
 }
 
 const COLUMNS: KanbanColumn[] = [
-  { id: 'nuevo', title: 'Nuevos', icon: User, color: 'text-blue-400', bg: 'bg-blue-500/5', borderColor: 'border-blue-500/20' },
-  { id: 'activo', title: 'Activos', icon: Zap, color: 'text-emerald-400', bg: 'bg-emerald-500/5', borderColor: 'border-emerald-500/20' },
-  { id: 'riesgo', title: 'En Riesgo', icon: AlertTriangle, color: 'text-amber-400', bg: 'bg-amber-500/5', borderColor: 'border-amber-500/20' },
+  { id: 'nuevo', title: 'Nuevos', icon: User, color: 'text-status-info-soft', bg: 'bg-status-info/5', borderColor: 'border-status-info/20' },
+  { id: 'activo', title: 'Activos', icon: Zap, color: 'text-status-success-soft', bg: 'bg-status-success/5', borderColor: 'border-status-success/20' },
+  { id: 'riesgo', title: 'En Riesgo', icon: AlertTriangle, color: 'text-status-warning-soft', bg: 'bg-status-warning/5', borderColor: 'border-status-warning/20' },
   { id: 'inactivo', title: 'Inactivos', icon: Moon, color: 'text-zinc-400', bg: 'bg-zinc-500/5', borderColor: 'border-zinc-500/20' },
 ];
 

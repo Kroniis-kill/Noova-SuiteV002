@@ -123,7 +123,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                             <button onClick={() => { onClose(); onEdit(reseller); }} className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
                                 <Edit2 size={16} />
                             </button>
-                            <button onClick={() => { onClose(); onDelete(reseller); }} className="w-9 h-9 rounded-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/10 flex items-center justify-center text-red-400 transition-colors">
+                            <button onClick={() => { onClose(); onDelete(reseller); }} className="w-9 h-9 rounded-full bg-status-danger/10 hover:bg-status-danger/20 border border-status-danger/10 flex items-center justify-center text-status-danger-soft transition-colors">
                                 <Trash2 size={16} />
                             </button>
                             <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
@@ -164,7 +164,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-white/5">
                     <div className="p-4 text-center border-r border-white/5">
                         <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-1">Total Generado</p>
-                        <p className="text-lg font-bold text-emerald-400">${totalRevenue.toLocaleString()}</p>
+                        <p className="text-lg font-bold text-status-success-soft">${totalRevenue.toLocaleString()}</p>
                     </div>
                     <div className="p-4 text-center border-r border-white/5">
                         <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-1">Clientes Activos</p>
@@ -204,7 +204,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${client.activeServices > 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-zinc-500/10 text-zinc-500'}`}>
+                                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${client.activeServices > 0 ? 'bg-status-success/10 text-status-success-soft' : 'bg-zinc-500/10 text-zinc-500'}`}>
                                             {client.activeServices} Serv.
                                         </span>
                                         <ChevronRight size={14} className="text-zinc-600 group-hover:text-white transition-colors" />

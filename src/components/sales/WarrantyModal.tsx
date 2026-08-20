@@ -315,7 +315,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                               <div className={`${styles.input} pl-11 flex items-center justify-between pr-8`}>
                                 <span className="text-white truncate">{services.find(s => s.id === selectedServiceId)?.name || sale.serviceName}</span>
                                 {selectedServiceId && services.find(s => s.id === selectedServiceId)?.name !== sale.serviceName && (
-                                    <span className="text-[9px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold border border-amber-500/20">CAMBIO</span>
+                                    <span className="text-[9px] bg-status-warning/20 text-status-warning-soft px-2 py-0.5 rounded font-bold border border-status-warning/20">CAMBIO</span>
                                 )}
                               </div>
                               <ChevronDown size={14} className="absolute right-4 text-zinc-500" />
@@ -342,13 +342,13 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                               </div>
                               <div className="bg-surface-sunken rounded-md p-3 border border-white/5 text-center">
                                  <label className="text-[9px] text-zinc-600 font-bold mb-1 block uppercase">Nueva Fecha</label>
-                                 <div className="text-emerald-400 font-bold text-sm font-mono">{newExpiryDate}</div>
+                                 <div className="text-status-success-soft font-bold text-sm font-mono">{newExpiryDate}</div>
                               </div>
                            </div>
                            {prorataAdjustment !== 0 && (
-                               <div className="mt-3 p-2.5 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-between">
+                               <div className="mt-3 p-2.5 bg-status-info/10 border border-status-info/20 rounded-xl flex items-center justify-between">
                                    <span className="text-[10px] text-blue-300 font-medium">Equivalencia por cambio de precio:</span>
-                                   <span className={`text-xs font-semibold ${prorataAdjustment > 0 ? 'text-emerald-400' : 'text-red-400'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment}d</span>
+                                   <span className={`text-xs font-semibold ${prorataAdjustment > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment}d</span>
                                </div>
                            )}
                         </div>
@@ -363,7 +363,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                         </div>
 
                         <div>
-                           <label className={styles.label}>MOTIVO <span className="text-red-400">*</span></label>
+                           <label className={styles.label}>MOTIVO <span className="text-status-danger-soft">*</span></label>
                            <div className={styles.inputContainer}>
                               <AlertTriangle size={18} className="absolute left-4 text-zinc-500" />
                               <select value={reason} onChange={(e) => setReason(e.target.value)} className="w-full h-full bg-transparent text-[13px] text-white px-11 outline-none appearance-none cursor-pointer font-medium">
@@ -379,8 +379,8 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                     </motion.div>
                 ) : (
                     <motion.div key="credit" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-6">
-                        <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg flex gap-3 items-start">
-                            <div className="p-2 bg-blue-500/20 rounded-full text-blue-400 shrink-0"><Info size={18} /></div>
+                        <div className="bg-status-info/10 border border-status-info/20 p-4 rounded-lg flex gap-3 items-start">
+                            <div className="p-2 bg-status-info/20 rounded-full text-status-info-soft shrink-0"><Info size={18} /></div>
                             <p className="text-[11px] text-blue-200 leading-snug">Ideal si el cliente prefiere sumar el tiempo restante de este servicio fallido a otro que ya tenga activo.</p>
                         </div>
 
@@ -397,13 +397,13 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                             <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center space-y-4">
                                 <div className="flex items-center justify-center gap-6">
                                     <div className="flex flex-col items-center">
-                                        <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-400 mb-2 border border-red-500/20"><Layers size={20} /></div>
+                                        <div className="w-12 h-12 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft mb-2 border border-status-danger/20"><Layers size={20} /></div>
                                         <span className="text-[10px] font-semibold text-zinc-500 uppercase">Origen</span>
                                         <span className="text-xs font-semibold text-white truncate max-w-[80px]">{sale.serviceName}</span>
                                     </div>
                                     <ArrowRight className="text-zinc-700" />
                                     <div className="flex flex-col items-center">
-                                        <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-2 border border-emerald-500/20"><RefreshCw size={20} /></div>
+                                        <div className="w-12 h-12 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft mb-2 border border-status-success/20"><RefreshCw size={20} /></div>
                                         <span className="text-[10px] font-semibold text-zinc-500 uppercase">Destino</span>
                                         <span className="text-xs font-semibold text-white truncate max-w-[80px]">{targetSale.serviceName}</span>
                                     </div>
@@ -411,7 +411,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                 
                                 <div className="pt-4 border-t border-white/5">
                                     <p className="text-[11px] text-zinc-400 font-medium uppercase tracking-widest">Equivalencia Abonar:</p>
-                                    <p className="text-3xl font-extrabold text-emerald-400 mt-1">+{prorataAdjustment} DÍAS</p>
+                                    <p className="text-3xl font-extrabold text-status-success-soft mt-1">+{prorataAdjustment} DÍAS</p>
                                     <p className="text-[10px] text-zinc-500 mt-2">Próxima fecha: <span className="text-zinc-300 font-bold">{
                                         (() => {
                                             const d = parseLocalISO(targetSale.expiryDate);

@@ -47,7 +47,7 @@ const NotificationPermissionModal: React.FC = () => {
           
           {/* Icon */}
           <div className="relative mb-6">
-             <div className="absolute inset-0 bg-primary/30 blur-[30px] rounded-full" />
+             <div className="absolute inset-0 bg-brand-primary/30 blur-[30px] rounded-full" />
              <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-status-info to-brand-primary-hi flex items-center justify-center shadow-glow border border-white/10">
                 <Bell size={40} className="text-white fill-white/20" />
              </div>

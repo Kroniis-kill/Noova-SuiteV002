@@ -44,7 +44,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
               <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/5 text-zinc-400">
                  {PLAN_LABELS[sub.plan]}
               </span>
-              <span className={`text-[10px] px-2 py-0.5 rounded border ${isExpired ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
+              <span className={`text-[10px] px-2 py-0.5 rounded border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
                  {isExpired ? 'Expirado' : 'Vigente'}
               </span>
            </div>
@@ -59,7 +59,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
          
          <button 
            onClick={onToggle}
-           className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${sub.is_active ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-red-500/10 border-red-500/20 text-red-400'}`}
+           className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${sub.is_active ? 'bg-status-success/10 border-status-success/20 text-status-success-soft' : 'bg-status-danger/10 border-status-danger/20 text-status-danger-soft'}`}
          >
             {sub.is_active ? <CheckCircle size={18} /> : <XCircle size={18} />}
          </button>

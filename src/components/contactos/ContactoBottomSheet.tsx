@@ -104,7 +104,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                     <h3 className="text-2xl font-bold text-white text-center tracking-tight leading-tight">{client.name}</h3>
                     <div className="flex items-center gap-2 mt-2">
                         <span className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-zinc-400 border border-white/5">{client.phone}</span>
-                        {client.resellerId && (<span className="px-3 py-1 bg-amber-500/10 rounded-full text-xs font-semibold text-amber-400 border border-amber-500/20 flex items-center gap-1"><Briefcase size={10} /> Revendedor</span>)}
+                        {client.resellerId && (<span className="px-3 py-1 bg-status-warning/10 rounded-full text-xs font-semibold text-status-warning-soft border border-status-warning/20 flex items-center gap-1"><Briefcase size={10} /> Revendedor</span>)}
                     </div>
                 </div>
 
@@ -132,7 +132,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                                <button onClick={() => handleMessageClick('whatsapp')} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-brand-whatsapp/10 text-brand-whatsapp flex items-center justify-center border border-brand-whatsapp/20 group-active:scale-90 transition-transform shadow-lg shadow-brand-whatsapp/10"><MessageCircle size={24} /></div><span className="text-[10px] font-semibold text-zinc-400">WhatsApp</span></button>
                                <button onClick={() => handleMessageClick('telegram')} className={`flex flex-col items-center gap-2 group ${!client.telegram ? 'opacity-50' : ''}`}><div className="w-14 h-14 rounded-xl bg-brand-telegram/10 text-brand-telegram flex items-center justify-center border border-brand-telegram/20 group-active:scale-90 transition-transform shadow-lg shadow-brand-telegram/10"><Send size={24} /></div><span className="text-[10px] font-semibold text-zinc-400">Telegram</span></button>
                                <button onClick={() => { onEdit(client); }} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-white/5 text-white flex items-center justify-center border border-white/10 group-active:scale-90 transition-transform"><Edit2 size={24} /></div><span className="text-[10px] font-semibold text-zinc-400">Editar</span></button>
-                               <button onClick={() => { onDelete(client.id); onClose(); }} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center border border-red-500/20 group-active:scale-90 transition-transform"><Trash2 size={24} /></div><span className="text-[10px] font-semibold text-zinc-400">Eliminar</span></button>
+                               <button onClick={() => { onDelete(client.id); onClose(); }} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-status-danger/10 text-status-danger-soft flex items-center justify-center border border-status-danger/20 group-active:scale-90 transition-transform"><Trash2 size={24} /></div><span className="text-[10px] font-semibold text-zinc-400">Eliminar</span></button>
                             </div>
 
                             <div className="bg-surface-1 rounded-xl p-1 border border-white/5 mb-4">

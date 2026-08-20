@@ -51,10 +51,10 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             <p className="text-xs text-zinc-500">{user.user_email}</p>
           </div>
           <div className="flex gap-2">
-            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${isExpired ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
+            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
               {isExpired ? 'Expirado' : 'Vigente'}
             </span>
-            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'}`}>
+            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-status-info/10 text-status-info-soft border-status-info/20' : 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'}`}>
               {user.is_active ? 'Activo' : 'Inactivo'}
             </span>
           </div>
@@ -74,28 +74,28 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             onClick={() => onEdit(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
           >
-            <Edit2 size={20} className="mb-2 text-blue-400" />
+            <Edit2 size={20} className="mb-2 text-status-info-soft" />
             <span className="text-[10px] font-semibold uppercase">Editar</span>
           </button>
           <button 
             onClick={() => onExtend(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
           >
-            <History size={20} className="mb-2 text-emerald-400" />
+            <History size={20} className="mb-2 text-status-success-soft" />
             <span className="text-[10px] font-semibold uppercase">Extender</span>
           </button>
           <button 
             onClick={() => onBlock(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
           >
-            {isBanned ? <CheckCircle2 size={20} className="mb-2 text-emerald-400" /> : <Ban size={20} className="mb-2 text-amber-400" />}
+            {isBanned ? <CheckCircle2 size={20} className="mb-2 text-status-success-soft" /> : <Ban size={20} className="mb-2 text-status-warning-soft" />}
             <span className="text-[10px] font-semibold uppercase">{isBanned ? 'Desbloquear' : 'Bloquear'}</span>
           </button>
           <button 
             onClick={() => onDelete(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
           >
-            <ShieldAlert size={20} className="mb-2 text-red-400" />
+            <ShieldAlert size={20} className="mb-2 text-status-danger-soft" />
             <span className="text-[10px] font-semibold uppercase">Eliminar</span>
           </button>
         </div>

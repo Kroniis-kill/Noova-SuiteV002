@@ -114,7 +114,7 @@ export const BusinessSettings = () => {
 
                             <div className="mt-8">
                                 <h3 className="text-white font-bold text-sm mb-4 flex items-center gap-2">
-                                    <Activity size={16} className="text-emerald-400" /> Metas Financieras
+                                    <Activity size={16} className="text-status-success-soft" /> Metas Financieras
                                 </h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
@@ -178,7 +178,7 @@ export const BusinessSettings = () => {
 
                     {activeTab === 'categories' && (
                         <motion.div key="categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
-                            <div className="flex items-center gap-2 mb-2 text-emerald-400">
+                            <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                                 <Tag size={18} />
                                 <h3 className="font-bold text-white text-sm">Gestión de Categorías</h3>
                             </div>
@@ -200,7 +200,7 @@ export const BusinessSettings = () => {
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
                                             <span className="text-sm font-bold text-white">{cat.name}</span>
                                         </div>
-                                        <button onClick={() => deleteCategory(cat.id)} className="text-zinc-600 hover:text-red-400 transition-colors p-2">
+                                        <button onClick={() => deleteCategory(cat.id)} className="text-zinc-600 hover:text-status-danger-soft transition-colors p-2">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

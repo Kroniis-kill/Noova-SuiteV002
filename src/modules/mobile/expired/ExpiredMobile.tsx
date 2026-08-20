@@ -108,9 +108,9 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                          <span className="text-lg text-zinc-500 font-medium mr-1 align-top relative top-1">{currency}</span>
                          {totalRevenue.toLocaleString()}
                      </p>
-                     <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full">
-                         <TrendingUp size={12} className="text-emerald-400" />
-                         <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wide">
+                     <div className="inline-flex items-center gap-2 bg-status-success/10 border border-status-success/20 px-3 py-1.5 rounded-full">
+                         <TrendingUp size={12} className="text-status-success-soft" />
+                         <span className="text-[10px] font-semibold text-status-success-soft uppercase tracking-wide">
                              Ganancia Est.: {currency} {totalProfit.toLocaleString()}
                          </span>
                      </div>
@@ -148,7 +148,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                <div className="space-y-6">
                   {vencidos.length > 0 && (
                     <div className="space-y-3">
-                       <h3 className="text-[10px] font-semibold text-red-500 uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                       <h3 className="text-[10px] font-semibold text-status-danger uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
                           <AlertCircle size={14} /> Ya Vencidos
                        </h3>
                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -163,7 +163,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
 
                   {vencenHoy.length > 0 && (
                     <div className="space-y-3">
-                       <h3 className="text-[10px] font-semibold text-orange-400 uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                       <h3 className="text-[10px] font-semibold text-status-expiring-soft uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
                           <Clock size={14} /> Vencen Hoy / Pronto
                        </h3>
                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -178,7 +178,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
 
                   {groupedSales.length === 0 && (
                     <div className="py-24 flex flex-col items-center justify-center opacity-50">
-                        <CheckCircle2 size={48} className="text-emerald-500 mb-4" />
+                        <CheckCircle2 size={48} className="text-status-success mb-4" />
                         <h3 className="text-lg font-bold text-white">Todo en orden</h3>
                     </div>
                   )}
@@ -195,9 +195,9 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                       
                       let statusColor = 'bg-zinc-500';
                       let statusBadge = 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20';
-                      if (days < 0) { statusColor = 'bg-red-500'; statusBadge = 'bg-red-500/10 text-red-400 border-red-500/20'; }
-                      else if (days === 0) { statusColor = 'bg-orange-500'; statusBadge = 'bg-orange-500/10 text-orange-400 border-orange-500/20'; }
-                      else if (days <= 2) { statusColor = 'bg-amber-500'; statusBadge = 'bg-amber-500/10 text-amber-400 border-amber-500/20'; }
+                      if (days < 0) { statusColor = 'bg-status-danger'; statusBadge = 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'; }
+                      else if (days === 0) { statusColor = 'bg-status-expiring'; statusBadge = 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20'; }
+                      else if (days <= 2) { statusColor = 'bg-status-warning'; statusBadge = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20'; }
 
                       return (
                          <motion.div 
@@ -214,7 +214,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                                    <div className="min-w-0">
                                       <div className="flex items-center gap-2 mb-1">
                                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-white/5 border-white/10 text-zinc-400 uppercase tracking-wide">{service?.name || 'Servicio'}</span>
-                                         {provider && <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-blue-500/10 border-blue-500/20 text-blue-400 uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
+                                         {provider && <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
                                       </div>
                                       <h4 className="text-[13px] font-bold text-white truncate">{acc.email}</h4>
                                    </div>
@@ -223,11 +223,11 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                                    </span>
                                 </div>
                                 <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                                   <p className={`text-[11px] font-mono font-medium ${isExpired ? 'text-red-400' : 'text-zinc-400'}`}>
+                                   <p className={`text-[11px] font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-zinc-400'}`}>
                                       {isExpired ? `Venció hace ${Math.abs(days)}d` : days === 0 ? 'Expira hoy' : `${days} días restantes`}
                                    </p>
                                    <div className="flex gap-2">
-                                      <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-white/5 text-zinc-500 hover:text-red-400 border border-white/5 active:scale-90 transition-all">
+                                      <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-white/5 text-zinc-500 hover:text-status-danger-soft border border-white/5 active:scale-90 transition-all">
                                          <Trash2 size={14} />
                                       </button>
                                       <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-[10px] font-semibold flex items-center gap-1.5 active:scale-95 transition-all">
@@ -275,7 +275,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                       <span className="text-xs font-semibold text-white uppercase">{settings.currency || 'USD'}</span>
                    </button>
                    <button onClick={() => sendNotification(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-white/5 hover:bg-white/10 border border-white/5 transition-all active:scale-95 disabled:opacity-30">
-                      <RefreshCw size={20} className="text-emerald-400 mb-2" />
+                      <RefreshCw size={20} className="text-status-success-soft mb-2" />
                       <span className="text-xs font-semibold text-white uppercase">{settings.subCurrency || 'SEC'}</span>
                    </button>
                 </div>

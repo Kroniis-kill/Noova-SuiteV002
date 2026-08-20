@@ -37,10 +37,10 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
   const getStyle = (type: string) => {
     switch(type) {
         case 'funding': 
-        case 'transfer_in': return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+        case 'transfer_in': return 'text-status-success-soft bg-status-success/10 border-status-success/20';
         case 'withdrawal': 
-        case 'transfer_out': return 'text-red-400 bg-red-500/10 border-red-500/20';
-        default: return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+        case 'transfer_out': return 'text-status-danger-soft bg-status-danger/10 border-status-danger/20';
+        default: return 'text-status-info-soft bg-status-info/10 border-status-info/20';
      }
   };
 
@@ -71,7 +71,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
             <div className="flex justify-end mb-2">
                <button 
                   onClick={handleRecalculate}
-                  className="flex items-center gap-2 text-[10px] font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full hover:bg-primary/20 transition-colors"
+                  className="flex items-center gap-2 text-[10px] font-semibold text-brand-primary bg-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary/20 transition-colors"
                >
                   <RefreshCw size={12} /> Recalcular Saldo
                </button>
@@ -107,7 +107,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                         
                         <div className="flex items-center gap-3">
                            <div className="text-right">
-                              <p className={`font-bold text-sm ${mov.type.includes('out') || mov.type === 'withdrawal' ? 'text-red-400' : 'text-emerald-400'}`}>
+                              <p className={`font-bold text-sm ${mov.type.includes('out') || mov.type === 'withdrawal' ? 'text-status-danger-soft' : 'text-status-success-soft'}`}>
                                   {mov.type.includes('out') || mov.type === 'withdrawal' ? '-' : '+'}
                                   {mov.amount.toLocaleString()} <span className="text-[10px] font-normal">{mov.currency}</span>
                               </p>
@@ -117,7 +117,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                            </div>
                            <button 
                              onClick={() => handleDeleteClick(mov.id)}
-                             className="w-8 h-8 flex items-center justify-center text-zinc-600 hover:text-red-400 bg-white/5 hover:bg-red-500/10 rounded-lg transition-colors"
+                             className="w-8 h-8 flex items-center justify-center text-zinc-600 hover:text-status-danger-soft bg-white/5 hover:bg-status-danger/10 rounded-lg transition-colors"
                            >
                               <Trash2 size={14} />
                            </button>
@@ -136,9 +136,9 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
       {/* Modal de Confirmación de Eliminación */}
       <Modal isOpen={!!movementIdToDelete} onClose={() => setMovementIdToDelete(null)} title="Eliminar Movimiento">
          <div className="space-y-4 pt-2">
-            <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start">
-                <div className="bg-red-500/20 p-3 rounded-full shrink-0">
-                    <AlertTriangle size={24} className="text-red-500" />
+            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+                <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
+                    <AlertTriangle size={24} className="text-status-danger" />
                 </div>
                 <div>
                     <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
@@ -156,7 +156,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                 </button>
                 <button 
                     onClick={confirmDelete} 
-                    className="flex-1 py-3 rounded-md bg-red-500 text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors"
+                    className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors"
                 >
                     Sí, Eliminar
                 </button>

@@ -9,8 +9,8 @@ const ExpiredSubscriptionPage: React.FC = () => {
   return (
     <div className="fixed inset-0 bg-transparent flex flex-col items-center justify-center p-6 text-center z-[200]">
        
-       <div className="w-24 h-24 rounded-full bg-red-500/10 flex items-center justify-center mb-6 border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.3)]">
-          <Lock size={40} className="text-red-500" />
+       <div className="w-24 h-24 rounded-full bg-status-danger/10 flex items-center justify-center mb-6 border border-status-danger/20 shadow-[0_0_40px_rgba(239,68,68,0.3)]">
+          <Lock size={40} className="text-status-danger" />
        </div>
 
        <h1 className="text-3xl font-bold text-white mb-2">Suscripción Expirada</h1>

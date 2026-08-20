@@ -232,8 +232,8 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                </div>
                <div>
                   <label className={styles.label}>Nueva Fecha</label>
-                  <div className={`${styles.inputContainer} border-emerald-500/20 bg-emerald-500/5`}>
-                     <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500" />
+                  <div className={`${styles.inputContainer} border-status-success/20 bg-status-success/5`}>
+                     <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-status-success" />
                      <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className={`${styles.input} pl-12 text-white font-bold tracking-wide`} />
                   </div>
                </div>

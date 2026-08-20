@@ -19,11 +19,11 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
   
   const getColorClasses = () => {
     switch (color) {
-      case 'primary': return 'from-primary to-accent text-white';
-      case 'emerald': return 'from-emerald-500 to-teal-500 text-white';
-      case 'amber': return 'from-orange-400 to-amber-500 text-white';
-      case 'red': return 'from-red-500 to-rose-600 text-white';
-      case 'blue': return 'from-blue-500 to-cyan-500 text-white';
+      case 'primary': return 'from-brand-primary to-brand-accent text-white';
+      case 'emerald': return 'from-status-success to-teal-500 text-white';
+      case 'amber': return 'from-status-expiring-soft to-status-warning text-white';
+      case 'red': return 'from-status-danger to-rose-600 text-white';
+      case 'blue': return 'from-status-info to-cyan-500 text-white';
       default: return 'from-zinc-700 to-zinc-600 text-white';
     }
   };
@@ -41,7 +41,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
           <Icon size={20} className="text-white" />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full border ${trendUp ? 'bg-success/10 text-success border-success/20' : 'bg-danger/10 text-danger border-danger/20'}`}>
+          <div className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full border ${trendUp ? 'bg-status-success/10 text-status-success border-status-success/20' : 'bg-status-danger/10 text-status-danger border-status-danger/20'}`}>
             {trendUp ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
             {trend}
           </div>

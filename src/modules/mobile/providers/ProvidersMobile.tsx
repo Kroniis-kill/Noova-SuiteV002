@@ -272,9 +272,9 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
 
        <div className="mb-6 relative z-10">
           <div className="bg-surface-1 border border-white/[0.08] rounded-lg p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-xl -mr-4 -mt-4 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-status-info/10 rounded-full blur-xl -mr-4 -mt-4 pointer-events-none" />
               <div className="flex items-center gap-3 relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
+                  <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />
                   </div>
                   <div><p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">Inventario Externo</p><p className="text-xs text-zinc-400">Cuentas de proveedores</p></div>
@@ -309,8 +309,8 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
 
        <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Proveedor">
           <div className="space-y-4 pt-2">
-             <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start shadow-sm">
-                 <AlertTriangle size={24} className="text-red-500 shrink-0" />
+             <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start shadow-sm">
+                 <AlertTriangle size={24} className="text-status-danger shrink-0" />
                  <div><h4 className="text-white font-bold text-sm">Atención</h4><p className="text-zinc-400 text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
              </div>
              <div className="flex flex-col gap-3">
@@ -318,9 +318,9 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                    <div><span className="block text-white font-bold text-sm">Desvincular Cuentas</span><span className="block text-zinc-500 text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
                    <ChevronRight size={16} className="text-zinc-600" />
                 </button>
-                <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-lg bg-red-500/5 border border-red-500/10 hover:bg-red-500/10 text-left flex justify-between items-center transition-colors shadow-sm">
-                   <div><span className="block text-red-400 font-bold text-sm">Eliminar Todo</span><span className="block text-red-400/60 text-[10px]">Se eliminará el proveedor y sus cuentas.</span></div>
-                   <Trash2 size={16} className="text-red-400/60" />
+                <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-colors shadow-sm">
+                   <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el proveedor y sus cuentas.</span></div>
+                   <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>
              </div>
              <button onClick={() => setIsDeleteModalOpen(false)} className="w-full py-3 text-zinc-500 text-xs font-semibold mt-2 hover:text-white transition-colors">Cancelar Operación</button>

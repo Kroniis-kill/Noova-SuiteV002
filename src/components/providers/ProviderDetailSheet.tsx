@@ -43,9 +43,9 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
 
   const getStatusConfig = (status: string) => {
       switch(status) {
-          case 'activa': return { icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' };
-          case 'por_vencer': return { icon: AlertCircle, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' };
-          case 'vencida': return { icon: AlertCircle, color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/20' };
+          case 'activa': return { icon: CheckCircle2, color: 'text-status-success-soft', bg: 'bg-status-success/10 border-status-success/20' };
+          case 'por_vencer': return { icon: AlertCircle, color: 'text-status-warning-soft', bg: 'bg-status-warning/10 border-status-warning/20' };
+          case 'vencida': return { icon: AlertCircle, color: 'text-status-danger-soft', bg: 'bg-status-danger/10 border-status-danger/20' };
           default: return { icon: Ban, color: 'text-zinc-500', bg: 'bg-zinc-500/10 border-zinc-500/20' };
       }
   };
@@ -105,7 +105,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                 <Edit2 size={16} />
                             </button>
                             {onDelete && (
-                                <button onClick={() => onDelete(provider)} className="w-9 h-9 rounded-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/10 flex items-center justify-center text-red-400 transition-colors">
+                                <button onClick={() => onDelete(provider)} className="w-9 h-9 rounded-full bg-status-danger/10 hover:bg-status-danger/20 border border-status-danger/10 flex items-center justify-center text-status-danger-soft transition-colors">
                                     <Trash2 size={16} />
                                 </button>
                             )}
@@ -124,11 +124,11 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                     </div>
                     <div className="p-4 text-center border-r border-white/5">
                         <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
-                        <p className="text-lg font-bold text-emerald-400">{activeCount}</p>
+                        <p className="text-lg font-bold text-status-success-soft">{activeCount}</p>
                     </div>
                     <div className="p-4 text-center">
                         <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-1">Alertas</p>
-                        <p className="text-lg font-bold text-amber-400">{expiredCount}</p>
+                        <p className="text-lg font-bold text-status-warning-soft">{expiredCount}</p>
                     </div>
                 </div>
 

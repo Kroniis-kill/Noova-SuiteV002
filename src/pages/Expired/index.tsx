@@ -249,9 +249,9 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
       {/* DELETE ACCOUNT CONFIRMATION */}
       <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Cuenta">
          <div className="space-y-4 pt-2">
-            <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start">
-                <div className="bg-red-500/20 p-3 rounded-full shrink-0">
-                    <Trash2 size={24} className="text-red-500" />
+            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+                <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
+                    <Trash2 size={24} className="text-status-danger" />
                 </div>
                 <div>
                     <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
@@ -264,7 +264,7 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
                 <button onClick={() => setAccountToDelete(null)} className="flex-1 py-3 rounded-md bg-white/5 text-zinc-400 text-xs font-semibold hover:bg-white/10 transition-colors">
                     Cancelar
                 </button>
-                <button onClick={confirmDeleteAccount} className="flex-1 py-3 rounded-md bg-red-500 text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">
+                <button onClick={confirmDeleteAccount} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">
                     Sí, Eliminar
                 </button>
             </div>

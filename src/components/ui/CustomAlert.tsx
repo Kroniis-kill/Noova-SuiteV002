@@ -19,7 +19,7 @@ const CustomAlert: React.FC = () => {
 
   const getTitleColor = () => {
     switch (alertData.type) {
-      case 'error': return 'text-red-500';
+      case 'error': return 'text-status-danger';
       case 'success': return 'text-status-success';
       case 'warning': return 'text-status-warning';
       default: return 'text-white';

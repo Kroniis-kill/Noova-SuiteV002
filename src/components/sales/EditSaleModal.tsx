@@ -136,7 +136,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           <div>
             <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Monto de Venta</label>
             <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] px-4">
-              <DollarSign size={18} className="text-emerald-500 mr-3" />
+              <DollarSign size={18} className="text-status-success mr-3" />
               <input 
                 type="number" 
                 value={formData.amount || ''} 
@@ -178,8 +178,8 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
           {/* Invited Credentials (if applicable) */}
           {(sale.saleType === 'usuario_unico' || sale.saleType === 'cuenta_completa') && (
-            <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-lg space-y-4">
-               <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest ml-1">Credenciales de Acceso</p>
+            <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
+               <p className="text-[10px] font-bold text-status-info-soft uppercase tracking-widest ml-1">Credenciales de Acceso</p>
                <div className="space-y-3">
                   <div className="flex items-center bg-surface-sunken border border-white/10 rounded-md h-[48px] px-4">
                     <Mail size={16} className="text-zinc-500 mr-3" />
@@ -259,7 +259,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   className={`w-full p-3.5 rounded-md flex items-center justify-between transition-all ${formData.accountId === acc.id ? 'bg-brand-primary/10 border border-brand-primary/30' : 'hover:bg-white/5 border border-transparent'}`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className={`w-2 h-2 rounded-full shrink-0 ${acc.status === 'activa' ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${acc.status === 'activa' ? 'bg-status-success' : 'bg-status-danger'}`} />
                     <div className="text-left min-w-0">
                       <p className="text-sm font-bold text-white truncate">{acc.email}</p>
                       <p className="text-[10px] text-zinc-500 uppercase font-semibold">{acc.status}</p>

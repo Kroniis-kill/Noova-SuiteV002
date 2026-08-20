@@ -139,7 +139,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
 
   const filteredServices = services.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const inputClass = "w-full bg-surface-sunken border border-white/10 rounded-md pl-11 pr-4 py-4 text-white text-sm outline-none focus:border-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-white/10 rounded-md pl-11 pr-4 py-4 text-white text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2 block ml-1";
   const isHighlighted = useHighlightAction('services');
 
@@ -187,7 +187,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                    <button 
                      type="button"
                      onClick={() => setImageUrl('')}
-                     className="mt-2 text-red-400 text-[10px] font-semibold flex items-center gap-1"
+                     className="mt-2 text-status-danger-soft text-[10px] font-semibold flex items-center gap-1"
                    >
                      <X size={12} /> Eliminar imagen
                    </button>
@@ -219,7 +219,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
         </div>
       </div>
       <div className="bg-surface-sunken rounded-xl p-5 border border-white/5 space-y-4">
-        <h4 className="text-[11px] font-semibold text-zinc-400 uppercase flex items-center gap-2"><Calculator size={14} className="text-primary" /> Estructura de Costos</h4>
+        <h4 className="text-[11px] font-semibold text-zinc-400 uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
         <div>
           <label className={labelClass}>Inversión Total</label>
           <div className="relative flex items-center">
@@ -237,8 +237,8 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
             <input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" />
           </div>
         </div>
-        <div className="bg-primary/10 border border-primary/20 rounded-md p-4 flex items-center justify-between">
-            <span className="text-[10px] font-semibold text-primary uppercase">Costo Real p/ Pantalla</span>
+        <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between">
+            <span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real p/ Pantalla</span>
             <span className="text-lg font-bold text-white">${calculatedCost.toFixed(2)}</span>
         </div>
       </div>
@@ -283,7 +283,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
               <motion.div key={svc.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: idx * 0.05 }} className="bg-surface-3 border border-white/[0.08] rounded-xl p-5 shadow-lg relative overflow-hidden">
                 <div className="flex justify-between items-start mb-4">
                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-md bg-surface-sunken flex items-center justify-center text-primary border border-white/5 overflow-hidden">
+                      <div className="w-12 h-12 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary border border-white/5 overflow-hidden">
                         {svc.image_url ? <img src={svc.image_url} className="w-full h-full object-cover" /> : getTypeIcon(svc.type)}
                       </div>
                       <div>
@@ -293,13 +293,13 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                    </div>
                    <div className="flex gap-2">
                       <button onClick={() => handleEditClick(svc)} className="w-9 h-9 rounded-sm bg-white/5 flex items-center justify-center text-zinc-400 active:scale-90 transition-all"><Edit2 size={15} /></button>
-                      <button onClick={() => deleteService(svc.id)} className="w-9 h-9 rounded-sm bg-red-500/10 flex items-center justify-center text-red-400 active:scale-90 transition-all"><Trash2 size={15} /></button>
+                      <button onClick={() => deleteService(svc.id)} className="w-9 h-9 rounded-sm bg-status-danger/10 flex items-center justify-center text-status-danger-soft active:scale-90 transition-all"><Trash2 size={15} /></button>
                    </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-4 border-t border-white/5">
                    <div className="text-center"><p className="text-[9px] font-bold text-zinc-500 uppercase">Costo</p><p className="text-zinc-200 font-bold text-sm mt-0.5">${svc.cost || 0}</p></div>
-                   <div className="text-center"><p className="text-[9px] font-bold text-zinc-500 uppercase">Venta</p><p className="text-emerald-400 font-bold text-sm mt-0.5">${svc.publicPrice || 0}</p></div>
-                   <div className="text-center"><p className="text-[9px] font-bold text-zinc-500 uppercase">Utilidad</p><p className="text-primary font-bold text-sm mt-0.5">${((svc.publicPrice || 0) - (svc.cost || 0)).toFixed(1)}</p></div>
+                   <div className="text-center"><p className="text-[9px] font-bold text-zinc-500 uppercase">Venta</p><p className="text-status-success-soft font-bold text-sm mt-0.5">${svc.publicPrice || 0}</p></div>
+                   <div className="text-center"><p className="text-[9px] font-bold text-zinc-500 uppercase">Utilidad</p><p className="text-brand-primary font-bold text-sm mt-0.5">${((svc.publicPrice || 0) - (svc.cost || 0)).toFixed(1)}</p></div>
                 </div>
               </motion.div>
             ))}

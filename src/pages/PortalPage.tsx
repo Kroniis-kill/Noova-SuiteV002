@@ -76,7 +76,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                 <div>
                   <h3 className="text-sm font-bold text-white leading-tight">{service.service_name || 'Servicio'}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className={`text-[9px] font-bold uppercase ${isExpired ? 'text-red-400' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`} text-brand-primary`}>
+                    <span className={`text-[9px] font-bold uppercase ${isExpired ? 'text-status-danger-soft' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`} text-brand-primary`}>
                         {isExpired ? 'Expirado' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`}
                     </span>
                   </div>
@@ -151,7 +151,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                         <Calendar size={12} />
                         <span>Vence: <span className="text-zinc-300 font-mono">{formatDate(service.expiry_date)}</span></span>
                       </div>
-                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 hover:bg-red-500/10 text-zinc-400 hover:text-red-400 font-bold text-[9px] transition-colors border border-white/5">
+                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 hover:bg-status-danger/10 text-zinc-400 hover:text-status-danger-soft font-bold text-[9px] transition-colors border border-white/5">
                           <MessageSquareWarning size={12} /> Reportar Falla
                       </button>
                   </div>
@@ -277,7 +277,7 @@ const PortalPage: React.FC = () => {
   };
 
   if (view === 'loading') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center"><AnimatedLogo size={80} showFill={false} /><p className="text-zinc-500 text-xs mt-6 font-medium animate-pulse">Autenticando...</p></div>;
-  if (view === 'error') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-red-500/10 rounded-lg flex items-center justify-center mb-6 border border-red-500/20"><ShieldAlert size={28} className="text-red-500" /></div><h1 className="text-xl font-bold text-white mb-2">Acceso restringido</h1><p className="text-zinc-400 text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
+  if (view === 'error') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-status-danger/10 rounded-lg flex items-center justify-center mb-6 border border-status-danger/20"><ShieldAlert size={28} className="text-status-danger" /></div><h1 className="text-xl font-bold text-white mb-2">Acceso restringido</h1><p className="text-zinc-400 text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
 
   if (view === 'login' || view === 'setup_pin') {
       const isSetup = view === 'setup_pin';
@@ -296,7 +296,7 @@ const PortalPage: React.FC = () => {
                         {[0,1,2,3].map((i) => (<div key={i} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i < pin.length ? 'bg-brand-primary scale-125 shadow-[0_0_8px_#6A2CFF]' : 'bg-surface-3'}`} />))}
                     </div>
                     <div className="h-6 mt-4">
-                        {pinError && <p className="text-red-400 text-[10px] font-semibold bg-red-500/10 py-1 px-3 rounded-full inline-block border border-red-500/20">{pinError}</p>}
+                        {pinError && <p className="text-status-danger-soft text-[10px] font-semibold bg-status-danger/10 py-1 px-3 rounded-full inline-block border border-status-danger/20">{pinError}</p>}
                     </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3 w-full mb-6 select-none px-4">
@@ -330,7 +330,7 @@ const PortalPage: React.FC = () => {
               </div>
               <div className="relative z-10 flex items-center gap-5">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-glow"><div className="w-full h-full bg-surface-1 rounded-lg flex items-center justify-center overflow-hidden"><User size={32} className="text-white" /></div></div>
-                  <div><h1 className="text-xl font-bold text-white tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
+                  <div><h1 className="text-xl font-bold text-white tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[9px] font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
               </div>
           </div>
 

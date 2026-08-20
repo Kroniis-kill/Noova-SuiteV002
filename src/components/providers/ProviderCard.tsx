@@ -63,7 +63,7 @@ const ProviderCard: React.FC<ProviderCardProps> = ({ provider, accountCount, onC
                 <h3 className={`text-[15px] font-bold truncate leading-tight ${isActive ? 'text-white' : 'text-zinc-200 group-hover:text-white'}`}>{provider.name}</h3>
                 <div className="flex items-center gap-2 mt-1">
                     <span className="text-[11px] text-zinc-500 font-mono bg-white/5 px-1.5 rounded border border-white/5 truncate">{provider.whatsapp}</span>
-                    <div className="flex items-center gap-0.5 ml-1"><Star size={10} className="fill-amber-400 text-amber-400" /><span className="text-[10px] font-semibold text-amber-400">{score.toFixed(1)}</span></div>
+                    <div className="flex items-center gap-0.5 ml-1"><Star size={10} className="fill-amber-400 text-status-warning-soft" /><span className="text-[10px] font-semibold text-status-warning-soft">{score.toFixed(1)}</span></div>
                 </div>
              </div>
           </div>
@@ -71,7 +71,7 @@ const ProviderCard: React.FC<ProviderCardProps> = ({ provider, accountCount, onC
        </div>
 
        <div className="flex items-center justify-between pt-3 border-t border-white/5 relative z-10">
-          <div className="flex items-center gap-2"><div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20"><Layers size={12} /></div><span className="text-[11px] font-medium text-zinc-400"><strong className="text-zinc-200">{accountCount}</strong> Items</span></div>
+          <div className="flex items-center gap-2"><div className="flex items-center justify-center w-6 h-6 rounded-full bg-status-info/10 text-status-info-soft border border-status-info/20"><Layers size={12} /></div><span className="text-[11px] font-medium text-zinc-400"><strong className="text-zinc-200">{accountCount}</strong> Items</span></div>
           <div className="flex gap-2">
              <button onClick={handleWhatsApp} className="w-8 h-8 rounded-sm bg-brand-whatsapp/10 text-brand-whatsapp border border-brand-whatsapp/20 flex items-center justify-center hover:bg-brand-whatsapp/20 transition-colors active:scale-95" title="WhatsApp"><MessageCircle size={14} /></button>
              {provider.telegram && (<button onClick={handleTelegram} className="w-8 h-8 rounded-sm bg-brand-telegram/10 text-brand-telegram border border-brand-telegram/20 flex items-center justify-center hover:bg-brand-telegram/20 transition-colors active:scale-95" title="Telegram"><Send size={14} /></button>)}

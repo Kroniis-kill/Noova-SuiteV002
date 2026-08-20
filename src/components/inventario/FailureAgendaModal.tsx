@@ -22,8 +22,8 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Reportar Falla" zIndex={70000}>
       <div className="space-y-6 pt-2">
-        <div className="bg-orange-500/10 border border-orange-500/20 p-5 rounded-xl flex gap-4 items-start shadow-sm">
-          <div className="bg-orange-500/20 p-3 rounded-full shrink-0 text-orange-500">
+        <div className="bg-status-expiring/10 border border-status-expiring/20 p-5 rounded-xl flex gap-4 items-start shadow-sm">
+          <div className="bg-status-expiring/20 p-3 rounded-full shrink-0 text-status-expiring">
             <AlertTriangle size={24} />
           </div>
           <div>
@@ -39,7 +39,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
                       const client = clients.find(c => c.id === sale.clientId);
                       return (
                         <div key={sale.id} className="flex items-center gap-2 text-[10px] text-zinc-300 font-medium">
-                          <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-status-expiring" />
                           <span className="truncate">{client?.name || 'Cliente'}</span>
                           <span className="text-zinc-600 ml-auto font-mono">{sale.expiryDate}</span>
                         </div>

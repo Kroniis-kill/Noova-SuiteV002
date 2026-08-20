@@ -47,7 +47,7 @@ const SyncQueueModal: React.FC<SyncQueueModalProps> = ({ isOpen, onClose, pendin
                     No te preocupes, están seguros. Se subirán automáticamente a la base de datos tan pronto detectemos una conexión a internet estable.
                  </p>
                  {!isOnline && (
-                    <div className="mt-3 flex items-center gap-2 text-red-400 bg-red-400/10 p-2.5 rounded-sm border border-red-400/20">
+                    <div className="mt-3 flex items-center gap-2 text-status-danger-soft bg-status-danger-soft/10 p-2.5 rounded-sm border border-status-danger-soft/20">
                        <AlertTriangle size={14} />
                        <span className="text-[10px] font-semibold uppercase tracking-widest">Actualmente sin conexión</span>
                     </div>
@@ -76,7 +76,7 @@ const SyncQueueModal: React.FC<SyncQueueModalProps> = ({ isOpen, onClose, pendin
                  ))}
                  {pendingItems.length === 0 && (
                     <div className="text-center py-8">
-                       <UploadCloud size={24} className="mx-auto text-emerald-500 mb-3" />
+                       <UploadCloud size={24} className="mx-auto text-status-success mb-3" />
                        <p className="text-xs font-semibold text-zinc-500">Todo está sincronizado</p>
                     </div>
                  )}

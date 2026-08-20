@@ -44,6 +44,24 @@
   --status-warning:    245 158 11;
   --status-info:       59 130 246;
 
+  /* Estado — variante "soft" (más clara, para texto legible sobre fondo
+     oscuro). Formaliza un patrón que ya era consistente en toda la app
+     (texto en shade-400, fondos/bordes en shade-500) pero vivía como
+     clases crudas de Tailwind en vez de tokens del sistema. Mismos
+     valores RGB exactos que antes — cero cambio visual. */
+  --status-success-soft:  52 211 153;
+  --status-danger-soft:   248 113 113;
+  --status-warning-soft:  251 191 36;
+  --status-info-soft:     96 165 250;
+
+  /* Quinto estado semántico real, usado de forma consistente en toda la
+     app para "vence hoy / expira pronto" — un estado intermedio genuino
+     entre warning (aviso general) y danger (ya vencido), no un color
+     decorativo. Se formaliza en vez de forzarlo dentro de warning/danger
+     y perder esa distinción. */
+  --status-expiring:      249 115 22;
+  --status-expiring-soft: 251 146 60;
+
   /* Radios (escala 4-8-12-16-24-32) */
   --radius-xs:   6px;
   --radius-sm:   10px;

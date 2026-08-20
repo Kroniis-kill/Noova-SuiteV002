@@ -12,7 +12,7 @@ export const styles = {
   textarea: "w-full bg-transparent text-sm text-zinc-200 outline-none transition-all placeholder:text-zinc-700 font-medium h-full resize-none leading-relaxed",
   select: "w-full h-full bg-transparent text-[14px] text-white px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
   buttonPrimary: "w-full h-[52px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-sm shadow-[0_0_20px_-5px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:brightness-110",
-  buttonDanger: "w-full h-[52px] bg-surface-1 border border-red-500/20 text-red-400 hover:bg-red-500/10 rounded-lg font-bold text-sm transition-all flex items-center justify-between px-6 mb-3 active:scale-[0.98]",
+  buttonDanger: "w-full h-[52px] bg-surface-1 border border-status-danger/20 text-status-danger-soft hover:bg-status-danger/10 rounded-lg font-bold text-sm transition-all flex items-center justify-between px-6 mb-3 active:scale-[0.98]",
   toggleContainer: "flex items-center justify-between bg-surface-sunken p-4 rounded-md border border-white/5",
   toggleActive: "bg-brand-primary",
   toggleInactive: "bg-zinc-700",

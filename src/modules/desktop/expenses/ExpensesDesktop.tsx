@@ -59,7 +59,7 @@ const ExpensesDesktop: React.FC = () => {
                 {allItems.map((item: any, idx) => (
                    <tr key={idx} className="hover:bg-white/[0.02] transition-colors group">
                       <td className="p-6 pl-8">
-                         <span className={`flex items-center gap-2 px-3 py-1 rounded-xs w-fit text-[11px] font-semibold uppercase border ${item.type === 'expense' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-orange-500/10 text-orange-400 border-orange-500/20'}`}>
+                         <span className={`flex items-center gap-2 px-3 py-1 rounded-xs w-fit text-[11px] font-semibold uppercase border ${item.type === 'expense' ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20'}`}>
                             {item.type === 'expense' ? <FileText size={12} /> : <ShoppingBag size={12} />}
                             {item.type === 'expense' ? 'Operativo' : 'Insumo'}
                          </span>
@@ -75,7 +75,7 @@ const ExpensesDesktop: React.FC = () => {
                       <td className="p-6 text-right pr-8">
                          <button 
                            onClick={() => setItemToDelete({ id: item.id, type: item.type, name: item.label })}
-                           className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 hover:bg-red-500/20 transition-colors opacity-0 group-hover:opacity-100 ml-auto"
+                           className="w-8 h-8 rounded-lg bg-status-danger/10 flex items-center justify-center text-status-danger-soft hover:bg-status-danger/20 transition-colors opacity-0 group-hover:opacity-100 ml-auto"
                          >
                             <Trash2 size={14} />
                          </button>
@@ -93,9 +93,9 @@ const ExpensesDesktop: React.FC = () => {
 
        <Modal isOpen={!!itemToDelete} onClose={() => setItemToDelete(null)} title="Eliminar Registro">
          <div className="space-y-4 pt-2">
-            <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl flex gap-4 items-start">
-                <div className="bg-red-500/20 p-3 rounded-full shrink-0">
-                    <Trash2 size={24} className="text-red-500" />
+            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+                <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
+                    <Trash2 size={24} className="text-status-danger" />
                 </div>
                 <div>
                     <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
@@ -109,7 +109,7 @@ const ExpensesDesktop: React.FC = () => {
                 <button onClick={() => setItemToDelete(null)} className="flex-1 py-3 rounded-md bg-white/5 text-zinc-400 text-xs font-semibold hover:bg-white/10 transition-colors">
                     Cancelar
                 </button>
-                <button onClick={confirmDelete} className="flex-1 py-3 rounded-md bg-red-500 text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">
+                <button onClick={confirmDelete} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">
                     Sí, Eliminar
                 </button>
             </div>

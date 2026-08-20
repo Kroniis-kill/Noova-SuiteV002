@@ -162,10 +162,10 @@ const AdminMobile: React.FC = () => {
           <motion.div key="overview" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-4">
             {/* Metrics */}
             <div className="grid grid-cols-2 gap-3">
-              <MetricCard label="Ingresos" value={`$${metrics.totalRev.toFixed(0)}`} icon={DollarSign} accent="text-emerald-400" bg="bg-emerald-500/10" />
+              <MetricCard label="Ingresos" value={`$${metrics.totalRev.toFixed(0)}`} icon={DollarSign} accent="text-status-success-soft" bg="bg-status-success/10" />
               <MetricCard label="PRO activos" value={metrics.active} icon={Crown} accent="text-brand-primary" bg="bg-brand-primary/10" />
-              <MetricCard label="Total" value={metrics.total} icon={Users} accent="text-blue-400" bg="bg-blue-500/10" />
-              <MetricCard label="Bloqueados" value={metrics.banned} icon={AlertOctagon} accent="text-red-400" bg="bg-red-500/10" />
+              <MetricCard label="Total" value={metrics.total} icon={Users} accent="text-status-info-soft" bg="bg-status-info/10" />
+              <MetricCard label="Bloqueados" value={metrics.banned} icon={AlertOctagon} accent="text-status-danger-soft" bg="bg-status-danger/10" />
             </div>
 
             {/* Shortcuts */}
@@ -264,7 +264,7 @@ const AdminMobile: React.FC = () => {
             {announcements.map(a => (
               <div key={a.id} className="bg-surface-1 border border-white/[0.06] p-4 rounded-xl flex justify-between items-center gap-3">
                 <p className="text-sm text-zinc-200 flex-1">{a.message}</p>
-                <button onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-zinc-500 active:text-red-400">
+                <button onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-zinc-500 active:text-status-danger-soft">
                   <Trash2 size={15} />
                 </button>
               </div>
@@ -291,8 +291,8 @@ const AdminMobile: React.FC = () => {
                 <p className="text-[10px] text-zinc-500 mt-1.5">Visible para usuarios bloqueados o expirados.</p>
               </div>
 
-              <div className="p-3 bg-amber-500/5 border border-amber-500/20 rounded-lg flex gap-3 items-start">
-                <ShieldAlert size={16} className="text-amber-400 shrink-0 mt-0.5" />
+              <div className="p-3 bg-status-warning/5 border border-status-warning/20 rounded-lg flex gap-3 items-start">
+                <ShieldAlert size={16} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-amber-300 font-semibold text-xs">Kill switch</h4>
                   <p className="text-[10px] text-zinc-400 mt-0.5 leading-relaxed">Pausará el acceso a toda la plataforma. Próximamente.</p>
@@ -354,15 +354,15 @@ const AdminMobile: React.FC = () => {
 
       <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Eliminar usuario">
         <div className="space-y-4 pt-2">
-          <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg flex gap-3 items-start">
-            <Trash2 size={20} className="text-red-400 shrink-0" />
+          <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-lg flex gap-3 items-start">
+            <Trash2 size={20} className="text-status-danger-soft shrink-0" />
             <p className="text-sm text-zinc-200 leading-relaxed">
               ¿Eliminar permanentemente a <strong className="text-white">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.
             </p>
           </div>
           <div className="flex gap-2">
             <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-white/5 rounded-lg text-zinc-300 text-sm font-medium">Cancelar</button>
-            <button onClick={handleDelete} className="flex-1 py-3 bg-red-500 rounded-lg text-white text-sm font-semibold">Eliminar</button>
+            <button onClick={handleDelete} className="flex-1 py-3 bg-status-danger rounded-lg text-white text-sm font-semibold">Eliminar</button>
           </div>
         </div>
       </Modal>
@@ -419,9 +419,9 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
               {sub.plan}
             </span>
             {isBanned ? (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 uppercase">Bloq</span>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Bloq</span>
             ) : isExpired ? (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 uppercase">Exp</span>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Exp</span>
             ) : null}
           </div>
         </div>

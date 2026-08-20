@@ -86,19 +86,19 @@ const MyPlanMobile: React.FC = () => {
                          {isTrial ? (
                              <Clock size={16} className="text-zinc-400" />
                          ) : isLifetime ? (
-                             <Crown size={16} className="text-amber-400" />
+                             <Crown size={16} className="text-status-warning-soft" />
                          ) : (
                              <Star size={16} className="text-brand-accent" />
                          )}
                          
-                         <span className={`text-[10px] font-semibold uppercase tracking-widest ${isTrial ? 'text-zinc-400' : isLifetime ? 'text-amber-400' : 'text-brand-accent'}`}>
+                         <span className={`text-[10px] font-semibold uppercase tracking-widest ${isTrial ? 'text-zinc-400' : isLifetime ? 'text-status-warning-soft' : 'text-brand-accent'}`}>
                              {isTrial ? 'MODO TRIAL' : isLifetime ? 'SOCIO VITALICIO' : 'MIEMBRO PRO'}
                          </span>
                       </div>
                       <h2 className="text-2xl font-extrabold text-white tracking-tight">{planLabel}</h2>
                   </div>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-md ${isBlocked ? 'bg-red-500/20 border-red-500/30' : 'bg-white/10 border-white/10'}`}>
-                      {isBlocked ? <AlertTriangle size={18} className="text-red-500" /> : <Shield size={18} className="text-white" />}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-md ${isBlocked ? 'bg-status-danger/20 border-status-danger/30' : 'bg-white/10 border-white/10'}`}>
+                      {isBlocked ? <AlertTriangle size={18} className="text-status-danger" /> : <Shield size={18} className="text-white" />}
                   </div>
               </div>
 
@@ -110,7 +110,7 @@ const MyPlanMobile: React.FC = () => {
                           </span>
                           
                           <div className="flex items-center gap-2">
-                             <div className={`w-2 h-2 rounded-full ${isBlocked ? 'bg-red-500 animate-pulse' : 'bg-emerald-400 shadow-[0_0_8px_#34d399]'}`} />
+                             <div className={`w-2 h-2 rounded-full ${isBlocked ? 'bg-status-danger animate-pulse' : 'bg-status-success-soft shadow-[0_0_8px_#34d399]'}`} />
                              <span className="text-xs font-semibold text-zinc-400">
                                  {isBlocked ? 'Bloqueada' : 'Cuenta Activa'}
                              </span>
@@ -127,7 +127,7 @@ const MyPlanMobile: React.FC = () => {
                                   <span className="text-xs font-semibold text-zinc-400">Sin límite</span>
                               </div>
                           ) : (
-                              <span className={`text-xl font-bold ${daysRemaining <= 2 ? 'text-red-400' : 'text-white'}`}>
+                              <span className={`text-xl font-bold ${daysRemaining <= 2 ? 'text-status-danger-soft' : 'text-white'}`}>
                                   {daysRemaining} <span className="text-xs font-normal text-zinc-500">días</span>
                               </span>
                           )}
@@ -165,9 +165,9 @@ const MyPlanMobile: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
              {/* Clientes Card */}
              <div className="bg-surface-1 p-5 rounded-xl border border-white/[0.08] shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-xl -mr-6 -mt-6 group-hover:bg-blue-500/20 transition-all" />
+                <div className="absolute top-0 right-0 w-20 h-20 bg-status-info/10 rounded-full blur-xl -mr-6 -mt-6 group-hover:bg-status-info/20 transition-all" />
                 
-                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-blue-400 border border-white/5 shadow-sm relative z-10">
+                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-status-info-soft border border-white/5 shadow-sm relative z-10">
                     <Users size={20} />
                 </div>
                 
@@ -205,11 +205,11 @@ const MyPlanMobile: React.FC = () => {
                     className="w-full p-5 flex items-center justify-between border-b border-white/5 active:bg-white/5 transition-colors group"
                  >
                      <div className="flex items-center gap-4">
-                         <div className="w-12 h-12 rounded-md bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                         <div className="w-12 h-12 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20">
                              <CreditCard size={22} />
                          </div>
                          <div className="text-left">
-                             <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">Renovar Membresía</h4>
+                             <h4 className="text-sm font-bold text-white group-hover:text-status-success-soft transition-colors">Renovar Membresía</h4>
                              <p className="text-[11px] text-zinc-500">Gestionar pagos de Noova</p>
                          </div>
                      </div>
@@ -222,11 +222,11 @@ const MyPlanMobile: React.FC = () => {
                 className="w-full p-5 flex items-center justify-between border-b border-white/5 active:bg-white/5 transition-colors group"
              >
                  <div className="flex items-center gap-4">
-                     <div className="w-12 h-12 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                     <div className="w-12 h-12 rounded-md bg-status-info/10 flex items-center justify-center text-status-info-soft border border-status-info/20">
                          <HelpCircle size={22} />
                      </div>
                      <div className="text-left">
-                         <h4 className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Soporte Técnico</h4>
+                         <h4 className="text-sm font-bold text-white group-hover:text-status-info-soft transition-colors">Soporte Técnico</h4>
                          <p className="text-[11px] text-zinc-500">Reportar fallas de la app</p>
                      </div>
                  </div>

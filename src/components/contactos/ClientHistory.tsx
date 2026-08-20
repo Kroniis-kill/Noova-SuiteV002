@@ -88,11 +88,11 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
             return (
                 <div key={entry.id} className="bg-surface-zinc border border-white/5 rounded-md p-3 relative overflow-hidden group">
                     {/* Indicador lateral */}
-                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${isBlock ? 'bg-amber-500' : 'bg-white/10'}`} />
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${isBlock ? 'bg-status-warning' : 'bg-white/10'}`} />
                     
                     <div className="flex justify-between items-start pl-3">
                         <div className="flex items-start gap-3">
-                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' : 'bg-white/5 border-white/5 text-zinc-400'}`}>
+                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-status-warning/10 border-status-warning/20 text-status-warning' : 'bg-white/5 border-white/5 text-zinc-400'}`}>
                                 {isBlock ? <AlertTriangle size={14} /> : <MonitorPlay size={14} />}
                             </div>
                             
@@ -105,7 +105,7 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                                 </p>
                                 
                                 {entry.notes && (
-                                    <div className={`mt-2 text-[11px] p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-amber-500/5 border-amber-500/10 text-amber-200/80' : 'bg-surface-sunken border-white/5 text-zinc-400'}`}>
+                                    <div className={`mt-2 text-[11px] p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-white/5 text-zinc-400'}`}>
                                         {entry.notes}
                                     </div>
                                 )}

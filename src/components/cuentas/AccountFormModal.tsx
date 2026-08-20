@@ -188,7 +188,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
               {methods.map(m => (
                  <div key={m.id} className="flex justify-between items-center bg-surface-zinc px-4 py-3 rounded-md border border-white/5">
                     <span className="text-sm text-zinc-300 font-semibold">{m.name}</span>
-                    <button type="button" onClick={() => handleRemoveMethod(m.id)} className="text-zinc-500 hover:text-red-400 transition-colors"><Trash2 size={16} /></button>
+                    <button type="button" onClick={() => handleRemoveMethod(m.id)} className="text-zinc-500 hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
                  </div>
               ))}
            </div>

@@ -37,10 +37,10 @@ const ActivityLogList: React.FC = () => {
 
   const getActionConfig = (action: LogAction) => {
     switch (action) {
-      case 'CREATE': return { icon: <Plus size={14} />, color: 'text-emerald-400', bg: 'bg-emerald-500/10' };
-      case 'UPDATE': return { icon: <Edit2 size={14} />, color: 'text-blue-400', bg: 'bg-blue-500/10' };
-      case 'DELETE': return { icon: <Trash2 size={14} />, color: 'text-red-400', bg: 'bg-red-500/10' };
-      case 'LOGIN': return { icon: <LogIn size={14} />, color: 'text-amber-400', bg: 'bg-amber-500/10' };
+      case 'CREATE': return { icon: <Plus size={14} />, color: 'text-status-success-soft', bg: 'bg-status-success/10' };
+      case 'UPDATE': return { icon: <Edit2 size={14} />, color: 'text-status-info-soft', bg: 'bg-status-info/10' };
+      case 'DELETE': return { icon: <Trash2 size={14} />, color: 'text-status-danger-soft', bg: 'bg-status-danger/10' };
+      case 'LOGIN': return { icon: <LogIn size={14} />, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' };
       default: return { icon: <History size={14} />, color: 'text-zinc-400', bg: 'bg-white/5' };
     }
   };

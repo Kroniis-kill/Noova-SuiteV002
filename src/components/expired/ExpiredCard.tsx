@@ -20,11 +20,11 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
   let statusConfig = { label: `${daysRemaining}d`, color: 'text-zinc-400', border: 'border-white/10', bg: 'bg-white/5' };
   
   if (daysRemaining < 0) {
-     statusConfig = { label: 'Vencido', color: 'text-red-400', border: 'border-red-500/30', bg: 'bg-red-500/10' };
+     statusConfig = { label: 'Vencido', color: 'text-status-danger-soft', border: 'border-status-danger/30', bg: 'bg-status-danger/10' };
   } else if (daysRemaining === 0) {
-     statusConfig = { label: 'HOY', color: 'text-orange-400', border: 'border-orange-500/30', bg: 'bg-orange-500/10' };
+     statusConfig = { label: 'HOY', color: 'text-status-expiring-soft', border: 'border-status-expiring/30', bg: 'bg-status-expiring/10' };
   } else if (daysRemaining === 1) {
-     statusConfig = { label: 'Mañana', color: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10' };
+     statusConfig = { label: 'Mañana', color: 'text-status-warning-soft', border: 'border-status-warning/30', bg: 'bg-status-warning/10' };
   }
 
   const handleWhatsApp = (e: React.MouseEvent) => {

@@ -19,12 +19,12 @@ interface WidgetConfigModalProps {
 const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, widgets, toggleWidget, toggleQuickAction }) => {
   
   const cardsOptions: { key: keyof DashboardWidgets; label: string; icon: React.ElementType; color: string }[] = [
-    { key: 'showSales', label: 'Ventas del Mes', icon: DollarSign, color: 'text-emerald-400' },
+    { key: 'showSales', label: 'Ventas del Mes', icon: DollarSign, color: 'text-status-success-soft' },
     { key: 'showProfit', label: 'Ganancia Neta', icon: LayoutTemplate, color: 'text-brand-primary' },
-    { key: 'showClients', label: 'Clientes Activos', icon: Users, color: 'text-blue-400' },
+    { key: 'showClients', label: 'Clientes Activos', icon: Users, color: 'text-status-info-soft' },
     { key: 'showInventory', label: 'Inventario / Stock', icon: Layers, color: 'text-indigo-400' },
-    { key: 'showExchangeRate', label: 'Alertas / Vencimientos', icon: AlertOctagon, color: 'text-red-400' },
-    { key: 'showQuickActions', label: 'Panel de Acciones', icon: Zap, color: 'text-amber-400' },
+    { key: 'showExchangeRate', label: 'Alertas / Vencimientos', icon: AlertOctagon, color: 'text-status-danger-soft' },
+    { key: 'showQuickActions', label: 'Panel de Acciones', icon: Zap, color: 'text-status-warning-soft' },
   ];
 
   const actionButtons = [
