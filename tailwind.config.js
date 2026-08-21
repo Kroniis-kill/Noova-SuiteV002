@@ -40,6 +40,25 @@ export default {
         'border-subtle': 'var(--border-subtle)',
         'border-strong': 'var(--border-strong)',
       },
+      // Tailwind genera las utilidades de color anteponiendo el prefijo de la
+      // categoría (text-/bg-/border-) al *nombre* del color. Como varios
+      // nombres de arriba ya empiezan con ese mismo prefijo ('text-primary',
+      // 'border-subtle', etc.), Tailwind generaba 'text-text-primary',
+      // 'border-border-subtle', etc. — no las clases cortas ('text-primary',
+      // 'border-subtle') que ~1900 usos en toda la app esperan. Estas
+      // secciones agregan esas clases cortas sin tocar lo anterior (que
+      // sigue existiendo por si algo lo usa).
+      textColor: {
+        primary: 'rgb(var(--text-primary) / <alpha-value>)',
+        secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+        muted: 'rgb(var(--text-muted) / <alpha-value>)',
+        disabled: 'rgb(var(--text-disabled) / <alpha-value>)',
+        faint: 'rgb(var(--text-faint) / <alpha-value>)',
+      },
+      borderColor: {
+        subtle: 'var(--border-subtle)',
+        strong: 'var(--border-strong)',
+      },
       borderRadius: {
         xs: 'var(--radius-xs)',
         sm: 'var(--radius-sm)',
