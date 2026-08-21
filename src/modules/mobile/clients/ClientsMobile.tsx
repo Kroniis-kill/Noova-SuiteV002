@@ -265,9 +265,6 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                            }
                          `}
                        >
-                          {isActive && (
-                          )}
-                          
                           <div className="flex items-center gap-4 w-full relative z-10">
                               <div className="relative">
                                  <Avatar name={client.name} size={46} className="rounded-md shadow-2xl border border-[rgb(var(--fg-rgb))]/10" />
