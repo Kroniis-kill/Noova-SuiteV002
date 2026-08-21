@@ -15,6 +15,7 @@ import { queryClient } from './lib/queryClient';
 import { App as CapacitorApp } from '@capacitor/app'; 
 import { useUIStore } from './store/uiStore'; 
 import { isNativePlatform } from './utils/platformUtils'; 
+import { useThemeSync } from './hooks/useThemeSync';
 import SyncIndicator from './components/ui/SyncIndicator';
 import InAppNotifications from './components/ui/InAppNotifications';
 import OneSignal from 'onesignal-cordova-plugin';
@@ -93,8 +94,10 @@ const MainLayout: React.FC = () => {
   const backAction = useUIStore(state => state.backAction);
   const setGlobalView = useUIStore(state => state.setView);
   const globalView = useUIStore(state => state.currentView);
-  const { notifications, isLoading, accounts, clients } = useData(); 
+  const { notifications, isLoading, accounts, clients, settings } = useData(); 
   const { showAlert } = useAlert(); 
+
+  useThemeSync(settings?.theme);
 
   const [currentView, setCurrentView] = useState<ViewState>('dashboard'); 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -244,7 +247,7 @@ const MainLayout: React.FC = () => {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
-            className="fixed inset-0 z-[9999] bg-[#0a0a0a]"
+            className="fixed inset-0 z-[9999] bg-bg"
           >
             <Onboarding onFinish={handleTutorialFinish} />
           </motion.div>
@@ -265,7 +268,7 @@ const MainLayout: React.FC = () => {
         setIsMobileOpen={setIsMobileOpen}
       >
         <ErrorBoundary scope="la página">
-          <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-8 h-8 border-2 border-white/10 border-t-[#6A2CFF] rounded-full animate-spin" /></div>}>
+          <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-8 h-8 border-2 border-[rgb(var(--fg-rgb))]/10 border-t-[#6A2CFF] rounded-full animate-spin" /></div>}>
             {(() => {
               switch (currentView) {
                 case 'dashboard': return <DashboardPage setView={setGlobalView} />;

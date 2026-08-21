@@ -90,22 +90,22 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
   };
 
   return (
-    <div className="pb-32 pt-2 px-4 font-sans text-zinc-100 min-h-screen">
+    <div className="pb-32 pt-2 px-4 font-sans text-primary min-h-screen">
        <div className="mb-4 relative z-10">
           <div className="mb-4">
-              <h1 className="text-2xl font-bold text-white tracking-tight">Vencimientos</h1>
-              <p className="text-zinc-400 text-[11px] font-medium mt-0.5">Control de fechas y renovaciones</p>
+              <h1 className="text-2xl font-bold text-primary tracking-tight">Vencimientos</h1>
+              <p className="text-muted text-[11px] font-medium mt-0.5">Control de fechas y renovaciones</p>
           </div>
           
           {activeTab === 'sales' && (
-             <div className="bg-surface-3 border border-white/10 p-5 rounded-xl relative overflow-hidden shadow-lg mb-6">
+             <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 p-5 rounded-xl relative overflow-hidden shadow-lg mb-6">
                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none -mr-6 -mt-6" />
                  <div className="relative z-10 text-center py-2">
-                     <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
+                     <p className="text-[11px] font-semibold text-disabled uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
                         <Wallet size={12} /> Total por Cobrar
                      </p>
-                     <p className="text-4xl font-extrabold text-white tracking-tight leading-none mb-3">
-                         <span className="text-lg text-zinc-500 font-medium mr-1 align-top relative top-1">{currency}</span>
+                     <p className="text-4xl font-extrabold text-primary tracking-tight leading-none mb-3">
+                         <span className="text-lg text-disabled font-medium mr-1 align-top relative top-1">{currency}</span>
                          {totalRevenue.toLocaleString()}
                      </p>
                      <div className="inline-flex items-center gap-2 bg-status-success/10 border border-status-success/20 px-3 py-1.5 rounded-full">
@@ -119,24 +119,24 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
           )}
        </div>
 
-       <div className="relative pb-4 pt-2 -mx-4 px-4 border-b border-white/5 mb-4">
+       <div className="relative pb-4 pt-2 -mx-4 px-4 border-b border-[rgb(var(--fg-rgb))]/5 mb-4">
           <div className="flex gap-2 items-center">
-             <div className={`flex bg-surface-zinc p-1 rounded-md border border-white/10 transition-all duration-300 ${isSearchOpen ? 'w-0 opacity-0 overflow-hidden p-0 border-0' : 'flex-1'}`}>
-                <button onClick={() => setActiveTab('sales')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'sales' ? 'bg-surface-4 text-white shadow-md' : 'text-zinc-500'}`}>
+             <div className={`flex bg-surface-zinc p-1 rounded-md border border-[rgb(var(--fg-rgb))]/10 transition-all duration-300 ${isSearchOpen ? 'w-0 opacity-0 overflow-hidden p-0 border-0' : 'flex-1'}`}>
+                <button onClick={() => setActiveTab('sales')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'sales' ? 'bg-surface-4 text-primary shadow-md' : 'text-disabled'}`}>
                    <Users size={14} /> Clientes
                 </button>
-                <button onClick={() => setActiveTab('inventory')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'inventory' ? 'bg-surface-4 text-white shadow-md' : 'text-zinc-500'}`}>
+                <button onClick={() => setActiveTab('inventory')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'inventory' ? 'bg-surface-4 text-primary shadow-md' : 'text-disabled'}`}>
                    <Layers size={14} /> Stock
                 </button>
              </div>
 
              <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'flex-1' : 'w-[44px]'}`}>
-                <div className={`flex items-center h-[44px] ${isSearchOpen ? 'bg-surface-zinc border border-white/10 rounded-md px-3' : ''}`}>
-                   <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 rounded-md transition-all ${isSearchOpen ? 'text-zinc-400 -ml-3' : 'bg-surface-zinc border border-white/10 text-zinc-400 hover:text-white'}`}>
+                <div className={`flex items-center h-[44px] ${isSearchOpen ? 'bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3' : ''}`}>
+                   <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 rounded-md transition-all ${isSearchOpen ? 'text-muted -ml-3' : 'bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 text-muted hover:text-primary'}`}>
                       <Search size={18} />
                    </button>
-                   <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-[13px] text-white outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
-                   {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="p-1 text-zinc-500"><X size={16} /></button>}
+                   <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-[13px] text-primary outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
+                   {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="p-1 text-disabled"><X size={16} /></button>}
                 </div>
              </div>
           </div>
@@ -179,7 +179,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                   {groupedSales.length === 0 && (
                     <div className="py-24 flex flex-col items-center justify-center opacity-50">
                         <CheckCircle2 size={48} className="text-status-success mb-4" />
-                        <h3 className="text-lg font-bold text-white">Todo en orden</h3>
+                        <h3 className="text-lg font-bold text-primary">Todo en orden</h3>
                     </div>
                   )}
                </div>
@@ -194,7 +194,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                       const isExpired = days < 0;
                       
                       let statusColor = 'bg-zinc-500';
-                      let statusBadge = 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20';
+                      let statusBadge = 'bg-zinc-500/10 text-muted border-zinc-500/20';
                       if (days < 0) { statusColor = 'bg-status-danger'; statusBadge = 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'; }
                       else if (days === 0) { statusColor = 'bg-status-expiring'; statusBadge = 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20'; }
                       else if (days <= 2) { statusColor = 'bg-status-warning'; statusBadge = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20'; }
@@ -206,28 +206,28 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                             animate={{ opacity: 1, x: 0 }} 
                             exit={{ opacity: 0, height: 0 }} 
                             transition={{ delay: idx * 0.03 }} 
-                            className="bg-surface-3 border border-white/[0.08] rounded-lg relative overflow-hidden shadow-sm"
+                            className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg relative overflow-hidden shadow-sm"
                          >
                             <div className={`absolute top-0 left-0 bottom-0 w-1 ${statusColor}`} />
                             <div className="flex flex-col gap-3 p-4 pl-5">
                                 <div className="flex justify-between items-start">
                                    <div className="min-w-0">
                                       <div className="flex items-center gap-2 mb-1">
-                                         <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-white/5 border-white/10 text-zinc-400 uppercase tracking-wide">{service?.name || 'Servicio'}</span>
+                                         <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/10 text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
                                          {provider && <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
                                       </div>
-                                      <h4 className="text-[13px] font-bold text-white truncate">{acc.email}</h4>
+                                      <h4 className="text-[13px] font-bold text-primary truncate">{acc.email}</h4>
                                    </div>
                                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wide ${statusBadge}`}>
                                       {isExpired ? 'Vencida' : days === 0 ? 'Hoy' : 'Por Vencer'}
                                    </span>
                                 </div>
-                                <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                                   <p className={`text-[11px] font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-zinc-400'}`}>
+                                <div className="flex items-center justify-between pt-2 border-t border-[rgb(var(--fg-rgb))]/5">
+                                   <p className={`text-[11px] font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-muted'}`}>
                                       {isExpired ? `Venció hace ${Math.abs(days)}d` : days === 0 ? 'Expira hoy' : `${days} días restantes`}
                                    </p>
                                    <div className="flex gap-2">
-                                      <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-white/5 text-zinc-500 hover:text-status-danger-soft border border-white/5 active:scale-90 transition-all">
+                                      <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-disabled hover:text-status-danger-soft border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all">
                                          <Trash2 size={14} />
                                       </button>
                                       <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-[10px] font-semibold flex items-center gap-1.5 active:scale-95 transition-all">
@@ -248,17 +248,17 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
           <div className="space-y-4 pt-2">
              {selectedSalesForMsg.length > 1 && (
                 <div className="mb-2">
-                    <label className="text-[10px] font-semibold text-zinc-500 uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
+                    <label className="text-[10px] font-semibold text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
                     <div className="space-y-2 max-h-[160px] overflow-y-auto custom-scrollbar pr-1">
                         {selectedSalesForMsg.map(s => (
                             <button
                                 key={s.id}
                                 onClick={() => toggleSale(s.id)}
                                 className={`w-full p-3 rounded-xl border flex items-center justify-between transition-all ${
-                                    selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-white/5 border-white/5 opacity-60'
+                                    selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 opacity-60'
                                 }`}
                             >
-                                <span className={`text-xs font-semibold ${selectedIds.includes(s.id) ? 'text-white' : 'text-zinc-400'}`}>{s.serviceName}</span>
+                                <span className={`text-xs font-semibold ${selectedIds.includes(s.id) ? 'text-primary' : 'text-muted'}`}>{s.serviceName}</span>
                                 <div className={`w-5 h-5 rounded-full flex items-center justify-center border ${selectedIds.includes(s.id) ? 'bg-brand-primary border-brand-primary text-white' : 'border-zinc-600'}`}>
                                     {selectedIds.includes(s.id) && <Check size={12} strokeWidth={3} />}
                                 </div>
@@ -267,20 +267,20 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                     </div>
                 </div>
              )}
-             <div className="bg-surface-zinc border border-white/10 rounded-md p-4 text-center">
-                <p className="text-sm text-zinc-300 font-medium mb-4">Selecciona la moneda</p>
+             <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md p-4 text-center">
+                <p className="text-sm text-secondary font-medium mb-4">Selecciona la moneda</p>
                 <div className="grid grid-cols-2 gap-3">
-                   <button onClick={() => sendNotification(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-white/5 hover:bg-white/10 border border-white/5 transition-all active:scale-95 disabled:opacity-30">
+                   <button onClick={() => sendNotification(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 border border-[rgb(var(--fg-rgb))]/5 transition-all active:scale-95 disabled:opacity-30">
                       <DollarSign size={20} className="text-brand-primary mb-2" />
-                      <span className="text-xs font-semibold text-white uppercase">{settings.currency || 'USD'}</span>
+                      <span className="text-xs font-semibold text-primary uppercase">{settings.currency || 'USD'}</span>
                    </button>
-                   <button onClick={() => sendNotification(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-white/5 hover:bg-white/10 border border-white/5 transition-all active:scale-95 disabled:opacity-30">
+                   <button onClick={() => sendNotification(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 border border-[rgb(var(--fg-rgb))]/5 transition-all active:scale-95 disabled:opacity-30">
                       <RefreshCw size={20} className="text-status-success-soft mb-2" />
-                      <span className="text-xs font-semibold text-white uppercase">{settings.subCurrency || 'SEC'}</span>
+                      <span className="text-xs font-semibold text-primary uppercase">{settings.subCurrency || 'SEC'}</span>
                    </button>
                 </div>
              </div>
-             <button onClick={() => setIsCurrencyModalOpen(false)} className="w-full py-3 text-zinc-500 text-xs font-semibold">Cancelar</button>
+             <button onClick={() => setIsCurrencyModalOpen(false)} className="w-full py-3 text-disabled text-xs font-semibold">Cancelar</button>
           </div>
        </Modal>
        <ScrollFloatingActions onBack={onBack} />

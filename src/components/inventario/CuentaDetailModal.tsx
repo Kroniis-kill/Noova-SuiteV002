@@ -206,32 +206,32 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             <motion.div variants={modalVariants} initial="hidden" animate="visible" exit="exit" className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl border-t border-border-subtle z-[9999] p-6 pb-12 max-w-md mx-auto md:bottom-6 md:rounded-lg flex flex-col shadow-modal">
               <div className="w-12 h-1.5 bg-zinc-800 rounded-full mx-auto mb-6 shrink-0" />
               <div className="flex items-center gap-4 mb-8">
-                 <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center border border-white/5 overflow-hidden shrink-0">
-                    {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : <Trash2 size={24} className="text-zinc-600" />}
+                 <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
+                    {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : <Trash2 size={24} className="text-faint" />}
                  </div>
                  <div className="min-w-0">
-                    <h3 className="text-lg font-black text-white truncate">{serviceObj?.name || 'Servicio Desconocido'}</h3>
-                    <div className="flex items-center gap-2 mt-1"><span className="px-2 py-0.5 bg-zinc-800 border border-white/5 rounded-md text-[10px] font-semibold text-zinc-500 uppercase tracking-widest">En Papelera</span></div>
+                    <h3 className="text-lg font-black text-primary truncate">{serviceObj?.name || 'Servicio Desconocido'}</h3>
+                    <div className="flex items-center gap-2 mt-1"><span className="px-2 py-0.5 bg-zinc-800 border border-[rgb(var(--fg-rgb))]/5 rounded-md text-[10px] font-semibold text-disabled uppercase tracking-widest">En Papelera</span></div>
                  </div>
               </div>
-              <div className="bg-surface-3 rounded-xl p-5 border border-white/5 space-y-4 mb-8">
+              <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4 mb-8">
                   <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Correo de acceso</label>
-                      <div className="flex items-center justify-between"><span className="text-sm font-bold text-zinc-300 truncate pr-2">{account.email}</span><button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-zinc-600 hover:text-white p-1"><Copy size={16} /></button></div>
+                      <label className="text-[9px] font-black text-faint uppercase tracking-widest">Correo de acceso</label>
+                      <div className="flex items-center justify-between"><span className="text-sm font-bold text-secondary truncate pr-2">{account.email}</span><button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-faint hover:text-primary p-1"><Copy size={16} /></button></div>
                   </div>
-                  <div className="w-full h-px bg-white/[0.03]" />
+                  <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/[0.03]" />
                   <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Contraseña archivada</label>
-                      <div className="flex items-center justify-between"><span className="text-sm font-mono text-zinc-300">{showPassword ? account.password : '••••••••'}</span><div className="flex items-center gap-2"><button onClick={() => setShowPassword(!showPassword)} className="text-zinc-600 hover:text-white p-1">{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button><button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-zinc-600 hover:text-white p-1"><Key size={16} /></button></div></div>
+                      <label className="text-[9px] font-black text-faint uppercase tracking-widest">Contraseña archivada</label>
+                      <div className="flex items-center justify-between"><span className="text-sm font-mono text-secondary">{showPassword ? account.password : '••••••••'}</span><div className="flex items-center gap-2"><button onClick={() => setShowPassword(!showPassword)} className="text-faint hover:text-primary p-1">{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button><button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-faint hover:text-primary p-1"><Key size={16} /></button></div></div>
                   </div>
               </div>
               <div className="flex flex-col items-center gap-4">
-                  <div className="flex items-center gap-2 text-zinc-600 text-[10px] font-semibold uppercase tracking-widest"><Clock size={12} /><span>Archivado el {formatDate(new Date().toISOString())}</span></div>
+                  <div className="flex items-center gap-2 text-faint text-[10px] font-semibold uppercase tracking-widest"><Clock size={12} /><span>Archivado el {formatDate(new Date().toISOString())}</span></div>
                   <div className="grid grid-cols-2 gap-3 w-full mt-2">
                       <button onClick={() => onRestore && onRestore(account)} className="h-[52px] bg-status-success text-black font-black rounded-lg text-xs flex items-center justify-center gap-2 active:scale-95 shadow-lg uppercase tracking-wider"><RotateCcw size={16} /> Restaurar</button>
                       <button onClick={() => onDelete(account.id)} className="h-[52px] bg-status-danger/10 border border-status-danger/20 text-status-danger-soft font-black rounded-lg text-xs flex items-center justify-center gap-2 active:scale-95 uppercase tracking-wider"><Trash2 size={16} /> Eliminar</button>
                   </div>
-                  <button onClick={onClose} className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest py-2 active:text-white">Cerrar</button>
+                  <button onClick={onClose} className="text-disabled text-[10px] font-semibold uppercase tracking-widest py-2 active:text-primary">Cerrar</button>
               </div>
             </motion.div>
           </>
@@ -256,10 +256,10 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             {/* Header */}
             <div className="px-6 pt-6 pb-2 bg-surface-1 shrink-0 flex items-center justify-between z-10">
                 <div>
-                    <h3 className="text-xl font-black text-white leading-tight">Detalle de Cuenta</h3>
-                    <p className="text-[11px] text-zinc-500 font-semibold uppercase tracking-wider mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
+                    <h3 className="text-xl font-black text-primary leading-tight">Detalle de Cuenta</h3>
+                    <p className="text-[11px] text-disabled font-semibold uppercase tracking-wider mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
                 </div>
-                <button onClick={onClose} className="w-9 h-9 bg-white/5 rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-colors active:scale-90 border border-white/5">
+                <button onClick={onClose} className="w-9 h-9 bg-[rgb(var(--fg-rgb))]/5 rounded-full flex items-center justify-center text-muted hover:text-primary transition-colors active:scale-90 border border-[rgb(var(--fg-rgb))]/5">
                     <X size={18} />
                 </button>
             </div>
@@ -269,7 +269,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 <button 
                     onClick={handleSyncAccountStock}
                     disabled={isSyncing}
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary' : 'border-white/5 bg-surface-3 text-zinc-400 hover:text-white hover:bg-surface-4'}`}
+                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-muted hover:text-primary hover:bg-surface-4'}`}
                     title="Sincronizar"
                 >
                     {isSyncing ? <Loader2 size={20} className="animate-spin" /> : <RefreshCw size={20} />}
@@ -277,7 +277,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 
                 <button 
                     onClick={() => onToggleFailure(account)}
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/40 text-status-expiring bg-status-expiring/10' : 'border-white/5 bg-surface-3 text-zinc-400 hover:text-status-expiring-soft hover:bg-surface-4'}`}
+                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/40 text-status-expiring bg-status-expiring/10' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-muted hover:text-status-expiring-soft hover:bg-surface-4'}`}
                     title={isFailing ? 'Quitar reporte de falla' : 'Reportar falla'}
                 >
                     {isFailing ? <ShieldAlert size={20} /> : <AlertTriangle size={20} />}
@@ -285,7 +285,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                 <button 
                     onClick={() => onToggleStatus(account)} 
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isPaused ? 'border-zinc-700 text-zinc-500 bg-white/5' : 'border-status-success/30 text-status-success-soft bg-status-success/10'}`}
+                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isPaused ? 'border-zinc-700 text-disabled bg-[rgb(var(--fg-rgb))]/5' : 'border-status-success/30 text-status-success-soft bg-status-success/10'}`}
                     title={isPaused ? 'Activar cuenta' : 'Pausar cuenta'}
                 >
                     {isPaused ? <Power size={20} /> : <ShieldCheck size={20} />}
@@ -293,7 +293,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                 <button 
                     onClick={copyFullFormat} 
-                    className="h-12 rounded-md flex items-center justify-center border border-white/5 bg-surface-3 text-zinc-400 hover:text-white active:scale-95 transition-all"
+                    className="h-12 rounded-md flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-muted hover:text-primary active:scale-95 transition-all"
                     title="Copiar detalles"
                 >
                     <MessageSquare size={20} />
@@ -302,9 +302,9 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
             {/* Tabs */}
             <div className="px-6 mb-4 shrink-0">
-                <div className="flex bg-surface-zinc p-1 rounded-md border border-white/5">
-                    <button onClick={() => setActiveTab('details')} className={`flex-1 py-2.5 text-[10px] font-semibold uppercase tracking-widest rounded-sm transition-all ${activeTab === 'details' ? 'bg-surface-4 text-white shadow-sm border border-white/10' : 'text-zinc-500 hover:text-zinc-300'}`}>Detalles</button>
-                    <button onClick={() => setActiveTab('history')} className={`flex-1 py-2.5 text-[10px] font-semibold uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'history' ? 'bg-surface-4 text-white shadow-sm border border-white/10' : 'text-zinc-500 hover:text-zinc-300'}`}><History size={12} /> Historial</button>
+                <div className="flex bg-surface-zinc p-1 rounded-md border border-[rgb(var(--fg-rgb))]/5">
+                    <button onClick={() => setActiveTab('details')} className={`flex-1 py-2.5 text-[10px] font-semibold uppercase tracking-widest rounded-sm transition-all ${activeTab === 'details' ? 'bg-surface-4 text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/10' : 'text-disabled hover:text-secondary'}`}>Detalles</button>
+                    <button onClick={() => setActiveTab('history')} className={`flex-1 py-2.5 text-[10px] font-semibold uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'history' ? 'bg-surface-4 text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/10' : 'text-disabled hover:text-secondary'}`}><History size={12} /> Historial</button>
                 </div>
             </div>
 
@@ -313,26 +313,26 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 {activeTab === 'details' ? (
                     <div className="space-y-4 animate-fade-in">
                         {/* Credentials Card */}
-                        <div className="bg-surface-3 rounded-xl p-5 border border-white/5 space-y-5">
+                        <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-5">
                             <div className="flex flex-col gap-1.5">
-                                <label className="text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                                <label className="text-[9px] font-black text-disabled uppercase tracking-widest flex items-center gap-2">
                                     <Mail size={10} /> Correo de Acceso
                                 </label>
-                                <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-white/5 group hover:border-white/10 transition-colors">
-                                    <span className="text-sm font-bold text-white truncate pr-2 select-all">{account.email}</span>
-                                    <button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-zinc-500 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"><Copy size={14} /></button>
+                                <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 group hover:border-[rgb(var(--fg-rgb))]/10 transition-colors">
+                                    <span className="text-sm font-bold text-primary truncate pr-2 select-all">{account.email}</span>
+                                    <button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-disabled hover:text-primary p-1.5 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><Copy size={14} /></button>
                                 </div>
                             </div>
                             
                             <div className="flex flex-col gap-1.5">
-                                <label className="text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                                <label className="text-[9px] font-black text-disabled uppercase tracking-widest flex items-center gap-2">
                                     <Key size={10} /> Contraseña
                                 </label>
-                                <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-white/5 group hover:border-white/10 transition-colors">
-                                    <span className="text-sm font-mono text-white tracking-wide">{showPassword ? account.password : '••••••••'}</span>
+                                <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 group hover:border-[rgb(var(--fg-rgb))]/10 transition-colors">
+                                    <span className="text-sm font-mono text-primary tracking-wide">{showPassword ? account.password : '••••••••'}</span>
                                     <div className="flex items-center gap-1">
-                                        <button onClick={() => setShowPassword(!showPassword)} className="text-zinc-500 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors">{showPassword ? <EyeOff size={14} /> : <Eye size={14} />}</button>
-                                        <button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-zinc-500 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"><Copy size={14} /></button>
+                                        <button onClick={() => setShowPassword(!showPassword)} className="text-disabled hover:text-primary p-1.5 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">{showPassword ? <EyeOff size={14} /> : <Eye size={14} />}</button>
+                                        <button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-disabled hover:text-primary p-1.5 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><Copy size={14} /></button>
                                     </div>
                                 </div>
                             </div>
@@ -344,21 +344,21 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                 <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full blur-[50px] opacity-20 ${isSoldSingle ? 'bg-indigo-500' : 'bg-status-success'}`} />
                                 <div className="relative z-10">
                                     <h4 className={`text-[9px] font-black uppercase tracking-widest mb-2 ${isSoldSingle ? 'text-indigo-400' : 'text-status-success-soft'}`}>Estado del Cupo</h4>
-                                    <p className="text-xl font-black text-white mb-3 leading-tight">{isSoldSingle ? 'Ocupado / Vendido' : 'Disponible'}</p>
+                                    <p className="text-xl font-black text-primary mb-3 leading-tight">{isSoldSingle ? 'Ocupado / Vendido' : 'Disponible'}</p>
                                     {isSoldSingle ? (
-                                        <div className="flex items-center gap-3 bg-surface-sunken/50 p-2.5 rounded-md border border-white/5 w-fit backdrop-blur-md">
+                                        <div className="flex items-center gap-3 bg-surface-sunken/50 p-2.5 rounded-md border border-[rgb(var(--fg-rgb))]/5 w-fit backdrop-blur-md">
                                             <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
                                                 <User size={14} />
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-[8px] text-zinc-400 uppercase font-black tracking-wider">Cliente</span>
-                                                <span className="text-xs text-white font-bold leading-none">{clientNameSingle}</span>
+                                                <span className="text-[8px] text-muted uppercase font-black tracking-wider">Cliente</span>
+                                                <span className="text-xs text-primary font-bold leading-none">{clientNameSingle}</span>
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="flex items-center gap-2 mt-1">
                                             <span className="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
-                                            <p className="text-xs text-zinc-300 font-medium">Listo para asignar</p>
+                                            <p className="text-xs text-secondary font-medium">Listo para asignar</p>
                                         </div>
                                     )}
                                 </div>
@@ -369,24 +369,24 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                         ) : (
                             <div>
                                 <div className="flex justify-between items-end mb-3 px-1">
-                                    <label className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">PERFILES ({usedProfilesCount(profiles)}/{account.maxScreens})</label>
+                                    <label className="text-[9px] font-black text-disabled uppercase tracking-widest">PERFILES ({usedProfilesCount(profiles)}/{account.maxScreens})</label>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                     {profiles.map((prof, idx) => {
                                         const isAvailable = !prof.name || prof.name.trim().toLowerCase() === 'disponible';
                                         return (
-                                            <div key={idx} className={`flex flex-col p-3 rounded-lg border transition-all ${isAvailable ? 'bg-status-success/5 border-status-success/10 hover:bg-status-success/10' : 'bg-surface-3 border-white/5'}`}>
+                                            <div key={idx} className={`flex flex-col p-3 rounded-lg border transition-all ${isAvailable ? 'bg-status-success/5 border-status-success/10 hover:bg-status-success/10' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/5'}`}>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <div className={`w-7 h-7 rounded-sm flex items-center justify-center text-[10px] font-bold shrink-0 ${isAvailable ? 'bg-status-success/20 text-status-success-soft' : 'bg-white/5 text-zinc-400'}`}>
+                                                    <div className={`w-7 h-7 rounded-sm flex items-center justify-center text-[10px] font-bold shrink-0 ${isAvailable ? 'bg-status-success/20 text-status-success-soft' : 'bg-[rgb(var(--fg-rgb))]/5 text-muted'}`}>
                                                         {isAvailable ? idx + 1 : <User size={12} />}
                                                     </div>
-                                                    <div className="bg-surface-sunken px-2 py-1 rounded-xs border border-white/5">
-                                                        <span className="text-[10px] font-mono text-zinc-300 tracking-wide font-bold">{prof.pin || '---'}</span>
+                                                    <div className="bg-surface-sunken px-2 py-1 rounded-xs border border-[rgb(var(--fg-rgb))]/5">
+                                                        <span className="text-[10px] font-mono text-secondary tracking-wide font-bold">{prof.pin || '---'}</span>
                                                     </div>
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <p className={`text-[11px] font-semibold truncate ${isAvailable ? 'text-status-success-soft' : 'text-white'}`}>{prof.name || 'Disponible'}</p>
-                                                    {!isAvailable && (<p className="text-[9px] text-zinc-500 font-medium truncate mt-0.5">Ocupado</p>)}
+                                                    <p className={`text-[11px] font-semibold truncate ${isAvailable ? 'text-status-success-soft' : 'text-primary'}`}>{prof.name || 'Disponible'}</p>
+                                                    {!isAvailable && (<p className="text-[9px] text-disabled font-medium truncate mt-0.5">Ocupado</p>)}
                                                 </div>
                                             </div>
                                         );
@@ -396,32 +396,32 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                         )}
 
                         {account.notes && (
-                            <div className="bg-surface-3 border border-white/5 rounded-xl p-5">
-                                <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-2 flex items-center gap-2"><MessageSquare size={10} /> Notas Internas</p>
-                                <p className="text-xs text-zinc-400 leading-relaxed whitespace-pre-wrap font-medium">{account.notes}</p>
+                            <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-5">
+                                <p className="text-[9px] font-black text-disabled uppercase tracking-widest mb-2 flex items-center gap-2"><MessageSquare size={10} /> Notas Internas</p>
+                                <p className="text-xs text-muted leading-relaxed whitespace-pre-wrap font-medium">{account.notes}</p>
                             </div>
                         )}
                     </div>
                 ) : (
                     <div className="space-y-4 h-full relative animate-fade-in">
                         {loadingHistory ? (
-                            <div className="flex flex-col items-center justify-center h-48 text-zinc-500">
+                            <div className="flex flex-col items-center justify-center h-48 text-disabled">
                                 <Loader2 size={24} className="animate-spin mb-3 text-brand-primary" />
                                 <p className="text-[10px] font-semibold uppercase tracking-widest">Cargando historial...</p>
                             </div>
                         ) : combinedHistory.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center h-64 text-zinc-600 opacity-60">
+                            <div className="flex flex-col items-center justify-center h-64 text-faint opacity-60">
                                 <History size={40} className="mb-4" strokeWidth={1.5} />
                                 <p className="text-[10px] font-semibold uppercase tracking-widest">Sin historial registrado</p>
                             </div>
                         ) : (
-                            <div className="relative pl-4 border-l border-white/10 space-y-8 py-2 pb-10 ml-2">
+                            <div className="relative pl-4 border-l border-[rgb(var(--fg-rgb))]/10 space-y-8 py-2 pb-10 ml-2">
                                 {combinedHistory.map((item, idx) => (
                                     <div key={idx} className="relative group">
                                         <div className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-[2px] bg-surface-1 z-10 ${item.type === 'profile' ? 'border-status-success-soft shadow-[0_0_10px_rgba(52,211,153,0.4)]' : item.type === 'system' ? 'border-brand-primary shadow-[0_0_10px_rgba(106,44,255,0.4)]' : 'border-zinc-500'}`} />
                                         <div className="flex flex-col gap-1.5">
-                                            <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">{item.date.toLocaleDateString()} • {item.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                            <p className={`text-xs leading-relaxed ${item.type === 'profile' ? 'text-emerald-300 font-bold' : item.type === 'system' ? 'text-zinc-300' : 'text-zinc-400 font-medium'}`}>{item.text}</p>
+                                            <span className="text-[9px] font-black text-disabled uppercase tracking-widest">{item.date.toLocaleDateString()} • {item.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                            <p className={`text-xs leading-relaxed ${item.type === 'profile' ? 'text-emerald-300 font-bold' : item.type === 'system' ? 'text-secondary' : 'text-muted font-medium'}`}>{item.text}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -432,12 +432,12 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             </div>
 
             {/* Footer Actions */}
-            <div className="p-6 bg-surface-1 border-t border-white/5 shrink-0 flex gap-3 z-10">
+            <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3 z-10">
                 <button onClick={() => { onRenew(account); }} className="flex-1 h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
                     <RefreshCw size={18} strokeWidth={2.5} /> Renovar
                 </button>
                 <div className="flex gap-2">
-                    <button onClick={() => { onEdit(account); onClose(); }} className="h-[56px] px-6 rounded-lg bg-surface-3 text-zinc-300 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-all border border-white/5 hover:bg-surface-4 hover:text-white">
+                    <button onClick={() => { onEdit(account); onClose(); }} className="h-[56px] px-6 rounded-lg bg-surface-3 text-secondary font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-all border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:text-primary">
                         Editar
                     </button>
                     <button onClick={() => onDelete(account.id)} className="h-[56px] w-[56px] rounded-lg bg-status-danger/10 text-status-danger flex items-center justify-center active:scale-95 transition-all border border-status-danger/20 hover:bg-status-danger/20">

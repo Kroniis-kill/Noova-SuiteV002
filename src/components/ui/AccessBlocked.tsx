@@ -26,20 +26,20 @@ const AccessBlocked: React.FC = () => {
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
            transition={{ duration: 0.5, type: 'spring' }}
-           className="relative z-10 max-w-md w-full bg-surface-1/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl flex flex-col items-center"
+           className="relative z-10 max-w-md w-full bg-surface-1/80 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-8 shadow-2xl flex flex-col items-center"
         >
             <div className="mb-6 relative">
                  <div className="absolute inset-0 bg-status-danger/20 blur-[40px] rounded-full" />
-                 <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-surface-3 to-black border border-white/10 flex items-center justify-center shadow-2xl relative z-10">
+                 <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-surface-3 to-black border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl relative z-10">
                      <Lock size={40} className="text-status-danger" />
                  </div>
                  <div className="absolute -top-2 -right-2 w-10 h-10 bg-status-danger rounded-full flex items-center justify-center border-4 border-surface-1 z-20">
-                     <AlertTriangle size={18} className="text-white" />
+                     <AlertTriangle size={18} className="text-primary" />
                  </div>
             </div>
 
-            <h1 className="text-2xl font-bold text-white mb-2">Acceso Expirado</h1>
-            <p className="text-zinc-400 text-sm leading-relaxed mb-8">
+            <h1 className="text-2xl font-bold text-primary mb-2">Acceso Expirado</h1>
+            <p className="text-muted text-sm leading-relaxed mb-8">
                Tu periodo de prueba de 3 días o tu suscripción ha finalizado. Para continuar gestionando tu negocio sin interrupciones, activa un plan PRO.
             </p>
 
@@ -53,7 +53,7 @@ const AccessBlocked: React.FC = () => {
                 
                 <button 
                   onClick={logout}
-                  className="w-full h-[48px] rounded-lg bg-white/5 border border-white/5 text-zinc-400 font-semibold text-xs hover:text-white hover:bg-white/10 transition-all"
+                  className="w-full h-[48px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-muted font-semibold text-xs hover:text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
                 >
                     Cerrar Sesión
                 </button>
@@ -61,7 +61,7 @@ const AccessBlocked: React.FC = () => {
 
             <div className="mt-8 flex items-center gap-2 opacity-50">
                <AnimatedLogo size={24} showFill={false} />
-               <span className="text-[10px] font-semibold text-zinc-500 tracking-widest uppercase">Noova Suite</span>
+               <span className="text-[10px] font-semibold text-disabled tracking-widest uppercase">Noova Suite</span>
             </div>
         </motion.div>
     </div>

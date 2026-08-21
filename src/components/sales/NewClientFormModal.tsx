@@ -63,28 +63,28 @@ const NewClientFormModal: React.FC<NewClientFormModalProps> = ({ isOpen, onClose
       <form onSubmit={handleSubmit} className="pt-2 pb-4 space-y-5">
         <div className="space-y-4">
           <div>
-            <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Nombre Completo</label>
-            <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
-              <User size={18} className="absolute left-4 text-zinc-500" />
+            <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">Nombre Completo</label>
+            <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
+              <User size={18} className="absolute left-4 text-disabled" />
               <input
                 autoFocus
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Ej. Juan Pérez"
-                className="w-full h-full bg-transparent text-sm text-white placeholder:text-zinc-600 pl-12 pr-4 outline-none font-medium rounded-md"
+                className="w-full h-full bg-transparent text-sm text-primary placeholder:text-faint pl-12 pr-4 outline-none font-medium rounded-md"
               />
             </div>
           </div>
           <div>
-            <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">WhatsApp (Opcional)</label>
-            <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
-              <Phone size={18} className="absolute left-4 text-zinc-500" />
+            <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">WhatsApp (Opcional)</label>
+            <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
+              <Phone size={18} className="absolute left-4 text-disabled" />
               <input
                 type="tel"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
                 placeholder="Ej. 57300..."
-                className="w-full h-full bg-transparent text-sm text-white placeholder:text-zinc-600 pl-12 pr-4 outline-none font-medium rounded-md"
+                className="w-full h-full bg-transparent text-sm text-primary placeholder:text-faint pl-12 pr-4 outline-none font-medium rounded-md"
               />
             </div>
           </div>

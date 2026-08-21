@@ -24,7 +24,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
       case 'amber': return 'from-status-expiring-soft to-status-warning text-white';
       case 'red': return 'from-status-danger to-rose-600 text-white';
       case 'blue': return 'from-status-info to-cyan-500 text-white';
-      default: return 'from-zinc-700 to-zinc-600 text-white';
+      default: return 'from-zinc-700 to-zinc-600 text-primary';
     }
   };
 
@@ -38,7 +38,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
     >
       <div className="flex justify-between items-start mb-3 relative z-10">
         <div className={`p-2.5 rounded-2xl bg-gradient-to-br ${getColorClasses()} shadow-lg`}>
-          <Icon size={20} className="text-white" />
+          <Icon size={20} className="text-primary" />
         </div>
         {trend && (
           <div className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full border ${trendUp ? 'bg-status-success/10 text-status-success border-status-success/20' : 'bg-status-danger/10 text-status-danger border-status-danger/20'}`}>
@@ -49,10 +49,10 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
       </div>
       
       <div className="relative z-10">
-        <h4 className="text-white/50 text-[11px] font-semibold uppercase tracking-wider mb-1">{title}</h4>
-        <div className="text-2xl md:text-3xl font-bold text-white tracking-tight drop-shadow-sm">{value}</div>
+        <h4 className="text-primary/50 text-[11px] font-semibold uppercase tracking-wider mb-1">{title}</h4>
+        <div className="text-2xl md:text-3xl font-bold text-primary tracking-tight drop-shadow-sm">{value}</div>
         {subValue && (
-          <p className="text-[11px] text-white/40 mt-1 font-medium">{subValue}</p>
+          <p className="text-[11px] text-primary/40 mt-1 font-medium">{subValue}</p>
         )}
       </div>
 

@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  /* ===== Premium Dark · Design Tokens ===== */
+  /* ===== Premium Dark · Design Tokens (tema por defecto) ===== */
 
   /* Superficies (escala de elevación) — RGB channels para soportar alpha modifiers */
   --bg:                10 10 10;
@@ -15,7 +15,7 @@
   --surface-sunken:    9 9 11;
   --surface-zinc:      24 24 27;
 
-  /* Marcas de terceros (canales sociales) */
+  /* Marcas de terceros (canales sociales) — no cambian con el tema */
   --brand-whatsapp:    37 211 102;
   --brand-telegram:    0 136 204;
 
@@ -24,6 +24,13 @@
   --border-subtle:     rgba(255,255,255,0.08);
   --border-strong:     rgba(255,255,255,0.14);
 
+  /* Canal RGB del "primer plano" (blanco en oscuro, negro en claro).
+     Se usa para overlays/hairlines con opacidad arbitraria que antes
+     estaban escritos como white/[x] directo en los componentes, p.ej.
+     border-[rgb(var(--fg-rgb))]/10 — así se invierten solos al cambiar
+     de tema sin tocar cada componente uno por uno. */
+  --fg-rgb:            255 255 255;
+
   /* Texto */
   --text-primary:      255 255 255;
   --text-secondary:    212 212 216;
@@ -31,7 +38,7 @@
   --text-disabled:     113 113 122;
   --text-faint:        82 82 91;
 
-  /* Marca y acentos */
+  /* Marca y acentos — consistentes en ambos temas (identidad de marca) */
   --brand-primary:     106 44 255;
   --brand-primary-hi:  124 77 255;
   --brand-accent:      255 20 147;
@@ -105,6 +112,53 @@
   --duration-base:    250ms;
 }
 
+/* ===== Tema Claro ===== */
+/* Se activa agregando la clase .light al <html>. Cubre exactamente los
+   mismos tokens que el tema oscuro de arriba, así que cualquier
+   componente que ya use los tokens del sistema (bg-surface-*, text-*,
+   border-hairline/subtle/strong, etc.) cambia de tema automáticamente,
+   sin necesitar clases especiales por componente. Marca y colores de
+   estado se mantienen — solo cambian superficies, texto, bordes y
+   sombras para adaptarse a fondo claro. */
+:root.light {
+  --bg:                246 246 248;
+  --surface-1:         255 255 255;
+  --surface-2:         250 250 251;
+  --surface-3:         244 244 246;
+  --surface-4:         233 233 237;
+  --surface-sunken:    237 237 240;
+  --surface-zinc:      241 241 243;
+
+  --border-hairline:   rgba(0,0,0,0.06);
+  --border-subtle:     rgba(0,0,0,0.09);
+  --border-strong:     rgba(0,0,0,0.16);
+
+  --fg-rgb:            0 0 0;
+
+  --text-primary:      24 24 27;
+  --text-secondary:    63 63 70;
+  --text-muted:        113 113 122;
+  --text-disabled:     161 161 170;
+  --text-faint:        192 192 197;
+
+  /* Variantes "soft" recalculadas para mantener contraste AA como TEXTO
+     sobre fondo claro (los valores del tema oscuro son claros y
+     pensados para leerse sobre negro; aquí se oscurecen). */
+  --status-success-soft:  5 150 105;
+  --status-danger-soft:   220 38 38;
+  --status-warning-soft:  180 83 9;
+  --status-info-soft:     29 78 216;
+  --status-expiring-soft: 194 65 12;
+
+  --shadow-sm:         0 1px 3px -1px rgba(24,24,27,0.08);
+  --shadow-md:         0 8px 20px -6px rgba(24,24,27,0.10);
+  --shadow-lg:         0 16px 40px -10px rgba(24,24,27,0.12);
+  --shadow-modal:      0 24px 60px -15px rgba(24,24,27,0.18);
+  --glow-primary:      0 8px 25px -8px rgba(106,44,255,0.35);
+  --glow-primary-sm:   0 0 15px -4px rgba(106,44,255,0.25);
+  --glow-accent:       0 0 12px rgba(255,20,147,0.25);
+}
+
 @layer base {
   html, body {
     height: 100%;
@@ -115,7 +169,7 @@
 
   html {
     @apply font-sans scroll-smooth;
-    background-color: #0a0a0a;
+    background-color: rgb(var(--bg));
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
     user-select: none;
@@ -129,7 +183,7 @@
   }
   
   body {
-    @apply bg-bg text-white font-sans antialiased selection:bg-[#FF1493]/30;
+    @apply bg-bg text-primary font-sans antialiased selection:bg-[#FF1493]/30;
     /* Asegurar que el cuerpo ocupe exactamente el espacio disponible */
     height: 100dvh;
     width: 100vw;
@@ -140,7 +194,7 @@
 
   /* Normalización de inputs para evitar zoom en iOS y consistencia visual */
   input, select, textarea {
-    @apply bg-surface-sunken border border-white/[0.08] outline-none ring-0 focus:ring-2 focus:ring-brand-primary/40 text-sm text-white font-sans placeholder:text-zinc-600 rounded-[16px] transition-all;
+    @apply bg-surface-sunken border border-subtle outline-none ring-0 focus:ring-2 focus:ring-brand-primary/40 text-sm text-primary font-sans placeholder:text-faint rounded-[16px] transition-all;
     box-shadow: none !important; 
     font-size: 16px !important; /* Mínimo 16px para evitar auto-zoom de iOS */
   }
@@ -153,15 +207,15 @@
 
   /* Estandarización Tipográfica Absoluta - Refinada */
   h1 {
-    @apply text-2xl font-extrabold tracking-tight text-white leading-tight;
+    @apply text-2xl font-extrabold tracking-tight text-primary leading-tight;
   }
 
   h2 {
-    @apply text-xl lg:text-2xl font-bold tracking-tight text-white;
+    @apply text-xl lg:text-2xl font-bold tracking-tight text-primary;
   }
 
   h3 {
-    @apply text-lg font-semibold text-white;
+    @apply text-lg font-semibold text-primary;
   }
 
   .font-black {

@@ -14,7 +14,7 @@ const Skeleton: React.FC<SkeletonProps> = ({ className, variant = 'rect' }) => {
       initial={{ opacity: 0.4 }}
       animate={{ opacity: [0.4, 0.7, 0.4] }}
       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-      className={`bg-white/5 ${borderRadius} ${className}`}
+      className={`bg-[rgb(var(--fg-rgb))]/5 ${borderRadius} ${className}`}
     />
   );
 };

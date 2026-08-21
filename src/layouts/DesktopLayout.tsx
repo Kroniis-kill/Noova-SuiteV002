@@ -33,7 +33,7 @@ const DesktopLayout: React.FC<DesktopLayoutProps> = ({
   const showHeader = currentView !== 'dashboard' || viewHistory.length > 0;
 
   return (
-    <div className="flex h-screen w-full bg-bg text-zinc-100 font-sans selection:bg-brand-primary/30 overflow-hidden">
+    <div className="flex h-screen w-full bg-bg text-primary font-sans selection:bg-brand-primary/30 overflow-hidden">
       
       <Sidebar 
         currentView={currentView} 

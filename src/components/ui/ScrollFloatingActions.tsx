@@ -93,7 +93,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
               {/* Scroll Top Button */}
               <button 
                 onClick={scrollToTop}
-                className="w-12 h-12 bg-white/5 backdrop-blur-md border border-white/10 rounded-md flex items-center justify-center text-white shadow-lg active:scale-90 transition-transform"
+                className="w-12 h-12 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center justify-center text-primary shadow-lg active:scale-90 transition-transform"
               >
                  <ArrowUp size={20} />
               </button>
@@ -115,7 +115,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
                         transition={{ delay: idx * 0.05, type: 'spring', stiffness: 400, damping: 25 }}
                         className="flex items-center gap-3"
                       >
-                        <span className="text-xs font-semibold text-white bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 shadow-lg">
+                        <span className="text-xs font-semibold text-white bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/10 shadow-lg">
                           {action.label}
                         </span>
                         <button
@@ -123,7 +123,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
                             action.onClick();
                             setIsMenuOpen(false);
                           }}
-                          className={`w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl border border-white/10 active:scale-90 transition-transform ${action.color || 'bg-surface-3'}`}
+                          className={`w-12 h-12 rounded-full flex items-center justify-center text-primary shadow-xl border border-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-transform ${action.color || 'bg-surface-3'}`}
                         >
                           <action.icon size={20} />
                         </button>

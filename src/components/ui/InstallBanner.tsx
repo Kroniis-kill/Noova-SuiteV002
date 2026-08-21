@@ -33,18 +33,18 @@ const InstallBanner: React.FC = () => {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed bottom-[80px] left-4 right-4 z-40 md:hidden"
       >
-        <div className="bg-surface-zinc/95 backdrop-blur-xl border border-white/10 rounded-xl p-4 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)] relative overflow-hidden">
+        <div className="bg-surface-zinc/95 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)] relative overflow-hidden">
           
           <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 blur-[40px] rounded-full pointer-events-none" />
 
           <div className="flex items-center gap-4 relative z-10">
-            <div className="w-12 h-12 rounded-md bg-surface-1 border border-white/10 flex items-center justify-center shadow-lg shrink-0 overflow-hidden">
+            <div className="w-12 h-12 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-lg shrink-0 overflow-hidden">
                <img src="/logo.svg" className="w-8 h-8" alt="Logo Noova" />
             </div>
 
             <div className="flex-1 min-w-0">
-              <h4 className="text-white font-bold text-[15px] leading-tight">Instala Noova Suite</h4>
-              <p className="text-zinc-400 text-[11px] leading-snug mt-0.5">
+              <h4 className="text-primary font-bold text-[15px] leading-tight">Instala Noova Suite</h4>
+              <p className="text-muted text-[11px] leading-snug mt-0.5">
                 {isIOS 
                   ? "Acceso directo desde tu pantalla de inicio." 
                   : "Experiencia fluida y rápida sin navegador."}
@@ -53,7 +53,7 @@ const InstallBanner: React.FC = () => {
 
             <button 
               onClick={() => setIsDismissed(true)}
-              className="p-2 text-zinc-600 hover:text-white transition-colors"
+              className="p-2 text-faint hover:text-primary transition-colors"
             >
               <X size={18} />
             </button>
@@ -61,13 +61,13 @@ const InstallBanner: React.FC = () => {
 
           <div className="mt-4">
             {isIOS ? (
-              <div className="bg-white/5 rounded-xl p-3 flex flex-col gap-2">
-                 <div className="flex items-center gap-2 text-xs text-zinc-300 font-medium">
-                   <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center"><Share size={14} className="text-status-info-soft" /></div>
+              <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex flex-col gap-2">
+                 <div className="flex items-center gap-2 text-xs text-secondary font-medium">
+                   <div className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center"><Share size={14} className="text-status-info-soft" /></div>
                    <span>1. Toca el botón <strong>Compartir</strong> en Safari.</span>
                  </div>
-                 <div className="flex items-center gap-2 text-xs text-zinc-300 font-medium">
-                   <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center text-white">+</div>
+                 <div className="flex items-center gap-2 text-xs text-secondary font-medium">
+                   <div className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-primary">+</div>
                    <span>2. Selecciona <strong>Añadir a pantalla de inicio</strong>.</span>
                  </div>
               </div>
@@ -82,7 +82,7 @@ const InstallBanner: React.FC = () => {
                 </button>
                 <button 
                   onClick={() => setIsDismissed(true)}
-                  className="h-11 px-6 bg-white/5 text-zinc-400 hover:text-white rounded-md text-xs font-semibold border border-white/5 active:scale-95 transition-all"
+                  className="h-11 px-6 bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary rounded-md text-xs font-semibold border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all"
                 >
                   Luego
                 </button>

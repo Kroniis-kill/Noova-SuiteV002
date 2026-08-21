@@ -22,7 +22,7 @@ const CustomAlert: React.FC = () => {
       case 'error': return 'text-status-danger';
       case 'success': return 'text-status-success';
       case 'warning': return 'text-status-warning';
-      default: return 'text-white';
+      default: return 'text-primary';
     }
   };
 
@@ -46,11 +46,11 @@ const CustomAlert: React.FC = () => {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 100, scale: 0.95 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
-              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-white/10 rounded-xl p-6 shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
               <div className="relative z-10 flex flex-col">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2.5 bg-white/5 rounded-2xl border border-white/5 shadow-inner shrink-0">
+                  <div className="p-2.5 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-[rgb(var(--fg-rgb))]/5 shadow-inner shrink-0">
                     {getIcon()}
                   </div>
                   <h3 className={`text-lg font-bold tracking-tight leading-tight ${getTitleColor()}`}>
@@ -58,7 +58,7 @@ const CustomAlert: React.FC = () => {
                   </h3>
                 </div>
                 
-                <p className="text-sm text-zinc-300 mb-6 leading-relaxed whitespace-pre-wrap pl-1">
+                <p className="text-sm text-secondary mb-6 leading-relaxed whitespace-pre-wrap pl-1">
                   {alertData.message}
                 </p>
 
@@ -73,7 +73,7 @@ const CustomAlert: React.FC = () => {
               </div>
               
               {/* Decoración lateral para Desktop */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-[50px] rounded-full -mr-16 -mt-16 pointer-events-none hidden lg:block" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/5 blur-[50px] rounded-full -mr-16 -mt-16 pointer-events-none hidden lg:block" />
             </motion.div>
           </div>
         </>

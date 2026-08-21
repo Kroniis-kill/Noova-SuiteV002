@@ -32,7 +32,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       icon: <BellRing size={20} className="text-brand-primary" />,
       bgIcon: 'bg-brand-primary/10',
       border: 'border-brand-primary/20',
-      textTitle: 'text-white'
+      textTitle: 'text-primary'
     }
   };
 
@@ -59,7 +59,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       className={`
         pointer-events-auto relative w-full max-w-md
         bg-surface-3/95 backdrop-blur-2xl
-        border border-white/10
+        border border-[rgb(var(--fg-rgb))]/10
         rounded-xl shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)]
         flex items-center gap-4 p-4 pr-10
         z-[11000]
@@ -67,7 +67,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       `}
     >
       {/* Icon Area */}
-      <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border border-white/5 ${style.bgIcon}`}>
+      <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border border-[rgb(var(--fg-rgb))]/5 ${style.bgIcon}`}>
         {IconToRender}
       </div>
 
@@ -76,7 +76,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
         <span className={`text-[11px] font-extrabold leading-tight mb-0.5 uppercase tracking-wider ${style.textTitle}`}>
           {type === 'success' ? (isCopy ? 'Portapapeles' : 'Confirmado') : type === 'error' ? 'Alerta' : 'Notificación'}
         </span>
-        <span className="text-[13px] font-medium text-zinc-200 leading-snug">
+        <span className="text-[13px] font-medium text-secondary leading-snug">
           {message}
         </span>
       </div>
@@ -84,13 +84,13 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       {/* Close Button */}
       <button 
         onClick={() => onClose(id)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 text-zinc-600 transition-colors"
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-[rgb(var(--fg-rgb))]/5 text-faint transition-colors"
       >
         <X size={14} strokeWidth={3} />
       </button>
 
       {/* Sutil inner ring */}
-      <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/5 pointer-events-none" />
+      <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-[rgb(var(--fg-rgb))]/5 pointer-events-none" />
     </motion.div>
   );
 });

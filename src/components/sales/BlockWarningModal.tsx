@@ -19,13 +19,13 @@ const BlockWarningModal: React.FC<BlockWarningModalProps> = ({ isOpen, onClose, 
           </div>
           <div>
             <h4 className="text-status-warning font-bold text-sm mb-1">¡Cuidado!</h4>
-            <p className="text-zinc-300 text-xs leading-relaxed">
+            <p className="text-secondary text-xs leading-relaxed">
               Este cliente ya reportó <strong>Bloqueo de Hogar</strong> en la cuenta <strong>{accountEmail}</strong> anteriormente.
             </p>
           </div>
         </div>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-3 bg-white/5 rounded-md text-zinc-400 text-xs font-semibold active:scale-95 transition-all">Cancelar</button>
+          <button onClick={onClose} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 rounded-md text-muted text-xs font-semibold active:scale-95 transition-all">Cancelar</button>
           <button onClick={onConfirm} className="flex-1 py-3 bg-status-warning rounded-md text-black text-xs font-semibold shadow-glow active:scale-95 transition-all">Asignar igual</button>
         </div>
       </div>

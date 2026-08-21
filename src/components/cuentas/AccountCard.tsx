@@ -52,15 +52,15 @@ const AccountCard: React.FC<AccountCardProps> = ({
     return (
       <div className={`p-2.5 rounded-xl bg-surface-1 border border-border-subtle shadow-elev-sm flex items-center justify-between transition-colors duration-150 ease-out-soft hover:border-border-strong ${!isActive && 'opacity-50 grayscale'}`}>
          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-xl bg-white/5 flex items-center justify-center text-zinc-500">
+            <div className="w-7 h-7 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-disabled">
                <CreditCard size={12} />
             </div>
             <div>
-               <p className="text-white font-semibold text-[11px] leading-tight">{account.name}</p>
-               <p className="text-[7px] text-zinc-600 font-mono tracking-tighter uppercase">{account.currency}</p>
+               <p className="text-primary font-semibold text-[11px] leading-tight">{account.name}</p>
+               <p className="text-[7px] text-faint font-mono tracking-tighter uppercase">{account.currency}</p>
             </div>
          </div>
-         <p className="text-[11px] font-semibold text-white font-mono">{showBalance ? formatCurrency(account.balance) : '••••'}</p>
+         <p className="text-[11px] font-semibold text-primary font-mono">{showBalance ? formatCurrency(account.balance) : '••••'}</p>
       </div>
     );
   }
@@ -74,22 +74,22 @@ const AccountCard: React.FC<AccountCardProps> = ({
           : 'bg-bg border-border-subtle/40 opacity-60 grayscale'
       }`}
     >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/[0.01] rounded-full blur-[40px] -mr-16 -mt-16 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/[0.01] rounded-full blur-[40px] -mr-16 -mt-16 pointer-events-none" />
 
       <div className="relative z-10 flex justify-between items-start">
          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-xs bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-zinc-400">
+            <div className="w-7 h-7 rounded-xs bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/[0.06] flex items-center justify-center text-muted">
                <CreditCard size={14} strokeWidth={1.5} />
             </div>
             <div>
-               <h3 className="text-[11px] font-semibold text-zinc-100 tracking-tight leading-none">{account.name}</h3>
-               <span className="text-[6px] font-black text-zinc-600 uppercase tracking-[0.2em] font-mono block leading-none mt-1">{account.currency}</span>
+               <h3 className="text-[11px] font-semibold text-primary tracking-tight leading-none">{account.name}</h3>
+               <span className="text-[6px] font-black text-faint uppercase tracking-[0.2em] font-mono block leading-none mt-1">{account.currency}</span>
             </div>
          </div>
 
          <button 
            onClick={() => setShowBalance(!showBalance)}
-           className="w-6 h-6 rounded-full bg-white/[0.03] hover:bg-white/[0.08] flex items-center justify-center text-zinc-500 transition-all active:scale-90"
+           className="w-6 h-6 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] hover:bg-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-disabled transition-all active:scale-90"
          >
             {showBalance ? <Eye size={12} /> : <EyeOff size={12} />}
          </button>
@@ -98,21 +98,21 @@ const AccountCard: React.FC<AccountCardProps> = ({
       <div className="relative z-10 py-0.5">
          <div className="flex flex-col">
             <div className="flex items-baseline gap-1">
-               <span className="text-[9px] font-bold text-zinc-500">{account.currency}</span>
-               <h2 className="text-xl font-black text-white tracking-tighter font-mono leading-none">
+               <span className="text-[9px] font-bold text-disabled">{account.currency}</span>
+               <h2 className="text-xl font-black text-primary tracking-tighter font-mono leading-none">
                   {showBalance ? formatCurrency(account.balance) : '••••'}
                </h2>
             </div>
             {isNotMain && showBalance && (
-               <p className="text-[7px] text-zinc-600 font-bold mt-0.5 opacity-50">
+               <p className="text-[7px] text-faint font-bold mt-0.5 opacity-50">
                   ≈ {formatCurrency(equivalent)} {settings.currency}
                </p>
             )}
          </div>
-         <p className="text-[6px] text-zinc-700 font-black uppercase tracking-[0.2em] mt-1">Saldo Neto Disponible</p>
+         <p className="text-[6px] text-faint font-black uppercase tracking-[0.2em] mt-1">Saldo Neto Disponible</p>
       </div>
 
-      <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-white/[0.03]">
+      <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-[rgb(var(--fg-rgb))]/[0.03]">
          <button onClick={() => onFund(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-success/[0.02] text-status-success border border-status-success/10 active:scale-95 transition-all">
             <TrendingUp size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Entrada</span>
@@ -125,7 +125,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
             <ArrowRightLeft size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Mover</span>
          </button>
-         <button onClick={() => onHistory(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-white/[0.01] text-zinc-500 border border-white/[0.05] active:scale-95 transition-all">
+         <button onClick={() => onHistory(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.01] text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] active:scale-95 transition-all">
             <History size={10} />
             <span className="text-[5px] font-black uppercase tracking-widest">Logs</span>
          </button>

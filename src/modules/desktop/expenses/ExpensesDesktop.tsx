@@ -40,13 +40,13 @@ const ExpensesDesktop: React.FC = () => {
           </button>
        </div>
 
-       <div className="bg-surface-3 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-sm">
-          <div className="p-6 border-b border-white/5 flex justify-between items-center">
-             <h2 className="text-lg font-bold text-white">Gastos y Compras</h2>
+       <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden shadow-sm">
+          <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center">
+             <h2 className="text-lg font-bold text-primary">Gastos y Compras</h2>
           </div>
           <table className="w-full text-left">
              <thead>
-                <tr className="bg-white/[0.02] border-b border-white/5 text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+                <tr className="bg-[rgb(var(--fg-rgb))]/[0.02] border-b border-[rgb(var(--fg-rgb))]/5 text-xs font-semibold text-disabled uppercase tracking-wider">
                    <th className="p-6 pl-8">Tipo</th>
                    <th className="p-6">Descripción</th>
                    <th className="p-6">Fecha</th>
@@ -55,21 +55,21 @@ const ExpensesDesktop: React.FC = () => {
                    <th className="p-6 text-right pr-8">Acciones</th>
                 </tr>
              </thead>
-             <tbody className="divide-y divide-white/5">
+             <tbody className="divide-y divide-[rgb(var(--fg-rgb))]/5">
                 {allItems.map((item: any, idx) => (
-                   <tr key={idx} className="hover:bg-white/[0.02] transition-colors group">
+                   <tr key={idx} className="hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group">
                       <td className="p-6 pl-8">
                          <span className={`flex items-center gap-2 px-3 py-1 rounded-xs w-fit text-[11px] font-semibold uppercase border ${item.type === 'expense' ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20'}`}>
                             {item.type === 'expense' ? <FileText size={12} /> : <ShoppingBag size={12} />}
                             {item.type === 'expense' ? 'Operativo' : 'Insumo'}
                          </span>
                       </td>
-                      <td className="p-6 font-medium text-white">{item.label}</td>
-                      <td className="p-6 text-zinc-500 flex items-center gap-2">
+                      <td className="p-6 font-medium text-primary">{item.label}</td>
+                      <td className="p-6 text-disabled flex items-center gap-2">
                          <Calendar size={14} /> {item.date}
                       </td>
-                      <td className="p-6 text-zinc-400 capitalize">{item.paymentMethod}</td>
-                      <td className="p-6 font-bold text-white">
+                      <td className="p-6 text-muted capitalize">{item.paymentMethod}</td>
+                      <td className="p-6 font-bold text-primary">
                          {settings.currency} {item.amount.toLocaleString()}
                       </td>
                       <td className="p-6 text-right pr-8">
@@ -83,7 +83,7 @@ const ExpensesDesktop: React.FC = () => {
                    </tr>
                 ))}
                 {allItems.length === 0 && (
-                    <tr><td colSpan={6} className="p-12 text-center text-zinc-500">No hay registros.</td></tr>
+                    <tr><td colSpan={6} className="p-12 text-center text-disabled">No hay registros.</td></tr>
                 )}
              </tbody>
           </table>
@@ -98,15 +98,15 @@ const ExpensesDesktop: React.FC = () => {
                     <Trash2 size={24} className="text-status-danger" />
                 </div>
                 <div>
-                    <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
-                    <p className="text-zinc-400 text-xs mt-1 leading-relaxed">
+                    <h4 className="text-primary font-bold text-sm">¿Estás seguro?</h4>
+                    <p className="text-muted text-xs mt-1 leading-relaxed">
                         Se eliminará <strong>{itemToDelete?.name}</strong>. 
                         <br/><span className="text-red-300 font-medium">El dinero se devolverá a la billetera si corresponde.</span>
                     </p>
                 </div>
             </div>
             <div className="flex gap-3">
-                <button onClick={() => setItemToDelete(null)} className="flex-1 py-3 rounded-md bg-white/5 text-zinc-400 text-xs font-semibold hover:bg-white/10 transition-colors">
+                <button onClick={() => setItemToDelete(null)} className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
                     Cancelar
                 </button>
                 <button onClick={confirmDelete} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">

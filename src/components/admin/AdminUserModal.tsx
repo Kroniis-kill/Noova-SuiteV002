@@ -91,24 +91,24 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
       onClick={() => handlePlanChange(type)}
       className={`relative flex flex-col items-center justify-center p-3 rounded-md border transition-all active:scale-95 ${
         plan === type 
-          ? `bg-${color}-500/20 border-${color}-500 text-white shadow-lg` 
-          : 'bg-surface-zinc border-white/10 text-zinc-500 hover:bg-white/5 hover:text-zinc-300'
+          ? `bg-${color}-500/20 border-${color}-500 text-primary shadow-lg` 
+          : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/10 text-disabled hover:bg-[rgb(var(--fg-rgb))]/5 hover:text-secondary'
       }`}
     >
       {plan === type && (
         <div className={`absolute top-2 right-2 w-2 h-2 rounded-full bg-${color}-500 shadow-[0_0_8px_currentColor]`} />
       )}
-      <Icon size={20} className={`mb-2 ${plan === type ? `text-${color}-400` : 'text-zinc-600'}`} />
+      <Icon size={20} className={`mb-2 ${plan === type ? `text-${color}-400` : 'text-faint'}`} />
       <span className="text-[10px] font-semibold uppercase tracking-wide">{label}</span>
     </button>
   );
 
   const styles = {
-    label: "text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-1 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-white/10 rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
-    input: "w-full bg-transparent text-[13px] text-white placeholder:text-zinc-600 px-3 h-full outline-none font-medium rounded-sm",
+    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-1 block ml-1",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
+    input: "w-full bg-transparent text-[13px] text-primary placeholder:text-faint px-3 h-full outline-none font-medium rounded-sm",
     iconLeft: "pl-10",
-    iconElement: "absolute left-3.5 text-zinc-500 pointer-events-none",
+    iconElement: "absolute left-3.5 text-disabled pointer-events-none",
   };
 
   return (
@@ -211,15 +211,15 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                       <ShieldAlert size={24} className="text-status-danger" />
                   </div>
                   <div>
-                      <h4 className="text-white font-bold text-sm">¿Estás seguro?</h4>
-                      <p className="text-zinc-400 text-xs mt-1 leading-relaxed">
+                      <h4 className="text-primary font-bold text-sm">¿Estás seguro?</h4>
+                      <p className="text-muted text-xs mt-1 leading-relaxed">
                           El usuario perderá acceso inmediato a las funciones PRO y volverá al plan GRATUITO.
                           Esta acción registra una fecha de vencimiento inmediata.
                       </p>
                   </div>
               </div>
               <div className="flex gap-3">
-                  <button onClick={() => setIsRevokeModalOpen(false)} className="flex-1 py-3 rounded-md bg-white/5 text-zinc-400 text-xs font-semibold hover:bg-white/10 transition-colors">
+                  <button onClick={() => setIsRevokeModalOpen(false)} className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
                       Cancelar
                   </button>
                   <button onClick={confirmRevoke} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-glow transition-colors">

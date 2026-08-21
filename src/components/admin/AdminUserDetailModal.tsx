@@ -27,13 +27,13 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
   const isBanned = user.status === 'banned';
 
   const DetailItem = ({ label, value, icon: Icon }: any) => (
-    <div className="flex items-center gap-3 p-3 rounded-md bg-white/5 border border-white/5">
-      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-400">
+    <div className="flex items-center gap-3 p-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5">
+      <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted">
         <Icon size={16} />
       </div>
       <div>
-        <p className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">{label}</p>
-        <p className="text-xs font-semibold text-white">{value}</p>
+        <p className="text-[10px] font-semibold text-disabled uppercase tracking-wider">{label}</p>
+        <p className="text-xs font-semibold text-primary">{value}</p>
       </div>
     </div>
   );
@@ -47,14 +47,14 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             {user.user_email?.substring(0, 2).toUpperCase() || 'U'}
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">{user.full_name || 'Usuario'}</h3>
-            <p className="text-xs text-zinc-500">{user.user_email}</p>
+            <h3 className="text-lg font-bold text-primary">{user.full_name || 'Usuario'}</h3>
+            <p className="text-xs text-disabled">{user.user_email}</p>
           </div>
           <div className="flex gap-2">
             <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
               {isExpired ? 'Expirado' : 'Vigente'}
             </span>
-            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-status-info/10 text-status-info-soft border-status-info/20' : 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'}`}>
+            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-status-info/10 text-status-info-soft border-status-info/20' : 'bg-zinc-500/10 text-muted border-zinc-500/20'}`}>
               {user.is_active ? 'Activo' : 'Inactivo'}
             </span>
           </div>
@@ -72,28 +72,28 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
         <div className="grid grid-cols-2 gap-3 pt-2">
           <button 
             onClick={() => onEdit(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <Edit2 size={20} className="mb-2 text-status-info-soft" />
             <span className="text-[10px] font-semibold uppercase">Editar</span>
           </button>
           <button 
             onClick={() => onExtend(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <History size={20} className="mb-2 text-status-success-soft" />
             <span className="text-[10px] font-semibold uppercase">Extender</span>
           </button>
           <button 
             onClick={() => onBlock(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             {isBanned ? <CheckCircle2 size={20} className="mb-2 text-status-success-soft" /> : <Ban size={20} className="mb-2 text-status-warning-soft" />}
             <span className="text-[10px] font-semibold uppercase">{isBanned ? 'Desbloquear' : 'Bloquear'}</span>
           </button>
           <button 
             onClick={() => onDelete(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <ShieldAlert size={20} className="mb-2 text-status-danger-soft" />
             <span className="text-[10px] font-semibold uppercase">Eliminar</span>
@@ -102,7 +102,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
 
         <button 
           onClick={onClose}
-          className="w-full py-4 text-zinc-500 text-[10px] font-semibold uppercase tracking-widest hover:text-white transition-colors"
+          className="w-full py-4 text-disabled text-[10px] font-semibold uppercase tracking-widest hover:text-primary transition-colors"
         >
           Cerrar
         </button>

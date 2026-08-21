@@ -10,16 +10,16 @@ interface StatCardProps {
 }
 
 export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
-  <div className="bg-surface-1 backdrop-blur-xl border border-white/[0.08] rounded-xl p-5 relative overflow-hidden group shadow-sm">
+  <div className="bg-surface-1 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 relative overflow-hidden group shadow-sm">
     <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-[50px] opacity-20 ${color}`} />
     <div className="relative z-10">
       <div className="flex justify-between items-start mb-4">
-        <div className={`w-10 h-10 rounded-sm flex items-center justify-center text-white shadow-lg ${color}`}>
+        <div className={`w-10 h-10 rounded-sm flex items-center justify-center text-primary shadow-lg ${color}`}>
           <Icon size={20} />
         </div>
       </div>
-      <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">{title}</p>
-      <h4 className="text-2xl font-bold text-white mt-1">{value}</h4>
+      <p className="text-disabled text-xs font-semibold uppercase tracking-wider">{title}</p>
+      <h4 className="text-2xl font-bold text-primary mt-1">{value}</h4>
     </div>
   </div>
 );
@@ -33,15 +33,15 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
   const isExpired = new Date(sub.expires_at) < new Date();
   
   return (
-    <div className="bg-surface-1 border border-white/[0.08] rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+    <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-semibold text-xs">
            {sub.user_email ? sub.user_email.substring(0,2).toUpperCase() : 'U'}
         </div>
         <div>
-           <p className="text-white font-bold text-sm">{sub.user_email || sub.user_id}</p>
+           <p className="text-primary font-bold text-sm">{sub.user_email || sub.user_id}</p>
            <div className="flex items-center gap-2 mt-1">
-              <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/5 text-zinc-400">
+              <span className="text-[10px] bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 text-muted">
                  {PLAN_LABELS[sub.plan]}
               </span>
               <span className={`text-[10px] px-2 py-0.5 rounded border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
@@ -53,8 +53,8 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
       
       <div className="flex items-center gap-4 justify-between md:justify-end">
          <div className="text-right">
-            <p className="text-[10px] text-zinc-500 font-bold uppercase">Vence</p>
-            <p className="text-xs text-zinc-300 font-mono">{new Date(sub.expires_at).toLocaleDateString()}</p>
+            <p className="text-[10px] text-disabled font-bold uppercase">Vence</p>
+            <p className="text-xs text-secondary font-mono">{new Date(sub.expires_at).toLocaleDateString()}</p>
          </div>
          
          <button 

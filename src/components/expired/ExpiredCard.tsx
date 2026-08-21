@@ -17,7 +17,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
   const firstSale = sales[0];
   const daysRemaining = getDaysRemaining(firstSale.expiryDate);
   
-  let statusConfig = { label: `${daysRemaining}d`, color: 'text-zinc-400', border: 'border-white/10', bg: 'bg-white/5' };
+  let statusConfig = { label: `${daysRemaining}d`, color: 'text-muted', border: 'border-[rgb(var(--fg-rgb))]/10', bg: 'bg-[rgb(var(--fg-rgb))]/5' };
   
   if (daysRemaining < 0) {
      statusConfig = { label: 'Vencido', color: 'text-status-danger-soft', border: 'border-status-danger/30', bg: 'bg-status-danger/10' };
@@ -47,7 +47,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
        <div className="flex items-center gap-3 p-3 pl-4">
           {/* Avatar más pequeño */}
           <div className="relative shrink-0">
-             <Avatar name={client.name} size={40} className="rounded-sm shadow-sm border border-white/5" />
+             <Avatar name={client.name} size={40} className="rounded-sm shadow-sm border border-[rgb(var(--fg-rgb))]/5" />
              {sales.length > 1 && (
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-primary rounded-full border-2 border-surface-1 flex items-center justify-center text-[8px] font-bold text-white">
                    {sales.length}
@@ -57,11 +57,11 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
           
           {/* Info Central */}
           <div className="flex-1 min-w-0">
-             <h4 className="text-[13px] font-bold text-white truncate leading-tight group-hover:text-white transition-colors">
+             <h4 className="text-[13px] font-bold text-primary truncate leading-tight group-hover:text-primary transition-colors">
                 {client.name}
              </h4>
              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-[10px] text-zinc-500 font-medium truncate max-w-[120px]">
+                <span className="text-[10px] text-disabled font-medium truncate max-w-[120px]">
                    {sales.map(s => s.serviceName).join(', ')}
                 </span>
              </div>
@@ -87,7 +87,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
                    <RefreshCw size={14} />
                 </button>
              </div>
-             <ChevronRight size={14} className="text-zinc-700" />
+             <ChevronRight size={14} className="text-faint" />
           </div>
        </div>
     </div>

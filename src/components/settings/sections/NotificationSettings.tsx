@@ -29,8 +29,8 @@ export const NotificationSettings = () => {
                      <Rocket size={20} />
                  </div>
                  <div>
-                     <h4 className="text-white font-bold text-sm mb-1">Próximamente: Push Notifications</h4>
-                     <p className="text-zinc-400 text-xs leading-relaxed">
+                     <h4 className="text-primary font-bold text-sm mb-1">Próximamente: Push Notifications</h4>
+                     <p className="text-muted text-xs leading-relaxed">
                          Estamos trabajando para enviarte alertas directas a tu dispositivo incluso cuando la app está cerrada.
                      </p>
                  </div>
@@ -39,42 +39,42 @@ export const NotificationSettings = () => {
              <div className={styles.card}>
                 <div className="flex justify-between items-center mb-4">
                     <div>
-                        <h3 className="text-white font-bold text-sm">Alertas Activas (In-App)</h3>
-                        <p className="text-[10px] text-zinc-500 mt-0.5">Controla qué avisos ves mientras usas Noova</p>
+                        <h3 className="text-primary font-bold text-sm">Alertas Activas (In-App)</h3>
+                        <p className="text-[10px] text-disabled mt-0.5">Controla qué avisos ves mientras usas Noova</p>
                     </div>
                 </div>
 
                 <div className="space-y-3">
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><Clock size={16} className="text-status-danger-soft" /></div>
-                            <span className="text-sm font-bold text-white">Vencimientos</span>
+                            <div className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full"><Clock size={16} className="text-status-danger-soft" /></div>
+                            <span className="text-sm font-bold text-primary">Vencimientos</span>
                         </div>
                         <ToggleSwitch checked={perms.expiry} onChange={() => handlePermToggle('expiry')} />
                     </div>
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><Briefcase size={16} className="text-status-info-soft" /></div>
-                            <span className="text-sm font-bold text-white">Inventario / Stock</span>
+                            <div className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full"><Briefcase size={16} className="text-status-info-soft" /></div>
+                            <span className="text-sm font-bold text-primary">Inventario / Stock</span>
                         </div>
                         <ToggleSwitch checked={perms.stock} onChange={() => handlePermToggle('stock')} />
                     </div>
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><DollarSign size={16} className="text-status-warning-soft" /></div>
-                            <span className="text-sm font-bold text-white">Pagos Pendientes</span>
+                            <div className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full"><DollarSign size={16} className="text-status-warning-soft" /></div>
+                            <span className="text-sm font-bold text-primary">Pagos Pendientes</span>
                         </div>
                         <ToggleSwitch checked={perms.payments} onChange={() => handlePermToggle('payments')} />
                     </div>
 
                     <div className={styles.toggleContainer}>
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white/5 rounded-full"><BellRing size={16} className="text-status-success-soft" /></div>
+                            <div className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full"><BellRing size={16} className="text-status-success-soft" /></div>
                             <div>
-                                <span className="text-sm font-bold text-white block">Resumen de Inicio</span>
-                                <span className="text-[9px] text-zinc-500">Mostrar recordatorios al entrar</span>
+                                <span className="text-sm font-bold text-primary block">Resumen de Inicio</span>
+                                <span className="text-[9px] text-disabled">Mostrar recordatorios al entrar</span>
                             </div>
                         </div>
                         <ToggleSwitch checked={perms.system} onChange={() => handlePermToggle('system')} />
@@ -85,8 +85,8 @@ export const NotificationSettings = () => {
              <div className={styles.card}>
                 <div className="flex items-center justify-between mb-6">
                     <div>
-                        <h3 className="text-white font-bold text-sm">Resumen Agrupado (Digest)</h3>
-                        <p className="text-[10px] text-zinc-500">Agrupar notificaciones para no saturar</p>
+                        <h3 className="text-primary font-bold text-sm">Resumen Agrupado (Digest)</h3>
+                        <p className="text-[10px] text-disabled">Agrupar notificaciones para no saturar</p>
                     </div>
                     <ToggleSwitch checked={digest.enabled} onChange={handleDigestToggle} />
                 </div>
@@ -116,19 +116,19 @@ export const NotificationSettings = () => {
                         <div>
                             <label className={styles.label}>Incluir en el resumen:</label>
                             <div className="grid grid-cols-2 gap-2">
-                                <button onClick={() => setDigest({...digest, include_today: !digest.include_today})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_today ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
+                                <button onClick={() => setDigest({...digest, include_today: !digest.include_today})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_today ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-disabled'}`}>
                                     Vencen Hoy <CheckCircle2 size={14} className={digest.include_today ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_1d: !digest.include_1d})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_1d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
+                                <button onClick={() => setDigest({...digest, include_1d: !digest.include_1d})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_1d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-disabled'}`}>
                                     Vencen Mañana <CheckCircle2 size={14} className={digest.include_1d ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_3d: !digest.include_3d})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_3d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
+                                <button onClick={() => setDigest({...digest, include_3d: !digest.include_3d})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_3d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-disabled'}`}>
                                     En 3 Días <CheckCircle2 size={14} className={digest.include_3d ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_overdue: !digest.include_overdue})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_overdue ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
+                                <button onClick={() => setDigest({...digest, include_overdue: !digest.include_overdue})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold ${digest.include_overdue ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-disabled'}`}>
                                     Ya Vencidas <CheckCircle2 size={14} className={digest.include_overdue ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_accounts_risk: !digest.include_accounts_risk})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold col-span-2 ${digest.include_accounts_risk ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-white/5 text-zinc-500'}`}>
+                                <button onClick={() => setDigest({...digest, include_accounts_risk: !digest.include_accounts_risk})} className={`p-3 rounded-sm border flex items-center justify-between text-[11px] font-semibold col-span-2 ${digest.include_accounts_risk ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-disabled'}`}>
                                     Stock en Riesgo <CheckCircle2 size={14} className={digest.include_accounts_risk ? 'opacity-100' : 'opacity-0'} />
                                 </button>
                             </div>

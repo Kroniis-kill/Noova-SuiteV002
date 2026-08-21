@@ -392,62 +392,62 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     <div className="flex flex-col animate-fade-in pb-4 pt-1 space-y-6">
                         {/* 1. SELECCIÓN DE SERVICIO Y CUENTA */}
                         <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Origen del Servicio</label>
+                            <label className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-1">Origen del Servicio</label>
                             
-                            <button onClick={() => { haptic('nav'); setModalSearch('service'); }} className="w-full bg-surface-zinc border border-white/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
+                            <button onClick={() => { haptic('nav'); setModalSearch('service'); }} className="w-full bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-md bg-surface-sunken border border-white/5 flex items-center justify-center text-brand-primary">
+                                    <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary">
                                         <Monitor size={22} />
                                     </div>
                                     <div className="text-left">
-                                        <span className="block text-[10px] font-semibold text-zinc-500 uppercase">Plataforma</span>
-                                        <span className={`block text-sm font-bold truncate ${tempServiceId ? 'text-white' : 'text-zinc-600'}`}>
+                                        <span className="block text-[10px] font-semibold text-disabled uppercase">Plataforma</span>
+                                        <span className={`block text-sm font-bold truncate ${tempServiceId ? 'text-primary' : 'text-faint'}`}>
                                             {services.find(s => s.id === tempServiceId)?.name || 'Seleccionar...'}
                                         </span>
                                     </div>
                                 </div>
-                                <ChevronRight size={18} className="text-zinc-600 group-hover:text-white" />
+                                <ChevronRight size={18} className="text-faint group-hover:text-primary" />
                             </button>
 
                             <div className="flex gap-2">
-                                <button onClick={() => { haptic('nav'); if(tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio','error'); }} disabled={!tempServiceId} className={`flex-1 bg-surface-zinc border border-white/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
+                                <button onClick={() => { haptic('nav'); if(tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio','error'); }} disabled={!tempServiceId} className={`flex-1 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
                                     <div className="flex items-center gap-4 min-w-0">
-                                        <div className="w-12 h-12 rounded-md bg-surface-sunken border border-white/5 flex items-center justify-center text-status-success shrink-0">
+                                        <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-success shrink-0">
                                             <Mail size={22} />
                                         </div>
                                         <div className="text-left min-w-0">
-                                            <span className="block text-[10px] font-semibold text-zinc-500 uppercase">Cuenta / Stock</span>
-                                            <span className={`block text-sm font-bold truncate ${tempAccountId ? 'text-white' : 'text-zinc-600'}`}>
+                                            <span className="block text-[10px] font-semibold text-disabled uppercase">Cuenta / Stock</span>
+                                            <span className={`block text-sm font-bold truncate ${tempAccountId ? 'text-primary' : 'text-faint'}`}>
                                                 {accounts.find(a => a.id === tempAccountId)?.email || 'Asignar cuenta...'}
                                             </span>
                                         </div>
                                     </div>
-                                    <ChevronDown size={18} className="text-zinc-600 group-hover:text-white shrink-0" />
+                                    <ChevronDown size={18} className="text-faint group-hover:text-primary shrink-0" />
                                 </button>
                             </div>
                         </div>
 
                         {/* 2. TIEMPO Y DURACIÓN */}
                         <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
-                            <div className="bg-surface-zinc rounded-xl p-4 border border-white/5 space-y-4">
-                                <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-white/10">
-                                    <Calendar size={18} className="text-zinc-500 mr-3" />
-                                    <input type="date" value={tempStartDate} onChange={e => setTempStartDate(e.target.value)} className="bg-transparent text-sm text-white font-bold w-full outline-none uppercase tracking-wider" />
+                            <label className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
+                            <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
+                                <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-[rgb(var(--fg-rgb))]/10">
+                                    <Calendar size={18} className="text-disabled mr-3" />
+                                    <input type="date" value={tempStartDate} onChange={e => setTempStartDate(e.target.value)} className="bg-transparent text-sm text-primary font-bold w-full outline-none uppercase tracking-wider" />
                                 </div>
                                 <div className="flex gap-3">
                                     <div className="flex-1">
-                                        <div className="bg-surface-sunken rounded-md border border-white/10 p-1 flex items-center justify-between h-[52px] w-full">
-                                            <button onClick={() => setTempMonths(Math.max(0, tempMonths - 1))} className="w-10 h-full rounded-sm bg-white/5 text-zinc-400 hover:text-white flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
-                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-white">{tempMonths}</span><span className="text-[8px] font-bold text-zinc-600 uppercase tracking-wide">MESES</span></div>
-                                            <button onClick={() => setTempMonths(tempMonths + 1)} className="w-10 h-full rounded-sm bg-white/5 text-zinc-400 hover:text-white flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+                                        <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full">
+                                            <button onClick={() => setTempMonths(Math.max(0, tempMonths - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-primary">{tempMonths}</span><span className="text-[8px] font-bold text-faint uppercase tracking-wide">MESES</span></div>
+                                            <button onClick={() => setTempMonths(tempMonths + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <div className="bg-surface-sunken rounded-md border border-white/10 p-1 flex items-center justify-between h-[52px] w-full">
-                                            <button onClick={() => setTempDays(Math.max(0, tempDays - 1))} className="w-10 h-full rounded-sm bg-white/5 text-zinc-400 hover:text-white flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
-                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-white">{tempDays}</span><span className="text-[8px] font-bold text-zinc-600 uppercase tracking-wide">DÍAS</span></div>
-                                            <button onClick={() => setTempDays(tempDays + 1)} className="w-10 h-full rounded-sm bg-white/5 text-zinc-400 hover:text-white flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+                                        <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full">
+                                            <button onClick={() => setTempDays(Math.max(0, tempDays - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-primary">{tempDays}</span><span className="text-[8px] font-bold text-faint uppercase tracking-wide">DÍAS</span></div>
+                                            <button onClick={() => setTempDays(tempDays + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
                                         </div>
                                     </div>
                                 </div>
@@ -458,34 +458,34 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                         <div className="grid grid-cols-1 gap-6">
                             <div>
                                 <div className="flex justify-between items-center mb-3 px-1">
-                                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Precio de Venta</label>
+                                    <label className="text-[10px] font-bold text-disabled uppercase tracking-widest">Precio de Venta</label>
                                     {isResellerClient && <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa Socio</span>}
                                 </div>
-                                <div className="relative h-[60px] bg-surface-zinc rounded-lg border border-white/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+                                <div className="relative h-[60px] bg-surface-zinc rounded-lg border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                                     <DollarSign size={24} className="text-status-success mr-2" />
-                                    <input type="number" value={tempAmount} onChange={e => setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-white outline-none placeholder:text-zinc-700" placeholder="0.00" inputMode="decimal" />
+                                    <input type="number" value={tempAmount} onChange={e => setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-primary outline-none placeholder:text-faint" placeholder="0.00" inputMode="decimal" />
                                 </div>
                             </div>
 
                             {tempType === 'por_pantalla' && (
                                 <div className="space-y-3">
                                     <div className="flex justify-between items-center px-1">
-                                        <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Perfiles ({tempScreens})</label>
+                                        <label className="text-[10px] font-bold text-disabled uppercase tracking-widest">Perfiles ({tempScreens})</label>
                                         <div className="flex gap-1">
-                                            <button onClick={() => setTempScreens(Math.max(1, tempScreens - 1))} className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white"><Minus size={14}/></button>
-                                            <button onClick={() => setTempScreens(tempScreens + 1)} className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white"><Plus size={14}/></button>
+                                            <button onClick={() => setTempScreens(Math.max(1, tempScreens - 1))} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary"><Minus size={14}/></button>
+                                            <button onClick={() => setTempScreens(tempScreens + 1)} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary"><Plus size={14}/></button>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         {tempProfiles.map((p, idx) => (
                                             <div key={idx} className="flex gap-2">
-                                                <div className="flex-1 bg-surface-zinc rounded-md border border-white/5 h-[50px] flex items-center px-4 focus-within:border-brand-primary/40 transition-colors">
-                                                    <User size={16} className="text-zinc-600 mr-3" />
-                                                    <input value={p.name} onChange={e => handleProfileChange(idx, 'name', e.target.value)} placeholder={`Perfil ${idx+1}`} className="bg-transparent w-full text-sm text-white font-bold outline-none placeholder:text-zinc-700" />
+                                                <div className="flex-1 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-4 focus-within:border-brand-primary/40 transition-colors">
+                                                    <User size={16} className="text-faint mr-3" />
+                                                    <input value={p.name} onChange={e => handleProfileChange(idx, 'name', e.target.value)} placeholder={`Perfil ${idx+1}`} className="bg-transparent w-full text-sm text-primary font-bold outline-none placeholder:text-faint" />
                                                 </div>
-                                                <div className="w-24 bg-surface-zinc rounded-md border border-white/5 h-[50px] flex items-center px-3 focus-within:border-brand-primary/40 transition-colors">
-                                                    <Hash size={14} className="text-zinc-600 mr-2" />
-                                                    <input value={p.pin} onChange={e => handleProfileChange(idx, 'pin', e.target.value)} placeholder="PIN" className="bg-transparent w-full text-sm text-white font-mono font-bold outline-none text-center placeholder:text-zinc-700" inputMode="numeric" />
+                                                <div className="w-24 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-3 focus-within:border-brand-primary/40 transition-colors">
+                                                    <Hash size={14} className="text-faint mr-2" />
+                                                    <input value={p.pin} onChange={e => handleProfileChange(idx, 'pin', e.target.value)} placeholder="PIN" className="bg-transparent w-full text-sm text-primary font-mono font-bold outline-none text-center placeholder:text-faint" inputMode="numeric" />
                                                 </div>
                                             </div>
                                         ))}
@@ -502,21 +502,21 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                     
                                     {tempType === 'usuario_unico' && (
                                         <>
-                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-white/5">
-                                                <Mail size={16} className="text-zinc-500 mr-3" />
-                                                <input value={tempInvitedEmail} onChange={e => setTempInvitedEmail(e.target.value)} placeholder="Correo del cliente" className="bg-transparent w-full text-sm text-white outline-none font-medium" />
+                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
+                                                <Mail size={16} className="text-disabled mr-3" />
+                                                <input value={tempInvitedEmail} onChange={e => setTempInvitedEmail(e.target.value)} placeholder="Correo del cliente" className="bg-transparent w-full text-sm text-primary outline-none font-medium" />
                                             </div>
-                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-white/5">
-                                                <Lock size={16} className="text-zinc-500 mr-3" />
-                                                <input value={tempInvitedPassword} onChange={e => setTempInvitedPassword(e.target.value)} placeholder="Contraseña asignada" className="bg-transparent w-full text-sm text-white outline-none font-mono font-medium" />
+                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
+                                                <Lock size={16} className="text-disabled mr-3" />
+                                                <input value={tempInvitedPassword} onChange={e => setTempInvitedPassword(e.target.value)} placeholder="Contraseña asignada" className="bg-transparent w-full text-sm text-primary outline-none font-mono font-medium" />
                                             </div>
                                         </>
                                     )}
 
                                     {tempType === 'cuenta_completa' && (
-                                        <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-white/5">
-                                            <User size={16} className="text-zinc-500 mr-3" />
-                                            <input value={tempProfiles[0]?.name || ''} onChange={e => handleProfileChange(0, 'name', e.target.value)} placeholder="Nombre referencial" className="bg-transparent w-full text-sm text-white outline-none font-medium" />
+                                        <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
+                                            <User size={16} className="text-disabled mr-3" />
+                                            <input value={tempProfiles[0]?.name || ''} onChange={e => handleProfileChange(0, 'name', e.target.value)} placeholder="Nombre referencial" className="bg-transparent w-full text-sm text-primary outline-none font-medium" />
                                         </div>
                                     )}
                                 </div>
@@ -525,7 +525,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
                         {/* Footer Actions for Edit Mode */}
                         <div className="pt-6 flex gap-3">
-                            <button onClick={onClose} className="flex-1 h-[56px] rounded-lg bg-white/5 text-zinc-400 font-semibold text-xs uppercase tracking-wider hover:bg-white/10 transition-colors">
+                            <button onClick={onClose} className="flex-1 h-[56px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
                                 Cancelar
                             </button>
                             <button onClick={() => { haptic('nav'); handleAddItem(); }} className="flex-[2] h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
@@ -542,22 +542,22 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     {/* CASE A: No selection made yet */}
                     { !selectedClientId && (
                         <div className="grid grid-cols-2 gap-3 mb-4 shrink-0">
-                             <button onClick={() => { haptic('nav'); setModalSearch('client'); }} className="h-28 bg-surface-3 border border-white/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
-                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-white/5 transition-colors">
-                                     <Search size={24} className="text-zinc-400 group-hover:text-white" />
+                             <button onClick={() => { haptic('nav'); setModalSearch('client'); }} className="h-28 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
+                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors">
+                                     <Search size={24} className="text-muted group-hover:text-primary" />
                                  </div>
                                  <div className="text-center leading-tight">
-                                     <span className="block text-[13px] font-bold text-white">Cliente</span>
-                                     <span className="block text-[11px] font-medium text-zinc-500">Registrado</span>
+                                     <span className="block text-[13px] font-bold text-primary">Cliente</span>
+                                     <span className="block text-[11px] font-medium text-disabled">Registrado</span>
                                  </div>
                              </button>
-                             <button onClick={() => { haptic('nav'); setIsNewClientModalOpen(true); }} className="h-28 bg-surface-3 border border-white/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
-                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-white/5 transition-colors">
-                                     <UserPlus size={24} className="text-zinc-400 group-hover:text-white" />
+                             <button onClick={() => { haptic('nav'); setIsNewClientModalOpen(true); }} className="h-28 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
+                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors">
+                                     <UserPlus size={24} className="text-muted group-hover:text-primary" />
                                  </div>
                                  <div className="text-center leading-tight">
-                                     <span className="block text-[13px] font-bold text-white">Nuevo</span>
-                                     <span className="block text-[11px] font-medium text-zinc-500">Cliente</span>
+                                     <span className="block text-[13px] font-bold text-primary">Nuevo</span>
+                                     <span className="block text-[11px] font-medium text-disabled">Cliente</span>
                                  </div>
                              </button>
                         </div>
@@ -566,42 +566,42 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     {/* CASE B: Registered Client Selected */}
                     { selectedClientId && (
                         <div className="mb-4 shrink-0">
-                             <div className="flex items-center justify-between bg-surface-3 p-4 rounded-xl border border-white/5 shadow-sm animate-fade-in">
+                             <div className="flex items-center justify-between bg-surface-3 p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5 shadow-sm animate-fade-in">
                                  <div className="flex items-center gap-4">
                                      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-bold text-sm shadow-glow">
                                          {clients.find(c => c.id === selectedClientId)?.name?.substring(0,2).toUpperCase()}
                                      </div>
                                      <div>
-                                         <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest leading-none mb-1">Cliente</p>
-                                         <p className="text-sm font-bold text-white truncate max-w-[180px]">{clients.find(c => c.id === selectedClientId)?.name}</p>
+                                         <p className="text-[10px] text-disabled font-black uppercase tracking-widest leading-none mb-1">Cliente</p>
+                                         <p className="text-sm font-bold text-primary truncate max-w-[180px]">{clients.find(c => c.id === selectedClientId)?.name}</p>
                                      </div>
                                  </div>
-                                 {!initialData && <button onClick={() => { haptic('nav'); setSelectedClientId(''); }} className="w-10 h-10 bg-surface-1 border border-white/10 rounded-full flex items-center justify-center text-zinc-500 hover:text-white transition-colors"><RefreshCw size={16} /></button>}
+                                 {!initialData && <button onClick={() => { haptic('nav'); setSelectedClientId(''); }} className="w-10 h-10 bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-full flex items-center justify-center text-disabled hover:text-primary transition-colors"><RefreshCw size={16} /></button>}
                              </div>
                         </div>
                     )}
 
                     {/* 2. CART AREA */}
-                    <div className="bg-surface-3 rounded-xl border border-white/5 p-1 relative overflow-hidden flex flex-col mb-4 w-full min-h-[200px]">
-                        <div className="p-3 border-b border-white/5 bg-surface-3 z-10 sticky top-0">
-                            <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-2">Servicios en carrito</h4>
+                    <div className="bg-surface-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-1 relative overflow-hidden flex flex-col mb-4 w-full min-h-[200px]">
+                        <div className="p-3 border-b border-[rgb(var(--fg-rgb))]/5 bg-surface-3 z-10 sticky top-0">
+                            <h4 className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-2">Servicios en carrito</h4>
                         </div>
                         
                         <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
                              {cart.length === 0 ? (
                                 <div className="h-full flex flex-col items-center justify-center opacity-30 min-h-[150px]">
-                                    <ShoppingCart size={40} className="mb-3 text-zinc-500" strokeWidth={1.5} />
-                                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Sin Items</p>
+                                    <ShoppingCart size={40} className="mb-3 text-disabled" strokeWidth={1.5} />
+                                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-disabled">Sin Items</p>
                                 </div>
                              ) : (
                                 cart.map(item => (
-                                    <div key={item.tempId} onClick={() => { haptic('nav'); setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate); setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens); setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType); setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || ''); setIsItemConfigOpen(true); }} className="bg-surface-1 border border-white/5 p-3.5 rounded-lg flex justify-between items-center relative overflow-hidden group shadow-sm active:scale-95 transition-all">
+                                    <div key={item.tempId} onClick={() => { haptic('nav'); setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate); setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens); setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType); setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || ''); setIsItemConfigOpen(true); }} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-3.5 rounded-lg flex justify-between items-center relative overflow-hidden group shadow-sm active:scale-95 transition-all">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center text-brand-primary border border-white/5"><Layers size={18} /></div>
-                                            <div><h4 className="text-sm font-bold text-white leading-tight">{item.serviceName}</h4><p className="text-[10px] text-zinc-500 font-mono mt-0.5">{item.accountEmail}</p></div>
+                                            <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5"><Layers size={18} /></div>
+                                            <div><h4 className="text-sm font-bold text-primary leading-tight">{item.serviceName}</h4><p className="text-[10px] text-disabled font-mono mt-0.5">{item.accountEmail}</p></div>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <div className="text-right"><span className="block text-status-success-soft font-bold text-sm">${item.amount}</span><span className="text-[8px] text-zinc-600 font-bold uppercase">{item.saleType.replace('_',' ')}</span></div>
+                                            <div className="text-right"><span className="block text-status-success-soft font-bold text-sm">${item.amount}</span><span className="text-[8px] text-faint font-bold uppercase">{item.saleType.replace('_',' ')}</span></div>
                                             {!initialData && <button onClick={(e) => { e.stopPropagation(); setCart(cart.filter(i => i.tempId !== item.tempId)); }} className="w-8 h-8 flex items-center justify-center bg-status-danger/10 text-status-danger rounded-lg hover:bg-status-danger/20 transition-colors"><Trash2 size={14} /></button>}
                                         </div>
                                     </div>
@@ -614,7 +614,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     {!initialData && (
                         <button 
                             onClick={() => { haptic('nav'); resetItemForm(); setIsItemConfigOpen(true); }} 
-                            className="w-full h-14 bg-surface-3 border-2 border-dashed border-white/10 hover:border-white/20 hover:bg-surface-3 rounded-lg text-zinc-400 font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all mb-6"
+                            className="w-full h-14 bg-surface-3 border-2 border-dashed border-[rgb(var(--fg-rgb))]/10 hover:border-[rgb(var(--fg-rgb))]/20 hover:bg-surface-3 rounded-lg text-muted font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all mb-6"
                         >
                             <Plus size={18} /> Agregar Servicio
                         </button>
@@ -622,7 +622,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
                     {/* 4. FOOTER */}
                     <div className="fixed bottom-6 left-6 right-6 z-30">
-                        <div className="bg-white text-black rounded-xl p-2 flex items-center justify-between shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)] border border-white/10">
+                        <div className="bg-white text-black rounded-xl p-2 flex items-center justify-between shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)] border border-[rgb(var(--fg-rgb))]/10">
                              <div className="pl-5 flex flex-col justify-center">
                                  <p className="text-[8px] font-black uppercase tracking-widest opacity-50 mb-0.5">Total a Pagar</p>
                                  <p className="text-2xl font-black leading-none">${totalCart.toFixed(2)}</p>
@@ -648,19 +648,19 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                   
                   {/* Header & Total - Matching the clean look of the reference top section */}
                   <div className="pt-10 pb-8 px-6 text-center relative">
-                       <button onClick={() => { haptic('nav'); setStep(1); }} className="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white transition-colors active:scale-90">
+                       <button onClick={() => { haptic('nav'); setStep(1); }} className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary transition-colors active:scale-90">
                            <ArrowLeft size={20} />
                        </button>
                        
                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-center">
                            <span className="text-[10px] font-bold text-brand-primary uppercase tracking-[0.2em] mb-2 bg-brand-primary/10 px-3 py-1 rounded-full border border-brand-primary/20">Total a Pagar</span>
                            <div className="flex items-baseline justify-center gap-1">
-                               <span className="text-2xl font-medium text-zinc-500 relative -top-1">$</span>
-                               <span className="text-6xl font-black text-white tracking-tighter">{totalToPay.toFixed(2)}</span>
+                               <span className="text-2xl font-medium text-disabled relative -top-1">$</span>
+                               <span className="text-6xl font-black text-primary tracking-tighter">{totalToPay.toFixed(2)}</span>
                            </div>
                            {/* If wallet selected and currency differs, show conversion like reference "≈ $12" */}
                            {addToWallet && walletId && financialAccounts.find(f => f.id === walletId)?.currency !== 'USD' && (
-                               <p className="text-sm font-bold text-zinc-500 mt-2 font-mono">
+                               <p className="text-sm font-bold text-disabled mt-2 font-mono">
                                    ≈ {convertedAmount.toFixed(2)} {financialAccounts.find(f => f.id === walletId)?.currency}
                                </p>
                            )}
@@ -673,7 +673,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                        {!initialData && (
                          <div className="mb-6">
                             <div className="flex items-center justify-between mb-4 px-1">
-                                <h3 className="text-sm font-bold text-white">Método de Ingreso</h3>
+                                <h3 className="text-sm font-bold text-primary">Método de Ingreso</h3>
                                 {/* Sweep Switch */}
                                 <div 
                                     onClick={() => { 
@@ -684,7 +684,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                     }}
                                     className="flex items-center gap-3 cursor-pointer"
                                 >
-                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${!isMigration ? 'text-status-success' : 'text-zinc-600'}`}>
+                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${!isMigration ? 'text-status-success' : 'text-faint'}`}>
                                         Cobrar
                                     </span>
                                     
@@ -696,35 +696,35 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                             animate={{ x: isMigration ? 24 : 0 }}
                                             className={`absolute top-1 left-1 w-6 h-6 rounded-full shadow-md flex items-center justify-center ${isMigration ? 'bg-status-warning' : 'bg-status-success'}`}
                                         >
-                                             {isMigration ? <History size={14} className="text-black" /> : <DollarSign size={14} className="text-white" />}
+                                             {isMigration ? <History size={14} className="text-black" /> : <DollarSign size={14} className="text-primary" />}
                                         </motion.div>
                                     </div>
                                     
-                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${isMigration ? 'text-status-warning' : 'text-zinc-600'}`}>
+                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${isMigration ? 'text-status-warning' : 'text-faint'}`}>
                                         Historial
                                     </span>
                                 </div>
                             </div>
 
                             {!isMigration && (
-                                <div className="bg-surface-3 border border-white/[0.08] rounded-xl overflow-hidden">
+                                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl overflow-hidden">
                                      {/* Billetera Row */}
                                      <button 
                                         onClick={() => { haptic('nav'); setModalSearch('wallet'); }}
-                                        className="w-full p-4 flex items-center justify-between hover:bg-white/[0.02] transition-colors group border-b border-white/5"
+                                        className="w-full p-4 flex items-center justify-between hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group border-b border-[rgb(var(--fg-rgb))]/5"
                                      >
                                          <div className="flex items-center gap-4">
-                                             <div className={`w-12 h-12 rounded-md flex items-center justify-center border ${walletId ? 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary' : 'bg-zinc-800/50 border-zinc-700 text-zinc-500'}`}>
+                                             <div className={`w-12 h-12 rounded-md flex items-center justify-center border ${walletId ? 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary' : 'bg-zinc-800/50 border-zinc-700 text-disabled'}`}>
                                                  <Wallet size={20} />
                                              </div>
                                              <div className="text-left">
-                                                 <span className="block text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-0.5">Billetera Destino</span>
-                                                 <span className={`block text-sm font-bold ${walletId ? 'text-white' : 'text-zinc-400'}`}>
+                                                 <span className="block text-[10px] font-semibold text-disabled uppercase tracking-wider mb-0.5">Billetera Destino</span>
+                                                 <span className={`block text-sm font-bold ${walletId ? 'text-primary' : 'text-muted'}`}>
                                                      {financialAccounts.find(f => f.id === walletId)?.name || 'Seleccionar...'}
                                                  </span>
                                              </div>
                                          </div>
-                                         <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-500 group-hover:text-white">
+                                         <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-disabled group-hover:text-primary">
                                              <ChevronRight size={16} />
                                          </div>
                                      </button>
@@ -737,8 +737,8 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                                      <DollarSign size={20} />
                                                  </div>
                                                  <div className="text-left">
-                                                     <span className="block text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-0.5">Monto a Ingresar</span>
-                                                     <span className="block text-sm font-bold text-white font-mono">
+                                                     <span className="block text-[10px] font-semibold text-disabled uppercase tracking-wider mb-0.5">Monto a Ingresar</span>
+                                                     <span className="block text-sm font-bold text-primary font-mono">
                                                          {convertedAmount.toFixed(2)} {financialAccounts.find(f => f.id === walletId)?.currency}
                                                      </span>
                                                  </div>
@@ -769,7 +769,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                   </div>
 
                   {/* Bottom Actions - Styled big like the reference */}
-                  <div className="p-6 border-t border-white/5 bg-surface-1 space-y-3">
+                  <div className="p-6 border-t border-[rgb(var(--fg-rgb))]/5 bg-surface-1 space-y-3">
                        <button 
                           onClick={() => { haptic('nav'); handleFinalize('send'); }} 
                           disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)} 
@@ -782,7 +782,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                        <button 
                           onClick={() => { haptic('nav'); handleFinalize('save'); }} 
                           disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)}
-                          className="w-full h-12 bg-surface-3 text-zinc-400 font-semibold text-xs rounded-lg border border-white/5 hover:text-white hover:bg-white/5 transition-all"
+                          className="w-full h-12 bg-surface-3 text-muted font-semibold text-xs rounded-lg border border-[rgb(var(--fg-rgb))]/5 hover:text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-all"
                        >
                           Guardar
                        </button>
@@ -841,23 +841,23 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
         filterFn={(c, q) => c.name.toLowerCase().includes(q) || (c.phone || '').includes(q)} 
         zIndex={zIndex ? zIndex + 200 : undefined} 
         renderItem={(c: Client) => (
-            <div className={`p-4 rounded-lg border mb-2 flex items-center justify-between transition-all ${c.isBlocked ? 'bg-red-900/10 border-status-danger/20 opacity-50' : 'bg-surface-1 border-white/5 hover:bg-surface-zinc active:scale-[0.98]'}`}>
+            <div className={`p-4 rounded-lg border mb-2 flex items-center justify-between transition-all ${c.isBlocked ? 'bg-red-900/10 border-status-danger/20 opacity-50' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-zinc active:scale-[0.98]'}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-white/10">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-[rgb(var(--fg-rgb))]/10">
                         {c.name.substring(0,2).toUpperCase()}
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-white leading-tight">{c.name}</p>
-                        <p className="text-[11px] text-zinc-500 font-mono mt-0.5">{c.phone}</p>
+                        <p className="text-sm font-bold text-primary leading-tight">{c.name}</p>
+                        <p className="text-[11px] text-disabled font-mono mt-0.5">{c.phone}</p>
                     </div>
                 </div>
-                {c.isBlocked ? <Ban size={18} className="text-status-danger" /> : <ChevronRight size={18} className="text-zinc-600" />}
+                {c.isBlocked ? <Ban size={18} className="text-status-danger" /> : <ChevronRight size={18} className="text-faint" />}
             </div>
         )} 
       />
-      <SearchListModal isOpen={modalSearch === 'service'} onClose={() => setModalSearch(null)} items={services} onSelect={(s: Service) => setTempServiceId(s.id)} title="Elegir Plataforma" filterFn={(s, q) => s.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(s: Service) => (<div className="p-4 rounded-lg bg-surface-1 border border-white/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center border border-white/5 overflow-hidden">{s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={20} className="text-zinc-500" />}</div><span className="text-sm font-bold text-white">{s.name}</span></div><span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">{s.screens} Cupos</span></div>)} />
-      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={accounts.filter(a => a.serviceId === tempServiceId && a.status === 'activa' && (a.maxScreens - calculateOccupancy(a)) > 0)} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-lg bg-surface-1 border border-white/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-white truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-[10px] font-mono text-zinc-500 mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-[9px] font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-lg border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-[8px] text-zinc-600 font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
-      <SearchListModal isOpen={modalSearch === 'wallet'} onClose={() => setModalSearch(null)} items={financialAccounts.filter(f => f.isActive !== false)} onSelect={(w: FinancialAccount) => setWalletId(w.id)} title="Billetera de Cobro" filterFn={(w, q) => w.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(w: FinancialAccount) => (<div className="p-4 rounded-lg bg-surface-1 border border-white/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-sm"><Wallet size={18} /></div><span className="text-sm font-bold text-white">{w.name}</span></div><span className="text-[10px] font-bold text-zinc-500 font-mono tracking-widest bg-white/5 px-2 py-1 rounded-lg">{w.currency}</span></div>)} />
+      <SearchListModal isOpen={modalSearch === 'service'} onClose={() => setModalSearch(null)} items={services} onSelect={(s: Service) => setTempServiceId(s.id)} title="Elegir Plataforma" filterFn={(s, q) => s.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(s: Service) => (<div className="p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">{s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={20} className="text-disabled" />}</div><span className="text-sm font-bold text-primary">{s.name}</span></div><span className="text-[9px] font-black text-disabled uppercase tracking-widest">{s.screens} Cupos</span></div>)} />
+      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={accounts.filter(a => a.serviceId === tempServiceId && a.status === 'activa' && (a.maxScreens - calculateOccupancy(a)) > 0)} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-primary truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-[10px] font-mono text-disabled mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-[9px] font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-lg border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-[8px] text-faint font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
+      <SearchListModal isOpen={modalSearch === 'wallet'} onClose={() => setModalSearch(null)} items={financialAccounts.filter(f => f.isActive !== false)} onSelect={(w: FinancialAccount) => setWalletId(w.id)} title="Billetera de Cobro" filterFn={(w, q) => w.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(w: FinancialAccount) => (<div className="p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-sm"><Wallet size={18} /></div><span className="text-sm font-bold text-primary">{w.name}</span></div><span className="text-[10px] font-bold text-disabled font-mono tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-lg">{w.currency}</span></div>)} />
     </>
   );
 };

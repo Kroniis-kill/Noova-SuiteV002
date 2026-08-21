@@ -31,24 +31,24 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
     <Modal isOpen={isOpen} onClose={onClose} title="Cuenta Destino">
       <div className="flex flex-col h-[60vh] md:h-[450px] pt-1">
         <div className="relative mb-4 shrink-0">
-           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" />
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder="Buscar cuenta..."
-             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-white outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-zinc-600 font-medium"
+             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-primary outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-faint font-medium"
              autoFocus
            />
-           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white p-1 active:scale-90 transition-transform"><X size={14} /></button>}
+           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-disabled hover:text-primary p-1 active:scale-90 transition-transform"><X size={14} /></button>}
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
            {filtered.map(acc => (
-              <button key={acc.id} onClick={() => { haptic('nav'); onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-md bg-surface-zinc/40 border border-white/5 hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left active:scale-[0.98]">
-                 <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center text-zinc-400 group-hover:text-white border border-white/5 shrink-0"><Wallet size={18} /></div>
+              <button key={acc.id} onClick={() => { haptic('nav'); onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-md bg-surface-zinc/40 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left active:scale-[0.98]">
+                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted group-hover:text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-zinc-200 group-hover:text-white truncate">{acc.name}</p>
-                    <p className="text-[10px] text-zinc-500">{acc.currency}</p>
+                    <p className="text-sm font-bold text-secondary group-hover:text-primary truncate">{acc.name}</p>
+                    <p className="text-[10px] text-disabled">{acc.currency}</p>
                  </div>
-                 <ChevronRight size={16} className="text-zinc-600 group-hover:text-brand-primary transition-colors" />
+                 <ChevronRight size={16} className="text-faint group-hover:text-brand-primary transition-colors" />
               </button>
            ))}
         </div>
@@ -131,11 +131,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-1 block ml-1",
+    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-sm h-[44px] transition-all focus-within:ring-1 focus-within:ring-status-info/60",
-    input: "w-full bg-transparent text-[13px] text-white placeholder:text-zinc-600 px-3 h-full outline-none font-medium rounded-sm",
-    select: "w-full bg-transparent text-[13px] text-white px-3 pl-3 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
-    iconRight: "absolute right-3 text-zinc-500 pointer-events-none",
+    input: "w-full bg-transparent text-[13px] text-primary placeholder:text-faint px-3 h-full outline-none font-medium rounded-sm",
+    select: "w-full bg-transparent text-[13px] text-primary px-3 pl-3 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
+    iconRight: "absolute right-3 text-disabled pointer-events-none",
   };
 
   return (
@@ -146,8 +146,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
             <div className="bg-surface-sunken rounded-xl p-5 text-center">
                <label className={styles.label} style={{ textAlign: 'center', marginLeft: 0 }}>Monto ({account.currency})</label>
                <div className="flex items-center justify-center gap-1 mt-2">
-                  <span className="text-3xl text-zinc-500 font-light">$</span>
-                  <input type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className="bg-transparent text-5xl font-bold text-white outline-none w-48 text-center placeholder:text-zinc-800" placeholder="0.00" autoFocus required inputMode="decimal" />
+                  <span className="text-3xl text-disabled font-light">$</span>
+                  <input type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className="bg-transparent text-5xl font-bold text-primary outline-none w-48 text-center placeholder:text-faint" placeholder="0.00" autoFocus required inputMode="decimal" />
                </div>
             </div>
 
@@ -155,16 +155,16 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
                <div>
                   <label className={styles.label}>Cuenta Destino</label>
                   <div className="flex items-center gap-3 bg-surface-sunken p-1.5 rounded-md">
-                     <div className="flex-1 bg-surface-zinc rounded-sm py-2.5 text-[11px] text-zinc-400 text-center font-bold">{account.name}</div>
+                     <div className="flex-1 bg-surface-zinc rounded-sm py-2.5 text-[11px] text-muted text-center font-bold">{account.name}</div>
                      <ArrowRight size={14} className="text-status-info" />
                      <div className="flex-1 relative h-[36px]">
                         <button 
                            type="button"
                            onClick={() => { haptic('nav'); setIsAccountSearchOpen(true); }}
-                           className="w-full h-full bg-surface-zinc rounded-sm flex items-center justify-between px-3 text-[11px] text-white font-bold hover:bg-surface-4 transition-colors active:scale-95"
+                           className="w-full h-full bg-surface-zinc rounded-sm flex items-center justify-between px-3 text-[11px] text-primary font-bold hover:bg-surface-4 transition-colors active:scale-95"
                         >
-                           <span className={targetAccount ? "text-white" : "text-zinc-500"}>{targetAccount ? targetAccount.name : "Seleccionar..."}</span>
-                           <ChevronDown size={12} className="text-zinc-500" />
+                           <span className={targetAccount ? "text-primary" : "text-disabled"}>{targetAccount ? targetAccount.name : "Seleccionar..."}</span>
+                           <ChevronDown size={12} className="text-disabled" />
                         </button>
                      </div>
                   </div>

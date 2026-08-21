@@ -249,7 +249,7 @@ const InAppNotifications: React.FC = () => {
               <cfg.Icon size={18} className={cfg.icon} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-black uppercase tracking-[0.12em] text-white truncate">
+              <p className="text-[11px] font-black uppercase tracking-[0.12em] text-primary truncate">
                 {current.title}
               </p>
               <p className="text-[12px] text-text-secondary truncate">
@@ -259,7 +259,7 @@ const InAppNotifications: React.FC = () => {
             <span
               onClick={(e) => { e.stopPropagation(); dismiss(current.id); }}
               aria-label="Cerrar"
-              className="shrink-0 w-7 h-7 rounded-lg hover:bg-white/5 text-text-muted flex items-center justify-center transition"
+              className="shrink-0 w-7 h-7 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center transition"
             >
               <X size={13} />
             </span>
@@ -269,7 +269,7 @@ const InAppNotifications: React.FC = () => {
               {pending.slice(0, 5).map((_, i: number) => (
                 <span
                   key={i}
-                  className={`h-[2px] flex-1 rounded-full transition-colors ${i === 0 ? 'bg-white/60' : 'bg-white/10'}`}
+                  className={`h-[2px] flex-1 rounded-full transition-colors ${i === 0 ? 'bg-[rgb(var(--fg-rgb))]/60' : 'bg-[rgb(var(--fg-rgb))]/10'}`}
                 />
               ))}
             </div>

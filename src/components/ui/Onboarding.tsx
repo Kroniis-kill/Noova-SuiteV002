@@ -133,7 +133,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] bg-bg flex flex-col overflow-hidden font-sans text-white gpu-accelerated">
+    <div className="fixed inset-0 z-[200] bg-bg flex flex-col overflow-hidden font-sans text-primary gpu-accelerated">
       
       {/* BACKGROUND AMBIENCE */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -145,7 +145,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
       <div className="w-full p-6 flex justify-end z-20 pt-8">
          <button 
             onClick={onFinish} 
-            className="text-zinc-500 text-xs font-semibold uppercase tracking-wider hover:text-white transition-colors px-4 py-2 rounded-full bg-white/5 active:scale-95"
+            className="text-disabled text-xs font-semibold uppercase tracking-wider hover:text-primary transition-colors px-4 py-2 rounded-full bg-[rgb(var(--fg-rgb))]/5 active:scale-95"
          >
             Omitir
          </button>
@@ -165,7 +165,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   className="relative flex items-center justify-center"
                >
-                  <div className={`w-72 h-72 rounded-2xl border border-white/10 flex items-center justify-center relative backdrop-blur-2xl bg-white/[0.03] ${slide.shadow}`}>
+                  <div className={`w-72 h-72 rounded-2xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center relative backdrop-blur-2xl bg-[rgb(var(--fg-rgb))]/[0.03] ${slide.shadow}`}>
                       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${slide.color} opacity-10`} />
                       <div className="relative z-10 scale-125">
                          <IllustrationComponent />
@@ -185,10 +185,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
                    animate="animate"
                    exit="exit"
                 >
-                   <h2 className="text-3xl font-bold text-white mb-3 tracking-tight">
+                   <h2 className="text-3xl font-bold text-primary mb-3 tracking-tight">
                       {slide.title}
                    </h2>
-                   <p className="text-[15px] text-zinc-400 font-medium leading-relaxed">
+                   <p className="text-[15px] text-muted font-medium leading-relaxed">
                       {slide.desc}
                    </p>
                 </motion.div>
@@ -202,14 +202,14 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
             {slides.map((s, idx) => (
                <div 
                  key={s.id} 
-                 className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === idx ? 'w-8 bg-white' : 'w-2 bg-white/20'}`} 
+                 className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === idx ? 'w-8 bg-white' : 'w-2 bg-[rgb(var(--fg-rgb))]/20'}`} 
                />
             ))}
          </div>
 
          <button
             onClick={handleNext}
-            className="w-14 h-14 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-[0_0_30px_-5px_rgba(106,44,255,0.5)] active:scale-90 transition-transform hover:scale-105 border border-white/10"
+            className="w-14 h-14 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-[0_0_30px_-5px_rgba(106,44,255,0.5)] active:scale-90 transition-transform hover:scale-105 border border-[rgb(var(--fg-rgb))]/10"
          >
             {currentIndex === slides.length - 1 ? <ArrowRight size={24} strokeWidth={2.5} /> : <ChevronRight size={28} />}
          </button>

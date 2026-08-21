@@ -47,7 +47,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[150] flex items-center justify-center bg-transparent font-sans text-white overflow-hidden"
+      className="fixed inset-0 z-[150] flex items-center justify-center bg-transparent font-sans text-primary overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -60,7 +60,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
       <motion.div 
         variants={floatingVariants}
         animate="animate"
-        className="absolute left-[15%] top-[30%] w-20 h-20 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center shadow-2xl hidden lg:flex"
+        className="absolute left-[15%] top-[30%] w-20 h-20 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl hidden lg:flex"
       >
          <LayoutGrid size={32} className="text-brand-primary" />
       </motion.div>
@@ -68,7 +68,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
       <motion.div 
         variants={floatingVariantsReverse}
         animate="animate"
-        className="absolute right-[15%] bottom-[30%] w-24 h-24 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center shadow-2xl hidden lg:flex"
+        className="absolute right-[15%] bottom-[30%] w-24 h-24 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-2xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl hidden lg:flex"
       >
          <Zap size={40} className="text-brand-accent" />
       </motion.div>
@@ -90,11 +90,11 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
                Bienvenido a Noova Suite
             </h1>
             
-            <h2 className="text-xl md:text-2xl font-medium text-zinc-300">
+            <h2 className="text-xl md:text-2xl font-medium text-secondary">
                Gestiona y administra tus servicios digitales desde una experiencia optimizada para escritorio.
             </h2>
             
-            <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl mx-auto font-light">
+            <p className="text-muted text-base md:text-lg leading-relaxed max-w-xl mx-auto font-light">
                Explora tus módulos con mayor comodidad, una interfaz más amplia y un flujo de trabajo diseñado para aumentar tu productividad.
             </p>
          </motion.div>
@@ -110,12 +110,12 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
                </span>
                
                {/* Inner Shine */}
-               <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+               <div className="absolute inset-0 rounded-xl bg-[rgb(var(--fg-rgb))]/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
             </button>
          </motion.div>
 
          {/* Footer Note */}
-         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-zinc-600 text-xs font-medium uppercase tracking-widest bg-white/5 px-4 py-2 rounded-full border border-white/5">
+         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-faint text-xs font-medium uppercase tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-4 py-2 rounded-full border border-[rgb(var(--fg-rgb))]/5">
             <ShieldCheck size={12} />
             <span>Entorno Seguro & Sincronizado</span>
          </motion.div>

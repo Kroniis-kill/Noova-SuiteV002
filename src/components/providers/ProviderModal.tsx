@@ -53,11 +53,11 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-2 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-[14px] text-white placeholder:text-zinc-600 px-4 outline-none font-medium rounded-md",
+    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-2 block ml-1",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
+    input: "w-full h-full bg-transparent text-[14px] text-primary placeholder:text-faint px-4 outline-none font-medium rounded-md",
     iconLeft: "pl-12",
-    iconElement: "absolute left-4 text-zinc-500 pointer-events-none",
+    iconElement: "absolute left-4 text-disabled pointer-events-none",
   };
 
   return (
@@ -109,13 +109,13 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           {/* Quality Score */}
           <div>
              <label className={styles.label}>Calificación / Calidad</label>
-             <div className="flex items-center gap-2 bg-surface-sunken p-3 rounded-md border border-white/10 justify-center">
+             <div className="flex items-center gap-2 bg-surface-sunken p-3 rounded-md border border-[rgb(var(--fg-rgb))]/10 justify-center">
                 {[1, 2, 3, 4, 5].map((star) => (
                    <button
                      key={star}
                      type="button"
                      onClick={() => setQualityScore(star)}
-                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-status-warning-soft' : 'text-zinc-600'}`}
+                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-status-warning-soft' : 'text-faint'}`}
                    >
                       <Star size={24} fill={qualityScore >= star ? "currentColor" : "none"} />
                    </button>
@@ -126,7 +126,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           {/* Color */}
           <div>
              <label className={styles.label}><Palette size={12} className="inline mr-1 mb-0.5"/> Color Identificador</label>
-             <div className="bg-surface-sunken rounded-lg p-4 flex gap-4 overflow-x-auto no-scrollbar border border-white/10">
+             <div className="bg-surface-sunken rounded-lg p-4 flex gap-4 overflow-x-auto no-scrollbar border border-[rgb(var(--fg-rgb))]/10">
                 {['#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#f43f5e', '#06b6d4'].map(c => (
                    <button
                      key={c}

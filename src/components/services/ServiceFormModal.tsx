@@ -80,8 +80,8 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
     onClose();
   };
 
-  const inputClass = "w-full bg-surface-sunken border border-white/10 rounded-md pl-11 pr-4 py-4 text-white text-sm outline-none focus:border-brand-primary transition-all font-medium";
-  const labelClass = "text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2 block ml-1";
+  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-4 py-4 text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const labelClass = "text-[10px] font-semibold text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={initialData ? 'Editar Servicio' : 'Nuevo Servicio'}>
@@ -89,20 +89,20 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
         <div>
           <label className={labelClass}>Identificación</label>
           <div className="relative flex items-center">
-            <Tag size={18} className="absolute left-4 text-zinc-500" />
+            <Tag size={18} className="absolute left-4 text-disabled" />
             <input placeholder="Nombre de la Plataforma" value={name} onChange={e => setName(e.target.value)} className={inputClass} required />
           </div>
         </div>
 
         <div>
           <label className={labelClass}>Imagen del Servicio</label>
-          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-white/5">
-              <div onClick={() => fileInputRef.current?.click()} className="w-20 h-20 rounded-lg bg-surface-3 border border-white/10 flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95">
-                {image_url ? <img src={image_url} className="w-full h-full object-cover" /> : <Camera size={24} className="text-zinc-500" />}
+          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+              <div onClick={() => fileInputRef.current?.click()} className="w-20 h-20 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95">
+                {image_url ? <img src={image_url} className="w-full h-full object-cover" /> : <Camera size={24} className="text-disabled" />}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"><Upload size={20} className="text-white" /></div>
               </div>
               <div className="flex-1">
-                 <h4 className="text-white font-bold text-sm">Logo o Icono</h4>
+                 <h4 className="text-primary font-bold text-sm">Logo o Icono</h4>
                  <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
                  {image_url && <button type="button" onClick={() => setImageUrl('')} className="mt-2 text-status-danger-soft text-[10px] font-semibold">Eliminar imagen</button>}
               </div>
@@ -113,35 +113,35 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
           <div>
             <label className={labelClass}>Modalidad</label>
             <div className="relative flex items-center">
-              <Layers size={18} className="absolute left-4 text-zinc-500" />
+              <Layers size={18} className="absolute left-4 text-disabled" />
               <select value={type} onChange={(e) => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}>
                 <option value="por_pantalla">Por Pantalla</option>
                 <option value="cuenta_completa">Completa</option>
                 <option value="usuario_unico">Usuario Único</option>
               </select>
-              <ChevronDown className="absolute right-4 text-zinc-500 pointer-events-none" size={16} />
+              <ChevronDown className="absolute right-4 text-disabled pointer-events-none" size={16} />
             </div>
           </div>
           <div>
             <label className={labelClass}>Cupos Máx.</label>
             <div className="relative flex items-center">
-              <Hash size={18} className="absolute left-4 text-zinc-500" />
+              <Hash size={18} className="absolute left-4 text-disabled" />
               <input type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" required />
             </div>
           </div>
         </div>
 
-        <div className="bg-surface-sunken rounded-xl p-5 border border-white/5 space-y-4">
-            <h4 className="text-[11px] font-semibold text-zinc-400 uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
+        <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
+            <h4 className="text-[11px] font-semibold text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <label className={labelClass}>Inversión Total</label>
-                <div className="relative flex items-center"><DollarSign size={18} className="absolute left-4 text-zinc-500" /><input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+                <div className="relative flex items-center"><DollarSign size={18} className="absolute left-4 text-disabled" /><input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" /></div>
               </div>
               <div><label className={labelClass}>P. Público</label><input type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
               <div><label className={labelClass}>P. Socio</label><input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
             </div>
-            <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-white">${calculatedCost.toFixed(2)}</span></div>
+            <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-primary">${calculatedCost.toFixed(2)}</span></div>
         </div>
 
         <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all">

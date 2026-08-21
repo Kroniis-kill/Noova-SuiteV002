@@ -41,7 +41,7 @@ const ActivityLogList: React.FC = () => {
       case 'UPDATE': return { icon: <Edit2 size={14} />, color: 'text-status-info-soft', bg: 'bg-status-info/10' };
       case 'DELETE': return { icon: <Trash2 size={14} />, color: 'text-status-danger-soft', bg: 'bg-status-danger/10' };
       case 'LOGIN': return { icon: <LogIn size={14} />, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' };
-      default: return { icon: <History size={14} />, color: 'text-zinc-400', bg: 'bg-white/5' };
+      default: return { icon: <History size={14} />, color: 'text-muted', bg: 'bg-[rgb(var(--fg-rgb))]/5' };
     }
   };
 
@@ -56,28 +56,28 @@ const ActivityLogList: React.FC = () => {
   };
 
   return (
-    <div className="bg-surface-3 border border-white/10 rounded-2xl p-0 shadow-2xl relative overflow-hidden flex flex-col h-[600px] w-full max-w-5xl mx-auto">
+    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-0 shadow-2xl relative overflow-hidden flex flex-col h-[600px] w-full max-w-5xl mx-auto">
        
        {/* Header */}
-       <div className="p-6 border-b border-white/5 bg-surface-zinc/50 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4 z-10">
+       <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 bg-surface-zinc/50 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4 z-10">
           <div>
-             <h2 className="text-xl font-bold text-white flex items-center gap-3">
+             <h2 className="text-xl font-bold text-primary flex items-center gap-3">
                 <div className="w-10 h-10 rounded-md bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-glow-sm">
                     <Clock size={20} />
                 </div>
                 Historial de Cambios
              </h2>
-             <p className="text-zinc-400 text-xs mt-1 ml-[52px]">Registro detallado de operaciones</p>
+             <p className="text-muted text-xs mt-1 ml-[52px]">Registro detallado de operaciones</p>
           </div>
           
           <div className="flex gap-3">
              <div className="relative group">
-                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-brand-primary transition-colors" />
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled group-focus-within:text-brand-primary transition-colors" />
                 <input 
                   value={search} 
                   onChange={e => setSearch(e.target.value)} 
                   placeholder="Buscar en logs..."
-                  className="bg-surface-sunken border border-white/10 rounded-md pl-10 pr-4 py-2.5 text-xs text-white w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-zinc-600 font-medium"
+                  className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-10 pr-4 py-2.5 text-xs text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-faint font-medium"
                 />
              </div>
              
@@ -85,7 +85,7 @@ const ActivityLogList: React.FC = () => {
                  <select 
                    value={filterEntity} 
                    onChange={e => setFilterEntity(e.target.value as any)}
-                   className="appearance-none bg-surface-sunken border border-white/10 rounded-md pl-4 pr-8 py-2.5 text-xs text-zinc-300 font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-white transition-colors"
+                   className="appearance-none bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-4 pr-8 py-2.5 text-xs text-secondary font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-primary transition-colors"
                  >
                     <option value="ALL">Todo</option>
                     <option value="SALE">Ventas</option>
@@ -93,7 +93,7 @@ const ActivityLogList: React.FC = () => {
                     <option value="INVENTORY">Inventario</option>
                     <option value="FINANCE">Finanzas</option>
                  </select>
-                 <Filter size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
+                 <Filter size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-disabled pointer-events-none" />
              </div>
           </div>
        </div>
@@ -102,24 +102,24 @@ const ActivityLogList: React.FC = () => {
        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-8 bg-surface-1 relative">
           
           {(Object.entries(groupedLogs) as [string, ActivityLog[]][]).map(([date, logs]) => (
-              <div key={date} className="relative pl-4 border-l border-white/10">
-                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-[10px] font-semibold text-zinc-500 uppercase py-1 px-2 border border-white/5 rounded-full">{date}</span>
+              <div key={date} className="relative pl-4 border-l border-[rgb(var(--fg-rgb))]/10">
+                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-[10px] font-semibold text-disabled uppercase py-1 px-2 border border-[rgb(var(--fg-rgb))]/5 rounded-full">{date}</span>
                   
                   <div className="space-y-3 mt-4">
                       {logs.map(log => {
                           const config = getActionConfig(log.action);
                           const time = new Date(log.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                           return (
-                              <div key={log.id} className="flex items-start gap-4 p-3 rounded-md hover:bg-white/[0.02] transition-colors group">
+                              <div key={log.id} className="flex items-start gap-4 p-3 rounded-md hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group">
                                   <div className={`mt-1 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${config.bg} ${config.color}`}>
                                       {config.icon}
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                      <p className="text-sm text-zinc-200 leading-snug">{log.details}</p>
+                                      <p className="text-sm text-secondary leading-snug">{log.details}</p>
                                       <div className="flex items-center gap-2 mt-1">
-                                          <span className="text-[10px] font-mono text-zinc-500">{time}</span>
+                                          <span className="text-[10px] font-mono text-disabled">{time}</span>
                                           <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                                          <span className="text-[10px] font-semibold text-zinc-500 uppercase">{getEntityLabel(log.entity)}</span>
+                                          <span className="text-[10px] font-semibold text-disabled uppercase">{getEntityLabel(log.entity)}</span>
                                       </div>
                                   </div>
                               </div>
@@ -131,8 +131,8 @@ const ActivityLogList: React.FC = () => {
 
           {Object.keys(groupedLogs).length === 0 && (
              <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
-                <History size={48} className="text-zinc-500 mb-4" />
-                <h3 className="text-zinc-300 font-bold text-lg">Sin Actividad Reciente</h3>
+                <History size={48} className="text-disabled mb-4" />
+                <h3 className="text-secondary font-bold text-lg">Sin Actividad Reciente</h3>
              </div>
           )}
        </div>

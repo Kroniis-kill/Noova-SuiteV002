@@ -67,14 +67,14 @@ const Avatar: React.FC<AvatarProps> = React.memo(({
   // 2. SVG Mode (Local - Instant, No Network)
   return (
     <div 
-      className={`relative flex items-center justify-center overflow-hidden shadow-inner border border-white/10 ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden shadow-inner border border-[rgb(var(--fg-rgb))]/10 ${className}`}
       style={{ 
         ...style,
         background: `linear-gradient(135deg, ${bgStart}, ${bgEnd})` 
       }}
     >
       {fallbackIcon ? (
-        <div className="text-white opacity-90">{fallbackIcon}</div>
+        <div className="text-primary opacity-90">{fallbackIcon}</div>
       ) : (
         <svg 
           viewBox="0 0 100 100" 

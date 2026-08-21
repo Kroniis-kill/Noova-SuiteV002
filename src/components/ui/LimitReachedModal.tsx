@@ -62,7 +62,7 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
           {/* Icon Animation Wrapper */}
           <div className="relative mb-6 mt-2">
              <div className="absolute inset-0 bg-brand-accent/30 blur-[50px] rounded-full animate-pulse" />
-             <div className="relative w-24 h-24 bg-gradient-to-br from-surface-3 to-bg rounded-2xl border border-white/10 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(255,20,147,0.5)]">
+             <div className="relative w-24 h-24 bg-gradient-to-br from-surface-3 to-bg rounded-2xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(255,20,147,0.5)]">
                 <Lock size={36} className="text-brand-accent" />
                 <div className="absolute -top-3 -right-3 w-10 h-10 bg-brand-accent rounded-full flex items-center justify-center border-[4px] border-surface-zinc text-white font-semibold text-xs shadow-lg">
                    MAX
@@ -74,9 +74,9 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
              {info.subtitle}
           </span>
 
-          <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{info.title}</h3>
+          <h3 className="text-2xl font-bold text-primary mb-3 tracking-tight">{info.title}</h3>
           
-          <p className="text-zinc-400 text-sm leading-relaxed max-w-[280px] mb-8">
+          <p className="text-muted text-sm leading-relaxed max-w-[280px] mb-8">
              {info.desc}
           </p>
 
@@ -85,14 +85,14 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
                onClick={handleUpgrade}
                className="group w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-lg text-white font-bold text-sm shadow-[0_0_30px_-5px_rgba(106,44,255,0.5)] flex items-center justify-center gap-3 relative overflow-hidden transition-transform active:scale-[0.98]"
              >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 <Crown size={18} className="fill-white" />
                 <span>Desbloquear Plan PRO</span>
              </button>
              
              <button 
                onClick={onClose}
-               className="w-full h-[48px] text-zinc-500 font-medium text-xs hover:text-white transition-colors flex items-center justify-center gap-2"
+               className="w-full h-[48px] text-disabled font-medium text-xs hover:text-primary transition-colors flex items-center justify-center gap-2"
              >
                 Entendido, borraré datos antiguos
              </button>

@@ -17,49 +17,49 @@ const SecurityHub = () => (
         <ShieldCheck size={24} />
       </div>
       <div>
-        <h4 className="text-white font-bold text-sm">Tu cuenta está protegida</h4>
-        <p className="text-zinc-400 text-[10px]">Encriptación de nivel bancario activa.</p>
+        <h4 className="text-primary font-bold text-sm">Tu cuenta está protegida</h4>
+        <p className="text-muted text-[10px]">Encriptación de nivel bancario activa.</p>
       </div>
     </div>
 
-    <div className="bg-surface-3 border border-white/10 rounded-xl overflow-hidden">
-      <div className="p-4 border-b border-white/5">
-        <h3 className="text-white font-semibold text-xs uppercase tracking-widest">Protocolos de Privacidad</h3>
+    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden">
+      <div className="p-4 border-b border-[rgb(var(--fg-rgb))]/5">
+        <h3 className="text-primary font-semibold text-xs uppercase tracking-widest">Protocolos de Privacidad</h3>
       </div>
       <div className="p-2 space-y-1">
-        <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
           <div className="flex items-center gap-3">
             <Lock size={16} className="text-brand-primary" />
-            <span className="text-sm text-zinc-200">Encriptación en Reposo</span>
+            <span className="text-sm text-secondary">Encriptación en Reposo</span>
           </div>
           <span className="text-[10px] font-semibold text-status-success-soft uppercase">AES-256</span>
         </div>
-        <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
           <div className="flex items-center gap-3">
             <Smartphone size={16} className="text-brand-primary" />
-            <span className="text-sm text-zinc-200">Acceso al Portal</span>
+            <span className="text-sm text-secondary">Acceso al Portal</span>
           </div>
           <span className="text-[10px] font-semibold text-status-success-soft uppercase">Protegido por PIN</span>
         </div>
-        <div className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
           <div className="flex items-center gap-3">
             <Database size={16} className="text-brand-primary" />
-            <span className="text-sm text-zinc-200">Sincronización Segura</span>
+            <span className="text-sm text-secondary">Sincronización Segura</span>
           </div>
           <span className="text-[10px] font-semibold text-status-success-soft uppercase">SSL / TLS 1.3</span>
         </div>
       </div>
     </div>
 
-    <div className="p-5 border border-white/5 bg-surface-3 rounded-xl">
-      <h3 className="text-white font-bold text-sm mb-2 flex items-center gap-2">
-        <Smartphone size={16} className="text-zinc-400" /> Sesiones Activas
+    <div className="p-5 border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 rounded-xl">
+      <h3 className="text-primary font-bold text-sm mb-2 flex items-center gap-2">
+        <Smartphone size={16} className="text-muted" /> Sesiones Activas
       </h3>
       <div className="space-y-4 mt-4">
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
-            <span className="text-xs text-white font-bold">Este dispositivo</span>
-            <span className="text-[10px] text-zinc-500">Activo ahora mismo</span>
+            <span className="text-xs text-primary font-bold">Este dispositivo</span>
+            <span className="text-[10px] text-disabled">Activo ahora mismo</span>
           </div>
           <span className="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_#10b981]" />
         </div>
@@ -136,32 +136,32 @@ const SettingsMobile: React.FC = () => {
   const activeItem = MENU_GROUPS.flatMap(g => g.items).find(i => i.id === activeTab);
 
   return (
-    <div className="w-full min-h-screen pb-10 font-sans relative text-zinc-100 px-6 pt-safe mt-2">
+    <div className="w-full min-h-screen pb-10 font-sans relative text-primary px-6 pt-safe mt-2">
       <div className="fixed inset-0 bg-surface-sunken z-0" />
       <AnimatePresence mode="wait">
         {!activeTab && (
           <motion.div key="menu" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 relative z-10" >
             <div className="mt-6 mb-10">
-               <h1 className="text-[22px] font-bold text-white tracking-tight">Ajustes</h1>
-               <p className="text-zinc-500 text-[12px] font-medium mt-0.5">Personaliza tu Noova</p>
+               <h1 className="text-[22px] font-bold text-primary tracking-tight">Ajustes</h1>
+               <p className="text-disabled text-[12px] font-medium mt-0.5">Personaliza tu Noova</p>
             </div>
             <div className="space-y-6">
               {MENU_GROUPS.map((group, idx) => (
                 <div key={idx} className="space-y-2.5">
-                   <h3 className="text-[10px] font-semibold text-zinc-600 uppercase tracking-[0.2em] px-1">{group.title}</h3>
+                   <h3 className="text-[10px] font-semibold text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
                    <div className="space-y-1">
                       {group.items.map((item) => {
                         const Icon = item.icon;
                         return (
-                          <button key={item.id} onClick={() => setActiveTab(item.id)} className="w-full p-2.5 rounded-lg flex items-center gap-3 bg-surface-1 border border-white/[0.02] active:scale-[0.98] transition-all hover:bg-surface-1 group" >
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-bg text-white shrink-0 border border-white/5 shadow-inner">
+                          <button key={item.id} onClick={() => setActiveTab(item.id)} className="w-full p-2.5 rounded-lg flex items-center gap-3 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.02] active:scale-[0.98] transition-all hover:bg-surface-1 group" >
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-bg text-primary shrink-0 border border-[rgb(var(--fg-rgb))]/5 shadow-inner">
                               <Icon size={14} strokeWidth={2.5} />
                             </div>
                             <div className="flex-1 text-left">
-                              <span className="block text-[13px] font-semibold text-white/90 leading-tight">{item.label}</span>
-                              <span className="block text-[9px] text-zinc-600 mt-0.5 font-medium uppercase tracking-wider">{item.desc}</span>
+                              <span className="block text-[13px] font-semibold text-primary/90 leading-tight">{item.label}</span>
+                              <span className="block text-[9px] text-faint mt-0.5 font-medium uppercase tracking-wider">{item.desc}</span>
                             </div>
-                            <ChevronRight size={16} className="text-zinc-700 group-active:text-zinc-400 transition-colors" />
+                            <ChevronRight size={16} className="text-faint group-active:text-muted transition-colors" />
                           </button>
                         );
                       })}
@@ -170,7 +170,7 @@ const SettingsMobile: React.FC = () => {
               ))}
             </div>
             <div className="py-12 text-center">
-              <p className="text-[9px] text-zinc-800 font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
+              <p className="text-[9px] text-faint font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
             </div>
           </motion.div>
         )}
@@ -178,8 +178,8 @@ const SettingsMobile: React.FC = () => {
           <motion.div key="detail" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="relative z-10 h-full flex flex-col" >
             {activeTab !== 'services' && (
               <div className="mb-4 pt-2 px-2">
-                <h2 className="text-2xl font-bold text-white leading-tight tracking-tight">{activeItem.label}</h2>
-                <p className="text-zinc-400 text-[11px] font-medium mt-0.5">{activeItem.desc}</p>
+                <h2 className="text-2xl font-bold text-primary leading-tight tracking-tight">{activeItem.label}</h2>
+                <p className="text-muted text-[11px] font-medium mt-0.5">{activeItem.desc}</p>
               </div>
             )}
             <div className="pb-40 animate-fade-in">{renderContent()}</div>

@@ -44,7 +44,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
         >
           <div className="relative z-10 w-full">
              <div className="flex justify-between items-start mb-3">
-                <div className="w-10 h-10 rounded-md bg-surface-4 border border-white/5 flex items-center justify-center text-zinc-300 shadow-inner overflow-hidden">
+                <div className="w-10 h-10 rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-secondary shadow-inner overflow-hidden">
                    {service.image_url && !imgError ? (
                      <img 
                        src={service.image_url} 
@@ -61,13 +61,13 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
                    )}
                 </div>
                 <div className="text-right">
-                   <span className="text-lg font-bold text-white leading-none block">{stats.total}</span>
-                   <span className="text-[9px] text-zinc-500 font-medium uppercase tracking-wide">Cuentas</span>
+                   <span className="text-lg font-bold text-primary leading-none block">{stats.total}</span>
+                   <span className="text-[9px] text-disabled font-medium uppercase tracking-wide">Cuentas</span>
                 </div>
              </div>
 
-             <h3 className="text-[13px] font-bold text-white leading-tight truncate mb-0.5 pr-2">{service.name}</h3>
-             <p className="text-[10px] text-zinc-500 font-medium">{stats.totalScreens} cupos totales</p>
+             <h3 className="text-[13px] font-bold text-primary leading-tight truncate mb-0.5 pr-2">{service.name}</h3>
+             <p className="text-[10px] text-disabled font-medium">{stats.totalScreens} cupos totales</p>
           </div>
           
           <div className="relative z-10 w-full mt-3 flex flex-wrap gap-1.5">
@@ -101,11 +101,11 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
         className={`w-full flex items-center justify-between px-4 py-3 rounded-md transition-all text-left group border relative overflow-hidden ${
             isActive 
             ? 'bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/20' 
-            : 'bg-transparent border-transparent text-zinc-400 hover:bg-white/5 hover:text-white'
+            : 'bg-transparent border-transparent text-muted hover:bg-[rgb(var(--fg-rgb))]/5 hover:text-primary'
         } ${(stats.activa + stats.por_vencer + stats.fallando) === 0 ? 'opacity-50 grayscale' : ''}`}
     >
         <div className="flex items-center gap-3 relative z-10">
-            <div className={`p-1 rounded-xl w-8 h-8 flex items-center justify-center overflow-hidden ${isActive ? 'bg-white/20' : 'bg-white/5'}`}>
+            <div className={`p-1 rounded-xl w-8 h-8 flex items-center justify-center overflow-hidden ${isActive ? 'bg-[rgb(var(--fg-rgb))]/20' : 'bg-[rgb(var(--fg-rgb))]/5'}`}>
                 {service.image_url && !imgError ? (
                     <img 
                       src={service.image_url} 
@@ -117,7 +117,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
                     <span className="text-[9px] font-black">{initials}</span>
                 )}
             </div>
-            <span className={`text-xs font-semibold truncate max-w-[120px] ${isActive ? 'text-white' : 'text-zinc-300'}`}>{service.name}</span>
+            <span className={`text-xs font-semibold truncate max-w-[120px] ${isActive ? 'text-primary' : 'text-secondary'}`}>{service.name}</span>
         </div>
         
         <div className="flex items-center gap-2 relative z-10">
@@ -125,7 +125,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
             {(hasExpired || hasWarning) && !hasFailure && (
                 <div className={`w-2 h-2 rounded-full ${hasExpired ? 'bg-status-danger-soft' : 'bg-status-warning-soft'} animate-pulse`} />
             )}
-            <span className={`text-[10px] font-mono ${isActive ? 'text-white/80' : 'text-zinc-600 group-hover:text-zinc-400'}`}>
+            <span className={`text-[10px] font-mono ${isActive ? 'text-primary/80' : 'text-faint group-hover:text-muted'}`}>
                 {stats.total}
             </span>
         </div>

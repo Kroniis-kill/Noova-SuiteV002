@@ -60,10 +60,10 @@ export const getStatusColor = (status: string | undefined) => {
     case 'activa': return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20';
     case 'por_vencer': return 'text-amber-400 bg-amber-400/10 border-amber-400/20';
     case 'vencida': return 'text-red-400 bg-red-400/10 border-red-400/20';
-    case 'inactiva': return 'text-zinc-400 bg-zinc-500/10 border-zinc-500/20';
+    case 'inactiva': return 'text-muted bg-zinc-500/10 border-zinc-500/20';
     case 'fallando': return 'text-orange-400 bg-orange-500/20 border-orange-500/40 shadow-[0_0_10px_rgba(249,115,22,0.1)]';
-    case 'trash': return 'text-zinc-500 bg-zinc-800/50 border-zinc-700';
-    default: return 'text-zinc-400 bg-zinc-500/10 border-zinc-500/20';
+    case 'trash': return 'text-disabled bg-zinc-800/50 border-zinc-700';
+    default: return 'text-muted bg-zinc-500/10 border-zinc-500/20';
   }
 };
 

@@ -53,7 +53,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentView, setView, onMenuClick
                     className="w-[60px] h-[60px] rounded-xl bg-brand-gradient flex items-center justify-center text-white shadow-glow-primary border-[3px] border-surface-1 relative overflow-hidden group mx-1 z-20 focus-visible:ring-2 focus-visible:ring-brand-accent/60 outline-none"
                     style={{ touchAction: 'manipulation' }}
                   >
-                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-out-soft" />
+                    <div className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-out-soft" />
                     <Grip size={26} aria-hidden="true" />
                   </motion.button>
                 );
@@ -72,7 +72,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentView, setView, onMenuClick
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill-active"
-                      className="absolute inset-x-1 top-2 bottom-2 bg-white/[0.06] rounded-lg -z-10"
+                      className="absolute inset-x-1 top-2 bottom-2 bg-[rgb(var(--fg-rgb))]/[0.06] rounded-lg -z-10"
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}

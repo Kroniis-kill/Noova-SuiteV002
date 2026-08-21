@@ -48,7 +48,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
            </div>
            <div>
               <h4 className="text-status-warning font-bold text-sm mb-1">Actualización Requerida</h4>
-              <p className="text-zinc-300 text-xs leading-relaxed">
+              <p className="text-secondary text-xs leading-relaxed">
                  Has cambiado la contraseña de <strong>{account.email}</strong>. 
                  Hay <strong>{affectedSales.length} clientes</strong> activos usando esta cuenta que perderán el acceso.
               </p>
@@ -56,7 +56,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
         </div>
 
         <div className="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-1">
-           <p className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider ml-1">Clientes Afectados</p>
+           <p className="text-[10px] font-semibold text-disabled uppercase tracking-wider ml-1">Clientes Afectados</p>
            
            {affectedSales.map(sale => {
               const client = clients.find(c => c.id === sale.clientId);
@@ -65,10 +65,10 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
               if (!client) return null;
 
               return (
-                 <div key={sale.id} className="flex items-center justify-between p-3 bg-surface-zinc border border-white/10 rounded-md">
+                 <div key={sale.id} className="flex items-center justify-between p-3 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md">
                     <div className="min-w-0 flex-1 mr-3">
-                       <p className="text-sm font-bold text-white truncate">{client.name}</p>
-                       <p className="text-[10px] text-zinc-500 truncate flex items-center gap-1">
+                       <p className="text-sm font-bold text-primary truncate">{client.name}</p>
+                       <p className="text-[10px] text-disabled truncate flex items-center gap-1">
                           {profile?.name || 'Perfil'} 
                           <span className="w-1 h-1 bg-zinc-600 rounded-full" /> 
                           {client.phone}
@@ -86,7 +86,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
         </div>
 
         <div className="pt-2 flex flex-col gap-3">
-           <button onClick={onClose} className="w-full py-3.5 bg-surface-3 text-zinc-400 font-semibold text-xs rounded-md hover:bg-white/5 transition-colors">
+           <button onClick={onClose} className="w-full py-3.5 bg-surface-3 text-muted font-semibold text-xs rounded-md hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors">
               Listo, cerrar
            </button>
         </div>

@@ -113,7 +113,7 @@ const AdminMobile: React.FC = () => {
   if (activeTab === 'analytics') return <AdminAnalyticsMobile onBack={() => setActiveTab('overview')} />;
 
   return (
-    <div className="pb-32 pt-3 text-zinc-100 min-h-screen bg-bg">
+    <div className="pb-32 pt-3 text-primary min-h-screen bg-bg">
 
       {/* HEADER */}
       <div className="flex justify-between items-center mb-5 px-1">
@@ -122,14 +122,14 @@ const AdminMobile: React.FC = () => {
             <Shield size={18} />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white tracking-tight">Panel Admin</h1>
-            <p className="text-zinc-500 text-[10px]">Gestión de suscripciones</p>
+            <h1 className="text-lg font-bold text-primary tracking-tight">Panel Admin</h1>
+            <p className="text-disabled text-[10px]">Gestión de suscripciones</p>
           </div>
         </div>
         <div className="flex gap-2">
           <button
             onClick={loadData}
-            className={`w-9 h-9 rounded-lg bg-surface-1 border border-white/[0.08] flex items-center justify-center text-zinc-400 active:scale-90 transition-all ${isSyncing ? 'animate-spin text-brand-primary' : ''}`}
+            className={`w-9 h-9 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-muted active:scale-90 transition-all ${isSyncing ? 'animate-spin text-brand-primary' : ''}`}
           ><RefreshCw size={16} /></button>
           <button
             onClick={() => { setEditingSub(null); setIsModalOpen(true); }}
@@ -139,7 +139,7 @@ const AdminMobile: React.FC = () => {
       </div>
 
       {/* TABS */}
-      <div className="flex gap-1 bg-surface-1 border border-white/[0.08] rounded-xl p-1 mb-5 overflow-x-auto custom-scrollbar">
+      <div className="flex gap-1 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-1 mb-5 overflow-x-auto custom-scrollbar">
         {TABS.map(tab => {
           const active = activeTab === tab.id;
           return (
@@ -147,7 +147,7 @@ const AdminMobile: React.FC = () => {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 min-w-[70px] py-2 px-2 rounded-lg text-[10px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                active ? 'bg-brand-primary text-white' : 'text-zinc-400'
+                active ? 'bg-brand-primary text-white' : 'text-muted'
               }`}
             >
               <tab.icon size={14} />
@@ -177,9 +177,9 @@ const AdminMobile: React.FC = () => {
             </div>
 
             {/* Recent users preview */}
-            <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-4">
+            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="text-sm font-semibold text-white">Últimos usuarios</h3>
+                <h3 className="text-sm font-semibold text-primary">Últimos usuarios</h3>
                 <button onClick={() => setActiveTab('users')} className="text-[11px] font-semibold text-brand-primary">Ver todos</button>
               </div>
               <div className="space-y-2">
@@ -187,7 +187,7 @@ const AdminMobile: React.FC = () => {
                   <UserRow key={sub.user_id} sub={sub} onClick={() => { setSelectedUser(sub); setIsDetailModalOpen(true); }} />
                 ))}
                 {subs.length === 0 && (
-                  <p className="text-zinc-500 text-xs text-center py-6">Aún no hay usuarios registrados.</p>
+                  <p className="text-disabled text-xs text-center py-6">Aún no hay usuarios registrados.</p>
                 )}
               </div>
             </div>
@@ -197,18 +197,18 @@ const AdminMobile: React.FC = () => {
         {activeTab === 'users' && (
           <motion.div key="users" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
             <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-disabled" />
               <input
                 value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar usuario..."
-                className="w-full h-11 bg-surface-1 border border-white/[0.08] rounded-lg pl-10 pr-4 text-sm text-white outline-none focus:border-brand-primary/50"
+                className="w-full h-11 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 text-sm text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
             <div className="space-y-2">
               {filteredSubs.length === 0 ? (
                 <div className="text-center py-12">
-                  <Users size={28} className="mx-auto text-zinc-700 mb-2" />
-                  <p className="text-zinc-500 text-sm">Sin resultados</p>
+                  <Users size={28} className="mx-auto text-faint mb-2" />
+                  <p className="text-disabled text-sm">Sin resultados</p>
                 </div>
               ) : filteredSubs.map(sub => (
                 <UserRow key={sub.user_id} sub={sub} onClick={() => { setSelectedUser(sub); setIsDetailModalOpen(true); }} />
@@ -221,20 +221,20 @@ const AdminMobile: React.FC = () => {
           <motion.div key="feedback" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
             {feedback.length === 0 ? (
               <div className="text-center py-12">
-                <MessageSquare size={28} className="mx-auto text-zinc-700 mb-2" />
-                <p className="text-zinc-500 text-sm">No hay mensajes.</p>
+                <MessageSquare size={28} className="mx-auto text-faint mb-2" />
+                <p className="text-disabled text-sm">No hay mensajes.</p>
               </div>
             ) : feedback.map(f => (
-              <div key={f.id} className={`p-4 rounded-xl border ${f.status === 'read' ? 'bg-surface-1 border-white/[0.06]' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
+              <div key={f.id} className={`p-4 rounded-xl border ${f.status === 'read' ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.06]' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[11px] font-semibold text-zinc-400">{f.user_email}</span>
+                  <span className="text-[11px] font-semibold text-muted">{f.user_email}</span>
                   {f.status === 'pending' && (
                     <button onClick={() => { markFeedbackAsRead(f.id); loadData(); }} className="text-[10px] font-semibold text-brand-primary">
                       Leído
                     </button>
                   )}
                 </div>
-                <p className="text-sm text-zinc-200 leading-relaxed">{f.message}</p>
+                <p className="text-sm text-secondary leading-relaxed">{f.message}</p>
               </div>
             ))}
           </motion.div>
@@ -242,12 +242,12 @@ const AdminMobile: React.FC = () => {
 
         {activeTab === 'announcements' && (
           <motion.div key="announcements" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
-            <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-4">
+            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
               <textarea
                 value={newAnnouncement}
                 onChange={e => setNewAnnouncement(e.target.value)}
                 placeholder="Escribe un anuncio..."
-                className="w-full bg-transparent text-sm text-white outline-none resize-none min-h-[80px]"
+                className="w-full bg-transparent text-sm text-primary outline-none resize-none min-h-[80px]"
               />
               <button
                 onClick={async () => {
@@ -262,9 +262,9 @@ const AdminMobile: React.FC = () => {
               </button>
             </div>
             {announcements.map(a => (
-              <div key={a.id} className="bg-surface-1 border border-white/[0.06] p-4 rounded-xl flex justify-between items-center gap-3">
-                <p className="text-sm text-zinc-200 flex-1">{a.message}</p>
-                <button onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-zinc-500 active:text-status-danger-soft">
+              <div key={a.id} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] p-4 rounded-xl flex justify-between items-center gap-3">
+                <p className="text-sm text-secondary flex-1">{a.message}</p>
+                <button onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-disabled active:text-status-danger-soft">
                   <Trash2 size={15} />
                 </button>
               </div>
@@ -274,28 +274,28 @@ const AdminMobile: React.FC = () => {
 
         {activeTab === 'system' && (
           <motion.div key="system" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
-            <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-5 space-y-4">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 space-y-4">
+              <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
                 <Settings size={15} className="text-brand-primary" /> Configuración global
               </h3>
               <div>
-                <label className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
+                <label className="text-[10px] font-semibold text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
                 <div className="relative">
-                  <Smartphone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                  <Smartphone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-disabled" />
                   <input
                     value={tempPhone}
                     onChange={e => setTempPhone(e.target.value)}
-                    className="w-full h-11 bg-surface-sunken border border-white/[0.08] rounded-lg pl-10 pr-4 text-sm text-white outline-none focus:border-brand-primary/50"
+                    className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 text-sm text-primary outline-none focus:border-brand-primary/50"
                   />
                 </div>
-                <p className="text-[10px] text-zinc-500 mt-1.5">Visible para usuarios bloqueados o expirados.</p>
+                <p className="text-[10px] text-disabled mt-1.5">Visible para usuarios bloqueados o expirados.</p>
               </div>
 
               <div className="p-3 bg-status-warning/5 border border-status-warning/20 rounded-lg flex gap-3 items-start">
                 <ShieldAlert size={16} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-amber-300 font-semibold text-xs">Kill switch</h4>
-                  <p className="text-[10px] text-zinc-400 mt-0.5 leading-relaxed">Pausará el acceso a toda la plataforma. Próximamente.</p>
+                  <p className="text-[10px] text-muted mt-0.5 leading-relaxed">Pausará el acceso a toda la plataforma. Próximamente.</p>
                 </div>
               </div>
 
@@ -329,13 +329,13 @@ const AdminMobile: React.FC = () => {
       <Modal isOpen={isConfigOpen} onClose={() => setIsConfigOpen(false)} title="Configuración">
         <div className="space-y-4 pt-2">
           <div>
-            <label className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
             <div className="relative">
-              <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+              <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-disabled" />
               <input
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
-                className="w-full bg-surface-sunken border border-white/[0.08] rounded-lg pl-10 pr-4 py-3 text-sm text-white outline-none focus:border-brand-primary/50"
+                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 py-3 text-sm text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
           </div>
@@ -356,12 +356,12 @@ const AdminMobile: React.FC = () => {
         <div className="space-y-4 pt-2">
           <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-lg flex gap-3 items-start">
             <Trash2 size={20} className="text-status-danger-soft shrink-0" />
-            <p className="text-sm text-zinc-200 leading-relaxed">
-              ¿Eliminar permanentemente a <strong className="text-white">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.
+            <p className="text-sm text-secondary leading-relaxed">
+              ¿Eliminar permanentemente a <strong className="text-primary">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.
             </p>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-white/5 rounded-lg text-zinc-300 text-sm font-medium">Cancelar</button>
+            <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-secondary text-sm font-medium">Cancelar</button>
             <button onClick={handleDelete} className="flex-1 py-3 bg-status-danger rounded-lg text-white text-sm font-semibold">Eliminar</button>
           </div>
         </div>
@@ -371,24 +371,24 @@ const AdminMobile: React.FC = () => {
 };
 
 const MetricCard = ({ label, value, icon: Icon, accent, bg }: any) => (
-  <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-4">
+  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
     <div className={`w-8 h-8 rounded-lg ${bg} ${accent} flex items-center justify-center mb-3`}>
       <Icon size={15} />
     </div>
-    <p className="text-xl font-bold text-white tracking-tight">{value}</p>
-    <p className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider mt-0.5">{label}</p>
+    <p className="text-xl font-bold text-primary tracking-tight">{value}</p>
+    <p className="text-[10px] font-medium text-disabled uppercase tracking-wider mt-0.5">{label}</p>
   </div>
 );
 
 const ShortcutCard = ({ label, icon: Icon, onClick }: any) => (
   <button
     onClick={onClick}
-    className="bg-surface-1 border border-white/[0.08] rounded-xl p-4 flex items-center gap-3 active:scale-[0.97] transition-all"
+    className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center gap-3 active:scale-[0.97] transition-all"
   >
-    <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-zinc-300">
+    <div className="w-9 h-9 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-secondary">
       <Icon size={16} />
     </div>
-    <span className="text-xs font-semibold text-zinc-200">{label}</span>
+    <span className="text-xs font-semibold text-secondary">{label}</span>
   </button>
 );
 
@@ -402,19 +402,19 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
   return (
     <div
       onClick={onClick}
-      className={`bg-surface-1 border border-white/[0.06] rounded-xl p-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-all ${isBanned ? 'opacity-50' : ''}`}
+      className={`bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-all ${isBanned ? 'opacity-50' : ''}`}
     >
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-[11px] shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-white/[0.08]'}`}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-[11px] shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
           {displayName.substring(0, 2).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-white truncate">{displayName}</p>
+          <p className="text-sm font-semibold text-primary truncate">{displayName}</p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded border uppercase ${
               isLifetime ? 'bg-brand-accent/10 text-brand-accent border-brand-accent/20'
               : isPro ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'
-              : 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
+              : 'bg-zinc-500/10 text-muted border-zinc-500/20'
             }`}>
               {sub.plan}
             </span>
@@ -428,12 +428,12 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <div className="text-right">
-          <p className="text-[9px] text-zinc-500 uppercase tracking-wider">Vence</p>
-          <p className="text-[10px] font-mono text-zinc-400">
+          <p className="text-[9px] text-disabled uppercase tracking-wider">Vence</p>
+          <p className="text-[10px] font-mono text-muted">
             {isLifetime ? '∞' : formatDate(sub.expires_at)}
           </p>
         </div>
-        <ChevronRight size={14} className="text-zinc-600" />
+        <ChevronRight size={14} className="text-faint" />
       </div>
     </div>
   );

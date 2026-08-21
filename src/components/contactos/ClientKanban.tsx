@@ -27,7 +27,7 @@ const COLUMNS: KanbanColumn[] = [
   { id: 'nuevo', title: 'Nuevos', icon: User, color: 'text-status-info-soft', bg: 'bg-status-info/5', borderColor: 'border-status-info/20' },
   { id: 'activo', title: 'Activos', icon: Zap, color: 'text-status-success-soft', bg: 'bg-status-success/5', borderColor: 'border-status-success/20' },
   { id: 'riesgo', title: 'En Riesgo', icon: AlertTriangle, color: 'text-status-warning-soft', bg: 'bg-status-warning/5', borderColor: 'border-status-warning/20' },
-  { id: 'inactivo', title: 'Inactivos', icon: Moon, color: 'text-zinc-400', bg: 'bg-zinc-500/5', borderColor: 'border-zinc-500/20' },
+  { id: 'inactivo', title: 'Inactivos', icon: Moon, color: 'text-muted', bg: 'bg-zinc-500/5', borderColor: 'border-zinc-500/20' },
 ];
 
 const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientClick }) => {
@@ -81,17 +81,17 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
         return (
           <div 
             key={col.id} 
-            className={`min-w-[320px] w-[92vw] md:w-full md:min-w-[300px] flex flex-col h-full snap-center bg-surface-3 rounded-xl border border-white/5 overflow-hidden shadow-lg shrink-0`}
+            className={`min-w-[320px] w-[92vw] md:w-full md:min-w-[300px] flex flex-col h-full snap-center bg-surface-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shadow-lg shrink-0`}
           >
             {/* Header */}
-            <div className={`p-4 border-b border-white/5 flex items-center justify-between ${col.bg}`}>
+            <div className={`p-4 border-b border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between ${col.bg}`}>
                <div className="flex items-center gap-2">
                   <div className={`p-1.5 rounded-lg bg-black/20 ${col.color}`}>
                      <Icon size={16} />
                   </div>
                   <span className={`text-sm font-bold ${col.color}`}>{col.title}</span>
                </div>
-               <span className="text-xs font-semibold text-zinc-500 bg-black/20 px-2 py-0.5 rounded-full">
+               <span className="text-xs font-semibold text-disabled bg-black/20 px-2 py-0.5 rounded-full">
                   {items.length}
                </span>
             </div>
@@ -103,21 +103,21 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
                    layout
                    key={client.id}
                    onClick={() => onClientClick(client)}
-                   className="bg-surface-3 border border-white/5 p-3 rounded-md hover:border-white/10 cursor-pointer shadow-sm active:scale-98 transition-all group"
+                   className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-md hover:border-[rgb(var(--fg-rgb))]/10 cursor-pointer shadow-sm active:scale-98 transition-all group"
                  >
                     <div className="flex items-center gap-3">
                        <Avatar name={client.name} size={36} className="rounded-sm text-xs font-semibold" />
                        <div className="min-w-0 flex-1">
-                          <h4 className="text-sm font-bold text-white truncate leading-tight group-hover:text-brand-primary transition-colors">{client.name}</h4>
-                          <p className="text-[10px] text-zinc-500 flex items-center gap-1 mt-0.5">
+                          <h4 className="text-sm font-bold text-primary truncate leading-tight group-hover:text-brand-primary transition-colors">{client.name}</h4>
+                          <p className="text-[10px] text-disabled flex items-center gap-1 mt-0.5">
                              <Phone size={10} /> {client.phone}
                           </p>
                        </div>
                     </div>
                     
                     {client.activeServices > 0 && (
-                       <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/5">
-                          <span className="text-[10px] font-semibold text-zinc-400 bg-white/5 px-2 py-0.5 rounded border border-white/5 flex items-center gap-1">
+                       <div className="mt-3 flex items-center justify-between pt-2 border-t border-[rgb(var(--fg-rgb))]/5">
+                          <span className="text-[10px] font-semibold text-muted bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-1">
                              <Layers size={10} /> {client.activeServices} Servicios
                           </span>
                        </div>
@@ -127,7 +127,7 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
                
                {items.length === 0 && (
                   <div className="py-8 text-center opacity-40">
-                     <p className="text-[10px] text-zinc-500 uppercase font-semibold tracking-wider">Vacío</p>
+                     <p className="text-[10px] text-disabled uppercase font-semibold tracking-wider">Vacío</p>
                   </div>
                )}
             </div>

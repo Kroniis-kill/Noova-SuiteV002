@@ -63,18 +63,18 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
   const pPin = service.profile_pin;
 
   return (
-    <div className={`bg-surface-1 border transition-all duration-300 rounded-xl overflow-hidden mb-4 shadow-lg ${isExpanded ? 'border-white/20' : 'border-white/[0.08]'}`}>
+    <div className={`bg-surface-1 border transition-all duration-300 rounded-xl overflow-hidden mb-4 shadow-lg ${isExpanded ? 'border-[rgb(var(--fg-rgb))]/20' : 'border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
         {/* Header Compacto (Siempre visible) */}
         <div 
           onClick={() => setIsExpanded(!isExpanded)}
-          className="p-4 flex items-center justify-between cursor-pointer active:bg-white/5"
+          className="p-4 flex items-center justify-between cursor-pointer active:bg-[rgb(var(--fg-rgb))]/5"
         >
             <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center border border-white/5 shrink-0 overflow-hidden">
-                    <Layers size={18} className="text-zinc-400" />
+                <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 shrink-0 overflow-hidden">
+                    <Layers size={18} className="text-muted" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white leading-tight">{service.service_name || 'Servicio'}</h3>
+                  <h3 className="text-sm font-bold text-primary leading-tight">{service.service_name || 'Servicio'}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className={`text-[9px] font-bold uppercase ${isExpired ? 'text-status-danger-soft' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`} text-brand-primary`}>
                         {isExpired ? 'Expirado' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`}
@@ -84,7 +84,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
             </div>
             <motion.div 
               animate={{ rotate: isExpanded ? 180 : 0 }}
-              className="text-zinc-600"
+              className="text-faint"
             >
               <ChevronDown size={20} />
             </motion.div>
@@ -100,45 +100,45 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="px-4 pb-5 pt-1 space-y-4">
-                  <div className="bg-surface-3 rounded-lg p-4 border border-white/5 space-y-3">
+                  <div className="bg-surface-3 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
                       <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(user || '', 'Usuario')}>
                         <div className="flex items-center gap-3 min-w-0 pr-2">
-                            <Mail size={14} className="text-zinc-500" />
+                            <Mail size={14} className="text-disabled" />
                             <div className="flex flex-col">
-                              <span className="text-[8px] font-bold text-zinc-500 uppercase">Usuario</span>
-                              <span className="text-xs font-medium text-white truncate">{user || '---'}</span>
+                              <span className="text-[8px] font-bold text-disabled uppercase">Usuario</span>
+                              <span className="text-xs font-medium text-primary truncate">{user || '---'}</span>
                             </div>
                         </div>
-                        <Copy size={12} className="text-zinc-600 group-hover:text-white transition-colors shrink-0" />
+                        <Copy size={12} className="text-faint group-hover:text-primary transition-colors shrink-0" />
                       </div>
                       
-                      <div className="w-full h-px bg-white/5" />
+                      <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/5" />
                       
                       <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(pass || '', 'Contraseña')}>
                         <div className="flex items-center gap-3 min-w-0 pr-2">
-                            <Key size={14} className="text-zinc-500" />
+                            <Key size={14} className="text-disabled" />
                             <div className="flex flex-col">
-                              <span className="text-[8px] font-bold text-zinc-500 uppercase">Contraseña</span>
-                              <span className="text-xs font-medium text-white truncate font-mono">{pass || '---'}</span>
+                              <span className="text-[8px] font-bold text-disabled uppercase">Contraseña</span>
+                              <span className="text-xs font-medium text-primary truncate font-mono">{pass || '---'}</span>
                             </div>
                         </div>
-                        <Copy size={12} className="text-zinc-600 group-hover:text-white transition-colors shrink-0" />
+                        <Copy size={12} className="text-faint group-hover:text-primary transition-colors shrink-0" />
                       </div>
                       
                       {(pName || pPin) && (
                           <>
-                            <div className="w-full h-px bg-white/5" />
+                            <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/5" />
                             <div className="grid grid-cols-2 gap-3 pt-1">
                               {pName && (
-                                  <div className="bg-surface-1 rounded-md p-2.5 border border-white/5" onClick={() => copyToClipboard(pName, 'Perfil')}>
-                                      <span className="text-[8px] font-bold text-zinc-500 uppercase block mb-0.5">Perfil</span>
-                                      <span className="text-xs font-semibold text-white truncate block">{pName}</span>
+                                  <div className="bg-surface-1 rounded-md p-2.5 border border-[rgb(var(--fg-rgb))]/5" onClick={() => copyToClipboard(pName, 'Perfil')}>
+                                      <span className="text-[8px] font-bold text-disabled uppercase block mb-0.5">Perfil</span>
+                                      <span className="text-xs font-semibold text-primary truncate block">{pName}</span>
                                   </div>
                               )}
                               {pPin && (
-                                  <div className="bg-surface-1 rounded-md p-2.5 border border-white/5 text-center" onClick={() => copyToClipboard(pPin, 'PIN')}>
-                                      <span className="text-[8px] font-bold text-zinc-500 uppercase block mb-0.5">PIN</span>
-                                      <span className="text-xs font-semibold text-white font-mono">{pPin}</span>
+                                  <div className="bg-surface-1 rounded-md p-2.5 border border-[rgb(var(--fg-rgb))]/5 text-center" onClick={() => copyToClipboard(pPin, 'PIN')}>
+                                      <span className="text-[8px] font-bold text-disabled uppercase block mb-0.5">PIN</span>
+                                      <span className="text-xs font-semibold text-primary font-mono">{pPin}</span>
                                   </div>
                               )}
                             </div>
@@ -147,11 +147,11 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                   </div>
 
                   <div className="flex items-center justify-between px-1">
-                      <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 font-medium">
+                      <div className="flex items-center gap-1.5 text-[10px] text-disabled font-medium">
                         <Calendar size={12} />
-                        <span>Vence: <span className="text-zinc-300 font-mono">{formatDate(service.expiry_date)}</span></span>
+                        <span>Vence: <span className="text-secondary font-mono">{formatDate(service.expiry_date)}</span></span>
                       </div>
-                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 hover:bg-status-danger/10 text-zinc-400 hover:text-status-danger-soft font-bold text-[9px] transition-colors border border-white/5">
+                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 text-muted hover:text-status-danger-soft font-bold text-[9px] transition-colors border border-[rgb(var(--fg-rgb))]/5">
                           <MessageSquareWarning size={12} /> Reportar Falla
                       </button>
                   </div>
@@ -276,8 +276,8 @@ const PortalPage: React.FC = () => {
       } 
   };
 
-  if (view === 'loading') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center"><AnimatedLogo size={80} showFill={false} /><p className="text-zinc-500 text-xs mt-6 font-medium animate-pulse">Autenticando...</p></div>;
-  if (view === 'error') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-status-danger/10 rounded-lg flex items-center justify-center mb-6 border border-status-danger/20"><ShieldAlert size={28} className="text-status-danger" /></div><h1 className="text-xl font-bold text-white mb-2">Acceso restringido</h1><p className="text-zinc-400 text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
+  if (view === 'loading') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center"><AnimatedLogo size={80} showFill={false} /><p className="text-disabled text-xs mt-6 font-medium animate-pulse">Autenticando...</p></div>;
+  if (view === 'error') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-status-danger/10 rounded-lg flex items-center justify-center mb-6 border border-status-danger/20"><ShieldAlert size={28} className="text-status-danger" /></div><h1 className="text-xl font-bold text-primary mb-2">Acceso restringido</h1><p className="text-muted text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
 
   if (view === 'login' || view === 'setup_pin') {
       const isSetup = view === 'setup_pin';
@@ -287,11 +287,11 @@ const PortalPage: React.FC = () => {
                 <div className="mb-6 text-center">
                     <div className="w-16 h-16 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-lg flex items-center justify-center mx-auto mb-4 shadow-glow p-px">
                         <div className="w-full h-full bg-bg rounded-lg flex items-center justify-center">
-                            {isSetup ? <Unlock className="w-6 h-6 text-white" /> : <Lock className="w-6 h-6 text-white" />}
+                            {isSetup ? <Unlock className="w-6 h-6 text-primary" /> : <Lock className="w-6 h-6 text-primary" />}
                         </div>
                     </div>
-                    <h2 className="text-xl font-bold text-white mb-1 tracking-tight">{isSetup ? (!confirmPin ? 'Crea tu PIN' : 'Confirma tu PIN') : `Hola, ${clientData?.name?.split(' ')[0]}`}</h2>
-                    <p className="text-zinc-500 text-xs">{isSetup ? 'Define un código de 4 dígitos.' : 'Ingresa tu código de seguridad.'}</p>
+                    <h2 className="text-xl font-bold text-primary mb-1 tracking-tight">{isSetup ? (!confirmPin ? 'Crea tu PIN' : 'Confirma tu PIN') : `Hola, ${clientData?.name?.split(' ')[0]}`}</h2>
+                    <p className="text-disabled text-xs">{isSetup ? 'Define un código de 4 dígitos.' : 'Ingresa tu código de seguridad.'}</p>
                     <div className="flex gap-4 justify-center mt-6 h-3">
                         {[0,1,2,3].map((i) => (<div key={i} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i < pin.length ? 'bg-brand-primary scale-125 shadow-[0_0_8px_#6A2CFF]' : 'bg-surface-3'}`} />))}
                     </div>
@@ -301,11 +301,11 @@ const PortalPage: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-3 gap-3 w-full mb-6 select-none px-4">
                     {[1,2,3,4,5,6,7,8,9].map(n => (
-                        <button key={n} onClick={() => handleNum(n.toString())} className="h-14 rounded-lg bg-surface-1 text-xl font-bold text-white hover:bg-white/5 active:bg-white/10 transition-all border border-white/[0.08] shadow-sm">{n}</button>
+                        <button key={n} onClick={() => handleNum(n.toString())} className="h-14 rounded-lg bg-surface-1 text-xl font-bold text-primary hover:bg-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/10 transition-all border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">{n}</button>
                     ))}
                     <div />
-                    <button onClick={() => handleNum('0')} className="h-14 rounded-lg bg-surface-1 text-xl font-bold text-white hover:bg-white/5 active:bg-white/10 transition-all border border-white/[0.08] shadow-sm">0</button>
-                    <button onClick={handleBackspace} className="h-14 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white active:bg-white/10 transition-all"><ChevronRight className="rotate-180" size={24} /></button>
+                    <button onClick={() => handleNum('0')} className="h-14 rounded-lg bg-surface-1 text-xl font-bold text-primary hover:bg-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/10 transition-all border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">0</button>
+                    <button onClick={handleBackspace} className="h-14 rounded-lg flex items-center justify-center text-muted hover:text-primary active:bg-[rgb(var(--fg-rgb))]/10 transition-all"><ChevronRight className="rotate-180" size={24} /></button>
                 </div>
                 <button onClick={handleNextStep} disabled={loadingAction || pin.length < 4} className="w-full max-w-[280px] h-14 bg-white text-black rounded-lg font-bold text-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
                     {loadingAction ? <RefreshCw className="animate-spin" size={18} /> : (isSetup && !confirmPin ? 'Siguiente' : 'Acceder')} 
@@ -317,35 +317,35 @@ const PortalPage: React.FC = () => {
   }
 
   return (
-      <div className="min-h-screen h-screen bg-bg font-sans text-zinc-100 flex flex-col overflow-hidden selection:bg-brand-primary/30">
+      <div className="min-h-screen h-screen bg-bg font-sans text-primary flex flex-col overflow-hidden selection:bg-brand-primary/30">
           {/* Header Fijo */}
-          <div className="relative pt-8 pb-12 px-6 bg-surface-1 rounded-b-2xl border-b border-white/[0.08] overflow-hidden shadow-2xl z-10 shrink-0">
+          <div className="relative pt-8 pb-12 px-6 bg-surface-1 rounded-b-2xl border-b border-[rgb(var(--fg-rgb))]/[0.08] overflow-hidden shadow-2xl z-10 shrink-0">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
               <div className="relative z-10 flex justify-between items-center mb-8">
                   <div className="flex items-center gap-2">
                      {branding?.logo ? (<img src={branding.logo} alt="Logo" className="h-8 w-auto object-contain" />) : (<AnimatedLogo size={24} isStatic showFill={false} />)}
-                     <span className="text-xs font-semibold text-white tracking-[0.2em] uppercase">{branding?.name || 'Noova Suite'}</span>
+                     <span className="text-xs font-semibold text-primary tracking-[0.2em] uppercase">{branding?.name || 'Noova Suite'}</span>
                   </div>
-                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/5 active:scale-90 transition-all"><LogOut size={18} /></button>
+                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all"><LogOut size={18} /></button>
               </div>
               <div className="relative z-10 flex items-center gap-5">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-glow"><div className="w-full h-full bg-surface-1 rounded-lg flex items-center justify-center overflow-hidden"><User size={32} className="text-white" /></div></div>
-                  <div><h1 className="text-xl font-bold text-white tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[9px] font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
+                  <div><h1 className="text-xl font-bold text-primary tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[9px] font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
               </div>
           </div>
 
           {/* Área de Scroll de Servicios */}
           <div className="flex-1 overflow-y-auto custom-scrollbar px-5 -mt-6 pt-10 pb-24 relative z-0">
               {services.length === 0 ? (
-                  <div className="bg-surface-1 border border-white/[0.08] rounded-xl p-12 text-center flex flex-col items-center shadow-lg">
-                    <WifiOff size={40} className="text-zinc-700 mb-4" />
-                    <p className="text-zinc-400 font-bold text-sm">Sin suscripciones activas</p>
+                  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-12 text-center flex flex-col items-center shadow-lg">
+                    <WifiOff size={40} className="text-faint mb-4" />
+                    <p className="text-muted font-bold text-sm">Sin suscripciones activas</p>
                   </div>
               ) : (
                   services.map((service, idx) => <ServiceCard key={idx} service={service} onReport={handleReportIssue} />)
               )}
               
-              <div className="mt-12 text-center opacity-30 pb-8"><p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-[0.3em]">Noova Suite • Client Portal</p></div>
+              <div className="mt-12 text-center opacity-30 pb-8"><p className="text-[10px] text-disabled font-semibold uppercase tracking-[0.3em]">Noova Suite • Client Portal</p></div>
           </div>
       </div>
   );

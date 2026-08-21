@@ -5,7 +5,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
     <meta name="theme-color" content="#0a0a0a" />
-    
+
+    <!-- Aplica el tema guardado (oscuro/claro/sistema) ANTES de que React
+         monte, para evitar el parpadeo del tema equivocado al abrir la
+         app. Se mantiene en sync con localStorage por src/hooks/useThemeSync.ts
+         una vez que la app carga los ajustes reales del usuario. -->
+    <script>
+      (function () {
+        try {
+          var pref = localStorage.getItem('noova-theme-preference') || 'dark';
+          var resolved = pref === 'system'
+            ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+            : pref;
+          var root = document.documentElement;
+          if (resolved === 'light') {
+            root.classList.add('light');
+            root.classList.remove('dark');
+          } else {
+            root.classList.add('dark');
+            root.classList.remove('light');
+          }
+          root.style.colorScheme = resolved;
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- PWA Mobile Headers -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

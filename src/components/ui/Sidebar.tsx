@@ -78,13 +78,13 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
         className={`
           relative w-full flex items-center justify-between px-3 ${isDesktop ? 'py-2' : 'py-3.5'} 
           rounded-md transition-all duration-300 group outline-none
-          ${isParentActive ? 'text-white' : 'text-zinc-500 hover:text-zinc-200'}
+          ${isParentActive ? 'text-primary' : 'text-disabled hover:text-secondary'}
         `}
       >
         {isParentActive && !hasSubItems && (
           <motion.div 
             layoutId="sidebar-active-bg"
-            className="absolute inset-0 bg-white/[0.05] border border-white/[0.08] rounded-md z-0" 
+            className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/[0.05] border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md z-0" 
           />
         )}
 
@@ -93,7 +93,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
             p-1.5 rounded-sm transition-all duration-500 
             ${isParentActive 
               ? 'bg-gradient-to-br from-brand-primary to-brand-accent text-white shadow-glow-sm scale-105' 
-              : 'bg-white/5 text-zinc-500 group-hover:bg-white/10 group-hover:text-zinc-300'}
+              : 'bg-[rgb(var(--fg-rgb))]/5 text-disabled group-hover:bg-[rgb(var(--fg-rgb))]/10 group-hover:text-secondary'}
           `}>
              <Icon size={isDesktop ? 16 : 20} strokeWidth={isParentActive ? 2.5 : 2} />
           </div>
@@ -109,7 +109,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
         {hasSubItems && (
           <motion.div
             animate={{ rotate: isExpanded ? 180 : 0 }}
-            className={`relative z-10 transition-colors ${isParentActive ? 'text-zinc-400' : 'text-zinc-600'}`}
+            className={`relative z-10 transition-colors ${isParentActive ? 'text-muted' : 'text-faint'}`}
           >
             <ChevronDown size={12} />
           </motion.div>
@@ -139,11 +139,11 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
                   className={`
                     w-[calc(100%-40px)] ml-10 flex items-center justify-between px-2.5 ${isDesktop ? 'py-2' : 'py-3'} 
                     rounded-sm transition-all duration-200 group
-                    ${isSubActive ? 'bg-white/[0.06] text-white font-bold' : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02]'}
+                    ${isSubActive ? 'bg-[rgb(var(--fg-rgb))]/[0.06] text-primary font-bold' : 'text-disabled hover:text-secondary hover:bg-[rgb(var(--fg-rgb))]/[0.02]'}
                   `}
                 >
                   <div className="flex items-center gap-2">
-                    <SubIcon size={isDesktop ? 12 : 16} className={isSubActive ? 'text-brand-accent' : 'text-zinc-600'} />
+                    <SubIcon size={isDesktop ? 12 : 16} className={isSubActive ? 'text-brand-accent' : 'text-faint'} />
                     <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} tracking-tight`}>
                       {sub.label}
                     </span>
@@ -218,7 +218,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
             </div>
          </div>
          <div className="flex flex-col relative z-20">
-            <span className={`${isDesktop ? 'text-xl' : 'text-2xl'} font-black text-white tracking-tighter leading-none`}>NOOVA</span>
+            <span className={`${isDesktop ? 'text-xl' : 'text-2xl'} font-black text-primary tracking-tighter leading-none`}>NOOVA</span>
             <span className={`text-[10px] font-bold tracking-[0.3em] uppercase mt-1 ${isAdmin ? 'text-status-warning-soft' : 'text-brand-primary'}`}>
                {isAdmin ? 'MASTER' : 'SUITE'}
             </span>
@@ -241,7 +241,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
 
       {/* Bottom User Profile */}
       <div className={`${isDesktop ? 'px-3' : 'p-4'} mt-auto shrink-0 pb-6`}>
-         <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group mb-2 shadow-inner">
+         <div className="bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group mb-2 shadow-inner">
             <div className="relative shrink-0 cursor-pointer" onClick={() => setView('settings')}>
                <div className={`${isDesktop ? 'w-8 h-8' : 'w-12 h-12'} rounded-full p-[1.5px] ${isAdmin ? 'bg-gradient-to-tr from-status-warning-soft to-orange-600' : 'bg-gradient-to-tr from-brand-primary to-brand-accent'}`}>
                   <Avatar 
@@ -254,7 +254,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
             </div>
 
             <div className="flex-1 min-w-0 flex flex-col justify-center">
-               <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} font-bold text-white truncate leading-tight`}>
+               <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} font-bold text-primary truncate leading-tight`}>
                  {user?.name?.split(' ')[0]}
                </span>
                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border mt-1.5 w-fit uppercase tracking-wider ${isAdmin ? 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'}`}>
@@ -264,7 +264,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
 
              <button 
                 onClick={(e) => { e.stopPropagation(); haptic('heavy'); logout(); }} 
-                className={`${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-white/5 text-zinc-500 hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-white/5 shrink-0`}
+                className={`${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-[rgb(var(--fg-rgb))]/5 text-disabled hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-[rgb(var(--fg-rgb))]/5 shrink-0`}
                 title="Cerrar Sesión"
              >
                 <LogOut size={isDesktop ? 16 : 18} />
@@ -272,7 +272,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
 
          <div className="text-center mt-3">
-            <span className="text-[8px] text-zinc-700 font-mono tracking-widest uppercase opacity-50">v{APP_VERSION}</span>
+            <span className="text-[8px] text-faint font-mono tracking-widest uppercase opacity-50">v{APP_VERSION}</span>
          </div>
       </div>
     </div>
@@ -281,7 +281,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
   return (
     <>
       <aside className="hidden lg:flex fixed top-4 bottom-4 left-4 w-[210px] flex-col z-50">
-         <div className="h-full w-full bg-surface-sunken/95 backdrop-blur-3xl border border-white/[0.08] rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)] overflow-hidden">
+         <div className="h-full w-full bg-surface-sunken/95 backdrop-blur-3xl border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)] overflow-hidden">
             <SidebarContent isDesktop={true} />
          </div>
       </aside>
@@ -301,11 +301,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
                 key="sidebar"
                 initial={{ x: "-100%" }} animate={{ x: "0%" }} exit={{ x: "-100%" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
-                className={`fixed z-[101] lg:hidden w-[72vw] max-w-[270px] bg-surface-1 border border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col gpu-accelerated ${isNative ? 'top-4 bottom-4 left-4 my-auto max-h-[92vh]' : 'top-[calc(0.5rem+env(safe-area-inset-top))] bottom-[calc(0.5rem+env(safe-area-inset-bottom))] left-[calc(0.5rem+env(safe-area-inset-left))]'}`}
+                className={`fixed z-[101] lg:hidden w-[72vw] max-w-[270px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col gpu-accelerated ${isNative ? 'top-4 bottom-4 left-4 my-auto max-h-[92vh]' : 'top-[calc(0.5rem+env(safe-area-inset-top))] bottom-[calc(0.5rem+env(safe-area-inset-bottom))] left-[calc(0.5rem+env(safe-area-inset-left))]'}`}
               >
                 <button
                   onClick={closeMobile}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/5 text-zinc-400 hover:text-white z-50 border border-white/[0.08] active:scale-95 transition-transform"
+                  className="absolute top-4 right-4 p-2 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary z-50 border border-[rgb(var(--fg-rgb))]/[0.08] active:scale-95 transition-transform"
                 >
                   <X size={18} />
                 </button>

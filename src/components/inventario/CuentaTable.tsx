@@ -18,10 +18,10 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
   const { providers } = useData();
 
   return (
-    <div className="bg-surface-3 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-lg">
+    <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl overflow-hidden shadow-lg">
        <table className="w-full text-left border-collapse">
           <thead>
-             <tr className="border-b border-white/5 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider bg-white/[0.02]">
+             <tr className="border-b border-[rgb(var(--fg-rgb))]/5 text-[10px] font-semibold text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
                 <th className="p-5 pl-8">Cuenta / Correo</th>
                 <th className="p-5">Contraseña</th>
                 <th className="p-5">Vencimiento</th>
@@ -30,7 +30,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                 <th className="p-5 text-right pr-8">Acciones</th>
              </tr>
           </thead>
-          <tbody className="divide-y divide-white/5 text-sm">
+          <tbody className="divide-y divide-[rgb(var(--fg-rgb))]/5 text-sm">
              {accounts.map(acc => {
                 const status = getAccountStatus(acc);
                 const statusStyle = getStatusColor(status);
@@ -39,8 +39,8 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                 const isFailing = acc.status === 'fallando';
 
                 return (
-                   <tr key={acc.id} className="hover:bg-white/[0.03] transition-colors group">
-                      <td className="p-5 pl-8 font-medium text-white">
+                   <tr key={acc.id} className="hover:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
+                      <td className="p-5 pl-8 font-medium text-primary">
                          <div className="flex items-center gap-2 group/email">
                             {provider && (
                                <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: provider.color }} title={provider.name} />
@@ -48,16 +48,16 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                             {acc.email}
                             <button 
                               onClick={() => navigator.clipboard.writeText(acc.email)}
-                              className="text-zinc-600 hover:text-white opacity-0 group-hover/email:opacity-100 transition-opacity"
+                              className="text-faint hover:text-primary opacity-0 group-hover/email:opacity-100 transition-opacity"
                             >
                               <Copy size={14} />
                             </button>
                          </div>
                       </td>
-                      <td className="p-5 font-mono text-zinc-400 tracking-wider text-xs">{acc.password}</td>
-                      <td className="p-5 text-zinc-300 font-medium">{acc.endDate}</td>
-                      <td className="p-5 text-zinc-300">
-                         <span className="bg-white/5 px-2 py-1 rounded-md border border-white/5 text-xs font-semibold text-zinc-400">
+                      <td className="p-5 font-mono text-muted tracking-wider text-xs">{acc.password}</td>
+                      <td className="p-5 text-secondary font-medium">{acc.endDate}</td>
+                      <td className="p-5 text-secondary">
+                         <span className="bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md border border-[rgb(var(--fg-rgb))]/5 text-xs font-semibold text-muted">
                             {usage}
                          </span>
                       </td>
@@ -70,21 +70,21 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                          <div className="flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button 
                                onClick={() => onToggleFailure(acc)} 
-                               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-status-expiring/20 text-status-expiring border-status-expiring/20' : 'bg-white/5 hover:bg-status-expiring/10 text-zinc-400 hover:text-status-expiring-soft border-transparent'}`} 
+                               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-status-expiring/20 text-status-expiring border-status-expiring/20' : 'bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-expiring/10 text-muted hover:text-status-expiring-soft border-transparent'}`} 
                                title={isFailing ? 'Quitar Reporte Falla' : 'Reportar Falla'}
                             >
                                <AlertTriangle size={14} />
                             </button>
-                            <button onClick={() => onRenew(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-brand-primary/20 text-zinc-400 hover:text-brand-primary rounded-lg transition-all border border-transparent hover:border-brand-primary/20" title="Renovar">
+                            <button onClick={() => onRenew(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-brand-primary/20 text-muted hover:text-brand-primary rounded-lg transition-all border border-transparent hover:border-brand-primary/20" title="Renovar">
                                <RefreshCw size={14} />
                             </button>
-                            <button onClick={() => onEdit(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white rounded-lg transition-all" title="Editar">
+                            <button onClick={() => onEdit(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-muted hover:text-primary rounded-lg transition-all" title="Editar">
                                <Edit2 size={14} />
                             </button>
-                            <button onClick={() => onToggleStatus(acc)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-status-expiring-soft rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
+                            <button onClick={() => onToggleStatus(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-muted hover:text-status-expiring-soft rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
                                <Power size={14} />
                             </button>
-                            <button onClick={() => onDelete(acc.id)} className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-status-danger/20 text-zinc-400 hover:text-status-danger-soft rounded-lg transition-all border border-transparent hover:border-status-danger/20" title="Eliminar">
+                            <button onClick={() => onDelete(acc.id)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/20 text-muted hover:text-status-danger-soft rounded-lg transition-all border border-transparent hover:border-status-danger/20" title="Eliminar">
                                <Trash2 size={14} />
                             </button>
                          </div>
@@ -94,7 +94,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
              })}
              {accounts.length === 0 && (
                 <tr>
-                   <td colSpan={6} className="p-16 text-center text-zinc-500 text-sm">No hay cuentas para mostrar.</td>
+                   <td colSpan={6} className="p-16 text-center text-disabled text-sm">No hay cuentas para mostrar.</td>
                 </tr>
              )}
           </tbody>

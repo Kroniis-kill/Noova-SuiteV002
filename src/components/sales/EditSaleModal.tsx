@@ -77,13 +77,13 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
     <Modal isOpen={isOpen} onClose={onClose} title="Editar Servicio" zIndex={zIndex || 60000}>
       <div className="pt-2 pb-4 space-y-6">
         {/* Client & Service Info (Read Only) */}
-        <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
+        <div className="flex items-center gap-4 bg-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
           <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-bold text-xs shadow-glow">
             {client?.name?.substring(0, 2).toUpperCase()}
           </div>
           <div className="min-w-0">
-            <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest leading-none mb-1">Cliente</p>
-            <p className="text-sm font-bold text-white truncate">{client?.name}</p>
+            <p className="text-[10px] text-disabled font-black uppercase tracking-widest leading-none mb-1">Cliente</p>
+            <p className="text-sm font-bold text-primary truncate">{client?.name}</p>
             <p className="text-[10px] text-brand-primary font-bold uppercase mt-0.5">{sale.serviceName}</p>
           </div>
         </div>
@@ -91,42 +91,42 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         <div className="space-y-4">
           {/* Account Selection */}
           <div>
-            <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Cuenta Asignada</label>
+            <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">Cuenta Asignada</label>
             <button 
               onClick={() => setIsAccountSearchOpen(true)}
-              className="w-full bg-surface-sunken border border-white/10 rounded-md h-[52px] px-4 flex items-center justify-between group active:scale-[0.99] transition-all"
+              className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4 flex items-center justify-between group active:scale-[0.99] transition-all"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <Mail size={18} className="text-zinc-500" />
-                <span className="text-sm font-bold text-white truncate">{currentAccount?.email || 'Seleccionar cuenta...'}</span>
+                <Mail size={18} className="text-disabled" />
+                <span className="text-sm font-bold text-primary truncate">{currentAccount?.email || 'Seleccionar cuenta...'}</span>
               </div>
-              <ChevronDown size={18} className="text-zinc-600 group-hover:text-white" />
+              <ChevronDown size={18} className="text-faint group-hover:text-primary" />
             </button>
           </div>
 
           {/* Dates */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Fecha Inicio</label>
-              <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] px-4">
-                <Calendar size={18} className="text-zinc-500 mr-3" />
+              <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">Fecha Inicio</label>
+              <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4">
+                <Calendar size={18} className="text-disabled mr-3" />
                 <input 
                   type="date" 
                   value={formData.date?.split('T')[0] || ''} 
                   onChange={e => setFormData({ ...formData, date: new Date(e.target.value).toISOString() })}
-                  className="bg-transparent text-sm text-white outline-none w-full font-bold uppercase"
+                  className="bg-transparent text-sm text-primary outline-none w-full font-bold uppercase"
                 />
               </div>
             </div>
             <div>
-              <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Vencimiento</label>
-              <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] px-4">
-                <Calendar size={18} className="text-zinc-500 mr-3" />
+              <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">Vencimiento</label>
+              <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4">
+                <Calendar size={18} className="text-disabled mr-3" />
                 <input 
                   type="date" 
                   value={formData.expiryDate?.split('T')[0] || ''} 
                   onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
-                  className="bg-transparent text-sm text-white outline-none w-full font-bold uppercase"
+                  className="bg-transparent text-sm text-primary outline-none w-full font-bold uppercase"
                 />
               </div>
             </div>
@@ -134,14 +134,14 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
           {/* Amount */}
           <div>
-            <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 mb-2 block">Monto de Venta</label>
-            <div className="relative flex items-center bg-surface-sunken border border-white/10 rounded-md h-[52px] px-4">
+            <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 mb-2 block">Monto de Venta</label>
+            <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4">
               <DollarSign size={18} className="text-status-success mr-3" />
               <input 
                 type="number" 
                 value={formData.amount || ''} 
                 onChange={e => setFormData({ ...formData, amount: parseFloat(e.target.value) })}
-                className="bg-transparent text-sm text-white outline-none w-full font-bold"
+                className="bg-transparent text-sm text-primary outline-none w-full font-bold"
                 placeholder="0.00"
               />
             </div>
@@ -150,25 +150,25 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           {/* Profiles (if applicable) */}
           {sale.saleType === 'por_pantalla' && formData.assignedProfiles && (
             <div className="space-y-3">
-              <label className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest ml-1 block">Perfiles</label>
+              <label className="text-[10px] font-semibold text-disabled uppercase tracking-widest ml-1 block">Perfiles</label>
               {formData.assignedProfiles.map((profile, idx) => (
                 <div key={idx} className="flex gap-2">
-                  <div className="flex-1 bg-surface-sunken border border-white/10 rounded-md h-[48px] px-4 flex items-center">
-                    <User size={16} className="text-zinc-600 mr-3" />
+                  <div className="flex-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[48px] px-4 flex items-center">
+                    <User size={16} className="text-faint mr-3" />
                     <input 
                       value={profile.name} 
                       onChange={e => handleProfileChange(idx, 'name', e.target.value)}
                       placeholder="Nombre Perfil"
-                      className="bg-transparent text-sm text-white outline-none w-full font-bold"
+                      className="bg-transparent text-sm text-primary outline-none w-full font-bold"
                     />
                   </div>
-                  <div className="w-24 bg-surface-sunken border border-white/10 rounded-md h-[48px] px-4 flex items-center">
-                    <Hash size={14} className="text-zinc-600 mr-2" />
+                  <div className="w-24 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[48px] px-4 flex items-center">
+                    <Hash size={14} className="text-faint mr-2" />
                     <input 
                       value={profile.pin} 
                       onChange={e => handleProfileChange(idx, 'pin', e.target.value)}
                       placeholder="PIN"
-                      className="bg-transparent text-sm text-white outline-none w-full font-mono font-bold text-center"
+                      className="bg-transparent text-sm text-primary outline-none w-full font-mono font-bold text-center"
                     />
                   </div>
                 </div>
@@ -181,22 +181,22 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
                <p className="text-[10px] font-bold text-status-info-soft uppercase tracking-widest ml-1">Credenciales de Acceso</p>
                <div className="space-y-3">
-                  <div className="flex items-center bg-surface-sunken border border-white/10 rounded-md h-[48px] px-4">
-                    <Mail size={16} className="text-zinc-500 mr-3" />
+                  <div className="flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[48px] px-4">
+                    <Mail size={16} className="text-disabled mr-3" />
                     <input 
                       value={formData.invitedEmail || ''} 
                       onChange={e => setFormData({ ...formData, invitedEmail: e.target.value })}
                       placeholder="Correo Invitado"
-                      className="bg-transparent text-sm text-white outline-none w-full font-medium"
+                      className="bg-transparent text-sm text-primary outline-none w-full font-medium"
                     />
                   </div>
-                  <div className="flex items-center bg-surface-sunken border border-white/10 rounded-md h-[48px] px-4">
-                    <Lock size={16} className="text-zinc-500 mr-3" />
+                  <div className="flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[48px] px-4">
+                    <Lock size={16} className="text-disabled mr-3" />
                     <input 
                       value={formData.invitedPassword || ''} 
                       onChange={e => setFormData({ ...formData, invitedPassword: e.target.value })}
                       placeholder="Contraseña Invitado"
-                      className="bg-transparent text-sm text-white outline-none w-full font-mono font-medium"
+                      className="bg-transparent text-sm text-primary outline-none w-full font-mono font-medium"
                     />
                   </div>
                </div>
@@ -208,7 +208,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         <div className="flex gap-3 pt-2">
           <button 
             onClick={onClose}
-            className="flex-1 h-14 bg-white/5 border border-white/10 text-zinc-400 rounded-lg font-semibold text-xs uppercase tracking-widest active:scale-95 transition-all"
+            className="flex-1 h-14 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-muted rounded-lg font-semibold text-xs uppercase tracking-widest active:scale-95 transition-all"
           >
             Cancelar
           </button>
@@ -232,19 +232,19 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             className="bg-surface-1 w-full max-w-md rounded-lg border border-border-subtle shadow-modal overflow-hidden flex flex-col max-h-[70vh]" 
             onClick={e => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-white/5 space-y-3">
+            <div className="p-4 border-b border-[rgb(var(--fg-rgb))]/5 space-y-3">
               <div className="flex justify-between items-center">
-                <h3 className="text-white font-bold">Cambiar Cuenta</h3>
-                <button onClick={() => setIsAccountSearchOpen(false)} className="p-1 rounded-full bg-white/5 text-zinc-400"><X size={16} /></button>
+                <h3 className="text-primary font-bold">Cambiar Cuenta</h3>
+                <button onClick={() => setIsAccountSearchOpen(false)} className="p-1 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-muted"><X size={16} /></button>
               </div>
               <div className="relative">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" />
                 <input 
                   autoFocus 
                   value={accountSearch} 
                   onChange={e => setAccountSearch(e.target.value)} 
                   placeholder="Buscar cuenta..." 
-                  className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[48px] text-sm text-white outline-none border border-white/10 focus:border-brand-primary/50" 
+                  className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[48px] text-sm text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50" 
                 />
               </div>
             </div>
@@ -256,19 +256,19 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                     setFormData({ ...formData, accountId: acc.id });
                     setIsAccountSearchOpen(false);
                   }}
-                  className={`w-full p-3.5 rounded-md flex items-center justify-between transition-all ${formData.accountId === acc.id ? 'bg-brand-primary/10 border border-brand-primary/30' : 'hover:bg-white/5 border border-transparent'}`}
+                  className={`w-full p-3.5 rounded-md flex items-center justify-between transition-all ${formData.accountId === acc.id ? 'bg-brand-primary/10 border border-brand-primary/30' : 'hover:bg-[rgb(var(--fg-rgb))]/5 border border-transparent'}`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className={`w-2 h-2 rounded-full shrink-0 ${acc.status === 'activa' ? 'bg-status-success' : 'bg-status-danger'}`} />
                     <div className="text-left min-w-0">
-                      <p className="text-sm font-bold text-white truncate">{acc.email}</p>
-                      <p className="text-[10px] text-zinc-500 uppercase font-semibold">{acc.status}</p>
+                      <p className="text-sm font-bold text-primary truncate">{acc.email}</p>
+                      <p className="text-[10px] text-disabled uppercase font-semibold">{acc.status}</p>
                     </div>
                   </div>
                   {formData.accountId === acc.id && <Check size={16} className="text-brand-primary" strokeWidth={3} />}
                 </button>
               ))}
-              {filteredAccounts.length === 0 && <p className="text-center text-zinc-500 text-sm py-8">No se encontraron cuentas.</p>}
+              {filteredAccounts.length === 0 && <p className="text-center text-disabled text-sm py-8">No se encontraron cuentas.</p>}
             </div>
           </motion.div>
         </div>, document.body

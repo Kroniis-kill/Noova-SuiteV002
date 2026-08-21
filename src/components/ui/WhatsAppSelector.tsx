@@ -59,7 +59,7 @@ const WhatsAppSelector: React.FC = () => {
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Enviar Mensaje" zIndex={99999}>
       <div className="pt-2 pb-2">
-        <p className="text-zinc-400 text-sm mb-6 text-center">
+        <p className="text-muted text-sm mb-6 text-center">
           ¿Qué aplicación deseas usar?
         </p>
 
@@ -70,7 +70,7 @@ const WhatsAppSelector: React.FC = () => {
             className={`relative p-4 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all duration-200 ${
               selectedApp === 'personal'
                 ? 'bg-brand-whatsapp/10 border-brand-whatsapp ring-1 ring-brand-whatsapp/50'
-                : 'bg-surface-zinc border-white/5 opacity-60 hover:opacity-100'
+                : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60 hover:opacity-100'
             }`}
           >
             {selectedApp === 'personal' && (
@@ -81,7 +81,7 @@ const WhatsAppSelector: React.FC = () => {
             <div className="w-14 h-14 rounded-full bg-brand-whatsapp/20 flex items-center justify-center text-brand-whatsapp">
               <MessageCircle size={28} />
             </div>
-            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'personal' ? 'text-white' : 'text-zinc-500'}`}>
+            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'personal' ? 'text-primary' : 'text-disabled'}`}>
               WhatsApp
             </span>
           </button>
@@ -92,7 +92,7 @@ const WhatsAppSelector: React.FC = () => {
             className={`relative p-4 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all duration-200 ${
               selectedApp === 'business'
                 ? 'bg-brand-whatsapp/10 border-brand-whatsapp ring-1 ring-brand-whatsapp/50'
-                : 'bg-surface-zinc border-white/5 opacity-60 hover:opacity-100'
+                : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60 hover:opacity-100'
             }`}
           >
             {selectedApp === 'business' && (
@@ -103,7 +103,7 @@ const WhatsAppSelector: React.FC = () => {
             <div className="w-14 h-14 rounded-full bg-brand-whatsapp/20 flex items-center justify-center text-brand-whatsapp">
               <Briefcase size={28} />
             </div>
-            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'business' ? 'text-white' : 'text-zinc-500'}`}>
+            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'business' ? 'text-primary' : 'text-disabled'}`}>
               Business
             </span>
           </button>
@@ -112,9 +112,9 @@ const WhatsAppSelector: React.FC = () => {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={handleJustOnce}
-            className="h-[50px] rounded-md bg-surface-3 border border-white/10 hover:bg-white/5 text-zinc-300 font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
+            className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-secondary font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
           >
-            <Zap size={16} className="text-zinc-500" /> Solo una vez
+            <Zap size={16} className="text-disabled" /> Solo una vez
           </button>
           
           <button
@@ -125,7 +125,7 @@ const WhatsAppSelector: React.FC = () => {
           </button>
         </div>
         
-        <p className="text-[10px] text-zinc-600 text-center mt-4">
+        <p className="text-[10px] text-faint text-center mt-4">
           Puedes cambiar esto después en Configuración.
         </p>
       </div>

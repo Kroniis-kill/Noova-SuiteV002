@@ -99,13 +99,13 @@ export const DataSection = () => {
              {loading && (
                 <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={(e) => e.stopPropagation()}>
                     <div className="relative w-24 h-24 mb-6">
-                        <div className="absolute inset-0 rounded-full border-4 border-white/5 border-t-blue-500 animate-spin" />
-                        <div className="absolute inset-4 rounded-full border-4 border-white/5 border-b-emerald-500 animate-spin-slow" />
+                        <div className="absolute inset-0 rounded-full border-4 border-[rgb(var(--fg-rgb))]/5 border-t-blue-500 animate-spin" />
+                        <div className="absolute inset-4 rounded-full border-4 border-[rgb(var(--fg-rgb))]/5 border-b-emerald-500 animate-spin-slow" />
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <Database className="text-white animate-pulse" size={32} />
+                            <Database className="text-primary animate-pulse" size={32} />
                         </div>
                     </div>
-                    <p className="text-white font-bold text-lg mb-2 tracking-tight uppercase not-italic">
+                    <p className="text-primary font-bold text-lg mb-2 tracking-tight uppercase not-italic">
                         {statusMessage || 'Procesando...'}
                     </p>
                     <div className="flex items-center gap-2">
@@ -117,38 +117,38 @@ export const DataSection = () => {
              )}
 
              <div className={styles.card}>
-                <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2 text-status-info-soft">
+                <h3 className="text-primary font-bold text-lg mb-6 flex items-center gap-2 text-status-info-soft">
                     <Database size={20} /> Seguridad de Datos
                 </h3>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                    <button onClick={handleBackup} disabled={loading} className="aspect-square bg-surface-sunken border border-white/10 hover:bg-white/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group relative overflow-hidden active:scale-95">
+                    <button onClick={handleBackup} disabled={loading} className="aspect-square bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group relative overflow-hidden active:scale-95">
                         {loading && <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10"><RefreshCw className="animate-spin text-white" /></div>}
                         <div className="w-12 h-12 rounded-full bg-status-success/10 border border-status-success/20 flex items-center justify-center text-status-success-soft group-hover:scale-110 transition-transform">
                            <Save size={24} />
                         </div>
                         <div className="text-center px-2">
-                           <span className="text-white font-semibold text-xs block">Exportar Backup</span>
-                           <span className="text-[9px] text-zinc-500 uppercase tracking-tighter">Backup Completo (JSON)</span>
+                           <span className="text-primary font-semibold text-xs block">Exportar Backup</span>
+                           <span className="text-[9px] text-disabled uppercase tracking-tighter">Backup Completo (JSON)</span>
                         </div>
                     </button>
 
-                    <button onClick={() => fileInputRef.current?.click()} disabled={loading} className="aspect-square bg-surface-sunken border border-white/10 hover:bg-white/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group active:scale-95">
+                    <button onClick={() => fileInputRef.current?.click()} disabled={loading} className="aspect-square bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group active:scale-95">
                         <div className="w-12 h-12 rounded-full bg-status-info/10 border border-status-info/20 flex items-center justify-center text-status-info-soft group-hover:scale-110 transition-transform">
                            <Upload size={24} />
                         </div>
                         <div className="text-center px-2">
-                           <span className="text-white font-semibold text-xs block">Importar Backup</span>
-                           <span className="text-[9px] text-zinc-500 uppercase tracking-tighter">Restaurar Información</span>
+                           <span className="text-primary font-semibold text-xs block">Importar Backup</span>
+                           <span className="text-[9px] text-disabled uppercase tracking-tighter">Restaurar Información</span>
                         </div>
                     </button>
                 </div>
 
-                <div className="bg-surface-sunken rounded-xl border border-white/5 p-4 mb-6">
+                <div className="bg-surface-sunken rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 mb-6">
                     <div className="flex items-center justify-between mb-4 px-1">
                         <div>
-                            <span className="text-white font-semibold text-xs block">Recordatorio de Respaldo</span>
-                            <span className="text-[9px] text-zinc-500">Notificar descarga periódica periódica</span>
+                            <span className="text-primary font-semibold text-xs block">Recordatorio de Respaldo</span>
+                            <span className="text-[9px] text-disabled">Notificar descarga periódica periódica</span>
                         </div>
                         <ToggleSwitch checked={backupPrefs.autoBackup || false} onChange={toggleAutoBackup} />
                     </div>
@@ -156,7 +156,7 @@ export const DataSection = () => {
                     {backupPrefs.autoBackup && (
                         <div className="grid grid-cols-3 gap-2 mt-2 animate-in fade-in slide-in-from-top-2 duration-300">
                             {['daily', 'weekly', 'monthly'].map((f) => (
-                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-white/5 text-zinc-600'}`}>
+                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-[rgb(var(--fg-rgb))]/5 text-faint'}`}>
                                     {f === 'daily' ? 'Diario' : f === 'weekly' ? 'Semanal' : 'Mensual'}
                                 </button>
                             ))}
@@ -165,23 +165,23 @@ export const DataSection = () => {
                 </div>
 
                 <div className="space-y-3">
-                    <button onClick={handleExcelExport} disabled={loading} className="w-full h-[60px] bg-surface-sunken border border-white/10 rounded-lg flex items-center justify-between px-5 hover:bg-white/5 transition-colors group active:scale-[0.98]">
+                    <button onClick={handleExcelExport} disabled={loading} className="w-full h-[60px] bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg flex items-center justify-between px-5 hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors group active:scale-[0.98]">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft">
                                 <Download size={20} />
                             </div>
                             <div className="text-left">
-                                <span className="text-white font-bold text-sm block">Exportar a Excel</span>
-                                <span className="text-[10px] text-zinc-500">Reporte tabular de datos clave</span>
+                                <span className="text-primary font-bold text-sm block">Exportar a Excel</span>
+                                <span className="text-[10px] text-disabled">Reporte tabular de datos clave</span>
                             </div>
                         </div>
-                        <div className="text-zinc-600 group-hover:text-white transition-colors">
+                        <div className="text-faint group-hover:text-primary transition-colors">
                             <ChevronRight size={18} />
                         </div>
                     </button>
 
                     {backupPrefs.lastBackup && (
-                        <div className="mt-4 px-1 flex items-center gap-2 text-[10px] text-zinc-600 font-semibold uppercase tracking-widest">
+                        <div className="mt-4 px-1 flex items-center gap-2 text-[10px] text-faint font-semibold uppercase tracking-widest">
                             <Clock size={10} />
                             Ultimo Backup: {new Date(backupPrefs.lastBackup).toLocaleDateString()} {new Date(backupPrefs.lastBackup).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>

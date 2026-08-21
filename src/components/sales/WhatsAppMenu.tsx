@@ -116,20 +116,20 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
         {step === 'select' ? (
             <div className="space-y-6 animate-fade-in">
                 {/* CLIENT PROFILE HEADER - Removed Active Tag */}
-                <div className="bg-surface-3 border border-white/[0.08] rounded-xl p-4 flex items-center gap-4 shadow-sm">
+                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center gap-4 shadow-sm">
                     <div className="w-12 h-12 rounded-full p-[1.5px] bg-gradient-to-tr from-brand-primary to-brand-accent">
                         <Avatar name={clientName} size="100%" className="rounded-full border-2 border-surface-3" />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <h4 className="text-[15px] font-bold text-white truncate">{clientName}</h4>
-                        <p className="text-[10px] text-zinc-500 font-mono tracking-tight">{clientPhone}</p>
+                        <h4 className="text-[15px] font-bold text-primary truncate">{clientName}</h4>
+                        <p className="text-[10px] text-disabled font-mono tracking-tight">{clientPhone}</p>
                     </div>
                 </div>
 
                 {/* SERVICE SELECTION LIST - Removed Borders from items */}
                 <div className="space-y-3">
                    <div className="flex items-center justify-between px-1">
-                      <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Servicios del Mensaje</span>
+                      <span className="text-[10px] font-bold text-disabled uppercase tracking-[0.2em]">Servicios del Mensaje</span>
                       <span className="text-[10px] font-semibold text-brand-primary bg-brand-primary/10 px-2 py-0.5 rounded-full border border-brand-primary/20">{selectedIds.length} ítems</span>
                    </div>
                    
@@ -150,13 +150,13 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                               }`}
                             >
                                <div className="flex items-center gap-3 min-w-0">
-                                  <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 ${isSelected ? 'bg-brand-primary/10 text-brand-primary' : 'bg-zinc-800 text-zinc-600'}`}>
+                                  <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 ${isSelected ? 'bg-brand-primary/10 text-brand-primary' : 'bg-zinc-800 text-faint'}`}>
                                       <Monitor size={18} />
                                   </div>
                                   <div className="min-w-0">
-                                      <p className={`text-[13px] font-bold truncate ${isSelected ? 'text-white' : 'text-zinc-600'}`}>{sale.serviceName}</p>
+                                      <p className={`text-[13px] font-bold truncate ${isSelected ? 'text-primary' : 'text-faint'}`}>{sale.serviceName}</p>
                                       <div className="flex items-center gap-2">
-                                          <span className="text-[9px] text-zinc-500 font-bold uppercase">Corte: {sale.expiryDate}</span>
+                                          <span className="text-[9px] text-disabled font-bold uppercase">Corte: {sale.expiryDate}</span>
                                           {isFailing && <Zap size={10} className="text-status-warning fill-status-warning animate-pulse" />}
                                       </div>
                                   </div>
@@ -172,32 +172,32 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                    </div>
                 </div>
 
-                <div className="w-full h-px bg-white/5" />
+                <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/5" />
 
                 {/* TEMPLATE GRID - Reconfigured to horizontal buttons */}
                 <div className="space-y-3">
-                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] ml-1">Elegir Plantilla</span>
+                    <span className="text-[10px] font-bold text-disabled uppercase tracking-[0.2em] ml-1">Elegir Plantilla</span>
                     <div className="grid grid-cols-1 gap-2.5">
                       {templateOptions.map((opt) => (
                         <button
                           key={opt.id}
                           onClick={() => handleTemplateClick(opt.id as WhatsAppTemplateType)}
                           disabled={selectedIds.length === 0}
-                          className="flex items-center gap-4 p-3.5 rounded-lg bg-surface-1 border border-white/5 hover:bg-surface-3 hover:border-white/10 active:scale-[0.98] transition-all group overflow-hidden relative disabled:opacity-20"
+                          className="flex items-center gap-4 p-3.5 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/10 active:scale-[0.98] transition-all group overflow-hidden relative disabled:opacity-20"
                         >
                             <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 ${opt.bg} ${opt.color}`}>
                                <opt.icon size={18} />
                             </div>
                             <div className="flex-1 text-left">
-                                <span className="block text-[13px] font-bold text-zinc-100 group-hover:text-white transition-colors">{opt.label}</span>
-                                <span className="block text-[8px] font-bold text-zinc-600 uppercase tracking-[0.2em] mt-0.5">Plantilla del Sistema</span>
+                                <span className="block text-[13px] font-bold text-primary group-hover:text-primary transition-colors">{opt.label}</span>
+                                <span className="block text-[8px] font-bold text-faint uppercase tracking-[0.2em] mt-0.5">Plantilla del Sistema</span>
                             </div>
                             {opt.badge && (
                               <div className="px-2 py-0.5 bg-brand-primary text-white rounded-full text-[8px] font-black shadow-lg animate-pulse mr-2">
                                   {opt.badge}
                               </div>
                             )}
-                            <ChevronRight size={16} className="text-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <ChevronRight size={16} className="text-faint opacity-0 group-hover:opacity-100 transition-opacity" />
                         </button>
                       ))}
                       
@@ -210,7 +210,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                             <AlertTriangle size={18} />
                          </div>
                          <div className="text-left flex-1 min-w-0">
-                            <span className="block text-[13px] font-semibold uppercase tracking-wider text-white">Reporte de Falla</span>
+                            <span className="block text-[13px] font-semibold uppercase tracking-wider text-primary">Reporte de Falla</span>
                             <p className="text-[9px] text-status-warning/80 truncate">Informa problemas técnicos masivos</p>
                          </div>
                          <ChevronRight size={18} className="opacity-40" />
@@ -222,18 +222,18 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
             <div className="space-y-8 animate-fade-in">
                 {/* SELECTOR DE MONEDA - Estilo Segmentado Premium */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] ml-1">Formato de Precios</label>
-                    <div className="flex bg-surface-1 p-1.5 rounded-lg border border-white/[0.08] w-full shadow-lg">
+                    <label className="text-[10px] font-bold text-disabled uppercase tracking-[0.2em] ml-1">Formato de Precios</label>
+                    <div className="flex bg-surface-1 p-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.08] w-full shadow-lg">
                         <button 
                             onClick={() => setUseSecondaryCurrency(false)}
-                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${!useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${!useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-disabled hover:text-secondary'}`}
                         >
                             <DollarSign size={16} strokeWidth={3} />
                             {settings.currency || 'USD'}
                         </button>
                         <button 
                             onClick={() => setUseSecondaryCurrency(true)}
-                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-disabled hover:text-secondary'}`}
                         >
                             <RefreshCw size={16} strokeWidth={3} />
                             {settings.subCurrency || 'SEC'}
@@ -243,18 +243,18 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
 
                 {/* COMPROBANTE - Estilo Fila Studio */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] ml-1">Opciones Adicionales</label>
+                    <label className="text-[10px] font-bold text-disabled uppercase tracking-[0.2em] ml-1">Opciones Adicionales</label>
                     <button 
                         onClick={() => setIncludeReceipt(!includeReceipt)}
-                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-300 ${includeReceipt ? 'bg-brand-primary/10 border-brand-primary shadow-glow-sm' : 'bg-surface-1 border-white/5 hover:border-white/10'}`}
+                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-300 ${includeReceipt ? 'bg-brand-primary/10 border-brand-primary shadow-glow-sm' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/10'}`}
                     >
                         <div className="flex items-center gap-4">
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${includeReceipt ? 'bg-brand-primary text-white shadow-glow' : 'bg-surface-sunken text-zinc-600'}`}>
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${includeReceipt ? 'bg-brand-primary text-white shadow-glow' : 'bg-surface-sunken text-faint'}`}>
                                 <ImagePlus size={22} />
                             </div>
                             <div className="text-left">
-                                <span className={`block text-sm font-bold ${includeReceipt ? 'text-white' : 'text-zinc-300'}`}>Comprobante Digital</span>
-                                <span className="block text-[9px] text-zinc-500 font-semibold uppercase tracking-widest">Incluye link al portal</span>
+                                <span className={`block text-sm font-bold ${includeReceipt ? 'text-primary' : 'text-secondary'}`}>Comprobante Digital</span>
+                                <span className="block text-[9px] text-disabled font-semibold uppercase tracking-widest">Incluye link al portal</span>
                             </div>
                         </div>
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all ${includeReceipt ? 'bg-status-success border-status-success text-black' : 'border-zinc-800 bg-black/20'}`}>
@@ -274,7 +274,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                     
                     <button 
                         onClick={() => setStep('select')} 
-                        className="w-full h-14 flex items-center justify-center gap-2 text-zinc-600 hover:text-white text-[10px] font-semibold uppercase tracking-[0.3em] transition-all active:scale-95"
+                        className="w-full h-14 flex items-center justify-center gap-2 text-faint hover:text-primary text-[10px] font-semibold uppercase tracking-[0.3em] transition-all active:scale-95"
                     >
                         <ArrowLeft size={14} /> Volver al Menú
                     </button>
