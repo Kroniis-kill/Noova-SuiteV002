@@ -66,7 +66,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
             <div className="flex justify-between items-start">
                 <div className="flex flex-col gap-1 w-full">
                     <div className="flex flex-wrap items-center gap-2">
-                        <h3 className={`text-[14px] font-bold truncate leading-tight ${isActive ? 'text-primary' : client.isBlocked ? 'text-red-200' : 'text-secondary group-hover:text-primary'}`}>
+                        <h3 className={`text-[14px] font-bold truncate leading-tight ${isActive ? 'text-text-primary' : client.isBlocked ? 'text-red-200' : 'text-text-secondary group-hover:text-text-primary'}`}>
                            {client.name}
                         </h3>
                         {displayTags.length > 0 && (<div className="flex flex-wrap gap-1">{displayTags.map(tag => getTagBadge(tag))}</div>)}
@@ -78,7 +78,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
             </div>
             
             <div className="flex items-center gap-3 mt-1.5">
-               <span className="text-[11px] text-disabled font-mono flex items-center gap-1 truncate"><Phone size={10} /> {client.phone}</span>
+               <span className="text-[11px] text-text-disabled font-mono flex items-center gap-1 truncate"><Phone size={10} /> {client.phone}</span>
                {reseller && (<span className="text-[9px] text-status-warning bg-status-warning/10 px-1.5 rounded border border-status-warning/20 truncate max-w-[80px]">{reseller.name}</span>)}
             </div>
          </div>
@@ -88,7 +88,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
                 <button 
                 onClick={handleHistory}
                 className={`
-                    w-8 h-8 rounded-sm flex items-center justify-center transition-all bg-[rgb(var(--fg-rgb))]/5 text-disabled hover:text-brand-primary hover:bg-brand-primary/10 border border-[rgb(var(--fg-rgb))]/[0.08]
+                    w-8 h-8 rounded-sm flex items-center justify-center transition-all bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-primary hover:bg-brand-primary/10 border border-[rgb(var(--fg-rgb))]/[0.08]
                 `}
                 title="Historial de compras"
                 >
@@ -101,7 +101,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
                     w-8 h-8 rounded-sm flex items-center justify-center transition-all shrink-0
                     ${isActive 
                         ? 'bg-brand-whatsapp text-black shadow-lg hover:brightness-110' 
-                        : 'bg-[rgb(var(--fg-rgb))]/5 text-disabled hover:text-brand-whatsapp hover:bg-brand-whatsapp/10 border border-[rgb(var(--fg-rgb))]/[0.08]'
+                        : 'bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-whatsapp hover:bg-brand-whatsapp/10 border border-[rgb(var(--fg-rgb))]/[0.08]'
                     }
                 `}
             >

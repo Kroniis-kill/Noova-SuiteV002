@@ -57,9 +57,9 @@ const GlobalModalLayer: React.FC = () => {
       {activeModal.type === 'CONFIRMATION' && (
          <Modal isOpen={true} onClose={closeModal} title={activeModal.props?.title || 'Confirmar'}>
             <div className="space-y-4 pt-2">
-                <p className="text-muted text-sm">{activeModal.props?.message}</p>
+                <p className="text-text-muted text-sm">{activeModal.props?.message}</p>
                 <div className="flex gap-3">
-                    <button onClick={closeModal} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 rounded-md text-muted text-xs font-semibold">Cancelar</button>
+                    <button onClick={closeModal} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 rounded-md text-text-muted text-xs font-semibold">Cancelar</button>
                     <button 
                         onClick={() => { activeModal.props?.onConfirm(); closeModal(); }} 
                         className="flex-1 py-3 bg-status-danger text-white text-xs font-semibold shadow-glow"

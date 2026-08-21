@@ -133,7 +133,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] bg-bg flex flex-col overflow-hidden font-sans text-primary gpu-accelerated">
+    <div className="fixed inset-0 z-[200] bg-bg flex flex-col overflow-hidden font-sans text-text-primary gpu-accelerated">
       
       {/* BACKGROUND AMBIENCE */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -145,7 +145,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
       <div className="w-full p-6 flex justify-end z-20 pt-8">
          <button 
             onClick={onFinish} 
-            className="text-disabled text-xs font-semibold uppercase tracking-wider hover:text-primary transition-colors px-4 py-2 rounded-full bg-[rgb(var(--fg-rgb))]/5 active:scale-95"
+            className="text-text-disabled text-xs font-semibold uppercase tracking-wider hover:text-text-primary transition-colors px-4 py-2 rounded-full bg-[rgb(var(--fg-rgb))]/5 active:scale-95"
          >
             Omitir
          </button>
@@ -185,10 +185,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
                    animate="animate"
                    exit="exit"
                 >
-                   <h2 className="text-3xl font-bold text-primary mb-3 tracking-tight">
+                   <h2 className="text-3xl font-bold text-text-primary mb-3 tracking-tight">
                       {slide.title}
                    </h2>
-                   <p className="text-[15px] text-muted font-medium leading-relaxed">
+                   <p className="text-[15px] text-text-muted font-medium leading-relaxed">
                       {slide.desc}
                    </p>
                 </motion.div>

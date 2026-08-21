@@ -254,41 +254,40 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
   };
 
   return (
-    <div className="min-h-screen pb-32 pt-4 px-4 font-sans text-primary relative flex flex-col">
-        <div className="fixed top-0 left-0 w-full h-[300px] bg-gradient-to-b from-brand-primary/10 to-transparent pointer-events-none" />
+    <div className="min-h-screen pb-32 pt-4 px-4 font-sans text-text-primary relative flex flex-col">
         
         <div className="relative z-20 flex items-center justify-between mb-4">
             <div>
-               <h1 className="text-[18px] leading-[27px] font-black text-primary tracking-tight">
+               <h1 className="text-[18px] leading-[27px] font-black text-text-primary tracking-tight">
                    {viewLevel === 'services' ? 'Inventario' : 
                     viewLevel === 'trash' ? 'Papelera' :
                     viewLevel === 'all_accounts' ? 'Todas las Cuentas' :
                     services.find(s => s.id === selectedServiceId)?.name}
                </h1>
-               <p className="text-muted text-[9px] leading-[13.5px] font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
+               <p className="text-text-muted text-[9px] leading-[13.5px] font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
             </div>
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
                     <>
                         <button onClick={() => setIsHealthCheckOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
-                        <button onClick={() => setViewLevel('trash')} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
+                        <button onClick={() => setViewLevel('trash')} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
-                <button onClick={() => setIsImportOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
+                <button onClick={() => setIsImportOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
                 <button onClick={handleAddNew} className={`w-[43px] h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
             </div>
         </div>
 
         <div className="relative z-20 mb-6">
             <div className="relative w-full h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
-                <Search size={18} className="text-disabled shrink-0" />
+                <Search size={18} className="text-text-disabled shrink-0" />
                 <input 
                     value={searchQuery} 
                     onChange={e => { setSearchQuery(e.target.value); if(viewLevel === 'services') setViewLevel('all_accounts'); }} 
                     placeholder="Buscar cuenta o servicio..." 
-                    className="bg-transparent border-none outline-none text-[12px] leading-[18px] h-[15px] text-primary w-full ml-3 placeholder:text-faint font-medium" 
+                    className="bg-transparent border-none outline-none text-[12px] leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-faint font-medium" 
                 />
-                {searchQuery && <button onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-disabled" /></button>}
+                {searchQuery && <button onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-text-disabled" /></button>}
             </div>
         </div>
         
@@ -340,10 +339,10 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                                 return (
                                     <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg flex items-center justify-between shadow-sm active:scale-95 transition-all">
                                         <div className="flex items-center gap-3 flex-1 min-w-0">
-                                            <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-disabled border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Monitor size={18} /></div>
+                                            <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Monitor size={18} /></div>
                                             <div className="min-w-0">
-                                                <h4 className="text-sm font-bold text-primary truncate">{svc?.name || 'Servicio'}</h4>
-                                                <p className="text-[10px] text-disabled truncate">{acc.email}</p>
+                                                <h4 className="text-sm font-bold text-text-primary truncate">{svc?.name || 'Servicio'}</h4>
+                                                <p className="text-[10px] text-text-disabled truncate">{acc.email}</p>
                                             </div>
                                         </div>
                                         <div className="flex gap-2">
@@ -421,8 +420,8 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
               <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
                   <div className="bg-status-danger/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-status-danger" /></div>
                   <div>
-                      <h4 className="text-primary font-bold text-sm">Gestión de Eliminación</h4>
-                      <p className="text-muted text-xs mt-1 leading-relaxed">
+                      <h4 className="text-text-primary font-bold text-sm">Gestión de Eliminación</h4>
+                      <p className="text-text-muted text-xs mt-1 leading-relaxed">
                           ¿Cómo deseas proceder con la cuenta <strong>{accountToDelete?.email}</strong>?
                       </p>
                   </div>
@@ -431,10 +430,10 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                 {viewLevel !== 'trash' && (
                   <button onClick={handleMoveToTrash} className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
                     <div>
-                      <span className="block text-primary font-bold text-sm">Archivar en Papelera</span>
-                      <span className="block text-disabled text-[10px]">Podrás recuperarla más tarde si la necesitas.</span>
+                      <span className="block text-text-primary font-bold text-sm">Archivar en Papelera</span>
+                      <span className="block text-text-disabled text-[10px]">Podrás recuperarla más tarde si la necesitas.</span>
                     </div>
-                    <RotateCcw size={16} className="text-faint group-hover:text-brand-primary transition-colors" />
+                    <RotateCcw size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
                   </button>
                 )}
                 <button onClick={confirmDelete} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-all group">
@@ -445,7 +444,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                   <Trash2 size={16} className="text-status-danger-soft/50 group-hover:text-status-danger-soft transition-colors" />
                 </button>
               </div>
-              <button onClick={() => setAccountToDelete(null)} className="w-full py-3 text-disabled text-xs font-semibold mt-1 active:text-primary">Cancelar</button>
+              <button onClick={() => setAccountToDelete(null)} className="w-full py-3 text-text-disabled text-xs font-semibold mt-1 active:text-text-primary">Cancelar</button>
           </div>
         </Modal>
     </div>

@@ -103,23 +103,23 @@ const ServicesDesktop: React.FC = () => {
   };
 
   const filtered = services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
-  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg pl-12 pr-4 py-3.5 text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
-  const labelClass = "text-[11px] font-semibold text-disabled uppercase tracking-widest mb-2 block ml-1";
+  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const labelClass = "text-[11px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
     <div className="space-y-10 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-center">
         <div>
-           <h2 className="text-2xl font-bold text-primary flex items-center gap-3">
+           <h2 className="text-2xl font-bold text-text-primary flex items-center gap-3">
               <div className="p-2 bg-brand-primary/10 rounded-xl text-brand-primary border border-brand-primary/20"><Layers size={22} /></div>
               Catálogo de Servicios
            </h2>
-           <p className="text-disabled text-sm mt-1">Configura plataformas, costos y precios de venta.</p>
+           <p className="text-text-disabled text-sm mt-1">Configura plataformas, costos y precios de venta.</p>
         </div>
         <div className="flex gap-4">
             <div className="relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled group-focus-within:text-brand-primary transition-colors" size={18} />
-                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg pl-11 pr-4 py-3 text-sm text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" size={18} />
+                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
             </div>
             <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-brand-gradient text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
         </div>
@@ -138,31 +138,31 @@ const ServicesDesktop: React.FC = () => {
                                     {service.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : getTypeIcon(service.type)}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-primary leading-tight">{service.name}</h3>
-                                    <p className="text-[10px] text-disabled font-bold uppercase mt-1">{service.screens} Pantallas • {service.type.replace('_', ' ')}</p>
+                                    <h3 className="text-lg font-bold text-text-primary leading-tight">{service.name}</h3>
+                                    <p className="text-[10px] text-text-disabled font-bold uppercase mt-1">{service.screens} Pantallas • {service.type.replace('_', ' ')}</p>
                                 </div>
                             </div>
                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onClick={() => openEditModal(service)} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button>
+                                <button onClick={() => openEditModal(service)} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button>
                                 <button onClick={() => deleteService(service.id)} className="w-9 h-9 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft border border-status-danger/10"><Trash2 size={14} /></button>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
                             <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4">
-                                <span className="text-[10px] font-semibold text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
-                                <p className="text-xl font-bold text-primary font-mono">${service.cost}</p>
+                                <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
+                                <p className="text-xl font-bold text-text-primary font-mono">${service.cost}</p>
                             </div>
                             <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4">
-                                <span className="text-[10px] font-semibold text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
+                                <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
                                 <p className="text-xl font-bold text-status-success-soft font-mono">${service.publicPrice}</p>
                             </div>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-brand-primary/5 border border-brand-primary/20 rounded-lg">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-lg bg-brand-primary/20 flex items-center justify-center text-brand-primary"><BarChart2 size={16} /></div>
-                                <div><p className="text-[10px] font-semibold text-brand-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-primary font-mono">+${profit.toFixed(1)}</p></div>
+                                <div><p className="text-[10px] font-semibold text-brand-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-text-primary font-mono">+${profit.toFixed(1)}</p></div>
                             </div>
-                            <div className="text-right"><span className="text-[10px] font-semibold text-disabled uppercase">ROI</span><p className="text-sm font-bold text-status-success">{margin.toFixed(0)}%</p></div>
+                            <div className="text-right"><span className="text-[10px] font-semibold text-text-disabled uppercase">ROI</span><p className="text-sm font-bold text-status-success">{margin.toFixed(0)}%</p></div>
                         </div>
                     </motion.div>
                 );
@@ -176,7 +176,7 @@ const ServicesDesktop: React.FC = () => {
                 <div className="col-span-2">
                    <label className={labelClass}>Identificación del Servicio</label>
                    <div className="relative flex items-center">
-                      <Tag size={18} className="absolute left-4 text-disabled" />
+                      <Tag size={18} className="absolute left-4 text-text-disabled" />
                       <input value={name} onChange={e => setName(e.target.value)} className={inputClass} required placeholder="Nombre (Ej. Netflix, YouTube Premium)" />
                    </div>
                 </div>
@@ -191,18 +191,18 @@ const ServicesDesktop: React.FC = () => {
                          {image_url ? (
                             <img src={image_url} className="w-full h-full object-cover" alt="Preview" />
                          ) : (
-                            <div className="flex flex-col items-center gap-2 text-faint group-hover:text-muted transition-colors">
+                            <div className="flex flex-col items-center gap-2 text-text-faint group-hover:text-text-muted transition-colors">
                                <Camera size={32} />
                                <span className="text-[10px] font-semibold uppercase tracking-widest">Subir Imagen</span>
                             </div>
                          )}
                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                            <Upload size={24} className="text-primary" />
+                            <Upload size={24} className="text-text-primary" />
                          </div>
                       </div>
                       <div className="flex-1">
-                         <h4 className="text-primary font-bold text-base mb-1">Identidad Visual</h4>
-                         <p className="text-disabled text-xs leading-relaxed max-w-[300px]">Sube una imagen de la plataforma para mejorar el reconocimiento visual en el inventario y catálogo.</p>
+                         <h4 className="text-text-primary font-bold text-base mb-1">Identidad Visual</h4>
+                         <p className="text-text-disabled text-xs leading-relaxed max-w-[300px]">Sube una imagen de la plataforma para mejorar el reconocimiento visual en el inventario y catálogo.</p>
                          <input 
                             type="file" 
                             ref={fileInputRef} 
@@ -226,32 +226,32 @@ const ServicesDesktop: React.FC = () => {
                 <div>
                    <label className={labelClass}>Modalidad de Venta</label>
                    <div className="relative flex items-center">
-                      <Layers size={18} className="absolute left-4 text-disabled" />
+                      <Layers size={18} className="absolute left-4 text-text-disabled" />
                       <select value={type} onChange={e => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}><option value="por_pantalla">Por Pantalla</option><option value="cuenta_completa">Cuenta Completa</option><option value="usuario_unico">Usuario Único</option></select>
-                      <ChevronDown className="absolute right-4 text-disabled pointer-events-none" size={16} />
+                      <ChevronDown className="absolute right-4 text-text-disabled pointer-events-none" size={16} />
                    </div>
                 </div>
                 <div>
                    <label className={labelClass}>Cupos Disponibles</label>
                    <div className="relative flex items-center">
-                      <Hash size={18} className="absolute left-4 text-disabled" />
+                      <Hash size={18} className="absolute left-4 text-text-disabled" />
                       <input type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" />
                    </div>
                 </div>
              </div>
              <div className="bg-surface-sunken rounded-xl p-6 border border-[rgb(var(--fg-rgb))]/5">
-                <div className="flex items-center gap-3 mb-6"><div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20"><Calculator size={20} /></div><h4 className="text-primary font-bold text-sm">Calculadora Financiera</h4></div>
+                <div className="flex items-center gap-3 mb-6"><div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20"><Calculator size={20} /></div><h4 className="text-text-primary font-bold text-sm">Calculadora Financiera</h4></div>
                 <div className="grid grid-cols-2 gap-6 items-end">
                    <div>
                       <label className={labelClass}>Inversión Total (Costo Cuenta)</label>
                       <div className="relative flex items-center">
-                         <DollarSign size={18} className="absolute left-4 text-disabled" />
+                         <DollarSign size={18} className="absolute left-4 text-text-disabled" />
                          <input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
                       </div>
                    </div>
                    <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-lg h-[52px] flex items-center justify-between px-6">
                       <span className="text-xs font-semibold text-brand-primary uppercase">Costo Real Unitario</span>
-                      <span className="text-xl font-bold text-primary font-mono">${calculatedCost.toFixed(2)}</span>
+                      <span className="text-xl font-bold text-text-primary font-mono">${calculatedCost.toFixed(2)}</span>
                    </div>
                 </div>
              </div>

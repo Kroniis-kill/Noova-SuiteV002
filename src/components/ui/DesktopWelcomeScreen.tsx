@@ -47,7 +47,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[150] flex items-center justify-center bg-transparent font-sans text-primary overflow-hidden"
+      className="fixed inset-0 z-[150] flex items-center justify-center bg-transparent font-sans text-text-primary overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -90,11 +90,11 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
                Bienvenido a Noova Suite
             </h1>
             
-            <h2 className="text-xl md:text-2xl font-medium text-secondary">
+            <h2 className="text-xl md:text-2xl font-medium text-text-secondary">
                Gestiona y administra tus servicios digitales desde una experiencia optimizada para escritorio.
             </h2>
             
-            <p className="text-muted text-base md:text-lg leading-relaxed max-w-xl mx-auto font-light">
+            <p className="text-text-muted text-base md:text-lg leading-relaxed max-w-xl mx-auto font-light">
                Explora tus módulos con mayor comodidad, una interfaz más amplia y un flujo de trabajo diseñado para aumentar tu productividad.
             </p>
          </motion.div>
@@ -115,7 +115,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
          </motion.div>
 
          {/* Footer Note */}
-         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-faint text-xs font-medium uppercase tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-4 py-2 rounded-full border border-[rgb(var(--fg-rgb))]/5">
+         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-text-faint text-xs font-medium uppercase tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-4 py-2 rounded-full border border-[rgb(var(--fg-rgb))]/5">
             <ShieldCheck size={12} />
             <span>Entorno Seguro & Sincronizado</span>
          </motion.div>

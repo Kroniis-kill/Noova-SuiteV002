@@ -74,7 +74,7 @@ const Avatar: React.FC<AvatarProps> = React.memo(({
       }}
     >
       {fallbackIcon ? (
-        <div className="text-primary opacity-90">{fallbackIcon}</div>
+        <div className="text-text-primary opacity-90">{fallbackIcon}</div>
       ) : (
         <svg 
           viewBox="0 0 100 100" 

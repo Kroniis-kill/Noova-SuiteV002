@@ -63,8 +63,7 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
   ];
 
   return (
-    <div className="min-h-screen pb-32 bg-bg font-sans text-primary relative overflow-x-hidden">
-       <div className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-brand-primary/10 to-transparent pointer-events-none z-0" />
+    <div className="min-h-screen pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
        <div className={`px-6 pt-safe ${isNative ? 'mt-3' : 'mt-6'} pb-4 relative z-10 flex justify-between items-center`}>
           <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-sm p-px shrink-0 bg-gradient-to-tr from-brand-primary to-brand-accent shadow-[0_0_15px_rgba(106,44,255,0.4)]">
@@ -72,39 +71,39 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
                     <AnimatedLogo size={36} showFill={true} isStatic={true} />
                  </div>
               </div>
-              <div><p className="text-muted text-[11px] font-semibold uppercase tracking-wider">{greeting}</p><h1 className="text-lg font-bold text-primary leading-tight">{user?.name?.split(' ')[0] || 'Usuario'}</h1></div>
+              <div><p className="text-text-muted text-[11px] font-semibold uppercase tracking-wider">{greeting}</p><h1 className="text-lg font-bold text-text-primary leading-tight">{user?.name?.split(' ')[0] || 'Usuario'}</h1></div>
           </div>
           <div className="flex gap-2">
              <motion.button whileTap={{ scale: 0.9 }} onClick={() => setDashboardMode('lite')} className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-brand-primary shadow-sm"><LayoutGrid size={18} /></motion.button>
-             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setIsNotifOpen(true)} className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted relative shadow-sm"><Activity size={18} />{stockUrgent > 0 && (<span className="absolute top-2.5 right-3 w-2 h-2 bg-status-danger rounded-full" />)}</motion.button>
+             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setIsNotifOpen(true)} className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted relative shadow-sm"><Activity size={18} />{stockUrgent > 0 && (<span className="absolute top-2.5 right-3 w-2 h-2 bg-status-danger rounded-full" />)}</motion.button>
           </div>
        </div>
        <div className="px-6 space-y-6">
           <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 relative overflow-hidden shadow-2xl">
              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 blur-3xl -mr-6 -mt-6" />
              <div className="flex flex-col items-center text-center">
-                <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-full text-[10px] font-semibold text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
-                <h1 className="text-5xl font-extrabold text-primary tracking-tighter mb-1"><span className="text-2xl text-faint mr-1">$</span>{formatMoney(totalBalance)}</h1>
+                <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-full text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
+                <h1 className="text-5xl font-extrabold text-text-primary tracking-tighter mb-1"><span className="text-2xl text-text-faint mr-1">$</span>{formatMoney(totalBalance)}</h1>
                 <div className="flex items-center gap-2 mt-4"><div className="px-3 py-1.5 bg-status-success/10 border border-status-success/20 rounded-full flex items-center gap-1.5"><ArrowUpRight size={14} className="text-status-success-soft" /><span className="text-[11px] font-semibold text-status-success-soft">Rendimiento Pro</span></div></div>
              </div>
              <div className="mt-8 pt-6 border-t border-[rgb(var(--fg-rgb))]/5 flex justify-between">
-                <div className="text-center px-4 border-r border-[rgb(var(--fg-rgb))]/5 flex-1"><p className="text-[9px] font-bold text-disabled uppercase mb-1">Ingresos Mes</p><p className="text-sm font-bold text-primary">+{formatMoney(monthlySales)}</p></div>
-                <div className="text-center px-4 flex-1"><p className="text-[9px] font-bold text-disabled uppercase mb-1">Egresos Mes</p><p className="text-sm font-bold text-status-danger-soft">-{formatMoney(expenses.reduce((acc,e) => acc + e.amount, 0))}</p></div>
+                <div className="text-center px-4 border-r border-[rgb(var(--fg-rgb))]/5 flex-1"><p className="text-[9px] font-bold text-text-disabled uppercase mb-1">Ingresos Mes</p><p className="text-sm font-bold text-text-primary">+{formatMoney(monthlySales)}</p></div>
+                <div className="text-center px-4 flex-1"><p className="text-[9px] font-bold text-text-disabled uppercase mb-1">Egresos Mes</p><p className="text-sm font-bold text-status-danger-soft">-{formatMoney(expenses.reduce((acc,e) => acc + e.amount, 0))}</p></div>
              </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
              {stats.map((s, i) => (
                 <div key={i} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex flex-col justify-between h-[110px] relative overflow-hidden group active:scale-95 transition-all">
                    <div className={`w-9 h-9 rounded-md ${s.bg} ${s.color} flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5`}><s.icon size={18} /></div>
-                   <div className="mt-auto"><p className="text-[9px] font-bold text-disabled uppercase tracking-wider">{s.label}</p><p className="text-lg font-extrabold text-primary">{s.value}</p></div>
+                   <div className="mt-auto"><p className="text-[9px] font-bold text-text-disabled uppercase tracking-wider">{s.label}</p><p className="text-lg font-extrabold text-text-primary">{s.value}</p></div>
                 </div>
              ))}
           </div>
           <div className="space-y-3">
-             <h3 className="text-xs font-semibold text-disabled uppercase tracking-widest px-1">Alertas Pro</h3>
+             <h3 className="text-xs font-semibold text-text-disabled uppercase tracking-widest px-1">Alertas Pro</h3>
              <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden">
-                <button onClick={() => setView('expired')} className="w-full flex items-center justify-between p-5 border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-danger/10 text-status-danger flex items-center justify-center"><AlertTriangle size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-primary">Renovaciones Críticas</h4><p className="text-[10px] text-disabled">{stockUrgent} clientes por vencer</p></div></div><ChevronRight size={18} className="text-faint" /></button>
-                <button onClick={() => setView('inventory')} className="w-full flex items-center justify-between p-5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-warning/10 text-status-warning flex items-center justify-center"><Layers size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-primary">Stock e Inventario</h4><p className="text-[10px] text-disabled">Gestión de cupos activos</p></div></div><ChevronRight size={18} className="text-faint" /></button>
+                <button onClick={() => setView('expired')} className="w-full flex items-center justify-between p-5 border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-danger/10 text-status-danger flex items-center justify-center"><AlertTriangle size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Renovaciones Críticas</h4><p className="text-[10px] text-text-disabled">{stockUrgent} clientes por vencer</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
+                <button onClick={() => setView('inventory')} className="w-full flex items-center justify-between p-5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-warning/10 text-status-warning flex items-center justify-center"><Layers size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Stock e Inventario</h4><p className="text-[10px] text-text-disabled">Gestión de cupos activos</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
              </div>
           </div>
        </div>

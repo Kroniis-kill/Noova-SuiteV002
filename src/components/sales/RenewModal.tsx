@@ -25,36 +25,36 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-4" style={{ zIndex: zIndex || 10000 }} onClick={onClose}>
-       <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 30 }} className="bg-surface-1 border border-border-subtle rounded-lg w-full max-w-md overflow-hidden flex flex-col max-h-[80vh] shadow-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end lg:items-center justify-center p-4" style={{ zIndex: zIndex || 10000 }} onClick={onClose}>
+       <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 30 }} className="bg-surface-1 border border-border-subtle rounded-xl w-full max-w-md overflow-hidden flex flex-col max-h-[80vh] shadow-modal" onClick={(e) => e.stopPropagation()}>
           <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
               <div>
-                  <h3 className="text-primary font-black text-lg">Billetera</h3>
-                  <p className="text-[11px] text-disabled font-medium">Selecciona cuenta de ingreso</p>
+                  <h3 className="text-text-primary font-black text-lg">Billetera</h3>
+                  <p className="text-[11px] text-text-disabled font-medium">Selecciona cuenta de ingreso</p>
               </div>
-              <button onClick={onClose} className="w-9 h-9 bg-[rgb(var(--fg-rgb))]/5 rounded-full flex items-center justify-center text-muted hover:text-primary transition-colors active:scale-90"><X size={18} /></button>
+              <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
           </div>
           <div className="p-4 space-y-3">
              <div className="relative">
-                 <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" />
-                 <input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-faint font-medium" />
+                 <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
+                 <input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" />
              </div>
              <div className="space-y-2 overflow-y-auto max-h-[300px] custom-scrollbar pr-1">
                 <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
-                    <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted group-hover:text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0"><X size={18} /></div>
-                    <span className="text-sm font-bold text-muted group-hover:text-primary">No registrar pago</span>
+                    <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0"><X size={18} /></div>
+                    <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar pago</span>
                 </button>
                 {filtered.map(acc => (
                     <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full text-left p-3 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
                         <div className="w-10 h-10 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={18} /></div>
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center">
-                                <p className="text-sm font-bold text-primary group-hover:text-brand-primary transition-colors truncate">
-                                    <span className="text-[10px] text-disabled mr-1">{acc.currency}</span>
+                                <p className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors truncate">
+                                    <span className="text-[10px] text-text-disabled mr-1">{acc.currency}</span>
                                     {acc.name}
                                 </p>
                             </div>
-                            <p className="text-[11px] text-disabled font-mono mt-0.5">Saldo: {acc.balance.toLocaleString()}</p>
+                            <p className="text-[11px] text-text-disabled font-mono mt-0.5">Saldo: {acc.balance.toLocaleString()}</p>
                         </div>
                     </button>
                 ))}
@@ -296,7 +296,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
   // Helper para botones stepper
   const StepperControl = ({ value, onChange, label, min = 0 }: any) => (
       <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
-          <button onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+          <button onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
           <div className="flex-1 flex flex-col items-center justify-center h-full">
               <input 
                 type="number" 
@@ -305,11 +305,11 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     const val = parseInt(e.target.value);
                     onChange(isNaN(val) ? 0 : Math.max(min, val));
                 }}
-                className="bg-transparent text-center text-lg font-bold text-primary w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="bg-transparent text-center text-lg font-bold text-text-primary w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
-              <span className="text-[8px] font-bold text-faint uppercase tracking-wide -mt-1">{label}</span>
+              <span className="text-[8px] font-bold text-text-faint uppercase tracking-wide -mt-1">{label}</span>
           </div>
-          <button onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+          <button onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
       </div>
   );
 
@@ -317,17 +317,17 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
   return createPortal(
     <>
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" style={{ zIndex: (zIndex || 10020) - 1 }} onClick={onClose} />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" style={{ zIndex: (zIndex || 10020) - 1 }} onClick={onClose} />
         <div className="fixed inset-0 flex items-end lg:items-center justify-center p-0 lg:p-4 pointer-events-none" style={{ zIndex: zIndex || 10020 }}>
-            <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 32, mass: 0.8 }} className="pointer-events-auto w-full lg:max-w-lg bg-surface-1 rounded-t-xl lg:rounded-lg border-t border-border-subtle lg:border shadow-modal flex flex-col h-auto max-h-[90dvh] overflow-hidden">
+            <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 32, mass: 0.8 }} className="pointer-events-auto w-full lg:max-w-lg bg-surface-1 rounded-t-xl lg:rounded-xl border-t border-border-subtle lg:border shadow-modal flex flex-col h-auto max-h-[90dvh] overflow-hidden">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
                     <div>
-                        <h3 className="text-lg font-black text-primary leading-tight">Renovar Servicio</h3>
-                        <p className="text-[11px] text-disabled font-medium">Extender vigencia de {salesToRenew.length} servicio(s)</p>
+                        <h3 className="text-lg font-black text-text-primary leading-tight">Renovar Servicio</h3>
+                        <p className="text-[11px] text-text-disabled font-medium">Extender vigencia de {salesToRenew.length} servicio(s)</p>
                     </div>
-                    <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 bg-[rgb(var(--fg-rgb))]/5 rounded-full flex items-center justify-center text-muted hover:text-primary transition-colors active:scale-90"><X size={18} /></button>
+                    <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
                 </div>
 
                 <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
@@ -339,17 +339,17 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                         </div>
                         <div>
                             <h4 className="text-brand-primary font-bold text-sm uppercase tracking-wide">Renovación Activa</h4>
-                            <p className="text-muted text-[11px] leading-tight mt-1 font-medium">Vencimiento actual: <span className="text-primary font-bold">{formatDate(salesToRenew[0]?.expiryDate)}</span></p>
+                            <p className="text-text-muted text-[11px] leading-tight mt-1 font-medium">Vencimiento actual: <span className="text-text-primary font-bold">{formatDate(salesToRenew[0]?.expiryDate)}</span></p>
                         </div>
                     </div>
 
                     {/* 1. TIEMPO Y DURACIÓN */}
                     <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
+                        <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
                         <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
                             <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-[rgb(var(--fg-rgb))]/10">
-                                <Calendar size={18} className="text-disabled mr-3" />
-                                <input type="date" value={newDateStr} onChange={e => setNewDateStr(e.target.value)} className="bg-transparent text-sm text-primary font-bold w-full outline-none uppercase tracking-wider" />
+                                <Calendar size={18} className="text-text-disabled mr-3" />
+                                <input type="date" value={newDateStr} onChange={e => setNewDateStr(e.target.value)} className="bg-transparent text-sm text-text-primary font-bold w-full outline-none uppercase tracking-wider" />
                             </div>
                             <div className="flex gap-3">
                                 <div className="flex-1"><StepperControl value={months} onChange={setMonths} label="MESES" /></div>
@@ -361,7 +361,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     {/* 2. PAGO Y BILLETERA */}
                     <div className="space-y-3">
                         <div className="flex justify-between items-center px-1">
-                            <label className="text-[10px] font-bold text-disabled uppercase tracking-widest">Pago y Billetera</label>
+                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Pago y Billetera</label>
                             {isConversionActive && (<span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
                         </div>
                         
@@ -373,27 +373,27 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                                         <>
                                             <div className="w-8 h-8 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={14} /></div>
                                             <div className="text-left">
-                                                <span className="block text-[12px] font-bold text-primary truncate leading-none mb-0.5">
-                                                    <span className="text-[9px] text-disabled mr-1">{selectedWallet.currency}</span>
+                                                <span className="block text-[12px] font-bold text-text-primary truncate leading-none mb-0.5">
+                                                    <span className="text-[9px] text-text-disabled mr-1">{selectedWallet.currency}</span>
                                                     {selectedWallet.name}
                                                 </span>
                                             </div>
                                         </>
                                     ) : (
                                         <>
-                                            <div className="w-8 h-8 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-disabled shrink-0"><X size={14} /></div>
-                                            <span className="text-[12px] font-medium text-disabled">No registrar pago</span>
+                                            <div className="w-8 h-8 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled shrink-0"><X size={14} /></div>
+                                            <span className="text-[12px] font-medium text-text-disabled">No registrar pago</span>
                                         </>
                                     )}
                                 </div>
-                                <ChevronDown size={16} className="text-disabled shrink-0 group-hover:text-primary transition-colors" />
+                                <ChevronDown size={16} className="text-text-disabled shrink-0 group-hover:text-text-primary transition-colors" />
                             </button>
 
                             {/* Input de Monto */}
                             <div className="relative h-[60px] bg-surface-sunken rounded-lg border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                                 <DollarSign size={24} className="text-status-success mr-2" />
-                                <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-primary outline-none placeholder:text-faint" placeholder="0.00" inputMode="decimal" />
-                                {selectedWallet && <span className="text-xs font-semibold text-disabled absolute right-5 top-1/2 -translate-y-1/2">{selectedWallet.currency}</span>}
+                                <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint" placeholder="0.00" inputMode="decimal" />
+                                {selectedWallet && <span className="text-xs font-semibold text-text-disabled absolute right-5 top-1/2 -translate-y-1/2">{selectedWallet.currency}</span>}
                             </div>
                         </div>
                     </div>
@@ -410,7 +410,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
                 {/* Footer Actions */}
                 <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-                    <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-secondary rounded-lg font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-primary">
+                    <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary rounded-lg font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-text-primary">
                         <Check size={18} /> Guardar
                     </button>
                     <button onClick={() => handleRenew(true)} className="flex-[2] h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">

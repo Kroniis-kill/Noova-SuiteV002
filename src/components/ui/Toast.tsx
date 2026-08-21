@@ -32,7 +32,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       icon: <BellRing size={20} className="text-brand-primary" />,
       bgIcon: 'bg-brand-primary/10',
       border: 'border-brand-primary/20',
-      textTitle: 'text-primary'
+      textTitle: 'text-text-primary'
     }
   };
 
@@ -76,7 +76,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
         <span className={`text-[11px] font-extrabold leading-tight mb-0.5 uppercase tracking-wider ${style.textTitle}`}>
           {type === 'success' ? (isCopy ? 'Portapapeles' : 'Confirmado') : type === 'error' ? 'Alerta' : 'Notificación'}
         </span>
-        <span className="text-[13px] font-medium text-secondary leading-snug">
+        <span className="text-[13px] font-medium text-text-secondary leading-snug">
           {message}
         </span>
       </div>
@@ -84,7 +84,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(({ id, message, type,
       {/* Close Button */}
       <button 
         onClick={() => onClose(id)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-[rgb(var(--fg-rgb))]/5 text-faint transition-colors"
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-[rgb(var(--fg-rgb))]/5 text-text-faint transition-colors"
       >
         <X size={14} strokeWidth={3} />
       </button>

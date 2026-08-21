@@ -43,8 +43,8 @@ const InstallBanner: React.FC = () => {
             </div>
 
             <div className="flex-1 min-w-0">
-              <h4 className="text-primary font-bold text-[15px] leading-tight">Instala Noova Suite</h4>
-              <p className="text-muted text-[11px] leading-snug mt-0.5">
+              <h4 className="text-text-primary font-bold text-[15px] leading-tight">Instala Noova Suite</h4>
+              <p className="text-text-muted text-[11px] leading-snug mt-0.5">
                 {isIOS 
                   ? "Acceso directo desde tu pantalla de inicio." 
                   : "Experiencia fluida y rápida sin navegador."}
@@ -53,7 +53,7 @@ const InstallBanner: React.FC = () => {
 
             <button 
               onClick={() => setIsDismissed(true)}
-              className="p-2 text-faint hover:text-primary transition-colors"
+              className="p-2 text-text-faint hover:text-text-primary transition-colors"
             >
               <X size={18} />
             </button>
@@ -62,12 +62,12 @@ const InstallBanner: React.FC = () => {
           <div className="mt-4">
             {isIOS ? (
               <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex flex-col gap-2">
-                 <div className="flex items-center gap-2 text-xs text-secondary font-medium">
+                 <div className="flex items-center gap-2 text-xs text-text-secondary font-medium">
                    <div className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center"><Share size={14} className="text-status-info-soft" /></div>
                    <span>1. Toca el botón <strong>Compartir</strong> en Safari.</span>
                  </div>
-                 <div className="flex items-center gap-2 text-xs text-secondary font-medium">
-                   <div className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-primary">+</div>
+                 <div className="flex items-center gap-2 text-xs text-text-secondary font-medium">
+                   <div className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary">+</div>
                    <span>2. Selecciona <strong>Añadir a pantalla de inicio</strong>.</span>
                  </div>
               </div>
@@ -82,7 +82,7 @@ const InstallBanner: React.FC = () => {
                 </button>
                 <button 
                   onClick={() => setIsDismissed(true)}
-                  className="h-11 px-6 bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary rounded-md text-xs font-semibold border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all"
+                  className="h-11 px-6 bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary rounded-md text-xs font-semibold border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all"
                 >
                   Luego
                 </button>

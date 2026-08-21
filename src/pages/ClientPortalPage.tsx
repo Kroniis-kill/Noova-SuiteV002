@@ -73,11 +73,11 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
         <div className="flex justify-between items-start mb-5 pl-3">
             <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 shrink-0">
-                    <Layers size={18} className="text-muted" />
+                    <Layers size={18} className="text-text-muted" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-primary leading-tight">{service.service_name || 'Servicio'}</h3>
-                  <p className="text-[10px] text-disabled uppercase tracking-wide mt-0.5">
+                  <h3 className="text-base font-bold text-text-primary leading-tight">{service.service_name || 'Servicio'}</h3>
+                  <p className="text-[10px] text-text-disabled uppercase tracking-wide mt-0.5">
                     {service.sale_type ? service.sale_type.replace('_', ' ') : 'Suscripción'}
                   </p>
                 </div>
@@ -90,20 +90,20 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
         <div className="bg-surface-sunken rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3 mb-5 ml-2">
             <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(user || '')}>
               <div className="flex flex-col min-w-0 pr-2">
-                  <span className="text-[9px] font-bold text-disabled uppercase">Usuario</span>
-                  <span className="text-xs font-medium text-primary truncate">{user || '---'}</span>
+                  <span className="text-[9px] font-bold text-text-disabled uppercase">Usuario</span>
+                  <span className="text-xs font-medium text-text-primary truncate">{user || '---'}</span>
               </div>
-              <Copy size={14} className="text-faint group-hover:text-primary transition-colors shrink-0" />
+              <Copy size={14} className="text-text-faint group-hover:text-text-primary transition-colors shrink-0" />
             </div>
             
             <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/5" />
             
             <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(pass || '')}>
               <div className="flex flex-col min-w-0 pr-2">
-                  <span className="text-[9px] font-bold text-disabled uppercase">Contraseña</span>
-                  <span className="text-xs font-medium text-primary truncate font-mono">{pass || '---'}</span>
+                  <span className="text-[9px] font-bold text-text-disabled uppercase">Contraseña</span>
+                  <span className="text-xs font-medium text-text-primary truncate font-mono">{pass || '---'}</span>
               </div>
-              <Copy size={14} className="text-faint group-hover:text-primary transition-colors shrink-0" />
+              <Copy size={14} className="text-text-faint group-hover:text-text-primary transition-colors shrink-0" />
             </div>
             
             {(pName || pPin) && (
@@ -112,14 +112,14 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                   <div className="flex gap-4 pt-1">
                     {pName && (
                         <div className="flex-1 bg-surface-1 rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5">
-                            <span className="text-[9px] font-bold text-disabled uppercase block mb-1">Perfil</span>
-                            <span className="text-xs font-semibold text-primary truncate block">{pName}</span>
+                            <span className="text-[9px] font-bold text-text-disabled uppercase block mb-1">Perfil</span>
+                            <span className="text-xs font-semibold text-text-primary truncate block">{pName}</span>
                         </div>
                     )}
                     {pPin && (
                         <div className="w-20 bg-surface-1 rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 text-center">
-                            <span className="text-[9px] font-bold text-disabled uppercase block mb-1">PIN</span>
-                            <span className="text-xs font-semibold text-primary font-mono">{pPin}</span>
+                            <span className="text-[9px] font-bold text-text-disabled uppercase block mb-1">PIN</span>
+                            <span className="text-xs font-semibold text-text-primary font-mono">{pPin}</span>
                         </div>
                     )}
                   </div>
@@ -128,11 +128,11 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
         </div>
 
         <div className="flex items-center justify-between pl-3">
-            <div className="flex items-center gap-1.5 text-[10px] text-disabled font-medium">
+            <div className="flex items-center gap-1.5 text-[10px] text-text-disabled font-medium">
               <Calendar size={12} />
-              <span>Vence: <span className="text-secondary font-mono">{formatDate(service.expiry_date)}</span></span>
+              <span>Vence: <span className="text-text-secondary font-mono">{formatDate(service.expiry_date)}</span></span>
             </div>
-            <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-secondary font-semibold text-[10px] transition-colors border border-[rgb(var(--fg-rgb))]/5">
+            <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary font-semibold text-[10px] transition-colors border border-[rgb(var(--fg-rgb))]/5">
                 <MessageSquareWarning size={12} /> Reportar
             </button>
         </div>
@@ -356,7 +356,7 @@ const PortalPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-bg flex flex-col items-center justify-center">
          <AnimatedLogo size={80} showFill={false} />
-         <p className="text-disabled text-xs mt-6 font-medium animate-pulse">Conectando seguro...</p>
+         <p className="text-text-disabled text-xs mt-6 font-medium animate-pulse">Conectando seguro...</p>
       </div>
     );
   }
@@ -367,9 +367,9 @@ const PortalPage: React.FC = () => {
          <div className="w-20 h-20 bg-status-danger/10 rounded-xl flex items-center justify-center mb-6 border border-status-danger/20 shadow-[0_0_40px_rgba(239,68,68,0.2)]">
             <ShieldAlert size={32} className="text-status-danger" />
          </div>
-         <h1 className="text-2xl font-bold text-primary mb-2">Acceso Denegado</h1>
-         <p className="text-muted text-sm max-w-xs leading-relaxed">{errorMessage}</p>
-         <button onClick={() => window.location.reload()} className="mt-8 px-6 py-3 bg-[rgb(var(--fg-rgb))]/10 rounded-full text-primary font-semibold text-xs hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-2">
+         <h1 className="text-2xl font-bold text-text-primary mb-2">Acceso Denegado</h1>
+         <p className="text-text-muted text-sm max-w-xs leading-relaxed">{errorMessage}</p>
+         <button onClick={() => window.location.reload()} className="mt-8 px-6 py-3 bg-[rgb(var(--fg-rgb))]/10 rounded-full text-text-primary font-semibold text-xs hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-2">
             <RefreshCw size={14} /> Reintentar
          </button>
       </div>
@@ -386,13 +386,13 @@ const PortalPage: React.FC = () => {
                 <div className="mb-6 text-center">
                     <div className="w-20 h-20 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-xl flex items-center justify-center mx-auto mb-6 shadow-glow p-px">
                         <div className="w-full h-full bg-bg rounded-xl flex items-center justify-center">
-                            {isSetup ? <Unlock className="w-8 h-8 text-primary" /> : <Lock className="w-8 h-8 text-primary" />}
+                            {isSetup ? <Unlock className="w-8 h-8 text-text-primary" /> : <Lock className="w-8 h-8 text-text-primary" />}
                         </div>
                     </div>
-                    <h2 className="text-2xl font-bold text-primary mb-2">
+                    <h2 className="text-2xl font-bold text-text-primary mb-2">
                         {stepTitle}
                     </h2>
-                    <p className="text-disabled text-sm">
+                    <p className="text-text-disabled text-sm">
                         {isSetup ? 'Define un código de seguridad personal.' : 'Ingresa tu PIN de seguridad.'}
                     </p>
                     
@@ -407,11 +407,11 @@ const PortalPage: React.FC = () => {
                 
                 <div className="grid grid-cols-3 gap-3 w-full mb-6 select-none">
                     {[1,2,3,4,5,6,7,8,9].map(n => (
-                        <button key={n} onClick={() => handleNum(n.toString())} className="h-16 rounded-xl bg-surface-3 text-2xl font-medium text-primary hover:bg-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-all border border-[rgb(var(--fg-rgb))]/5 shadow-sm">{n}</button>
+                        <button key={n} onClick={() => handleNum(n.toString())} className="h-16 rounded-xl bg-surface-3 text-2xl font-medium text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-all border border-[rgb(var(--fg-rgb))]/5 shadow-sm">{n}</button>
                     ))}
                     <div />
-                    <button onClick={() => handleNum('0')} className="h-16 rounded-xl bg-surface-3 text-2xl font-medium text-primary hover:bg-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-all border border-[rgb(var(--fg-rgb))]/5 shadow-sm">0</button>
-                    <button onClick={handleBackspace} className="h-16 rounded-xl flex items-center justify-center text-muted hover:text-primary active:scale-90 transition-all"><ChevronRight className="rotate-180" size={28} /></button>
+                    <button onClick={() => handleNum('0')} className="h-16 rounded-xl bg-surface-3 text-2xl font-medium text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-all border border-[rgb(var(--fg-rgb))]/5 shadow-sm">0</button>
+                    <button onClick={handleBackspace} className="h-16 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><ChevronRight className="rotate-180" size={28} /></button>
                 </div>
                 
                 <button 
@@ -430,7 +430,7 @@ const PortalPage: React.FC = () => {
   // --- DASHBOARD ---
   // Fix scrolling: use h-full overflow-y-auto instead of hidden
   return (
-      <div className="h-screen bg-bg font-sans text-primary flex flex-col selection:bg-brand-primary/30">
+      <div className="h-screen bg-bg font-sans text-text-primary flex flex-col selection:bg-brand-primary/30">
           {/* Header */}
           <div className="relative pt-8 pb-12 px-6 bg-surface-1 rounded-b-2xl border-b border-[rgb(var(--fg-rgb))]/10 shadow-2xl z-10 shrink-0">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
@@ -442,9 +442,9 @@ const PortalPage: React.FC = () => {
                      ) : (
                          <AnimatedLogo size={24} isStatic showFill={false} />
                      )}
-                     <span className="text-sm font-bold text-primary tracking-widest uppercase">{branding?.name || 'Portal'}</span>
+                     <span className="text-sm font-bold text-text-primary tracking-widest uppercase">{branding?.name || 'Portal'}</span>
                   </div>
-                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5">
+                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5">
                       <LogOut size={18} />
                   </button>
               </div>
@@ -452,16 +452,16 @@ const PortalPage: React.FC = () => {
               <div className="relative z-10 flex items-center gap-5">
                   <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-glow">
                      <div className="w-full h-full bg-surface-1 rounded-lg flex items-center justify-center overflow-hidden">
-                         <User size={32} className="text-primary" />
+                         <User size={32} className="text-text-primary" />
                      </div>
                   </div>
                   <div>
-                     <h1 className="text-2xl font-bold text-primary">{clientData?.name || 'Cliente'}</h1>
+                     <h1 className="text-2xl font-bold text-text-primary">{clientData?.name || 'Cliente'}</h1>
                      <div className="flex items-center gap-2 mt-1">
                         <span className="px-2 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[10px] font-semibold rounded uppercase">
                             Activo
                         </span>
-                        <span className="text-disabled text-xs font-mono">{clientData?.phone}</span>
+                        <span className="text-text-disabled text-xs font-mono">{clientData?.phone}</span>
                      </div>
                   </div>
               </div>
@@ -471,9 +471,9 @@ const PortalPage: React.FC = () => {
           <div className="flex-1 overflow-y-auto custom-scrollbar px-5 -mt-6 pt-10 pb-12 relative z-0">
               {services.length === 0 ? (
                   <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-10 text-center flex flex-col items-center shadow-lg mt-4">
-                      <WifiOff size={32} className="text-faint mb-4" />
-                      <p className="text-secondary font-bold text-sm">Sin Servicios Activos</p>
-                      <p className="text-disabled text-xs mt-1">Contacta a soporte si crees que es un error.</p>
+                      <WifiOff size={32} className="text-text-faint mb-4" />
+                      <p className="text-text-secondary font-bold text-sm">Sin Servicios Activos</p>
+                      <p className="text-text-disabled text-xs mt-1">Contacta a soporte si crees que es un error.</p>
                   </div>
               ) : (
                   services.map((service, idx) => (
@@ -482,7 +482,7 @@ const PortalPage: React.FC = () => {
               )}
               
               <div className="mt-12 text-center opacity-40">
-                 <p className="text-[10px] text-faint font-medium uppercase tracking-widest">Powered by Noova Suite</p>
+                 <p className="text-[10px] text-text-faint font-medium uppercase tracking-widest">Powered by Noova Suite</p>
               </div>
           </div>
       </div>

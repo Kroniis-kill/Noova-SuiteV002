@@ -59,7 +59,7 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
 
   if (loading) {
       return (
-          <div className="flex flex-col items-center justify-center h-48 text-disabled">
+          <div className="flex flex-col items-center justify-center h-48 text-text-disabled">
               <Clock size={24} className="animate-spin mb-2" />
               <p className="text-xs">Cargando historial...</p>
           </div>
@@ -68,7 +68,7 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
 
   if (history.length === 0) {
       return (
-          <div className="flex flex-col items-center justify-center h-48 text-disabled opacity-60">
+          <div className="flex flex-col items-center justify-center h-48 text-text-disabled opacity-60">
               <HistoryIcon size={32} className="mb-2" />
               <p className="text-xs">No hay historial registrado.</p>
           </div>
@@ -92,20 +92,20 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                     
                     <div className="flex justify-between items-start pl-3">
                         <div className="flex items-start gap-3">
-                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-status-warning/10 border-status-warning/20 text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-muted'}`}>
+                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-status-warning/10 border-status-warning/20 text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
                                 {isBlock ? <AlertTriangle size={14} /> : <MonitorPlay size={14} />}
                             </div>
                             
                             <div>
-                                <h4 className="text-sm font-bold text-primary leading-tight">
+                                <h4 className="text-sm font-bold text-text-primary leading-tight">
                                     {service?.name || 'Servicio'}
                                 </h4>
-                                <p className="text-[10px] text-disabled mt-0.5 font-mono">
+                                <p className="text-[10px] text-text-disabled mt-0.5 font-mono">
                                     {account?.email || 'Cuenta no disponible'}
                                 </p>
                                 
                                 {entry.notes && (
-                                    <div className={`mt-2 text-[11px] p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-muted'}`}>
+                                    <div className={`mt-2 text-[11px] p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
                                         {entry.notes}
                                     </div>
                                 )}
@@ -113,10 +113,10 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                         </div>
 
                         <div className="text-right shrink-0">
-                             <span className="text-[9px] font-bold text-disabled block uppercase tracking-wider mb-1">
+                             <span className="text-[9px] font-bold text-text-disabled block uppercase tracking-wider mb-1">
                                  {getDaysElapsed(entry.createdAt)}
                              </span>
-                             <span className="text-[10px] text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded">
+                             <span className="text-[10px] text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded">
                                  {formatDate(entry.createdAt)}
                              </span>
                         </div>

@@ -28,7 +28,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
   let statusBorder = 'bg-status-success'; 
 
   if (isPaused) { 
-      statusColor = 'bg-zinc-500/10 text-muted border-zinc-500/20'; 
+      statusColor = 'bg-zinc-500/10 text-text-muted border-zinc-500/20'; 
       statusText = 'Pausada'; 
       statusBorder = 'bg-zinc-500';
   }
@@ -86,16 +86,16 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
                         <Truck size={10} className="text-status-info-soft" />
                      </div>
                   )}
-                  <Mail size={12} className={`${isActive ? "text-brand-primary" : "text-disabled"} ${isFailing ? 'opacity-40' : ''}`} />
-                  <h4 className={`text-[13px] font-bold truncate ${isActive ? 'text-primary' : 'text-secondary group-hover:text-primary'} ${isFailing ? 'opacity-40' : ''}`}>
+                  <Mail size={12} className={`${isActive ? "text-brand-primary" : "text-text-disabled"} ${isFailing ? 'opacity-40' : ''}`} />
+                  <h4 className={`text-[13px] font-bold truncate ${isActive ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'} ${isFailing ? 'opacity-40' : ''}`}>
                      {account.email}
                   </h4>
                   {isFailing && <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />}
                </div>
                <div className={`flex items-center gap-2 ${isFailing ? 'opacity-40' : ''}`}>
                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08]">
-                      <Lock size={10} className="text-faint" />
-                      <span className="text-[10px] font-mono text-muted truncate max-w-[100px]">{account.password}</span>
+                      <Lock size={10} className="text-text-faint" />
+                      <span className="text-[10px] font-mono text-text-muted truncate max-w-[100px]">{account.password}</span>
                    </div>
                </div>
             </div>
@@ -103,18 +103,18 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
 
          <div className={`flex items-end justify-between pt-1 ${isFailing ? 'opacity-40' : ''}`}>
              <div className={`flex flex-col gap-1 ${isFailing ? 'lg:hidden' : ''}`}>
-                <span className="text-[9px] font-bold text-disabled uppercase tracking-wider">Vencimiento</span>
-                <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-secondary">
-                   <Calendar size={12} className={isExpired || isWarning || isToday ? "text-status-danger-soft" : "text-disabled"} />
+                <span className="text-[9px] font-bold text-text-disabled uppercase tracking-wider">Vencimiento</span>
+                <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-text-secondary">
+                   <Calendar size={12} className={isExpired || isWarning || isToday ? "text-status-danger-soft" : "text-text-disabled"} />
                    <span>{account.endDate}</span>
-                   <span className="text-[10px] text-faint font-sans ml-1 opacity-70">
+                   <span className="text-[10px] text-text-faint font-sans ml-1 opacity-70">
                       ({daysLeft} días)
                    </span>
                 </div>
              </div>
 
              <div className="flex flex-col items-end gap-1">
-                <div className="flex items-center gap-1 text-[10px] text-muted">
+                <div className="flex items-center gap-1 text-[10px] text-text-muted">
                    <Users size={10} />
                    <span>{usedSlots}/{totalSlots}</span>
                 </div>
@@ -135,7 +135,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
       </div>
       
       <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:block">
-         <ChevronRight size={16} className="text-disabled" />
+         <ChevronRight size={16} className="text-text-disabled" />
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
   
   const getPlanColor = () => {
       switch(user.plan) {
-          case 'free': return 'text-muted bg-zinc-500/10 border-zinc-500/20';
+          case 'free': return 'text-text-muted bg-zinc-500/10 border-zinc-500/20';
           case 'monthly': return 'text-status-info-soft bg-status-info/10 border-status-info/20';
           case 'lifetime': return 'text-status-warning-soft bg-status-warning/10 border-status-warning/20';
           default: return 'text-brand-primary bg-brand-primary/10 border-brand-primary/20';
@@ -53,10 +53,10 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                 {(user.full_name || user.user_email || 'U').substring(0, 2).toUpperCase()}
             </div>
             
-            <h2 className="text-lg font-bold text-primary mb-1">
+            <h2 className="text-lg font-bold text-text-primary mb-1">
                 {user.full_name || 'Sin nombre registrado'}
             </h2>
-            <div className="flex items-center gap-2 text-muted text-xs">
+            <div className="flex items-center gap-2 text-text-muted text-xs">
                 <Mail size={12} /> {user.user_email}
             </div>
 
@@ -79,10 +79,10 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
         {/* Info Grid */}
         <div className="grid grid-cols-2 gap-3">
             <div className="bg-surface-1 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">
-                <div className="flex items-center gap-2 text-disabled mb-1">
+                <div className="flex items-center gap-2 text-text-disabled mb-1">
                     <Calendar size={14} /> <span className="text-[10px] font-semibold uppercase">Vencimiento</span>
                 </div>
-                <p className={`text-sm font-bold font-mono ${isExpired ? 'text-status-danger-soft' : 'text-primary'}`}>
+                <p className={`text-sm font-bold font-mono ${isExpired ? 'text-status-danger-soft' : 'text-text-primary'}`}>
                     {isLifetime ? (
                         <span className="flex items-center gap-2 text-status-warning-soft"><Infinity size={16} /> Vitalicio</span>
                     ) : (
@@ -93,10 +93,10 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             </div>
             
             <div className="bg-surface-1 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">
-                <div className="flex items-center gap-2 text-disabled mb-1">
+                <div className="flex items-center gap-2 text-text-disabled mb-1">
                     <Clock size={14} /> <span className="text-[10px] font-semibold uppercase">Registro</span>
                 </div>
-                <p className="text-sm font-bold text-primary font-mono">
+                <p className="text-sm font-bold text-text-primary font-mono">
                     {formatDate(user.created_at || new Date().toISOString())}
                 </p>
             </div>
@@ -104,7 +104,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
 
         {/* Actions List */}
         <div className="space-y-2">
-            <p className="text-[10px] font-semibold text-disabled uppercase ml-1">Acciones Administrativas</p>
+            <p className="text-[10px] font-semibold text-text-disabled uppercase ml-1">Acciones Administrativas</p>
             
             {!isLifetime && (
                 <button onClick={() => handleAction(onExtend)} className="w-full flex items-center justify-between p-4 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] hover:bg-surface-1 transition-all group">
@@ -112,9 +112,9 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                         <div className="w-8 h-8 rounded-full bg-status-success/10 text-status-success-soft flex items-center justify-center">
                             <PlusCircle size={16} />
                         </div>
-                        <span className="text-sm font-medium text-secondary group-hover:text-primary">Extender Días</span>
+                        <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary">Extender Días</span>
                     </div>
-                    <CreditCard size={16} className="text-faint group-hover:text-status-success-soft" />
+                    <CreditCard size={16} className="text-text-faint group-hover:text-status-success-soft" />
                 </button>
             )}
 
@@ -123,17 +123,17 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                     <div className="w-8 h-8 rounded-full bg-status-info/10 text-status-info-soft flex items-center justify-center">
                         <Edit2 size={16} />
                     </div>
-                    <span className="text-sm font-medium text-secondary group-hover:text-primary">Editar Plan</span>
+                    <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary">Editar Plan</span>
                 </div>
-                <Shield size={16} className="text-faint group-hover:text-status-info-soft" />
+                <Shield size={16} className="text-text-faint group-hover:text-status-info-soft" />
             </button>
 
             <button onClick={() => handleAction(onBlock)} className="w-full flex items-center justify-between p-4 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] hover:bg-surface-1 transition-all group">
                 <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isBanned ? 'bg-status-warning/10 text-status-warning-soft' : 'bg-zinc-700 text-muted'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isBanned ? 'bg-status-warning/10 text-status-warning-soft' : 'bg-zinc-700 text-text-muted'}`}>
                         <Ban size={16} />
                     </div>
-                    <span className="text-sm font-medium text-secondary group-hover:text-primary">
+                    <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary">
                         {isBanned ? 'Desbloquear Acceso' : 'Bloquear Acceso'}
                     </span>
                 </div>
@@ -144,7 +144,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                     <div className="w-8 h-8 rounded-full bg-status-danger/10 text-status-danger-soft flex items-center justify-center">
                         <Trash2 size={16} />
                     </div>
-                    <span className="text-sm font-medium text-secondary group-hover:text-red-300">Eliminar Usuario</span>
+                    <span className="text-sm font-medium text-text-secondary group-hover:text-red-300">Eliminar Usuario</span>
                 </div>
             </button>
         </div>

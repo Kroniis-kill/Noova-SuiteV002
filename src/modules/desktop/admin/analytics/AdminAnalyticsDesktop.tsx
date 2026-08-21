@@ -20,8 +20,8 @@ const AdminAnalyticsDesktop: React.FC<{ onBack: () => void }> = ({ onBack }) => 
            <Icon size={24} />
         </div>
         <div>
-           <p className="text-disabled text-xs font-semibold uppercase tracking-wider">{title}</p>
-           <h4 className="text-3xl font-bold text-primary">{value}</h4>
+           <p className="text-text-disabled text-xs font-semibold uppercase tracking-wider">{title}</p>
+           <h4 className="text-3xl font-bold text-text-primary">{value}</h4>
         </div>
      </div>
   );
@@ -29,10 +29,10 @@ const AdminAnalyticsDesktop: React.FC<{ onBack: () => void }> = ({ onBack }) => 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
        <div className="flex items-center gap-4">
-          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
+          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
              <ArrowLeft size={20} />
           </button>
-          <h1 className="text-3xl font-bold text-primary">Analytics</h1>
+          <h1 className="text-3xl font-bold text-text-primary">Analytics</h1>
        </div>
 
        <div className="grid grid-cols-4 gap-6">
@@ -46,17 +46,17 @@ const AdminAnalyticsDesktop: React.FC<{ onBack: () => void }> = ({ onBack }) => 
           <AnalyticsCharts data={data} />
           
           <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-8 h-fit">
-             <h3 className="text-lg font-bold text-primary mb-6">Insights</h3>
+             <h3 className="text-lg font-bold text-text-primary mb-6">Insights</h3>
              <div className="space-y-6">
                 <div className="flex justify-between border-b border-[rgb(var(--fg-rgb))]/5 pb-4">
-                   <span className="text-muted">Próximo Vencimiento</span>
-                   <span className="text-primary font-mono font-bold text-right">
+                   <span className="text-text-muted">Próximo Vencimiento</span>
+                   <span className="text-text-primary font-mono font-bold text-right">
                       {data.nextToExpire ? `${data.nextToExpire.email} (${new Date(data.nextToExpire.date).toLocaleDateString()})` : 'N/A'}
                    </span>
                 </div>
                 <div className="flex justify-between border-b border-[rgb(var(--fg-rgb))]/5 pb-4">
-                   <span className="text-muted">Cliente Más Antiguo</span>
-                   <span className="text-primary font-mono font-bold text-right">
+                   <span className="text-text-muted">Cliente Más Antiguo</span>
+                   <span className="text-text-primary font-mono font-bold text-right">
                       {data.oldestUser ? data.oldestUser.email : 'N/A'}
                    </span>
                 </div>

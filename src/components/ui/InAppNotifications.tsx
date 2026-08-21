@@ -249,7 +249,7 @@ const InAppNotifications: React.FC = () => {
               <cfg.Icon size={18} className={cfg.icon} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-black uppercase tracking-[0.12em] text-primary truncate">
+              <p className="text-[11px] font-black uppercase tracking-[0.12em] text-text-primary truncate">
                 {current.title}
               </p>
               <p className="text-[12px] text-text-secondary truncate">

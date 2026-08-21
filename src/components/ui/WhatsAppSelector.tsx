@@ -59,7 +59,7 @@ const WhatsAppSelector: React.FC = () => {
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Enviar Mensaje" zIndex={99999}>
       <div className="pt-2 pb-2">
-        <p className="text-muted text-sm mb-6 text-center">
+        <p className="text-text-muted text-sm mb-6 text-center">
           ¿Qué aplicación deseas usar?
         </p>
 
@@ -81,7 +81,7 @@ const WhatsAppSelector: React.FC = () => {
             <div className="w-14 h-14 rounded-full bg-brand-whatsapp/20 flex items-center justify-center text-brand-whatsapp">
               <MessageCircle size={28} />
             </div>
-            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'personal' ? 'text-primary' : 'text-disabled'}`}>
+            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'personal' ? 'text-text-primary' : 'text-text-disabled'}`}>
               WhatsApp
             </span>
           </button>
@@ -103,7 +103,7 @@ const WhatsAppSelector: React.FC = () => {
             <div className="w-14 h-14 rounded-full bg-brand-whatsapp/20 flex items-center justify-center text-brand-whatsapp">
               <Briefcase size={28} />
             </div>
-            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'business' ? 'text-primary' : 'text-disabled'}`}>
+            <span className={`text-xs font-semibold uppercase tracking-wide ${selectedApp === 'business' ? 'text-text-primary' : 'text-text-disabled'}`}>
               Business
             </span>
           </button>
@@ -112,9 +112,9 @@ const WhatsAppSelector: React.FC = () => {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={handleJustOnce}
-            className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-secondary font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
+            className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
           >
-            <Zap size={16} className="text-disabled" /> Solo una vez
+            <Zap size={16} className="text-text-disabled" /> Solo una vez
           </button>
           
           <button
@@ -125,7 +125,7 @@ const WhatsAppSelector: React.FC = () => {
           </button>
         </div>
         
-        <p className="text-[10px] text-faint text-center mt-4">
+        <p className="text-[10px] text-text-faint text-center mt-4">
           Puedes cambiar esto después en Configuración.
         </p>
       </div>

@@ -74,9 +74,9 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
              {info.subtitle}
           </span>
 
-          <h3 className="text-2xl font-bold text-primary mb-3 tracking-tight">{info.title}</h3>
+          <h3 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">{info.title}</h3>
           
-          <p className="text-muted text-sm leading-relaxed max-w-[280px] mb-8">
+          <p className="text-text-muted text-sm leading-relaxed max-w-[280px] mb-8">
              {info.desc}
           </p>
 
@@ -92,7 +92,7 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
              
              <button 
                onClick={onClose}
-               className="w-full h-[48px] text-disabled font-medium text-xs hover:text-primary transition-colors flex items-center justify-center gap-2"
+               className="w-full h-[48px] text-text-disabled font-medium text-xs hover:text-text-primary transition-colors flex items-center justify-center gap-2"
              >
                 Entendido, borraré datos antiguos
              </button>

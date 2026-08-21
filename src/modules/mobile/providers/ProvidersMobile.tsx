@@ -236,18 +236,17 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
   const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
   return (
-    <div className="min-h-screen pb-32 pt-2 px-4 font-sans text-primary relative">
-       <div className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-brand-primary/10 to-transparent pointer-events-none" />
+    <div className="min-h-screen pb-32 pt-2 px-4 font-sans text-text-primary relative">
        <div className={`relative z-10 pt-safe ${isNative ? 'mt-2' : 'mt-4'}`}>
           <div className="flex justify-between items-center mb-4">
               <div>
-                  <h1 className="text-2xl font-black text-primary tracking-tight">Proveedores</h1>
-                  <p className="text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
+                  <h1 className="text-2xl font-black text-text-primary tracking-tight">Proveedores</h1>
+                  <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
               </div>
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-[44px]'}`}>
                       <div className={`flex items-center h-[44px] overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
-                          <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-muted active:scale-95 transition-transform shadow-sm'}`}>
+                          <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
                               <Search size={18} />
                           </button>
                           <input 
@@ -255,12 +254,12 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                             placeholder="Buscar..." 
                             value={searchQuery} 
                             onChange={e => setSearchQuery(e.target.value)} 
-                            className={`bg-transparent text-sm text-primary outline-none w-full ml-1 font-medium ${isSearchOpen ? 'opacity-100' : 'opacity-0'}`} 
+                            className={`bg-transparent text-sm text-text-primary outline-none w-full ml-1 font-medium ${isSearchOpen ? 'opacity-100' : 'opacity-0'}`} 
                           />
-                          {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-disabled" /></button>}
+                          {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
                       </div>
                   </div>
-                  <button onClick={() => setIsImportModalOpen(true)} className="w-[44px] h-[44px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted hover:text-primary transition-all active:scale-95 shadow-sm">
+                  <button onClick={() => setIsImportModalOpen(true)} className="w-[44px] h-[44px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
                       <Upload size={20} />
                   </button>
                   <button onClick={handleAdd} className="w-[44px] h-[44px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
@@ -277,9 +276,9 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                   <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />
                   </div>
-                  <div><p className="text-[11px] font-semibold text-disabled uppercase tracking-wider">Inventario Externo</p><p className="text-xs text-muted">Cuentas de proveedores</p></div>
+                  <div><p className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider">Inventario Externo</p><p className="text-xs text-text-muted">Cuentas de proveedores</p></div>
               </div>
-              <p className="text-3xl font-bold text-primary tracking-tight relative z-10">{globalStats.totalProviderAccounts}</p>
+              <p className="text-3xl font-bold text-text-primary tracking-tight relative z-10">{globalStats.totalProviderAccounts}</p>
           </div>
        </div>
 
@@ -311,19 +310,19 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
           <div className="space-y-4 pt-2">
              <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start shadow-sm">
                  <AlertTriangle size={24} className="text-status-danger shrink-0" />
-                 <div><h4 className="text-primary font-bold text-sm">Atención</h4><p className="text-muted text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
+                 <div><h4 className="text-text-primary font-bold text-sm">Atención</h4><p className="text-text-muted text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
              </div>
              <div className="flex flex-col gap-3">
                 <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
-                   <div><span className="block text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-disabled text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
-                   <ChevronRight size={16} className="text-faint" />
+                   <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
+                   <ChevronRight size={16} className="text-text-faint" />
                 </button>
                 <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-colors shadow-sm">
                    <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el proveedor y sus cuentas.</span></div>
                    <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>
              </div>
-             <button onClick={() => setIsDeleteModalOpen(false)} className="w-full py-3 text-disabled text-xs font-semibold mt-2 hover:text-primary transition-colors">Cancelar Operación</button>
+             <button onClick={() => setIsDeleteModalOpen(false)} className="w-full py-3 text-text-disabled text-xs font-semibold mt-2 hover:text-text-primary transition-colors">Cancelar Operación</button>
           </div>
        </Modal>
     </div>

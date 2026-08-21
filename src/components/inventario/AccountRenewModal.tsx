@@ -29,13 +29,13 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
     >
       <div className="space-y-4 pt-1">
         <div className="relative">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" />
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
           <input 
             autoFocus 
             value={search} 
             onChange={e => setSearch(e.target.value)} 
             placeholder="Buscar billetera..." 
-            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 py-3.5 text-sm text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-faint font-medium" 
+            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 py-3.5 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" 
           />
         </div>
         
@@ -44,10 +44,10 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
             onClick={() => { onSelect(null); onClose(); }} 
             className="w-full text-left p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group"
           >
-            <div className="w-10 h-10 rounded-sm bg-zinc-800 flex items-center justify-center text-muted group-hover:text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
+            <div className="w-10 h-10 rounded-sm bg-zinc-800 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
               <X size={18} />
             </div>
-            <span className="text-sm font-bold text-muted group-hover:text-primary">No registrar salida</span>
+            <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar salida</span>
           </button>
 
           {filtered.map(acc => (
@@ -60,23 +60,23 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
                 <Wallet size={18} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-primary group-hover:text-brand-primary transition-colors truncate">{acc.name}</p>
-                <p className="text-[10px] text-disabled font-mono mt-0.5">{acc.balance} {acc.currency}</p>
+                <p className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors truncate">{acc.name}</p>
+                <p className="text-[10px] text-text-disabled font-mono mt-0.5">{acc.balance} {acc.currency}</p>
               </div>
-              <ChevronRight size={16} className="ml-auto text-faint group-hover:text-primary" />
+              <ChevronRight size={16} className="ml-auto text-text-faint group-hover:text-text-primary" />
             </button>
           ))}
 
           {filtered.length === 0 && (
             <div className="py-8 text-center opacity-40">
-              <p className="text-xs text-disabled">No se encontraron billeteras</p>
+              <p className="text-xs text-text-disabled">No se encontraron billeteras</p>
             </div>
           )}
         </div>
 
         <button 
           onClick={onClose} 
-          className="w-full py-4 text-disabled text-xs font-semibold uppercase tracking-widest active:text-primary transition-colors"
+          className="w-full py-4 text-text-disabled text-xs font-semibold uppercase tracking-widest active:text-text-primary transition-colors"
         >
           Cancelar
         </button>
@@ -183,9 +183,9 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-2 block ml-1",
+    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[52px] transition-all focus-within:ring-1 focus-within:ring-brand-primary/40 border border-[rgb(var(--fg-rgb))]/5",
-    input: "w-full bg-transparent text-[14px] text-primary placeholder:text-faint px-4 h-full outline-none font-medium rounded-md",
+    input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 h-full outline-none font-medium rounded-md",
     card: "bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-5"
   };
 
@@ -199,22 +199,22 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                </div>
                <div>
                   <h4 className="text-brand-primary font-bold text-sm">Renovando {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</h4>
-                  <p className="text-muted text-[11px] leading-tight mt-0.5 font-medium">
-                     Servicio: <span className="text-primary font-bold">{serviceName}</span>
+                  <p className="text-text-muted text-[11px] leading-tight mt-0.5 font-medium">
+                     Servicio: <span className="text-text-primary font-bold">{serviceName}</span>
                   </p>
                </div>
             </div>
 
             <div className={styles.card}>
                <div className="flex items-center gap-2 mb-4">
-                  <Calendar size={16} className="text-muted" />
-                  <span className="text-xs font-semibold text-secondary uppercase tracking-wider">Extensión de Tiempo</span>
+                  <Calendar size={16} className="text-text-muted" />
+                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Extensión de Tiempo</span>
                </div>
                <div className="grid grid-cols-2 gap-3 mb-4">
                   <div>
                      <label className={styles.label}>Meses</label>
                      <div className={styles.inputContainer}>
-                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-disabled border border-[rgb(var(--fg-rgb))]/5">
+                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-text-disabled border border-[rgb(var(--fg-rgb))]/5">
                            +M
                         </div>
                         <input type="number" min="0" value={months} onChange={e => setMonths(e.target.value)} className={`${styles.input} pl-12 text-center font-bold`} placeholder="0" inputMode="numeric" />
@@ -223,7 +223,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                   <div>
                      <label className={styles.label}>Días</label>
                      <div className={styles.inputContainer}>
-                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-disabled border border-[rgb(var(--fg-rgb))]/5">
+                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-text-disabled border border-[rgb(var(--fg-rgb))]/5">
                            +D
                         </div>
                         <input type="number" min="0" value={days} onChange={e => setDays(e.target.value)} className={`${styles.input} pl-12 text-center font-bold`} placeholder="0" inputMode="numeric" />
@@ -234,22 +234,22 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                   <label className={styles.label}>Nueva Fecha</label>
                   <div className={`${styles.inputContainer} border-status-success/20 bg-status-success/5`}>
                      <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-status-success" />
-                     <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className={`${styles.input} pl-12 text-primary font-bold tracking-wide`} />
+                     <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className={`${styles.input} pl-12 text-text-primary font-bold tracking-wide`} />
                   </div>
                </div>
             </div>
 
             <div className={styles.card}>
                <div className="flex items-center gap-2 mb-4">
-                  <Wallet size={16} className="text-muted" />
-                  <span className="text-xs font-semibold text-secondary uppercase tracking-wider">Costo de Renovación</span>
+                  <Wallet size={16} className="text-text-muted" />
+                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Costo de Renovación</span>
                </div>
                <div className="grid grid-cols-5 gap-3">
                   <div className="col-span-3">
                      <label className={styles.label}>Billetera Salida</label>
                      <button onClick={() => setIsWalletSearchOpen(true)} className={`${styles.inputContainer} w-full px-4 justify-between hover:bg-surface-zinc transition-colors text-left`}>
-                        <span className={`text-[13px] font-medium truncate ${selectedWallet ? 'text-primary' : 'text-disabled'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
-                        <ChevronDown size={16} className="text-disabled shrink-0" />
+                        <span className={`text-[13px] font-medium truncate ${selectedWallet ? 'text-text-primary' : 'text-text-disabled'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
+                        <ChevronDown size={16} className="text-text-disabled shrink-0" />
                      </button>
                   </div>
                   <div className="col-span-2">
@@ -263,7 +263,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
               <button onClick={handleRenew} className="btn-primary w-full h-[52px] rounded-lg text-[13px] flex items-center justify-center gap-2">
                  <Check size={18} /> Confirmar Renovación
               </button>
-              <button onClick={onClose} className="w-full h-[48px] bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-muted rounded-lg font-bold text-[12px] transition-all active:scale-98">Cancelar Operación</button>
+              <button onClick={onClose} className="w-full h-[48px] bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-text-muted rounded-lg font-bold text-[12px] transition-all active:scale-98">Cancelar Operación</button>
             </div>
          </div>
       </Modal>

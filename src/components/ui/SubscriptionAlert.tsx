@@ -43,13 +43,13 @@ const SubscriptionAlert: React.FC = () => {
               <h4 className={`text-xs font-semibold uppercase tracking-wider mb-1 ${iconColor}`}>
                   {title}
               </h4>
-              <p className="text-secondary text-xs font-medium leading-snug">
+              <p className="text-text-secondary text-xs font-medium leading-snug">
                   {message}
               </p>
               
               <button 
                 onClick={() => setView('my_plan')}
-                className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-primary bg-[rgb(var(--fg-rgb))]/10 px-3 py-1.5 rounded-full hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors w-fit"
+                className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-text-primary bg-[rgb(var(--fg-rgb))]/10 px-3 py-1.5 rounded-full hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors w-fit"
               >
                  Ver Membresía <ChevronRight size={10} />
               </button>
@@ -58,7 +58,7 @@ const SubscriptionAlert: React.FC = () => {
 
         <button 
           onClick={() => setIsVisible(false)} 
-          className="p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-muted hover:text-primary transition-colors"
+          className="p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-text-muted hover:text-text-primary transition-colors"
         >
            <X size={14} />
         </button>

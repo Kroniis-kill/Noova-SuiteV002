@@ -29,7 +29,7 @@ const ImportGuideModal: React.FC<ImportGuideModalProps> = ({ isOpen, onClose, on
            </div>
            <div>
               <h4 className="text-status-info-soft font-bold text-sm">Instrucciones</h4>
-              <p className="text-secondary text-xs mt-1 leading-relaxed">
+              <p className="text-text-secondary text-xs mt-1 leading-relaxed">
                  1. Descarga la plantilla oficial.<br/>
                  2. Llena los datos correspondientes en el Excel.<br/>
                  3. Sube el archivo (.xlsx) para procesar.
@@ -42,7 +42,7 @@ const ImportGuideModal: React.FC<ImportGuideModalProps> = ({ isOpen, onClose, on
         <div className="grid grid-cols-2 gap-3 pt-2">
            <button 
              onClick={handleDownload}
-             className="w-full h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-secondary rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-[12px] active:scale-95"
+             className="w-full h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-[12px] active:scale-95"
            >
               <Download size={16} /> Bajar Plantilla
            </button>

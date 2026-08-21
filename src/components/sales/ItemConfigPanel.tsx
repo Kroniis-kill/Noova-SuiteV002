@@ -11,12 +11,12 @@ import { ItemConfigPanelProps } from './saleModal.types';
 
 const StepperControl = ({ value, onChange, label, min = 0 }: any) => (
   <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full">
-    <button onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+    <button onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
     <div className="flex flex-col items-center leading-none">
-      <span className="text-lg font-bold text-primary">{value}</span>
-      <span className="text-[8px] font-bold text-faint uppercase tracking-wide">{label}</span>
+      <span className="text-lg font-bold text-text-primary">{value}</span>
+      <span className="text-[8px] font-bold text-text-faint uppercase tracking-wide">{label}</span>
     </div>
-    <button onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-muted hover:text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+    <button onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
   </div>
 );
 
@@ -36,17 +36,17 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
           {/* Header */}
           <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
             <div>
-              <h3 className="text-lg font-black text-primary leading-tight">{props.isEditing ? 'Editar Servicio' : 'Configurar Servicio'}</h3>
-              <p className="text-[11px] text-disabled font-medium">Define los detalles de la venta</p>
+              <h3 className="text-lg font-black text-text-primary leading-tight">{props.isEditing ? 'Editar Servicio' : 'Configurar Servicio'}</h3>
+              <p className="text-[11px] text-text-disabled font-medium">Define los detalles de la venta</p>
             </div>
-            <button onClick={() => { haptic('nav'); props.onClose(); }} className="w-9 h-9 bg-[rgb(var(--fg-rgb))]/5 rounded-full flex items-center justify-center text-muted hover:text-primary transition-colors active:scale-90"><X size={18} /></button>
+            <button onClick={() => { haptic('nav'); props.onClose(); }} className="w-9 h-9 bg-[rgb(var(--fg-rgb))]/5 rounded-full flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-90"><X size={18} /></button>
           </div>
 
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
 
             {/* 1. SELECCIÓN DE SERVICIO Y CUENTA */}
             <div className="space-y-3">
-              <label className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-1">Origen del Servicio</label>
+              <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Origen del Servicio</label>
 
               <button onClick={() => { haptic('nav'); props.openServiceSearch(); }} className="w-full bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
                 <div className="flex items-center gap-4">
@@ -54,13 +54,13 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
                     <Monitor size={22} />
                   </div>
                   <div className="text-left">
-                    <span className="block text-[10px] font-semibold text-disabled uppercase">Plataforma</span>
-                    <span className={`block text-sm font-bold truncate ${props.tempServiceId ? 'text-primary' : 'text-faint'}`}>
+                    <span className="block text-[10px] font-semibold text-text-disabled uppercase">Plataforma</span>
+                    <span className={`block text-sm font-bold truncate ${props.tempServiceId ? 'text-text-primary' : 'text-text-faint'}`}>
                       {props.services.find(s => s.id === props.tempServiceId)?.name || 'Seleccionar...'}
                     </span>
                   </div>
                 </div>
-                <ChevronRight size={18} className="text-faint group-hover:text-primary" />
+                <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
               </button>
 
               <div className="flex gap-2">
@@ -70,19 +70,19 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
                       <Mail size={22} />
                     </div>
                     <div className="text-left min-w-0">
-                      <span className="block text-[10px] font-semibold text-disabled uppercase">Cuenta / Stock</span>
-                      <span className={`block text-sm font-bold truncate ${props.tempAccountId ? 'text-primary' : 'text-faint'}`}>
+                      <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cuenta / Stock</span>
+                      <span className={`block text-sm font-bold truncate ${props.tempAccountId ? 'text-text-primary' : 'text-text-faint'}`}>
                         {props.accounts.find(a => a.id === props.tempAccountId)?.email || 'Asignar cuenta...'}
                       </span>
                     </div>
                   </div>
-                  <ChevronDown size={18} className="text-faint group-hover:text-primary shrink-0" />
+                  <ChevronDown size={18} className="text-text-faint group-hover:text-text-primary shrink-0" />
                 </button>
 
                 {!props.isEditing && (
                   <button onClick={() => { haptic('nav'); props.onAutoAssign(); }} disabled={!props.tempServiceId} className="w-[72px] bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg flex flex-col items-center justify-center gap-1 active:scale-95 transition-all hover:bg-surface-3 hover:border-brand-primary/30 disabled:opacity-30">
                     <Wand2 size={20} className="text-brand-primary" />
-                    <span className="text-[8px] font-bold text-disabled uppercase">Auto</span>
+                    <span className="text-[8px] font-bold text-text-disabled uppercase">Auto</span>
                   </button>
                 )}
               </div>
@@ -90,11 +90,11 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
 
             {/* 2. TIEMPO Y DURACIÓN */}
             <div className="space-y-3">
-              <label className="text-[10px] font-bold text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
+              <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
               <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
                 <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-[rgb(var(--fg-rgb))]/10">
-                  <Calendar size={18} className="text-disabled mr-3" />
-                  <input type="date" value={props.tempStartDate} onChange={e => props.setTempStartDate(e.target.value)} className="bg-transparent text-sm text-primary font-bold w-full outline-none uppercase tracking-wider" />
+                  <Calendar size={18} className="text-text-disabled mr-3" />
+                  <input type="date" value={props.tempStartDate} onChange={e => props.setTempStartDate(e.target.value)} className="bg-transparent text-sm text-text-primary font-bold w-full outline-none uppercase tracking-wider" />
                 </div>
                 <div className="flex gap-3">
                   <div className="flex-1"><StepperControl value={props.tempMonths} onChange={props.setTempMonths} label="MESES" /></div>
@@ -107,12 +107,12 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
             <div className="grid grid-cols-1 gap-6">
               <div>
                 <div className="flex justify-between items-center mb-3 px-1">
-                  <label className="text-[10px] font-bold text-disabled uppercase tracking-widest">Precio de Venta</label>
+                  <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Precio de Venta</label>
                   {props.isResellerClient && <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa Socio</span>}
                 </div>
                 <div className="relative h-[60px] bg-surface-zinc rounded-lg border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                   <DollarSign size={24} className="text-status-success mr-2" />
-                  <input type="number" value={props.tempAmount} onChange={e => props.setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-primary outline-none placeholder:text-faint" placeholder="0.00" inputMode="decimal" />
+                  <input type="number" value={props.tempAmount} onChange={e => props.setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint" placeholder="0.00" inputMode="decimal" />
                 </div>
               </div>
 
@@ -120,22 +120,22 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
               {isScreen && (
                 <div className="space-y-3">
                   <div className="flex justify-between items-center px-1">
-                    <label className="text-[10px] font-bold text-disabled uppercase tracking-widest">Perfiles ({props.tempScreens})</label>
+                    <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Perfiles ({props.tempScreens})</label>
                     <div className="flex gap-1">
-                      <button onClick={() => props.setTempScreens(Math.max(1, props.tempScreens - 1))} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary"><Minus size={14} /></button>
-                      <button onClick={() => props.setTempScreens(props.tempScreens + 1)} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted hover:text-primary"><Plus size={14} /></button>
+                      <button onClick={() => props.setTempScreens(Math.max(1, props.tempScreens - 1))} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary"><Minus size={14} /></button>
+                      <button onClick={() => props.setTempScreens(props.tempScreens + 1)} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary"><Plus size={14} /></button>
                     </div>
                   </div>
                   <div className="space-y-2">
                     {props.tempProfiles.map((p, idx) => (
                       <div key={idx} className="flex gap-2">
                         <div className="flex-1 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-4 focus-within:border-brand-primary/40 transition-colors">
-                          <User size={16} className="text-faint mr-3" />
-                          <input value={p.name} onChange={e => props.handleProfileChange(idx, 'name', e.target.value)} placeholder={`Perfil ${idx + 1}`} className="bg-transparent w-full text-sm text-primary font-bold outline-none placeholder:text-faint" />
+                          <User size={16} className="text-text-faint mr-3" />
+                          <input value={p.name} onChange={e => props.handleProfileChange(idx, 'name', e.target.value)} placeholder={`Perfil ${idx + 1}`} className="bg-transparent w-full text-sm text-text-primary font-bold outline-none placeholder:text-text-faint" />
                         </div>
                         <div className="w-24 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-3 focus-within:border-brand-primary/40 transition-colors">
-                          <Hash size={14} className="text-faint mr-2" />
-                          <input value={p.pin} onChange={e => props.handleProfileChange(idx, 'pin', e.target.value)} placeholder="PIN" className="bg-transparent w-full text-sm text-primary font-mono font-bold outline-none text-center placeholder:text-faint" inputMode="numeric" />
+                          <Hash size={14} className="text-text-faint mr-2" />
+                          <input value={p.pin} onChange={e => props.handleProfileChange(idx, 'pin', e.target.value)} placeholder="PIN" className="bg-transparent w-full text-sm text-text-primary font-mono font-bold outline-none text-center placeholder:text-text-faint" inputMode="numeric" />
                         </div>
                       </div>
                     ))}
@@ -154,20 +154,20 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
                   {isUniqueUser && (
                     <>
                       <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                        <Mail size={16} className="text-disabled mr-3" />
-                        <input value={props.tempInvitedEmail} onChange={e => props.setTempInvitedEmail(e.target.value)} placeholder="Correo del cliente" className="bg-transparent w-full text-sm text-primary outline-none font-medium" />
+                        <Mail size={16} className="text-text-disabled mr-3" />
+                        <input value={props.tempInvitedEmail} onChange={e => props.setTempInvitedEmail(e.target.value)} placeholder="Correo del cliente" className="bg-transparent w-full text-sm text-text-primary outline-none font-medium" />
                       </div>
                       <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                        <Lock size={16} className="text-disabled mr-3" />
-                        <input value={props.tempInvitedPassword} onChange={e => props.setTempInvitedPassword(e.target.value)} placeholder="Contraseña asignada" className="bg-transparent w-full text-sm text-primary outline-none font-mono font-medium" />
+                        <Lock size={16} className="text-text-disabled mr-3" />
+                        <input value={props.tempInvitedPassword} onChange={e => props.setTempInvitedPassword(e.target.value)} placeholder="Contraseña asignada" className="bg-transparent w-full text-sm text-text-primary outline-none font-mono font-medium" />
                       </div>
                     </>
                   )}
 
                   {isFullAccount && (
                     <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                      <User size={16} className="text-disabled mr-3" />
-                      <input value={props.tempProfiles[0]?.name || ''} onChange={e => props.handleProfileChange(0, 'name', e.target.value)} placeholder="Nombre referencial" className="bg-transparent w-full text-sm text-primary outline-none font-medium" />
+                      <User size={16} className="text-text-disabled mr-3" />
+                      <input value={props.tempProfiles[0]?.name || ''} onChange={e => props.handleProfileChange(0, 'name', e.target.value)} placeholder="Nombre referencial" className="bg-transparent w-full text-sm text-text-primary outline-none font-medium" />
                     </div>
                   )}
                 </div>
@@ -178,7 +178,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
 
           {/* Footer Actions */}
           <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-            <button onClick={props.onClose} className="h-[56px] px-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
+            <button onClick={props.onClose} className="h-[56px] px-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
               Cancelar
             </button>
             <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="flex-1 h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">

@@ -117,12 +117,12 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
                     </div>
                     <div>
                         <h3 className="text-lg font-bold">¡Imperio Iniciado!</h3>
-                        <p className="text-primary/90 text-xs font-medium">Has completado los pasos esenciales.</p>
+                        <p className="text-text-primary/90 text-xs font-medium">Has completado los pasos esenciales.</p>
                     </div>
                 </div>
                 <button 
                     onClick={handleDismiss} 
-                    className="bg-[rgb(var(--fg-rgb))]/20 hover:bg-[rgb(var(--fg-rgb))]/30 text-primary px-4 py-2 rounded-md text-xs font-semibold transition-colors backdrop-blur-md"
+                    className="bg-[rgb(var(--fg-rgb))]/20 hover:bg-[rgb(var(--fg-rgb))]/30 text-text-primary px-4 py-2 rounded-md text-xs font-semibold transition-colors backdrop-blur-md"
                 >
                     Continuar
                 </button>
@@ -140,16 +140,16 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
        <div className="p-5 pb-2">
            <div className="flex justify-between items-start mb-3">
                <div>
-                   <h3 className="text-primary font-bold text-base flex items-center gap-2">
+                   <h3 className="text-text-primary font-bold text-base flex items-center gap-2">
                        🚀 Comienza tu Imperio
                    </h3>
-                   <p className="text-muted text-xs mt-1">Completa estos pasos para configurar tu negocio.</p>
+                   <p className="text-text-muted text-xs mt-1">Completa estos pasos para configurar tu negocio.</p>
                </div>
                <div className="flex items-center gap-3">
                    <div className="text-right">
                        <span className="text-xs font-semibold text-brand-primary">{completedCount}/{steps.length}</span>
                    </div>
-                   <button onClick={handleDismiss} className="text-faint hover:text-muted transition-colors">
+                   <button onClick={handleDismiss} className="text-text-faint hover:text-text-muted transition-colors">
                        <X size={16} />
                    </button>
                </div>
@@ -173,14 +173,14 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
                      className={`flex items-center justify-between p-3 rounded-md transition-all ${step.done ? 'opacity-50' : 'hover:bg-[rgb(var(--fg-rgb))]/5'}`}
                    >
                        <div className="flex items-center gap-3.5">
-                           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-status-success/20 text-status-success' : 'bg-zinc-800 text-disabled border border-zinc-700'}`}>
+                           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-status-success/20 text-status-success' : 'bg-zinc-800 text-text-disabled border border-zinc-700'}`}>
                                {step.done ? <CheckCircle2 size={14} /> : <span className="text-[10px] font-semibold">{idx + 1}</span>}
                            </div>
                            <div>
-                               <p className={`text-sm font-medium ${step.done ? 'text-disabled line-through' : 'text-secondary'}`}>
+                               <p className={`text-sm font-medium ${step.done ? 'text-text-disabled line-through' : 'text-text-secondary'}`}>
                                    {step.label}
                                </p>
-                               {!step.done && <p className="text-[10px] text-disabled">{step.sub}</p>}
+                               {!step.done && <p className="text-[10px] text-text-disabled">{step.sub}</p>}
                            </div>
                        </div>
 

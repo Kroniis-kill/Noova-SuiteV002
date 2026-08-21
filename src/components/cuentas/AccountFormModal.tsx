@@ -95,13 +95,13 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-2 block ml-1",
+    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-sm text-primary placeholder:text-faint px-4 outline-none font-medium rounded-md",
-    select: "w-full h-full bg-transparent text-sm text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
+    input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
+    select: "w-full h-full bg-transparent text-sm text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
     iconLeft: "pl-12",
-    iconElement: "absolute left-4 text-disabled pointer-events-none",
-    iconRight: "absolute right-4 text-disabled pointer-events-none",
+    iconElement: "absolute left-4 text-text-disabled pointer-events-none",
+    iconRight: "absolute right-4 text-text-disabled pointer-events-none",
   };
 
   return (
@@ -165,20 +165,20 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
 
         <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg p-4">
            <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] font-semibold text-disabled uppercase tracking-widest">Métodos de Pago</span>
+              <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Métodos de Pago</span>
            </div>
            
            <div className="flex gap-2 mb-3">
               <input 
                 value={newMethodName}
                 onChange={(e) => setNewMethodName(e.target.value)}
-                className="w-full bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 px-4 h-[48px] text-sm text-primary outline-none focus:border-brand-primary/50 transition-all"
+                className="w-full bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 px-4 h-[48px] text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all"
                 placeholder="Nombre (Ej. Pago Móvil)"
               />
               <button 
                 type="button"
                 onClick={handleAddMethod}
-                className="bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-primary w-[48px] h-[48px] rounded-md transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0"
+                className="bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary w-[48px] h-[48px] rounded-md transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0"
               >
                  <Plus size={18} />
               </button>
@@ -187,15 +187,15 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            <div className="space-y-2 max-h-[140px] overflow-y-auto custom-scrollbar pr-1">
               {methods.map(m => (
                  <div key={m.id} className="flex justify-between items-center bg-surface-zinc px-4 py-3 rounded-md border border-[rgb(var(--fg-rgb))]/5">
-                    <span className="text-sm text-secondary font-semibold">{m.name}</span>
-                    <button type="button" onClick={() => handleRemoveMethod(m.id)} className="text-disabled hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
+                    <span className="text-sm text-text-secondary font-semibold">{m.name}</span>
+                    <button type="button" onClick={() => handleRemoveMethod(m.id)} className="text-text-disabled hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
                  </div>
               ))}
            </div>
         </div>
 
         <div className="flex gap-3 pt-4">
-           <button type="button" onClick={onClose} className="flex-1 h-[52px] bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-sm font-bold text-muted transition-colors border border-[rgb(var(--fg-rgb))]/5">Cancelar</button>
+           <button type="button" onClick={onClose} className="flex-1 h-[52px] bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-sm font-bold text-text-muted transition-colors border border-[rgb(var(--fg-rgb))]/5">Cancelar</button>
            <button onClick={handleSubmit} className="btn-primary flex-1 h-[52px] rounded-lg text-sm">
              {initialData ? 'Guardar' : 'Crear'}
            </button>

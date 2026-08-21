@@ -33,14 +33,14 @@ const ExpenseList: React.FC = () => {
                    {item.type === 'expense' ? <FileText size={16} /> : <ShoppingBag size={16} />}
                 </div>
                 <div className="min-w-0">
-                   <h4 className="text-[12px] font-bold text-primary truncate pr-2">
+                   <h4 className="text-[12px] font-bold text-text-primary truncate pr-2">
                       {item.label || 'Concepto'}
                    </h4>
                    <div className="flex items-center gap-2 mt-0.5">
                       <span className={`text-[7px] font-black uppercase px-1.5 py-0.5 rounded border ${item.type === 'expense' ? 'text-status-danger-soft/70 border-status-danger/10' : 'text-status-expiring-soft/70 border-status-expiring/10'}`}>
                         {item.displayCategory}
                       </span>
-                      <span className="text-[8px] text-faint flex items-center gap-1 font-mono tracking-tighter">
+                      <span className="text-[8px] text-text-faint flex items-center gap-1 font-mono tracking-tighter">
                         <Calendar size={10} /> {item.date}
                       </span>
                    </div>
@@ -49,17 +49,17 @@ const ExpenseList: React.FC = () => {
 
              <div className="flex items-center gap-3 pl-3 shrink-0">
                 <div className="text-right">
-                   <span className="block text-[13px] font-bold text-primary font-mono tracking-tighter">
+                   <span className="block text-[13px] font-bold text-text-primary font-mono tracking-tighter">
                       -{settings.currency}{formatMoney(item.amount)}
                    </span>
-                   <span className="text-[7px] font-black text-faint uppercase tracking-widest">
+                   <span className="text-[7px] font-black text-text-faint uppercase tracking-widest">
                       {item.paymentMethod}
                    </span>
                 </div>
                 
                 <button 
                   onClick={() => item.type === 'expense' ? deleteExpense(item.id) : deleteSupply(item.id)}
-                  className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.02] text-faint hover:text-status-danger-soft transition-colors"
+                  className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.02] text-text-faint hover:text-status-danger-soft transition-colors"
                 >
                    <Trash2 size={14} />
                 </button>
@@ -69,7 +69,7 @@ const ExpenseList: React.FC = () => {
        
        {combinedItems.length === 0 && (
           <div className="py-20 text-center opacity-20">
-             <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-disabled">Sin Salidas</p>
+             <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-text-disabled">Sin Salidas</p>
           </div>
        )}
     </div>

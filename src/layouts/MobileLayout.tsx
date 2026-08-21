@@ -39,7 +39,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-[100dvh] h-[100dvh] w-full bg-bg text-primary flex overflow-hidden font-sans relative">
+    <div className="min-h-[100dvh] h-[100dvh] w-full bg-bg text-text-primary flex overflow-hidden font-sans relative">
       <Sidebar 
         currentView={currentView} 
         setView={setView} 

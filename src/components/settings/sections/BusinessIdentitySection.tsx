@@ -35,7 +35,7 @@ export const BusinessIdentitySection = () => {
     return (
         <div className="space-y-6 animate-fade-in">
              <div className={styles.card}>
-                <h3 className="text-primary font-bold text-lg mb-4 flex items-center gap-2">
+                <h3 className="text-text-primary font-bold text-lg mb-4 flex items-center gap-2">
                     <Building size={20} className="text-status-info-soft" /> Identidad del Negocio
                 </h3>
 
@@ -56,12 +56,12 @@ export const BusinessIdentitySection = () => {
                         <label className={styles.label}>Logo del Negocio</label>
                         <div className="flex gap-3">
                             <input value={logo} onChange={e => setLogo(e.target.value)} className={styles.input} placeholder="URL de imagen o carga un archivo" />
-                            <button onClick={() => fileInputRef.current?.click()} className="w-[52px] h-[52px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted hover:text-primary shrink-0 active:scale-90 transition-transform">
+                            <button onClick={() => fileInputRef.current?.click()} className="w-[52px] h-[52px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary shrink-0 active:scale-90 transition-transform">
                                 <Upload size={20} />
                             </button>
                             <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
                         </div>
-                        <p className="text-[10px] text-disabled mt-2 ml-1">Este logo aparecerá en el Portal de Cliente y Recibos.</p>
+                        <p className="text-[10px] text-text-disabled mt-2 ml-1">Este logo aparecerá en el Portal de Cliente y Recibos.</p>
 
                         {logo && (
                             <div className="mt-4 flex flex-col items-center">
@@ -71,7 +71,7 @@ export const BusinessIdentitySection = () => {
                                         <X size={12} />
                                     </button>
                                 </div>
-                                <span className="text-[9px] font-bold text-faint mt-2 uppercase tracking-widest">Vista Previa</span>
+                                <span className="text-[9px] font-bold text-text-faint mt-2 uppercase tracking-widest">Vista Previa</span>
                             </div>
                         )}
                     </div>

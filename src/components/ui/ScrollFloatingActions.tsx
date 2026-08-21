@@ -93,7 +93,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
               {/* Scroll Top Button */}
               <button 
                 onClick={scrollToTop}
-                className="w-12 h-12 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center justify-center text-primary shadow-lg active:scale-90 transition-transform"
+                className="w-12 h-12 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center justify-center text-text-primary shadow-lg active:scale-90 transition-transform"
               >
                  <ArrowUp size={20} />
               </button>
@@ -123,7 +123,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
                             action.onClick();
                             setIsMenuOpen(false);
                           }}
-                          className={`w-12 h-12 rounded-full flex items-center justify-center text-primary shadow-xl border border-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-transform ${action.color || 'bg-surface-3'}`}
+                          className={`w-12 h-12 rounded-full flex items-center justify-center text-text-primary shadow-xl border border-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-transform ${action.color || 'bg-surface-3'}`}
                         >
                           <action.icon size={20} />
                         </button>

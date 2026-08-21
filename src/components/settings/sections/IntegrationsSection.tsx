@@ -8,7 +8,7 @@ export const IntegrationsSection = () => {
              <div className={styles.card}>
                  <div className="flex items-center gap-2 mb-6 text-status-success-soft">
                     <Activity size={20} />
-                    <h3 className="font-bold text-primary">Estado del Sistema</h3>
+                    <h3 className="font-bold text-text-primary">Estado del Sistema</h3>
                  </div>
 
                  <StatusRow icon={Database} label="Base de Datos" status="OPERATIVO" color="text-status-success-soft bg-status-success/10 border-status-success/20" />

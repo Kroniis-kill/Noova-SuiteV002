@@ -22,7 +22,7 @@ const CustomAlert: React.FC = () => {
       case 'error': return 'text-status-danger';
       case 'success': return 'text-status-success';
       case 'warning': return 'text-status-warning';
-      default: return 'text-primary';
+      default: return 'text-text-primary';
     }
   };
 
@@ -58,7 +58,7 @@ const CustomAlert: React.FC = () => {
                   </h3>
                 </div>
                 
-                <p className="text-sm text-secondary mb-6 leading-relaxed whitespace-pre-wrap pl-1">
+                <p className="text-sm text-text-secondary mb-6 leading-relaxed whitespace-pre-wrap pl-1">
                   {alertData.message}
                 </p>
 

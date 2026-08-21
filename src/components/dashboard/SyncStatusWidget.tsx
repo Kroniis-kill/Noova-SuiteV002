@@ -32,10 +32,9 @@ const SyncStatusWidget: React.FC = () => {
       className={`mb-6 p-5 rounded-xl border flex items-center justify-between shadow-2xl transition-all duration-500 overflow-hidden relative group overflow-hidden ${
         !isOnline 
           ? 'bg-status-danger/10 border-status-danger/20 text-status-danger-soft' 
-          : 'bg-surface-1/80 backdrop-blur-xl border-[rgb(var(--fg-rgb))]/[0.08] text-primary shadow-glow-sm'
+          : 'bg-surface-1/80 backdrop-blur-xl border-[rgb(var(--fg-rgb))]/[0.08] text-text-primary shadow-glow-sm'
       }`}
     >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-primary/10 to-transparent blur-3xl rounded-full" />
       
       <div className="flex items-center gap-4 relative z-10">
         <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${

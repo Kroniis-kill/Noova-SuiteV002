@@ -78,7 +78,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
             </div>
 
             {accountMovements.length === 0 ? (
-               <div className="flex flex-col items-center justify-center py-12 text-disabled space-y-2">
+               <div className="flex flex-col items-center justify-center py-12 text-text-disabled space-y-2">
                   <div className="w-12 h-12 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center">
                      <Calendar size={20} />
                   </div>
@@ -93,10 +93,10 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                               {getIcon(mov.type)}
                            </div>
                            <div className="min-w-0">
-                              <p className="text-primary font-semibold text-[13px] truncate max-w-[140px]">
+                              <p className="text-text-primary font-semibold text-[13px] truncate max-w-[140px]">
                                  {mov.description || (mov.type === 'funding' ? 'Ingreso' : 'Retiro')}
                               </p>
-                              <div className="flex items-center gap-2 text-[10px] text-disabled mt-0.5">
+                              <div className="flex items-center gap-2 text-[10px] text-text-disabled mt-0.5">
                                  <span>{new Date(mov.date).toLocaleDateString()}</span>
                                  {mov.paymentMethod && (
                                     <span className="bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">{mov.paymentMethod}</span>
@@ -112,12 +112,12 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                                   {mov.amount.toLocaleString()} <span className="text-[10px] font-normal">{mov.currency}</span>
                               </p>
                               {mov.currency !== 'USD' && (
-                                  <p className="text-[10px] text-faint">≈ ${(mov.usdEquivalent || 0).toFixed(2)}</p>
+                                  <p className="text-[10px] text-text-faint">≈ ${(mov.usdEquivalent || 0).toFixed(2)}</p>
                               )}
                            </div>
                            <button 
                              onClick={() => handleDeleteClick(mov.id)}
-                             className="w-8 h-8 flex items-center justify-center text-faint hover:text-status-danger-soft bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 rounded-lg transition-colors"
+                             className="w-8 h-8 flex items-center justify-center text-text-faint hover:text-status-danger-soft bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 rounded-lg transition-colors"
                            >
                               <Trash2 size={14} />
                            </button>
@@ -127,7 +127,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                </div>
             )}
             
-            <button onClick={onClose} className="w-full py-3 mt-4 text-disabled text-xs font-medium hover:text-primary transition-colors">
+            <button onClick={onClose} className="w-full py-3 mt-4 text-text-disabled text-xs font-medium hover:text-text-primary transition-colors">
                Cerrar Historial
             </button>
          </div>
@@ -141,8 +141,8 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                     <AlertTriangle size={24} className="text-status-danger" />
                 </div>
                 <div>
-                    <h4 className="text-primary font-bold text-sm">¿Estás seguro?</h4>
-                    <p className="text-muted text-xs mt-1 leading-relaxed">
+                    <h4 className="text-text-primary font-bold text-sm">¿Estás seguro?</h4>
+                    <p className="text-text-muted text-xs mt-1 leading-relaxed">
                         Se eliminará este registro del historial y <strong>el monto será revertido</strong> automáticamente al saldo de la cuenta.
                     </p>
                 </div>
@@ -150,7 +150,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
             <div className="flex gap-3">
                 <button 
                     onClick={() => setMovementIdToDelete(null)} 
-                    className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"
+                    className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"
                 >
                     Cancelar
                 </button>

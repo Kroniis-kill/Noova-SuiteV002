@@ -85,15 +85,15 @@ const DashboardProDesktop: React.FC = () => {
                  </div>
               </div>
               <div>
-                  <p className="text-disabled text-xs font-semibold uppercase tracking-widest">{greeting}</p>
-                  <h1 className="text-2xl font-extrabold text-primary tracking-tight">{user?.name || 'Administrador'}</h1>
+                  <p className="text-text-disabled text-xs font-semibold uppercase tracking-widest">{greeting}</p>
+                  <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">{user?.name || 'Administrador'}</h1>
               </div>
           </div>
           
           <div className="flex items-center gap-3">
              <button 
                 onClick={() => setDashboardMode('lite')} 
-                className="flex items-center gap-2 px-4 py-2 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-md text-xs font-semibold text-muted hover:text-brand-primary transition-all group"
+                className="flex items-center gap-2 px-4 py-2 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-md text-xs font-semibold text-text-muted hover:text-brand-primary transition-all group"
              >
                 <LayoutGrid size={16} className="group-hover:rotate-12 transition-transform" />
                 Modo Esencial
@@ -117,8 +117,7 @@ const DashboardProDesktop: React.FC = () => {
 
       <div className="grid grid-cols-12 gap-6 h-[450px]">
         <div className="col-span-8 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-8 shadow-xl flex flex-col relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-primary/5 blur-[100px] pointer-events-none" />
-           <h3 className="text-xl font-bold text-primary flex items-center gap-2 mb-8 relative z-10">
+           <h3 className="text-xl font-bold text-text-primary flex items-center gap-2 mb-8 relative z-10">
               <Activity className="text-brand-primary" size={20} /> Rendimiento Operativo
            </h3>
            <div className="flex-1 w-full min-h-0 relative z-10">
@@ -140,7 +139,7 @@ const DashboardProDesktop: React.FC = () => {
         </div>
 
         <div className="col-span-4 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-8 shadow-xl flex flex-col">
-           <h3 className="text-lg font-bold text-primary mb-6 flex items-center gap-2"><PieChartIcon className="text-brand-accent" size={18} /> Top Ventas</h3>
+           <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2"><PieChartIcon className="text-brand-accent" size={18} /> Top Ventas</h3>
            <div className="flex-1 relative">
               <ResponsiveContainer width="100%" height="100%">
                  <PieChart>
@@ -150,7 +149,7 @@ const DashboardProDesktop: React.FC = () => {
                     <Tooltip contentStyle={{ backgroundColor: '#09090b', border: 'none', borderRadius: '8px' }} />
                  </PieChart>
               </ResponsiveContainer>
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"><span className="text-2xl font-bold text-primary">{sales.length}</span><span className="text-[10px] text-disabled uppercase font-semibold tracking-widest">Total</span></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"><span className="text-2xl font-bold text-text-primary">{sales.length}</span><span className="text-[10px] text-text-disabled uppercase font-semibold tracking-widest">Total</span></div>
            </div>
         </div>
       </div>
@@ -168,7 +167,7 @@ const KPICard = ({ title, value, icon: Icon, color, trend, desc }: any) => {
     return (
         <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 shadow-sm group hover:border-brand-primary/30 transition-all">
             <div className="flex justify-between items-start mb-4"><div className={`p-3 rounded-md border ${colorStyles[color]}`}><Icon size={24} /></div><div className={`px-2 py-1 rounded-full text-[10px] font-semibold border ${colorStyles[color]}`}>{trend}</div></div>
-            <div><p className="text-disabled text-[10px] font-semibold uppercase tracking-widest">{title}</p><h4 className="text-2xl font-extrabold text-primary mt-1 tracking-tight">{value}</h4><p className="text-faint text-[11px] mt-2 font-medium">{desc}</p></div>
+            <div><p className="text-text-disabled text-[10px] font-semibold uppercase tracking-widest">{title}</p><h4 className="text-2xl font-extrabold text-text-primary mt-1 tracking-tight">{value}</h4><p className="text-text-faint text-[11px] mt-2 font-medium">{desc}</p></div>
         </div>
     );
 };

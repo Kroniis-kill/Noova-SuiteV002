@@ -35,15 +35,14 @@ const FinancialSummaryCard: React.FC = () => {
 
   return (
     <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-5 shadow-2xl relative overflow-hidden flex flex-col">
-       <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
 
        <div className="flex justify-between items-start mb-6 relative z-10">
           <div>
-             <h2 className="text-sm font-bold text-primary flex items-center gap-2 tracking-tight uppercase">
+             <h2 className="text-sm font-bold text-text-primary flex items-center gap-2 tracking-tight uppercase">
                 <BarChart3 className="text-brand-primary" size={16} />
                 Inteligencia Real
              </h2>
-             <p className="text-faint text-[8px] font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
+             <p className="text-text-faint text-[8px] font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
           </div>
           
           <div className="flex bg-bg p-1 rounded-sm border border-[rgb(var(--fg-rgb))]/[0.05]">
@@ -51,7 +50,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <button
                   key={p}
                   onClick={() => setPeriod(p as any)}
-                  className={`px-3 py-1 rounded-xs text-[8px] font-black uppercase tracking-widest transition-all ${period === p ? 'bg-surface-4 text-primary' : 'text-faint hover:text-muted'}`}
+                  className={`px-3 py-1 rounded-xs text-[8px] font-black uppercase tracking-widest transition-all ${period === p ? 'bg-surface-4 text-text-primary' : 'text-text-faint hover:text-text-muted'}`}
                 >
                    {p === 'week' ? 'Sem' : p === 'month' ? 'Mes' : 'Año'}
                 </button>
@@ -65,7 +64,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <ArrowUpRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Ingresos</span>
              </div>
-             <p className="text-sm font-bold text-primary font-mono">{currency}{summary.income.toLocaleString()}</p>
+             <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.income.toLocaleString()}</p>
           </div>
 
           <div className="bg-surface-3/40 rounded-lg p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
@@ -73,7 +72,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <ArrowDownRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Egresos</span>
              </div>
-             <p className="text-sm font-bold text-primary font-mono">{currency}{totalOutflow.toLocaleString()}</p>
+             <p className="text-sm font-bold text-text-primary font-mono">{currency}{totalOutflow.toLocaleString()}</p>
           </div>
 
           <div className="bg-brand-primary/5 rounded-lg p-3.5 border border-brand-primary/10">
@@ -81,7 +80,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <Wallet size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Beneficio</span>
              </div>
-             <p className="text-sm font-bold text-primary font-mono">{currency}{summary.netProfit.toLocaleString()}</p>
+             <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.netProfit.toLocaleString()}</p>
           </div>
        </div>
 
@@ -111,8 +110,8 @@ const FinancialSummaryCard: React.FC = () => {
                 <PieChart size={16} strokeWidth={2} />
              </div>
              <div>
-                <p className="text-[8px] text-faint font-black uppercase tracking-[0.2em]">Margen Neto</p>
-                <p className="text-sm font-bold text-primary font-mono">{margin.toFixed(1)}%</p>
+                <p className="text-[8px] text-text-faint font-black uppercase tracking-[0.2em]">Margen Neto</p>
+                <p className="text-sm font-bold text-text-primary font-mono">{margin.toFixed(1)}%</p>
              </div>
           </div>
           

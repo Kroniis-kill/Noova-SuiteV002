@@ -21,12 +21,12 @@ const OfflineIndicator: React.FC = () => {
         {isSyncing ? (
           <div className="flex items-center gap-2 px-4 py-2.5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-full">
             <RefreshCw size={15} className="text-brand-primary animate-spin" />
-            <span className="text-xs font-bold text-primary">Sincronizando...</span>
+            <span className="text-xs font-bold text-text-primary">Sincronizando...</span>
           </div>
         ) : (
           <div className="flex items-center gap-3 px-5 py-2.5 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.5)]">
             <WifiOff size={16} strokeWidth={2.5} className="text-status-warning" />
-            <span className="text-[13px] font-bold text-primary tracking-wide">Sin Conexión</span>
+            <span className="text-[13px] font-bold text-text-primary tracking-wide">Sin Conexión</span>
             <div className="w-1.5 h-1.5 rounded-full bg-status-warning ml-1 shadow-[0_0_8px_rgba(245,166,35,0.8)]" />
           </div>
         )}

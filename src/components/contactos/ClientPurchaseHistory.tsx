@@ -22,7 +22,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
 
   if (clientSales.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-disabled opacity-60 bg-[rgb(var(--fg-rgb))]/[0.01] border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl">
+      <div className="flex flex-col items-center justify-center p-12 text-text-disabled opacity-60 bg-[rgb(var(--fg-rgb))]/[0.01] border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl">
         <ShoppingCart size={40} className="mb-4 stroke-[1.5]" />
         <p className="text-sm font-medium">No se registran compras</p>
         <p className="text-[10px] mt-1 uppercase tracking-widest font-black text-center">El historial incluye todas las suscripciones registradas hasta la fecha</p>
@@ -52,11 +52,11 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                      )}
                   </div>
                   <div className="min-w-0">
-                     <h4 className="text-[14px] font-black text-primary uppercase tracking-tight truncate mb-0.5">{sale.serviceName}</h4>
-                     <p className="text-[11px] text-muted font-mono truncate selection:bg-brand-primary/30">{displayEmail}</p>
+                     <h4 className="text-[14px] font-black text-text-primary uppercase tracking-tight truncate mb-0.5">{sale.serviceName}</h4>
+                     <p className="text-[11px] text-text-muted font-mono truncate selection:bg-brand-primary/30">{displayEmail}</p>
                      
                      <div className="flex items-center gap-2 mt-2">
-                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-[9px] font-bold text-disabled uppercase border border-[rgb(var(--fg-rgb))]/5">
+                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-[9px] font-bold text-text-disabled uppercase border border-[rgb(var(--fg-rgb))]/5">
                             {sale.saleType.replace('_', ' ')}
                         </span>
                         {sale.screensCount && sale.screensCount > 1 && (
@@ -72,7 +72,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                      <DollarSign size={14} className="stroke-[3]" />
                      <span className="text-lg font-black tracking-tighter tabular-nums">{sale.amount.toFixed(2)}</span>
                   </div>
-                  <p className={`text-[9px] font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-status-warning' : 'text-faint'}`}>
+                  <p className={`text-[9px] font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-status-warning' : 'text-text-faint'}`}>
                     {sale.isPartial ? 'Pago Pendiente' : 'Completado'}
                   </p>
                </div>
@@ -80,20 +80,20 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
 
             <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/[0.03] relative z-10">
                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-faint border border-[rgb(var(--fg-rgb))]/5">
+                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5">
                       <Calendar size={14} />
                   </div>
                   <div className="min-w-0">
-                     <p className="text-[8px] text-disabled font-black uppercase tracking-widest">Adquirido</p>
-                     <p className="text-[10px] text-secondary font-bold truncate">{formatDate(sale.date)}</p>
+                     <p className="text-[8px] text-text-disabled font-black uppercase tracking-widest">Adquirido</p>
+                     <p className="text-[10px] text-text-secondary font-bold truncate">{formatDate(sale.date)}</p>
                   </div>
                </div>
                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-faint border border-[rgb(var(--fg-rgb))]/5">
+                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5">
                       <Clock size={14} />
                   </div>
                   <div className="min-w-0">
-                     <p className="text-[8px] text-disabled font-black uppercase tracking-widest">Vencimiento</p>
+                     <p className="text-[8px] text-text-disabled font-black uppercase tracking-widest">Vencimiento</p>
                      <p className="text-[10px] text-brand-accent font-bold truncate">{formatDate(sale.expiryDate)}</p>
                   </div>
                </div>

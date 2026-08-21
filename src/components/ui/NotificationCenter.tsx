@@ -58,7 +58,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
           case 'payment': return <CreditCard size={size} className="text-status-warning" />;
           case 'stock': return <Layers size={size} className="text-status-info" />;
           case 'expiry': return <Calendar size={size} className="text-brand-primary" />;
-          default: return <Bell size={size} className="text-muted" />;
+          default: return <Bell size={size} className="text-text-muted" />;
       }
   };
 
@@ -66,7 +66,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
     switch (priority) {
       case 'high': return <span className="px-2 py-0.5 rounded-full bg-status-danger/10 text-status-danger text-[9px] font-black uppercase tracking-widest border border-status-danger/20">Urgente</span>;
       case 'medium': return <span className="px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning text-[9px] font-black uppercase tracking-widest border border-status-warning/20">Pendiente</span>;
-      default: return <span className="px-2 py-0.5 rounded-full bg-zinc-500/10 text-disabled text-[9px] font-black uppercase tracking-widest border border-zinc-500/20">Info</span>;
+      default: return <span className="px-2 py-0.5 rounded-full bg-zinc-500/10 text-text-disabled text-[9px] font-black uppercase tracking-widest border border-zinc-500/20">Info</span>;
     }
   };
 
@@ -109,14 +109,13 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
       <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-300">
         <button 
           onClick={() => setSelectedNotification(null)}
-          className="flex items-center gap-2 text-disabled hover:text-primary transition-colors mb-4 group"
+          className="flex items-center gap-2 text-text-disabled hover:text-text-primary transition-colors mb-4 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           <span className="text-xs font-semibold uppercase tracking-widest">Volver al listado</span>
         </button>
 
         <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
           
           <div className="flex items-start gap-4 mb-6 relative z-10">
             <div className={`w-14 h-14 rounded-lg flex items-center justify-center shrink-0 shadow-inner ${n.priority === 'high' ? 'bg-status-danger/10 border border-status-danger/20' : 'bg-brand-primary/10 border border-brand-primary/20'}`}>
@@ -125,37 +124,37 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2 mb-1.5">
                 {getPriorityBadge(n.priority)}
-                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-muted text-[9px] font-black uppercase tracking-widest border border-[rgb(var(--fg-rgb))]/10">{n.type}</span>
+                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-[9px] font-black uppercase tracking-widest border border-[rgb(var(--fg-rgb))]/10">{n.type}</span>
               </div>
-              <h3 className="text-lg font-black text-primary leading-tight">{n.title}</h3>
-              <p className="text-[10px] text-disabled font-mono mt-1 uppercase tracking-wider">{new Date(n.date).toLocaleString()}</p>
+              <h3 className="text-lg font-black text-text-primary leading-tight">{n.title}</h3>
+              <p className="text-[10px] text-text-disabled font-mono mt-1 uppercase tracking-wider">{new Date(n.date).toLocaleString()}</p>
             </div>
           </div>
 
           <div className="bg-black/20 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 mb-6 relative z-10">
-            <p className="text-sm text-secondary leading-relaxed font-medium">
+            <p className="text-sm text-text-secondary leading-relaxed font-medium">
               {n.message}
             </p>
           </div>
 
           {(client || account) && (
             <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 mb-6 animate-in fade-in zoom-in-95 duration-500">
-              <h4 className="text-[10px] font-bold text-disabled uppercase tracking-[0.2em] mb-3">Información Relevante</h4>
+              <h4 className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em] mb-3">Información Relevante</h4>
               {client && (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-semibold text-xs">{client.name.charAt(0)}</div>
                   <div>
-                    <p className="text-xs font-semibold text-primary">{client.name}</p>
-                    <p className="text-[10px] text-disabled font-mono">{client.phone}</p>
+                    <p className="text-xs font-semibold text-text-primary">{client.name}</p>
+                    <p className="text-[10px] text-text-disabled font-mono">{client.phone}</p>
                   </div>
                 </div>
               )}
               {account && (
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center text-muted"><Package size={18} /></div>
+                  <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center text-text-muted"><Package size={18} /></div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-primary truncate">{account.email}</p>
-                    <p className="text-[10px] text-disabled font-mono uppercase">Vence: {formatDate(account.endDate)}</p>
+                    <p className="text-xs font-semibold text-text-primary truncate">{account.email}</p>
+                    <p className="text-[10px] text-text-disabled font-mono uppercase">Vence: {formatDate(account.endDate)}</p>
                   </div>
                 </div>
               )}
@@ -209,8 +208,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                         onClick={() => setCategoryFilter(cat.id as CategoryFilter)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-sm whitespace-nowrap text-[11px] font-semibold uppercase transition-all ${
                           isActive 
-                            ? 'bg-surface-3 text-primary shadow-lg border border-[rgb(var(--fg-rgb))]/10' 
-                            : 'text-disabled hover:text-secondary'
+                            ? 'bg-surface-3 text-text-primary shadow-lg border border-[rgb(var(--fg-rgb))]/10' 
+                            : 'text-text-disabled hover:text-text-secondary'
                         }`}
                       >
                         <Icon size={14} className={isActive ? 'text-brand-primary' : ''} />
@@ -235,7 +234,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                         className={`flex-1 py-2 rounded-sm text-[10px] font-semibold uppercase tracking-widest transition-all border ${
                           isActive 
                             ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                            : 'bg-transparent border-[rgb(var(--fg-rgb))]/5 text-disabled hover:border-[rgb(var(--fg-rgb))]/10'
+                            : 'bg-transparent border-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:border-[rgb(var(--fg-rgb))]/10'
                         }`}
                       >
                         {t.label}
@@ -252,10 +251,10 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
              ) : (
                <div className="space-y-2.5 pb-4 animate-in fade-in duration-500">
                   {filtered.length === 0 ? (
-                      <div className="h-full flex flex-col items-center justify-center text-disabled py-20 px-6 border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
+                      <div className="h-full flex flex-col items-center justify-center text-text-disabled py-20 px-6 border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
                         <div className="w-16 h-16 bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-status-success/40" /></div>
-                        <h3 className="text-sm font-bold text-primary uppercase tracking-widest">Sin pendientes</h3>
-                        <p className="text-xs mt-1 text-disabled italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
+                        <h3 className="text-sm font-bold text-text-primary uppercase tracking-widest">Sin pendientes</h3>
+                        <p className="text-xs mt-1 text-text-disabled italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
                       </div>
                   ) : (
                       filtered.map((item) => (
@@ -269,23 +268,23 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                             <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border transition-all ${
                               item.priority === 'high' 
                                 ? 'bg-status-danger/10 border-status-danger/20 text-status-danger' 
-                                : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-muted group-hover:text-primary'
+                                : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted group-hover:text-text-primary'
                             }`}>
                               {getIcon(item.type, item.priority)}
                             </div>
 
                             <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-start mb-0.5">
-                                  <h4 className={`text-xs font-semibold truncate pr-2 ${item.priority === 'high' ? 'text-red-100' : 'text-primary'}`}>{item.title}</h4>
-                                  <span className="text-[9px] text-disabled whitespace-nowrap font-mono bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded uppercase tracking-tighter shrink-0">{new Date(item.date).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}</span>
+                                  <h4 className={`text-xs font-semibold truncate pr-2 ${item.priority === 'high' ? 'text-red-100' : 'text-text-primary'}`}>{item.title}</h4>
+                                  <span className="text-[9px] text-text-disabled whitespace-nowrap font-mono bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded uppercase tracking-tighter shrink-0">{new Date(item.date).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}</span>
                                 </div>
-                                <p className="text-[11px] text-muted leading-snug line-clamp-1">{item.message}</p>
+                                <p className="text-[11px] text-text-muted leading-snug line-clamp-1">{item.message}</p>
                                 <div className="flex items-center gap-2 mt-2">
-                                  <span className="text-[9px] font-black uppercase text-faint tracking-wider bg-[rgb(var(--fg-rgb))]/5 px-1.5 rounded">{item.type}</span>
+                                  <span className="text-[9px] font-black uppercase text-text-faint tracking-wider bg-[rgb(var(--fg-rgb))]/5 px-1.5 rounded">{item.type}</span>
                                   {item.priority === 'high' && <span className="text-[9px] font-black uppercase text-status-danger/80 animate-pulse">Urgente</span>}
                                 </div>
                             </div>
-                            <div className="self-center opacity-40 group-hover:opacity-100 transition-opacity -mr-1 text-disabled"><ChevronRight size={14} /></div>
+                            <div className="self-center opacity-40 group-hover:opacity-100 transition-opacity -mr-1 text-text-disabled"><ChevronRight size={14} /></div>
                         </button>
                       ))
                   )}

@@ -19,14 +19,14 @@ const AdminHistoryMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   return (
     <div className="pb-32 pt-2 px-4 space-y-4">
        <div className="flex items-center gap-4 mb-6">
-          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-secondary">
+          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
              <ArrowLeft size={20} />
           </button>
-          <h1 className="text-2xl font-bold text-primary">Historial de Cambios</h1>
+          <h1 className="text-2xl font-bold text-text-primary">Historial de Cambios</h1>
        </div>
 
        {loading ? (
-          <p className="text-center text-disabled text-sm py-10">Cargando historial...</p>
+          <p className="text-center text-text-disabled text-sm py-10">Cargando historial...</p>
        ) : (
           <div className="space-y-3">
              {history.map(item => (
@@ -34,7 +34,7 @@ const AdminHistoryMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
              ))}
              {history.length === 0 && (
                 <div className="py-12 text-center border-2 border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-xl">
-                   <p className="text-disabled text-xs">No hay registros de historial.</p>
+                   <p className="text-text-disabled text-xs">No hay registros de historial.</p>
                 </div>
              )}
           </div>

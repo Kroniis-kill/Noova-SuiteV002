@@ -34,12 +34,12 @@ const AccessBlocked: React.FC = () => {
                      <Lock size={40} className="text-status-danger" />
                  </div>
                  <div className="absolute -top-2 -right-2 w-10 h-10 bg-status-danger rounded-full flex items-center justify-center border-4 border-surface-1 z-20">
-                     <AlertTriangle size={18} className="text-primary" />
+                     <AlertTriangle size={18} className="text-text-primary" />
                  </div>
             </div>
 
-            <h1 className="text-2xl font-bold text-primary mb-2">Acceso Expirado</h1>
-            <p className="text-muted text-sm leading-relaxed mb-8">
+            <h1 className="text-2xl font-bold text-text-primary mb-2">Acceso Expirado</h1>
+            <p className="text-text-muted text-sm leading-relaxed mb-8">
                Tu periodo de prueba de 3 días o tu suscripción ha finalizado. Para continuar gestionando tu negocio sin interrupciones, activa un plan PRO.
             </p>
 
@@ -53,7 +53,7 @@ const AccessBlocked: React.FC = () => {
                 
                 <button 
                   onClick={logout}
-                  className="w-full h-[48px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-muted font-semibold text-xs hover:text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
+                  className="w-full h-[48px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
                 >
                     Cerrar Sesión
                 </button>
@@ -61,7 +61,7 @@ const AccessBlocked: React.FC = () => {
 
             <div className="mt-8 flex items-center gap-2 opacity-50">
                <AnimatedLogo size={24} showFill={false} />
-               <span className="text-[10px] font-semibold text-disabled tracking-widest uppercase">Noova Suite</span>
+               <span className="text-[10px] font-semibold text-text-disabled tracking-widest uppercase">Noova Suite</span>
             </div>
         </motion.div>
     </div>

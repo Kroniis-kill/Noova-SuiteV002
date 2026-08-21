@@ -60,11 +60,10 @@ const MyPlanMobile: React.FC = () => {
     <div className="px-5 pt-safe mt-6 pb-24 font-sans min-h-screen relative overflow-hidden bg-bg">
        
        {/* Ambient Light */}
-       <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-brand-primary/10 via-transparent to-transparent pointer-events-none blur-[100px]" />
 
        <div className="relative z-10 mb-8">
-          <h1 className="text-3xl font-bold text-primary tracking-tight">Mi Membresía</h1>
-          <p className="text-muted text-sm mt-1">Estado de tu cuenta y recursos.</p>
+          <h1 className="text-3xl font-bold text-text-primary tracking-tight">Mi Membresía</h1>
+          <p className="text-text-muted text-sm mt-1">Estado de tu cuenta y recursos.</p>
        </div>
 
        {/* --- STATUS CARD --- */}
@@ -84,51 +83,51 @@ const MyPlanMobile: React.FC = () => {
                   <div>
                       <div className="flex items-center gap-2 mb-1">
                          {isTrial ? (
-                             <Clock size={16} className="text-muted" />
+                             <Clock size={16} className="text-text-muted" />
                          ) : isLifetime ? (
                              <Crown size={16} className="text-status-warning-soft" />
                          ) : (
                              <Star size={16} className="text-brand-accent" />
                          )}
                          
-                         <span className={`text-[10px] font-semibold uppercase tracking-widest ${isTrial ? 'text-muted' : isLifetime ? 'text-status-warning-soft' : 'text-brand-accent'}`}>
+                         <span className={`text-[10px] font-semibold uppercase tracking-widest ${isTrial ? 'text-text-muted' : isLifetime ? 'text-status-warning-soft' : 'text-brand-accent'}`}>
                              {isTrial ? 'MODO TRIAL' : isLifetime ? 'SOCIO VITALICIO' : 'MIEMBRO PRO'}
                          </span>
                       </div>
-                      <h2 className="text-2xl font-extrabold text-primary tracking-tight">{planLabel}</h2>
+                      <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">{planLabel}</h2>
                   </div>
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-md ${isBlocked ? 'bg-status-danger/20 border-status-danger/30' : 'bg-[rgb(var(--fg-rgb))]/10 border-[rgb(var(--fg-rgb))]/10'}`}>
-                      {isBlocked ? <AlertTriangle size={18} className="text-status-danger" /> : <Shield size={18} className="text-primary" />}
+                      {isBlocked ? <AlertTriangle size={18} className="text-status-danger" /> : <Shield size={18} className="text-text-primary" />}
                   </div>
               </div>
 
               <div>
                   <div className="flex items-end justify-between">
                       <div className="flex flex-col">
-                          <span className="text-[11px] text-secondary font-bold mb-0.5 uppercase tracking-wide">
+                          <span className="text-[11px] text-text-secondary font-bold mb-0.5 uppercase tracking-wide">
                               {getPlanTypeLabel()}
                           </span>
                           
                           <div className="flex items-center gap-2">
                              <div className={`w-2 h-2 rounded-full ${isBlocked ? 'bg-status-danger animate-pulse' : 'bg-status-success-soft shadow-[0_0_8px_#34d399]'}`} />
-                             <span className="text-xs font-semibold text-muted">
+                             <span className="text-xs font-semibold text-text-muted">
                                  {isBlocked ? 'Bloqueada' : 'Cuenta Activa'}
                              </span>
                           </div>
                       </div>
                       <div className="text-right">
-                          <span className="text-[9px] text-disabled uppercase font-semibold block mb-0.5">
+                          <span className="text-[9px] text-text-disabled uppercase font-semibold block mb-0.5">
                               {isLifetime ? 'Acceso Total' : 'Vencimiento'}
                           </span>
                           
                           {isLifetime ? (
-                              <div className="flex items-center justify-end gap-1 text-primary">
+                              <div className="flex items-center justify-end gap-1 text-text-primary">
                                   <Infinity size={24} strokeWidth={2.5} />
-                                  <span className="text-xs font-semibold text-muted">Sin límite</span>
+                                  <span className="text-xs font-semibold text-text-muted">Sin límite</span>
                               </div>
                           ) : (
-                              <span className={`text-xl font-bold ${daysRemaining <= 2 ? 'text-status-danger-soft' : 'text-primary'}`}>
-                                  {daysRemaining} <span className="text-xs font-normal text-disabled">días</span>
+                              <span className={`text-xl font-bold ${daysRemaining <= 2 ? 'text-status-danger-soft' : 'text-text-primary'}`}>
+                                  {daysRemaining} <span className="text-xs font-normal text-text-disabled">días</span>
                               </span>
                           )}
                       </div>
@@ -147,20 +146,20 @@ const MyPlanMobile: React.FC = () => {
               <div className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center">
-                      <Star size={20} className="text-primary fill-white" />
+                      <Star size={20} className="text-text-primary fill-white" />
                   </div>
                   <div className="text-left">
-                      <span className="block text-primary font-bold text-sm">{isTrial ? 'Activar Plan PRO' : 'Renovar Plan'}</span>
-                      <span className="block text-primary/80 text-[10px]">Desbloquea todo el poder</span>
+                      <span className="block text-text-primary font-bold text-sm">{isTrial ? 'Activar Plan PRO' : 'Renovar Plan'}</span>
+                      <span className="block text-text-primary/80 text-[10px]">Desbloquea todo el poder</span>
                   </div>
               </div>
-              <ChevronRight size={20} className="text-primary relative z-10" />
+              <ChevronRight size={20} className="text-text-primary relative z-10" />
            </motion.button>
        )}
 
        {/* --- RESOURCES STATS --- */}
        <div className="space-y-4 mb-8">
-          <h3 className="text-sm font-bold text-primary px-1">Tus Recursos</h3>
+          <h3 className="text-sm font-bold text-text-primary px-1">Tus Recursos</h3>
           
           <div className="grid grid-cols-2 gap-4">
              {/* Clientes Card */}
@@ -172,8 +171,8 @@ const MyPlanMobile: React.FC = () => {
                 </div>
                 
                 <div className="relative z-10">
-                    <span className="text-3xl font-extrabold text-primary block tracking-tight">{clients.length}</span>
-                    <span className="text-[10px] font-semibold text-disabled uppercase tracking-widest">Clientes</span>
+                    <span className="text-3xl font-extrabold text-text-primary block tracking-tight">{clients.length}</span>
+                    <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Clientes</span>
                 </div>
              </div>
 
@@ -186,8 +185,8 @@ const MyPlanMobile: React.FC = () => {
                 </div>
                 
                 <div className="relative z-10">
-                    <span className="text-3xl font-extrabold text-primary block tracking-tight">{sales.length}</span>
-                    <span className="text-[10px] font-semibold text-disabled uppercase tracking-widest">Ventas</span>
+                    <span className="text-3xl font-extrabold text-text-primary block tracking-tight">{sales.length}</span>
+                    <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Ventas</span>
                 </div>
              </div>
           </div>
@@ -195,7 +194,7 @@ const MyPlanMobile: React.FC = () => {
 
        {/* --- NEW SUPPORT HUB --- */}
        <div className="space-y-4">
-          <h3 className="text-sm font-bold text-primary px-1">Centro de Ayuda</h3>
+          <h3 className="text-sm font-bold text-text-primary px-1">Centro de Ayuda</h3>
           
           <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl overflow-hidden shadow-sm">
              
@@ -209,11 +208,11 @@ const MyPlanMobile: React.FC = () => {
                              <CreditCard size={22} />
                          </div>
                          <div className="text-left">
-                             <h4 className="text-sm font-bold text-primary group-hover:text-status-success-soft transition-colors">Renovar Membresía</h4>
-                             <p className="text-[11px] text-disabled">Gestionar pagos de Noova</p>
+                             <h4 className="text-sm font-bold text-text-primary group-hover:text-status-success-soft transition-colors">Renovar Membresía</h4>
+                             <p className="text-[11px] text-text-disabled">Gestionar pagos de Noova</p>
                          </div>
                      </div>
-                     <ChevronRight size={18} className="text-faint group-hover:text-primary" />
+                     <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
                  </button>
              )}
 
@@ -226,11 +225,11 @@ const MyPlanMobile: React.FC = () => {
                          <HelpCircle size={22} />
                      </div>
                      <div className="text-left">
-                         <h4 className="text-sm font-bold text-primary group-hover:text-status-info-soft transition-colors">Soporte Técnico</h4>
-                         <p className="text-[11px] text-disabled">Reportar fallas de la app</p>
+                         <h4 className="text-sm font-bold text-text-primary group-hover:text-status-info-soft transition-colors">Soporte Técnico</h4>
+                         <p className="text-[11px] text-text-disabled">Reportar fallas de la app</p>
                      </div>
                  </div>
-                 <ChevronRight size={18} className="text-faint group-hover:text-primary" />
+                 <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
              </button>
 
              <button 
@@ -242,18 +241,18 @@ const MyPlanMobile: React.FC = () => {
                          <BookOpen size={22} />
                      </div>
                      <div className="text-left">
-                         <h4 className="text-sm font-bold text-primary group-hover:text-brand-primary transition-colors">Tutoriales</h4>
-                         <p className="text-[11px] text-disabled">Aprende a usar Noova Suite</p>
+                         <h4 className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors">Tutoriales</h4>
+                         <p className="text-[11px] text-text-disabled">Aprende a usar Noova Suite</p>
                      </div>
                  </div>
-                 <ChevronRight size={18} className="text-faint group-hover:text-primary" />
+                 <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
              </button>
 
           </div>
        </div>
 
        <div className="mt-8 text-center opacity-40">
-          <p className="text-[10px] text-faint">Noova Suite • Build 1.4.0</p>
+          <p className="text-[10px] text-text-faint">Noova Suite • Build 1.4.0</p>
        </div>
     </div>
   );

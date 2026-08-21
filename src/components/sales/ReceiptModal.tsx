@@ -117,13 +117,13 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
               <div className="flex bg-surface-zinc p-1 rounded-sm border border-[rgb(var(--fg-rgb))]/10 mb-4 w-full max-w-[360px]">
                   <button 
                     onClick={() => setCurrencyMode('main')}
-                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all ${currencyMode === 'main' ? 'bg-white text-black' : 'text-disabled hover:text-primary'}`}
+                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all ${currencyMode === 'main' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
                   >
                      {settings.currency}
                   </button>
                   <button 
                     onClick={() => setCurrencyMode('secondary')}
-                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all flex items-center justify-center gap-1 ${currencyMode === 'secondary' ? 'bg-white text-black' : 'text-disabled hover:text-primary'}`}
+                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all flex items-center justify-center gap-1 ${currencyMode === 'secondary' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
                   >
                      <RefreshCw size={10} /> {settings.subCurrency}
                   </button>
@@ -134,7 +134,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
           <div className="w-full overflow-x-auto flex justify-center mb-6">
              <div 
                ref={receiptRef}
-               className="bg-text-primary p-8 rounded-xl w-[360px] relative overflow-hidden border border-zinc-200 shadow-2xl text-black"
+               className="bg-text-text-primary p-8 rounded-xl w-[360px] relative overflow-hidden border border-zinc-200 shadow-2xl text-black"
              >
                 {/* Header */}
                 <div className="flex flex-col items-center mb-8 relative z-10">
@@ -148,15 +148,15 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                        )}
                    </div>
                    <h2 className="text-black font-bold text-lg tracking-wide uppercase text-center">{businessName}</h2>
-                   <p className="text-disabled text-[10px] uppercase tracking-wider mb-1">Comprobante de Pago</p>
-                   <p className="text-muted text-[9px]">{new Date().toLocaleDateString()} • {new Date().toLocaleTimeString()}</p>
+                   <p className="text-text-disabled text-[10px] uppercase tracking-wider mb-1">Comprobante de Pago</p>
+                   <p className="text-text-muted text-[9px]">{new Date().toLocaleDateString()} • {new Date().toLocaleTimeString()}</p>
                 </div>
 
                 {/* Client Info */}
                 <div className="mb-6 border-b border-dashed border-zinc-300 pb-6 relative z-10">
-                   <p className="text-[10px] font-semibold text-muted uppercase tracking-wider mb-1">Cliente</p>
+                   <p className="text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-1">Cliente</p>
                    <p className="text-black font-bold text-sm">{client.name}</p>
-                   <p className="text-disabled text-xs">{client.phone}</p>
+                   <p className="text-text-disabled text-xs">{client.phone}</p>
                 </div>
 
                 {/* Items */}
@@ -168,7 +168,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                            <div key={idx} className="flex justify-between items-start">
                                <div className="flex flex-col">
                                    <span className="text-black font-semibold text-xs">{s.serviceName}</span>
-                                   <span className="text-[9px] text-disabled">{s.saleType?.replace('_', ' ')}</span>
+                                   <span className="text-[9px] text-text-disabled">{s.saleType?.replace('_', ' ')}</span>
                                    {isPartial && <span className="text-[9px] text-status-danger font-bold">Debe: {displayCurrency}{calculateAmount(debt).toFixed(2)}</span>}
                                </div>
                                <span className="text-black text-xs font-mono font-bold">{displayCurrency}{calculateAmount(s.amount).toFixed(2)}</span>
@@ -180,13 +180,13 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                 {/* Totals */}
                 <div className="border-t border-dashed border-zinc-300 pt-4 relative z-10 mb-6">
                    <div className="flex justify-between items-center mb-2">
-                       <span className="text-disabled text-xs">Total</span>
+                       <span className="text-text-disabled text-xs">Total</span>
                        <span className="text-black font-extrabold text-lg">{displayCurrency}{displayTotal.toFixed(2)}</span>
                    </div>
                    {hasDebt ? (
                        <>
                            <div className="flex justify-between items-center mb-2">
-                               <span className="text-disabled text-xs">Abonado</span>
+                               <span className="text-text-disabled text-xs">Abonado</span>
                                <span className="text-emerald-600 font-bold text-sm">{displayCurrency}{displayPaid.toFixed(2)}</span>
                            </div>
                            <div className="flex justify-between items-center pt-2 border-t border-zinc-100">
@@ -205,21 +205,21 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                 {/* QR Section */}
                 <div className="flex flex-col items-center justify-center pt-4 border-t border-zinc-100">
                     <img src={qrUrl} alt="QR" className="w-24 h-24 mix-blend-multiply" />
-                    <p className="text-[8px] text-muted mt-2 text-center max-w-[150px]">
+                    <p className="text-[8px] text-text-muted mt-2 text-center max-w-[150px]">
                         Escanea para ver tus credenciales actualizadas
                     </p>
                 </div>
 
                 {/* Footer */}
                 <div className="mt-6 text-center relative z-10">
-                   <p className="text-[8px] text-muted mt-1">Generado por {businessName}</p>
+                   <p className="text-[8px] text-text-muted mt-1">Generado por {businessName}</p>
                 </div>
              </div>
           </div>
 
           {/* Actions */}
           <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
-             <button onClick={handleDownload} className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-secondary font-semibold text-xs hover:text-primary transition-colors flex items-center justify-center gap-2 active:scale-95">
+             <button onClick={handleDownload} className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary font-semibold text-xs hover:text-text-primary transition-colors flex items-center justify-center gap-2 active:scale-95">
                 <Download size={18} /> Guardar
              </button>
              <button onClick={handleShare} className="h-[50px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-xs shadow-glow active:scale-95 transition-all flex items-center justify-center gap-2 hover:brightness-110">

@@ -129,7 +129,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
   const selectedClient: Client | undefined = clients.find(c => c.id === clientId);
 
   return (
-    <div className="pb-32 font-sans text-primary min-h-screen">
+    <div className="pb-32 font-sans text-text-primary min-h-screen">
       <div className="px-[var(--mobile-side-pad)] pt-4 space-y-5 max-w-3xl mx-auto">
 
         {/* Hero */}
@@ -140,11 +140,11 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
           <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-brand-primary/15 blur-2xl" />
           <div className="flex items-center gap-3 relative z-10">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center shadow-glow-sm">
-              <Calculator size={20} className="text-primary" />
+              <Calculator size={20} className="text-text-primary" />
             </div>
             <div>
-              <h2 className="text-lg font-black text-primary tracking-tight">Calculadora de Reembolso</h2>
-              <p className="text-[12px] text-muted leading-tight mt-0.5">
+              <h2 className="text-lg font-black text-text-primary tracking-tight">Calculadora de Reembolso</h2>
+              <p className="text-[12px] text-text-muted leading-tight mt-0.5">
                 Calcula el reembolso exacto según los días realmente usados.
               </p>
             </div>
@@ -156,17 +156,17 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
           {!clientId ? (
             <>
               <div className="relative mb-2">
-                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-disabled" />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Buscar cliente..."
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl pl-9 pr-3 py-2.5 text-sm text-primary placeholder:text-faint outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl pl-9 pr-3 py-2.5 text-sm text-text-primary placeholder:text-text-faint outline-none focus:border-brand-primary/50"
                 />
               </div>
               <div className="max-h-56 overflow-y-auto no-scrollbar space-y-1.5">
                 {filteredClients.length === 0 && (
-                  <div className="text-center py-6 text-xs text-disabled">Sin clientes</div>
+                  <div className="text-center py-6 text-xs text-text-disabled">Sin clientes</div>
                 )}
                 {filteredClients.map(c => (
                   <button
@@ -178,9 +178,9 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                       <div className="w-8 h-8 rounded-full bg-brand-primary/15 flex items-center justify-center text-brand-primary text-[11px] font-bold">
                         {c.name.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-semibold text-primary">{c.name}</span>
+                      <span className="text-sm font-semibold text-text-primary">{c.name}</span>
                     </div>
-                    {c.phone && <span className="text-[10px] text-disabled">{c.phone}</span>}
+                    {c.phone && <span className="text-[10px] text-text-disabled">{c.phone}</span>}
                   </button>
                 ))}
               </div>
@@ -192,13 +192,13 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   {selectedClient?.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-primary leading-tight">{selectedClient?.name}</p>
-                  <p className="text-[10px] text-disabled">{activeSales.length} servicio(s) activo(s)</p>
+                  <p className="text-sm font-bold text-text-primary leading-tight">{selectedClient?.name}</p>
+                  <p className="text-[10px] text-text-disabled">{activeSales.length} servicio(s) activo(s)</p>
                 </div>
               </div>
               <button
                 onClick={() => { setClientId(''); setSaleId(''); }}
-                className="text-[11px] text-muted hover:text-primary px-2 py-1 rounded-md border border-[rgb(var(--fg-rgb))]/10"
+                className="text-[11px] text-text-muted hover:text-text-primary px-2 py-1 rounded-md border border-[rgb(var(--fg-rgb))]/10"
               >
                 Cambiar
               </button>
@@ -212,7 +212,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
             {activeSales.length === 0 ? (
               <div className="text-center py-6 px-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06]">
                 <AlertTriangle size={20} className="mx-auto text-status-warning-soft mb-2" />
-                <p className="text-xs text-muted">Este cliente no tiene servicios activos.</p>
+                <p className="text-xs text-text-muted">Este cliente no tiene servicios activos.</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -230,10 +230,10 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                       }`}
                     >
                       <div className="text-left">
-                        <p className="text-sm font-bold text-primary">{s.serviceName}</p>
-                        <p className="text-[10px] text-disabled">{dur} días · vence {new Date(s.expiryDate).toLocaleDateString()}</p>
+                        <p className="text-sm font-bold text-text-primary">{s.serviceName}</p>
+                        <p className="text-[10px] text-text-disabled">{dur} días · vence {new Date(s.expiryDate).toLocaleDateString()}</p>
                       </div>
-                      <span className="text-sm font-bold text-primary">${fmt(s.amount)}</span>
+                      <span className="text-sm font-bold text-text-primary">${fmt(s.amount)}</span>
                     </button>
                   );
                 })}
@@ -251,7 +251,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   type="number" inputMode="decimal" step="0.01"
                   value={pricePaid}
                   onChange={(e) => setPricePaid(e.target.value)}
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
               <Field label={`Precio pagado (${subCurrency})`}>
@@ -259,12 +259,12 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   type="number" inputMode="decimal" step="0.01"
                   value={pricePaidSub}
                   onChange={(e) => setPricePaidSub(e.target.value)}
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
               <Field label="Duración del plan">
-                <div className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl px-3 py-2.5 text-sm text-secondary flex items-center gap-1.5">
-                  <Calendar size={13} className="text-disabled" /> {duration} días
+                <div className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl px-3 py-2.5 text-sm text-text-secondary flex items-center gap-1.5">
+                  <Calendar size={13} className="text-text-disabled" /> {duration} días
                 </div>
               </Field>
               <Field label="Días utilizados">
@@ -273,7 +273,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   value={daysUsed}
                   onChange={(e) => setDaysUsed(e.target.value)}
                   placeholder="0"
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
             </div>
@@ -294,7 +294,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </button>
               <button
                 onClick={handleReset}
-                className="px-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 text-muted hover:text-primary"
+                className="px-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary"
                 title="Reiniciar"
               >
                 <RotateCcw size={16} />
@@ -318,14 +318,14 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
 
               <div className="relative z-10 text-center mb-5">
                 <p className="text-[11px] uppercase tracking-widest text-status-success-soft font-bold mb-1">Reembolso de</p>
-                <p className="text-4xl font-black text-primary tracking-tight">
-                  ${fmt(result.refund)} <span className="text-base font-bold text-muted">{mainCurrency}</span>
+                <p className="text-4xl font-black text-text-primary tracking-tight">
+                  ${fmt(result.refund)} <span className="text-base font-bold text-text-muted">{mainCurrency}</span>
                 </p>
-                <p className="text-[11px] text-muted mt-1">
+                <p className="text-[11px] text-text-muted mt-1">
                   ≈ ${fmt(result.refundSub)} {subCurrency}
                 </p>
-                <p className="text-[12px] text-secondary mt-2">
-                  por <span className="font-bold text-primary">{result.remaining}</span> días no utilizados de <span className="font-bold text-primary">{result.saleName}</span>
+                <p className="text-[12px] text-text-secondary mt-2">
+                  por <span className="font-bold text-text-primary">{result.remaining}</span> días no utilizados de <span className="font-bold text-text-primary">{result.saleName}</span>
                 </p>
               </div>
 
@@ -340,8 +340,8 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
 
               <div className="relative z-10 mt-5 p-3 rounded-xl bg-status-warning/5 border border-status-warning/20 flex gap-2.5">
                 <AlertTriangle size={14} className="text-status-warning-soft shrink-0 mt-0.5" />
-                <p className="text-[11px] leading-relaxed text-muted">
-                  Este cálculo es una <span className="text-amber-300">estimación basada en el costo diario proporcional</span>. El monto real puede variar según las políticas de reembolso de <span className="font-bold text-primary">{result.saleName}</span>. Te recomendamos contactar directamente con el servicio para gestionar la devolución.
+                <p className="text-[11px] leading-relaxed text-text-muted">
+                  Este cálculo es una <span className="text-amber-300">estimación basada en el costo diario proporcional</span>. El monto real puede variar según las políticas de reembolso de <span className="font-bold text-text-primary">{result.saleName}</span>. Te recomendamos contactar directamente con el servicio para gestionar la devolución.
                 </p>
               </div>
             </motion.div>
@@ -360,7 +360,7 @@ const Section: React.FC<{ icon: React.ReactNode; title: string; children: React.
   >
     <div className="flex items-center gap-2 mb-3">
       <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary flex items-center justify-center">{icon}</div>
-      <h3 className="text-[12px] font-bold text-primary uppercase tracking-wider">{title}</h3>
+      <h3 className="text-[12px] font-bold text-text-primary uppercase tracking-wider">{title}</h3>
     </div>
     {children}
   </motion.div>
@@ -368,7 +368,7 @@ const Section: React.FC<{ icon: React.ReactNode; title: string; children: React.
 
 const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
   <label className="block">
-    <span className="block text-[10px] font-semibold text-disabled uppercase tracking-wider mb-1.5">{label}</span>
+    <span className="block text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1.5">{label}</span>
     {children}
   </label>
 );
@@ -382,7 +382,7 @@ const Mini: React.FC<{ icon: React.ReactNode; label: string; value: string; tone
       <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-semibold opacity-80">
         {icon} {label}
       </div>
-      <p className="text-base font-black text-primary mt-0.5">{value}</p>
+      <p className="text-base font-black text-text-primary mt-0.5">{value}</p>
     </div>
   );
 };
@@ -391,16 +391,16 @@ const ResultRow: React.FC<{
   icon: string; label: string; value: string; sub?: string;
   tone?: 'red' | 'emerald'; bold?: boolean;
 }> = ({ icon, label, value, sub, tone, bold }) => {
-  const valueColor = tone === 'red' ? 'text-red-300' : tone === 'emerald' ? 'text-emerald-300' : 'text-primary';
+  const valueColor = tone === 'red' ? 'text-red-300' : tone === 'emerald' ? 'text-emerald-300' : 'text-text-primary';
   return (
     <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-[rgb(var(--fg-rgb))]/[0.05] ${bold ? 'border-status-success/30' : ''}`}>
       <div className="flex items-center gap-2.5 min-w-0">
         <span className="text-base">{icon}</span>
-        <span className="text-[12px] text-secondary font-medium truncate">{label}</span>
+        <span className="text-[12px] text-text-secondary font-medium truncate">{label}</span>
       </div>
       <div className="text-right shrink-0">
         <p className={`text-[13px] ${bold ? 'font-black' : 'font-bold'} ${valueColor}`}>{value}</p>
-        {sub && <p className="text-[10px] text-disabled">{sub}</p>}
+        {sub && <p className="text-[10px] text-text-disabled">{sub}</p>}
       </div>
     </div>
   );

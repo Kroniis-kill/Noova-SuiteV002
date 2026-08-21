@@ -66,11 +66,11 @@ export const MessagesSection = () => {
     return (
         <div className="space-y-6 animate-fade-in pb-10">
             <div className="flex bg-surface-1 p-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.08] w-full shadow-lg">
-                <button onClick={() => setPlatform('whatsapp')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-[11px] font-semibold uppercase tracking-widest transition-all ${platform === 'whatsapp' ? 'bg-brand-whatsapp text-black shadow-[0_8px_20px_-5px_rgba(37,211,102,0.4)]' : 'text-disabled hover:text-primary'}`}>
+                <button onClick={() => setPlatform('whatsapp')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-[11px] font-semibold uppercase tracking-widest transition-all ${platform === 'whatsapp' ? 'bg-brand-whatsapp text-black shadow-[0_8px_20px_-5px_rgba(37,211,102,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
                     <MessageSquare size={14} fill={platform === 'whatsapp' ? "currentColor" : "none"} />
                     WhatsApp
                 </button>
-                <button onClick={() => setPlatform('telegram')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-[11px] font-semibold uppercase tracking-widest transition-all ${platform === 'telegram' ? 'bg-brand-telegram text-white shadow-[0_8px_20px_-5px_rgba(0,136,204,0.4)]' : 'text-disabled hover:text-primary'}`}>
+                <button onClick={() => setPlatform('telegram')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-[11px] font-semibold uppercase tracking-widest transition-all ${platform === 'telegram' ? 'bg-brand-telegram text-white shadow-[0_8px_20px_-5px_rgba(0,136,204,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
                     <Send size={14} fill={platform === 'telegram' ? "currentColor" : "none"} />
                     Telegram
                 </button>
@@ -79,9 +79,9 @@ export const MessagesSection = () => {
             <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all duration-500">
                 <div className="p-4 flex bg-black/20 border-b border-[rgb(var(--fg-rgb))]/5 shrink-0">
                     <div className="bg-surface-sunken p-1 rounded-lg flex border border-[rgb(var(--fg-rgb))]/5 w-full shadow-inner">
-                        <button onClick={() => { setActiveCategory('ventas'); setSelectedTemplateKey('newSaleGlobal'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'ventas' ? 'bg-surface-4 text-primary shadow-md' : 'text-disabled hover:text-muted'}`}>Ventas</button>
-                        <button onClick={() => { setActiveCategory('vencimientos'); setSelectedTemplateKey('warning2Days'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'vencimientos' ? 'bg-surface-4 text-primary shadow-md' : 'text-disabled hover:text-muted'}`}>Alertas</button>
-                        <button onClick={() => { setActiveCategory('operaciones'); setSelectedTemplateKey('renewal'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'operaciones' ? 'bg-surface-4 text-primary shadow-md' : 'text-disabled hover:text-muted'}`}>Soporte</button>
+                        <button onClick={() => { setActiveCategory('ventas'); setSelectedTemplateKey('newSaleGlobal'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'ventas' ? 'bg-surface-4 text-text-primary shadow-md' : 'text-text-disabled hover:text-text-muted'}`}>Ventas</button>
+                        <button onClick={() => { setActiveCategory('vencimientos'); setSelectedTemplateKey('warning2Days'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'vencimientos' ? 'bg-surface-4 text-text-primary shadow-md' : 'text-text-disabled hover:text-text-muted'}`}>Alertas</button>
+                        <button onClick={() => { setActiveCategory('operaciones'); setSelectedTemplateKey('renewal'); }} className={`flex-1 py-2.5 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${activeCategory === 'operaciones' ? 'bg-surface-4 text-text-primary shadow-md' : 'text-text-disabled hover:text-text-muted'}`}>Soporte</button>
                     </div>
                 </div>
 
@@ -90,8 +90,8 @@ export const MessagesSection = () => {
                         const isSelected = selectedTemplateKey === item.id;
                         return (
                             <button key={item.id} onClick={() => setSelectedTemplateKey(item.id)} className={`flex flex-col text-left p-3 rounded-lg border transition-all active:scale-95 group overflow-hidden relative ${isSelected ? 'bg-brand-primary/10 border-brand-primary shadow-[0_0_15px_rgba(106,44,255,0.1)]' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/10'}`}>
-                                <span className={`text-[8px] font-black uppercase tracking-[0.2em] mb-1 ${isSelected ? 'text-brand-primary' : 'text-faint'}`}>{isSelected ? 'EDITANDO' : 'PLANTILLA'}</span>
-                                <span className={`text-[12px] font-bold leading-tight truncate ${isSelected ? 'text-primary' : 'text-disabled group-hover:text-secondary'}`}>{item.label}</span>
+                                <span className={`text-[8px] font-black uppercase tracking-[0.2em] mb-1 ${isSelected ? 'text-brand-primary' : 'text-text-faint'}`}>{isSelected ? 'EDITANDO' : 'PLANTILLA'}</span>
+                                <span className={`text-[12px] font-bold leading-tight truncate ${isSelected ? 'text-text-primary' : 'text-text-disabled group-hover:text-text-secondary'}`}>{item.label}</span>
                                 {isSelected && <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-brand-primary/10 rounded-full blur-md" />}
                             </button>
                         );
@@ -102,25 +102,25 @@ export const MessagesSection = () => {
                     <div className="flex items-center justify-between py-3.5 px-6 bg-black/10 border-b border-[rgb(var(--fg-rgb))]/[0.04] shrink-0">
                         <div className="flex items-center gap-2.5">
                            <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse shadow-[0_0_8px_#6A2CFF]" />
-                           <h4 className="text-[11px] font-bold text-primary uppercase tracking-widest">{CATEGORIES[activeCategory].find(i => i.id === selectedTemplateKey)?.label}</h4>
+                           <h4 className="text-[11px] font-bold text-text-primary uppercase tracking-widest">{CATEGORIES[activeCategory].find(i => i.id === selectedTemplateKey)?.label}</h4>
                         </div>
-                        <button onClick={() => setEditorHeight(editorHeight === 'normal' ? 'expanded' : 'normal')} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-xl text-disabled hover:text-primary transition-colors active:scale-90">
+                        <button onClick={() => setEditorHeight(editorHeight === 'normal' ? 'expanded' : 'normal')} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-xl text-text-disabled hover:text-text-primary transition-colors active:scale-90">
                            {editorHeight === 'normal' ? <Maximize2 size={15} /> : <Minimize2 size={15} />}
                         </button>
                     </div>
 
-                    <textarea value={currentTemplates[selectedTemplateKey] || ''} onChange={e => updateCurrentTemplateValue(e.target.value)} className="flex-1 w-full bg-transparent text-[14px] text-secondary outline-none p-6 resize-none leading-relaxed font-medium placeholder:text-faint custom-scrollbar" placeholder="Redacta el contenido dinámico de la plantilla aquí..." />
+                    <textarea value={currentTemplates[selectedTemplateKey] || ''} onChange={e => updateCurrentTemplateValue(e.target.value)} className="flex-1 w-full bg-transparent text-[14px] text-text-secondary outline-none p-6 resize-none leading-relaxed font-medium placeholder:text-text-faint custom-scrollbar" placeholder="Redacta el contenido dinámico de la plantilla aquí..." />
                 </div>
 
                 <div className="px-5 py-4 shrink-0 bg-surface-sunken border-t border-[rgb(var(--fg-rgb))]/[0.05]">
                     <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 shadow-inner">
                         <div className="flex items-center gap-2 mb-3 px-1">
                             <Zap size={10} className="text-brand-accent" fill="currentColor" />
-                            <span className="text-[9px] font-black text-disabled uppercase tracking-[0.2em]">Variables del Sistema</span>
+                            <span className="text-[9px] font-black text-text-disabled uppercase tracking-[0.2em]">Variables del Sistema</span>
                         </div>
                         <div className="flex gap-2.5 overflow-x-auto no-scrollbar pb-1">
                             {VARIABLE_PILLS.map(pill => (
-                                <button key={pill} onClick={() => insertVariable(pill)} className="px-4 py-2 bg-black/40 border border-[rgb(var(--fg-rgb))]/10 rounded-xl text-[11px] font-mono font-bold text-brand-primary whitespace-nowrap active:scale-95 transition-all hover:bg-brand-primary hover:text-primary hover:border-brand-primary shadow-sm">{pill}</button>
+                                <button key={pill} onClick={() => insertVariable(pill)} className="px-4 py-2 bg-black/40 border border-[rgb(var(--fg-rgb))]/10 rounded-xl text-[11px] font-mono font-bold text-brand-primary whitespace-nowrap active:scale-95 transition-all hover:bg-brand-primary hover:text-text-primary hover:border-brand-primary shadow-sm">{pill}</button>
                             ))}
                         </div>
                     </div>

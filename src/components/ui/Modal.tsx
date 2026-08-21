@@ -93,7 +93,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
           >
             {isMobile && (
               <div className="w-full flex justify-center pt-3 pb-1 shrink-0" onClick={onClose}>
-                <div className="w-12 h-1.5 bg-text-faint rounded-pill" />
+                <div className="w-12 h-1.5 bg-text-text-faint rounded-pill" />
               </div>
             )}
 

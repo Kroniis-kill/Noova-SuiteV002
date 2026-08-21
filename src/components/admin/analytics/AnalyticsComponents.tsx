@@ -16,7 +16,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
     <div className="space-y-6">
        {/* Plans Distribution */}
        <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6">
-          <h3 className="text-lg font-bold text-primary mb-6">Distribución de Planes</h3>
+          <h3 className="text-lg font-bold text-text-primary mb-6">Distribución de Planes</h3>
           <div className="h-[250px] w-full relative">
              <ResponsiveContainer width="99%" height="100%">
                 <PieChart>
@@ -45,7 +45,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
              {planData.map((entry, index) => (
                 <div key={entry.name} className="flex items-center gap-2">
                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
-                   <span className="text-xs text-muted capitalize">{entry.name}</span>
+                   <span className="text-xs text-text-muted capitalize">{entry.name}</span>
                 </div>
              ))}
           </div>
@@ -53,7 +53,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
 
        {/* Monthly Growth */}
        <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6">
-          <h3 className="text-lg font-bold text-primary mb-6">Nuevos Usuarios (Último Año)</h3>
+          <h3 className="text-lg font-bold text-text-primary mb-6">Nuevos Usuarios (Último Año)</h3>
           <div className="h-[250px] w-full relative">
              <ResponsiveContainer width="99%" height="100%">
                 <BarChart data={data.registrationsByMonth}>

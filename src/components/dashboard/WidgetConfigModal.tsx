@@ -47,7 +47,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
         
         {/* Sección Tarjetas */}
         <div>
-            <h4 className="text-xs font-semibold text-disabled uppercase tracking-wider mb-3 ml-1">Tarjetas Visibles</h4>
+            <h4 className="text-xs font-semibold text-text-disabled uppercase tracking-wider mb-3 ml-1">Tarjetas Visibles</h4>
             <div className="space-y-2">
               {cardsOptions.map((opt) => (
                 <button
@@ -59,7 +59,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                     <div className={`w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center ${opt.color}`}>
                       <opt.icon size={16} />
                     </div>
-                    <span className={`text-xs font-medium ${widgets[opt.key] ? 'text-primary' : 'text-disabled'}`}>
+                    <span className={`text-xs font-medium ${widgets[opt.key] ? 'text-text-primary' : 'text-text-disabled'}`}>
                       {opt.label}
                     </span>
                   </div>
@@ -75,7 +75,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
         {/* Sección Botones de Acción (Solo si toggleQuickAction existe) */}
         {toggleQuickAction && widgets.showQuickActions && (
             <div>
-                <h4 className="text-xs font-semibold text-disabled uppercase tracking-wider mb-3 ml-1">Botones de Acción</h4>
+                <h4 className="text-xs font-semibold text-text-disabled uppercase tracking-wider mb-3 ml-1">Botones de Acción</h4>
                 <div className="grid grid-cols-2 gap-2">
                     {actionButtons.map(btn => {
                         const isActive = widgets.quickActions?.includes(btn.id);
@@ -85,15 +85,15 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                                 onClick={() => toggleQuickAction(btn.id)}
                                 className={`flex items-center gap-2 p-3 rounded-md border text-left transition-all active:scale-95 ${isActive ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60'}`}
                             >
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isActive ? 'bg-brand-primary text-white' : 'bg-zinc-700 text-muted'}`}>
+                                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isActive ? 'bg-brand-primary text-white' : 'bg-zinc-700 text-text-muted'}`}>
                                     {isActive ? <CheckSquare size={12} /> : <btn.icon size={12} />}
                                 </div>
-                                <span className={`text-[11px] font-semibold ${isActive ? 'text-primary' : 'text-disabled'}`}>{btn.label}</span>
+                                <span className={`text-[11px] font-semibold ${isActive ? 'text-text-primary' : 'text-text-disabled'}`}>{btn.label}</span>
                             </button>
                         );
                     })}
                 </div>
-                <p className="text-[10px] text-faint mt-2 ml-1">Selecciona los accesos directos que usas frecuentemente.</p>
+                <p className="text-[10px] text-text-faint mt-2 ml-1">Selecciona los accesos directos que usas frecuentemente.</p>
             </div>
         )}
 

@@ -177,31 +177,31 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
           <div className="grid grid-cols-3 gap-2 mb-4 shrink-0">
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><CheckCircle2 size={18} className="text-status-success-soft" /></div>
-                  <p className="text-[10px] text-disabled font-bold uppercase">Rentables</p>
-                  <p className="text-lg font-bold text-primary">{stats.verde}</p>
+                  <p className="text-[10px] text-text-disabled font-bold uppercase">Rentables</p>
+                  <p className="text-lg font-bold text-text-primary">{stats.verde}</p>
               </div>
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><AlertTriangle size={18} className="text-status-warning-soft" /></div>
-                  <p className="text-[10px] text-disabled font-bold uppercase">En Riesgo</p>
-                  <p className="text-lg font-bold text-primary">{stats.amarillo}</p>
+                  <p className="text-[10px] text-text-disabled font-bold uppercase">En Riesgo</p>
+                  <p className="text-lg font-bold text-text-primary">{stats.amarillo}</p>
               </div>
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><XCircle size={18} className="text-status-danger-soft" /></div>
-                  <p className="text-[10px] text-disabled font-bold uppercase">Pérdida</p>
-                  <p className="text-lg font-bold text-primary">{stats.rojo}</p>
+                  <p className="text-[10px] text-text-disabled font-bold uppercase">Pérdida</p>
+                  <p className="text-lg font-bold text-text-primary">{stats.rojo}</p>
               </div>
           </div>
 
           <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-lg p-4 mb-4 flex justify-between items-center shrink-0">
               <div>
-                  <p className="text-[10px] text-disabled font-bold uppercase">Balance Estimado</p>
+                  <p className="text-[10px] text-text-disabled font-bold uppercase">Balance Estimado</p>
                   <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {settings.currency} {formatMoney(stats.totalProfit + stats.totalLoss)}
                   </p>
               </div>
               <div className="text-right">
-                  <p className="text-[10px] text-disabled font-bold uppercase">Rentabilidad Bruta</p>
-                  <p className="text-sm font-mono text-secondary">{settings.currency} {formatMoney(stats.totalProfit)}</p>
+                  <p className="text-[10px] text-text-disabled font-bold uppercase">Rentabilidad Bruta</p>
+                  <p className="text-sm font-mono text-text-secondary">{settings.currency} {formatMoney(stats.totalProfit)}</p>
               </div>
           </div>
 
@@ -213,7 +213,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                     className={`px-4 py-2 rounded-full text-[11px] font-semibold uppercase border transition-all ${
                         filter === f 
                         ? 'bg-white text-black border-white' 
-                        : 'bg-surface-zinc text-disabled border-[rgb(var(--fg-rgb))]/10 hover:text-primary'
+                        : 'bg-surface-zinc text-text-disabled border-[rgb(var(--fg-rgb))]/10 hover:text-text-primary'
                     }`}
                   >
                       {f}
@@ -236,16 +236,16 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                                   item.status === 'amarillo' ? 'bg-status-warning shadow-[0_0_5px_#f59e0b]' : 
                                   'bg-status-danger shadow-[0_0_5px_#ef4444]'
                               }`} />
-                              <h4 className="text-sm font-bold text-primary truncate">{item.accountEmail}</h4>
+                              <h4 className="text-sm font-bold text-text-primary truncate">{item.accountEmail}</h4>
                           </div>
-                          <p className="text-[10px] text-disabled truncate">{item.suggestion}</p>
+                          <p className="text-[10px] text-text-disabled truncate">{item.suggestion}</p>
                       </div>
                       
                       <div className="flex flex-col items-end ml-4">
                           <span className={`font-mono font-bold text-sm ${item.profit >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                               {item.profit >= 0 ? '+' : ''}{formatMoney(item.profit)}
                           </span>
-                          <div className="flex items-center gap-1 text-[10px] text-faint">
+                          <div className="flex items-center gap-1 text-[10px] text-text-faint">
                               <span>ROI: {item.roi.toFixed(0)}%</span>
                               <ChevronRight size={12} />
                           </div>
@@ -254,7 +254,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
               ))}
               {filteredData.length === 0 && (
                   <div className="py-20 text-center opacity-40">
-                      <CheckCircle2 size={32} className="mx-auto mb-2 text-faint" />
+                      <CheckCircle2 size={32} className="mx-auto mb-2 text-text-faint" />
                       <p className="text-xs">No hay datos para mostrar</p>
                   </div>
               )}
@@ -270,8 +270,8 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                  className="absolute inset-0 bg-surface-1 z-20 p-6 flex flex-col"
                >
                    <div className="flex items-center justify-between mb-8">
-                       <button onClick={() => setSelectedHealth(null)} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full text-muted hover:text-primary"><ChevronRight className="rotate-180" size={20} /></button>
-                       <h3 className="text-lg font-bold text-primary">Detalle de Salud</h3>
+                       <button onClick={() => setSelectedHealth(null)} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full text-text-muted hover:text-text-primary"><ChevronRight className="rotate-180" size={20} /></button>
+                       <h3 className="text-lg font-bold text-text-primary">Detalle de Salud</h3>
                        <div className="w-10" />
                    </div>
 
@@ -282,39 +282,39 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                                {selectedHealth.status === 'amarillo' && <AlertTriangle size={32} />}
                                {selectedHealth.status === 'rojo' && <Activity size={32} />}
                            </div>
-                           <h2 className="text-2xl font-bold text-primary mb-1">{selectedHealth.accountEmail}</h2>
+                           <h2 className="text-2xl font-bold text-text-primary mb-1">{selectedHealth.accountEmail}</h2>
                            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase border ${getStatusColor(selectedHealth.status)}`}>
                                Estado: {selectedHealth.status}
                            </span>
                        </div>
 
                        <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 p-5 rounded-xl">
-                           <h4 className="text-muted text-xs font-semibold uppercase mb-2 flex items-center gap-2">
+                           <h4 className="text-text-muted text-xs font-semibold uppercase mb-2 flex items-center gap-2">
                                <Activity size={14} /> Diagnóstico Inteligente
                            </h4>
-                           <p className="text-sm text-primary leading-relaxed font-medium">
+                           <p className="text-sm text-text-primary leading-relaxed font-medium">
                                "{selectedHealth.suggestion}"
                            </p>
                        </div>
 
                        <div className="grid grid-cols-2 gap-4">
                            <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-disabled font-bold uppercase mb-1">Ingresos</p>
+                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ingresos</p>
                                <p className="text-lg font-bold text-status-success-soft">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-disabled font-bold uppercase mb-1">Costo Base</p>
+                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Costo Base</p>
                                <p className="text-lg font-bold text-status-danger-soft">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-disabled font-bold uppercase mb-1">Días Activos</p>
-                               <div className="flex items-center gap-2 text-primary font-bold">
+                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Días Activos</p>
+                               <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Calendar size={16} className="text-status-info-soft" /> {selectedHealth.daysActive}d
                                </div>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-disabled font-bold uppercase mb-1">Ocupación</p>
-                               <div className="flex items-center gap-2 text-primary font-bold">
+                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ocupación</p>
+                               <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Users size={16} className="text-purple-400" /> {selectedHealth.occupancy}
                                </div>
                            </div>
@@ -322,7 +322,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
 
                        <div className="bg-surface-zinc p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
                            <div className="flex justify-between mb-2">
-                               <span className="text-xs font-semibold text-muted">Retorno de Inversión (ROI)</span>
+                               <span className="text-xs font-semibold text-text-muted">Retorno de Inversión (ROI)</span>
                                <span className={`text-xs font-semibold ${selectedHealth.roi >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{selectedHealth.roi.toFixed(1)}%</span>
                            </div>
                            <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">

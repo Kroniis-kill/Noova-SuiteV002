@@ -44,13 +44,13 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
              <Avatar name={reseller.name} size={48} className="rounded-md shadow-lg border border-[rgb(var(--fg-rgb))]/10" />
              
              <div>
-                <h3 className="text-base font-bold text-primary leading-tight">{reseller.name}</h3>
+                <h3 className="text-base font-bold text-text-primary leading-tight">{reseller.name}</h3>
                 <div className="flex items-center gap-2 mt-1">
-                   <span className="text-[10px] bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded-md text-muted font-mono">
+                   <span className="text-[10px] bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded-md text-text-muted font-mono">
                       {reseller.code}
                    </span>
                    {reseller.whatsapp && (
-                      <span className="text-[10px] text-disabled font-mono">
+                      <span className="text-[10px] text-text-disabled font-mono">
                          {reseller.whatsapp}
                       </span>
                    )}
@@ -58,7 +58,7 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
              </div>
           </div>
           
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-disabled group-hover:bg-[rgb(var(--fg-rgb))]/10 group-hover:text-primary transition-colors">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled group-hover:bg-[rgb(var(--fg-rgb))]/10 group-hover:text-text-primary transition-colors">
              <ChevronRight size={16} />
           </div>
        </div>
@@ -66,19 +66,19 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
        {/* Stats Grid */}
        <div className="grid grid-cols-3 gap-2 relative z-10">
           <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md p-2 flex flex-col items-center justify-center min-h-[60px]">
-             <span className="text-[10px] text-disabled font-bold uppercase mb-0.5 flex items-center gap-1">
+             <span className="text-[10px] text-text-disabled font-bold uppercase mb-0.5 flex items-center gap-1">
                 <Users size={10} /> Clientes
              </span>
-             <span className="text-sm font-bold text-primary">{stats.clients}</span>
+             <span className="text-sm font-bold text-text-primary">{stats.clients}</span>
           </div>
           <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md p-2 flex flex-col items-center justify-center min-h-[60px]">
-             <span className="text-[10px] text-disabled font-bold uppercase mb-0.5 flex items-center gap-1">
+             <span className="text-[10px] text-text-disabled font-bold uppercase mb-0.5 flex items-center gap-1">
                 <ShoppingCart size={10} /> Ventas
              </span>
-             <span className="text-sm font-bold text-primary">{stats.salesCount}</span>
+             <span className="text-sm font-bold text-text-primary">{stats.salesCount}</span>
           </div>
           <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md p-2 flex flex-col items-center justify-center min-h-[60px]">
-             <span className="text-[10px] text-disabled font-bold uppercase mb-0.5">Generado</span>
+             <span className="text-[10px] text-text-disabled font-bold uppercase mb-0.5">Generado</span>
              <span className="text-sm font-bold text-status-success-soft">${stats.totalRevenue.toLocaleString()}</span>
           </div>
        </div>

@@ -25,17 +25,17 @@ const EmptyState: React.FC<EmptyStateProps> = ({ title, description, icon: Icon,
         </div>
       </div>
       
-      <h3 className="text-xl font-bold text-primary mb-2 tracking-tight">
+      <h3 className="text-xl font-bold text-text-primary mb-2 tracking-tight">
         {title}
       </h3>
-      <p className="text-disabled text-sm max-w-[260px] leading-relaxed mb-8">
+      <p className="text-text-disabled text-sm max-w-[260px] leading-relaxed mb-8">
         {description}
       </p>
 
       {onAction && actionLabel && (
         <button
           onClick={onAction}
-          className="flex items-center gap-2 px-6 py-3 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-primary rounded-full text-xs font-semibold transition-all border border-[rgb(var(--fg-rgb))]/10 active:scale-95 shadow-lg group"
+          className="flex items-center gap-2 px-6 py-3 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-full text-xs font-semibold transition-all border border-[rgb(var(--fg-rgb))]/10 active:scale-95 shadow-lg group"
         >
           <Plus size={16} className="text-brand-accent group-hover:scale-110 transition-transform" />
           {actionLabel}

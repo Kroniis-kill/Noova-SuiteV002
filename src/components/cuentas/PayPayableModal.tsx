@@ -26,27 +26,27 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
     <Modal isOpen={isOpen} onClose={onClose} title="Seleccionar Billetera">
       <div className="flex flex-col h-[60vh] md:h-[450px] pt-1">
         <div className="relative mb-4 shrink-0">
-           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" />
+           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder="Buscar cuenta..."
-             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-primary outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-faint font-medium"
+             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-text-primary outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-text-faint font-medium"
              autoFocus
            />
-           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-disabled hover:text-primary p-1"><X size={14} /></button>}
+           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={14} /></button>}
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
            {filtered.map(acc => (
               <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-md bg-surface-zinc/40 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left">
-                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-muted group-hover:text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
+                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-secondary group-hover:text-primary truncate">{acc.name}</p>
-                    <p className="text-[10px] text-disabled">Saldo: {acc.balance} {acc.currency}</p>
+                    <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.name}</p>
+                    <p className="text-[10px] text-text-disabled">Saldo: {acc.balance} {acc.currency}</p>
                  </div>
-                 <ChevronRight size={16} className="text-faint group-hover:text-brand-primary transition-colors" />
+                 <ChevronRight size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
               </button>
            ))}
-           {filtered.length === 0 && <p className="text-center text-disabled text-sm py-8">No hay cuentas disponibles.</p>}
+           {filtered.length === 0 && <p className="text-center text-text-disabled text-sm py-8">No hay cuentas disponibles.</p>}
         </div>
       </div>
     </Modal>
@@ -123,13 +123,13 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-1 block ml-1",
+    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-sm h-[44px] transition-all focus-within:ring-1 focus-within:ring-status-info/60",
-    input: "w-full bg-transparent text-[13px] text-primary placeholder:text-faint px-3 h-full outline-none font-medium rounded-sm",
-    select: "w-full bg-transparent text-[13px] text-primary px-3 pl-9 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
+    input: "w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    select: "w-full bg-transparent text-[13px] text-text-primary px-3 pl-9 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
     iconLeft: "pl-9",
-    iconElement: "absolute left-3 text-disabled pointer-events-none",
-    iconRight: "absolute right-3 text-disabled pointer-events-none",
+    iconElement: "absolute left-3 text-text-disabled pointer-events-none",
+    iconRight: "absolute right-3 text-text-disabled pointer-events-none",
   };
 
   return (
@@ -139,12 +139,12 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
             
             <div className="bg-surface-zinc p-3 rounded-md border border-[rgb(var(--fg-rgb))]/5 mb-2">
                <div className="flex justify-between items-center mb-1">
-                  <span className="text-muted text-[11px] font-medium">Concepto:</span>
-                  <span className="text-primary text-sm font-bold">{payable.name}</span>
+                  <span className="text-text-muted text-[11px] font-medium">Concepto:</span>
+                  <span className="text-text-primary text-sm font-bold">{payable.name}</span>
                </div>
                <div className="flex justify-between items-center">
-                  <span className="text-muted text-[11px] font-medium">Monto Original:</span>
-                  <span className="text-primary text-sm font-mono">{payable.amount} {payable.currency}</span>
+                  <span className="text-text-muted text-[11px] font-medium">Monto Original:</span>
+                  <span className="text-text-primary text-sm font-mono">{payable.amount} {payable.currency}</span>
                </div>
             </div>
 
@@ -156,7 +156,7 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
                >
                   <Wallet size={14} className={styles.iconElement} />
                   <div className={`${styles.input} ${styles.iconLeft} flex items-center`}>
-                     <span className={selectedAccount ? "text-primary" : "text-disabled"}>
+                     <span className={selectedAccount ? "text-text-primary" : "text-text-disabled"}>
                         {selectedAccount ? `${selectedAccount.name} (${selectedAccount.currency})` : "Seleccionar cuenta..."}
                      </span>
                   </div>

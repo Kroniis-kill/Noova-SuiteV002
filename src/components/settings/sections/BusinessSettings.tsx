@@ -76,8 +76,8 @@ export const BusinessSettings = () => {
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`flex-1 px-4 py-2.5 rounded-md text-xs font-semibold transition-all text-center ${
                             activeTab === tab.id
-                            ? 'bg-surface-4 text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/5'
-                            : 'text-disabled hover:text-primary'
+                            ? 'bg-surface-4 text-text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/5'
+                            : 'text-text-disabled hover:text-text-primary'
                         }`}
                      >
                         {tab.label}
@@ -91,7 +91,7 @@ export const BusinessSettings = () => {
                         <motion.div key="finances" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
                             <div className="flex items-center gap-2 mb-2 text-brand-primary">
                                 <CreditCard size={18} />
-                                <h3 className="font-bold text-primary text-sm">Configuración de Moneda</h3>
+                                <h3 className="font-bold text-text-primary text-sm">Configuración de Moneda</h3>
                             </div>
 
                             <div className="space-y-4">
@@ -113,7 +113,7 @@ export const BusinessSettings = () => {
                             </div>
 
                             <div className="mt-8">
-                                <h3 className="text-primary font-bold text-sm mb-4 flex items-center gap-2">
+                                <h3 className="text-text-primary font-bold text-sm mb-4 flex items-center gap-2">
                                     <Activity size={16} className="text-status-success-soft" /> Metas Financieras
                                 </h3>
                                 <div className="grid grid-cols-2 gap-4">
@@ -131,8 +131,8 @@ export const BusinessSettings = () => {
                             <div className="mt-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/5">
                                 <div className={styles.toggleContainer}>
                                     <div>
-                                        <p className="text-sm font-bold text-primary">Compras como Costo</p>
-                                        <p className="text-[10px] text-disabled">Restar stock de la ganancia</p>
+                                        <p className="text-sm font-bold text-text-primary">Compras como Costo</p>
+                                        <p className="text-[10px] text-text-disabled">Restar stock de la ganancia</p>
                                     </div>
                                     <ToggleSwitch checked={purchaseAsCost} onChange={() => setPurchaseAsCost(!purchaseAsCost)} />
                                 </div>
@@ -144,7 +144,7 @@ export const BusinessSettings = () => {
                         <motion.div key="sales" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
                             <div className="flex items-center gap-2 mb-2 text-brand-accent">
                                 <ShoppingCart size={18} />
-                                <h3 className="font-bold text-primary text-sm">Preferencias de Venta</h3>
+                                <h3 className="font-bold text-text-primary text-sm">Preferencias de Venta</h3>
                             </div>
 
                             <div>
@@ -157,7 +157,7 @@ export const BusinessSettings = () => {
                                             className={`h-12 rounded-md font-bold text-sm border transition-all ${
                                                 warningDays === day
                                                 ? 'bg-brand-primary/20 border-brand-primary text-brand-primary'
-                                                : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-disabled hover:border-[rgb(var(--fg-rgb))]/20'
+                                                : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-disabled hover:border-[rgb(var(--fg-rgb))]/20'
                                             }`}
                                         >
                                             {day} Días
@@ -168,8 +168,8 @@ export const BusinessSettings = () => {
 
                             <div className={styles.toggleContainer}>
                                 <div>
-                                    <p className="text-sm font-bold text-primary">Generar PIN Automático</p>
-                                    <p className="text-[10px] text-disabled">Asignar PIN aleatorio al vender</p>
+                                    <p className="text-sm font-bold text-text-primary">Generar PIN Automático</p>
+                                    <p className="text-[10px] text-text-disabled">Asignar PIN aleatorio al vender</p>
                                 </div>
                                 <ToggleSwitch checked={autoPin} onChange={() => setAutoPin(!autoPin)} />
                             </div>
@@ -180,27 +180,27 @@ export const BusinessSettings = () => {
                         <motion.div key="categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
                             <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                                 <Tag size={18} />
-                                <h3 className="font-bold text-primary text-sm">Gestión de Categorías</h3>
+                                <h3 className="font-bold text-text-primary text-sm">Gestión de Categorías</h3>
                             </div>
 
                             <div className="flex gap-2">
                                 <input value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Nueva categoría..." className={styles.input} />
-                                <button onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0">
+                                <button onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0">
                                     <Plus size={20} />
                                 </button>
                             </div>
 
                             <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar pr-1">
                                 {expenseCategories.length === 0 && (
-                                    <p className="text-center text-disabled text-xs py-8">No hay categorías personalizadas.</p>
+                                    <p className="text-center text-text-disabled text-xs py-8">No hay categorías personalizadas.</p>
                                 )}
                                 {expenseCategories.map(cat => (
                                     <div key={cat.id} className="flex items-center justify-between p-4 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md group">
                                         <div className="flex items-center gap-3">
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
-                                            <span className="text-sm font-bold text-primary">{cat.name}</span>
+                                            <span className="text-sm font-bold text-text-primary">{cat.name}</span>
                                         </div>
-                                        <button onClick={() => deleteCategory(cat.id)} className="text-faint hover:text-status-danger-soft transition-colors p-2">
+                                        <button onClick={() => deleteCategory(cat.id)} className="text-text-faint hover:text-status-danger-soft transition-colors p-2">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

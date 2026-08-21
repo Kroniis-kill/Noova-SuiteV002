@@ -92,18 +92,18 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             {isNetworkError ? <WifiOff className="text-status-danger" size={40} /> : <AlertTriangle className="text-status-danger" size={40} />}
           </div>
           
-          <h3 className="text-primary font-bold text-xl mb-2 relative z-10">
+          <h3 className="text-text-primary font-bold text-xl mb-2 relative z-10">
             {isNetworkError ? 'Error de Conexión' : 'Algo salió mal'}
           </h3>
           
-          <p className="text-muted text-sm mb-8 max-w-xs mx-auto leading-relaxed relative z-10">
+          <p className="text-text-muted text-sm mb-8 max-w-xs mx-auto leading-relaxed relative z-10">
             {error?.message || "Ha ocurrido un error inesperado al procesar los datos."}
             <br/><span className="text-[10px] opacity-60 mt-2 block">Alcance: {scope || 'General'}</span>
           </p>
           
           <button
             onClick={this.handleRetry}
-            className="flex items-center gap-2 px-8 py-4 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-primary rounded-lg text-sm font-bold transition-all border border-[rgb(var(--fg-rgb))]/10 active:scale-95 hover:border-[rgb(var(--fg-rgb))]/20 relative z-10 shadow-lg"
+            className="flex items-center gap-2 px-8 py-4 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg text-sm font-bold transition-all border border-[rgb(var(--fg-rgb))]/10 active:scale-95 hover:border-[rgb(var(--fg-rgb))]/20 relative z-10 shadow-lg"
           >
             <RefreshCw size={18} /> {isNetworkError ? 'Reconectar' : 'Intentar de nuevo'}
           </button>

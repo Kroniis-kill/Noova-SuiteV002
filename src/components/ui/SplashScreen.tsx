@@ -47,7 +47,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                className="text-4xl font-bold tracking-[0.2em] text-primary"
+                className="text-4xl font-bold tracking-[0.2em] text-text-primary"
             >
                 NOOVA
             </motion.h1>
@@ -64,7 +64,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
            initial={{ opacity: 0 }}
            animate={{ opacity: 0.6 }}
            transition={{ delay: 0.9 }}
-           className="text-[10px] text-primary font-medium uppercase tracking-[0.4em]"
+           className="text-[10px] text-text-primary font-medium uppercase tracking-[0.4em]"
         >
            Suite Manager
         </motion.p>

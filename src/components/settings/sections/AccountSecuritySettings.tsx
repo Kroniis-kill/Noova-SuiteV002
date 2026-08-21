@@ -95,7 +95,7 @@ export const AccountSecuritySettings = () => {
                  <div className="space-y-4 text-left mt-2">
                      <div className="flex items-center gap-2 mb-2 justify-center">
                          <User size={14} className="text-brand-primary" />
-                         <span className="text-sm font-bold text-primary">Datos Personales</span>
+                         <span className="text-sm font-bold text-text-primary">Datos Personales</span>
                      </div>
 
                      <div>
@@ -106,8 +106,8 @@ export const AccountSecuritySettings = () => {
                      <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-2xl p-4 space-y-4">
                          <div className="flex items-center justify-between">
                              <div>
-                                 <span className="text-xs font-semibold text-primary block">Usar Logo del Negocio</span>
-                                 <span className="text-[10px] text-disabled">Como foto de perfil en la app</span>
+                                 <span className="text-xs font-semibold text-text-primary block">Usar Logo del Negocio</span>
+                                 <span className="text-[10px] text-text-disabled">Como foto de perfil en la app</span>
                              </div>
                              <ToggleSwitch checked={useBizLogo} onChange={() => setUseBizLogo(!useBizLogo)} />
                          </div>
@@ -117,7 +117,7 @@ export const AccountSecuritySettings = () => {
                                 <label className={styles.label}>URL Foto de Perfil</label>
                                 <div className="flex gap-2">
                                     <input value={avatarUrl} onChange={e => setAvatarUrl(e.target.value)} className={styles.input} placeholder="https://..." />
-                                    <div className="w-[52px] h-[52px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted shrink-0">
+                                    <div className="w-[52px] h-[52px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted shrink-0">
                                         <Camera size={20} />
                                     </div>
                                 </div>
@@ -130,14 +130,14 @@ export const AccountSecuritySettings = () => {
                          <input value={user?.email} disabled className={`${styles.input} opacity-50 cursor-not-allowed`} />
                      </div>
 
-                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/10 text-primary rounded-md font-semibold text-xs transition-all">
+                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-md font-semibold text-xs transition-all">
                          Actualizar Perfil
                      </button>
                  </div>
              </div>
 
              <div className={styles.card}>
-                 <h3 className="text-primary font-bold text-sm mb-4 flex items-center gap-2">
+                 <h3 className="text-text-primary font-bold text-sm mb-4 flex items-center gap-2">
                     <Lock size={16} className="text-status-success-soft" /> Cambiar Contraseña
                  </h3>
                  <div className="space-y-4">
@@ -156,7 +156,7 @@ export const AccountSecuritySettings = () => {
              </div>
 
              <div className={styles.card}>
-                 <h3 className="text-primary font-bold text-sm mb-4 flex items-center gap-2">
+                 <h3 className="text-text-primary font-bold text-sm mb-4 flex items-center gap-2">
                     <ImagePlus size={16} className="text-status-info-soft" /> Apariencia
                  </h3>
                  <div className="grid grid-cols-3 gap-3">
@@ -195,7 +195,7 @@ export const AccountSecuritySettings = () => {
 
                  <div className="w-full h-px bg-status-danger/20 my-4" />
 
-                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-primary rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-text-primary rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
                     <Trash2 size={18} /> Eliminar Cuenta
                  </button>
              </div>

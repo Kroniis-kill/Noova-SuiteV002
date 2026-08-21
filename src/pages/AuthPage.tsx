@@ -54,12 +54,12 @@ const MobileLogin: React.FC<LoginProps> = ({
                             if (isRecovering) setIsRecovering(false);
                             else if (isRegistering) setIsRegistering(false);
                         }}
-                        className="w-8 h-8 flex items-center justify-center text-primary active:scale-90 transition-transform -ml-2"
+                        className="w-8 h-8 flex items-center justify-center text-text-primary active:scale-90 transition-transform -ml-2"
                     >
                         <ArrowRight className="rotate-180" size={24} />
                     </button>
                 )}
-                <h2 className="text-2xl font-bold text-primary">
+                <h2 className="text-2xl font-bold text-text-primary">
                     {isRecovering ? 'Recuperar' : isRegistering ? 'Crear cuenta' : 'Iniciar sesion'}
                 </h2>
             </div>
@@ -73,10 +73,10 @@ const MobileLogin: React.FC<LoginProps> = ({
                 <div className="flex items-start gap-4 mb-4 shrink-0">
                     <AnimatedLogo size={40} isStatic showFill={true} />
                     <div>
-                        <h1 className="text-xl sm:text-2xl font-bold text-primary leading-tight">
+                        <h1 className="text-xl sm:text-2xl font-bold text-text-primary leading-tight">
                             {isRecovering ? 'Recuperar acceso' : isRegistering ? 'Bienvenido' : 'Bienvenido de nuevo'}
                         </h1>
-                        <p className="text-disabled text-xs sm:text-sm mt-1">
+                        <p className="text-text-disabled text-xs sm:text-sm mt-1">
                             {isRecovering ? 'Ingresa tu correo para continuar' : isRegistering ? 'Hola, crea una nueva cuenta' : 'Ingresa a tu cuenta para continuar'}
                         </p>
                     </div>
@@ -111,9 +111,9 @@ const MobileLogin: React.FC<LoginProps> = ({
                         <div className="w-12 h-20 sm:w-16 sm:h-28 border-2 border-zinc-800 rounded-md sm:rounded-lg flex items-center justify-center relative">
                             <div className="absolute top-1.5 w-5 sm:w-7 h-0.5 bg-zinc-800 rounded-full" />
                             {isRegistering ? (
-                                <UserIcon size={20} className="text-faint sm:size-[28px]" strokeWidth={1} />
+                                <UserIcon size={20} className="text-text-faint sm:size-[28px]" strokeWidth={1} />
                             ) : (
-                                <Lock size={20} className="text-faint sm:size-[28px]" strokeWidth={1} />
+                                <Lock size={20} className="text-text-faint sm:size-[28px]" strokeWidth={1} />
                             )}
                         </div>
                     </div>
@@ -141,7 +141,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         <input 
                             value={name} 
                             onChange={e => setName(e.target.value)} 
-                            className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-faint text-sm sm:text-base" 
+                            className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint text-sm sm:text-base" 
                             placeholder="Nombre" 
                         />
                     )}
@@ -150,7 +150,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         type="email" 
                         value={email} 
                         onChange={e => setEmail(e.target.value)} 
-                        className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-faint text-sm sm:text-base" 
+                        className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint text-sm sm:text-base" 
                         placeholder="Correo electronico" 
                     />
 
@@ -160,13 +160,13 @@ const MobileLogin: React.FC<LoginProps> = ({
                                 type={showPassword ? "text" : "password"} 
                                 value={password} 
                                 onChange={e => setPassword(e.target.value)} 
-                                className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 pr-14 text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-faint text-sm sm:text-base" 
+                                className="w-full h-12 sm:h-14 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl px-6 pr-14 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint text-sm sm:text-base" 
                                 placeholder="Contraseña" 
                             />
                             <button 
                                 type="button" 
                                 onClick={() => setShowPassword(!showPassword)} 
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-faint p-2"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-text-faint p-2"
                             >
                                 {showPassword ? (
                                     <EyeOff className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px]" />
@@ -182,7 +182,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                             <button 
                                 type="button"
                                 onClick={() => setIsRecovering(true)}
-                                className="text-[10px] sm:text-[11px] font-semibold text-disabled uppercase tracking-wider hover:text-secondary transition-colors"
+                                className="text-[10px] sm:text-[11px] font-semibold text-text-disabled uppercase tracking-wider hover:text-text-secondary transition-colors"
                             >
                                 ¿Olvidaste tu contraseña?
                             </button>
@@ -194,7 +194,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                             <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-zinc-700 rounded-md shrink-0 flex items-center justify-center">
                                 <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-brand-primary rounded-sm opacity-0" />
                             </div>
-                            <p className="text-[10px] sm:text-[11px] text-disabled leading-tight">
+                            <p className="text-[10px] sm:text-[11px] text-text-disabled leading-tight">
                                 Al crear una cuenta, esta de acuerdo con nuestros <span className="text-indigo-500 font-bold">Terminos y condiciones</span>
                             </p>
                         </div>
@@ -212,7 +212,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                 <div className="pt-4 pb-2 flex justify-center shrink-0">
                     <button 
                         onClick={() => { setIsRegistering(!isRegistering); setIsRecovering(false); }} 
-                        className="text-disabled text-sm"
+                        className="text-text-disabled text-sm"
                     >
                         {isRegistering ? 'Ya tienes cuenta? ' : 'No tienes cuenta? '}
                         <span className="text-indigo-500 font-bold">
@@ -242,11 +242,11 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                 
                 <div className="relative z-10 flex flex-col items-center">
                     <AnimatedLogo size={100} showFill={true} isStatic={true} />
-                    <h1 className="text-3xl font-black text-primary tracking-tighter mt-4 uppercase">NOOVA</h1>
-                    <p className="text-disabled font-bold tracking-[0.4em] uppercase text-[9px] mt-1">Suite Manager</p>
+                    <h1 className="text-3xl font-black text-text-primary tracking-tighter mt-4 uppercase">NOOVA</h1>
+                    <p className="text-text-disabled font-bold tracking-[0.4em] uppercase text-[9px] mt-1">Suite Manager</p>
                 </div>
 
-                <div className="absolute bottom-6 text-faint text-[9px] font-mono uppercase tracking-widest">
+                <div className="absolute bottom-6 text-text-faint text-[9px] font-mono uppercase tracking-widest">
                     Build {APP_VERSION} • Secure Core
                 </div>
             </div>
@@ -255,43 +255,43 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
             <div className="flex-1 p-10 flex flex-col justify-center bg-surface-1">
                 <div className="max-w-[340px] mx-auto w-full">
                     <div className="mb-10">
-                        <h2 className="text-3xl font-bold text-primary tracking-tight leading-tight">
+                        <h2 className="text-3xl font-bold text-text-primary tracking-tight leading-tight">
                             {props.isRecovering ? 'Recuperar Cuenta' : props.isRegistering ? 'Crear Registro' : 'Bienvenido de nuevo'}
                         </h2>
-                        <p className="text-disabled mt-2">Gestiona tu ecosistema digital hoy.</p>
+                        <p className="text-text-disabled mt-2">Gestiona tu ecosistema digital hoy.</p>
                     </div>
 
                     <form onSubmit={props.onSubmit} className="space-y-5">
                         {props.isRegistering && (
                             <div className="space-y-2">
-                                <label className="text-[11px] font-semibold text-disabled uppercase tracking-wider ml-1">Nombre</label>
+                                <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Nombre</label>
                                 <div className="relative group">
-                                    <UserIcon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled group-focus-within:text-brand-primary transition-colors" />
-                                    <input value={props.name} onChange={e => props.setName(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-4 text-primary outline-none focus:border-brand-primary/50 transition-all" placeholder="Juan Pérez" />
+                                    <UserIcon size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
+                                    <input value={props.name} onChange={e => props.setName(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-4 text-text-primary outline-none focus:border-brand-primary/50 transition-all" placeholder="Juan Pérez" />
                                 </div>
                             </div>
                         )}
 
                         <div className="space-y-2">
-                            <label className="text-[11px] font-semibold text-disabled uppercase tracking-wider ml-1">Correo Electrónico</label>
+                            <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Correo Electrónico</label>
                             <div className="relative group">
-                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled group-focus-within:text-brand-primary transition-colors" />
-                                <input type="email" value={props.email} onChange={e => props.setEmail(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-4 text-primary outline-none focus:border-brand-primary/50 transition-all" placeholder="admin@empresa.com" />
+                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
+                                <input type="email" value={props.email} onChange={e => props.setEmail(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-4 text-text-primary outline-none focus:border-brand-primary/50 transition-all" placeholder="admin@empresa.com" />
                             </div>
                         </div>
 
                         {!props.isRecovering && (
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center mb-1">
-                                    <label className="text-[11px] font-semibold text-disabled uppercase tracking-wider ml-1">Contraseña</label>
+                                    <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Contraseña</label>
                                     {!props.isRegistering && (
-                                        <button type="button" onClick={() => props.setIsRecovering(true)} className="text-[10px] font-semibold text-faint hover:text-brand-primary transition-colors uppercase">¿Olvidaste?</button>
+                                        <button type="button" onClick={() => props.setIsRecovering(true)} className="text-[10px] font-semibold text-text-faint hover:text-brand-primary transition-colors uppercase">¿Olvidaste?</button>
                                     )}
                                 </div>
                                 <div className="relative group">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled group-focus-within:text-brand-primary transition-colors" />
-                                    <input type={props.showPassword ? "text" : "password"} value={props.password} onChange={e => props.setPassword(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-12 text-primary outline-none focus:border-brand-primary/50 transition-all font-mono" placeholder="••••••••" />
-                                    <button type="button" onClick={() => props.setShowPassword(!props.showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-faint">
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
+                                    <input type={props.showPassword ? "text" : "password"} value={props.password} onChange={e => props.setPassword(e.target.value)} className="w-full h-12 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 pr-12 text-text-primary outline-none focus:border-brand-primary/50 transition-all font-mono" placeholder="••••••••" />
+                                    <button type="button" onClick={() => props.setShowPassword(!props.showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-faint">
                                         {props.showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
                                 </div>
@@ -309,7 +309,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => (
                     </form>
 
                     <div className="mt-8 flex items-center justify-center gap-3">
-                        <span className="text-xs text-faint">{props.isRegistering ? '¿Ya eres miembro?' : '¿Nuevo en la plataforma?'}</span>
+                        <span className="text-xs text-text-faint">{props.isRegistering ? '¿Ya eres miembro?' : '¿Nuevo en la plataforma?'}</span>
                         <button onClick={() => { props.setIsRegistering(!props.isRegistering); props.setIsRecovering(false); }} className="text-xs font-semibold text-brand-primary hover:text-brand-accent transition-colors uppercase tracking-widest">
                             {props.isRegistering ? 'Login' : 'Crea tu Cuenta'}
                         </button>

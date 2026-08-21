@@ -53,11 +53,11 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-disabled uppercase tracking-wider mb-2 block ml-1",
+    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-[14px] text-primary placeholder:text-faint px-4 outline-none font-medium rounded-md",
+    input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
     iconLeft: "pl-12",
-    iconElement: "absolute left-4 text-disabled pointer-events-none",
+    iconElement: "absolute left-4 text-text-disabled pointer-events-none",
   };
 
   return (
@@ -115,7 +115,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
                      key={star}
                      type="button"
                      onClick={() => setQualityScore(star)}
-                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-status-warning-soft' : 'text-faint'}`}
+                     className={`p-1 transition-transform active:scale-125 ${qualityScore >= star ? 'text-status-warning-soft' : 'text-text-faint'}`}
                    >
                       <Star size={24} fill={qualityScore >= star ? "currentColor" : "none"} />
                    </button>

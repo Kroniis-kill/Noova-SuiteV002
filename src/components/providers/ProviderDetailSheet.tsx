@@ -46,7 +46,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
           case 'activa': return { icon: CheckCircle2, color: 'text-status-success-soft', bg: 'bg-status-success/10 border-status-success/20' };
           case 'por_vencer': return { icon: AlertCircle, color: 'text-status-warning-soft', bg: 'bg-status-warning/10 border-status-warning/20' };
           case 'vencida': return { icon: AlertCircle, color: 'text-status-danger-soft', bg: 'bg-status-danger/10 border-status-danger/20' };
-          default: return { icon: Ban, color: 'text-disabled', bg: 'bg-zinc-500/10 border-zinc-500/20' };
+          default: return { icon: Ban, color: 'text-text-disabled', bg: 'bg-zinc-500/10 border-zinc-500/20' };
       }
   };
 
@@ -78,21 +78,21 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                     <div className="flex justify-between items-start relative z-10">
                         <div className="flex items-center gap-5">
                             <div 
-                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-primary shadow-glow border border-[rgb(var(--fg-rgb))]/10"
+                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-text-primary shadow-glow border border-[rgb(var(--fg-rgb))]/10"
                                 style={{ backgroundColor: provider.color }}
                             >
                                 {provider.name.substring(0, 2).toUpperCase()}
                             </div>
                             <div>
-                                <h2 className="text-2xl font-bold text-primary tracking-tight">{provider.name}</h2>
+                                <h2 className="text-2xl font-bold text-text-primary tracking-tight">{provider.name}</h2>
                                 <div className="flex items-center gap-2 mt-1.5">
                                     {provider.whatsapp && (
-                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-[11px] font-medium text-muted">
+                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-[11px] font-medium text-text-muted">
                                             <MessageCircle size={12} /> {provider.whatsapp}
                                         </button>
                                     )}
                                     {provider.telegram && (
-                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-[11px] font-medium text-muted">
+                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-[11px] font-medium text-text-muted">
                                             <Send size={12} /> Telegram
                                         </button>
                                     )}
@@ -101,7 +101,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                         </div>
                         
                         <div className="flex gap-2">
-                            <button onClick={() => { onClose(); onEdit(provider); }} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted hover:text-primary transition-colors">
+                            <button onClick={() => { onClose(); onEdit(provider); }} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors">
                                 <Edit2 size={16} />
                             </button>
                             {onDelete && (
@@ -109,7 +109,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                     <Trash2 size={16} />
                                 </button>
                             )}
-                            <button onClick={onClose} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted hover:text-primary transition-colors">
+                            <button onClick={onClose} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors">
                                 <X size={18} />
                             </button>
                         </div>
@@ -119,29 +119,29 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-[rgb(var(--fg-rgb))]/5">
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-disabled font-semibold uppercase tracking-wider mb-1">Cuentas Totales</p>
-                        <p className="text-lg font-bold text-primary">{providerAccounts.length}</p>
+                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Cuentas Totales</p>
+                        <p className="text-lg font-bold text-text-primary">{providerAccounts.length}</p>
                     </div>
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-disabled font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
+                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
                         <p className="text-lg font-bold text-status-success-soft">{activeCount}</p>
                     </div>
                     <div className="p-4 text-center">
-                        <p className="text-[10px] text-disabled font-semibold uppercase tracking-wider mb-1">Alertas</p>
+                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Alertas</p>
                         <p className="text-lg font-bold text-status-warning-soft">{expiredCount}</p>
                     </div>
                 </div>
 
                 {/* Accounts List */}
                 <div className="flex-1 overflow-y-auto custom-scrollbar p-6 bg-surface-1">
-                    <h3 className="text-sm font-bold text-primary mb-4 flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-text-primary mb-4 flex items-center gap-2">
                         <Layers size={16} className="text-brand-primary" /> Inventario Suministrado
                     </h3>
                     
                     {providerAccounts.length === 0 ? (
                         <div className="h-40 flex flex-col items-center justify-center border-2 border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-xl opacity-50">
-                            <Truck size={32} className="text-faint mb-2" />
-                            <p className="text-disabled text-xs">No hay cuentas registradas.</p>
+                            <Truck size={32} className="text-text-faint mb-2" />
+                            <p className="text-text-disabled text-xs">No hay cuentas registradas.</p>
                         </div>
                     ) : (
                         <div className={`grid gap-3 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`}>
@@ -154,9 +154,9 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                     <div key={acc.id} onClick={() => onAccountClick(acc)} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg hover:bg-surface-4 cursor-pointer transition-all group hover:border-[rgb(var(--fg-rgb))]/10">
                                         <div className="flex justify-between items-start mb-3">
                                             <div>
-                                                <h4 className="text-primary font-bold text-sm truncate max-w-[180px]">{acc.email}</h4>
+                                                <h4 className="text-text-primary font-bold text-sm truncate max-w-[180px]">{acc.email}</h4>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-[10px] text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">
+                                                    <span className="text-[10px] text-text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">
                                                         {service?.name || 'Servicio'}
                                                     </span>
                                                 </div>
@@ -166,13 +166,13 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/5">
-                                            <div className="flex items-center gap-1.5 text-disabled text-[11px]">
+                                            <div className="flex items-center gap-1.5 text-text-disabled text-[11px]">
                                                 <Calendar size={12} />
-                                                <span>Vence: <span className="text-secondary font-mono">{formatDate(acc.endDate)}</span></span>
+                                                <span>Vence: <span className="text-text-secondary font-mono">{formatDate(acc.endDate)}</span></span>
                                             </div>
                                             <button 
                                                 onClick={(e) => handleCopy(acc.email, e)}
-                                                className="text-[10px] font-semibold text-brand-primary flex items-center gap-1 hover:text-primary transition-colors opacity-0 group-hover:opacity-100"
+                                                className="text-[10px] font-semibold text-brand-primary flex items-center gap-1 hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100"
                                             >
                                                 <Copy size={10} /> Copiar
                                             </button>

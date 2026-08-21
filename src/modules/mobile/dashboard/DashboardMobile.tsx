@@ -97,13 +97,13 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 ${isIncome ? 'bg-status-success/20 text-status-success-soft' : 'bg-status-danger/20 text-status-danger-soft'}`}>
                         {isIncome ? <ArrowUpRight size={24} /> : <ArrowDownRight size={24} />}
                     </div>
-                    <p className="text-muted text-xs font-semibold uppercase tracking-wider mb-2">{isIncome ? 'Ingreso Registrado' : 'Egreso Registrado'}</p>
+                    <p className="text-text-muted text-xs font-semibold uppercase tracking-wider mb-2">{isIncome ? 'Ingreso Registrado' : 'Egreso Registrado'}</p>
                     <div className="flex flex-col gap-1 items-center justify-center">
                         <p className={`text-3xl font-extrabold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                             {isIncome ? '+' : '-'}{amountMain.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} <span className="text-sm font-medium opacity-70">{mainCurrency}</span>
                         </p>
                         {subCurrency && (
-                            <p className="text-sm font-medium text-disabled">
+                            <p className="text-sm font-medium text-text-disabled">
                                 ≈ {amountSec.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} {subCurrency}
                             </p>
                         )}
@@ -112,30 +112,30 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                 <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-5 space-y-4 shadow-sm">
                     {clientName && (
                         <div className="flex justify-between items-center border-b border-[rgb(var(--fg-rgb))]/5 pb-3">
-                            <span className="text-disabled text-xs font-semibold uppercase flex items-center gap-1"><User size={12}/> Cliente</span>
-                            <span className="text-primary text-sm font-bold text-right">{clientName}</span>
+                            <span className="text-text-disabled text-xs font-semibold uppercase flex items-center gap-1"><User size={12}/> Cliente</span>
+                            <span className="text-text-primary text-sm font-bold text-right">{clientName}</span>
                         </div>
                     )}
                     <div className="space-y-1">
-                        <span className="text-disabled text-xs font-semibold uppercase block">Concepto</span>
-                        <p className="text-primary text-sm font-medium leading-relaxed">{movement.description || 'Sin descripción'}</p>
+                        <span className="text-text-disabled text-xs font-semibold uppercase block">Concepto</span>
+                        <p className="text-text-primary text-sm font-medium leading-relaxed">{movement.description || 'Sin descripción'}</p>
                     </div>
                     <div className="grid grid-cols-2 gap-4 pt-2">
                         <div>
-                            <span className="text-disabled text-xs font-semibold uppercase block mb-1">Fecha</span>
-                            <span className="text-primary text-sm font-mono bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md">{date.toLocaleDateString()}</span>
+                            <span className="text-text-disabled text-xs font-semibold uppercase block mb-1">Fecha</span>
+                            <span className="text-text-primary text-sm font-mono bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md">{date.toLocaleDateString()}</span>
                         </div>
                         <div>
-                            <span className="text-disabled text-xs font-semibold uppercase block mb-1">Hora</span>
-                            <span className="text-primary text-sm font-mono bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md">{date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                            <span className="text-text-disabled text-xs font-semibold uppercase block mb-1">Hora</span>
+                            <span className="text-text-primary text-sm font-mono bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md">{date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                         </div>
                     </div>
                     <div className="flex justify-between items-center pt-2">
-                        <span className="text-disabled text-xs font-semibold uppercase">Método</span>
-                        <span className="text-primary text-xs font-semibold bg-[rgb(var(--fg-rgb))]/10 px-3 py-1 rounded-full capitalize">{movement.paymentMethod || 'Manual'}</span>
+                        <span className="text-text-disabled text-xs font-semibold uppercase">Método</span>
+                        <span className="text-text-primary text-xs font-semibold bg-[rgb(var(--fg-rgb))]/10 px-3 py-1 rounded-full capitalize">{movement.paymentMethod || 'Manual'}</span>
                     </div>
                 </div>
-                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-muted font-semibold text-xs hover:text-primary transition-colors active:scale-95 shadow-sm">
+                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted font-semibold text-xs hover:text-text-primary transition-colors active:scale-95 shadow-sm">
                     Cerrar
                 </button>
             </div>
@@ -235,7 +235,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
         'add_reseller': { label: 'Revendedor', icon: Briefcase, color: 'text-status-warning-soft group-hover:bg-status-warning-soft', onClick: () => setIsResellerModalOpen(true) },
         'add_provider': { label: 'Proveedor', icon: Truck, color: 'text-cyan-400 group-hover:bg-cyan-400', onClick: () => setIsProviderModalOpen(true) },
         'agenda': { label: 'Agenda', icon: ClipboardList, color: 'text-status-danger-soft group-hover:bg-status-danger-soft', onClick: () => setView('agenda') },
-        'trash': { label: 'Papelera', icon: Trash2, color: 'text-disabled group-hover:bg-zinc-500', onClick: () => setView('trash') },
+        'trash': { label: 'Papelera', icon: Trash2, color: 'text-text-disabled group-hover:bg-zinc-500', onClick: () => setView('trash') },
         'reports': { label: 'Reportes', icon: BarChart3, color: 'text-purple-400 group-hover:bg-purple-400', onClick: () => setView('reports') },
       };
       return config[id];
@@ -404,9 +404,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
   const sortedAccounts = [...financialAccounts].sort((a, b) => (b.isActive !== false ? 1 : 0) - (a.isActive !== false ? 1 : 0));
 
   return (
-    <div className="min-h-screen pb-32 bg-bg font-sans text-primary relative overflow-x-hidden">
+    <div className="min-h-screen pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
       <SyncQueueModal isOpen={isSyncModalOpen} onClose={() => setIsSyncModalOpen(false)} pendingItems={pendingItems} isOnline={isOnline} />
-      <div className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-brand-primary/10 to-transparent pointer-events-none z-0" />
       <div className={`px-[var(--mobile-side-pad)] pt-safe ${isNative ? 'mt-2' : 'mt-4'} pb-5 relative z-50 flex justify-between items-center sticky top-0 transition-colors duration-500 ${isSyncing ? 'bg-brand-primary/5' : ''}`}>
           <div className="flex items-center gap-3">
               <div className={`w-9 h-9 rounded-sm p-px shrink-0 transition-all duration-700 shadow-glow-sm ${logoWrapperStyle}`}>
@@ -415,8 +414,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                  </div>
               </div>
               <div className="flex flex-col">
-                  <p className="text-disabled text-[8px] font-black uppercase tracking-[0.2em] leading-none mb-1">{greeting}</p>
-                  <h1 className="text-lg font-black text-primary leading-none tracking-tighter">
+                  <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] leading-none mb-1">{greeting}</p>
+                  <h1 className="text-lg font-black text-text-primary leading-none tracking-tighter">
                     {user?.name?.split(' ')[0] || 'Hola'}
                     <span className="text-brand-primary">.</span>
                   </h1>
@@ -446,7 +445,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
              <motion.button 
                 whileTap={{ scale: 0.95 }} 
                 onClick={() => setIsNotifOpen(true)} 
-                className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-muted relative shadow-inner transition-all hover:text-primary"
+                className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted relative shadow-inner transition-all hover:text-text-primary"
              >
                 <Bell size={16} />
                 {(sales.filter(s => getDaysRemaining(s.expiryDate) <= 1).length > 0) && (
@@ -468,28 +467,26 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
               className="group relative"
             >
                 {/* Balance Card Premium */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-brand-accent/5 rounded-2xl blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
                 
                 <div className="relative z-10 overflow-hidden rounded-2xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-2xl p-6 transition-all duration-500 hover:border-[rgb(var(--fg-rgb))]/[0.12] active:scale-[0.99] group/card">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-primary/15 to-transparent blur-3xl rounded-full" />
                     
                     <div className="flex justify-between items-start relative z-20">
                         <div className="flex flex-col">
-                            <span className="flex items-center gap-2 text-disabled text-[9px] font-black uppercase tracking-[0.2em] mb-3">
+                            <span className="flex items-center gap-2 text-text-disabled text-[9px] font-black uppercase tracking-[0.2em] mb-3">
                                 <PiggyBank size={12} className="text-brand-primary" />
                                 Balance Total
                             </span>
                             <div className="flex items-baseline gap-1.5">
-                                <span className="text-lg font-bold text-faint">{settings.currency}</span>
-                                <h2 className="text-3xl font-black text-primary tracking-tighter">
+                                <span className="text-lg font-bold text-text-faint">{settings.currency}</span>
+                                <h2 className="text-3xl font-black text-text-primary tracking-tighter">
                                     {showBalance ? formatMoney(walletStats.totalMain).split('.')[0] : '•••••'}
-                                    <span className="text-xl text-disabled opacity-50">
+                                    <span className="text-xl text-text-disabled opacity-50">
                                       .{showBalance ? formatMoney(walletStats.totalMain).split('.')[1] : '••'}
                                     </span>
                                 </h2>
                             </div>
                             {settings.subCurrency && (
-                                <p className="text-disabled text-[10px] font-semibold mt-1.5 flex items-center gap-1.5 opacity-60">
+                                <p className="text-text-disabled text-[10px] font-semibold mt-1.5 flex items-center gap-1.5 opacity-60">
                                     <RotateCcw size={9} className="text-brand-accent" />
                                     {showBalance ? formatMoney(walletStats.secondaryTotal) : '••••'} {settings.subCurrency}
                                 </p>
@@ -499,7 +496,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                         <div className="flex flex-col items-end gap-6">
                              <button 
                                onClick={toggleBalance} 
-                               className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-disabled hover:text-primary transition-all shadow-inner"
+                               className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-all shadow-inner"
                              >
                                 {showBalance ? <Eye size={16} /> : <EyeOff size={16} />}
                              </button>
@@ -508,7 +505,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                     </div>
 
                     <div className="mt-6 pt-5 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider relative z-20">
-                        <div className="flex items-center gap-2 text-disabled">
+                        <div className="flex items-center gap-2 text-text-disabled">
                              <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-status-success shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-status-danger shadow-[0_0_8px_rgba(239,68,68,0.5)]'} animate-pulse`} />
                              {isOnline ? 'Sincronizado' : 'Offline'}
                         </div>
@@ -537,13 +534,13 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                       <div className="w-8 h-8 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
                          <TrendingUp size={16} strokeWidth={2.5} />
                       </div>
-                      <p className="text-[10px] text-secondary font-black uppercase tracking-[0.05em]">VENTAS</p>
+                      <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">VENTAS</p>
                    </div>
-                   <span className="text-[8px] font-black text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
+                   <span className="text-[8px] font-black text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-[10px] text-disabled font-black uppercase">{settings.currency}</span>
-                  <p className="text-xl font-black text-primary tracking-tighter leading-none">
+                  <span className="text-[10px] text-text-disabled font-black uppercase">{settings.currency}</span>
+                  <p className="text-xl font-black text-text-primary tracking-tighter leading-none">
                     {formatMoney(salesThisMonth)}
                   </p>
                 </div>
@@ -559,13 +556,13 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                       <div className="w-8 h-8 rounded-sm bg-rose-500/10 text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105">
                          <TrendingDown size={16} strokeWidth={2.5} />
                       </div>
-                      <p className="text-[10px] text-secondary font-black uppercase tracking-[0.05em]">GASTOS</p>
+                      <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">GASTOS</p>
                    </div>
-                   <span className="text-[8px] font-black text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
+                   <span className="text-[8px] font-black text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-[10px] text-disabled font-black uppercase">{settings.currency}</span>
-                  <p className="text-xl font-black text-primary tracking-tighter leading-none">
+                  <span className="text-[10px] text-text-disabled font-black uppercase">{settings.currency}</span>
+                  <p className="text-xl font-black text-text-primary tracking-tighter leading-none">
                     {formatMoney(financeStats.expense)}
                   </p>
                 </div>
@@ -577,8 +574,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
           {widgets.showQuickActions && (
             <div className="space-y-3">
                <div className="flex items-center justify-between px-1">
-                  <h3 className="text-[11px] font-bold text-primary tracking-widest uppercase">Atajos Rápidos</h3>
-                  <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-disabled hover:text-primary transition-colors flex items-center gap-1.5 uppercase tracking-[0.15em]">
+                  <h3 className="text-[11px] font-bold text-text-primary tracking-widest uppercase">Atajos Rápidos</h3>
+                  <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-text-disabled hover:text-text-primary transition-colors flex items-center gap-1.5 uppercase tracking-[0.15em]">
                      EDITAR <SlidersHorizontal size={9} />
                   </button>
                </div>
@@ -592,7 +589,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                      <div className={`w-10 h-10 rounded-md flex items-center justify-center transition-all duration-300 shadow-inner group-hover:scale-110 group-hover:shadow-glow-sm ${action.color.split(' ')[0]} bg-[rgb(var(--fg-rgb))]/[0.02]`}>
                        <action.icon size={20} strokeWidth={2.5} />
                      </div>
-                     <span className="text-[9px] font-black text-disabled group-hover:text-primary transition-colors uppercase tracking-tight">{action.label}</span>
+                     <span className="text-[9px] font-black text-text-disabled group-hover:text-text-primary transition-colors uppercase tracking-tight">{action.label}</span>
                    </button>
                  ))}
                </motion.div>
@@ -605,11 +602,11 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                 <div className="w-7 h-7 rounded-lg bg-brand-primary/15 text-brand-primary flex items-center justify-center">
                   <ArrowUpRight size={14} />
                 </div>
-                <h3 className="text-sm font-bold text-primary tracking-tight">Últimos movimientos</h3>
+                <h3 className="text-sm font-bold text-text-primary tracking-tight">Últimos movimientos</h3>
               </div>
               <button
                 onClick={() => { haptic('nav'); setView('accounts'); }}
-                className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-primary transition-colors flex items-center gap-1"
+                className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1"
               >
                 Ver todos <ChevronRight size={12} />
               </button>
@@ -628,21 +625,21 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                         {isIncome ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs font-semibold text-primary truncate">{mov.description || 'Movimiento'}</p>
-                        <p className="text-[10px] text-disabled">{new Date(mov.date).toLocaleDateString()}</p>
+                        <p className="text-xs font-semibold text-text-primary truncate">{mov.description || 'Movimiento'}</p>
+                        <p className="text-[10px] text-text-disabled">{new Date(mov.date).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <div className="flex flex-col items-end shrink-0 ml-2">
                       <span className={`text-sm font-bold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                         {isIncome ? '+' : '-'}{mov.amount}
                       </span>
-                      <span className="text-[9px] text-disabled uppercase">{mov.paymentMethod || 'Manual'}</span>
+                      <span className="text-[9px] text-text-disabled uppercase">{mov.paymentMethod || 'Manual'}</span>
                     </div>
                   </div>
                 );
               })}
               {monthlyMovements.length === 0 && (
-                <div className="py-12 text-center text-disabled text-xs bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl">
+                <div className="py-12 text-center text-text-disabled text-xs bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl">
                   No hay movimientos este mes.
                 </div>
               )}
@@ -667,8 +664,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
       <Modal isOpen={isStockFinderOpen} onClose={() => setIsStockFinderOpen(false)} title="Consulta de Stock">
          <div className="flex flex-col gap-3 pt-1">
             <div className="relative mb-2">
-               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-disabled" size={16} />
-               <input placeholder="Filtrar por plataforma..." className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl pl-11 pr-4 py-3 text-sm text-primary outline-none" />
+               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" size={16} />
+               <input placeholder="Filtrar por plataforma..." className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl pl-11 pr-4 py-3 text-sm text-text-primary outline-none" />
             </div>
             <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
                {stockData.map(s => (
@@ -679,11 +676,11 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   >
                      <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20"><Layers size={20} /></div>
-                        <span className="text-sm font-bold text-primary">{s.name}</span>
+                        <span className="text-sm font-bold text-text-primary">{s.name}</span>
                      </div>
                      <div className="text-right">
                         <span className="text-lg font-black text-status-success-soft block leading-none">{s.totalFree}</span>
-                        <span className="text-[8px] text-faint font-semibold uppercase tracking-widest">Cupos Libres</span>
+                        <span className="text-[8px] text-text-faint font-semibold uppercase tracking-widest">Cupos Libres</span>
                      </div>
                   </button>
                ))}
@@ -700,25 +697,25 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
       {/* MODAL DETALLE DE CUENTAS POR SERVICIO SELECCIONADO */}
       <Modal isOpen={!!selectedStockService} onClose={() => setSelectedStockService(null)} title={`Stock: ${selectedStockService?.name}`}>
           <div className="space-y-3 pt-1">
-              <p className="text-[10px] font-semibold text-disabled uppercase tracking-widest mb-2 ml-1">Cuentas con cupo libre</p>
+              <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 ml-1">Cuentas con cupo libre</p>
               <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
                   {selectedStockService?.accounts.map((acc: any) => (
                       <div key={acc.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg flex justify-between items-center group relative overflow-hidden">
                           <div className="min-w-0 pr-2">
-                              <p className="text-xs font-semibold text-primary truncate">{acc.email}</p>
+                              <p className="text-xs font-semibold text-text-primary truncate">{acc.email}</p>
                               <div className="flex items-center gap-2 mt-1">
-                                 <Key size={10} className="text-faint" />
-                                 <p className="text-[10px] text-disabled font-mono group-hover:text-secondary">{acc.password}</p>
+                                 <Key size={10} className="text-text-faint" />
+                                 <p className="text-[10px] text-text-disabled font-mono group-hover:text-text-secondary">{acc.password}</p>
                               </div>
                           </div>
                           <div className="flex items-center gap-3 shrink-0">
                               <div className="text-right">
                                   <span className="text-base font-black text-status-success-soft leading-none">{acc.available}</span>
-                                  <p className="text-[7px] text-faint font-bold uppercase text-right">Cupos</p>
+                                  <p className="text-[7px] text-text-faint font-bold uppercase text-right">Cupos</p>
                               </div>
                               <button 
                                  onClick={() => { navigator.clipboard.writeText(`📧 ${acc.email}\n🔑 ${acc.password}`); showToast('Credenciales copiadas', 'success'); }} 
-                                 className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-disabled hover:text-primary transition-all active:scale-90"
+                                 className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-text-disabled hover:text-text-primary transition-all active:scale-90"
                               >
                                  <Copy size={14}/>
                               </button>
@@ -726,7 +723,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                       </div>
                   ))}
               </div>
-              <button onClick={() => setSelectedStockService(null)} className="w-full py-4 text-disabled text-xs font-semibold uppercase tracking-widest mt-2 active:text-primary flex items-center justify-center gap-2">
+              <button onClick={() => setSelectedStockService(null)} className="w-full py-4 text-text-disabled text-xs font-semibold uppercase tracking-widest mt-2 active:text-text-primary flex items-center justify-center gap-2">
                   <ArrowLeft size={14} /> Volver a la lista
               </button>
           </div>

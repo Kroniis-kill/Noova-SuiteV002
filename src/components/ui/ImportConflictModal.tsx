@@ -22,17 +22,17 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
            </div>
            <div>
               <h4 className="text-status-warning font-bold text-sm mb-1">Duplicados Detectados</h4>
-              <p className="text-secondary text-xs leading-relaxed">
+              <p className="text-text-secondary text-xs leading-relaxed">
                  Hemos encontrado <strong>{duplicates.length} cuentas</strong> que ya existen en tu inventario (coinciden por correo y servicio).
               </p>
-              <div className="mt-2 text-[10px] text-muted bg-black/20 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+              <div className="mt-2 text-[10px] text-text-muted bg-black/20 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
                  Adicionalmente se crearán <strong>{newEntries.length}</strong> cuentas nuevas.
               </div>
            </div>
         </div>
 
         <div className="space-y-3">
-            <p className="text-xs font-semibold text-disabled uppercase tracking-wider ml-1">¿Qué deseas hacer con los duplicados?</p>
+            <p className="text-xs font-semibold text-text-disabled uppercase tracking-wider ml-1">¿Qué deseas hacer con los duplicados?</p>
             
             <button 
                onClick={() => onResolve('update')}
@@ -42,8 +42,8 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
                     <RefreshCw size={18} />
                 </div>
                 <div>
-                    <span className="block text-primary font-bold text-sm">Actualizar Existentes</span>
-                    <span className="block text-disabled text-[10px] mt-0.5">Sobreescribir contraseñas, fechas y estados.</span>
+                    <span className="block text-text-primary font-bold text-sm">Actualizar Existentes</span>
+                    <span className="block text-text-disabled text-[10px] mt-0.5">Sobreescribir contraseñas, fechas y estados.</span>
                 </div>
             </button>
 
@@ -51,18 +51,18 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
                onClick={() => onResolve('skip')}
                className="w-full p-4 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
             >
-                <div className="w-10 h-10 rounded-full bg-zinc-500/10 flex items-center justify-center text-muted border border-zinc-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-full bg-zinc-500/10 flex items-center justify-center text-text-muted border border-zinc-500/20 group-hover:scale-110 transition-transform">
                     <SkipForward size={18} />
                 </div>
                 <div>
-                    <span className="block text-primary font-bold text-sm">Ignorar Duplicados</span>
-                    <span className="block text-disabled text-[10px] mt-0.5">Solo importar las cuentas nuevas ({newEntries.length}).</span>
+                    <span className="block text-text-primary font-bold text-sm">Ignorar Duplicados</span>
+                    <span className="block text-text-disabled text-[10px] mt-0.5">Solo importar las cuentas nuevas ({newEntries.length}).</span>
                 </div>
             </button>
         </div>
         
         <div className="pt-2 border-t border-[rgb(var(--fg-rgb))]/5 flex justify-end">
-            <button onClick={onClose} className="text-disabled text-xs hover:text-primary font-medium transition-colors">
+            <button onClick={onClose} className="text-text-disabled text-xs hover:text-text-primary font-medium transition-colors">
                 Cancelar Importación
             </button>
         </div>

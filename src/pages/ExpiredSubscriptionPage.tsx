@@ -13,8 +13,8 @@ const ExpiredSubscriptionPage: React.FC = () => {
           <Lock size={40} className="text-status-danger" />
        </div>
 
-       <h1 className="text-3xl font-bold text-primary mb-2">Suscripción Expirada</h1>
-       <p className="text-muted max-w-md leading-relaxed mb-8">
+       <h1 className="text-3xl font-bold text-text-primary mb-2">Suscripción Expirada</h1>
+       <p className="text-text-muted max-w-md leading-relaxed mb-8">
           Tu acceso a la plataforma ha vencido. Por favor, realiza el pago de tu renovación para continuar disfrutando del servicio.
        </p>
 
@@ -28,7 +28,7 @@ const ExpiredSubscriptionPage: React.FC = () => {
           
           <button 
             onClick={logout}
-            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-muted hover:text-primary font-bold rounded-lg transition-all border border-[rgb(var(--fg-rgb))]/5"
+            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary font-bold rounded-lg transition-all border border-[rgb(var(--fg-rgb))]/5"
           >
              Cerrar Sesión
           </button>
