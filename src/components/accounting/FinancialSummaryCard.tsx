@@ -97,7 +97,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <XAxis dataKey="name" hide />
                 <YAxis hide />
                 <Tooltip 
-                    contentStyle={{ backgroundColor: '#000', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '10px', fontSize: '9px' }}
+                    contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', border: '1px solid rgb(var(--fg-rgb) / 0.08)', borderRadius: '10px', fontSize: '9px' }}
                 />
                 <Area type="monotone" dataKey="ingresos" stroke="#10b981" strokeWidth={2} fill="url(#gradIncMin)" />
              </AreaChart>

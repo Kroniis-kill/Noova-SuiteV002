@@ -11,7 +11,6 @@ interface StatCardProps {
 
 export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
   <div className="bg-surface-1 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 relative overflow-hidden group shadow-sm">
-    <div className={`absolute top-0 right-0 w-24 h-24 rounded-full blur-[50px] opacity-20 ${color}`} />
     <div className="relative z-10">
       <div className="flex justify-between items-start mb-4">
         <div className={`w-10 h-10 rounded-sm flex items-center justify-center text-text-primary shadow-lg ${color}`}>

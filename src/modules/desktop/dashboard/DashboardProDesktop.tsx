@@ -127,10 +127,10 @@ const DashboardProDesktop: React.FC = () => {
                        <linearGradient id="proInc" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/><stop offset="95%" stopColor="#10b981" stopOpacity={0}/></linearGradient>
                        <linearGradient id="proExp" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#ef4444" stopOpacity={0.1}/><stop offset="95%" stopColor="#ef4444" stopOpacity={0}/></linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--fg-rgb) / 0.06)" vertical={false} />
                     <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#52525b', fontSize: 11, fontWeight: 600}} dy={10} />
                     <YAxis axisLine={false} tickLine={false} tick={{fill: '#52525b', fontSize: 11}} />
-                    <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '16px', fontSize: '12px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', borderColor: 'rgb(var(--fg-rgb) / 0.1)', borderRadius: '16px', fontSize: '12px' }} />
                     <Area type="monotone" dataKey="ingresos" stroke="#10b981" strokeWidth={3} fill="url(#proInc)" />
                     <Area type="monotone" dataKey="egresos" stroke="#ef4444" strokeWidth={3} fill="url(#proExp)" />
                  </AreaChart>

@@ -57,7 +57,6 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
       </div>
 
       {/* Background decoration */}
-      <div className={`absolute -bottom-8 -right-8 w-32 h-32 rounded-full blur-[60px] opacity-10 bg-gradient-to-br ${getColorClasses()}`} />
     </motion.div>
   );
 };

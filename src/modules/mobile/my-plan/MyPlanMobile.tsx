@@ -62,7 +62,7 @@ const MyPlanMobile: React.FC = () => {
        {/* Ambient Light */}
 
        <div className="relative z-10 mb-8">
-          <h1 className="text-3xl font-bold text-text-primary tracking-tight">Mi Membresía</h1>
+          <h1 className="text-2xl font-black text-text-primary tracking-tight">Mi Membresía</h1>
           <p className="text-text-muted text-sm mt-1">Estado de tu cuenta y recursos.</p>
        </div>
 
@@ -164,7 +164,6 @@ const MyPlanMobile: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
              {/* Clientes Card */}
              <div className="bg-surface-1 p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-status-info/10 rounded-full blur-xl -mr-6 -mt-6 group-hover:bg-status-info/20 transition-all" />
                 
                 <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-status-info-soft border border-[rgb(var(--fg-rgb))]/5 shadow-sm relative z-10">
                     <Users size={20} />
@@ -178,7 +177,6 @@ const MyPlanMobile: React.FC = () => {
 
              {/* Ventas Card */}
              <div className="bg-surface-1 p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full blur-xl -mr-6 -mt-6 group-hover:bg-purple-500/20 transition-all" />
                 
                 <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-purple-400 border border-[rgb(var(--fg-rgb))]/5 shadow-sm relative z-10">
                     <TrendingUp size={20} />

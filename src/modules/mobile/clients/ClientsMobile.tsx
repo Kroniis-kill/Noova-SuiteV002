@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useContactos } from '../../../hooks/useContactos';
 import { useData } from '../../../context/DataContext';
@@ -198,7 +199,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
        <div className="relative z-20 pt-safe mt-4">
              <div className="flex justify-between items-center mb-6">
                  <div className="flex flex-col">
-                    <h1 className="text-xl font-black text-text-primary tracking-tighter leading-none mb-1">Clientes</h1>
+                    <h1 className="text-2xl font-black text-text-primary tracking-tight leading-none mb-1">Clientes</h1>
                     <div className="flex items-center gap-2">
                        <div className="w-1 h-1 bg-brand-primary rounded-full animate-pulse" />
                        <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em]">Gestión de Cartera</p>
@@ -264,6 +265,9 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                            }
                          `}
                        >
+                          {isActive && (
+                          )}
+                          
                           <div className="flex items-center gap-4 w-full relative z-10">
                               <div className="relative">
                                  <Avatar name={client.name} size={46} className="rounded-md shadow-2xl border border-[rgb(var(--fg-rgb))]/10" />
@@ -337,4 +341,3 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
 };
 
 export default ClientsMobile;
-

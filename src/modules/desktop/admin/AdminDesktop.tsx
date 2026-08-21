@@ -317,7 +317,6 @@ const AdminDesktop: React.FC = () => {
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
               className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-6 shadow-sm relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-40 h-40 bg-brand-primary/10 blur-3xl rounded-full pointer-events-none" />
               <div className="flex items-center justify-between mb-4 relative z-10">
                 <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
                   <TrendingUp size={15} className="text-brand-primary" /> Crecimiento semanal
@@ -334,7 +333,7 @@ const AdminDesktop: React.FC = () => {
                       </linearGradient>
                     </defs>
                     <XAxis dataKey="name" tick={{ fill: '#71717a', fontSize: 10 }} axisLine={false} tickLine={false} />
-                    <Tooltip contentStyle={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, fontSize: 12 }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', border: '1px solid rgb(var(--fg-rgb) / 0.08)', borderRadius: 8, fontSize: 12 }} />
                     <Area type="monotone" dataKey="v" stroke="rgb(106,44,255)" strokeWidth={2.5} fill="url(#adminGrad)" />
                   </AreaChart>
                 </ResponsiveContainer>

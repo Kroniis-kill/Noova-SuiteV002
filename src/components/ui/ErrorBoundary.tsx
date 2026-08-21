@@ -86,7 +86,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return (
         <div className="w-full h-full min-h-[400px] flex flex-col items-center justify-center p-8 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl text-center animate-fade-in mx-auto max-w-md my-4 shadow-2xl relative overflow-hidden">
           
-          <div className="absolute top-0 right-0 w-32 h-32 bg-status-danger/10 blur-[60px] rounded-full pointer-events-none" />
 
           <div className="w-20 h-20 rounded-xl bg-status-danger/10 flex items-center justify-center mb-6 border border-[rgb(var(--fg-rgb))]/5 shadow-inner shrink-0 relative z-10">
             {isNetworkError ? <WifiOff className="text-status-danger" size={40} /> : <AlertTriangle className="text-status-danger" size={40} />}

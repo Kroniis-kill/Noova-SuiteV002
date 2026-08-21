@@ -72,7 +72,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentView, setView, onMenuClick
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill-active"
-                      className="absolute inset-x-1 top-2 bottom-2 bg-[rgb(var(--fg-rgb))]/[0.06] rounded-lg -z-10"
+                      className="absolute inset-x-1 top-2 bottom-2 bg-[rgb(var(--fg-rgb))]/[0.06] rounded-sm -z-10"
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -82,7 +82,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentView, setView, onMenuClick
                       size={24}
                       strokeWidth={isActive ? 2.5 : 2}
                       aria-hidden="true"
-                      className={isActive ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]' : ''}
+                      className={isActive ? 'drop-shadow-[0_0_12px_rgb(var(--fg-rgb)/0.5)]' : ''}
                     />
                   </div>
 

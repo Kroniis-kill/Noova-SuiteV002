@@ -93,13 +93,12 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
     <div className="pb-32 pt-2 px-4 font-sans text-text-primary min-h-screen">
        <div className="mb-4 relative z-10">
           <div className="mb-4">
-              <h1 className="text-2xl font-bold text-text-primary tracking-tight">Vencimientos</h1>
+              <h1 className="text-2xl font-black text-text-primary tracking-tight">Vencimientos</h1>
               <p className="text-text-muted text-[11px] font-medium mt-0.5">Control de fechas y renovaciones</p>
           </div>
           
           {activeTab === 'sales' && (
              <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 p-5 rounded-xl relative overflow-hidden shadow-lg mb-6">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none -mr-6 -mt-6" />
                  <div className="relative z-10 text-center py-2">
                      <p className="text-[11px] font-semibold text-text-disabled uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
                         <Wallet size={12} /> Total por Cobrar

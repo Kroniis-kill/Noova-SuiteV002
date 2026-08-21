@@ -142,7 +142,7 @@ const SettingsMobile: React.FC = () => {
         {!activeTab && (
           <motion.div key="menu" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 relative z-10" >
             <div className="mt-6 mb-10">
-               <h1 className="text-[22px] font-bold text-text-primary tracking-tight">Ajustes</h1>
+               <h1 className="text-2xl font-black text-text-primary tracking-tight">Ajustes</h1>
                <p className="text-text-disabled text-[12px] font-medium mt-0.5">Personaliza tu Noova</p>
             </div>
             <div className="space-y-6">

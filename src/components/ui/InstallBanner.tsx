@@ -35,7 +35,6 @@ const InstallBanner: React.FC = () => {
       >
         <div className="bg-surface-zinc/95 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)] relative overflow-hidden">
           
-          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 blur-[40px] rounded-full pointer-events-none" />
 
           <div className="flex items-center gap-4 relative z-10">
             <div className="w-12 h-12 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-lg shrink-0 overflow-hidden">

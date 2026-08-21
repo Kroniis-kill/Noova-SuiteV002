@@ -83,7 +83,6 @@ export const AccountSecuritySettings = () => {
     return (
         <div className="space-y-6 animate-fade-in pb-10">
              <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl p-6 text-center relative overflow-hidden shadow-sm">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 blur-[50px] rounded-full pointer-events-none" />
 
                  <div className="relative inline-block mb-4">
                      <div className={`w-24 h-24 rounded-full p-[3px] bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow`}>

@@ -19,7 +19,6 @@ const EmptyState: React.FC<EmptyStateProps> = ({ title, description, icon: Icon,
     >
       <div className="relative mb-6">
         {/* Ilustración de fondo en gradiente */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent blur-[60px] opacity-10 rounded-full" />
         <div className="relative w-24 h-24 rounded-2xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shadow-2xl">
           <Icon size={40} className="text-brand-primary" strokeWidth={1.5} />
         </div>

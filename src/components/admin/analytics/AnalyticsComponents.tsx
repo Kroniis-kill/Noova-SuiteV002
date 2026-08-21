@@ -35,7 +35,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
                       ))}
                    </Pie>
                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', borderColor: 'rgb(var(--fg-rgb) / 0.1)', borderRadius: '12px' }}
                       itemStyle={{ color: '#fff' }}
                    />
                 </PieChart>
@@ -59,8 +59,8 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
                 <BarChart data={data.registrationsByMonth}>
                    <XAxis dataKey="name" stroke="#52525b" fontSize={10} tickLine={false} axisLine={false} />
                    <Tooltip 
-                      cursor={{fill: 'rgba(255,255,255,0.05)'}}
-                      contentStyle={{ backgroundColor: '#09090b', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      cursor={{fill: 'rgb(var(--fg-rgb) / 0.06)'}}
+                      contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', borderColor: 'rgb(var(--fg-rgb) / 0.1)', borderRadius: '12px' }}
                    />
                    <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} />
                 </BarChart>

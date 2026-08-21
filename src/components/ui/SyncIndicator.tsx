@@ -63,7 +63,7 @@ const SyncIndicator: React.FC = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -4, scale: 0.85 }}
           transition={{ type: 'spring', stiffness: 420, damping: 30 }}
-          className="pointer-events-auto relative flex items-center gap-1.5 pl-2 pr-2.5 py-[5px] rounded-full border border-[rgb(var(--fg-rgb))]/[0.08] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl"
+          className="pointer-events-auto relative flex items-center gap-1.5 pl-2 pr-2.5 py-[5px] rounded-full border border-[rgb(var(--fg-rgb))]/[0.08] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7),inset_0_1px_0_rgb(var(--fg-rgb)/0.06)] backdrop-blur-2xl"
           style={{
             background: 'linear-gradient(180deg, rgba(22,22,26,0.92) 0%, rgba(10,10,12,0.92) 100%)',
           }}

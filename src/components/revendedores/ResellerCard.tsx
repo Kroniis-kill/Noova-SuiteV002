@@ -36,7 +36,6 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
       className="group relative bg-surface-1 border border-border-subtle rounded-xl p-4 lg:p-5 shadow-elev-sm hover:border-border-strong hover:bg-surface-2 transition-all duration-150 ease-out-soft cursor-pointer overflow-hidden"
     >
        {/* Decorative Background */}
-       <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
 
        {/* Header */}
        <div className="flex justify-between items-start mb-4 relative z-10">

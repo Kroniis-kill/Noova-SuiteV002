@@ -61,7 +61,6 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
           
           {/* Icon Animation Wrapper */}
           <div className="relative mb-6 mt-2">
-             <div className="absolute inset-0 bg-brand-accent/30 blur-[50px] rounded-full animate-pulse" />
              <div className="relative w-24 h-24 bg-gradient-to-br from-surface-3 to-bg rounded-2xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(255,20,147,0.5)]">
                 <Lock size={36} className="text-brand-accent" />
                 <div className="absolute -top-3 -right-3 w-10 h-10 bg-brand-accent rounded-full flex items-center justify-center border-[4px] border-surface-zinc text-white font-semibold text-xs shadow-lg">

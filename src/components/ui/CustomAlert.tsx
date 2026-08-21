@@ -73,7 +73,6 @@ const CustomAlert: React.FC = () => {
               </div>
               
               {/* Decoración lateral para Desktop */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/5 blur-[50px] rounded-full -mr-16 -mt-16 pointer-events-none hidden lg:block" />
             </motion.div>
           </div>
         </>

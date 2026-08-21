@@ -249,7 +249,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
     <div className="min-h-screen pb-40">
       <div className="relative z-20 flex items-center justify-between mb-4 px-2">
          <div>
-            <h1 className="text-2xl font-bold text-text-primary tracking-tight">Catálogo</h1>
+            <h1 className="text-2xl font-black text-text-primary tracking-tight">Catálogo</h1>
             <p className="text-text-muted text-[11px] font-medium mt-0.5">Gestión de plataformas y precios</p>
          </div>
          <button 

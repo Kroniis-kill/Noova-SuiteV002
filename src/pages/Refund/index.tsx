@@ -137,7 +137,6 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           className="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-brand-primary/15 via-surface-3 to-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]"
         >
-          <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-brand-primary/15 blur-2xl" />
           <div className="flex items-center gap-3 relative z-10">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center shadow-glow-sm">
               <Calculator size={20} className="text-text-primary" />
@@ -314,7 +313,6 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               transition={{ type: 'spring', stiffness: 240, damping: 24 }}
               className="relative overflow-hidden rounded-2xl border border-status-success/30 bg-gradient-to-br from-status-success/[0.08] via-surface-3 to-surface-3 p-5"
             >
-              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-status-success/20 blur-3xl" />
 
               <div className="relative z-10 text-center mb-5">
                 <p className="text-[11px] uppercase tracking-widest text-status-success-soft font-bold mb-1">Reembolso de</p>

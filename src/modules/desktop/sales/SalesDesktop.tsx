@@ -104,7 +104,7 @@ const SalesDesktop: React.FC = () => {
 
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div>
-              <h1 className="text-3xl font-black text-text-primary tracking-tight">{viewFails ? 'Agenda de Fallas' : 'Ventas'}</h1>
+              <h1 className="text-3xl font-bold text-text-primary tracking-tight">{viewFails ? 'Agenda de Fallas' : 'Ventas'}</h1>
               <p className="text-text-disabled text-sm font-medium mt-1">{viewFails ? 'Seguimiento de incidencias técnicas' : 'Gestión y administración de servicios'}</p>
           </div>
 

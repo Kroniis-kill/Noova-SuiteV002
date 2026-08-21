@@ -528,7 +528,6 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                 whileHover={{ y: -2 }}
                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-lg p-4 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
               >
-                <div className="absolute -top-6 -right-6 w-16 h-16 bg-status-success/5 blur-2xl rounded-full" />
                 <div className="flex items-center justify-between mb-4">
                    <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
@@ -550,7 +549,6 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                  whileHover={{ y: -2 }}
                  className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-lg p-4 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
               >
-                <div className="absolute -top-6 -right-6 w-16 h-16 bg-rose-500/5 blur-2xl rounded-full" />
                 <div className="flex items-center justify-between mb-4">
                    <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-sm bg-rose-500/10 text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105">

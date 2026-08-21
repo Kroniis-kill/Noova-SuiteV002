@@ -271,7 +271,6 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
 
        <div className="mb-6 relative z-10">
           <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-status-info/10 rounded-full blur-xl -mr-4 -mt-4 pointer-events-none" />
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />

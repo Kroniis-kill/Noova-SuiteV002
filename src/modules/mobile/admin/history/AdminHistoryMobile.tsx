@@ -22,7 +22,7 @@ const AdminHistoryMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
              <ArrowLeft size={20} />
           </button>
-          <h1 className="text-2xl font-bold text-text-primary">Historial de Cambios</h1>
+          <h1 className="text-2xl font-black text-text-primary tracking-tight">Historial de Cambios</h1>
        </div>
 
        {loading ? (

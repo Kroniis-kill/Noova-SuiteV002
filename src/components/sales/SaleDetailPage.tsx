@@ -208,7 +208,6 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
               {/* PERFIL DEL CLIENTE */}
               <div className="px-6 pt-6 lg:px-10 pb-2">
                   <div className="flex items-center gap-5 mb-8 relative">
-                      <div className="absolute -top-10 -left-10 w-40 h-40 bg-brand-primary/10 rounded-full blur-[60px] pointer-events-none" />
                       <div className="w-20 h-20 rounded-full p-[1.5px] bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow shrink-0 relative z-10">
                           <Avatar name={group.clientName} size="100%" className="rounded-full border-4 border-bg" />
                       </div>

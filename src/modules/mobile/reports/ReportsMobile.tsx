@@ -82,7 +82,6 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
           {/* 2. KPI CARDS (Swipeable Look) */}
           <div className="grid grid-cols-2 gap-3">
              <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-status-success/10 rounded-full blur-xl -mr-4 -mt-4" />
                 <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                    <Wallet size={16} />
                    <span className="text-[10px] font-semibold uppercase tracking-wider">Ganancia Neta</span>
@@ -97,7 +96,6 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              </motion.div>
 
              <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-brand-primary/10 rounded-full blur-xl -mr-4 -mt-4" />
                 <div className="flex items-center gap-2 mb-2 text-brand-primary">
                    <TrendingUp size={16} />
                    <span className="text-[10px] font-semibold uppercase tracking-wider">Ventas</span>
@@ -134,16 +132,16 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                                <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
                             </linearGradient>
                          </defs>
-                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                         <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--fg-rgb) / 0.06)" vertical={false} />
                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#52525b', fontSize: 10}} dy={10} />
                          <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a', borderRadius: '12px', fontSize: '11px' }} />
                          <Area type="monotone" dataKey="income" stroke="#10b981" strokeWidth={3} fill="url(#gradIncM)" />
                       </AreaChart>
                    ) : (
                       <BarChart data={trendData}>
-                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                         <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--fg-rgb) / 0.06)" vertical={false} />
                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#52525b', fontSize: 10}} dy={10} />
-                         <Tooltip cursor={{fill: 'rgba(255,255,255,0.05)'}} contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a', borderRadius: '12px', fontSize: '11px' }} />
+                         <Tooltip cursor={{fill: 'rgb(var(--fg-rgb) / 0.06)'}} contentStyle={{ backgroundColor: 'rgb(var(--surface-2))', borderColor: 'rgb(var(--fg-rgb) / 0.1)', borderRadius: '12px', fontSize: '11px' }} />
                          <Bar dataKey="salesCount" radius={[4, 4, 0, 0]}>
                             {trendData.map((entry, index) => (
                                <Cell key={`cell-${index}`} fill={(entry.salesCount || 0) > 5 ? '#8b5cf6' : '#6366f1'} />

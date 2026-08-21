@@ -122,7 +122,7 @@ const AdminMobile: React.FC = () => {
             <Shield size={18} />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-text-primary tracking-tight">Panel Admin</h1>
+            <h1 className="text-2xl font-black text-text-primary tracking-tight">Panel Admin</h1>
             <p className="text-text-disabled text-[10px]">Gestión de suscripciones</p>
           </div>
         </div>

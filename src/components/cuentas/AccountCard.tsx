@@ -74,7 +74,6 @@ const AccountCard: React.FC<AccountCardProps> = ({
           : 'bg-bg border-border-subtle/40 opacity-60 grayscale'
       }`}
     >
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/[0.01] rounded-full blur-[40px] -mr-16 -mt-16 pointer-events-none" />
 
       <div className="relative z-10 flex justify-between items-start">
          <div className="flex items-center gap-2">

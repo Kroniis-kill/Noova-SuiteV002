@@ -109,7 +109,6 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
             animate={{ opacity: 1, y: 0 }}
             className="bg-gradient-to-r from-brand-primary to-brand-accent rounded-lg p-6 text-white relative overflow-hidden shadow-glow mb-6"
         >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--fg-rgb))]/20 blur-[50px] rounded-full pointer-events-none" />
             <div className="relative z-10 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-[rgb(var(--fg-rgb))]/20 rounded-full flex items-center justify-center backdrop-blur-sm shadow-lg">

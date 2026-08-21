@@ -341,7 +341,6 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                         {/* Status / Profiles */}
                         {isSingleEntity ? (
                             <div className={`rounded-xl p-5 border flex items-center justify-between relative overflow-hidden transition-all ${isSoldSingle ? 'bg-indigo-500/5 border-indigo-500/20' : 'bg-status-success/5 border-status-success/20'}`}>
-                                <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full blur-[50px] opacity-20 ${isSoldSingle ? 'bg-indigo-500' : 'bg-status-success'}`} />
                                 <div className="relative z-10">
                                     <h4 className={`text-[9px] font-black uppercase tracking-widest mb-2 ${isSoldSingle ? 'text-indigo-400' : 'text-status-success-soft'}`}>Estado del Cupo</h4>
                                     <p className="text-xl font-black text-text-primary mb-3 leading-tight">{isSoldSingle ? 'Ocupado / Vendido' : 'Disponible'}</p>

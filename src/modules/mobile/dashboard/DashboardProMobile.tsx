@@ -80,7 +80,6 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
        </div>
        <div className="px-6 space-y-6">
           <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 relative overflow-hidden shadow-2xl">
-             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 blur-3xl -mr-6 -mt-6" />
              <div className="flex flex-col items-center text-center">
                 <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-full text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
                 <h1 className="text-5xl font-extrabold text-text-primary tracking-tighter mb-1"><span className="text-2xl text-text-faint mr-1">$</span>{formatMoney(totalBalance)}</h1>
