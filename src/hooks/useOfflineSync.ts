@@ -1,5 +1,5 @@
 import { useSyncExternalStore, useCallback } from 'react';
-import { dbLocal, SyncItem } from '../db/LocalDatabase';
+import { dbLocal, SyncItem, ensureDbAlive } from '../db/LocalDatabase';
 import { useToast } from '../context/ToastContext';
 import { useQueryClient, QueryClient } from '@tanstack/react-query';
 import { supabase, supabaseUrl } from '../supabaseClient';
@@ -293,6 +293,12 @@ const addToSyncQueue = async (
   payload: any
 ) => {
   try {
+    // Red de seguridad: si la app acaba de volver de segundo plano y la
+    // conexión a IndexedDB quedó congelada, esto la recupera ANTES de
+    // intentar escribir (ver comentario detallado en LocalDatabase.ts).
+    // En el caso normal (conexión sana) esto resuelve casi instantáneo.
+    await ensureDbAlive();
+
     const recordId = payload?.id;
 
     if (recordId) {
@@ -371,6 +377,22 @@ const initListeners = () => {
   if (initialized) return;
   initialized = true;
 
+  // Solo forzamos una recarga completa de datos si la app estuvo
+  // realmente inactiva un buen rato (no en cada parpadeo de segundo
+  // plano). Antes se invalidaba TODO en cada regreso, sin importar si
+  // habían pasado 3 segundos o 3 horas — eso multiplicaba la
+  // transferencia de datos (egress) sin necesidad real: si volviste a
+  // los pocos segundos, tus datos casi seguro siguen igual.
+  const BACKGROUND_REFRESH_THRESHOLD_MS = 3 * 60 * 1000; // 3 minutos
+  let backgroundedAt: number | null = null;
+
+  const shouldFullyRefresh = () => {
+    if (backgroundedAt === null) return false;
+    const elapsed = Date.now() - backgroundedAt;
+    backgroundedAt = null;
+    return elapsed > BACKGROUND_REFRESH_THRESHOLD_MS;
+  };
+
   const handleOnline = () => {
     setIsOnline(true);
     processSyncQueue();
@@ -378,13 +400,35 @@ const initListeners = () => {
   const handleOffline = () => setIsOnline(false);
 
   const handleVisibilityChange = () => {
+    if (document.visibilityState === 'hidden') {
+      backgroundedAt = Date.now();
+      return;
+    }
     if (document.visibilityState === 'visible' && navigator.onLine) {
       setIsOnline(true);
+      const doFullRefresh = shouldFullyRefresh();
       setTimeout(async () => {
         if (!navigator.onLine) return;
+        await ensureDbAlive();
         const count = await dbLocal.syncQueue.count();
         if (count > 0) processSyncQueue();
-        else queryClientRef?.invalidateQueries();
+        else if (doFullRefresh) queryClientRef?.invalidateQueries();
+      }, 200);
+    }
+  };
+
+  // Caso relacionado: cuando iOS restaura la página desde el bfcache
+  // (back-forward cache) tras volver de segundo plano, a veces no dispara
+  // 'visibilitychange' de forma confiable. 'pageshow' con persisted=true
+  // cubre ese hueco.
+  const handlePageShow = (e: PageTransitionEvent) => {
+    if (e.persisted) {
+      setTimeout(async () => {
+        await ensureDbAlive();
+        if (navigator.onLine) {
+          const count = await dbLocal.syncQueue.count();
+          if (count > 0) processSyncQueue();
+        }
       }, 200);
     }
   };
@@ -392,17 +436,23 @@ const initListeners = () => {
   window.addEventListener('online', handleOnline);
   window.addEventListener('offline', handleOffline);
   document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('pageshow', handlePageShow);
 
   if (Capacitor.isNativePlatform()) {
     CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-      if (!isActive) return;
+      if (!isActive) {
+        backgroundedAt = Date.now();
+        return;
+      }
       setIsOnline(navigator.onLine);
       if (!navigator.onLine) return;
+      const doFullRefresh = shouldFullyRefresh();
       setTimeout(async () => {
         if (!navigator.onLine) return;
+        await ensureDbAlive();
         const count = await dbLocal.syncQueue.count();
         if (count > 0) processSyncQueue();
-        else queryClientRef?.invalidateQueries();
+        else if (doFullRefresh) queryClientRef?.invalidateQueries();
       }, 200);
     })
       .then((l) => {
