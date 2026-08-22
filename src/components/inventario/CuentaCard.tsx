@@ -3,6 +3,7 @@ import { Account } from '../../types';
 import { getAccountStatus, calculateOccupancy, getDaysRemaining } from '../../utils/inventarioUtils';
 import { ChevronRight, Calendar, Lock, Mail, Users, AlertTriangle, Truck } from 'lucide-react';
 import { useData } from '../../context/DataContext';
+import Card from '../ui/Card';
 
 interface CuentaCardProps {
   account: Account;
@@ -68,10 +69,14 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
         : 'bg-surface-1 border-border-subtle hover:bg-surface-2 hover:border-border-strong';
 
   return (
-    <div 
+    <Card
+      as="div"
+      variant="bare"
+      radius="xl"
+      pad="md"
       onClick={() => onClick && onClick(account)}
       className={`
-        relative w-full p-4 lg:p-5 rounded-xl border shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer group overflow-hidden
+        relative w-full border shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer group
         ${cardBackground}
       `}
     >
@@ -137,7 +142,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
       <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity hidden lg:block">
          <ChevronRight size={16} className="text-text-disabled" />
       </div>
-    </div>
+    </Card>
   );
 });
 
