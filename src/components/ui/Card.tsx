@@ -9,6 +9,10 @@ import React from 'react';
  *  - elevated    → con sombra y blur, para destacar (surface-3/80 + backdrop-blur)
  *  - interactive → default + hover/active states (cursor-pointer)
  *  - ghost       → transparente con sólo borde (para listas tipo "row")
+ *  - bare        → solo estructura (radio, padding, overflow-hidden), sin bg/border/shadow.
+ *                  Usar cuando el color de fondo/borde depende de un estado (activo,
+ *                  bloqueado, vencido, etc.) — pasás esos colores vía `className` y
+ *                  Card no impone ninguno propio encima.
  *
  * Padding (`pad`):
  *  - none → sin padding (el consumidor lo controla)
@@ -18,7 +22,7 @@ import React from 'react';
  *
  * Radio (`radius`): xs | sm | md | lg | xl | 2xl  (default: lg = 18px)
  */
-export type CardVariant = 'default' | 'flat' | 'elevated' | 'interactive' | 'ghost';
+export type CardVariant = 'default' | 'flat' | 'elevated' | 'interactive' | 'ghost' | 'bare';
 export type CardPad = 'none' | 'sm' | 'md' | 'lg';
 export type CardRadius = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -35,6 +39,7 @@ const VARIANT_CLASSES: Record<CardVariant, string> = {
   elevated:    'bg-surface-3/80 backdrop-blur-xl border border-border-subtle shadow-elev-md',
   interactive: 'bg-surface-1 border border-border-subtle shadow-elev-sm cursor-pointer hover:border-border-strong hover:bg-surface-2 active:scale-[0.99] transition-all duration-150 ease-out-soft',
   ghost:       'bg-transparent border border-border-subtle hover:border-border-strong transition-colors',
+  bare:        '',
 };
 
 const PAD_CLASSES: Record<CardPad, string> = {
