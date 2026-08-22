@@ -4,6 +4,7 @@ import { Layers, MessageCircle, Phone, Ban, AlertTriangle, Star, Zap, Clock, His
 import { useData } from '../../context/DataContext';
 import { sendWhatsAppMessage, getClientTags } from '../../utils/contactosUtils'; 
 import Avatar from '../ui/Avatar';
+import Card from '../ui/Card';
 
 interface ContactoCardProps {
   client: Client;
@@ -39,10 +40,14 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
   };
 
   return (
-    <div 
+    <Card
+      as="div"
+      variant="bare"
+      radius="xl"
+      pad="md"
       onClick={() => onClick(client)}
       className={`
-        group relative w-full p-4 lg:p-5 rounded-xl border shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer overflow-hidden
+        group relative w-full border shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer
         ${isActive
           ? 'bg-brand-primary/10 border-brand-primary/50 shadow-glow-primary-sm'
           : client.isBlocked
@@ -109,7 +114,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
             </button>
          </div>
       </div>
-    </div>
+    </Card>
   );
 });
 
