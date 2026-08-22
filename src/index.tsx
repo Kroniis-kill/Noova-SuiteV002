@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import AdminPortalApp from './pages/admin-portal/AdminPortalApp';
 import './index.css'; 
 
 // Register Service Worker for Push Notifications
@@ -25,8 +26,16 @@ if (!rootElement) {
 }
 
 const root = ReactDOM.createRoot(rootElement);
+
+// El panel de plataforma (/admin) es una app completamente aparte de la
+// app del negocio: login propio, sin datos de ningún tenant cargados.
+// No hay React Router en este proyecto (todo lo demás navega por estado
+// interno), así que alcanza con mirar la URL una sola vez acá — Vercel
+// ya redirige cualquier ruta a este mismo index.html (ver vercel.json).
+const isAdminPortalRoute = window.location.pathname.startsWith('/admin');
+
 root.render(
   <React.StrictMode>
-    <App />
+    {isAdminPortalRoute ? <AdminPortalApp /> : <App />}
   </React.StrictMode>
 );
