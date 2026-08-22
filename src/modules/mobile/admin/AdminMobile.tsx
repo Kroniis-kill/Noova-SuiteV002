@@ -6,7 +6,7 @@ import {
   Users, Search, Plus, Edit2, Trash2, History, BarChart3,
   Shield, ShieldCheck, Infinity, ChevronRight, DollarSign, Crown,
   Smartphone, MessageSquare, Megaphone, RefreshCw, Settings,
-  ShieldAlert, Calendar, AlertOctagon, TrendingUp
+  ShieldAlert, Calendar, AlertOctagon, TrendingUp, Tag, ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AdminUserModal from '../../../components/admin/AdminUserModal';
@@ -16,9 +16,10 @@ import Modal from '../../../components/ui/Modal';
 import { useToast } from '../../../context/ToastContext';
 import AdminHistoryMobile from './history/AdminHistoryMobile';
 import AdminAnalyticsMobile from './analytics/AdminAnalyticsMobile';
+import AdminDiscountCodesView from '../../../components/admin/AdminDiscountCodesView';
 import { formatDate } from '../../../utils/contactosUtils';
 
-type AdminTab = 'overview' | 'users' | 'feedback' | 'announcements' | 'system' | 'history' | 'analytics';
+type AdminTab = 'overview' | 'users' | 'feedback' | 'announcements' | 'system' | 'history' | 'analytics' | 'discounts';
 
 const TABS: { id: AdminTab; label: string; icon: React.ElementType }[] = [
   { id: 'overview', label: 'Inicio', icon: TrendingUp },
@@ -111,6 +112,17 @@ const AdminMobile: React.FC = () => {
 
   if (activeTab === 'history') return <AdminHistoryMobile onBack={() => setActiveTab('overview')} />;
   if (activeTab === 'analytics') return <AdminAnalyticsMobile onBack={() => setActiveTab('overview')} />;
+  if (activeTab === 'discounts') return (
+    <div className="pb-32 pt-2 px-4 space-y-4">
+      <div className="flex items-center gap-4 mb-2">
+        <button onClick={() => setActiveTab('overview')} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
+          <ArrowLeft size={20} />
+        </button>
+        <h1 className="text-2xl font-black text-text-primary tracking-tight">Descuentos</h1>
+      </div>
+      <AdminDiscountCodesView />
+    </div>
+  );
 
   return (
     <div className="pb-32 pt-3 text-text-primary min-h-screen bg-bg">
@@ -172,6 +184,7 @@ const AdminMobile: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               <ShortcutCard label="Analíticas" icon={BarChart3} onClick={() => setActiveTab('analytics')} />
               <ShortcutCard label="Auditoría" icon={History} onClick={() => setActiveTab('history')} />
+              <ShortcutCard label="Descuentos" icon={Tag} onClick={() => setActiveTab('discounts')} />
               <ShortcutCard label="Configuración" icon={Settings} onClick={() => { setTempPhone(supportNumber); setIsConfigOpen(true); }} />
               <ShortcutCard label="Sistema" icon={ShieldCheck} onClick={() => setActiveTab('system')} />
             </div>
