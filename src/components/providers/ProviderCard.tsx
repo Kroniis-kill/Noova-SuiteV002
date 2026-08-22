@@ -4,6 +4,7 @@ import { MessageCircle, Send, Edit2, Layers, ChevronRight, Truck, Star } from 'l
 import { sendWhatsAppMessage } from '../../utils/contactosUtils';
 import { motion } from 'framer-motion';
 import Avatar from '../ui/Avatar';
+import { cardClass } from '../ui/Card';
 
 interface ProviderCardProps {
   provider: Provider;
@@ -39,16 +40,21 @@ const ProviderCard: React.FC<ProviderCardProps> = ({ provider, accountCount, onC
     <motion.div 
       layout
       onClick={() => onClick(provider)}
-      className={`
-        group relative p-4 lg:p-5 rounded-xl border bg-surface-1 shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer overflow-hidden
-        ${isActive
-          ? 'border-brand-primary/50 shadow-glow-primary-sm'
-          : 'border-border-subtle hover:border-border-strong hover:bg-surface-2'
-        }
-      `}
+      className={cardClass({
+        variant: 'bare',
+        radius: 'xl',
+        pad: 'md',
+        className: `
+          group relative border bg-surface-1 shadow-elev-sm transition-all duration-150 ease-out-soft cursor-pointer
+          ${isActive
+            ? 'border-brand-primary/50 shadow-glow-primary-sm'
+            : 'border-border-subtle hover:border-border-strong hover:bg-surface-2'
+          }
+        `,
+      })}
     >
        {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-primary" />}
-       <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/[0.03] to-transparent rounded-bl-full pointer-events-none transition-opacity ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+       <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[rgb(var(--fg-rgb))]/[0.03] to-transparent rounded-bl-full pointer-events-none transition-opacity ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
 
        <div className="flex justify-between items-start mb-3 relative z-10">
           <div className="flex items-center gap-3">
