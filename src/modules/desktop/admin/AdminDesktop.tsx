@@ -6,12 +6,13 @@ import {
   Users, Search, ShieldCheck, Edit2, Trash2, UserPlus, BarChart3,
   DollarSign, TrendingUp, Settings, PlusCircle, AlertOctagon,
   Infinity, History, Calendar, Server, Shield, Crown, Smartphone,
-  MessageSquare, Megaphone, ChevronRight, Activity, Zap, ShieldAlert
+  MessageSquare, Megaphone, ChevronRight, Activity, Zap, ShieldAlert, Tag
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import AdminUserModal from '../../../components/admin/AdminUserModal';
 import ExtensionModal from '../../../components/admin/ExtensionModal';
 import AdminUserDetailModal from '../../../components/admin/AdminUserDetailModal';
+import AdminDiscountCodesView from '../../../components/admin/AdminDiscountCodesView';
 import Modal from '../../../components/ui/Modal';
 import { useToast } from '../../../context/ToastContext';
 import { formatDate } from '../../../utils/contactosUtils';
@@ -19,10 +20,11 @@ import AdminHistoryMobile from '../../mobile/admin/history/AdminHistoryMobile';
 import AdminAnalyticsMobile from '../../mobile/admin/analytics/AdminAnalyticsMobile';
 import { motion } from 'framer-motion';
 
-type AdminTab = 'main' | 'feedback' | 'announcements' | 'history' | 'analytics';
+type AdminTab = 'main' | 'discounts' | 'feedback' | 'announcements' | 'history' | 'analytics';
 
 const TAB_LABELS: Record<AdminTab, string> = {
   main: 'Suscripciones',
+  discounts: 'Descuentos',
   feedback: 'Feedback',
   announcements: 'Anuncios',
   history: 'Auditoría',
@@ -31,6 +33,7 @@ const TAB_LABELS: Record<AdminTab, string> = {
 
 const TAB_ICONS: Record<AdminTab, React.ElementType> = {
   main: Users,
+  discounts: Tag,
   feedback: MessageSquare,
   announcements: Megaphone,
   history: History,
@@ -185,6 +188,8 @@ const AdminDesktop: React.FC = () => {
         <KPICard title="Total registros" value={metrics.total} icon={Users} accent="text-status-info-soft" bg="bg-status-info/10" />
         <KPICard title="Bloqueados" value={metrics.banned} icon={AlertOctagon} accent="text-status-danger-soft" bg="bg-status-danger/10" />
       </div>
+
+      {activeTab === 'discounts' && <AdminDiscountCodesView />}
 
       {activeTab === 'main' && (
         <div className="grid grid-cols-12 gap-6">
