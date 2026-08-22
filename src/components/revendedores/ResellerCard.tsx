@@ -3,6 +3,7 @@ import { Reseller } from '../../types';
 import { Send, Users, ShoppingCart, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Avatar from '../ui/Avatar';
+import { cardClass } from '../ui/Card';
 
 interface ResellerStats {
   clients: number;
@@ -33,7 +34,12 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
       layout
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick(reseller)}
-      className="group relative bg-surface-1 border border-border-subtle rounded-xl p-4 lg:p-5 shadow-elev-sm hover:border-border-strong hover:bg-surface-2 transition-all duration-150 ease-out-soft cursor-pointer overflow-hidden"
+      className={cardClass({
+        variant: 'bare',
+        radius: 'xl',
+        pad: 'md',
+        className: 'group relative bg-surface-1 border border-border-subtle shadow-elev-sm hover:border-border-strong hover:bg-surface-2 transition-all duration-150 ease-out-soft cursor-pointer',
+      })}
     >
        {/* Decorative Background */}
 
