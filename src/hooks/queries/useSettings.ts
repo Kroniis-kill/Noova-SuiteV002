@@ -55,7 +55,11 @@ export function useSettings(userId: string | undefined) {
     },
     initialData: () => cacheUtils.load<AppSettings>('settings', userId) || undefined,
     enabled: !!userId,
-    staleTime: 0,
+    // 60s en vez de 0: evita re-descargar todo en cada repintado/remount.
+    // Los cambios propios ya se ven al toque por la actualización optimista
+    // local (updateLocalCache); esto solo controla cuándo se vuelve a pedir
+    // a la red "por las dudas".
+    staleTime: 60_000,
   });
 
   const updateSettings = useMutation({
