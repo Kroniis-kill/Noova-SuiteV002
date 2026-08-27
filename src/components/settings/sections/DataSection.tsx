@@ -4,7 +4,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
 import { backupService } from '../../../services/backupService';
-import { styles, ToggleSwitch } from './_shared';
+import { styles, ToggleSwitch, SectionHeading } from './_shared';
 
 export const DataSection = () => {
     const { showToast } = useToast();
@@ -99,8 +99,8 @@ export const DataSection = () => {
              {loading && (
                 <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={(e) => e.stopPropagation()}>
                     <div className="relative w-24 h-24 mb-6">
-                        <div className="absolute inset-0 rounded-full border-4 border-[rgb(var(--fg-rgb))]/5 border-t-blue-500 animate-spin" />
-                        <div className="absolute inset-4 rounded-full border-4 border-[rgb(var(--fg-rgb))]/5 border-b-emerald-500 animate-spin-slow" />
+                        <div className="absolute inset-0 rounded-full border-4 border-hairline border-t-status-info animate-spin" />
+                        <div className="absolute inset-4 rounded-full border-4 border-hairline border-b-status-success animate-spin-slow" />
                         <div className="absolute inset-0 flex items-center justify-center">
                             <Database className="text-text-primary animate-pulse" size={32} />
                         </div>
@@ -117,12 +117,10 @@ export const DataSection = () => {
              )}
 
              <div className={styles.card}>
-                <h3 className="text-text-primary font-bold text-lg mb-6 flex items-center gap-2 text-status-info-soft">
-                    <Database size={20} /> Seguridad de Datos
-                </h3>
+                <SectionHeading icon={Database} title="Seguridad de Datos" colorClass="text-status-info-soft" />
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                    <button onClick={handleBackup} disabled={loading} className="aspect-square bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group relative overflow-hidden active:scale-95">
+                <div className="grid grid-cols-2 gap-4 mb-6 mt-4">
+                    <button onClick={handleBackup} disabled={loading} className="aspect-square bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group relative overflow-hidden active:scale-95">
                         {loading && <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10"><RefreshCw className="animate-spin text-white" /></div>}
                         <div className="w-12 h-12 rounded-full bg-status-success/10 border border-status-success/20 flex items-center justify-center text-status-success-soft group-hover:scale-110 transition-transform">
                            <Save size={24} />
@@ -133,7 +131,7 @@ export const DataSection = () => {
                         </div>
                     </button>
 
-                    <button onClick={() => fileInputRef.current?.click()} disabled={loading} className="aspect-square bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group active:scale-95">
+                    <button onClick={() => fileInputRef.current?.click()} disabled={loading} className="aspect-square bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex flex-col items-center justify-center gap-3 transition-colors group active:scale-95">
                         <div className="w-12 h-12 rounded-full bg-status-info/10 border border-status-info/20 flex items-center justify-center text-status-info-soft group-hover:scale-110 transition-transform">
                            <Upload size={24} />
                         </div>
@@ -144,7 +142,7 @@ export const DataSection = () => {
                     </button>
                 </div>
 
-                <div className="bg-surface-sunken rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 mb-6">
+                <div className="bg-surface-sunken rounded-xl border border-hairline p-4 mb-6">
                     <div className="flex items-center justify-between mb-4 px-1">
                         <div>
                             <span className="text-text-primary font-semibold text-xs block">Recordatorio de Respaldo</span>
@@ -156,7 +154,7 @@ export const DataSection = () => {
                     {backupPrefs.autoBackup && (
                         <div className="grid grid-cols-3 gap-2 mt-2 animate-in fade-in slide-in-from-top-2 duration-300">
                             {['daily', 'weekly', 'monthly'].map((f) => (
-                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-[rgb(var(--fg-rgb))]/5 text-text-faint'}`}>
+                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all active:scale-[0.98] ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-hairline text-text-faint'}`}>
                                     {f === 'daily' ? 'Diario' : f === 'weekly' ? 'Semanal' : 'Mensual'}
                                 </button>
                             ))}
@@ -165,7 +163,7 @@ export const DataSection = () => {
                 </div>
 
                 <div className="space-y-3">
-                    <button onClick={handleExcelExport} disabled={loading} className="w-full h-[60px] bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg flex items-center justify-between px-5 hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors group active:scale-[0.98]">
+                    <button onClick={handleExcelExport} disabled={loading} className="w-full h-[60px] bg-surface-sunken border border-border-subtle rounded-xl flex items-center justify-between px-5 hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors group active:scale-[0.98]">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft">
                                 <Download size={20} />

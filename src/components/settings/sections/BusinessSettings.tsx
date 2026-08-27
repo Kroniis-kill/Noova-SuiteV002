@@ -4,7 +4,7 @@ import { Save, Activity, CreditCard, ShoppingCart, Tag, Plus, Trash2 } from 'luc
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
 import { generateUUID } from '../../../utils/uuid';
-import { styles, ToggleSwitch } from './_shared';
+import { styles, ToggleSwitch, TabSwitcher, SectionHeading } from './_shared';
 
 export const BusinessSettings = () => {
     const { settings, updateSettings, expenseCategories, addCategory, deleteCategory } = useData();
@@ -61,7 +61,7 @@ export const BusinessSettings = () => {
         showToast('Categoría agregada', 'success');
     };
 
-    const tabs = [
+    const tabs: { id: 'finances' | 'sales' | 'categories'; label: string }[] = [
         { id: 'finances', label: 'Finanzas' },
         { id: 'sales', label: 'Ventas' },
         { id: 'categories', label: 'Categorías' },
@@ -69,30 +69,13 @@ export const BusinessSettings = () => {
 
     return (
         <div className="space-y-6 animate-fade-in">
-             <div className="flex bg-surface-1 p-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.08] w-full mb-4 shadow-sm">
-                 {tabs.map(tab => (
-                     <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex-1 px-4 py-2.5 rounded-md text-xs font-semibold transition-all text-center ${
-                            activeTab === tab.id
-                            ? 'bg-surface-4 text-text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/5'
-                            : 'text-text-disabled hover:text-text-primary'
-                        }`}
-                     >
-                        {tab.label}
-                     </button>
-                 ))}
-             </div>
+             <TabSwitcher tabs={tabs} active={activeTab} onChange={setActiveTab} />
 
              <div className={styles.card}>
                 <AnimatePresence mode="wait">
                     {activeTab === 'finances' && (
                         <motion.div key="finances" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
-                            <div className="flex items-center gap-2 mb-2 text-brand-primary">
-                                <CreditCard size={18} />
-                                <h3 className="font-bold text-text-primary text-sm">Configuración de Moneda</h3>
-                            </div>
+                            <SectionHeading icon={CreditCard} title="Configuración de Moneda" />
 
                             <div className="space-y-4">
                                 <div>
@@ -128,7 +111,7 @@ export const BusinessSettings = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/5">
+                            <div className="mt-2 pt-4 border-t border-hairline">
                                 <div className={styles.toggleContainer}>
                                     <div>
                                         <p className="text-sm font-bold text-text-primary">Compras como Costo</p>
@@ -142,10 +125,7 @@ export const BusinessSettings = () => {
 
                     {activeTab === 'sales' && (
                         <motion.div key="sales" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
-                            <div className="flex items-center gap-2 mb-2 text-brand-accent">
-                                <ShoppingCart size={18} />
-                                <h3 className="font-bold text-text-primary text-sm">Preferencias de Venta</h3>
-                            </div>
+                            <SectionHeading icon={ShoppingCart} title="Preferencias de Venta" colorClass="text-brand-accent" />
 
                             <div>
                                 <label className={styles.label}>DÍAS DE ANTICIPACIÓN PARA ALERTA</label>
@@ -154,10 +134,10 @@ export const BusinessSettings = () => {
                                         <button
                                             key={day}
                                             onClick={() => setWarningDays(day)}
-                                            className={`h-12 rounded-md font-bold text-sm border transition-all ${
+                                            className={`h-12 rounded-xl font-bold text-sm border transition-all active:scale-[0.98] ${
                                                 warningDays === day
                                                 ? 'bg-brand-primary/20 border-brand-primary text-brand-primary'
-                                                : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-disabled hover:border-[rgb(var(--fg-rgb))]/20'
+                                                : 'bg-surface-sunken border-border-subtle text-text-disabled hover:border-border-strong'
                                             }`}
                                         >
                                             {day} Días
@@ -178,14 +158,11 @@ export const BusinessSettings = () => {
 
                     {activeTab === 'categories' && (
                         <motion.div key="categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-6">
-                            <div className="flex items-center gap-2 mb-2 text-status-success-soft">
-                                <Tag size={18} />
-                                <h3 className="font-bold text-text-primary text-sm">Gestión de Categorías</h3>
-                            </div>
+                            <SectionHeading icon={Tag} title="Gestión de Categorías" colorClass="text-status-success-soft" />
 
                             <div className="flex gap-2">
                                 <input value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Nueva categoría..." className={styles.input} />
-                                <button onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0">
+                                <button onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-xl bg-surface-4 border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0 active:scale-[0.98]">
                                     <Plus size={20} />
                                 </button>
                             </div>
@@ -195,7 +172,7 @@ export const BusinessSettings = () => {
                                     <p className="text-center text-text-disabled text-xs py-8">No hay categorías personalizadas.</p>
                                 )}
                                 {expenseCategories.map(cat => (
-                                    <div key={cat.id} className="flex items-center justify-between p-4 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md group">
+                                    <div key={cat.id} className="flex items-center justify-between p-4 bg-surface-sunken border border-hairline rounded-xl group">
                                         <div className="flex items-center gap-3">
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
                                             <span className="text-sm font-bold text-text-primary">{cat.name}</span>

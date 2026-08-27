@@ -1,25 +1,45 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertOctagon, Clock, X, Bell, Wrench } from 'lucide-react';
+import { AlertOctagon, X, Wrench } from 'lucide-react';
 import { useData } from '../../context/DataContext';
 import { useUIStore } from '../../store/uiStore';
-import { getDaysRemaining } from '../../utils/expiredUtils';
-import { ViewState, PendingActionType } from '../../types';
+import { useExpiryEngine, ExpiryEvent } from '../../hooks/useExpiryEngine';
 
-type Severity = 'danger' | 'warning' | 'info';
+/**
+ * Canal BANNER (Dashboard). Es el "vistazo rápido" al abrir la app — no el
+ * inbox (eso es la campanita) ni el aviso del sistema (eso es el push).
+ * Por eso acá solo mostramos lo realmente urgente (vencido / vence hoy),
+ * como máximo 3 avisos, y solo en el Dashboard.
+ *
+ * El reset ahora es por DÍA CALENDARIO, no por "sesión de visibilidad": antes,
+ * minimizar y volver a abrir la app repetía los mismos avisos aunque nada
+ * hubiera cambiado, lo cual se sentía como duplicado.
+ */
 
+const MAX_BANNER_ITEMS = 3;
+const SHOWN_KEY = 'noova_banner_shown_v2';
 
-interface Alert {
-  id: string;
-  severity: Severity;
-  title: string;
-  message: string;
-  view: ViewState;
-  action?: { type: PendingActionType; targetId: string };
+interface ShownStore {
+  day: string;
+  ids: string[];
 }
 
-// Se reinicia automáticamente en cada nueva "sesión de visibilidad":
-// cuando la app pasa a segundo plano y vuelve, los avisos se muestran de nuevo.
+const loadShown = (): Set<string> => {
+  try {
+    const parsed: ShownStore = JSON.parse(localStorage.getItem(SHOWN_KEY) || 'null');
+    const today = new Date().toISOString().slice(0, 10);
+    if (!parsed || parsed.day !== today) return new Set();
+    return new Set(parsed.ids);
+  } catch {
+    return new Set();
+  }
+};
+
+const saveShown = (ids: Set<string>) => {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem(SHOWN_KEY, JSON.stringify({ day: today, ids: Array.from(ids) } as ShownStore));
+};
+
 const useIsDesktop = () => {
   const [is, setIs] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
   useEffect(() => {
@@ -31,143 +51,57 @@ const useIsDesktop = () => {
 };
 
 const InAppNotifications: React.FC = () => {
-  const { accounts, sales, services, clients, serviceFailures, settings, setPendingAction } = useData() as any;
-  const setView = useUIStore(s => s.setView);
-  const currentView = useUIStore(s => s.currentView);
+  const { accounts, sales, services, clients, serviceFailures, payableExpenses, setPendingAction } = useData() as any;
+  const setView = useUIStore((s) => s.setView);
+  const currentView = useUIStore((s) => s.currentView);
   const isDesktop = useIsDesktop();
 
+  const events = useExpiryEngine({ accounts, sales, payables: payableExpenses, clients, services, serviceFailures });
 
-  // IDs ya mostrados en esta "sesión de visibilidad" (se limpia al volver a foreground)
-  const [shown, setShown] = useState<Set<string>>(() => new Set());
-  // Aviso actualmente visible (uno a la vez)
+  // Solo lo urgente, y como mucho 3 — el banner no es el inbox.
+  const criticalAlerts = useMemo<ExpiryEvent[]>(
+    () => events.filter((e) => e.severity === 'critical').slice(0, MAX_BANNER_ITEMS),
+    [events]
+  );
+
+  const agendaAlert: ExpiryEvent | null =
+    serviceFailures && serviceFailures.length > 0
+      ? {
+          id: `agenda_${serviceFailures.length}`,
+          entity: 'account',
+          groupKey: 'agenda',
+          severity: 'critical',
+          daysRemaining: 0,
+          itemCount: serviceFailures.length,
+          itemIds: [],
+          title: 'Agenda de fallas',
+          message: `${serviceFailures.length} ${serviceFailures.length === 1 ? 'cliente con falla por atender' : 'clientes con fallas por atender'}`,
+          view: 'agenda',
+          milestone: 'due',
+        }
+      : null;
+
+  const allAlerts = useMemo(
+    () => (agendaAlert ? [agendaAlert, ...criticalAlerts] : criticalAlerts).slice(0, MAX_BANNER_ITEMS),
+    [agendaAlert, criticalAlerts]
+  );
+
+  const [shown, setShown] = useState<Set<string>>(() => loadShown());
   const [currentId, setCurrentId] = useState<string | null>(null);
 
-  const warningDays: number = settings?.salesPreferences?.warningDays ?? 2;
+  const pending = useMemo(() => allAlerts.filter((a) => !shown.has(a.id)), [allAlerts, shown]);
 
-  const allAlerts = useMemo<Alert[]>(() => {
-    const list: Alert[] = [];
-    const svcName = (id: string) => services.find((s: any) => s.id === id)?.name || 'Servicio';
-
-    const failingAccountIds = new Set<string>(
-      sales
-        .filter((s: any) => serviceFailures?.some((f: any) => f.saleId === s.id))
-        .map((s: any) => s.accountId)
-    );
-
-    type Group = { expired: string[]; soon: string[]; soonDays: number };
-    const groups = new Map<string, Group>();
-    accounts.forEach((a: any) => {
-      if (a.status === 'inactiva' || a.status === 'fallando' || a.status === 'trash') return;
-      if (a.is_down || a.failure_started_at) return;
-      if (failingAccountIds.has(a.id)) return;
-
-      const d = getDaysRemaining(a.endDate);
-      const key = a.serviceId;
-      const g = groups.get(key) || { expired: [], soon: [], soonDays: 99 };
-      if (d <= 0) g.expired.push(a.id);
-      else if (d <= warningDays) { g.soon.push(a.id); g.soonDays = Math.min(g.soonDays, d); }
-      groups.set(key, g);
-    });
-    groups.forEach((g, sid) => {
-      const name = svcName(sid).toUpperCase();
-      if (g.expired.length > 0) {
-        list.push({
-          id: `acc_exp_${sid}_${g.expired.length}`,
-          severity: 'danger',
-          title: name,
-          message: `${g.expired.length} ${g.expired.length === 1 ? 'cuenta vencida' : 'cuentas vencidas'}`,
-          view: 'inventory',
-          action: g.expired.length === 1
-            ? { type: 'OPEN_ACCOUNT_DETAIL', targetId: g.expired[0] }
-            : { type: 'OPEN_SERVICE_ACCOUNTS', targetId: sid },
-        });
-      }
-      if (g.soon.length > 0) {
-        list.push({
-          id: `acc_soon_${sid}_${g.soon.length}_${g.soonDays}`,
-          severity: 'warning',
-          title: name,
-          message: `${g.soon.length} ${g.soon.length === 1 ? 'cuenta' : 'cuentas'} por vencer en ${g.soonDays} día${g.soonDays === 1 ? '' : 's'}`,
-          view: 'inventory',
-          action: g.soon.length === 1
-            ? { type: 'OPEN_ACCOUNT_DETAIL', targetId: g.soon[0] }
-            : { type: 'OPEN_SERVICE_ACCOUNTS', targetId: sid },
-        });
-      }
-    });
-
-    // Agrupar ventas por cliente: un cliente con varios servicios = una sola notificación
-    type SaleGroup = { clientId: string; cname: string; expired: number; soon: number; minSoonDays: number; maxExpDays: number };
-    const saleGroups = new Map<string, SaleGroup>();
-    sales.forEach((s: any) => {
-      const d = getDaysRemaining(s.expiryDate);
-      const isExp = d <= 0 && d > -7;
-      const isSoon = d > 0 && d <= warningDays;
-      if (!isExp && !isSoon) return;
-      const client = clients.find((c: any) => c.id === s.clientId);
-      const cname = client?.name || 'Cliente';
-      const g = saleGroups.get(s.clientId) || { clientId: s.clientId, cname, expired: 0, soon: 0, minSoonDays: 99, maxExpDays: 0 };
-      if (isExp) { g.expired++; g.maxExpDays = Math.max(g.maxExpDays, Math.abs(d)); }
-      else if (isSoon) { g.soon++; g.minSoonDays = Math.min(g.minSoonDays, d); }
-      saleGroups.set(s.clientId, g);
-    });
-    saleGroups.forEach((g) => {
-      if (g.expired > 0) {
-        list.push({
-          id: `sale_exp_client_${g.clientId}_${g.expired}`,
-          severity: 'danger',
-          title: g.cname.toUpperCase(),
-          message: g.expired === 1
-            ? `Venció hace ${g.maxExpDays} día${g.maxExpDays === 1 ? '' : 's'}`
-            : `${g.expired} servicios vencidos`,
-          view: 'expired',
-          action: { type: 'OPEN_RENEWAL', targetId: g.clientId },
-        });
-      } else if (g.soon > 0) {
-        list.push({
-          id: `sale_soon_client_${g.clientId}_${g.soon}_${g.minSoonDays}`,
-          severity: 'warning',
-          title: g.cname.toUpperCase(),
-          message: g.soon === 1
-            ? `Renueva en ${g.minSoonDays} día${g.minSoonDays === 1 ? '' : 's'}`
-            : `${g.soon} servicios renuevan en ${g.minSoonDays} día${g.minSoonDays === 1 ? '' : 's'}`,
-          view: 'sales',
-          action: { type: 'OPEN_RENEWAL', targetId: g.clientId },
-        });
-      }
-    });
-
-
-    if (serviceFailures && serviceFailures.length > 0) {
-      list.push({
-        id: `agenda_${serviceFailures.length}`,
-        severity: 'danger',
-        title: 'AGENDA DE FALLAS',
-        message: `${serviceFailures.length} ${serviceFailures.length === 1 ? 'cliente con falla por atender' : 'clientes con fallas por atender'}`,
-        view: 'agenda',
-      });
-    }
-
-    return list;
-  }, [accounts, sales, services, clients, serviceFailures, warningDays]);
-
-  // Avisos pendientes = los que aún no se han mostrado en esta sesión de visibilidad
-  const pending = useMemo(() => allAlerts.filter(a => !shown.has(a.id)), [allAlerts, shown]);
-
-  // Si no hay aviso visible, toma el siguiente pendiente
   useEffect(() => {
-    if (!currentId && pending.length > 0) {
-      setCurrentId(pending[0].id);
-    }
+    if (!currentId && pending.length > 0) setCurrentId(pending[0].id);
   }, [pending, currentId]);
 
-  // Auto-cierra el aviso visible después de 6s y marca como mostrado
   useEffect(() => {
     if (!currentId) return;
     const t = setTimeout(() => {
-      setShown(prev => {
+      setShown((prev) => {
         const n = new Set(prev);
         n.add(currentId);
+        saveShown(n);
         return n;
       });
       setCurrentId(null);
@@ -175,49 +109,28 @@ const InAppNotifications: React.FC = () => {
     return () => clearTimeout(t);
   }, [currentId]);
 
-  // Al volver a foreground (o al recibir foco), reinicia "shown" para mostrar los avisos de nuevo
-  useEffect(() => {
-    const onVisible = () => {
-      if (document.visibilityState === 'visible') {
-        setShown(new Set());
-        setCurrentId(null);
-      }
-    };
-    document.addEventListener('visibilitychange', onVisible);
-    window.addEventListener('focus', onVisible);
-    return () => {
-      document.removeEventListener('visibilitychange', onVisible);
-      window.removeEventListener('focus', onVisible);
-    };
-  }, []);
+  // Ya NO se reinicia al volver a foreground — solo cambia con un nuevo día calendario
+  // (loadShown ya descarta el set guardado si la fecha no coincide).
 
-  // Solo mostrar en Dashboard; al cambiar de vista, ocultar inmediatamente
   useEffect(() => {
-    if (currentView !== 'dashboard') {
-      setCurrentId(null);
-    }
+    if (currentView !== 'dashboard') setCurrentId(null);
   }, [currentView]);
 
-  const current = allAlerts.find(a => a.id === currentId) || null;
+  const current = allAlerts.find((a) => a.id === currentId) || null;
   if (!current || currentView !== 'dashboard') return null;
 
-
   const dismiss = (id: string) => {
-    setShown(prev => {
+    setShown((prev) => {
       const n = new Set(prev);
       n.add(id);
+      saveShown(n);
       return n;
     });
     setCurrentId(null);
   };
 
-  const palette: Record<Severity, { icon: string; chip: string; Icon: React.ComponentType<any> }> = {
-    danger:  { icon: 'text-status-danger',  chip: 'bg-status-danger/15',  Icon: AlertOctagon },
-    warning: { icon: 'text-status-warning', chip: 'bg-status-warning/15', Icon: Clock },
-    info:    { icon: 'text-brand-primary',  chip: 'bg-brand-primary/15',  Icon: Bell },
-  };
-  if (current.view === 'agenda') palette.danger.Icon = Wrench;
-  const cfg = palette[current.severity];
+  const isAgenda = current.view === 'agenda';
+  const Icon = isAgenda ? Wrench : AlertOctagon;
 
   const handleNavigate = () => {
     if (current.action) setPendingAction(current.action);
@@ -245,16 +158,14 @@ const InAppNotifications: React.FC = () => {
             onClick={handleNavigate}
             className="w-full flex items-center gap-3 p-3 text-left active:scale-[0.99] transition"
           >
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${cfg.chip}`}>
-              <cfg.Icon size={18} className={cfg.icon} />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-status-danger/15">
+              <Icon size={18} className="text-status-danger" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-[11px] font-black uppercase tracking-[0.12em] text-text-primary truncate">
                 {current.title}
               </p>
-              <p className="text-[12px] text-text-secondary truncate">
-                {current.message}
-              </p>
+              <p className="text-[12px] text-text-secondary truncate">{current.message}</p>
             </div>
             <span
               onClick={(e) => { e.stopPropagation(); dismiss(current.id); }}
@@ -266,7 +177,7 @@ const InAppNotifications: React.FC = () => {
           </button>
           {pending.length > 1 && (
             <div className="flex gap-1 px-3 pb-2">
-              {pending.slice(0, 5).map((_, i: number) => (
+              {pending.slice(0, MAX_BANNER_ITEMS).map((_, i: number) => (
                 <span
                   key={i}
                   className={`h-[2px] flex-1 rounded-full transition-colors ${i === 0 ? 'bg-[rgb(var(--fg-rgb))]/60' : 'bg-[rgb(var(--fg-rgb))]/10'}`}

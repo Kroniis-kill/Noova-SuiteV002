@@ -1,111 +1,74 @@
+import { useEffect, useMemo, useState } from 'react';
+import { Account, Sale, PayableExpense, AppNotification, Client, Service } from '../types';
+import { useExpiryEngine } from './useExpiryEngine';
 
-import { useMemo } from 'react';
-import { Account, Sale, PayableExpense, AppNotification, Client } from '../types';
-import { getDaysRemaining } from '../utils/expiredUtils';
+const READ_CHANGED_EVENT = 'noova_notifications_read_changed';
 
-// Este hook procesa los datos crudos y devuelve una lista de notificaciones procesables
+/**
+ * Canal CAMPANITA (Centro de Notificaciones). Es el inbox: acá sí se
+ * muestran todos los eventos dentro de la ventana (hasta 7 días), porque el
+ * usuario decide cuándo entrar a revisarlo — a diferencia del push o el
+ * banner, no interrumpe por su cuenta.
+ *
+ * Consume useExpiryEngine (misma fuente que el push y el banner) y le suma
+ * estado de leído/no-leído persistido, para que el badge de la campana
+ * refleje pendientes reales en vez de "todo lo que exista".
+ */
+
+const READ_KEY = 'noova_notifications_read_ids';
+
+const loadReadIds = (): Set<string> => {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]'));
+  } catch {
+    return new Set();
+  }
+};
+
+export const markNotificationRead = (id: string) => {
+  const ids = loadReadIds();
+  ids.add(id);
+  localStorage.setItem(READ_KEY, JSON.stringify(Array.from(ids)));
+  window.dispatchEvent(new Event(READ_CHANGED_EVENT));
+};
+
+export const markAllNotificationsRead = (ids: string[]) => {
+  localStorage.setItem(READ_KEY, JSON.stringify(ids));
+  window.dispatchEvent(new Event(READ_CHANGED_EVENT));
+};
+
 export const useSystemNotifications = (
   accounts: Account[],
   sales: Sale[],
   payables: PayableExpense[],
-  clients: Client[]
-) => {
-  const notifications = useMemo(() => {
-    const list: AppNotification[] = [];
+  clients: Client[],
+  services: Service[] = []
+): AppNotification[] => {
+  const events = useExpiryEngine({ accounts, sales, payables, clients, services });
 
-    // 1. SALES EXPIRY
-    // Agrupar ventas por cliente para no spammear
-    const salesByClient: Record<string, { clientName: string, count: number, minDays: number }> = {};
+  // Forzar recálculo cuando cambia el estado leído/no-leído (viene de fuera de React, vía localStorage).
+  const [readTick, setReadTick] = useState(0);
+  useEffect(() => {
+    const onChange = () => setReadTick((t) => t + 1);
+    window.addEventListener(READ_CHANGED_EVENT, onChange);
+    return () => window.removeEventListener(READ_CHANGED_EVENT, onChange);
+  }, []);
 
-    sales.forEach(sale => {
-      const days = getDaysRemaining(sale.expiryDate);
-      if (days <= 2) {
-         const client = clients.find(c => c.id === sale.clientId);
-         const name = client?.name || 'Cliente';
-         
-         if (!salesByClient[sale.clientId]) {
-             salesByClient[sale.clientId] = { clientName: name, count: 0, minDays: 99 };
-         }
-         salesByClient[sale.clientId].count++;
-         if(days < salesByClient[sale.clientId].minDays) salesByClient[sale.clientId].minDays = days;
-      }
-    });
+  return useMemo(() => {
+    const readIds = loadReadIds();
 
-    Object.entries(salesByClient).forEach(([clientId, data]) => {
-        let title = '';
-        let msg = '';
-        let priority: 'high' | 'medium' = 'medium';
-
-        if (data.minDays < 0) {
-            title = 'Servicios Vencidos';
-            msg = `${data.clientName} tiene ${data.count} servicio(s) vencido(s).`;
-            priority = 'high';
-        } else if (data.minDays === 0) {
-            title = 'Vence Hoy';
-            msg = `Los servicios de ${data.clientName} vencen hoy.`;
-            priority = 'high';
-        } else {
-            title = 'Próximo Vencimiento';
-            msg = `${data.clientName} tiene servicios por vencer en ${data.minDays} días.`;
-        }
-
-        list.push({
-            id: `sale-${clientId}`,
-            title,
-            message: msg,
-            type: 'expiry',
-            priority,
-            date: new Date().toISOString(),
-            read: false,
-            linkTo: 'sales',
-            metadata: { clientId }
-        });
-    });
-
-    // 2. ACCOUNTS EXPIRY
-    accounts.forEach(acc => {
-       if (acc.status === 'inactiva') return;
-       const days = getDaysRemaining(acc.endDate);
-       if (days <= 3) {
-          list.push({
-             id: `acc-${acc.id}`,
-             title: days < 0 ? 'Cuenta Vencida' : 'Inventario por Vencer',
-             message: `${acc.email} ${days < 0 ? 'ha vencido' : `vence en ${days} días`}.`,
-             type: 'stock',
-             priority: days <= 0 ? 'high' : 'medium',
-             date: new Date().toISOString(),
-             read: false,
-             linkTo: 'inventory',
-             actionId: acc.id
-          });
-       }
-    });
-
-    // 3. PAYABLES
-    payables.forEach(p => {
-       const days = getDaysRemaining(p.dueDate);
-       if (days <= 2) {
-          list.push({
-             id: `pay-${p.id}`,
-             title: 'Pago Pendiente',
-             message: `Pago a ${p.name} (${p.amount} ${p.currency}) vence ${days === 0 ? 'hoy' : days < 0 ? 'hace ' + Math.abs(days) + ' días' : 'pronto'}.`,
-             type: 'payment',
-             priority: days <= 0 ? 'high' : 'medium',
-             date: new Date().toISOString(),
-             read: false,
-             linkTo: 'accounts'
-          });
-       }
-    });
-
-    // Sort: High Priority first
-    return list.sort((a, b) => {
-        if (a.priority === 'high' && b.priority !== 'high') return -1;
-        if (a.priority !== 'high' && b.priority === 'high') return 1;
-        return 0;
-    });
-
-  }, [accounts, sales, payables, clients]);
-
-  return notifications;
+    return events.map((e): AppNotification => ({
+      id: e.id,
+      title: e.title,
+      message: e.message,
+      type: e.entity === 'account' ? 'stock' : e.entity === 'payable' ? 'payment' : 'expiry',
+      priority: e.severity === 'critical' ? 'high' : e.severity === 'warning' ? 'medium' : 'low',
+      date: new Date().toISOString(),
+      read: readIds.has(e.id),
+      linkTo: e.view,
+      actionId: e.itemCount === 1 ? e.itemIds[0] : undefined,
+      metadata: { clientId: e.entity === 'sale' ? e.groupKey : undefined, itemIds: e.itemIds },
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [events, readTick]);
 };

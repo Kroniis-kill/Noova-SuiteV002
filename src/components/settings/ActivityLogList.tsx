@@ -56,13 +56,13 @@ const ActivityLogList: React.FC = () => {
   };
 
   return (
-    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-0 shadow-2xl relative overflow-hidden flex flex-col h-[600px] w-full max-w-5xl mx-auto">
+    <div className="bg-surface-3 border border-border-subtle rounded-2xl p-0 shadow-elev-lg relative overflow-hidden flex flex-col h-[70vh] min-h-[420px] w-full max-w-5xl mx-auto">
        
        {/* Header */}
-       <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 bg-surface-zinc/50 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4 z-10">
+       <div className="p-5 border-b border-hairline bg-surface-zinc/50 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-4 z-10">
           <div>
-             <h2 className="text-xl font-bold text-text-primary flex items-center gap-3">
-                <div className="w-10 h-10 rounded-md bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-glow-sm">
+             <h2 className="text-lg font-bold text-text-primary flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-glow-sm">
                     <Clock size={20} />
                 </div>
                 Historial de Cambios
@@ -71,21 +71,21 @@ const ActivityLogList: React.FC = () => {
           </div>
           
           <div className="flex gap-3">
-             <div className="relative group">
+             <div className="relative group flex-1">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
                 <input 
                   value={search} 
                   onChange={e => setSearch(e.target.value)} 
                   placeholder="Buscar en logs..."
-                  className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-faint font-medium"
+                  className="bg-surface-sunken border border-border-subtle rounded-xl pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-faint font-medium"
                 />
              </div>
              
-             <div className="relative group">
+             <div className="relative group shrink-0">
                  <select 
                    value={filterEntity} 
                    onChange={e => setFilterEntity(e.target.value as any)}
-                   className="appearance-none bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-4 pr-8 py-2.5 text-xs text-text-secondary font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-text-primary transition-colors"
+                   className="appearance-none bg-surface-sunken border border-border-subtle rounded-xl pl-4 pr-8 py-2.5 text-xs text-text-secondary font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-text-primary transition-colors"
                  >
                     <option value="ALL">Todo</option>
                     <option value="SALE">Ventas</option>
@@ -99,19 +99,19 @@ const ActivityLogList: React.FC = () => {
        </div>
 
        {/* Timeline List */}
-       <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-8 bg-surface-1 relative">
+       <div className="flex-1 overflow-y-auto custom-scrollbar p-5 space-y-8 bg-surface-1 relative">
           
           {(Object.entries(groupedLogs) as [string, ActivityLog[]][]).map(([date, logs]) => (
-              <div key={date} className="relative pl-4 border-l border-[rgb(var(--fg-rgb))]/10">
-                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-[10px] font-semibold text-text-disabled uppercase py-1 px-2 border border-[rgb(var(--fg-rgb))]/5 rounded-full">{date}</span>
+              <div key={date} className="relative pl-4 border-l border-border-subtle">
+                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-[10px] font-semibold text-text-disabled uppercase py-1 px-2 border border-hairline rounded-pill">{date}</span>
                   
                   <div className="space-y-3 mt-4">
                       {logs.map(log => {
                           const config = getActionConfig(log.action);
                           const time = new Date(log.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                           return (
-                              <div key={log.id} className="flex items-start gap-4 p-3 rounded-md hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group">
-                                  <div className={`mt-1 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${config.bg} ${config.color}`}>
+                              <div key={log.id} className="flex items-start gap-4 p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group">
+                                  <div className={`mt-1 w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${config.bg} ${config.color}`}>
                                       {config.icon}
                                   </div>
                                   <div className="flex-1 min-w-0">

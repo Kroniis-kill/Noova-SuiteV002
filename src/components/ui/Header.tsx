@@ -14,6 +14,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title, showBack, onBack }) => {
   const { notifications } = useData();
+  const unreadCount = notifications.filter(n => !n.read).length;
   const { subscription, isAdmin } = useSubscription();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
@@ -67,11 +68,11 @@ const Header: React.FC<HeaderProps> = ({ title, showBack, onBack }) => {
             <button
               type="button"
               onClick={() => setIsNotifOpen(true)}
-              aria-label={`Notificaciones${notifications.length > 0 ? ` (${notifications.length} sin leer)` : ''}`}
+              aria-label={`Notificaciones${unreadCount > 0 ? ` (${unreadCount} sin leer)` : ''}`}
               className={`relative ${iconButton}`}
             >
               <Bell size={22} fill="currentColor" />
-              {notifications.length > 0 && (
+              {unreadCount > 0 && (
                 <span
                   aria-hidden="true"
                   className="absolute top-2 right-2 w-2 h-2 bg-status-danger rounded-pill ring-2 ring-surface-3"

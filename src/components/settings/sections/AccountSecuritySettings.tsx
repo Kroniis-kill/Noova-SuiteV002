@@ -7,7 +7,7 @@ import { useToast } from '../../../context/ToastContext';
 import { useSubscription } from '../../../context/SubscriptionContext';
 import { backupService } from '../../../services/backupService';
 import Avatar from '../../ui/Avatar';
-import { styles, ToggleSwitch } from './_shared';
+import { styles, ToggleSwitch, SectionHeading } from './_shared';
 
 export const AccountSecuritySettings = () => {
     const { user, updateProfile, updatePassword } = useAuth();
@@ -82,27 +82,24 @@ export const AccountSecuritySettings = () => {
 
     return (
         <div className="space-y-6 animate-fade-in pb-10">
-             <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl p-6 text-center relative overflow-hidden shadow-sm">
+             <div className="bg-surface-1 border border-border-subtle rounded-2xl p-6 text-center relative overflow-hidden shadow-elev-sm">
 
                  <div className="relative inline-block mb-4">
                      <div className={`w-24 h-24 rounded-full p-[3px] bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow`}>
                          <Avatar name={name} image={previewAvatar} size="100%" className="rounded-full w-full h-full border-4 border-surface-1" />
                      </div>
-                     {isAdmin && <div className="absolute bottom-0 right-0 bg-status-warning-soft text-black text-[9px] font-bold px-2 py-0.5 rounded-full border-2 border-surface-1">ADMIN</div>}
+                     {isAdmin && <div className="absolute bottom-0 right-0 bg-status-warning-soft text-black text-[9px] font-bold px-2 py-0.5 rounded-pill border-2 border-surface-1">ADMIN</div>}
                  </div>
 
                  <div className="space-y-4 text-left mt-2">
-                     <div className="flex items-center gap-2 mb-2 justify-center">
-                         <User size={14} className="text-brand-primary" />
-                         <span className="text-sm font-bold text-text-primary">Datos Personales</span>
-                     </div>
+                     <SectionHeading icon={User} title="Datos Personales" />
 
                      <div>
                          <label className={styles.label}>Nombre Visible</label>
                          <input value={name} onChange={e => setName(e.target.value)} className={styles.input} />
                      </div>
 
-                     <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-2xl p-4 space-y-4">
+                     <div className="bg-surface-sunken border border-hairline rounded-2xl p-4 space-y-4">
                          <div className="flex items-center justify-between">
                              <div>
                                  <span className="text-xs font-semibold text-text-primary block">Usar Logo del Negocio</span>
@@ -116,7 +113,7 @@ export const AccountSecuritySettings = () => {
                                 <label className={styles.label}>URL Foto de Perfil</label>
                                 <div className="flex gap-2">
                                     <input value={avatarUrl} onChange={e => setAvatarUrl(e.target.value)} className={styles.input} placeholder="https://..." />
-                                    <div className="w-[52px] h-[52px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted shrink-0">
+                                    <div className="w-[52px] h-[52px] rounded-xl bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted shrink-0">
                                         <Camera size={20} />
                                     </div>
                                 </div>
@@ -129,17 +126,15 @@ export const AccountSecuritySettings = () => {
                          <input value={user?.email} disabled className={`${styles.input} opacity-50 cursor-not-allowed`} />
                      </div>
 
-                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-md font-semibold text-xs transition-all">
+                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-xl font-semibold text-xs transition-all active:scale-[0.98]">
                          Actualizar Perfil
                      </button>
                  </div>
              </div>
 
              <div className={styles.card}>
-                 <h3 className="text-text-primary font-bold text-sm mb-4 flex items-center gap-2">
-                    <Lock size={16} className="text-status-success-soft" /> Cambiar Contraseña
-                 </h3>
-                 <div className="space-y-4">
+                 <SectionHeading icon={Lock} title="Cambiar Contraseña" colorClass="text-status-success-soft" />
+                 <div className="space-y-4 mt-4">
                      <div>
                          <label className={styles.label}>Nueva Contraseña</label>
                          <input type="password" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="Mínimo 6 caracteres" className={styles.input} />
@@ -155,20 +150,18 @@ export const AccountSecuritySettings = () => {
              </div>
 
              <div className={styles.card}>
-                 <h3 className="text-text-primary font-bold text-sm mb-4 flex items-center gap-2">
-                    <ImagePlus size={16} className="text-status-info-soft" /> Apariencia
-                 </h3>
-                 <div className="grid grid-cols-3 gap-3">
+                 <SectionHeading icon={ImagePlus} title="Apariencia" colorClass="text-status-info-soft" />
+                 <div className="grid grid-cols-3 gap-3 mt-4">
                      {/* Estas 3 vistas previas usan colores fijos a propósito (no tokens):
                         deben verse siempre como "una tarjeta oscura", "una tarjeta clara" y
                         "mitad y mitad", sin importar qué tema esté activo en ese momento. */}
-                     <button onClick={() => toggleTheme('dark')} className={`h-[80px] rounded-md border flex flex-col items-center justify-center gap-2 transition-all bg-[#0a0a0a] text-white ${settings.theme === 'dark' ? 'border-brand-primary shadow-lg' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
+                     <button onClick={() => toggleTheme('dark')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-[#0a0a0a] text-white ${settings.theme === 'dark' ? 'border-brand-primary shadow-glow-sm' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
                          <motion.div whileHover={{ scale: 1.1 }}><Moon size={20} /></motion.div> <span className="text-[10px] font-semibold uppercase">Oscuro</span>
                      </button>
-                     <button onClick={() => toggleTheme('light')} className={`h-[80px] rounded-md border flex flex-col items-center justify-center gap-2 transition-all bg-white text-black ${settings.theme === 'light' ? 'border-brand-primary shadow-lg' : 'border-zinc-200 opacity-70'}`}>
+                     <button onClick={() => toggleTheme('light')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-white text-black ${settings.theme === 'light' ? 'border-brand-primary shadow-glow-sm' : 'border-zinc-200 opacity-70'}`}>
                          <motion.div whileHover={{ scale: 1.1 }}><Sun size={20} /></motion.div> <span className="text-[10px] font-semibold uppercase">Claro</span>
                      </button>
-                     <button onClick={() => toggleTheme('system')} className={`h-[80px] rounded-md border flex flex-col items-center justify-center gap-2 transition-all bg-gradient-to-br from-[#0a0a0a] from-50% to-white to-50% text-white ${settings.theme === 'system' ? 'border-brand-primary shadow-lg' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
+                     <button onClick={() => toggleTheme('system')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-gradient-to-br from-[#0a0a0a] from-50% to-white to-50% text-white ${settings.theme === 'system' ? 'border-brand-primary shadow-glow-sm' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
                          <motion.div whileHover={{ scale: 1.1 }}><Monitor size={20} className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" /></motion.div> <span className="text-[10px] font-semibold uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Sistema</span>
                      </button>
                  </div>
@@ -194,7 +187,7 @@ export const AccountSecuritySettings = () => {
 
                  <div className="w-full h-px bg-status-danger/20 my-4" />
 
-                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-text-primary rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-text-primary rounded-xl font-bold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                     <Trash2 size={18} /> Eliminar Cuenta
                  </button>
              </div>

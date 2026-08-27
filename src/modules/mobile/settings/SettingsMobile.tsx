@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
   AccountSecuritySettings, BusinessSettings, MessagesSection, 
-  DataSection, ActivitySection, IntegrationsSection, LegalSection, NotificationSettings, BusinessIdentitySection, SalesConfigSection
+  DataSection, ActivitySection, IntegrationsSection, LegalSection, NotificationSettings, BusinessIdentitySection
 } from '../../../components/settings/SettingsComponents';
 import ServicesMobile from '../services/ServicesMobile'; 
-import { ChevronRight, Briefcase, MessageSquare, User, Database, Settings2, ShieldCheck, Bell, Building, ShieldAlert, Lock, Smartphone } from 'lucide-react';
+import { ChevronRight, Briefcase, MessageSquare, User, Database, Settings2, ShieldCheck, Bell, Building, ShieldAlert, Lock, Smartphone, History } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { APP_VERSION } from '../../../version';
 import { useUIStore } from '../../../store/uiStore';
@@ -22,8 +22,8 @@ const SecurityHub = () => (
       </div>
     </div>
 
-    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden">
-      <div className="p-4 border-b border-[rgb(var(--fg-rgb))]/5">
+    <div className="bg-surface-3 border border-border-subtle rounded-xl overflow-hidden">
+      <div className="p-4 border-b border-hairline">
         <h3 className="text-text-primary font-semibold text-xs uppercase tracking-widest">Protocolos de Privacidad</h3>
       </div>
       <div className="p-2 space-y-1">
@@ -51,7 +51,7 @@ const SecurityHub = () => (
       </div>
     </div>
 
-    <div className="p-5 border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 rounded-xl">
+    <div className="p-5 border border-hairline bg-surface-3 rounded-xl">
       <h3 className="text-text-primary font-bold text-sm mb-2 flex items-center gap-2">
         <Smartphone size={16} className="text-text-muted" /> Sesiones Activas
       </h3>
@@ -101,6 +101,7 @@ const SettingsMobile: React.FC = () => {
       title: 'Sistema',
       items: [
         { id: 'account', label: 'Cuenta y Perfil', icon: User, desc: 'Tu Informacion y apariencia' },
+        { id: 'activity', label: 'Historial de Cambios', icon: History, desc: 'Registro de operaciones' },
         { id: 'data', label: 'Datos y Copias', icon: Database, desc: 'Exportacion Informacion' },
         { id: 'integrations', label: 'Integraciones', icon: Settings2, desc: 'Estado del sistema' },
         { id: 'legal', label: 'Legal y Privacidad', icon: ShieldCheck, desc: 'Terminos y Condiciones' }
@@ -126,6 +127,7 @@ const SettingsMobile: React.FC = () => {
       case 'messages': return <MessagesSection />;
       case 'notifications': return <NotificationSettings />;
       case 'account': return <AccountSecuritySettings />;
+      case 'activity': return <ActivitySection />;
       case 'data': return <DataSection />;
       case 'integrations': return <IntegrationsSection />;
       case 'legal': return <LegalSection />;

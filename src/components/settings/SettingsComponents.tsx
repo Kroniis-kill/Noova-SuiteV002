@@ -10,4 +10,4 @@ export { NotificationSettings } from './sections/NotificationSettings';
 export { AccountSecuritySettings } from './sections/AccountSecuritySettings';
 export { DataSection } from './sections/DataSection';
 export { LegalSection, } from './sections/LegalSection';
-export { ActivitySection, SalesConfigSection } from './sections/MiscSections';
+export { ActivitySection } from './sections/MiscSections';

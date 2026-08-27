@@ -11,6 +11,7 @@ import { AppNotification, PendingAction, ViewState, Client, Account, PayableExpe
 import { useToast } from '../../context/ToastContext';
 import { formatDate, sendWhatsAppMessage } from '../../utils/contactosUtils';
 import { getDaysRemaining } from '../../utils/expiredUtils';
+import { markNotificationRead } from '../../hooks/useSystemNotifications';
 
 interface NotificationCenterProps {
   isOpen: boolean;
@@ -260,10 +261,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                       filtered.map((item) => (
                         <button
                           key={item.id}
-                          onClick={() => setSelectedNotification(item)}
-                          className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.98] group relative overflow-hidden flex items-start gap-4 bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/20 shadow-sm`}
+                          onClick={() => { markNotificationRead(item.id); setSelectedNotification(item); }}
+                          className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.98] group relative overflow-hidden flex items-start gap-4 bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/20 shadow-sm ${item.read ? 'opacity-60' : ''}`}
                         >
                             {item.priority === 'high' && <div className="absolute left-0 top-3 bottom-3 w-1 bg-status-danger rounded-r-full" />}
+                            {!item.read && <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-brand-primary" />}
                             
                             <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border transition-all ${
                               item.priority === 'high' 

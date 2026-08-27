@@ -116,7 +116,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const inventoryActions = useInventory();
   const dbLegacy = useSupabaseData(user?.id);
 
-  const notifications = useSystemNotifications(inventoryActions.accounts, saleActions.sales, dbLegacy.payableExpenses, clientActions.clients);
+  const notifications = useSystemNotifications(inventoryActions.accounts, saleActions.sales, dbLegacy.payableExpenses, clientActions.clients, inventoryActions.services);
   const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
 
   // --- REAL-TIME SUBSCRIPTION LOGIC (con reconexión robusta) ---

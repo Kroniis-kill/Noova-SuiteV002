@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { FileText, ShieldCheck } from 'lucide-react';
 import { TERMS_AND_CONDITIONS, PRIVACY_POLICY } from '../../../data/legalContent';
-import { styles } from './_shared';
+import { styles, TabSwitcher } from './_shared';
+
+const TABS: { id: 'terms' | 'privacy'; label: string; icon: any }[] = [
+    { id: 'terms', label: 'Términos', icon: FileText },
+    { id: 'privacy', label: 'Privacidad', icon: ShieldCheck },
+];
 
 export const LegalSection = () => {
     const [view, setView] = useState<'terms' | 'privacy'>('terms');
 
     return (
         <div className="space-y-6 animate-fade-in">
-             <div className="flex bg-surface-1 p-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.08] w-full mb-4 shadow-sm">
-                 <button onClick={() => setView('terms')} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md text-xs font-semibold transition-all ${view === 'terms' ? 'bg-surface-4 text-text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/5' : 'text-text-disabled hover:text-text-primary'}`}>
-                    <FileText size={16} /> Términos
-                 </button>
-                 <button onClick={() => setView('privacy')} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md text-xs font-semibold transition-all ${view === 'privacy' ? 'bg-surface-4 text-text-primary shadow-sm border border-[rgb(var(--fg-rgb))]/5' : 'text-text-disabled hover:text-text-primary'}`}>
-                    <ShieldCheck size={16} /> Privacidad
-                 </button>
-            </div>
+            <TabSwitcher tabs={TABS} active={view} onChange={setView} />
 
             <div className={styles.card}>
                 <div className="space-y-8 overflow-y-auto max-h-[60vh] custom-scrollbar pr-2">
@@ -24,7 +22,7 @@ export const LegalSection = () => {
                             <h4 className="text-base font-bold text-text-primary leading-tight">{item.title}</h4>
                             <p className="text-xs text-text-muted leading-relaxed whitespace-pre-wrap">{item.content}</p>
                             {idx < (view === 'terms' ? TERMS_AND_CONDITIONS.length : PRIVACY_POLICY.length) - 1 && (
-                                <div className="h-px bg-[rgb(var(--fg-rgb))]/5 w-full mt-6" />
+                                <div className="h-px bg-hairline w-full mt-6" />
                             )}
                         </div>
                     ))}
