@@ -97,12 +97,15 @@ const MobileLogin: React.FC<LoginProps> = ({
     const { title, subtitle } = getHeadline(isRegistering, isRecovering);
 
     return (
-        <div className="fixed inset-0 bg-bg flex flex-col">
-            <div className="flex-1 flex flex-col justify-end overflow-hidden">
+        <div className="fixed inset-0 bg-bg flex items-center justify-center p-5 overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                 style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
+
+            <div className="relative z-10 w-full max-h-full overflow-y-auto custom-scrollbar">
                 <motion.div
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    className="bg-surface-1 rounded-t-2xl pt-6 px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.5)] border-t border-[rgb(var(--fg-rgb))]/5 max-h-[92%] overflow-y-auto custom-scrollbar gap-5"
+                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    className="w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pt-6 px-6 pb-6 flex flex-col shadow-2xl gap-5"
                 >
                     {isRecovering && (
                         <button
