@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save, MessageSquare, Send, Zap, Maximize2, Minimize2 } from 'lucide-react';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
@@ -15,6 +15,14 @@ export const MessagesSection = () => {
 
     const [templates, setTemplates] = useState<MessageTemplates>(settings.messageTemplates);
     const [telegramTemplates, setTelegramTemplates] = useState<MessageTemplates>(settings.telegramMessageTemplates || settings.messageTemplates);
+
+    // FIX: settings llega async — si este componente monta antes de que la
+    // query de ajustes resuelva, las plantillas se inicializan vacías/por
+    // defecto y nunca se actualizan con lo que el usuario ya tenía guardado.
+    useEffect(() => {
+        setTemplates(settings.messageTemplates);
+        setTelegramTemplates(settings.telegramMessageTemplates || settings.messageTemplates);
+    }, [settings.messageTemplates, settings.telegramMessageTemplates]);
 
     const CATEGORIES = {
         ventas: [

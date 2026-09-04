@@ -25,8 +25,18 @@ export function useSettings(userId: string | undefined) {
         supabase.from('settings').select('*').eq('user_id', userId).maybeSingle()
       );
       if (error) {
+        // FIX: antes este error se tragaba en silencio (solo console.error)
+        // y la query devolvía DEFAULT_SETTINGS como si todo hubiera salido
+        // bien. Resultado: la pantalla de Ajustes SIEMPRE mostraba valores
+        // vacíos/por defecto sin ninguna pista de que la lectura a Supabase
+        // estaba fallando (RLS, columna inexistente, red, etc.).
+        // Ahora se avisa con un toast y se relanza el error para que
+        // react-query marque la query como fallida (así se puede
+        // diferenciar "no hay settings guardados todavía" de "no se
+        // pudieron leer los settings").
         console.error('Error fetching settings:', error);
-        return DEFAULT_SETTINGS;
+        showToast(`No se pudo cargar la configuración: ${error.message || 'error desconocido'}`, 'error');
+        throw error;
       }
       if (!data) return DEFAULT_SETTINGS;
 

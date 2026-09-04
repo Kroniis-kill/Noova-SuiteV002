@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Save, Building, Upload, X } from 'lucide-react';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
@@ -13,6 +13,15 @@ export const BusinessIdentitySection = () => {
     const [whatsapp, setWhatsapp] = useState(settings.businessInfo?.whatsapp || '');
     const [website, setWebsite] = useState(settings.businessInfo?.website || '');
     const [logo, setLogo] = useState(settings.businessInfo?.logo || '');
+
+    // FIX: ver comentario en BusinessSettings.tsx — resincroniza el formulario
+    // cuando llegan los ajustes reales desde Supabase (llegan async).
+    useEffect(() => {
+        setName(settings.businessInfo?.name || '');
+        setWhatsapp(settings.businessInfo?.whatsapp || '');
+        setWebsite(settings.businessInfo?.website || '');
+        setLogo(settings.businessInfo?.logo || '');
+    }, [settings.businessInfo]);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

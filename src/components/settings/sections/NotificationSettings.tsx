@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Save, Clock, Briefcase, DollarSign, BellRing, CheckCircle2 } from 'lucide-react';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
@@ -13,6 +13,16 @@ export const NotificationSettings = () => {
         enabled: false, interval_hours: 5, max_per_day: 3,
         include_today: true, include_1d: true, include_3d: true, include_overdue: true, include_accounts_risk: true
     });
+
+    // FIX: ver comentario en BusinessSettings.tsx — resincroniza el formulario
+    // cuando llegan los ajustes reales desde Supabase (llegan async).
+    useEffect(() => {
+        setPerms(settings.notificationPreferences || { expiry: true, stock: true, payments: true, system: true });
+        setDigest(settings.digestSettings || {
+            enabled: false, interval_hours: 5, max_per_day: 3,
+            include_today: true, include_1d: true, include_3d: true, include_overdue: true, include_accounts_risk: true
+        });
+    }, [settings.notificationPreferences, settings.digestSettings]);
 
     const handlePermToggle = (key: keyof typeof perms) => setPerms(prev => ({ ...prev, [key]: !prev[key] }));
     const handleDigestToggle = () => setDigest(prev => ({ ...prev, enabled: !prev.enabled }));

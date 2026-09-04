@@ -6,6 +6,7 @@ import { useData } from '../../context/DataContext';
 import { TrendingUp, TrendingDown, ArrowRightLeft, ArrowRight, ChevronDown, Search, X, ChevronRight, Wallet, Check } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { useHaptic } from '../../hooks/useHaptic';
+import { useToast } from '../../context/ToastContext';
 
 interface AccountSearchModalProps {
   isOpen: boolean;
@@ -69,6 +70,7 @@ interface TransactionModalProps {
 const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, account, mode }) => {
   const { financialAccounts, settings, executeTransaction, executeTransfer } = useData();
   const haptic = useHaptic();
+  const { showToast } = useToast();
   
   const [amount, setAmount] = useState('');
   const [rate, setRate] = useState('');
@@ -76,6 +78,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
   const [description, setSearchQuery] = useState('');
   const [targetAccountId, setTargetAccountId] = useState('');
   const [isAccountSearchOpen, setIsAccountSearchOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -101,33 +104,48 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
 
   const isUSDLike = ['USD', 'USDT', 'USDC'].includes(account.currency);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const numAmount = parseFloat(amount);
     const numRate = parseFloat(rate) || 1;
 
     if (!numAmount || numAmount <= 0) return;
+    if (isSubmitting) return;
 
-    if (mode === 'transfer') {
-       if (!targetAccountId) return;
-       executeTransfer(account.id, targetAccountId, numAmount, numRate, description);
-    } else {
-       const movement: Movement = {
-          id: generateUUID(),
-          accountId: account.id,
-          type: mode === 'fund' ? 'funding' : 'withdrawal',
-          amount: numAmount,
-          currency: account.currency,
-          exchangeRate: isUSDLike ? 1 : numRate,
-          usdEquivalent: isUSDLike ? numAmount : (numRate > 0 ? numAmount / numRate : 0),
-          date: new Date().toISOString(),
-          description: description,
-          paymentMethod: paymentMethod || 'Manual'
-       };
-       executeTransaction(movement);
+    // FIX: antes esto no se esperaba (sin await) ni tenía try/catch — si
+    // executeTransaction/executeTransfer fallaba (RLS, RPC, red), el error
+    // quedaba como una promesa rechazada sin manejar en consola, pero el
+    // modal igual mostraba el haptic de "éxito" y se cerraba como si el
+    // movimiento se hubiera guardado. Ahora se espera el resultado real y
+    // se avisa si falla, sin cerrar el modal.
+    setIsSubmitting(true);
+    try {
+      if (mode === 'transfer') {
+         if (!targetAccountId) { setIsSubmitting(false); return; }
+         await executeTransfer(account.id, targetAccountId, numAmount, numRate, description);
+      } else {
+         const movement: Movement = {
+            id: generateUUID(),
+            accountId: account.id,
+            type: mode === 'fund' ? 'funding' : 'withdrawal',
+            amount: numAmount,
+            currency: account.currency,
+            exchangeRate: isUSDLike ? 1 : numRate,
+            usdEquivalent: isUSDLike ? numAmount : (numRate > 0 ? numAmount / numRate : 0),
+            date: new Date().toISOString(),
+            description: description,
+            paymentMethod: paymentMethod || 'Manual'
+         };
+         await executeTransaction(movement);
+      }
+      haptic('success');
+      onClose();
+    } catch (error: any) {
+      console.error('Error al guardar movimiento:', error);
+      showToast(`Error al guardar movimiento: ${error?.message || 'desconocido'}`, 'error');
+    } finally {
+      setIsSubmitting(false);
     }
-    haptic('success');
-    onClose();
   };
 
   const styles = {
@@ -205,8 +223,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
             </div>
 
             <div className="pt-2">
-               <button type="submit" className="btn-primary w-full h-[52px] rounded-xl text-sm flex items-center justify-center gap-2">
-                  <Check size={18} /> Confirmar Operación
+               <button type="submit" disabled={isSubmitting} className="btn-primary w-full h-[52px] rounded-xl text-sm flex items-center justify-center gap-2 disabled:opacity-60">
+                  <Check size={18} /> {isSubmitting ? 'Guardando...' : 'Confirmar Operación'}
                </button>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Save, Activity, CreditCard, ShoppingCart, Tag, Plus, Trash2 } from 'lucide-react';
 import { useData } from '../../../context/DataContext';
@@ -23,6 +23,24 @@ export const BusinessSettings = () => {
     const [autoPin, setAutoPin] = useState(settings.salesPreferences?.autoPin || false);
 
     const [newCatName, setNewCatName] = useState('');
+
+    // FIX: los useState de arriba solo leen `settings` en el primer render.
+    // Como `settings` llega async desde Supabase (react-query) y ya no hay
+    // LoadingScreen bloqueando la navegación mientras carga (ver App.tsx),
+    // si el usuario entra a Ajustes antes de que la query resuelva, estos
+    // campos se quedan pegados en los valores por defecto (DEFAULT_SETTINGS)
+    // para siempre — nunca se refrescan cuando llegan los datos reales.
+    // Este efecto resincroniza el formulario cada vez que `settings` cambia.
+    useEffect(() => {
+        setCurrency(settings.currency || 'USD');
+        setSubCurrency(settings.subCurrency || '');
+        setExchangeRate(settings.exchangeRate?.toString() || '0');
+        setDailyGoal(settings.analyticsPreferences?.dailyGoal?.toString() || '0');
+        setDailyGoalMonthly(settings.analyticsPreferences?.monthlyGoal?.toString() || '0');
+        setPurchaseAsCost(settings.analyticsPreferences?.includeSuppliesAsCost || false);
+        setWarningDays(settings.salesPreferences?.warningDays || 2);
+        setAutoPin(settings.salesPreferences?.autoPin || false);
+    }, [settings]);
 
     const handleSave = () => {
         updateSettings({
