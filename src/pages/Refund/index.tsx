@@ -142,7 +142,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               <Calculator size={20} className="text-text-primary" />
             </div>
             <div>
-              <h2 className="text-lg font-black text-text-primary tracking-tight">Calculadora de Reembolso</h2>
+              <h2 className="text-2xl font-black text-text-primary tracking-tight">Calculadora de Reembolso</h2>
               <p className="text-[12px] text-text-muted leading-tight mt-0.5">
                 Calcula el reembolso exacto según los días realmente usados.
               </p>
