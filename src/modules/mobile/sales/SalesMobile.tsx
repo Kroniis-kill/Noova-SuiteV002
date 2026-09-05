@@ -197,7 +197,8 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          )}
 
          {viewFails && (
-            <div className="flex p-1 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md mb-6 relative z-20"><button 
+            <div className="flex p-1 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md mb-6 relative z-20">
+                <button 
                     onClick={() => { haptic('nav'); setFailsSubView('clients'); }}
                     className={`flex-1 py-3 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${failsSubView === 'clients' ? 'bg-bg text-text-primary' : 'bg-surface-3 text-text-disabled'}`}
                 >
@@ -213,7 +214,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          )}
       </div>
 
-      <div className="pb-24 relative z-10 flex-1 overflow-y-auto mt-[-11px]">
+      <div className="pb-24 relative z-10 flex-1 overflow-y-auto">
          <AnimatePresence mode='wait'>
             {!viewFails ? (
                 <motion.div key="sales-list" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="h-full">
