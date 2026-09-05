@@ -94,7 +94,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
        <div className="mb-4 relative z-10">
           <div className="mb-4">
               <h1 className="text-2xl font-black text-text-primary tracking-tight">Vencimientos</h1>
-              <p className="text-text-muted text-[11px] font-medium mt-0.5">Control de fechas y renovaciones</p>
+              <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Control de fechas y renovaciones</p>
           </div>
           
           {activeTab === 'sales' && (
