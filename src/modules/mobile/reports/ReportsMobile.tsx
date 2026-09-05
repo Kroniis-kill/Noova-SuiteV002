@@ -46,10 +46,13 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
        {/* 1. HEADER & DATE FILTER (Not sticky) */}
        <div className="pb-4 pt-2 px-4">
           <div className="flex justify-between items-center mb-4">
-             <h1 className="text-2xl font-black text-text-primary tracking-tight">Reportes</h1>
+             <div>
+                <h1 className="text-2xl font-black text-text-primary tracking-tight">Reportes</h1>
+                <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Resumen de rendimiento</p>
+             </div>
              <button 
                onClick={onExport}
-               className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95"
+               className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95"
              >
                 <Download size={18} />
              </button>
