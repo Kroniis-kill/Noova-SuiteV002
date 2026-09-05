@@ -167,13 +167,13 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
   return (
     <div className="min-h-screen pb-32 pt-0 font-sans text-text-primary relative bg-bg flex flex-col overflow-x-hidden">
 
-      <div className={`relative z-20 pt-safe px-4 h-[116.974px] ${viewFails ? 'mt-[13px]' : 'mt-4'}`}>
-         <div className={`relative z-20 flex items-center justify-between h-[44px] pt-0 pl-0 -ml-[1px] ${viewFails ? 'mt-[-13px]' : '-mt-[15px]'}`}>
-            <div className="p-0 m-0">
-               <h1 className="text-[18px] h-[27px] font-black text-text-primary tracking-tight">{viewFails ? 'Agenda de Fallas' : 'Ventas'}</h1>
-               <p className={`text-text-muted text-[9px] h-[13.5px] font-normal uppercase tracking-[0.15em] ${viewFails ? 'mt-[-2px]' : 'mt-[-5px]'}`}>{viewFails ? 'Seguimiento de incidencias' : 'Gestión de servicios'}</p>
+      <div className="relative z-20 pt-safe px-4 mt-4">
+         <div className="relative z-20 flex items-center justify-between mb-6">
+            <div>
+               <h1 className="text-2xl font-black text-text-primary tracking-tight">{viewFails ? 'Agenda de Fallas' : 'Ventas'}</h1>
+               <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] mt-1">{viewFails ? 'Seguimiento de incidencias' : 'Gestión de servicios'}</p>
             </div>
-            <div className="flex gap-2 mt-1.5">
+            <div className="flex gap-2">
                 {!viewFails && (
                     <>
                         <button onClick={() => setIsImportModalOpen(true)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
@@ -182,13 +182,13 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                         <button onClick={handleNewSale} className={`w-[43px] h-[40px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
                     </>
                 )}
-                {viewFails && <button onClick={() => setViewFails(false)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95 mt-[-7px]"><X size={16} /></button>}
+                {viewFails && <button onClick={() => setViewFails(false)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
             </div>
          </div>
 
          {!viewFails && (
-            <div className="mb-6 relative z-20 mt-[-8px]">
-                <div className="relative h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-5 transition-all focus-within:border-brand-primary/50 shadow-sm mt-7 pt-0 pl-2.5 pr-5">
+            <div className="mb-6 relative z-20">
+                <div className="relative h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-5 transition-all focus-within:border-brand-primary/50 shadow-sm pt-0 pl-2.5 pr-5">
                     <Search size={20} className="text-text-disabled shrink-0" />
                     <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar cliente o servicio..." className="bg-transparent border-none outline-none text-[12px] text-text-primary w-full ml-3 placeholder:text-text-faint font-normal" />
                     {searchQuery && <button onClick={() => setSearchQuery('')} className="p-1"><X size={16} className="text-text-disabled" /></button>}
@@ -197,8 +197,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          )}
 
          {viewFails && (
-            <div className="flex p-1 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md mb-6 relative z-20 mt-[11px]">
-                <button 
+            <div className="flex p-1 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md mb-6 relative z-20"><button 
                     onClick={() => { haptic('nav'); setFailsSubView('clients'); }}
                     className={`flex-1 py-3 rounded-md text-[10px] font-semibold uppercase tracking-widest transition-all ${failsSubView === 'clients' ? 'bg-bg text-text-primary' : 'bg-surface-3 text-text-disabled'}`}
                 >
