@@ -244,9 +244,9 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                   <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
               </div>
               <div className="flex gap-2">
-                  <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-[44px]'}`}>
-                      <div className={`flex items-center h-[44px] overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
-                          <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
+                  <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
+                      <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
+                          <button onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
                               <Search size={18} />
                           </button>
                           <input 
@@ -259,10 +259,10 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                           {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
                       </div>
                   </div>
-                  <button onClick={() => setIsImportModalOpen(true)} className="w-[44px] h-[44px] rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
+                  <button onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
                       <Upload size={20} />
                   </button>
-                  <button onClick={handleAdd} className="w-[44px] h-[44px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
+                  <button onClick={handleAdd} className="w-10 h-10 rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
                       <Plus size={22} strokeWidth={2.5} />
                   </button>
               </div>
