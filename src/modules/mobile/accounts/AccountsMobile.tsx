@@ -264,17 +264,17 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     viewLevel === 'all_accounts' ? 'Todas las Cuentas' :
                     services.find(s => s.id === selectedServiceId)?.name}
                </h1>
-               <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] mt-1">Control de suministros</p>
+               <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
             </div>
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
                     <>
-                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
-                        <button onClick={() => setViewLevel('trash')} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
+                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
+                        <button onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
-                <button onClick={() => setIsImportOpen(true)} className="w-[43px] h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
-                <button onClick={handleAddNew} className={`w-[43px] h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
+                <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
+                <button onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
             </div>
         </div>
 
