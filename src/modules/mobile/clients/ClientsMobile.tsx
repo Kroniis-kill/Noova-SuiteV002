@@ -200,19 +200,16 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
              <div className="flex justify-between items-center mb-6">
                  <div className="flex flex-col">
                     <h1 className="text-2xl font-black text-text-primary tracking-tight leading-none mb-1">Clientes</h1>
-                    <div className="flex items-center gap-2">
-                       <div className="w-1 h-1 bg-brand-primary rounded-full animate-pulse" />
-                       <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em]">Gestión de Cartera</p>
-                    </div>
+                    <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em]">Gestión de Cartera</p>
                  </div>
                  <div className="flex gap-2">
-                     <button onClick={handleSync} disabled={isSyncing} className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
+                     <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
                         <RefreshCw size={16} className={isSyncing ? 'animate-spin text-brand-primary' : ''} />
                      </button>
-                     <button onClick={() => setIsImportOpen(true)} className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
+                     <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
                         <Upload size={16} />
                      </button>
-                     <button onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-9 h-9 rounded-sm bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
+                     <button onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
                         <Plus size={20} strokeWidth={3} />
                      </button>
                  </div>
