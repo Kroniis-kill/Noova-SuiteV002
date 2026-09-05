@@ -258,13 +258,13 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
         
         <div className="relative z-20 flex items-center justify-between mb-4">
             <div>
-               <h1 className="text-[18px] leading-[27px] font-black text-text-primary tracking-tight">
+               <h1 className="text-2xl font-black text-text-primary tracking-tight">
                    {viewLevel === 'services' ? 'Inventario' : 
                     viewLevel === 'trash' ? 'Papelera' :
                     viewLevel === 'all_accounts' ? 'Todas las Cuentas' :
                     services.find(s => s.id === selectedServiceId)?.name}
                </h1>
-               <p className="text-text-muted text-[9px] leading-[13.5px] font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
+               <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] mt-1">Control de suministros</p>
             </div>
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
