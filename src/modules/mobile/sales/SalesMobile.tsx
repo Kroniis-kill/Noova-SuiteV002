@@ -171,18 +171,18 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          <div className="relative z-20 flex items-center justify-between mb-6">
             <div>
                <h1 className="text-2xl font-black text-text-primary tracking-tight">{viewFails ? 'Agenda de Fallas' : 'Ventas'}</h1>
-               <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] mt-1">{viewFails ? 'Seguimiento de incidencias' : 'Gestión de servicios'}</p>
+               <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">{viewFails ? 'Seguimiento de incidencias' : 'Gestión de servicios'}</p>
             </div>
             <div className="flex gap-2">
                 {!viewFails && (
                     <>
-                        <button onClick={() => setIsImportModalOpen(true)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
-                        <button onClick={() => setIsFilterModalOpen(true)} className={`w-[43px] h-[40px] rounded-md flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted'}`}><Filter size={16} />{statusFilter !== 'all' && <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_8px_#FF1493]" />}</button>
-                        <button onClick={() => setViewFails(true)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
-                        <button onClick={handleNewSale} className={`w-[43px] h-[40px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
+                        <button onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
+                        <button onClick={() => setIsFilterModalOpen(true)} className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted'}`}><Filter size={16} />{statusFilter !== 'all' && <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_8px_#FF1493]" />}</button>
+                        <button onClick={() => setViewFails(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
+                        <button onClick={handleNewSale} className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
                     </>
                 )}
-                {viewFails && <button onClick={() => setViewFails(false)} className="w-[43px] h-[40px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
+                {viewFails && <button onClick={() => setViewFails(false)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
             </div>
          </div>
 
