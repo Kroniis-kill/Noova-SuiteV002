@@ -269,7 +269,7 @@ const AdminMobile: React.FC = () => {
                   setNewAnnouncement(''); loadData();
                   showToast('Anuncio publicado', 'success');
                 }}
-                className="w-full py-2.5 mt-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg text-xs font-semibold"
+                className="w-full h-12 mt-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl text-xs font-semibold flex items-center justify-center"
               >
                 Publicar anuncio
               </button>
@@ -317,7 +317,7 @@ const AdminMobile: React.FC = () => {
                   await updateSupportNumber(tempPhone);
                   showToast('Configuración guardada', 'success');
                 }}
-                className="w-full py-3 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-lg active:scale-95 transition-all"
+                className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-2xl active:scale-95 transition-all flex items-center justify-center"
               >
                 Guardar cambios
               </button>
@@ -358,7 +358,7 @@ const AdminMobile: React.FC = () => {
               showToast('Configuración guardada', 'success');
               setIsConfigOpen(false);
             }}
-            className="w-full py-3 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-lg"
+            className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-2xl flex items-center justify-center"
           >
             Guardar
           </button>

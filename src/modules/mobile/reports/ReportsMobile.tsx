@@ -158,7 +158,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
 
           {/* 4. TOP SERVICES LIST */}
           <motion.div variants={itemVariants}>
-             <h3 className="text-sm font-bold text-text-muted uppercase tracking-widest mb-3 px-2">Top Servicios</h3>
+             <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Top Servicios</h3>
              <div className="space-y-2">
                 {topServices.map((item, idx) => (
                    <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-3 flex items-center justify-between">
@@ -179,7 +179,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
 
           {/* 5. TOP CLIENTS LIST */}
           <motion.div variants={itemVariants}>
-             <h3 className="text-sm font-bold text-text-muted uppercase tracking-widest mb-3 px-2">Mejores Clientes</h3>
+             <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Mejores Clientes</h3>
              <div className="space-y-2">
                 {topClients.map((item, idx) => (
                    <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-3 flex items-center justify-between">

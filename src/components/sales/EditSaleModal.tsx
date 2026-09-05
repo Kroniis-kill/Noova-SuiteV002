@@ -215,7 +215,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           <button 
             onClick={handleSave}
             disabled={isSubmitting}
-            className="flex-[2] h-14 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
+            className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
           >
             {isSubmitting ? <span className="animate-spin">⌛</span> : <Save size={18} />}
             Guardar Cambios

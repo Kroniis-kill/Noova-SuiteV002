@@ -192,7 +192,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
               </div>
           </div>
 
-          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-lg p-4 mb-4 flex justify-between items-center shrink-0">
+          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 mb-4 flex justify-between items-center shrink-0">
               <div>
                   <p className="text-[10px] text-text-disabled font-bold uppercase">Balance Estimado</p>
                   <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
@@ -227,7 +227,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                     layout
                     key={item.accountId}
                     onClick={() => setSelectedHealth(item)}
-                    className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg flex justify-between items-center cursor-pointer hover:bg-surface-3 transition-colors group"
+                    className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-surface-3 transition-colors group"
                   >
                       <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">

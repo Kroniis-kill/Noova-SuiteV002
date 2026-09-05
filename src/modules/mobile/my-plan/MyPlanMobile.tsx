@@ -141,7 +141,7 @@ const MyPlanMobile: React.FC = () => {
            <motion.button 
              whileTap={{ scale: 0.98 }}
              onClick={handleUpgrade}
-             className="w-full h-[60px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-xl flex items-center justify-between px-6 shadow-glow relative overflow-hidden group mb-8"
+             className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent rounded-2xl flex items-center justify-between px-6 shadow-glow relative overflow-hidden group mb-8"
            >
               <div className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <div className="flex items-center gap-3 relative z-10">

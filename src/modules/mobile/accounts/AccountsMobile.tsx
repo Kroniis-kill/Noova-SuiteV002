@@ -26,7 +26,7 @@ import { useToast } from '../../../context/ToastContext';
 import { generateUUID } from '../../../utils/uuid';
 
 const ServiceSkeleton = () => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-md h-[130px] flex flex-col justify-between">
+  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl h-[130px] flex flex-col justify-between">
     <div className="flex justify-between items-start">
       <Skeleton className="w-10 h-10 rounded-md" />
       <Skeleton className="w-8 h-6 rounded-md" />
@@ -337,7 +337,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                             if (viewLevel === 'trash') {
                                 const svc = services.find(s => s.id === acc.serviceId);
                                 return (
-                                    <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg flex items-center justify-between shadow-sm active:scale-95 transition-all">
+                                    <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex items-center justify-between shadow-sm active:scale-95 transition-all">
                                         <div className="flex items-center gap-3 flex-1 min-w-0">
                                             <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Monitor size={18} /></div>
                                             <div className="min-w-0">
@@ -428,7 +428,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
               </div>
               <div className="flex flex-col gap-3">
                 {viewLevel !== 'trash' && (
-                  <button onClick={handleMoveToTrash} className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
+                  <button onClick={handleMoveToTrash} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
                     <div>
                       <span className="block text-text-primary font-bold text-sm">Archivar en Papelera</span>
                       <span className="block text-text-disabled text-[10px]">Podrás recuperarla más tarde si la necesitas.</span>

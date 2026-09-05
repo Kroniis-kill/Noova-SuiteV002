@@ -237,7 +237,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
        </div>
 
        <div className="mb-6 relative z-10">
-          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
+          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
                       <Users size={20} />
@@ -279,7 +279,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
                  </div>
              </div>
              <div className="flex flex-col gap-3">
-                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors">
+                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors">
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Clientes</span><span className="block text-text-disabled text-[10px]">Los clientes pasarán a ser directos.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>

@@ -222,7 +222,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
              <button onClick={handleDownload} className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary font-semibold text-xs hover:text-text-primary transition-colors flex items-center justify-center gap-2 active:scale-95">
                 <Download size={18} /> Guardar
              </button>
-             <button onClick={handleShare} className="h-[50px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-xs shadow-glow active:scale-95 transition-all flex items-center justify-center gap-2 hover:brightness-110">
+             <button onClick={handleShare} className="h-12 rounded-2xl bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-xs shadow-glow active:scale-95 transition-all flex items-center justify-center gap-2 hover:brightness-110">
                 <Share2 size={18} /> Compartir
              </button>
           </div>

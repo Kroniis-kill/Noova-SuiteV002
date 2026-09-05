@@ -309,14 +309,14 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Nuevo Servicio">
         <form onSubmit={handleAdd} className="pb-4">
            {renderFields()}
-           <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold shadow-glow mt-8 flex items-center justify-center gap-2 active:scale-95 transition-all"><Save size={20} /> Guardar Servicio</button>
+           <button type="submit" className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold shadow-glow mt-8 flex items-center justify-center gap-2 active:scale-95 transition-all"><Save size={20} /> Guardar Servicio</button>
         </form>
       </Modal>
 
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Editar Servicio">
         <form onSubmit={handleUpdateSubmit} className="pb-4">
            {renderFields()}
-           <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold shadow-glow mt-8 flex items-center justify-center gap-2 active:scale-95 transition-all"><Save size={20} /> Actualizar Datos</button>
+           <button type="submit" className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold shadow-glow mt-8 flex items-center justify-center gap-2 active:scale-95 transition-all"><Save size={20} /> Actualizar Datos</button>
         </form>
       </Modal>
 

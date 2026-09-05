@@ -94,7 +94,7 @@ const NewClientFormModal: React.FC<NewClientFormModalProps> = ({ isOpen, onClose
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-sm shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
+            className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-sm shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
           >
             {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Check size={20} strokeWidth={3} />}
             {isSubmitting ? 'Guardando...' : 'Registrar y Seleccionar'}

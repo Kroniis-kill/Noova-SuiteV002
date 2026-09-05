@@ -144,7 +144,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                         { label: 'Mensual', val: monthlyProfit, icon: TrendingUp },
                         { label: 'Total', val: totalProfit, icon: TrendingUp },
                       ].map((kpi, i) => (
-                        <div key={i} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex flex-col justify-between h-24">
+                        <div key={i} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex flex-col justify-between h-24">
                            <div className="flex justify-between items-start">
                               <span className="text-[10px] font-bold text-text-disabled uppercase tracking-wider">{kpi.label}</span>
                               <kpi.icon size={14} className="text-brand-primary" />
@@ -172,7 +172,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-5">
                          <div className="flex items-center gap-2 mb-4">
                             <Target size={14} className="text-brand-primary" />
-                            <h3 className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Top Ventas</h3>
+                            <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Top Ventas</h3>
                          </div>
                          <div className="space-y-3">
                             {(props.reportData?.topServicesProfit || []).slice(0, 3).map((svc: any) => (
@@ -191,7 +191,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       <div className="bg-surface-sunken border border-brand-primary/10 rounded-xl p-5 relative overflow-hidden">
                          <div className="flex items-center gap-2 mb-4 relative z-10">
                             <Users size={14} className="text-brand-primary" />
-                            <h3 className="text-[10px] font-bold text-brand-primary uppercase tracking-widest">Retención de Clientes</h3>
+                            <h3 className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Retención de Clientes</h3>
                          </div>
                          <div className="flex items-end justify-between relative z-10">
                             <div>
@@ -214,7 +214,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[9px] font-black text-text-faint uppercase tracking-[0.3em]">Cuentas de Origen</h3>
+                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Cuentas de Origen</h3>
                       <button onClick={props.onNewAccount} className={`text-[8px] font-black text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-3 py-1.5 rounded-full border border-brand-primary/20 ${isHighlighted ? 'ring-4 ring-brand-primary animate-pulse' : ''}`}>
                         + Nueva
                       </button>
@@ -233,13 +233,13 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[9px] font-black text-text-faint uppercase tracking-[0.3em]">Todos los Movimientos</h3>
+                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Todos los Movimientos</h3>
                    </div>
                    <div className="space-y-3">
                       {allMovements.map(mov => {
                          const isInc = mov.type === 'funding' || mov.type === 'transfer_in';
                          return (
-                            <div key={mov.id} className="flex items-center justify-between p-4 bg-surface-1 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.05]">
+                            <div key={mov.id} className="flex items-center justify-between p-4 bg-surface-1 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.05]">
                                <div className="flex items-center gap-4">
                                   <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${isInc ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
                                      {isInc ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
@@ -268,7 +268,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[9px] font-black text-text-faint uppercase tracking-[0.3em]">Pagos Pendientes</h3>
+                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Pagos Pendientes</h3>
                       <button onClick={props.onNewPayable} className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary"><Plus size={14} /></button>
                    </div>
                    {props.combinedPayables.map(item => (

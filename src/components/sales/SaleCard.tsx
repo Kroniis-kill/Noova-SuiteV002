@@ -201,11 +201,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     </div>
                 )}
                 
-                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md p-4 text-center">
+                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 text-center">
                     <p className="text-sm text-text-secondary font-medium mb-4">Selecciona la moneda</p>
                     <div className="grid grid-cols-2 gap-3">
-                      <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
-                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
+                      <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
+                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
                     </div>
                 </div>
                 <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-text-disabled text-xs font-semibold">Cancelar</button>
@@ -294,11 +294,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 </div>
             )}
             
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md p-4 text-center">
+            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 text-center">
                 <p className="text-sm text-text-secondary font-medium mb-4">Selecciona la moneda</p>
                 <div className="grid grid-cols-2 gap-3">
-                  <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
-                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-md bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
+                  <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
+                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
                 </div>
             </div>
             <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-text-disabled text-xs font-semibold">Cancelar</button>

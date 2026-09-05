@@ -63,7 +63,7 @@ const ExtensionModal: React.FC<ExtensionModalProps> = ({ isOpen, onClose, user }
 
             <button 
                 onClick={handleExtend}
-                className="w-full h-[52px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all"
+                className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all"
             >
                 <Plus size={18} /> Confirmar Extensión
             </button>

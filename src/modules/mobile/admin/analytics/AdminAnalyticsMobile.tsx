@@ -45,7 +45,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
        <AnalyticsCharts data={data} />
 
        <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-5 space-y-4">
-          <h3 className="text-sm font-bold text-text-primary uppercase tracking-wider">Detalles Críticos</h3>
+          <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Detalles Críticos</h3>
           <div className="flex justify-between items-center py-2 border-b border-[rgb(var(--fg-rgb))]/5">
              <span className="text-xs text-text-muted">Próximo a expirar</span>
              <span className="text-xs font-semibold text-status-warning-soft text-right">

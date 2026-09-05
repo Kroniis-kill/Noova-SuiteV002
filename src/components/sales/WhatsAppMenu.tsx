@@ -267,7 +267,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                 <div className="pt-4 space-y-3">
                     <button 
                         onClick={() => selectedType && executeSend(selectedType, useSecondaryCurrency, includeReceipt)}
-                        className="w-full h-[68px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-xl font-bold text-sm uppercase tracking-widest shadow-glow flex items-center justify-center gap-3 active:scale-[0.98] hover:brightness-110"
+                        className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-sm uppercase tracking-widest shadow-glow flex items-center justify-center gap-3 active:scale-[0.98] hover:brightness-110"
                     >
                         <PlatformIcon size={22} fill="currentColor" /> Enviar por {platform === 'telegram' ? 'Telegram' : 'WhatsApp'}
                     </button>

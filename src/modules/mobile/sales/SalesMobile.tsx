@@ -31,7 +31,7 @@ import { formatDate, sendWhatsAppMessage } from '../../../utils/contactosUtils';
 import { getCombinedWhatsAppTemplate, SalesGroup } from '../../../utils/salesUtils';
 
 const SaleSkeleton = () => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-4 h-[132px] flex flex-col justify-between">
+  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 h-[132px] flex flex-col justify-between">
     <div className="flex flex-col items-center gap-2 mt-2">
       <Skeleton variant="circle" className="w-12 h-12" />
       <Skeleton variant="text" className="w-20 h-3" />
@@ -324,7 +324,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                         <div 
                                             key={account.id} 
                                             onClick={() => { haptic('nav'); setExpandedAccountId(isExpanded ? null : account.id); }}
-                                            className="relative w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md p-4 transition-all duration-300 overflow-hidden cursor-pointer active:bg-[rgb(var(--fg-rgb))]/[0.02]"
+                                            className="relative w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 transition-all duration-300 overflow-hidden cursor-pointer active:bg-[rgb(var(--fg-rgb))]/[0.02]"
                                         >
                                             
                                             <div className="flex flex-col gap-4">
@@ -553,7 +553,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                             <button onClick={() => onHandleNotifyFailure(selectedFailure)} className="h-14 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-semibold text-xs shadow-sm flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all">
                                 Avisar Falla
                             </button>
-                            <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="h-14 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-semibold text-xs shadow-glow flex items-center justify-center text-center leading-tight active:scale-95 transition-all">
+                            <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-semibold text-xs shadow-glow flex items-center justify-center text-center leading-tight active:scale-95 transition-all">
                                 Resolver y Notificar
                             </button>
                         </div>

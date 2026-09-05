@@ -79,7 +79,7 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
           </div>
        </div>
        <div className="px-6 space-y-6">
-          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 relative overflow-hidden shadow-2xl">
+          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 relative overflow-hidden shadow-2xl">
              <div className="flex flex-col items-center text-center">
                 <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-full text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
                 <h1 className="text-5xl font-extrabold text-text-primary tracking-tighter mb-1"><span className="text-2xl text-text-faint mr-1">$</span>{formatMoney(totalBalance)}</h1>
@@ -99,7 +99,7 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
              ))}
           </div>
           <div className="space-y-3">
-             <h3 className="text-xs font-semibold text-text-disabled uppercase tracking-widest px-1">Alertas Pro</h3>
+             <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] px-1">Alertas Pro</h3>
              <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden">
                 <button onClick={() => setView('expired')} className="w-full flex items-center justify-between p-5 border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-danger/10 text-status-danger flex items-center justify-center"><AlertTriangle size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Renovaciones Críticas</h4><p className="text-[10px] text-text-disabled">{stockUrgent} clientes por vencer</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
                 <button onClick={() => setView('inventory')} className="w-full flex items-center justify-between p-5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-warning/10 text-status-warning flex items-center justify-center"><Layers size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Stock e Inventario</h4><p className="text-[10px] text-text-disabled">Gestión de cupos activos</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>

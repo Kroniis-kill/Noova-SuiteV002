@@ -430,7 +430,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
               <button 
                   onClick={() => handleSave()} 
                   disabled={isSubmitting || (warrantyMode === 'replace' && (!reason || !selectedAccountId)) || (warrantyMode === 'credit' && !targetSaleId)} 
-                  className="bg-gradient-to-r from-brand-primary to-brand-accent text-white h-[56px] rounded-lg font-bold shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-[13px]"
+                  className="bg-gradient-to-r from-brand-primary to-brand-accent text-white h-12 rounded-2xl font-bold shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-[13px]"
               >
                   {isSubmitting ? <RefreshCw size={18} className="animate-spin" /> : <><Check size={18} /> {warrantyMode === 'replace' ? 'Confirmar Reposición' : 'Confirmar Abono'}</>}
               </button>

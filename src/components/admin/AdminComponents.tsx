@@ -32,7 +32,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
   const isExpired = new Date(sub.expires_at) < new Date();
   
   return (
-    <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+    <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-semibold text-xs">
            {sub.user_email ? sub.user_email.substring(0,2).toUpperCase() : 'U'}

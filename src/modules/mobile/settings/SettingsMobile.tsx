@@ -24,7 +24,7 @@ const SecurityHub = () => (
 
     <div className="bg-surface-3 border border-border-subtle rounded-xl overflow-hidden">
       <div className="p-4 border-b border-hairline">
-        <h3 className="text-text-primary font-semibold text-xs uppercase tracking-widest">Protocolos de Privacidad</h3>
+        <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Protocolos de Privacidad</h3>
       </div>
       <div className="p-2 space-y-1">
         <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
@@ -150,7 +150,7 @@ const SettingsMobile: React.FC = () => {
             <div className="space-y-6">
               {MENU_GROUPS.map((group, idx) => (
                 <div key={idx} className="space-y-2.5">
-                   <h3 className="text-[10px] font-semibold text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
+                   <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
                    <div className="space-y-1">
                       {group.items.map((item) => {
                         const Icon = item.icon;

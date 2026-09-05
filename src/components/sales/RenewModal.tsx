@@ -413,7 +413,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary rounded-lg font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-text-primary">
                         <Check size={18} /> Guardar
                     </button>
-                    <button onClick={() => handleRenew(true)} className="flex-[2] h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                    <button onClick={() => handleRenew(true)} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
                         <MessageCircle size={18} strokeWidth={2.5} /> Renovar y Notificar
                     </button>
                 </div>

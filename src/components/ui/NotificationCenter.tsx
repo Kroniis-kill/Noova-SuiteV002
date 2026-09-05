@@ -254,7 +254,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                   {filtered.length === 0 ? (
                       <div className="h-full flex flex-col items-center justify-center text-text-disabled py-20 px-6 border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
                         <div className="w-16 h-16 bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-status-success/40" /></div>
-                        <h3 className="text-sm font-bold text-text-primary uppercase tracking-widest">Sin pendientes</h3>
+                        <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Sin pendientes</h3>
                         <p className="text-xs mt-1 text-text-disabled italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
                       </div>
                   ) : (

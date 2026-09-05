@@ -119,7 +119,7 @@ const WhatsAppSelector: React.FC = () => {
           
           <button
             onClick={handleAlways}
-            className="h-[50px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-xs shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 hover:brightness-110"
+            className="h-12 rounded-2xl bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-xs shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 hover:brightness-110"
           >
             <Repeat size={16} /> Siempre
           </button>

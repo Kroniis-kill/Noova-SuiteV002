@@ -109,7 +109,7 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                         )}
                     </div>
                 </div>
-                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-5 space-y-4 shadow-sm">
+                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 space-y-4 shadow-sm">
                     {clientName && (
                         <div className="flex justify-between items-center border-b border-[rgb(var(--fg-rgb))]/5 pb-3">
                             <span className="text-text-disabled text-xs font-semibold uppercase flex items-center gap-1"><User size={12}/> Cliente</span>
@@ -468,7 +468,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             >
                 {/* Balance Card Premium */}
                 
-                <div className="relative z-10 overflow-hidden rounded-2xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-2xl p-6 transition-all duration-500 hover:border-[rgb(var(--fg-rgb))]/[0.12] active:scale-[0.99] group/card">
+                <div className="relative z-10 overflow-hidden rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-2xl p-6 transition-all duration-500 hover:border-[rgb(var(--fg-rgb))]/[0.12] active:scale-[0.99] group/card">
                     
                     <div className="flex justify-between items-start relative z-20">
                         <div className="flex flex-col">
@@ -526,7 +526,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             <div className="grid grid-cols-2 gap-3">
               <motion.div 
                 whileHover={{ y: -2 }}
-                className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-lg p-4 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
+                className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-4 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
               >
                 <div className="flex items-center justify-between mb-4">
                    <div className="flex items-center gap-2">
@@ -547,7 +547,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
               <motion.div 
                  whileHover={{ y: -2 }}
-                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-lg p-4 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
+                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-4 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
               >
                 <div className="flex items-center justify-between mb-4">
                    <div className="flex items-center gap-2">
@@ -572,7 +572,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
           {widgets.showQuickActions && (
             <div className="space-y-3">
                <div className="flex items-center justify-between px-1">
-                  <h3 className="text-[11px] font-bold text-text-primary tracking-widest uppercase">Atajos Rápidos</h3>
+                  <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Atajos Rápidos</h3>
                   <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-text-disabled hover:text-text-primary transition-colors flex items-center gap-1.5 uppercase tracking-[0.15em]">
                      EDITAR <SlidersHorizontal size={9} />
                   </button>
@@ -670,7 +670,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   <button 
                      key={s.id} 
                      onClick={() => setSelectedStockService(s)}
-                     className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center hover:border-status-success/40 transition-all active:scale-[0.98]"
+                     className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center hover:border-status-success/40 transition-all active:scale-[0.98]"
                   >
                      <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20"><Layers size={20} /></div>
@@ -698,7 +698,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
               <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 ml-1">Cuentas con cupo libre</p>
               <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
                   {selectedStockService?.accounts.map((acc: any) => (
-                      <div key={acc.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg flex justify-between items-center group relative overflow-hidden">
+                      <div key={acc.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex justify-between items-center group relative overflow-hidden">
                           <div className="min-w-0 pr-2">
                               <p className="text-xs font-semibold text-text-primary truncate">{acc.email}</p>
                               <div className="flex items-center gap-2 mt-1">

@@ -241,11 +241,11 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                   </div>
 
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div className="bg-surface-1 rounded-md p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
+                      <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
                           <span className="text-[10px] font-bold text-text-faint uppercase tracking-[0.2em] mb-1">Activos</span>
                           <span className="text-2xl font-black text-text-primary">{allGroupSales.length}</span>
                       </div>
-                      <div className="bg-surface-1 rounded-md p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
+                      <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
                           <span className="text-[10px] font-bold text-text-faint uppercase tracking-[0.2em] mb-1">Inversión</span>
                           <span className="text-2xl font-black text-status-success-soft">{settings.currency}{totalAmount.toLocaleString()}</span>
                       </div>

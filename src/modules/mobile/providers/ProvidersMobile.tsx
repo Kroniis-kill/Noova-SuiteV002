@@ -270,7 +270,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
        </div>
 
        <div className="mb-6 relative z-10">
-          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
+          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />
@@ -312,7 +312,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                  <div><h4 className="text-text-primary font-bold text-sm">Atención</h4><p className="text-text-muted text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
              </div>
              <div className="flex flex-col gap-3">
-                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
+                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>

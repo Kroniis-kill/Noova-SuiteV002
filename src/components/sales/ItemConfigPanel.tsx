@@ -48,7 +48,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
             <div className="space-y-3">
               <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Origen del Servicio</label>
 
-              <button onClick={() => { haptic('nav'); props.openServiceSearch(); }} className="w-full bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
+              <button onClick={() => { haptic('nav'); props.openServiceSearch(); }} className="w-full bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary">
                     <Monitor size={22} />
@@ -64,7 +64,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
               </button>
 
               <div className="flex gap-2">
-                <button onClick={() => { haptic('nav'); props.openAccountSearch(); }} disabled={!props.tempServiceId} className={`flex-1 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!props.tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
+                <button onClick={() => { haptic('nav'); props.openAccountSearch(); }} disabled={!props.tempServiceId} className={`flex-1 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!props.tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
                   <div className="flex items-center gap-4 min-w-0">
                     <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-success shrink-0">
                       <Mail size={22} />
@@ -181,7 +181,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
             <button onClick={props.onClose} className="h-[56px] px-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
               Cancelar
             </button>
-            <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="flex-1 h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
+            <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="flex-1 h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
               <Check size={18} strokeWidth={3} />
               {props.isEditing ? 'Guardar Cambios' : 'Agregar al Carrito'}
             </button>

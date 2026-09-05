@@ -367,7 +367,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={handleServiceSelect}
         filterFn={(s, q) => s.name.toLowerCase().includes(q)}
         renderItem={(s) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
+          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md bg-surface-sunken flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
                 {s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={22} />}
               </div>
@@ -389,7 +389,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={(p) => setFormData(prev => ({ ...prev, providerId: p?.id || '' }))}
         filterFn={(p, q) => p.name.toLowerCase().includes(q)}
         renderItem={(p) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
+          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md flex items-center justify-center text-text-primary font-semibold text-xs shrink-0" style={{ backgroundColor: p.color }}>
                 {p.name.substring(0,2).toUpperCase()}
               </div>

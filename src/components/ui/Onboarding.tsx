@@ -113,7 +113,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="relative w-full max-w-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl shadow-2xl flex flex-col items-center text-center p-6 pt-5"
+        className="relative w-full max-w-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-xl shadow-2xl flex flex-col items-center text-center p-6 pt-5"
       >
         <button
           onClick={onFinish}

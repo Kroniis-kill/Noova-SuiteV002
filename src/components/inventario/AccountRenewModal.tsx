@@ -54,7 +54,7 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
             <button 
               key={acc.id} 
               onClick={() => { onSelect(acc); onClose(); }} 
-              className="w-full text-left p-4 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group hover:border-brand-primary/30"
+              className="w-full text-left p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group hover:border-brand-primary/30"
             >
               <div className="w-10 h-10 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0">
                 <Wallet size={18} />

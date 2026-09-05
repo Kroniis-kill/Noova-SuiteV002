@@ -65,7 +65,7 @@ const CustomAlert: React.FC = () => {
                 <div className="flex justify-end">
                   <button
                     onClick={closeAlert}
-                    className="px-8 py-3 bg-brand-primary hover:bg-brand-primary-hi text-white font-semibold text-xs rounded-full transition-all active:scale-95 shadow-lg shadow-brand-primary/20"
+                    className="px-8 h-11 bg-brand-primary hover:bg-brand-primary-hi text-white font-semibold text-xs rounded-2xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20 flex items-center"
                   >
                     Entendido
                   </button>

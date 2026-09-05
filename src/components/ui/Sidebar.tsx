@@ -300,7 +300,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
                 key="sidebar"
                 initial={{ x: "-100%" }} animate={{ x: "0%" }} exit={{ x: "-100%" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
-                className={`fixed z-[101] lg:hidden w-[72vw] max-w-[270px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl shadow-2xl overflow-hidden flex flex-col gpu-accelerated ${isNative ? 'top-4 bottom-4 left-4 my-auto max-h-[92vh]' : 'top-[calc(0.5rem+env(safe-area-inset-top))] bottom-[calc(0.5rem+env(safe-area-inset-bottom))] left-[calc(0.5rem+env(safe-area-inset-left))]'}`}
+                className={`fixed z-[101] lg:hidden w-[72vw] max-w-[270px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl shadow-2xl overflow-hidden flex flex-col gpu-accelerated ${isNative ? 'top-4 bottom-4 left-4 my-auto max-h-[92vh]' : 'top-[calc(0.5rem+env(safe-area-inset-top))] bottom-[calc(0.5rem+env(safe-area-inset-bottom))] left-[calc(0.5rem+env(safe-area-inset-left))]'}`}
               >
                 <button
                   onClick={closeMobile}

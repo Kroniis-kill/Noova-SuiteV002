@@ -67,7 +67,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                 initial="hidden" 
                 animate="visible" 
                 exit="exit" 
-                className={`pointer-events-auto bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-2xl flex flex-col overflow-hidden ${isMobile ? 'w-full rounded-t-2xl max-h-[90dvh]' : 'w-[800px] h-[650px] rounded-2xl'}`}
+                className={`pointer-events-auto bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-2xl flex flex-col overflow-hidden ${isMobile ? 'w-full rounded-t-xl max-h-[90dvh]' : 'w-[800px] h-[650px] rounded-xl'}`}
             >
                 {/* Header / Cover Style similar to Resellers */}
                 <div className="relative shrink-0 p-6 pb-6 border-b border-[rgb(var(--fg-rgb))]/5">
@@ -151,7 +151,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                 const StatusIcon = statusStyle.icon;
                                 
                                 return (
-                                    <div key={acc.id} onClick={() => onAccountClick(acc)} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-lg hover:bg-surface-4 cursor-pointer transition-all group hover:border-[rgb(var(--fg-rgb))]/10">
+                                    <div key={acc.id} onClick={() => onAccountClick(acc)} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl hover:bg-surface-4 cursor-pointer transition-all group hover:border-[rgb(var(--fg-rgb))]/10">
                                         <div className="flex justify-between items-start mb-3">
                                             <div>
                                                 <h4 className="text-text-primary font-bold text-sm truncate max-w-[180px]">{acc.email}</h4>

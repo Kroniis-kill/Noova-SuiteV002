@@ -6,7 +6,7 @@ import React from 'react';
 // shadow-elev-*, radios rounded-xl/2xl y el mismo lenguaje de "cards".
 
 export const styles = {
-  card: "bg-surface-1 border border-border-subtle rounded-2xl p-6 mb-6 shadow-elev-sm",
+  card: "bg-surface-1 border border-border-subtle rounded-xl p-6 mb-6 shadow-elev-sm",
   sectionTitle: "text-lg font-bold text-text-primary mb-6",
   label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
   input: "w-full bg-surface-sunken border border-border-subtle rounded-xl px-4 h-[52px] text-sm text-text-primary outline-none focus:border-brand-primary/50 focus:shadow-glow-sm transition-all placeholder:text-text-faint font-medium",

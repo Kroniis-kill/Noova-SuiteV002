@@ -90,8 +90,8 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 className={`
                     pointer-events-auto bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-2xl flex flex-col overflow-hidden
                     ${isMobile 
-                        ? 'w-full rounded-t-2xl max-h-[85dvh]' 
-                        : 'w-[800px] h-[650px] rounded-2xl'
+                        ? 'w-full rounded-t-xl max-h-[85dvh]' 
+                        : 'w-[800px] h-[650px] rounded-xl'
                     }
                 `}
             >
