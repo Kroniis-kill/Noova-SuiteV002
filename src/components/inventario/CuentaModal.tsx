@@ -45,7 +45,7 @@ function SearchListModal<T>({ isOpen, onClose, items, onSelect, title, placehold
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder={placeholder}
-             className="w-full bg-surface-sunken rounded-lg pl-12 pr-10 h-12 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/60 transition-all placeholder:text-text-faint font-medium"
+             className="w-full bg-surface-zinc rounded-md pl-12 pr-10 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/40 transition-all placeholder:text-text-faint font-medium"
              autoFocus
            />
            {search && <button onClick={() => setSearch('')} className="absolute right-6 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={16} /></button>}
@@ -227,18 +227,21 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
           </div>
 
           {/* CREDENCIALES MAESTRAS */}
-          <div className="space-y-3">
+          <div className="space-y-1">
             <label className={styles.sectionLabel}>Credenciales Maestras</label>
-            <div className={styles.inputContainer}>
-                <Mail size={18} className={styles.iconElement} />
-                <input value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="correo@ejemplo.com" className={`${styles.input} pl-12`} required />
-            </div>
-            <div className={styles.inputContainer}>
-                <Key size={18} className={styles.iconElement} />
-                <input value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} placeholder="Contraseña" className={`${styles.input} pl-12 font-mono`} required />
-                <button type="button" onClick={handleGeneratePassword} className="absolute right-3 p-2 text-text-faint hover:text-text-primary transition-colors">
-                    <RefreshCw size={18} />
-                </button>
+            <div className={styles.cardDark}>
+                <div className="flex items-center gap-2">
+                    <Mail size={18} className="text-text-faint shrink-0" />
+                    <input value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="correo@ejemplo.com" className="w-full bg-transparent text-sm text-text-primary placeholder:text-text-faint h-9 outline-none font-medium" required />
+                </div>
+                <div className="h-px bg-[rgb(var(--fg-rgb))]/5 my-3" />
+                <div className="flex items-center gap-2">
+                    <Key size={18} className="text-text-faint shrink-0" />
+                    <input value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} placeholder="Contraseña" className="w-full bg-transparent text-sm text-text-primary placeholder:text-text-faint h-9 outline-none font-mono" required />
+                    <button type="button" onClick={handleGeneratePassword} className="shrink-0 p-1 text-text-faint hover:text-brand-primary-hi transition-colors">
+                        <RefreshCw size={16} />
+                    </button>
+                </div>
             </div>
           </div>
 
@@ -247,24 +250,22 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
             <label className={styles.sectionLabel}>Perfiles ({profiles.length})</label>
             <div className="space-y-2">
                 {profiles.map((prof, idx) => (
-                    <div key={idx} className="flex gap-2">
-                        <div className="flex-1 flex items-center bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[52px] overflow-hidden">
-                            <div className="w-12 h-full flex items-center justify-center bg-black/20 border-r border-[rgb(var(--fg-rgb))]/5 text-text-faint text-xs font-semibold font-mono">
-                                {idx + 1}
-                            </div>
-                            <input 
-                                value={prof.name} 
-                                onChange={e => handleProfileChange(idx, 'name', e.target.value)} 
-                                placeholder="Nombre del Perfil" 
-                                className="w-full h-full bg-transparent px-4 text-sm text-text-primary outline-none font-medium"
-                            />
+                    <div key={idx} className="flex gap-2 items-center bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl h-[52px] pl-2 pr-2">
+                        <div className="w-8 h-8 rounded-md bg-brand-primary/10 text-brand-primary-hi flex items-center justify-center text-[11px] font-bold shrink-0">
+                            {idx + 1}
                         </div>
-                        <div className="w-[100px] flex items-center bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[52px]">
+                        <input 
+                            value={prof.name} 
+                            onChange={e => handleProfileChange(idx, 'name', e.target.value)} 
+                            placeholder="Nombre del Perfil" 
+                            className="flex-1 min-w-0 h-full bg-transparent px-2 text-sm text-text-primary outline-none font-medium"
+                        />
+                        <div className="w-[86px] shrink-0 h-9 flex items-center bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/5">
                             <input 
                                 value={prof.pin} 
                                 onChange={e => handleProfileChange(idx, 'pin', e.target.value)} 
                                 placeholder="PIN" 
-                                className="w-full h-full bg-transparent px-4 text-center text-sm text-text-primary font-mono outline-none"
+                                className="w-full h-full bg-transparent px-2 text-center text-xs text-text-primary font-mono outline-none"
                                 inputMode="numeric"
                             />
                         </div>
@@ -293,40 +294,38 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
              </button>
           </div>
 
-          {/* PAÍS E INICIO */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-                <label className={styles.sectionLabel}>País</label>
-                <div className={styles.inputContainer}>
-                    <Globe size={18} className={styles.iconElement} />
-                    <input value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} placeholder="Global" className={`${styles.input} pl-12`} />
-                </div>
-            </div>
-            <div className="space-y-1">
-                <label className={styles.sectionLabel}>Inicio</label>
-                <div className={`${styles.inputContainer} pr-4`}>
-                    <input type="date" value={formData.startDate} onChange={e => setFormData({...formData, startDate: e.target.value})} className={`${styles.input} text-center font-bold`} />
-                    <ChevronDown size={14} className="text-text-faint shrink-0" />
-                </div>
-            </div>
-          </div>
-
-          {/* VENCIMIENTO MES/DIA */}
+          {/* VIGENCIA */}
           <div className="space-y-1">
-            <label className={styles.sectionLabel}>Vencimiento</label>
-            <div className="grid grid-cols-2 gap-4">
-               <div className="flex items-center bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg h-[52px] overflow-hidden">
-                  <div className="px-4 h-full flex items-center justify-center bg-black/20 border-r border-[rgb(var(--fg-rgb))]/5 text-[9px] font-black text-text-disabled uppercase tracking-widest">
-                     Mes
+            <label className={styles.sectionLabel}>Vigencia</label>
+            <div className={styles.cardDark}>
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                  <div className={styles.inputContainer}>
+                      <Globe size={18} className={styles.iconElement} />
+                      <input value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} placeholder="Global" className={`${styles.input} pl-12`} />
                   </div>
-                  <input type="number" value={months} onChange={e => setMonths(e.target.value)} className="w-full h-full bg-transparent text-center text-sm text-text-primary font-bold outline-none" placeholder="0" />
-               </div>
-               <div className="flex items-center bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-lg h-[52px] overflow-hidden">
-                  <div className="px-4 h-full flex items-center justify-center bg-black/20 border-r border-[rgb(var(--fg-rgb))]/5 text-[9px] font-black text-text-disabled uppercase tracking-widest">
-                     Día
+                </div>
+                <div>
+                  <div className={`${styles.inputContainer} pr-4`}>
+                      <input type="date" value={formData.startDate} onChange={e => setFormData({...formData, startDate: e.target.value})} className={`${styles.input} text-center font-bold`} />
+                      <ChevronDown size={14} className="text-text-faint shrink-0" />
                   </div>
-                  <input type="number" value={days} onChange={e => setDays(e.target.value)} className="w-full h-full bg-transparent text-center text-sm text-text-primary font-bold outline-none" placeholder="0" />
-               </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                 <div className="flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[52px] overflow-hidden">
+                    <div className="px-4 h-full flex items-center justify-center bg-black/20 border-r border-[rgb(var(--fg-rgb))]/5 text-[9px] font-black text-text-disabled uppercase tracking-widest">
+                       Mes
+                    </div>
+                    <input type="number" value={months} onChange={e => setMonths(e.target.value)} className="w-full h-full bg-transparent text-center text-sm text-text-primary font-bold outline-none" placeholder="0" />
+                 </div>
+                 <div className="flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[52px] overflow-hidden">
+                    <div className="px-4 h-full flex items-center justify-center bg-black/20 border-r border-[rgb(var(--fg-rgb))]/5 text-[9px] font-black text-text-disabled uppercase tracking-widest">
+                       Día
+                    </div>
+                    <input type="number" value={days} onChange={e => setDays(e.target.value)} className="w-full h-full bg-transparent text-center text-sm text-text-primary font-bold outline-none" placeholder="0" />
+                 </div>
+              </div>
             </div>
           </div>
 
@@ -348,9 +347,9 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
           <div className="pt-4 pb-4">
              <button 
                 type="submit" 
-                className="w-full h-[60px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-bold text-sm flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl"
+                className="btn-primary w-full h-12 rounded-2xl text-sm flex items-center justify-center gap-3"
              >
-                <Check size={20} className="text-status-success-soft" strokeWidth={3} /> Guardar Cambios
+                <Check size={20} strokeWidth={3} /> Guardar Cambios
              </button>
           </div>
 

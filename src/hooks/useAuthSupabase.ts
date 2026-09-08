@@ -195,64 +195,86 @@ export const useAuthSupabase = () => {
       }
     });
 
+    // --- Resync de sesión al volver a primer plano --------------------------
+    // ANTES: visibilitychange, focus y el heartbeat llamaban cada uno por su
+    // cuenta a refreshSession()/getSession() SIN timeout. En móvil, al volver
+    // de background, visibilitychange y focus disparan casi simultáneos ->
+    // dos llamadas a la vez peleando por el lock de auth, y si una tarda
+    // (red mala, lock atascado, etc.) no había ningún límite de tiempo: la
+    // promesa podía quedar pendiente para siempre y la app se sentía
+    // "congelada". Ahora todo pasa por una única función deduplicada con
+    // timeout de seguridad (igual de espíritu que `withRetry`).
+    let resyncInFlight = false;
+    const SESSION_TIMEOUT_MS = 6000;
+
+    const withTimeout = <T,>(p: PromiseLike<T>, ms: number): Promise<T> =>
+      Promise.race([
+        Promise.resolve(p),
+        new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Session check timeout')), ms)),
+      ]);
+
+    const resyncSession = async (mode: 'refresh' | 'check') => {
+      if (resyncInFlight) return; // ya hay un resync corriendo, no dupliques
+      resyncInFlight = true;
+      try {
+        if (mode === 'refresh') {
+          try {
+            const { data: { session: currentSession }, error } = await withTimeout(
+              supabase.auth.refreshSession(), SESSION_TIMEOUT_MS
+            );
+            if (error) throw error;
+            if (currentSession?.user && isMounted.current) {
+              setSession(currentSession);
+              if (!userRef.current) {
+                const u = await fetchUserProfile(currentSession.user);
+                if (isMounted.current) setUser(u);
+              }
+              return;
+            }
+          } catch (e: any) {
+            if (import.meta.env.DEV) console.warn("Refresh de sesión falló/timeout:", e?.message);
+            // seguimos abajo con un getSession como fallback
+          }
+        }
+
+        const { data: { session: fallbackSession } } = await withTimeout(
+          supabase.auth.getSession(), SESSION_TIMEOUT_MS
+        );
+        if (fallbackSession?.user && isMounted.current) {
+          setSession(fallbackSession);
+          if (!userRef.current) {
+            const u = await fetchUserProfile(fallbackSession.user);
+            if (isMounted.current) setUser(u);
+          }
+        }
+      } catch (e: any) {
+        if (import.meta.env.DEV) console.warn("Resync de sesión falló/timeout:", e?.message);
+        // No dejamos la app colgada: simplemente no actualizamos el estado.
+      } finally {
+        resyncInFlight = false;
+      }
+    };
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        if (import.meta.env.DEV) console.log("App visible, refreshing session...");
-        // Force a session refresh when coming back to the app
-        supabase.auth.refreshSession().then(({ data: { session: currentSession }, error }) => {
-          if (error) {
-             console.warn("Failed to refresh session on visibility change:", error.message);
-             // Fallback to getSession if refresh fails (e.g. rate limited)
-             supabase.auth.getSession().then(({ data: { session: fallbackSession } }) => {
-                if (fallbackSession?.user && isMounted.current) {
-                  setSession(fallbackSession);
-                  if (!userRef.current) {
-                    fetchUserProfile(fallbackSession.user).then(u => isMounted.current && setUser(u));
-                  }
-                }
-             });
-             return;
-          }
-          if (currentSession?.user && isMounted.current) {
-            setSession(currentSession);
-            // We don't necessarily need to fetch the profile again unless it's missing
-            if (!userRef.current) {
-              fetchUserProfile(currentSession.user).then(userProfile => {
-                if (isMounted.current) setUser(userProfile);
-              });
-            }
-          }
-        });
+        if (import.meta.env.DEV) console.log("App visible, refrescando sesión...");
+        resyncSession('refresh');
       }
     };
 
     const handleFocus = () => {
-      if (import.meta.env.DEV) console.log("Window focused, checking session...");
-      supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-        if (currentSession?.user && isMounted.current) {
-          setSession(currentSession);
-          if (!userRef.current) {
-            fetchUserProfile(currentSession.user).then(u => isMounted.current && setUser(u));
-          }
-        }
-      });
+      if (import.meta.env.DEV) console.log("Ventana en foco, chequeando sesión...");
+      resyncSession('check');
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);
 
-    // Heartbeat to keep session alive and sync state
+    // Heartbeat: solo actúa si no hay ya un resync en curso (evita pilas de
+    // llamadas concurrentes) y también protegido con timeout.
     const heartbeat = setInterval(() => {
-      if (document.visibilityState === 'visible') {
-        supabase.auth.getSession().then(({ data: { session: s } }) => {
-          if (s && isMounted.current && (!sessionRef.current || s.access_token !== sessionRef.current.access_token)) {
-            if (import.meta.env.DEV) console.log("Heartbeat: Syncing session state");
-            setSession(s);
-            if (!userRef.current) {
-              fetchUserProfile(s.user).then(u => isMounted.current && setUser(u));
-            }
-          }
-        });
+      if (document.visibilityState === 'visible' && !resyncInFlight) {
+        resyncSession('check');
       }
     }, 30000);
 
@@ -277,7 +299,15 @@ export const useAuthSupabase = () => {
   }, []); // Remove user and session dependencies to prevent teardown iteration
 
   const login = async (email: string, pass: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password: pass });
+    // Timeout de seguridad: si por lo que sea la llamada nunca resuelve
+    // (ej. red muy mala), preferimos mostrar un error claro en 15s en vez
+    // de dejar el botón de "Iniciar sesión" girando para siempre.
+    const { data, error } = await Promise.race([
+      supabase.auth.signInWithPassword({ email, password: pass }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('La conexión tardó demasiado. Verifica tu internet e inténtalo de nuevo.')), 15000)
+      ),
+    ]);
     if (error) throw error;
     if (data.session) {
       const userProfile = await fetchUserProfile(data.session.user);

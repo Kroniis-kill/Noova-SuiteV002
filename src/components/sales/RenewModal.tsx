@@ -74,7 +74,7 @@ interface RenewModalProps {
 }
 
 const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, zIndex }) => {
-  const { addSale, updateSale, updateAccount, settings, financialAccounts, executeTransaction, clients, logAction, services, accounts } = useData();
+  const { addSale, updateSale, settings, financialAccounts, executeTransaction, clients, logAction, services, accounts } = useData();
   const { showToast } = useToast();
   const haptic = useHaptic();
   
@@ -217,17 +217,9 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
             notes: (sale.notes || '') + `\n[RENOVADO el ${new Date().toLocaleDateString()}]`
         });
 
-        // 3. Actualizar la fecha de vencimiento de la CUENTA en el inventario
-        if (sale.accountId) {
-            const account = accounts.find(a => a.id === sale.accountId);
-            if (account) {
-              await updateAccount({
-                  ...account,
-                  endDate: targetDate, // En la tabla accounts es endDate
-                  status: 'activa' // Aseguramos que esté activa
-              });
-            }
-        }
+        // NOTA: La renovación de una venta (cliente) es independiente de la cuenta en Inventario.
+        // account.endDate solo debe modificarse desde AccountRenewModal.tsx (renovación con el proveedor),
+        // ya que una misma cuenta puede tener varios clientes con fechas de vencimiento distintas.
 
         const client = clients.find(c => c.id === sale.clientId);
         const clientName = client ? client.name : 'Cliente';

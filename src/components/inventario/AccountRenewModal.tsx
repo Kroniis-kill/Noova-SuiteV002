@@ -42,9 +42,9 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
         <div className="space-y-2 overflow-y-auto max-h-[350px] custom-scrollbar pr-1">
           <button 
             onClick={() => { onSelect(null); onClose(); }} 
-            className="w-full text-left p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group"
+            className="w-full text-left p-4 rounded-xl bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group"
           >
-            <div className="w-10 h-10 rounded-sm bg-zinc-800 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
+            <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
               <X size={18} />
             </div>
             <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar salida</span>
@@ -56,7 +56,7 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
               onClick={() => { onSelect(acc); onClose(); }} 
               className="w-full text-left p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group hover:border-brand-primary/30"
             >
-              <div className="w-10 h-10 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0">
+              <div className="w-10 h-10 rounded-md bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0">
                 <Wallet size={18} />
               </div>
               <div className="flex-1 min-w-0">
@@ -125,13 +125,38 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
 
   const selectedWallet = financialAccounts.find(f => f.id === walletId);
 
+  const mainCurrency = settings.currency || 'USD';
+  const subCurrency = settings.subCurrency || 'SEC';
+  const rate = settings.exchangeRate || 1;
+
   const handleRenew = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const amount = parseFloat(cost);
-    if (amount > 0 && !selectedWallet) {
+    // El costo siempre se ingresa en la moneda principal de la app (USD)
+    const costInMainCurrency = parseFloat(cost) || 0;
+    if (costInMainCurrency > 0 && !selectedWallet) {
         showToast('Debes seleccionar una billetera para registrar el costo', 'error');
         return;
+    }
+
+    // Convertimos el costo (USD) a la moneda real de la billetera seleccionada,
+    // igual que en ExpenseModal.tsx, para descontar el monto correcto del balance.
+    let deductAmount = costInMainCurrency;
+    if (selectedWallet) {
+        if (selectedWallet.currency === mainCurrency) {
+            deductAmount = costInMainCurrency;
+        } else if (selectedWallet.currency === subCurrency) {
+            deductAmount = costInMainCurrency * rate;
+        } else {
+            const strongCurrencies = ['USD', 'USDT', 'USDC', 'EUR'];
+            if (strongCurrencies.includes(selectedWallet.currency) && !strongCurrencies.includes(mainCurrency) && rate > 0) {
+                deductAmount = costInMainCurrency / rate;
+            } else if (!strongCurrencies.includes(selectedWallet.currency) && strongCurrencies.includes(mainCurrency)) {
+                deductAmount = costInMainCurrency * rate;
+            } else {
+                deductAmount = costInMainCurrency;
+            }
+        }
     }
 
     try {
@@ -144,15 +169,15 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
            });
         }
 
-        if (amount > 0 && selectedWallet) {
+        if (costInMainCurrency > 0 && selectedWallet) {
            await executeTransaction({
               id: generateUUID(),
               accountId: selectedWallet.id,
               type: 'withdrawal',
-              amount: amount,
+              amount: parseFloat(deductAmount.toFixed(2)),
               currency: selectedWallet.currency,
-              exchangeRate: 1,
-              usdEquivalent: amount, 
+              exchangeRate: rate,
+              usdEquivalent: costInMainCurrency, 
               date: new Date().toISOString(),
               description: `Pago Proveedor: ${serviceName} (${accounts.length} cuentas)`,
               paymentMethod: 'Manual'
@@ -163,8 +188,8 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                id: generateUUID(),
                userId: user.id,
                date: new Date().toISOString().split('T')[0],
-               amount: amount,
-               exchangeRate: 1,
+               amount: costInMainCurrency,
+               exchangeRate: rate,
                category: 'operativo',
                description: `Renovación: ${serviceName} (${accounts.length} cuentas)`,
                paymentMethod: 'otro',
@@ -183,8 +208,8 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[52px] transition-all focus-within:ring-1 focus-within:ring-brand-primary/40 border border-[rgb(var(--fg-rgb))]/5",
+    label: "text-[10px] font-bold text-text-faint uppercase tracking-[0.15em] mb-3 block ml-1",
+    inputContainer: "relative flex items-center bg-surface-zinc rounded-md h-[52px] transition-all focus-within:ring-1 focus-within:ring-brand-primary/40 border border-[rgb(var(--fg-rgb))]/5",
     input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 h-full outline-none font-medium rounded-md",
     card: "bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-5"
   };
@@ -193,14 +218,15 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
     <>
       <Modal isOpen={isOpen} onClose={onClose} title="Renovar Inventario" zIndex={10000}>
          <div className="space-y-5 pt-1">
-            <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-lg p-4 flex items-center gap-3.5">
-               <div className="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center shrink-0 text-brand-primary">
-                  <RefreshCw size={20} />
+            <div className="bg-gradient-to-br from-brand-primary/[0.14] to-brand-accent/10 border border-brand-primary/25 rounded-xl p-4 flex items-center gap-3.5">
+               <div className="w-11 h-11 rounded-md bg-surface-1 border border-brand-primary/25 flex items-center justify-center shrink-0 text-brand-primary-hi">
+                  <Calendar size={20} />
                </div>
-               <div>
-                  <h4 className="text-brand-primary font-bold text-sm">Renovando {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</h4>
-                  <p className="text-text-muted text-[11px] leading-tight mt-0.5 font-medium">
-                     Servicio: <span className="text-text-primary font-bold">{serviceName}</span>
+               <div className="min-w-0">
+                  <p className="text-[10px] text-text-muted font-bold uppercase tracking-[0.15em]">Vence actualmente</p>
+                  <h4 className="text-text-primary font-bold text-sm mt-0.5">{formatDate(accounts[0]?.endDate)}</h4>
+                  <p className="text-text-muted text-[11px] leading-tight mt-1 font-medium">
+                     {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'} · <span className="text-text-primary font-bold">{serviceName}</span>
                   </p>
                </div>
             </div>
@@ -260,10 +286,10 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
             </div>
 
             <div className="pt-2 flex flex-col gap-3">
-              <button onClick={handleRenew} className="btn-primary w-full h-[52px] rounded-lg text-[13px] flex items-center justify-center gap-2">
+              <button onClick={handleRenew} className="btn-primary w-full h-12 rounded-2xl text-[13px] flex items-center justify-center gap-2">
                  <Check size={18} /> Confirmar Renovación
               </button>
-              <button onClick={onClose} className="w-full h-[48px] bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-text-muted rounded-lg font-bold text-[12px] transition-all active:scale-98">Cancelar Operación</button>
+              <button onClick={onClose} className="w-full h-12 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-text-muted rounded-2xl font-bold text-[12px] transition-all active:scale-98">Cancelar Operación</button>
             </div>
          </div>
       </Modal>

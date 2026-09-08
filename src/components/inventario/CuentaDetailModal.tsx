@@ -6,6 +6,7 @@ import { Copy, Eye, EyeOff, CheckCircle2, Power, Trash2, Key, User, LayoutTempla
 import { useToast } from '../../context/ToastContext';
 import { useData } from '../../context/DataContext';
 import { formatDate, getLocalDateISO } from '../../utils/contactosUtils';
+import { getDaysRemaining } from '../../utils/inventarioUtils';
 import { useHaptic } from '../../hooks/useHaptic';
 
 interface CuentaDetailModalProps {
@@ -206,7 +207,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             <motion.div variants={modalVariants} initial="hidden" animate="visible" exit="exit" className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl border-t border-border-subtle z-[9999] p-6 pb-12 max-w-md mx-auto md:bottom-6 md:rounded-xl flex flex-col shadow-modal">
               <div className="w-12 h-1.5 bg-zinc-800 rounded-full mx-auto mb-6 shrink-0" />
               <div className="flex items-center gap-4 mb-8">
-                 <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
+                 <div className="w-14 h-14 rounded-md bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
                     {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : <Trash2 size={24} className="text-text-faint" />}
                  </div>
                  <div className="min-w-0">
@@ -216,20 +217,20 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
               </div>
               <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4 mb-8">
                   <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-black text-text-faint uppercase tracking-widest">Correo de acceso</label>
+                      <label className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em]">Correo de acceso</label>
                       <div className="flex items-center justify-between"><span className="text-sm font-bold text-text-secondary truncate pr-2">{account.email}</span><button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary p-1"><Copy size={16} /></button></div>
                   </div>
                   <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/[0.03]" />
                   <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-black text-text-faint uppercase tracking-widest">Contraseña archivada</label>
+                      <label className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em]">Contraseña archivada</label>
                       <div className="flex items-center justify-between"><span className="text-sm font-mono text-text-secondary">{showPassword ? account.password : '••••••••'}</span><div className="flex items-center gap-2"><button onClick={() => setShowPassword(!showPassword)} className="text-text-faint hover:text-text-primary p-1">{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button><button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-text-faint hover:text-text-primary p-1"><Key size={16} /></button></div></div>
                   </div>
               </div>
               <div className="flex flex-col items-center gap-4">
                   <div className="flex items-center gap-2 text-text-faint text-[10px] font-semibold uppercase tracking-widest"><Clock size={12} /><span>Archivado el {formatDate(new Date().toISOString())}</span></div>
                   <div className="grid grid-cols-2 gap-3 w-full mt-2">
-                      <button onClick={() => onRestore && onRestore(account)} className="h-[52px] bg-status-success text-black font-black rounded-lg text-xs flex items-center justify-center gap-2 active:scale-95 shadow-lg uppercase tracking-wider"><RotateCcw size={16} /> Restaurar</button>
-                      <button onClick={() => onDelete(account.id)} className="h-[52px] bg-status-danger/10 border border-status-danger/20 text-status-danger-soft font-black rounded-lg text-xs flex items-center justify-center gap-2 active:scale-95 uppercase tracking-wider"><Trash2 size={16} /> Eliminar</button>
+                      <button onClick={() => onRestore && onRestore(account)} className="h-12 bg-status-success text-black font-black rounded-2xl text-xs flex items-center justify-center gap-2 active:scale-95 shadow-lg uppercase tracking-wider"><RotateCcw size={16} /> Restaurar</button>
+                      <button onClick={() => onDelete(account.id)} className="h-12 bg-status-danger/10 border border-status-danger/20 text-status-danger-soft font-black rounded-2xl text-xs flex items-center justify-center gap-2 active:scale-95 uppercase tracking-wider"><Trash2 size={16} /> Eliminar</button>
                   </div>
                   <button onClick={onClose} className="text-text-disabled text-[10px] font-semibold uppercase tracking-widest py-2 active:text-text-primary">Cerrar</button>
               </div>
@@ -255,48 +256,69 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
           >
             {/* Header */}
             <div className="px-6 pt-6 pb-2 bg-surface-1 shrink-0 flex items-center justify-between z-10">
-                <div>
-                    <h3 className="text-xl font-black text-text-primary leading-tight">Detalle de Cuenta</h3>
-                    <p className="text-[11px] text-text-disabled font-semibold uppercase tracking-wider mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
+                <div className="min-w-0">
+                    <h3 className="text-lg font-bold text-text-primary leading-tight truncate">{serviceObj?.name || 'Cuenta'}</h3>
+                    <p className="text-[10px] text-text-faint font-bold uppercase tracking-[0.15em] mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
                 </div>
-                <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90">
+                <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0">
                     <X size={18} />
                 </button>
             </div>
 
+            {/* Hero: estado, dias restantes y cupo */}
+            <div className="px-6 pb-4 shrink-0">
+                <div className="rounded-xl p-4 border border-brand-primary/25 bg-gradient-to-br from-brand-primary/[0.14] to-brand-accent/10 flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-brand-primary-hi shrink-0 overflow-hidden">
+                        {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : (account.account_type === 'cuenta_completa' ? <LayoutTemplate size={20} /> : <MonitorPlay size={20} />)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isFailing ? 'bg-status-expiring' : isPaused ? 'bg-text-disabled' : 'bg-status-success animate-pulse'}`} />
+                            <span className={`text-[11px] font-bold ${isFailing ? 'text-status-expiring' : isPaused ? 'text-text-disabled' : 'text-status-success-soft'}`}>{isFailing ? 'Fallando' : isPaused ? 'Pausada' : 'Activa'}</span>
+                        </div>
+                        <p className="text-[11px] text-text-muted mt-0.5 font-medium truncate">
+                            {(() => { const d = getDaysRemaining(account.endDate); return d < 0 ? `Venció hace ${Math.abs(d)} días` : d === 0 ? 'Vence hoy' : `Vence en ${d} días · ${formatDate(account.endDate)}`; })()}
+                        </p>
+                    </div>
+                    <div className="text-[9px] font-bold text-brand-primary-hi uppercase tracking-wide bg-brand-primary/15 border border-brand-primary/25 px-2 py-1 rounded-md shrink-0">
+                        {usedProfilesCount(profiles)}/{account.maxScreens}
+                    </div>
+                </div>
+            </div>
+
             {/* Action Bar */}
-            <div className="px-6 py-4 grid grid-cols-4 gap-3 shrink-0">
+            <div className="px-6 pb-4 grid grid-cols-4 gap-2 shrink-0">
                 <button 
                     onClick={handleSyncAccountStock}
                     disabled={isSyncing}
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary hover:bg-surface-4'}`}
-                    title="Sincronizar"
+                    className={`h-14 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary hover:bg-surface-4'}`}
                 >
-                    {isSyncing ? <Loader2 size={20} className="animate-spin" /> : <RefreshCw size={20} />}
+                    {isSyncing ? <Loader2 size={17} className="animate-spin" /> : <RefreshCw size={17} />}
+                    <span className="text-[8px] font-bold uppercase tracking-wide">Sync</span>
                 </button>
                 
                 <button 
                     onClick={() => onToggleFailure(account)}
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/40 text-status-expiring bg-status-expiring/10' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-status-expiring-soft hover:bg-surface-4'}`}
-                    title={isFailing ? 'Quitar reporte de falla' : 'Reportar falla'}
+                    className={`h-14 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/40 text-status-expiring bg-status-expiring/10' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-status-expiring-soft hover:bg-surface-4'}`}
                 >
-                    {isFailing ? <ShieldAlert size={20} /> : <AlertTriangle size={20} />}
+                    {isFailing ? <ShieldAlert size={17} /> : <AlertTriangle size={17} />}
+                    <span className="text-[8px] font-bold uppercase tracking-wide">Falla</span>
                 </button>
 
                 <button 
                     onClick={() => onToggleStatus(account)} 
-                    className={`h-12 rounded-md flex items-center justify-center border transition-all active:scale-95 ${isPaused ? 'border-zinc-700 text-text-disabled bg-[rgb(var(--fg-rgb))]/5' : 'border-status-success/30 text-status-success-soft bg-status-success/10'}`}
-                    title={isPaused ? 'Activar cuenta' : 'Pausar cuenta'}
+                    className={`h-14 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all active:scale-95 ${isPaused ? 'border-zinc-700 text-text-disabled bg-[rgb(var(--fg-rgb))]/5' : 'border-status-success/30 text-status-success-soft bg-status-success/10'}`}
                 >
-                    {isPaused ? <Power size={20} /> : <ShieldCheck size={20} />}
+                    {isPaused ? <Power size={17} /> : <ShieldCheck size={17} />}
+                    <span className="text-[8px] font-bold uppercase tracking-wide">{isPaused ? 'Activa' : 'Pausa'}</span>
                 </button>
 
                 <button 
                     onClick={copyFullFormat} 
-                    className="h-12 rounded-md flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary active:scale-95 transition-all"
-                    title="Copiar detalles"
+                    className="h-14 rounded-xl flex flex-col items-center justify-center gap-1 border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary active:scale-95 transition-all"
                 >
-                    <MessageSquare size={20} />
+                    <MessageSquare size={17} />
+                    <span className="text-[8px] font-bold uppercase tracking-wide">Copiar</span>
                 </button>
             </div>
 
@@ -313,9 +335,9 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 {activeTab === 'details' ? (
                     <div className="space-y-4 animate-fade-in">
                         {/* Credentials Card */}
-                        <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-5">
+                        <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
                             <div className="flex flex-col gap-1.5">
-                                <label className="text-[9px] font-black text-text-disabled uppercase tracking-widest flex items-center gap-2">
+                                <label className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em] flex items-center gap-2">
                                     <Mail size={10} /> Correo de Acceso
                                 </label>
                                 <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 group hover:border-[rgb(var(--fg-rgb))]/10 transition-colors">
@@ -323,9 +345,11 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                     <button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-disabled hover:text-text-primary p-1.5 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><Copy size={14} /></button>
                                 </div>
                             </div>
+
+                            <div className="h-px bg-[rgb(var(--fg-rgb))]/5" />
                             
                             <div className="flex flex-col gap-1.5">
-                                <label className="text-[9px] font-black text-text-disabled uppercase tracking-widest flex items-center gap-2">
+                                <label className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em] flex items-center gap-2">
                                     <Key size={10} /> Contraseña
                                 </label>
                                 <div className="flex items-center justify-between bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 group hover:border-[rgb(var(--fg-rgb))]/10 transition-colors">
@@ -340,52 +364,34 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                         {/* Status / Profiles */}
                         {isSingleEntity ? (
-                            <div className={`rounded-xl p-5 border flex items-center justify-between relative overflow-hidden transition-all ${isSoldSingle ? 'bg-indigo-500/5 border-indigo-500/20' : 'bg-status-success/5 border-status-success/20'}`}>
-                                <div className="relative z-10">
-                                    <h4 className={`text-[9px] font-black uppercase tracking-widest mb-2 ${isSoldSingle ? 'text-indigo-400' : 'text-status-success-soft'}`}>Estado del Cupo</h4>
-                                    <p className="text-xl font-black text-text-primary mb-3 leading-tight">{isSoldSingle ? 'Ocupado / Vendido' : 'Disponible'}</p>
-                                    {isSoldSingle ? (
-                                        <div className="flex items-center gap-3 bg-surface-sunken/50 p-2.5 rounded-md border border-[rgb(var(--fg-rgb))]/5 w-fit backdrop-blur-md">
-                                            <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
-                                                <User size={14} />
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] text-text-muted uppercase font-black tracking-wider">Cliente</span>
-                                                <span className="text-xs text-text-primary font-bold leading-none">{clientNameSingle}</span>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="flex items-center gap-2 mt-1">
-                                            <span className="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
-                                            <p className="text-xs text-text-secondary font-medium">Listo para asignar</p>
-                                        </div>
-                                    )}
+                            isSoldSingle && (
+                                <div className="rounded-xl p-4 border bg-surface-3 border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-md bg-brand-primary/15 border border-brand-primary/25 flex items-center justify-center text-brand-primary-hi shrink-0">
+                                        <User size={16} />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-[9px] text-text-faint uppercase font-bold tracking-widest">Cliente Asignado</p>
+                                        <p className="text-sm text-text-primary font-bold leading-tight truncate">{clientNameSingle}</p>
+                                    </div>
                                 </div>
-                                <div className={`w-14 h-14 rounded-lg flex items-center justify-center border relative z-10 ${isSoldSingle ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' : 'bg-status-success/10 border-status-success/20 text-status-success-soft'}`}>
-                                    {account.account_type === 'cuenta_completa' ? <LayoutTemplate size={24} /> : <MonitorPlay size={24} />}
-                                </div>
-                            </div>
+                            )
                         ) : (
                             <div>
                                 <div className="flex justify-between items-end mb-3 px-1">
-                                    <label className="text-[9px] font-black text-text-disabled uppercase tracking-widest">PERFILES ({usedProfilesCount(profiles)}/{account.maxScreens})</label>
+                                    <label className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em]">Perfiles</label>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                     {profiles.map((prof, idx) => {
                                         const isAvailable = !prof.name || prof.name.trim().toLowerCase() === 'disponible';
+                                        const initial = isAvailable ? String(idx + 1) : prof.name.trim().charAt(0).toUpperCase();
                                         return (
-                                            <div key={idx} className={`flex flex-col p-3 rounded-lg border transition-all ${isAvailable ? 'bg-status-success/5 border-status-success/10 hover:bg-status-success/10' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/5'}`}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <div className={`w-7 h-7 rounded-sm flex items-center justify-center text-[10px] font-bold shrink-0 ${isAvailable ? 'bg-status-success/20 text-status-success-soft' : 'bg-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
-                                                        {isAvailable ? idx + 1 : <User size={12} />}
-                                                    </div>
-                                                    <div className="bg-surface-sunken px-2 py-1 rounded-xs border border-[rgb(var(--fg-rgb))]/5">
-                                                        <span className="text-[10px] font-mono text-text-secondary tracking-wide font-bold">{prof.pin || '---'}</span>
-                                                    </div>
+                                            <div key={idx} className={`flex items-center gap-2 p-2.5 rounded-xl border transition-all ${isAvailable ? 'bg-status-success/[0.06] border-status-success/15' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/5'}`}>
+                                                <div className={`w-7 h-7 rounded-md flex items-center justify-center text-[11px] font-bold shrink-0 ${isAvailable ? 'bg-status-success/20 text-status-success-soft' : 'bg-brand-primary/15 text-brand-primary-hi'}`}>
+                                                    {initial}
                                                 </div>
-                                                <div className="min-w-0">
-                                                    <p className={`text-[11px] font-semibold truncate ${isAvailable ? 'text-status-success-soft' : 'text-text-primary'}`}>{prof.name || 'Disponible'}</p>
-                                                    {!isAvailable && (<p className="text-[9px] text-text-disabled font-medium truncate mt-0.5">Ocupado</p>)}
+                                                <div className="min-w-0 flex-1">
+                                                    <p className={`text-[11px] font-bold truncate ${isAvailable ? 'text-status-success-soft' : 'text-text-primary'}`}>{prof.name || 'Disponible'}</p>
+                                                    {!isAvailable && <p className="text-[9px] text-text-disabled font-mono truncate">PIN {prof.pin || '---'}</p>}
                                                 </div>
                                             </div>
                                         );
@@ -396,7 +402,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                         {account.notes && (
                             <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-5">
-                                <p className="text-[9px] font-black text-text-disabled uppercase tracking-widest mb-2 flex items-center gap-2"><MessageSquare size={10} /> Notas Internas</p>
+                                <p className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em] mb-2 flex items-center gap-2"><MessageSquare size={10} /> Notas Internas</p>
                                 <p className="text-xs text-text-muted leading-relaxed whitespace-pre-wrap font-medium">{account.notes}</p>
                             </div>
                         )}
@@ -419,7 +425,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                     <div key={idx} className="relative group">
                                         <div className={`absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border-[2px] bg-surface-1 z-10 ${item.type === 'profile' ? 'border-status-success-soft shadow-[0_0_10px_rgba(52,211,153,0.4)]' : item.type === 'system' ? 'border-brand-primary shadow-[0_0_10px_rgba(106,44,255,0.4)]' : 'border-zinc-500'}`} />
                                         <div className="flex flex-col gap-1.5">
-                                            <span className="text-[9px] font-black text-text-disabled uppercase tracking-widest">{item.date.toLocaleDateString()} • {item.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                            <span className="text-[10px] font-bold text-text-faint uppercase tracking-[0.15em]">{item.date.toLocaleDateString()} • {item.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                                             <p className={`text-xs leading-relaxed ${item.type === 'profile' ? 'text-emerald-300 font-bold' : item.type === 'system' ? 'text-text-secondary' : 'text-text-muted font-medium'}`}>{item.text}</p>
                                         </div>
                                     </div>
@@ -432,14 +438,14 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
             {/* Footer Actions */}
             <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3 z-10">
-                <button onClick={() => { onRenew(account); }} className="flex-1 h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
+                <button onClick={() => { onRenew(account); }} className="flex-1 h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
                     <RefreshCw size={18} strokeWidth={2.5} /> Renovar
                 </button>
                 <div className="flex gap-2">
-                    <button onClick={() => { onEdit(account); onClose(); }} className="h-[56px] px-6 rounded-lg bg-surface-3 text-text-secondary font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-all border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:text-text-primary">
+                    <button onClick={() => { onEdit(account); onClose(); }} className="h-12 px-6 rounded-2xl bg-surface-3 text-text-secondary font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-all border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:text-text-primary">
                         Editar
                     </button>
-                    <button onClick={() => onDelete(account.id)} className="h-[56px] w-[56px] rounded-lg bg-status-danger/10 text-status-danger flex items-center justify-center active:scale-95 transition-all border border-status-danger/20 hover:bg-status-danger/20">
+                    <button onClick={() => onDelete(account.id)} className="h-12 w-12 rounded-2xl bg-status-danger/10 text-status-danger flex items-center justify-center active:scale-95 transition-all border border-status-danger/20 hover:bg-status-danger/20">
                         <Trash2 size={20} />
                     </button>
                 </div>
