@@ -113,7 +113,7 @@ const ChangePasswordModal: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-xl font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[13px]"
+                className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[13px]"
               >
                  {loading ? 'Actualizando...' : <><Check size={16} /> Cambiar Contraseña</>}
               </button>

@@ -453,8 +453,8 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                 <AnimatePresence mode="wait">
                     {(failingSale || salesInCurrentReportingGroup.length === 1) && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-                            <div className="space-y-2"><label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest ml-1">Detalle del problema</label><textarea value={failNote} onChange={e => setFailNote(e.target.value)} placeholder="Describe la falla observada..." className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 text-xs text-text-primary min-h-[100px] outline-none focus:border-brand-primary/50" /></div>
-                            <button onClick={submitFailReport} disabled={!failNote.trim() || !failingSale} className="w-full h-12 bg-status-warning text-black rounded-xl font-semibold text-xs uppercase tracking-widest disabled:opacity-50 active:scale-95 transition-all shadow-lg shadow-status-warning/20">Confirmar Reporte</button>
+                            <div className="space-y-2"><label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest ml-1">Detalle del problema</label><textarea value={failNote} onChange={e => setFailNote(e.target.value)} placeholder="Describe la falla observada..." className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md p-4 text-xs text-text-primary min-h-[100px] outline-none focus:border-brand-primary/50" /></div>
+                            <button onClick={submitFailReport} disabled={!failNote.trim() || !failingSale} className="w-full h-12 bg-status-warning text-black rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-50 active:scale-95 transition-all shadow-lg shadow-status-warning/20">Confirmar Reporte</button>
                         </motion.div>
                     )}
                 </AnimatePresence>

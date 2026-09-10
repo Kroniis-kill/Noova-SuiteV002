@@ -24,7 +24,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
   const date = new Date(item.timestamp).toLocaleString();
 
   return (
-    <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 flex gap-4 items-start hover:bg-surface-zinc transition-colors">
+    <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex gap-4 items-start hover:bg-surface-zinc transition-colors">
       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${bg} ${color} shrink-0`}>
         <Icon size={18} />
       </div>

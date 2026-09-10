@@ -155,7 +155,7 @@ const AdminDesktop: React.FC = () => {
           </button>
           <button
             onClick={() => { setEditingSub(null); setIsModalOpen(true); }}
-            className="bg-gradient-to-r from-brand-primary to-brand-accent text-white px-5 py-2.5 rounded-lg text-sm font-semibold shadow-glow hover:opacity-90 transition-all flex items-center gap-2"
+            className="bg-gradient-to-r from-brand-primary to-brand-accent text-white px-5 py-2.5 rounded-md text-sm font-semibold shadow-glow hover:opacity-90 transition-all flex items-center gap-2"
           >
             <UserPlus size={16} /> Nuevo usuario
           </button>
@@ -204,7 +204,7 @@ const AdminDesktop: React.FC = () => {
                 <select
                   value={planFilter}
                   onChange={e => setPlanFilter(e.target.value as any)}
-                  className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand-primary/50"
+                  className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand-primary/50"
                 >
                   <option value="all">Todos los planes</option>
                   {(Object.keys(PLAN_LABELS) as PlanType[]).map(p => (
@@ -217,7 +217,7 @@ const AdminDesktop: React.FC = () => {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Buscar usuario..."
-                    className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-9 pr-3 py-2 text-xs text-text-primary outline-none w-64 focus:border-brand-primary/50"
+                    className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-9 pr-3 py-2 text-xs text-text-primary outline-none w-64 focus:border-brand-primary/50"
                   />
                 </div>
               </div>
@@ -396,7 +396,7 @@ const AdminDesktop: React.FC = () => {
           <h3 className="text-base font-semibold text-text-primary flex items-center gap-2">
             <Megaphone size={16} className="text-brand-primary" /> Anuncios globales
           </h3>
-          <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg p-4">
+          <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
             <textarea
               value={newAnnouncement}
               onChange={e => setNewAnnouncement(e.target.value)}
@@ -410,7 +410,7 @@ const AdminDesktop: React.FC = () => {
                 setNewAnnouncement(''); loadData();
                 showToast('Anuncio publicado', 'success');
               }}
-              className="mt-3 px-4 py-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg text-xs font-semibold hover:opacity-90 transition-all"
+              className="mt-3 px-4 py-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md text-xs font-semibold hover:opacity-90 transition-all"
             >
               Publicar
             </button>
@@ -453,13 +453,13 @@ const AdminDesktop: React.FC = () => {
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
                 placeholder="573000000000"
-                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
             <p className="text-[11px] text-text-disabled mt-2">Se mostrará a usuarios bloqueados o con suscripción expirada.</p>
           </div>
 
-          <div className="p-4 bg-status-warning/5 border border-status-warning/20 rounded-lg flex gap-3">
+          <div className="p-4 bg-status-warning/5 border border-status-warning/20 rounded-md flex gap-3">
             <ShieldAlert size={18} className="text-status-warning-soft shrink-0 mt-0.5" />
             <div>
               <h4 className="text-amber-300 font-semibold text-xs">Modo mantenimiento</h4>
@@ -473,7 +473,7 @@ const AdminDesktop: React.FC = () => {
               showToast('Configuración guardada', 'success');
               setIsConfigOpen(false);
             }}
-            className="w-full py-3 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-lg shadow-glow hover:opacity-90 transition-all"
+            className="w-full py-3 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-md shadow-glow hover:opacity-90 transition-all"
           >
             Guardar cambios
           </button>

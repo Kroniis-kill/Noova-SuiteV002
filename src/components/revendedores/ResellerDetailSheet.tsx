@@ -192,7 +192,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                                 <button 
                                     key={client.id} 
                                     onClick={() => onClientClick(client)}
-                                    className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-lg flex items-center justify-between hover:bg-surface-4 hover:border-[rgb(var(--fg-rgb))]/10 cursor-pointer transition-all group w-full text-left"
+                                    className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-xl flex items-center justify-between hover:bg-surface-4 hover:border-[rgb(var(--fg-rgb))]/10 cursor-pointer transition-all group w-full text-left"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-xs font-semibold text-text-muted group-hover:text-text-primary transition-colors">

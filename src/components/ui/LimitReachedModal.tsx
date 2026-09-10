@@ -82,7 +82,7 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
           <div className="w-full space-y-3">
              <button 
                onClick={handleUpgrade}
-               className="group w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-lg text-white font-bold text-sm shadow-[0_0_30px_-5px_rgba(106,44,255,0.5)] flex items-center justify-center gap-3 relative overflow-hidden transition-transform active:scale-[0.98]"
+               className="group w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent rounded-md text-white font-bold text-sm shadow-[0_0_30px_-5px_rgba(106,44,255,0.5)] flex items-center justify-center gap-3 relative overflow-hidden transition-transform active:scale-[0.98]"
              >
                 <div className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 <Crown size={18} className="fill-white" />

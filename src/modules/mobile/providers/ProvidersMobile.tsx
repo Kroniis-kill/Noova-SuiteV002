@@ -307,7 +307,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
 
        <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Proveedor">
           <div className="space-y-4 pt-2">
-             <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start shadow-sm">
+             <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start shadow-sm">
                  <AlertTriangle size={24} className="text-status-danger shrink-0" />
                  <div><h4 className="text-text-primary font-bold text-sm">Atención</h4><p className="text-text-muted text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
              </div>
@@ -316,7 +316,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>
-                <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-colors shadow-sm">
+                <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-colors shadow-sm">
                    <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el proveedor y sus cuentas.</span></div>
                    <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>

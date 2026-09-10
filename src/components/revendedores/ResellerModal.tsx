@@ -102,7 +102,7 @@ const ResellerModal: React.FC<ResellerModalProps> = ({ isOpen, onClose, onSubmit
           </div>
 
           <div className="pt-4">
-            <button type="submit" className="btn-primary w-full h-[52px] rounded-lg text-sm flex items-center justify-center gap-2">
+            <button type="submit" className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2">
                <Check size={18} /> {initialData ? 'Guardar Cambios' : 'Crear Revendedor'}
             </button>
           </div>

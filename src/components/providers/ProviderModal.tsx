@@ -126,7 +126,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           {/* Color */}
           <div>
              <label className={styles.label}><Palette size={12} className="inline mr-1 mb-0.5"/> Color Identificador</label>
-             <div className="bg-surface-sunken rounded-lg p-4 flex gap-4 overflow-x-auto no-scrollbar border border-[rgb(var(--fg-rgb))]/10">
+             <div className="bg-surface-sunken rounded-xl p-4 flex gap-4 overflow-x-auto no-scrollbar border border-[rgb(var(--fg-rgb))]/10">
                 {['#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#f43f5e', '#06b6d4'].map(c => (
                    <button
                      key={c}
@@ -142,7 +142,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           <div className="pt-4">
             <button 
               type="submit" 
-              className="btn-primary w-full h-[52px] rounded-lg text-sm flex items-center justify-center gap-2"
+              className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2"
             >
                <Check size={18} /> {initialData ? 'Guardar Cambios' : 'Guardar Proveedor'}
             </button>

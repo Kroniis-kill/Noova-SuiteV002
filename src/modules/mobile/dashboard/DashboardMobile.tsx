@@ -663,7 +663,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
          <div className="flex flex-col gap-3 pt-1">
             <div className="relative mb-2">
                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" size={16} />
-               <input placeholder="Filtrar por plataforma..." className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl pl-11 pr-4 py-3 text-sm text-text-primary outline-none" />
+               <input placeholder="Filtrar por plataforma..." className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none" />
             </div>
             <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
                {stockData.map(s => (

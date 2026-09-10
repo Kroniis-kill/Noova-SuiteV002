@@ -178,7 +178,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
           {/* Invited Credentials (if applicable) */}
           {(sale.saleType === 'usuario_unico' || sale.saleType === 'cuenta_completa') && (
-            <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
+            <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-md space-y-4">
                <p className="text-[10px] font-bold text-status-info-soft uppercase tracking-widest ml-1">Credenciales de Acceso</p>
                <div className="space-y-3">
                   <div className="flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[48px] px-4">
@@ -208,14 +208,14 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         <div className="flex gap-3 pt-2">
           <button 
             onClick={onClose}
-            className="flex-1 h-14 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted rounded-lg font-semibold text-xs uppercase tracking-widest active:scale-95 transition-all"
+            className="flex-1 h-14 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted rounded-md font-semibold text-xs uppercase tracking-widest active:scale-95 transition-all"
           >
             Cancelar
           </button>
           <button 
             onClick={handleSave}
             disabled={isSubmitting}
-            className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
+            className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
           >
             {isSubmitting ? <span className="animate-spin">⌛</span> : <Save size={18} />}
             Guardar Cambios

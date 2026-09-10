@@ -494,7 +494,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                             )}
 
                             {(tempType === 'usuario_unico' || tempType === 'cuenta_completa') && (
-                                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
+                                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-md space-y-4">
                                     <div className="flex items-center gap-2 text-status-info-soft mb-1">
                                         <Info size={16} />
                                         <span className="text-xs font-semibold uppercase">Credenciales de Acceso</span>
@@ -525,10 +525,10 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
                         {/* Footer Actions for Edit Mode */}
                         <div className="pt-6 flex gap-3">
-                            <button onClick={onClose} className="flex-1 h-[56px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
+                            <button onClick={onClose} className="flex-1 h-[56px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
                                 Cancelar
                             </button>
-                            <button onClick={() => { haptic('nav'); handleAddItem(); }} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
+                            <button onClick={() => { haptic('nav'); handleAddItem(); }} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
                                <Check size={18} strokeWidth={3} />
                                Guardar Cambios
                             </button>
@@ -595,7 +595,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                 </div>
                              ) : (
                                 cart.map(item => (
-                                    <div key={item.tempId} onClick={() => { haptic('nav'); setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate); setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens); setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType); setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || ''); setIsItemConfigOpen(true); }} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-3.5 rounded-lg flex justify-between items-center relative overflow-hidden group shadow-sm active:scale-95 transition-all">
+                                    <div key={item.tempId} onClick={() => { haptic('nav'); setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate); setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens); setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType); setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || ''); setIsItemConfigOpen(true); }} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-3.5 rounded-xl flex justify-between items-center relative overflow-hidden group shadow-sm active:scale-95 transition-all">
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5"><Layers size={18} /></div>
                                             <div><h4 className="text-sm font-bold text-text-primary leading-tight">{item.serviceName}</h4><p className="text-[10px] text-text-disabled font-mono mt-0.5">{item.accountEmail}</p></div>
@@ -614,7 +614,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     {!initialData && (
                         <button 
                             onClick={() => { haptic('nav'); resetItemForm(); setIsItemConfigOpen(true); }} 
-                            className="w-full h-14 bg-surface-3 border-2 border-dashed border-[rgb(var(--fg-rgb))]/10 hover:border-[rgb(var(--fg-rgb))]/20 hover:bg-surface-3 rounded-lg text-text-muted font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all mb-6"
+                            className="w-full h-14 bg-surface-3 border-2 border-dashed border-[rgb(var(--fg-rgb))]/10 hover:border-[rgb(var(--fg-rgb))]/20 hover:bg-surface-3 rounded-md text-text-muted font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all mb-6"
                         >
                             <Plus size={18} /> Agregar Servicio
                         </button>
@@ -749,7 +749,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                             )}
                             
                             {isMigration && (
-                                <div className="p-4 rounded-lg bg-status-warning/10 border border-status-warning/20 flex gap-3 items-start">
+                                <div className="p-4 rounded-md bg-status-warning/10 border border-status-warning/20 flex gap-3 items-start">
                                      <History size={20} className="text-status-warning shrink-0 mt-0.5" />
                                      <p className="text-xs text-amber-200/80 leading-relaxed">
                                          Estás registrando una venta histórica. No se sumará saldo a ninguna billetera, solo quedará el registro en el historial del cliente.
@@ -761,7 +761,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                        
                        {/* Warning if no wallet selected in Real mode */}
                        {!isMigration && !walletId && !initialData && (
-                           <div className="flex items-center gap-3 p-4 rounded-lg bg-status-danger/10 border border-status-danger/20">
+                           <div className="flex items-center gap-3 p-4 rounded-md bg-status-danger/10 border border-status-danger/20">
                                <AlertCircle size={20} className="text-status-danger-soft" />
                                <p className="text-xs font-semibold text-red-300">Debes seleccionar una billetera para continuar.</p>
                            </div>
@@ -773,7 +773,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                        <button 
                           onClick={() => { haptic('nav'); handleFinalize('send'); }} 
                           disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)} 
-                          className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent rounded-2xl text-white font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_-5px_rgba(106,44,255,0.4)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:shadow-none"
+                          className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md text-white font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_-5px_rgba(106,44,255,0.4)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:shadow-none"
                        >
                           <MessageCircle size={18} fill="currentColor" />
                           Confirmar y Notificar
@@ -782,7 +782,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                        <button 
                           onClick={() => { haptic('nav'); handleFinalize('save'); }} 
                           disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)}
-                          className="w-full h-12 bg-surface-3 text-text-muted font-semibold text-xs rounded-lg border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-all"
+                          className="w-full h-12 bg-surface-3 text-text-muted font-semibold text-xs rounded-md border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-all"
                        >
                           Guardar
                        </button>

@@ -298,21 +298,21 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                        </div>
 
                        <div className="grid grid-cols-2 gap-4">
-                           <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
                                <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ingresos</p>
                                <p className="text-lg font-bold text-status-success-soft">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
                                <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Costo Base</p>
                                <p className="text-lg font-bold text-status-danger-soft">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
                                <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Días Activos</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Calendar size={16} className="text-status-info-soft" /> {selectedHealth.daysActive}d
                                </div>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
                                <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ocupación</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Users size={16} className="text-purple-400" /> {selectedHealth.occupancy}

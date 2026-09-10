@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { useInventario } from '../../../hooks/useInventario';
@@ -366,8 +365,8 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
           isOpen={isDetailOpen} 
           onClose={() => setIsDetailOpen(false)} 
           account={selectedAccount}
-          onEdit={(acc) => { setSelectedAccount(acc); setIsModalOpen(true); }}
-          onRenew={(acc) => { setAccountToRenew(acc); setIsRenewOpen(true); }}
+          onEdit={(acc) => { setIsDetailOpen(false); setSelectedAccount(acc); setIsModalOpen(true); }}
+          onRenew={(acc) => { setIsDetailOpen(false); setAccountToRenew(acc); setIsRenewOpen(true); }}
           onToggleStatus={(acc) => {
               const isPaused = acc.status === 'inactiva';
               updateAccount({...acc, status: isPaused ? 'activa' : 'inactiva'});
@@ -417,7 +416,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
 
         <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro" zIndex={60000}>
           <div className="space-y-5 pt-2">
-              <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+              <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
                   <div className="bg-status-danger/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-status-danger" /></div>
                   <div>
                       <h4 className="text-text-primary font-bold text-sm">Gestión de Eliminación</h4>
@@ -436,7 +435,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     <RotateCcw size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
                   </button>
                 )}
-                <button onClick={confirmDelete} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-all group">
+                <button onClick={confirmDelete} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-all group">
                   <div>
                     <span className="block text-status-danger-soft font-bold text-sm">Eliminar para siempre</span>
                     <span className="block text-status-danger-soft/50 text-[10px]">El registro será borrado definitivamente del sistema.</span>

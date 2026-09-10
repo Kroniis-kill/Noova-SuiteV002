@@ -89,55 +89,79 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
             <motion.div
                 variants={sheetVariants}
                 initial="hidden" animate="visible" exit="exit"
-                className="pointer-events-auto bg-surface-1 rounded-t-xl border-t border-border-subtle p-6 pb-12 shadow-modal w-full max-w-md mx-auto md:rounded-lg md:bottom-6 md:relative overflow-hidden flex flex-col"
+                className="pointer-events-auto bg-surface-1 rounded-t-xl border border-[rgb(var(--fg-rgb))]/5 w-full max-w-[400px] mx-auto md:rounded-xl md:bottom-6 md:relative overflow-hidden flex flex-col"
                 style={{ maxHeight: '90dvh' }}
             >
-                <div className="w-12 h-1.5 bg-[rgb(var(--fg-rgb))]/10 rounded-full mx-auto mb-6 cursor-pointer shrink-0" onClick={onClose} />
-                
                 {/* Header */}
-                <div className="flex flex-col items-center mb-6 shrink-0">
-                    <div className="w-24 h-24 rounded-xl p-0.5 bg-gradient-to-tr from-brand-primary to-brand-accent shadow-[0_0_30px_rgba(106,44,255,0.3)] mb-3">
-                        <div className="w-full h-full rounded-xl bg-surface-3 flex items-center justify-center overflow-hidden border-2 border-surface-3">
-                            <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(client.name)}&background=1c1c1e&color=fff&size=128&bold=true`} alt={client.name} className="w-full h-full object-cover" />
+                <div className="px-5 pt-[18px] pb-4 flex justify-end shrink-0">
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-3 text-text-muted hover:text-text-primary transition-all active:scale-90">
+                        <X size={16} />
+                    </button>
+                </div>
+
+                <div className="px-5 pb-4 flex flex-col items-center shrink-0">
+                    <div className="w-[76px] h-[76px] rounded-xl p-0.5 bg-gradient-to-br from-brand-primary to-brand-accent mb-3">
+                        <div className="w-full h-full rounded-[22px] bg-surface-3 flex items-center justify-center text-text-primary text-2xl font-black">
+                            {client.name.trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('')}
                         </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-text-primary text-center tracking-tight leading-tight">{client.name}</h3>
-                    <div className="flex items-center gap-2 mt-2">
-                        <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 rounded-full text-xs font-mono text-text-muted border border-[rgb(var(--fg-rgb))]/5">{client.phone}</span>
-                        {client.resellerId && (<span className="px-3 py-1 bg-status-warning/10 rounded-full text-xs font-semibold text-status-warning-soft border border-status-warning/20 flex items-center gap-1"><Briefcase size={10} /> Revendedor</span>)}
+                    <h3 className="text-[19px] font-black text-text-primary text-center tracking-tight leading-tight">{client.name}</h3>
+                    <div className="flex items-center gap-1.5 mt-2">
+                        <span className="text-[11px] font-mono text-text-muted bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 px-2.5 py-1 rounded-full">{client.phone}</span>
+                        {client.resellerId && (<span className="text-[9px] font-black text-status-warning-soft bg-status-warning/10 border border-status-warning/20 px-2 py-1 rounded-full flex items-center gap-1"><Briefcase size={9} /> Revendedor</span>)}
                     </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex bg-surface-zinc p-1 rounded-md border border-[rgb(var(--fg-rgb))]/10 mb-6 shrink-0">
-                    <button onClick={() => setActiveTab('info')} className={`flex-1 py-2.5 rounded-sm text-xs font-semibold transition-all ${activeTab === 'info' ? 'bg-surface-4 text-text-primary shadow-sm' : 'text-text-disabled hover:text-text-primary'}`}>Info</button>
-                    <button onClick={() => setActiveTab('purchases')} className={`flex-1 py-2.5 rounded-sm text-xs font-semibold transition-all ${activeTab === 'purchases' ? 'bg-surface-4 text-text-primary shadow-sm' : 'text-text-disabled hover:text-text-primary'}`}>Compras</button>
-                    <button onClick={() => setActiveTab('history')} className={`flex-1 py-2.5 rounded-sm text-xs font-semibold transition-all flex items-center justify-center gap-2 ${activeTab === 'history' ? 'bg-surface-4 text-text-primary shadow-sm' : 'text-text-disabled hover:text-text-primary'}`}>Eventos</button>
+                <div className="px-5 shrink-0">
+                    <div className="flex bg-surface-3 p-[3px] rounded-xl mb-4">
+                        <button onClick={() => setActiveTab('info')} className={`flex-1 py-2 rounded-sm text-[11px] font-bold transition-all ${activeTab === 'info' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}>Info</button>
+                        <button onClick={() => setActiveTab('purchases')} className={`flex-1 py-2 rounded-sm text-[11px] font-bold transition-all ${activeTab === 'purchases' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}>Compras</button>
+                        <button onClick={() => setActiveTab('history')} className={`flex-1 py-2 rounded-sm text-[11px] font-bold transition-all ${activeTab === 'history' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}>Eventos</button>
+                    </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                <div className="flex-1 overflow-y-auto custom-scrollbar px-5 pb-4">
                     {activeTab === 'info' ? (
-                        <div className="space-y-6">
+                        <div className="flex flex-col gap-3.5">
                             <div className="flex gap-2">
-                                <button onClick={handlePortalAction} className={`flex-1 rounded-md p-3 flex items-center justify-center gap-2 font-bold text-sm transition-all active:scale-[0.98] ${client.portalAlias ? 'bg-brand-primary/10 border border-brand-primary/20 text-brand-primary hover:bg-brand-primary/20' : 'bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10'}`}>
-                                    {client.portalAlias ? <Globe size={16} /> : <Zap size={16} />}
+                                <button onClick={handlePortalAction} className={`flex-1 h-11 rounded-xl flex items-center justify-center gap-2 font-bold text-[12px] transition-all active:scale-[0.98] ${client.portalAlias ? 'bg-brand-primary/10 border border-brand-primary/20 text-brand-primary-hi hover:bg-brand-primary/20' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 text-text-primary hover:bg-surface-4'}`}>
+                                    {client.portalAlias ? <Globe size={15} /> : <Zap size={15} />}
                                     {client.portalAlias ? 'Link Portal' : 'Activar Portal'}
                                 </button>
                                 {client.portalAlias && (
-                                    <button onClick={handleRegenerate} className="w-12 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95" title="Regenerar Token"><RefreshCw size={16} /></button>
+                                    <button onClick={handleRegenerate} className="w-11 h-11 shrink-0 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95" title="Regenerar Token"><RefreshCw size={15} /></button>
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-4 gap-3">
-                               <button onClick={() => handleMessageClick('whatsapp')} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-brand-whatsapp/10 text-brand-whatsapp flex items-center justify-center border border-brand-whatsapp/20 group-active:scale-90 transition-transform shadow-lg shadow-brand-whatsapp/10"><MessageCircle size={24} /></div><span className="text-[10px] font-semibold text-text-muted">WhatsApp</span></button>
-                               <button onClick={() => handleMessageClick('telegram')} className={`flex flex-col items-center gap-2 group ${!client.telegram ? 'opacity-50' : ''}`}><div className="w-14 h-14 rounded-xl bg-brand-telegram/10 text-brand-telegram flex items-center justify-center border border-brand-telegram/20 group-active:scale-90 transition-transform shadow-lg shadow-brand-telegram/10"><Send size={24} /></div><span className="text-[10px] font-semibold text-text-muted">Telegram</span></button>
-                               <button onClick={() => { onEdit(client); }} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-[rgb(var(--fg-rgb))]/5 text-text-primary flex items-center justify-center border border-[rgb(var(--fg-rgb))]/10 group-active:scale-90 transition-transform"><Edit2 size={24} /></div><span className="text-[10px] font-semibold text-text-muted">Editar</span></button>
-                               <button onClick={() => { onDelete(client.id); onClose(); }} className="flex flex-col items-center gap-2 group"><div className="w-14 h-14 rounded-xl bg-status-danger/10 text-status-danger-soft flex items-center justify-center border border-status-danger/20 group-active:scale-90 transition-transform"><Trash2 size={24} /></div><span className="text-[10px] font-semibold text-text-muted">Eliminar</span></button>
+                            <div className="grid grid-cols-4 gap-2">
+                               <button onClick={() => handleMessageClick('whatsapp')} className="flex flex-col items-center gap-1.5 group">
+                                  <div className="w-full aspect-square rounded-xl bg-brand-whatsapp/10 text-brand-whatsapp flex items-center justify-center border border-brand-whatsapp/20 group-active:scale-90 transition-transform"><MessageCircle size={20} /></div>
+                                  <span className="text-[9px] font-bold text-text-muted">WhatsApp</span>
+                               </button>
+                               <button onClick={() => handleMessageClick('telegram')} className={`flex flex-col items-center gap-1.5 group ${!client.telegram ? 'opacity-50' : ''}`}>
+                                  <div className="w-full aspect-square rounded-xl bg-brand-telegram/10 text-brand-telegram flex items-center justify-center border border-brand-telegram/20 group-active:scale-90 transition-transform"><Send size={20} /></div>
+                                  <span className="text-[9px] font-bold text-text-muted">Telegram</span>
+                               </button>
+                               <button onClick={() => { onEdit(client); }} className="flex flex-col items-center gap-1.5 group">
+                                  <div className="w-full aspect-square rounded-xl bg-surface-3 text-text-primary flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 group-active:scale-90 transition-transform"><Edit2 size={20} /></div>
+                                  <span className="text-[9px] font-bold text-text-muted">Editar</span>
+                               </button>
+                               <button onClick={() => { onDelete(client.id); onClose(); }} className="flex flex-col items-center gap-1.5 group">
+                                  <div className="w-full aspect-square rounded-xl bg-status-danger/10 text-status-danger flex items-center justify-center border border-status-danger/20 group-active:scale-90 transition-transform"><Trash2 size={20} /></div>
+                                  <span className="text-[9px] font-bold text-text-muted">Eliminar</span>
+                               </button>
                             </div>
 
-                            <div className="bg-surface-1 rounded-xl p-1 border border-[rgb(var(--fg-rgb))]/5 mb-4">
-                                <div className="flex items-center justify-between p-4 border-b border-[rgb(var(--fg-rgb))]/5"><div className="flex items-center gap-3 text-text-muted"><Layers size={18} /><span className="text-sm font-medium">Servicios Activos</span></div><span className="text-sm font-bold text-text-primary bg-[rgb(var(--fg-rgb))]/5 px-3 py-1 rounded-full">{client.activeServices}</span></div>
-                                <div className="flex items-center justify-between p-4"><div className="flex items-center gap-3 text-text-muted"><Calendar size={18} /><span className="text-sm font-medium">Registrado</span></div><span className="text-sm font-medium text-text-secondary">{formatDate(client.registrationDate)}</span></div>
+                            <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl">
+                                <div className="flex items-center justify-between p-3 border-b border-[rgb(var(--fg-rgb))]/5">
+                                    <div className="flex items-center gap-2.5 text-text-muted"><Layers size={15} /><span className="text-[12px] font-semibold">Servicios Activos</span></div>
+                                    <span className="text-[12px] font-black text-text-primary bg-surface-sunken px-2.5 py-1 rounded-full">{client.activeServices}</span>
+                                </div>
+                                <div className="flex items-center justify-between p-3">
+                                    <div className="flex items-center gap-2.5 text-text-muted"><Calendar size={15} /><span className="text-[12px] font-semibold">Registrado</span></div>
+                                    <span className="text-[12px] font-semibold text-text-secondary">{formatDate(client.registrationDate)}</span>
+                                </div>
                             </div>
                         </div>
                     ) : activeTab === 'purchases' ? (
@@ -147,8 +171,8 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                     )}
                 </div>
 
-                <div className="pt-4 mt-auto">
-                    <button onClick={onClose} className="w-full py-4 text-text-disabled text-xs font-semibold uppercase tracking-widest active:text-text-primary transition-colors">Cerrar</button>
+                <div className="px-5 pb-[18px] pt-2 shrink-0">
+                    <button onClick={onClose} className="w-full h-10 text-text-disabled text-[10px] font-bold uppercase tracking-[0.1em] active:text-text-primary transition-colors">Cerrar</button>
                 </div>
 
                 <WhatsAppMenu 

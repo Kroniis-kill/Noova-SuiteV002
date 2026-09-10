@@ -46,14 +46,14 @@ const AccessBlocked: React.FC = () => {
             <div className="w-full space-y-3">
                 <button 
                   onClick={handleSupport}
-                  className="w-full h-[56px] rounded-lg bg-gradient-to-r from-status-danger to-status-expiring text-white font-bold text-sm shadow-[0_0_30px_-10px_rgba(239,68,68,0.5)] flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all"
+                  className="w-full h-[56px] rounded-md bg-gradient-to-r from-status-danger to-status-expiring text-white font-bold text-sm shadow-[0_0_30px_-10px_rgba(239,68,68,0.5)] flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all"
                 >
                     <MessageCircle size={18} /> Solicitar Activación
                 </button>
                 
                 <button 
                   onClick={logout}
-                  className="w-full h-[48px] rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
+                  className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
                 >
                     Cerrar Sesión
                 </button>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useContactos } from '../../../hooks/useContactos';
 import { useData } from '../../../context/DataContext';
@@ -10,10 +9,9 @@ import { useOfflineSync } from '../../../hooks/useOfflineSync';
 import { useHighlightAction } from '../../../hooks/useHighlightAction';
 import { Client } from '../../../types';
 import { Virtuoso } from 'react-virtuoso';
-import { Search, Plus, Upload, UserCheck, UserX, RefreshCw, Users, ChevronRight, Phone, Layers, Ban, X, History as HistoryIcon } from 'lucide-react';
+import { Search, Plus, Upload, RefreshCw, ChevronRight, Phone, Layers, Ban, History as HistoryIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
-import Avatar from '../../../components/ui/Avatar';
 import ContactoModal from '../../../components/contactos/ContactoModal';
 import ContactoBottomSheet from '../../../components/contactos/ContactoBottomSheet';
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
@@ -196,17 +194,17 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen pb-32 pt-2 font-sans text-text-primary relative">
-       <div className="relative z-20 pt-safe mt-4">
-             <div className="flex justify-between items-center mb-6">
+       <div className="relative z-20 pt-safe mt-4 px-4">
+             <div className="flex justify-between items-center mb-4">
                  <div className="flex flex-col">
                     <h1 className="text-2xl font-black text-text-primary tracking-tight leading-none mb-1">Clientes</h1>
-                    <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em]">Gestión de Cartera</p>
+                    <p className="text-text-muted text-[9px] font-bold uppercase tracking-[0.15em]">{clients.length} en cartera</p>
                  </div>
                  <div className="flex gap-2">
-                     <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
+                     <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <RefreshCw size={16} className={isSyncing ? 'animate-spin text-brand-primary' : ''} />
                      </button>
-                     <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-inner">
+                     <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <Upload size={16} />
                      </button>
                      <button onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
@@ -214,31 +212,46 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                      </button>
                  </div>
              </div>
-             <div className="bg-surface-1/50 backdrop-blur-md p-1 rounded-lg flex border border-[rgb(var(--fg-rgb))]/[0.08] relative shadow-2xl mb-5">
-                 <button onClick={() => onHandleTabChange('active')} className={`flex-1 py-2 rounded-md text-[9px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'active' ? 'bg-surface-3 text-text-primary shadow-xl border border-[rgb(var(--fg-rgb))]/5' : 'text-text-disabled hover:text-text-secondary'}`}>
-                    <UserCheck size={14} className={activeTab === 'active' ? 'text-status-success-soft' : ''} />
-                    Activos <span className="bg-[rgb(var(--fg-rgb))]/10 px-1.5 py-0.5 rounded-full text-[8px] ml-0.5">{stats.active}</span>
-                 </button>
-                 <button onClick={() => onHandleTabChange('inactive')} className={`flex-1 py-2 rounded-md text-[9px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${activeTab === 'inactive' ? 'bg-surface-3 text-text-primary shadow-xl border border-[rgb(var(--fg-rgb))]/5' : 'text-text-disabled hover:text-text-secondary'}`}>
-                    <UserX size={14} />
-                    Inactivos <span className="bg-[rgb(var(--fg-rgb))]/10 px-1.5 py-0.5 rounded-full text-[8px] ml-0.5">{stats.inactive}</span>
-                 </button>
+
+             <div className="grid grid-cols-2 gap-3 mb-3.5">
+                <button
+                  onClick={() => onHandleTabChange('active')}
+                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'active' ? 'border-status-success/30 ring-1 ring-status-success/20' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                >
+                   <div className="flex items-center gap-1.5 mb-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-status-success" />
+                      <span className="text-[9px] font-bold text-status-success-soft uppercase tracking-[0.1em]">Activos</span>
+                   </div>
+                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.active}</div>
+                </button>
+                <button
+                  onClick={() => onHandleTabChange('inactive')}
+                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'inactive' ? 'border-[rgb(var(--fg-rgb))]/20 ring-1 ring-[rgb(var(--fg-rgb))]/10' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                >
+                   <div className="flex items-center gap-1.5 mb-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-text-faint" />
+                      <span className="text-[9px] font-bold text-text-muted uppercase tracking-[0.1em]">Inactivos</span>
+                   </div>
+                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.inactive}</div>
+                </button>
              </div>
-             <div className="relative mb-6 group">
+
+             <div className="relative mb-4 group">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
                 <input 
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   placeholder="Buscar por nombre o celular..." 
-                  className="relative w-full h-[46px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-11 pr-5 text-[13px] text-text-primary outline-none focus:border-brand-primary/40 shadow-inner placeholder:text-text-faint transition-all font-medium" 
+                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-[12px] text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium" 
                 />
              </div>
        </div>
-       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 relative z-10 h-full pb-24">
+       <div className="flex flex-col gap-3 relative z-10 h-full pb-24 px-4">
           <AnimatePresence mode='popLayout'>
              {filteredList.map((client, index) => {
                 const isActive = client.activeServices > 0;
                 const displayTags = getClientTags(client, client.activeServices);
+                const initials = client.name.trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('');
                  return (
                     <motion.div 
                        key={client.id} 
@@ -254,68 +267,53 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                     >
                        <div 
                          onClick={() => onHandleCardClick(client)} 
-                         className={`
-                           relative flex items-center p-4 rounded-lg border cursor-pointer active:scale-[0.98] transition-all duration-300 
-                           ${isActive 
-                             ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/10 shadow-glow-sm hover:border-brand-primary/40' 
-                             : 'bg-surface-sunken/60 border-[rgb(var(--fg-rgb))]/[0.05] hover:border-[rgb(var(--fg-rgb))]/15'
-                           }
-                         `}
+                         className={`relative flex items-center gap-3 p-4 rounded-xl border cursor-pointer active:scale-[0.98] transition-all duration-300 overflow-hidden ${isActive ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.08] hover:border-brand-primary/30' : 'bg-surface-sunken/60 border-[rgb(var(--fg-rgb))]/[0.06] opacity-70 hover:opacity-100'}`}
                        >
-                          <div className="flex items-center gap-4 w-full relative z-10">
-                              <div className="relative">
-                                 <Avatar name={client.name} size={46} className="rounded-md shadow-2xl border border-[rgb(var(--fg-rgb))]/10" />
-                                 {isActive && (
-                                   <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-brand-primary rounded-full border-2 border-surface-1 flex items-center justify-center">
-                                      <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
-                                   </span>
-                                 )}
+                          {isActive && <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-brand-primary to-brand-accent" />}
+
+                          <div className={`w-[42px] h-[42px] rounded-md flex items-center justify-center text-white text-[13px] font-black shrink-0 ${isActive ? 'ml-1 bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-4 text-text-muted'}`}>
+                             {initials}
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                  <h3 className="text-[13px] font-bold truncate text-text-primary">{client.name}</h3>
+                                  {client.isBlocked && (
+                                    <span className="text-[8px] font-black text-brand-accent bg-brand-accent/10 px-1.5 py-0.5 rounded-full border border-brand-accent/20 flex items-center gap-1 uppercase tracking-widest leading-none shrink-0">
+                                      <Ban size={8} /> Bloqueado
+                                    </span>
+                                  )}
                               </div>
-                              
-                              <div className="flex-1 min-w-0">
-                                  <div className="flex justify-between items-start mb-1.5">
-                                      <div className="flex flex-col gap-0.5">
-                                          <h3 className="text-[14px] font-black tracking-tight truncate pr-2 text-text-primary group-hover:text-brand-primary transition-colors">{client.name}</h3>
-                                          <div className="flex flex-wrap gap-1">
-                                              {displayTags.map(tag => (
-                                                <span key={tag} className="text-[7px] bg-[rgb(var(--fg-rgb))]/[0.08] text-text-muted px-1.5 py-0.5 rounded-full uppercase font-black tracking-widest border border-[rgb(var(--fg-rgb))]/[0.03]">
-                                                  {tag}
-                                                </span>
-                                              ))}
-                                          </div>
-                                      </div>
-                                      
-                                      {isActive && (
-                                        <div className="flex flex-col items-end">
-                                          <span className="flex items-center gap-1 text-[9px] font-black text-white bg-brand-primary px-2 py-0.5 rounded-full shadow-glow-sm">
-                                            <Layers size={9} strokeWidth={3} /> {client.activeServices}
-                                          </span>
-                                        </div>
-                                      )}
-                                  </div>
-                                  
-                                  <div className="flex items-center gap-3">
-                                      <p className="text-[10px] text-text-disabled font-mono font-bold flex items-center gap-1 leading-none">
-                                        <Phone size={10} className="text-text-faint" /> 
-                                        {client.phone}
-                                      </p>
-                                      {client.isBlocked && (
-                                        <span className="text-[8px] font-black text-brand-accent bg-brand-accent/10 px-1.5 py-0.5 rounded-full border border-brand-accent/20 flex items-center gap-1 uppercase tracking-widest leading-none">
-                                          <Ban size={8} /> Bloqueado
-                                        </span>
-                                      )}
-                                  </div>
+                              <div className="flex items-center gap-1 mt-1">
+                                  <Phone size={10} className="text-text-faint shrink-0" />
+                                  <span className="text-[10px] text-text-disabled font-mono font-bold leading-none">{client.phone}</span>
                               </div>
-                              
-                              <div className="flex items-center gap-1.5 ml-1">
+                              {displayTags.length > 0 && (
+                                <div className="flex flex-wrap gap-1 mt-1.5">
+                                    {displayTags.map(tag => (
+                                      <span key={tag} className="text-[7px] bg-[rgb(var(--fg-rgb))]/[0.06] text-text-muted px-1.5 py-0.5 rounded-full uppercase font-black tracking-widest">
+                                        {tag}
+                                      </span>
+                                    ))}
+                                </div>
+                              )}
+                          </div>
+
+                          <div className="flex flex-col items-end gap-2 shrink-0">
+                              {isActive && (
+                                <span className="flex items-center gap-1 text-[9px] font-black text-white bg-brand-primary px-2 py-0.5 rounded-full">
+                                  <Layers size={9} strokeWidth={3} /> {client.activeServices}
+                                </span>
+                              )}
+                              <div className="flex items-center gap-1">
                                   <button 
                                     onClick={(e) => onHandleHistoryClick(e, client)}
-                                    className="w-8 h-8 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-brand-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-90"
+                                    className="w-7 h-7 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] flex items-center justify-center text-text-disabled hover:text-brand-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-90"
                                     title="Historial de compras"
                                   >
-                                    <HistoryIcon size={16} />
+                                    <HistoryIcon size={13} />
                                   </button>
-                                  <div className="text-text-faint group-hover:text-text-muted transition-colors"><ChevronRight size={18} /></div>
+                                  <ChevronRight size={16} className="text-text-faint group-hover:text-text-muted transition-colors" />
                               </div>
                           </div>
                        </div>

@@ -15,7 +15,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   if (!data) return <div className="p-8 text-center text-text-disabled">Cargando estadísticas...</div>;
 
   const StatBox = ({ label, value, icon: Icon, color }: any) => (
-     <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-lg p-4 flex flex-col justify-between h-[100px]">
+     <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 flex flex-col justify-between h-[100px]">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${color} bg-[rgb(var(--fg-rgb))]/5`}>
            <Icon size={16} />
         </div>

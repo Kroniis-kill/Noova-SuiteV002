@@ -42,7 +42,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} title="Cambio de Contraseña Detectado" zIndex={20000}>
       <div className="pt-2 space-y-5">
         
-        <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-lg flex gap-4 items-start">
+        <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-md flex gap-4 items-start">
            <div className="bg-status-warning/20 p-2.5 rounded-full text-status-warning shrink-0">
               <Key size={24} />
            </div>

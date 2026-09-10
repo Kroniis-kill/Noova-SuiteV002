@@ -87,7 +87,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
             </div>
         </div>
 
-        <div className="bg-surface-sunken rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3 mb-5 ml-2">
+        <div className="bg-surface-sunken rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3 mb-5 ml-2">
             <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(user || '')}>
               <div className="flex flex-col min-w-0 pr-2">
                   <span className="text-[9px] font-bold text-text-disabled uppercase">Usuario</span>

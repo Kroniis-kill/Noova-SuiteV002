@@ -103,7 +103,7 @@ const ServicesDesktop: React.FC = () => {
   };
 
   const filtered = services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
-  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-[11px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
@@ -119,7 +119,7 @@ const ServicesDesktop: React.FC = () => {
         <div className="flex gap-4">
             <div className="relative group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" size={18} />
-                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
             </div>
             <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-brand-gradient text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
         </div>
@@ -148,11 +148,11 @@ const ServicesDesktop: React.FC = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4">
+                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
                                 <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
                                 <p className="text-xl font-bold text-text-primary font-mono">${service.cost}</p>
                             </div>
-                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-4">
+                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
                                 <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
                                 <p className="text-xl font-bold text-status-success-soft font-mono">${service.publicPrice}</p>
                             </div>

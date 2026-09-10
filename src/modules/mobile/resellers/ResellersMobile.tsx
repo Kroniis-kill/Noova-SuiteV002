@@ -271,7 +271,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
 
        <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Socio">
           <div className="space-y-4 pt-2">
-             <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+             <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
                  <AlertTriangle size={24} className="text-status-danger shrink-0" />
                  <div>
                      <h4 className="text-text-primary font-bold text-sm">Atención</h4>
@@ -283,7 +283,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Clientes</span><span className="block text-text-disabled text-[10px]">Los clientes pasarán a ser directos.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>
-                <button onClick={() => handleDeleteConfirm('delete_clients')} className="w-full p-4 rounded-lg bg-status-danger/5 border border-status-danger/20 flex items-center justify-between hover:bg-status-danger/10 transition-colors">
+                <button onClick={() => handleDeleteConfirm('delete_clients')} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/20 flex items-center justify-between hover:bg-status-danger/10 transition-colors">
                    <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el revendedor y sus clientes.</span></div>
                    <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>

@@ -192,7 +192,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full h-12 rounded-2xl bg-brand-gradient text-white font-bold text-sm flex items-center justify-center gap-2 shadow-glow active:scale-[0.98] transition-all hover:brightness-110 mt-1 disabled:opacity-50"
+                            className="w-full h-12 rounded-md bg-brand-gradient text-white font-bold text-sm flex items-center justify-center gap-2 shadow-glow active:scale-[0.98] transition-all hover:brightness-110 mt-1 disabled:opacity-50"
                         >
                             {loading ? (
                                 <RefreshCw className="animate-spin" size={18} />
@@ -322,7 +322,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                             <button
                                 type="submit"
                                 disabled={props.loading}
-                                className="w-full h-12 bg-brand-gradient text-white rounded-2xl font-bold text-sm shadow-glow flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all mt-1 disabled:opacity-50"
+                                className="w-full h-12 bg-brand-gradient text-white rounded-md font-bold text-sm shadow-glow flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all mt-1 disabled:opacity-50"
                             >
                                 {props.loading ? <RefreshCw className="animate-spin" size={18} /> : (props.isRecovering ? 'Continuar' : (props.isRegistering ? 'Crear cuenta' : 'Acceder ahora'))}
                                 {!props.loading && <ArrowRight size={18} />}

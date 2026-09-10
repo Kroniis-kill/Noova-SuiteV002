@@ -198,7 +198,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
         <div className="pt-4">
            <button 
              type="submit" 
-             className="btn-primary w-full h-[52px] rounded-lg text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_-5px_rgba(106,44,255,0.4)]"
+             className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_-5px_rgba(106,44,255,0.4)]"
            >
               <Check size={18} /> {initialData ? 'Actualizar Gasto' : 'Guardar Gasto'}
            </button>

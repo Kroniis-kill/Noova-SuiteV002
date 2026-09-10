@@ -144,7 +144,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
             <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-text-primary">${calculatedCost.toFixed(2)}</span></div>
         </div>
 
-        <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-lg font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all">
+        <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all">
           <Save size={20} /> {initialData ? 'Actualizar Servicio' : 'Guardar Servicio'}
         </button>
       </form>

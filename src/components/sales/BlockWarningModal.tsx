@@ -13,7 +13,7 @@ const BlockWarningModal: React.FC<BlockWarningModalProps> = ({ isOpen, onClose, 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Advertencia de Bloqueo" zIndex={60000}>
       <div className="pt-2 pb-2 space-y-4">
-        <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-lg flex gap-4 items-start">
+        <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-md flex gap-4 items-start">
           <div className="bg-status-warning/20 p-3 rounded-full shrink-0 text-status-warning">
             <AlertTriangle size={24} />
           </div>

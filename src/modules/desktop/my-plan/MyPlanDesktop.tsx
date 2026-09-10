@@ -113,7 +113,7 @@ const MyPlanDesktop: React.FC = () => {
                    </div>
 
                    {/* Progress Bar Section */}
-                   <div className="bg-surface-sunken rounded-lg p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-4">
+                   <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-4">
                       <div className="flex justify-between items-end">
                          <div className="flex items-center gap-2 text-text-secondary text-sm font-medium">
                             <Users size={16} className="text-brand-primary" />

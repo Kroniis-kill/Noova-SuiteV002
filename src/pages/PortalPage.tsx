@@ -100,7 +100,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="px-4 pb-5 pt-1 space-y-4">
-                  <div className="bg-surface-3 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
+                  <div className="bg-surface-3 rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
                       <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(user || '', 'Usuario')}>
                         <div className="flex items-center gap-3 min-w-0 pr-2">
                             <Mail size={14} className="text-text-disabled" />

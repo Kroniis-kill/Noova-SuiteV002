@@ -370,14 +370,14 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                             <div className="pt-4 border-t border-[rgb(var(--fg-rgb))]/5 space-y-4">
                                                                 {/* Info Row (Password & Status) */}
                                                                 <div className="grid grid-cols-2 gap-3">
-                                                                    <div className="bg-surface-sunken rounded-sm p-3 border border-[rgb(var(--fg-rgb))]/5">
+                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-[rgb(var(--fg-rgb))]/5">
                                                                         <span className="text-[8px] font-bold text-text-faint uppercase tracking-widest block mb-1">Contraseña</span>
                                                                         <div className="flex items-center gap-2 text-xs font-mono font-bold text-text-secondary">
                                                                             <Lock size={10} className="text-text-faint" />
                                                                             <span className="truncate">{account.password}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="bg-surface-sunken rounded-sm p-3 border border-[rgb(var(--fg-rgb))]/5">
+                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-[rgb(var(--fg-rgb))]/5">
                                                                         <span className="text-[8px] font-bold text-text-faint uppercase tracking-widest block mb-1">Estado</span>
                                                                         <div className="flex items-center gap-2 text-[10px] font-bold text-status-expiring uppercase">
                                                                             <AlertCircle size={10} />
@@ -434,7 +434,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="bg-status-danger/5 rounded-sm p-4 border border-status-danger/10">
+                                                                <div className="bg-status-danger/5 rounded-md p-4 border border-status-danger/10">
                                                                     <div className="flex items-center gap-2 mb-2">
                                                                         <AlertCircle size={14} className="text-status-danger" />
                                                                         <span className="text-[10px] font-bold text-status-danger uppercase tracking-widest">Reporte de Falla Crítico</span>
@@ -542,7 +542,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                     {/* Report Note */}
                     <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5">
                         <label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1">Motivo Reportado</label>
-                        <div className="bg-surface-sunken rounded-lg p-4 min-h-[80px] border border-[rgb(var(--fg-rgb))]/5">
+                        <div className="bg-surface-sunken rounded-xl p-4 min-h-[80px] border border-[rgb(var(--fg-rgb))]/5">
                              <p className="text-sm text-text-secondary font-medium leading-relaxed italic">"{selectedFailure.notes || 'Sin descripción detallada.'}"</p>
                         </div>
                     </div>
@@ -553,12 +553,12 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                             <button onClick={() => onHandleNotifyFailure(selectedFailure)} className="h-14 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-semibold text-xs shadow-sm flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all">
                                 Avisar Falla
                             </button>
-                            <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-semibold text-xs shadow-glow flex items-center justify-center text-center leading-tight active:scale-95 transition-all">
+                            <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-semibold text-xs shadow-glow flex items-center justify-center text-center leading-tight active:scale-95 transition-all">
                                 Resolver y Notificar
                             </button>
                         </div>
                         
-                        <button onClick={() => onHandleSolveFailure(selectedFailure, false)} className="w-full h-14 bg-surface-3 text-text-muted font-semibold text-xs rounded-lg flex items-center justify-center gap-2 border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary transition-colors active:scale-95">
+                        <button onClick={() => onHandleSolveFailure(selectedFailure, false)} className="w-full h-14 bg-surface-3 text-text-muted font-semibold text-xs rounded-md flex items-center justify-center gap-2 border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary transition-colors active:scale-95">
                             Solo Resolver <ChevronDown size={14} />
                         </button>
                     </div>

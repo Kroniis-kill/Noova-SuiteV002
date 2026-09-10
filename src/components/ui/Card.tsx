@@ -20,7 +20,7 @@ import React from 'react';
  *  - md   → p-4 lg:p-5   (default)
  *  - lg   → p-5 lg:p-6
  *
- * Radio (`radius`): xs | sm | md | lg | xl | 2xl  (default: lg = 18px)
+ * Radio (`radius`): xs | sm | md | lg | xl | 2xl  (default: xl = 24px, estándar de tarjetas en toda la app)
  */
 export type CardVariant = 'default' | 'flat' | 'elevated' | 'interactive' | 'ghost' | 'bare';
 export type CardPad = 'none' | 'sm' | 'md' | 'lg';
@@ -79,7 +79,7 @@ export function cardClass(opts: {
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ variant = 'default', pad = 'md', radius = 'lg', className = '', as, children, ...rest }, ref) => {
+  ({ variant = 'default', pad = 'md', radius = 'xl', className = '', as, children, ...rest }, ref) => {
     const Comp = (as ?? 'div') as React.ElementType;
     return (
       <Comp

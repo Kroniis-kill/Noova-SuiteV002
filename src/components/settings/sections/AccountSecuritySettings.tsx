@@ -126,7 +126,7 @@ export const AccountSecuritySettings = () => {
                          <input value={user?.email} disabled className={`${styles.input} opacity-50 cursor-not-allowed`} />
                      </div>
 
-                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-xl font-semibold text-xs transition-all active:scale-[0.98]">
+                     <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-md font-semibold text-xs transition-all active:scale-[0.98]">
                          Actualizar Perfil
                      </button>
                  </div>
@@ -187,7 +187,7 @@ export const AccountSecuritySettings = () => {
 
                  <div className="w-full h-px bg-status-danger/20 my-4" />
 
-                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-text-primary rounded-xl font-bold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                 <button onClick={handleDeleteAccount} className="w-full h-[52px] border border-status-danger/50 text-status-danger hover:bg-status-danger hover:text-text-primary rounded-md font-bold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                     <Trash2 size={18} /> Eliminar Cuenta
                  </button>
              </div>

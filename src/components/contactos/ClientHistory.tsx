@@ -86,7 +86,7 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
             const isBlock = entry.notes?.toLowerCase().includes('bloqueo');
             
             return (
-                <div key={entry.id} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-md p-3 relative overflow-hidden group">
+                <div key={entry.id} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 relative overflow-hidden group">
                     {/* Indicador lateral */}
                     <div className={`absolute left-0 top-0 bottom-0 w-1 ${isBlock ? 'bg-status-warning' : 'bg-[rgb(var(--fg-rgb))]/10'}`} />
                     

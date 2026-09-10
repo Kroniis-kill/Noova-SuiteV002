@@ -160,7 +160,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Buscar cliente..."
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl pl-9 pr-3 py-2.5 text-sm text-text-primary placeholder:text-text-faint outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-9 pr-3 py-2.5 text-sm text-text-primary placeholder:text-text-faint outline-none focus:border-brand-primary/50"
                 />
               </div>
               <div className="max-h-56 overflow-y-auto no-scrollbar space-y-1.5">
@@ -250,7 +250,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   type="number" inputMode="decimal" step="0.01"
                   value={pricePaid}
                   onChange={(e) => setPricePaid(e.target.value)}
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
               <Field label={`Precio pagado (${subCurrency})`}>
@@ -258,7 +258,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   type="number" inputMode="decimal" step="0.01"
                   value={pricePaidSub}
                   onChange={(e) => setPricePaidSub(e.target.value)}
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
               <Field label="Duración del plan">
@@ -272,7 +272,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   value={daysUsed}
                   onChange={(e) => setDaysUsed(e.target.value)}
                   placeholder="0"
-                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                  className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                 />
               </Field>
             </div>
@@ -336,7 +336,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 <ResultRow icon="💚" label="Reembolso estimado" value={`$${fmt(result.refund)} ${mainCurrency}`} sub={`$${fmt(result.refundSub)} ${subCurrency}`} tone="emerald" bold />
               </div>
 
-              <div className="relative z-10 mt-5 p-3 rounded-xl bg-status-warning/5 border border-status-warning/20 flex gap-2.5">
+              <div className="relative z-10 mt-5 p-3 rounded-md bg-status-warning/5 border border-status-warning/20 flex gap-2.5">
                 <AlertTriangle size={14} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <p className="text-[11px] leading-relaxed text-text-muted">
                   Este cálculo es una <span className="text-amber-300">estimación basada en el costo diario proporcional</span>. El monto real puede variar según las políticas de reembolso de <span className="font-bold text-text-primary">{result.saleName}</span>. Te recomendamos contactar directamente con el servicio para gestionar la devolución.

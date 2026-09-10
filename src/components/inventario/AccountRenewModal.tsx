@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Modal from '../ui/Modal';
 import { Account, FinancialAccount } from '../../types';
 import { useData } from '../../context/DataContext';
@@ -35,7 +37,7 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
             value={search} 
             onChange={e => setSearch(e.target.value)} 
             placeholder="Buscar billetera..." 
-            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 py-3.5 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" 
+            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-11 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" 
           />
         </div>
         
@@ -44,7 +46,7 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
             onClick={() => { onSelect(null); onClose(); }} 
             className="w-full text-left p-4 rounded-xl bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-all active:scale-[0.98] group"
           >
-            <div className="w-10 h-10 rounded-md bg-zinc-800 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
+            <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0">
               <X size={18} />
             </div>
             <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar salida</span>
@@ -208,91 +210,121 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
   };
 
   const styles = {
-    label: "text-[10px] font-bold text-text-faint uppercase tracking-[0.15em] mb-3 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-zinc rounded-md h-[52px] transition-all focus-within:ring-1 focus-within:ring-brand-primary/40 border border-[rgb(var(--fg-rgb))]/5",
-    input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 h-full outline-none font-medium rounded-md",
-    card: "bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-5"
+    label: "text-[9px] font-bold text-text-faint uppercase tracking-[0.1em]",
+    inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
+    input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none border-none appearance-none font-bold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
   };
+
+  const modalVariants = {
+    hidden: { y: "100%", opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { type: "spring", damping: 25, stiffness: 300 } },
+    exit: { y: "100%", opacity: 0, transition: { duration: 0.2 } }
+  };
+
+  if (typeof document === 'undefined') return null;
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} title="Renovar Inventario" zIndex={10000}>
-         <div className="space-y-5 pt-1">
-            <div className="bg-gradient-to-br from-brand-primary/[0.14] to-brand-accent/10 border border-brand-primary/25 rounded-xl p-4 flex items-center gap-3.5">
-               <div className="w-11 h-11 rounded-md bg-surface-1 border border-brand-primary/25 flex items-center justify-center shrink-0 text-brand-primary-hi">
-                  <Calendar size={20} />
-               </div>
-               <div className="min-w-0">
-                  <p className="text-[10px] text-text-muted font-bold uppercase tracking-[0.15em]">Vence actualmente</p>
-                  <h4 className="text-text-primary font-bold text-sm mt-0.5">{formatDate(accounts[0]?.endDate)}</h4>
-                  <p className="text-text-muted text-[11px] leading-tight mt-1 font-medium">
-                     {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'} · <span className="text-text-primary font-bold">{serviceName}</span>
-                  </p>
-               </div>
-            </div>
+      {createPortal(
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]" />
+              <motion.div
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl z-[9999] flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden"
+              >
+                {/* Header */}
+                <div className="px-5 pt-[18px] pb-[14px] flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 shrink-0">
+                  <div className="min-w-0">
+                    <h3 className="text-[17px] font-bold text-text-primary leading-tight">Renovar inventario</h3>
+                    <p className="text-[9px] text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{serviceName} · {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</p>
+                  </div>
+                  <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
+                    <X size={16} />
+                  </button>
+                </div>
 
-            <div className={styles.card}>
-               <div className="flex items-center gap-2 mb-4">
-                  <Calendar size={16} className="text-text-muted" />
-                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Extensión de Tiempo</span>
-               </div>
-               <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="overflow-y-auto px-5 pt-4 pb-[18px] flex flex-col gap-[14px]">
+
+                  {/* Hero: vence actualmente */}
+                  <div className="rounded-xl p-4 border border-brand-primary/25 bg-gradient-to-br from-brand-primary/[0.14] to-brand-accent/10 flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0 text-brand-primary-hi">
+                      <Calendar size={20} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] text-text-muted">Vence actualmente</p>
+                      <h4 className="text-text-primary font-bold text-[15px] mt-[1px]">{formatDate(accounts[0]?.endDate)}</h4>
+                    </div>
+                  </div>
+
+                  {/* Extender por */}
                   <div>
-                     <label className={styles.label}>Meses</label>
-                     <div className={styles.inputContainer}>
-                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-text-disabled border border-[rgb(var(--fg-rgb))]/5">
-                           +M
+                    <div className="text-[9px] font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
+                      <Calendar size={12} /> Extender por
+                    </div>
+                    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px] flex flex-col gap-[10px]">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className={styles.inputContainer}>
+                          <span className="pl-3 text-[12px] font-bold text-text-faint shrink-0">+M</span>
+                          <input type="number" min="0" value={months} onChange={e => setMonths(e.target.value)} className={`${styles.input} text-right`} placeholder="0" inputMode="numeric" />
                         </div>
-                        <input type="number" min="0" value={months} onChange={e => setMonths(e.target.value)} className={`${styles.input} pl-12 text-center font-bold`} placeholder="0" inputMode="numeric" />
-                     </div>
+                        <div className={styles.inputContainer}>
+                          <span className="pl-3 text-[12px] font-bold text-text-faint shrink-0">+D</span>
+                          <input type="number" min="0" value={days} onChange={e => setDays(e.target.value)} className={`${styles.input} text-right`} placeholder="0" inputMode="numeric" />
+                        </div>
+                      </div>
+                      <div className="h-px bg-[rgb(var(--fg-rgb))]/5" />
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-text-faint font-bold uppercase">Nueva fecha</span>
+                        <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className="bg-transparent text-[14px] text-status-success-soft font-bold outline-none border-none appearance-none [color-scheme:dark] text-right" />
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Costo de renovación */}
                   <div>
-                     <label className={styles.label}>Días</label>
-                     <div className={styles.inputContainer}>
-                        <div className="absolute left-1 top-1 bottom-1 w-10 bg-surface-zinc rounded-sm flex items-center justify-center text-[10px] font-semibold text-text-disabled border border-[rgb(var(--fg-rgb))]/5">
-                           +D
+                    <div className="text-[9px] font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
+                      <Wallet size={12} /> Costo de renovación
+                    </div>
+                    <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px] flex flex-col gap-[10px]">
+                      <button onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken rounded-md py-[10px] px-3 flex items-center justify-between text-left">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0">
+                            <Wallet size={13} />
+                          </div>
+                          <span className={`text-[12px] font-semibold truncate ${selectedWallet ? 'text-text-primary' : 'text-text-faint'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
                         </div>
-                        <input type="number" min="0" value={days} onChange={e => setDays(e.target.value)} className={`${styles.input} pl-12 text-center font-bold`} placeholder="0" inputMode="numeric" />
-                     </div>
+                        <ChevronDown size={15} className="text-text-faint shrink-0" />
+                      </button>
+                      <div className="bg-surface-sunken rounded-md p-3 flex items-center gap-2">
+                        <span className="text-[18px] text-status-success-soft font-bold">$</span>
+                        <input type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="0.00" className="flex-1 min-w-0 bg-transparent text-[20px] text-text-primary font-bold outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" inputMode="decimal" />
+                        <span className="text-[10px] text-text-faint font-bold shrink-0">{settings.currency}</span>
+                      </div>
+                    </div>
                   </div>
-               </div>
-               <div>
-                  <label className={styles.label}>Nueva Fecha</label>
-                  <div className={`${styles.inputContainer} border-status-success/20 bg-status-success/5`}>
-                     <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-status-success" />
-                     <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className={`${styles.input} pl-12 text-text-primary font-bold tracking-wide`} />
-                  </div>
-               </div>
-            </div>
 
-            <div className={styles.card}>
-               <div className="flex items-center gap-2 mb-4">
-                  <Wallet size={16} className="text-text-muted" />
-                  <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Costo de Renovación</span>
-               </div>
-               <div className="grid grid-cols-5 gap-3">
-                  <div className="col-span-3">
-                     <label className={styles.label}>Billetera Salida</label>
-                     <button onClick={() => setIsWalletSearchOpen(true)} className={`${styles.inputContainer} w-full px-4 justify-between hover:bg-surface-zinc transition-colors text-left`}>
-                        <span className={`text-[13px] font-medium truncate ${selectedWallet ? 'text-text-primary' : 'text-text-disabled'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
-                        <ChevronDown size={16} className="text-text-disabled shrink-0" />
-                     </button>
+                  {/* Botones */}
+                  <div className="flex flex-col gap-2 pt-[2px]">
+                    <button onClick={handleRenew} className="w-full h-[46px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-text-primary font-bold text-[13px] flex items-center justify-center gap-[6px] active:scale-95 transition-all hover:brightness-110">
+                      <Check size={16} /> Confirmar renovación
+                    </button>
+                    <button onClick={onClose} className="w-full h-11 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-[12px] active:scale-95 transition-all">
+                      Cancelar operación
+                    </button>
                   </div>
-                  <div className="col-span-2">
-                     <label className={styles.label}>Costo ({settings.currency})</label>
-                     <input type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="0.00" className={`${styles.input} text-center font-bold`} inputMode="decimal" />
-                  </div>
-               </div>
-            </div>
 
-            <div className="pt-2 flex flex-col gap-3">
-              <button onClick={handleRenew} className="btn-primary w-full h-12 rounded-2xl text-[13px] flex items-center justify-center gap-2">
-                 <Check size={18} /> Confirmar Renovación
-              </button>
-              <button onClick={onClose} className="w-full h-12 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-text-muted rounded-2xl font-bold text-[12px] transition-all active:scale-98">Cancelar Operación</button>
-            </div>
-         </div>
-      </Modal>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       <WalletSearchModal 
         isOpen={isWalletSearchOpen} 

@@ -93,7 +93,7 @@ const ExpensesDesktop: React.FC = () => {
 
        <Modal isOpen={!!itemToDelete} onClose={() => setItemToDelete(null)} title="Eliminar Registro">
          <div className="space-y-4 pt-2">
-            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-4 items-start">
+            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
                 <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
                     <Trash2 size={24} className="text-status-danger" />
                 </div>

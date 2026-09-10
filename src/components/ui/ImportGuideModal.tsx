@@ -42,14 +42,14 @@ const ImportGuideModal: React.FC<ImportGuideModalProps> = ({ isOpen, onClose, on
         <div className="grid grid-cols-2 gap-3 pt-2">
            <button 
              onClick={handleDownload}
-             className="w-full h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-[12px] active:scale-95"
+             className="w-full h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary rounded-md font-bold transition-all flex items-center justify-center gap-2 text-[12px] active:scale-95"
            >
               <Download size={16} /> Bajar Plantilla
            </button>
 
            <button 
              onClick={() => { onConfirm(); onClose(); }}
-             className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-xl font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[12px]"
+             className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[12px]"
            >
               <Upload size={16} /> Subir Archivo
            </button>

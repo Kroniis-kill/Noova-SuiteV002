@@ -53,7 +53,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                 <button
                   key={opt.key}
                   onClick={() => toggleWidget(opt.key)}
-                  className="w-full flex items-center justify-between p-3 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-all hover:bg-surface-3"
+                  className="w-full flex items-center justify-between p-3 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-all hover:bg-surface-3"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center ${opt.color}`}>

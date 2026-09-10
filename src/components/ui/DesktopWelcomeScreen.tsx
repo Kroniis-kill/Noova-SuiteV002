@@ -103,7 +103,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
          <motion.div variants={itemVariants} className="mt-12">
             <button
                onClick={onFinish}
-               className="group relative inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-xl font-bold text-lg shadow-[0_0_40px_-10px_rgba(106,44,255,0.5)] hover:shadow-[0_0_60px_-10px_rgba(106,44,255,0.7)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+               className="group relative inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-lg shadow-[0_0_40px_-10px_rgba(106,44,255,0.5)] hover:shadow-[0_0_60px_-10px_rgba(106,44,255,0.7)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             >
                <span className="relative z-10 flex items-center gap-2">
                   Iniciar <ArrowRight size={20} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />

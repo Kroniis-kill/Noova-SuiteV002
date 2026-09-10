@@ -102,7 +102,7 @@ const AdminDiscountCodesView: React.FC = () => {
         </div>
         <button
           onClick={() => setIsCreateOpen(v => !v)}
-          className="bg-gradient-to-r from-brand-primary to-brand-accent text-white px-4 py-2.5 rounded-lg text-sm font-semibold shadow-glow hover:opacity-90 transition-all flex items-center gap-2"
+          className="bg-gradient-to-r from-brand-primary to-brand-accent text-white px-4 py-2.5 rounded-md text-sm font-semibold shadow-glow hover:opacity-90 transition-all flex items-center gap-2"
         >
           <Plus size={16} /> Nuevo código
         </button>

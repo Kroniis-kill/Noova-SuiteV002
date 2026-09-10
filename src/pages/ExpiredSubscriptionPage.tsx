@@ -21,14 +21,14 @@ const ExpiredSubscriptionPage: React.FC = () => {
        <div className="flex flex-col gap-4 w-full max-w-xs">
           <button 
             onClick={() => window.open('https://wa.me/YOUR_NUMBER', '_blank')}
-            className="w-full h-[52px] bg-brand-whatsapp hover:brightness-110 text-black font-bold rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95"
+            className="w-full h-[52px] bg-brand-whatsapp hover:brightness-110 text-black font-bold rounded-md flex items-center justify-center gap-2 transition-all active:scale-95"
           >
              <MessageCircle size={20} /> Contactar Soporte
           </button>
           
           <button 
             onClick={logout}
-            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary font-bold rounded-lg transition-all border border-[rgb(var(--fg-rgb))]/5"
+            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary font-bold rounded-md transition-all border border-[rgb(var(--fg-rgb))]/5"
           >
              Cerrar Sesión
           </button>

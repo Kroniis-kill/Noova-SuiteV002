@@ -145,7 +145,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
 
               {/* CREDENCIALES EXTRA */}
               {(isUniqueUser || isFullAccount) && (
-                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-lg space-y-4">
+                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-md space-y-4">
                   <div className="flex items-center gap-2 text-status-info-soft mb-1">
                     <Info size={16} />
                     <span className="text-xs font-semibold uppercase">Credenciales de Acceso</span>
@@ -181,7 +181,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
             <button onClick={props.onClose} className="h-[56px] px-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
               Cancelar
             </button>
-            <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="flex-1 h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
+            <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="flex-1 h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
               <Check size={18} strokeWidth={3} />
               {props.isEditing ? 'Guardar Cambios' : 'Agregar al Carrito'}
             </button>

@@ -76,7 +76,7 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ deniedMessage }) =>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-[52px] rounded-lg bg-gradient-to-r from-status-warning-soft to-orange-600 text-black font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity mt-2"
+            className="w-full h-[52px] rounded-md bg-gradient-to-r from-status-warning-soft to-orange-600 text-black font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity mt-2"
           >
             {isLoading ? <Loader2 size={18} className="animate-spin" /> : 'Ingresar al panel'}
           </button>

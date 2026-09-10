@@ -40,12 +40,12 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
                  <input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" />
              </div>
              <div className="space-y-2 overflow-y-auto max-h-[300px] custom-scrollbar pr-1">
-                <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
+                <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
                     <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0"><X size={18} /></div>
                     <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar pago</span>
                 </button>
                 {filtered.map(acc => (
-                    <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full text-left p-3 rounded-lg hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
+                    <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
                         <div className="w-10 h-10 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={18} /></div>
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center">
@@ -382,7 +382,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                             </button>
 
                             {/* Input de Monto */}
-                            <div className="relative h-[60px] bg-surface-sunken rounded-lg border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+                            <div className="relative h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                                 <DollarSign size={24} className="text-status-success mr-2" />
                                 <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint" placeholder="0.00" inputMode="decimal" />
                                 {selectedWallet && <span className="text-xs font-semibold text-text-disabled absolute right-5 top-1/2 -translate-y-1/2">{selectedWallet.currency}</span>}
@@ -402,10 +402,10 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
                 {/* Footer Actions */}
                 <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-                    <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary rounded-lg font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-text-primary">
+                    <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary rounded-2xl font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-text-primary">
                         <Check size={18} /> Guardar
                     </button>
-                    <button onClick={() => handleRenew(true)} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                    <button onClick={() => handleRenew(true)} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
                         <MessageCircle size={18} strokeWidth={2.5} /> Renovar y Notificar
                     </button>
                 </div>

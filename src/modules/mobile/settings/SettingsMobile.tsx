@@ -64,7 +64,7 @@ const SecurityHub = () => (
           <span className="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_#10b981]" />
         </div>
       </div>
-      <button className="w-full mt-6 py-3 border border-status-danger/30 text-status-danger-soft text-[10px] font-semibold uppercase rounded-xl active:bg-status-danger/10 transition-colors">
+      <button className="w-full mt-6 py-3 border border-status-danger/30 text-status-danger-soft text-[10px] font-semibold uppercase rounded-md active:bg-status-danger/10 transition-colors">
         Cerrar todas las demás sesiones
       </button>
     </div>

@@ -111,7 +111,7 @@ const SalesDesktop: React.FC = () => {
           <div className="flex items-center gap-2">
               <div className="relative group mr-2">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-faint group-focus-within:text-brand-primary" size={18} />
-                <input placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-2xl pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
               </div>
 
               {!viewFails && (
@@ -122,7 +122,7 @@ const SalesDesktop: React.FC = () => {
               )}
 
               <button onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}><ClipboardList size={20} /></button>
-              <button onClick={handleNewSale} className="h-12 px-6 bg-gradient-to-r from-brand-primary to-brand-accent rounded-2xl flex items-center justify-center gap-2 text-white font-bold text-sm shadow-glow active:scale-95"><Plus size={20} strokeWidth={2.5} /> Nueva Venta</button>
+              <button onClick={handleNewSale} className="h-12 px-6 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center gap-2 text-white font-bold text-sm shadow-glow active:scale-95"><Plus size={20} strokeWidth={2.5} /> Nueva Venta</button>
           </div>
       </div>
 

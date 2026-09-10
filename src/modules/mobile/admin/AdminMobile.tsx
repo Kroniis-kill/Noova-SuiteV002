@@ -214,7 +214,7 @@ const AdminMobile: React.FC = () => {
               <input
                 value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar usuario..."
-                className="w-full h-11 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full h-11 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
             <div className="space-y-2">
@@ -269,7 +269,7 @@ const AdminMobile: React.FC = () => {
                   setNewAnnouncement(''); loadData();
                   showToast('Anuncio publicado', 'success');
                 }}
-                className="w-full h-12 mt-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-2xl text-xs font-semibold flex items-center justify-center"
+                className="w-full h-12 mt-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md text-xs font-semibold flex items-center justify-center"
               >
                 Publicar anuncio
               </button>
@@ -298,13 +298,13 @@ const AdminMobile: React.FC = () => {
                   <input
                     value={tempPhone}
                     onChange={e => setTempPhone(e.target.value)}
-                    className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                    className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                   />
                 </div>
                 <p className="text-[10px] text-text-disabled mt-1.5">Visible para usuarios bloqueados o expirados.</p>
               </div>
 
-              <div className="p-3 bg-status-warning/5 border border-status-warning/20 rounded-lg flex gap-3 items-start">
+              <div className="p-3 bg-status-warning/5 border border-status-warning/20 rounded-md flex gap-3 items-start">
                 <ShieldAlert size={16} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-amber-300 font-semibold text-xs">Kill switch</h4>
@@ -317,7 +317,7 @@ const AdminMobile: React.FC = () => {
                   await updateSupportNumber(tempPhone);
                   showToast('Configuración guardada', 'success');
                 }}
-                className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-2xl active:scale-95 transition-all flex items-center justify-center"
+                className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-md active:scale-95 transition-all flex items-center justify-center"
               >
                 Guardar cambios
               </button>
@@ -348,7 +348,7 @@ const AdminMobile: React.FC = () => {
               <input
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
-                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
           </div>
@@ -358,7 +358,7 @@ const AdminMobile: React.FC = () => {
               showToast('Configuración guardada', 'success');
               setIsConfigOpen(false);
             }}
-            className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-2xl flex items-center justify-center"
+            className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold text-sm rounded-md flex items-center justify-center"
           >
             Guardar
           </button>
@@ -367,7 +367,7 @@ const AdminMobile: React.FC = () => {
 
       <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Eliminar usuario">
         <div className="space-y-4 pt-2">
-          <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-lg flex gap-3 items-start">
+          <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-3 items-start">
             <Trash2 size={20} className="text-status-danger-soft shrink-0" />
             <p className="text-sm text-text-secondary leading-relaxed">
               ¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.

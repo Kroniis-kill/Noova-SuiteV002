@@ -16,7 +16,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
     <Modal isOpen={isOpen} onClose={onClose} title="Conflicto de Importación" zIndex={20000}>
       <div className="space-y-5 pt-1">
         
-        <div className="bg-status-warning/10 border border-status-warning/20 rounded-lg p-4 flex gap-4 items-start">
+        <div className="bg-status-warning/10 border border-status-warning/20 rounded-md p-4 flex gap-4 items-start">
            <div className="bg-status-warning/20 p-2.5 rounded-full shrink-0 text-status-warning">
               <AlertTriangle size={24} />
            </div>
@@ -36,7 +36,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
             
             <button 
                onClick={() => onResolve('update')}
-               className="w-full p-4 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
+               className="w-full p-4 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
             >
                 <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft border border-status-info/20 group-hover:scale-110 transition-transform">
                     <RefreshCw size={18} />
@@ -49,7 +49,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
 
             <button 
                onClick={() => onResolve('skip')}
-               className="w-full p-4 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
+               className="w-full p-4 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
             >
                 <div className="w-10 h-10 rounded-full bg-zinc-500/10 flex items-center justify-center text-text-muted border border-zinc-500/20 group-hover:scale-110 transition-transform">
                     <SkipForward size={18} />

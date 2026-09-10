@@ -59,7 +59,7 @@ const FinancialSummaryCard: React.FC = () => {
        </div>
 
        <div className="grid grid-cols-3 gap-3 mb-6 relative z-10">
-          <div className="bg-surface-3/40 rounded-lg p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
+          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
              <div className="flex items-center gap-1.5 text-status-success mb-1">
                 <ArrowUpRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Ingresos</span>
@@ -67,7 +67,7 @@ const FinancialSummaryCard: React.FC = () => {
              <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.income.toLocaleString()}</p>
           </div>
 
-          <div className="bg-surface-3/40 rounded-lg p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
+          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
              <div className="flex items-center gap-1.5 text-status-danger mb-1">
                 <ArrowDownRight size={12} strokeWidth={3} />
                 <span className="text-[8px] font-black uppercase tracking-widest">Egresos</span>

@@ -77,7 +77,7 @@ const ActivityLogList: React.FC = () => {
                   value={search} 
                   onChange={e => setSearch(e.target.value)} 
                   placeholder="Buscar en logs..."
-                  className="bg-surface-sunken border border-border-subtle rounded-xl pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-faint font-medium"
+                  className="bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-faint font-medium"
                 />
              </div>
              
@@ -85,7 +85,7 @@ const ActivityLogList: React.FC = () => {
                  <select 
                    value={filterEntity} 
                    onChange={e => setFilterEntity(e.target.value as any)}
-                   className="appearance-none bg-surface-sunken border border-border-subtle rounded-xl pl-4 pr-8 py-2.5 text-xs text-text-secondary font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-text-primary transition-colors"
+                   className="appearance-none bg-surface-sunken border border-border-subtle rounded-md pl-4 pr-8 py-2.5 text-xs text-text-secondary font-bold outline-none focus:border-brand-primary/50 cursor-pointer hover:text-text-primary transition-colors"
                  >
                     <option value="ALL">Todo</option>
                     <option value="SALE">Ventas</option>

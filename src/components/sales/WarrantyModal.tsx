@@ -357,8 +357,8 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                         <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/[0.04] rounded-xl p-4">
                            <div className="flex items-center gap-2 mb-3 text-[10px] font-semibold text-text-disabled uppercase"><Monitor size={12} /><span>Credenciales de perfil</span></div>
                            <div className="flex gap-3">
-                              <div className="flex-1 h-[44px] bg-surface-sunken rounded-sm border border-[rgb(var(--fg-rgb))]/5"><input placeholder="Nombre Perfil" value={profileName} onChange={(e) => setProfileName(e.target.value)} className="w-full h-full bg-transparent px-3 text-xs text-text-primary outline-none" /></div>
-                              <div className="w-[80px] h-[44px] bg-surface-sunken rounded-sm border border-[rgb(var(--fg-rgb))]/5"><input placeholder="PIN" value={profilePin} onChange={(e) => setProfilePin(e.target.value)} className="w-full h-full bg-transparent text-center text-xs text-text-primary font-mono outline-none" /></div>
+                              <div className="flex-1 h-[44px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/5"><input placeholder="Nombre Perfil" value={profileName} onChange={(e) => setProfileName(e.target.value)} className="w-full h-full bg-transparent px-3 text-xs text-text-primary outline-none" /></div>
+                              <div className="w-[80px] h-[44px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/5"><input placeholder="PIN" value={profilePin} onChange={(e) => setProfilePin(e.target.value)} className="w-full h-full bg-transparent text-center text-xs text-text-primary font-mono outline-none" /></div>
                            </div>
                         </div>
 
@@ -379,7 +379,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                     </motion.div>
                 ) : (
                     <motion.div key="credit" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-6">
-                        <div className="bg-status-info/10 border border-status-info/20 p-4 rounded-lg flex gap-3 items-start">
+                        <div className="bg-status-info/10 border border-status-info/20 p-4 rounded-md flex gap-3 items-start">
                             <div className="p-2 bg-status-info/20 rounded-full text-status-info-soft shrink-0"><Info size={18} /></div>
                             <p className="text-[11px] text-blue-200 leading-snug">Ideal si el cliente prefiere sumar el tiempo restante de este servicio fallido a otro que ya tenga activo.</p>
                         </div>
@@ -430,7 +430,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
               <button 
                   onClick={() => handleSave()} 
                   disabled={isSubmitting || (warrantyMode === 'replace' && (!reason || !selectedAccountId)) || (warrantyMode === 'credit' && !targetSaleId)} 
-                  className="bg-gradient-to-r from-brand-primary to-brand-accent text-white h-12 rounded-2xl font-bold shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-[13px]"
+                  className="bg-gradient-to-r from-brand-primary to-brand-accent text-white h-12 rounded-md font-bold shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-[13px]"
               >
                   {isSubmitting ? <RefreshCw size={18} className="animate-spin" /> : <><Check size={18} /> {warrantyMode === 'replace' ? 'Confirmar Reposición' : 'Confirmar Abono'}</>}
               </button>

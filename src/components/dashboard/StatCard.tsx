@@ -34,7 +34,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
         whileHover: { scale: 1.02 },
         transition: { type: "spring", stiffness: 300, damping: 20 }
       } as any)}
-      className={cardClass({ variant: 'elevated', pad: 'md', radius: 'lg', className: `relative flex flex-col justify-between ${className ?? ''}` })}
+      className={cardClass({ variant: 'elevated', pad: 'md', radius: 'xl', className: `relative flex flex-col justify-between ${className ?? ''}` })}
     >
       <div className="flex justify-between items-start mb-3 relative z-10">
         <div className={`p-2.5 rounded-2xl bg-gradient-to-br ${getColorClasses()} shadow-lg`}>

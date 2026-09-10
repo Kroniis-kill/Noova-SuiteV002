@@ -163,7 +163,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            </div>
         </div>
 
-        <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-lg p-4">
+        <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4">
            <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Métodos de Pago</span>
            </div>

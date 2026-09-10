@@ -161,7 +161,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Top Servicios</h3>
              <div className="space-y-2">
                 {topServices.map((item, idx) => (
-                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-3 flex items-center justify-between">
+                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                          <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-[10px] font-semibold border border-brand-primary/20">
                             #{idx + 1}
@@ -182,7 +182,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Mejores Clientes</h3>
              <div className="space-y-2">
                 {topClients.map((item, idx) => (
-                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-lg p-3 flex items-center justify-between">
+                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                          <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft text-[10px] font-semibold border border-status-success/20">
                             <Users size={14} />
