@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 import { Sale, FinancialAccount } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useToast } from '../../context/ToastContext';
-import { Calendar, Wallet, RefreshCw, MessageCircle, ChevronDown, Search, X, Check, DollarSign, RefreshCcw, TrendingUp, Loader2, Minus, Plus } from 'lucide-react';
-import { sendWhatsAppMessage, formatDate, addTime } from '../../utils/contactosUtils';
+import { Calendar, Wallet, RefreshCw, MessageCircle, ChevronDown, Search, X, Check, DollarSign, RefreshCcw, TrendingUp, Minus, Plus } from 'lucide-react';
+import { sendWhatsAppMessage, addTime, parseLocalISO } from '../../utils/contactosUtils';
 import { getCombinedWhatsAppTemplate } from '../../utils/salesUtils';
 import { generateUUID } from '../../utils/uuid';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -65,6 +65,67 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
     document.body
   );
 };
+
+// --- HELPERS ---
+
+const QUICK_MONTHS = [1, 2, 3, 6];
+
+const formatLongDate = (dateStr?: string | null): string => {
+  if (!dateStr) return '---';
+  const d = parseLocalISO(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+};
+
+const getDaysUntil = (dateStr?: string | null): number => {
+  if (!dateStr) return 0;
+  const target = parseLocalISO(dateStr);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.round((target.getTime() - today.getTime()) / (1000 * 3600 * 24));
+};
+
+const getExpiryBadge = (days: number) => {
+  if (days < 0) return { label: 'Vencido', cls: 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' };
+  if (days === 0) return { label: 'Vence hoy', cls: 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' };
+  if (days <= 5) return { label: `Vence en ${days} d`, cls: 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' };
+  return { label: `Vence en ${days} d`, cls: 'bg-status-success/10 text-status-success-soft border-status-success/20' };
+};
+
+const getExtensionLabel = (months: number, days: number): string => {
+  const parts: string[] = [];
+  if (months > 0) parts.push(`${months} ${months === 1 ? 'mes' : 'meses'}`);
+  if (days > 0) parts.push(`${days} ${days === 1 ? 'día' : 'días'}`);
+  return parts.length ? `+${parts.join(' ')}` : 'Sin cambios';
+};
+
+// --- SUB-COMPONENTE: STEPPER (fuera del modal para no remontarse en cada render) ---
+
+interface StepperControlProps {
+  value: number;
+  onChange: (value: number) => void;
+  label: string;
+  min?: number;
+}
+
+const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label, min = 0 }) => (
+  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+    <button type="button" aria-label={`Menos ${label}`} onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+    <div className="flex-1 flex flex-col items-center justify-center h-full">
+      <input
+        type="number"
+        value={value}
+        onChange={(e) => {
+          const val = parseInt(e.target.value);
+          onChange(isNaN(val) ? 0 : Math.max(min, val));
+        }}
+        className="bg-transparent text-center text-lg font-bold text-text-primary w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide -mt-1">{label}</span>
+    </div>
+    <button type="button" aria-label={`Más ${label}`} onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+  </div>
+);
 
 interface RenewModalProps {
   isOpen: boolean;
@@ -285,25 +346,13 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
   const isConversionActive = selectedWallet && selectedWallet.currency !== settings.currency && !(['USD','USDT','USDC'].includes(selectedWallet.currency) && ['USD','USDT','USDC'].includes(settings.currency));
 
-  // Helper para botones stepper
-  const StepperControl = ({ value, onChange, label, min = 0 }: any) => (
-      <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
-          <button onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
-          <div className="flex-1 flex flex-col items-center justify-center h-full">
-              <input 
-                type="number" 
-                value={value} 
-                onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    onChange(isNaN(val) ? 0 : Math.max(min, val));
-                }}
-                className="bg-transparent text-center text-lg font-bold text-text-primary w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-              <span className="text-[8px] font-bold text-text-faint uppercase tracking-wide -mt-1">{label}</span>
-          </div>
-          <button onClick={() => onChange(value + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
-      </div>
-  );
+  // --- DATOS DERIVADOS PARA LA UI ---
+  const renewClient = clients.find(c => c.id === salesToRenew[0]?.clientId);
+  const currentExpiry = salesToRenew[0]?.expiryDate;
+  const daysLeft = getDaysUntil(currentExpiry);
+  const expiryBadge = getExpiryBadge(daysLeft);
+  const serviceLabel = salesToRenew.length === 1 ? salesToRenew[0].serviceName : `${salesToRenew.length} servicios`;
+  const subtitle = [`${salesToRenew.length} ${salesToRenew.length === 1 ? 'servicio' : 'servicios'}`, renewClient?.name].filter(Boolean).join(' · ');
 
   if (!isOpen) return null;
 
@@ -312,64 +361,89 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" style={{ zIndex: (zIndex || 10020) - 1 }} onClick={onClose} />
         <div className="fixed inset-0 flex items-end lg:items-center justify-center p-0 lg:p-4 pointer-events-none" style={{ zIndex: zIndex || 10020 }}>
             <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 32, mass: 0.8 }} className="pointer-events-auto w-full lg:max-w-lg bg-surface-1 rounded-t-xl lg:rounded-xl border-t border-border-subtle lg:border shadow-modal flex flex-col h-auto max-h-[90dvh] overflow-hidden">
-                
-                {/* Header */}
+
+                {/* ───────── HEADER ───────── */}
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
-                    <div>
-                        <h3 className="text-lg font-black text-text-primary leading-tight">Renovar Servicio</h3>
-                        <p className="text-[11px] text-text-disabled font-medium">Extender vigencia de {salesToRenew.length} servicio(s)</p>
+                    <div className="min-w-0">
+                        <h3 className="text-lg font-black text-text-primary leading-tight">Renovar servicio</h3>
+                        <p className="text-[11px] text-text-disabled font-medium truncate">{subtitle}</p>
                     </div>
-                    <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
+                    <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
-                    
-                    {/* INFO CARD */}
-                    <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-xl p-5 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-md bg-brand-primary/20 flex items-center justify-center shrink-0 text-brand-primary border border-brand-primary/20">
-                            <RefreshCw size={22} />
+                {/* ───────── CONTENIDO ───────── */}
+                <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-6 pt-2 flex flex-col gap-5">
+
+                    {/* 1. SERVICIO A RENOVAR */}
+                    <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20">
+                            <RefreshCw size={18} />
                         </div>
-                        <div>
-                            <h4 className="text-brand-primary font-bold text-sm uppercase tracking-wide">Renovación Activa</h4>
-                            <p className="text-text-muted text-[11px] leading-tight mt-1 font-medium">Vencimiento actual: <span className="text-text-primary font-bold">{formatDate(salesToRenew[0]?.expiryDate)}</span></p>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-bold text-text-primary truncate">{serviceLabel}</p>
+                            <p className="text-[11px] text-text-muted font-medium mt-0.5">Vence el {formatLongDate(currentExpiry)}</p>
                         </div>
+                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
                     </div>
 
-                    {/* 1. TIEMPO Y DURACIÓN */}
+                    {/* 2. DURACIÓN */}
                     <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
-                        <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
-                            <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-[rgb(var(--fg-rgb))]/10">
-                                <Calendar size={18} className="text-text-disabled mr-3" />
-                                <input type="date" value={newDateStr} onChange={e => setNewDateStr(e.target.value)} className="bg-transparent text-sm text-text-primary font-bold w-full outline-none uppercase tracking-wider" />
-                            </div>
-                            <div className="flex gap-3">
-                                <div className="flex-1"><StepperControl value={months} onChange={setMonths} label="MESES" /></div>
-                                <div className="flex-1"><StepperControl value={days} onChange={setDays} label="DÍAS" /></div>
-                            </div>
+                        <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block">Duración</label>
+                        <div className="flex flex-wrap gap-2">
+                            {QUICK_MONTHS.map(m => {
+                                const active = days === 0 && months === m;
+                                return (
+                                    <button
+                                        key={m}
+                                        type="button"
+                                        onClick={() => { haptic('nav'); setMonths(m); setDays(0); }}
+                                        className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                    >
+                                        {m} {m === 1 ? 'mes' : 'meses'}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <StepperControl value={months} onChange={setMonths} label="MESES" />
+                            <StepperControl value={days} onChange={setDays} label="DÍAS" />
                         </div>
                     </div>
 
-                    {/* 2. PAGO Y BILLETERA */}
+                    {/* 3. NUEVO VENCIMIENTO */}
+                    <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
+                                <Calendar size={12} /> Nuevo vencimiento
+                            </label>
+                            <input
+                                type="date"
+                                value={newDateStr}
+                                onChange={e => setNewDateStr(e.target.value)}
+                                className="bg-transparent text-xl text-text-primary font-bold w-full outline-none mt-1"
+                            />
+                        </div>
+                        <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-brand-primary/15 text-brand-primary-hi shrink-0">{getExtensionLabel(months, days)}</span>
+                    </div>
+
+                    {/* 4. PAGO Y BILLETERA */}
                     <div className="space-y-3">
                         <div className="flex justify-between items-center px-1">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Pago y Billetera</label>
+                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Pago y billetera</label>
                             {isConversionActive && (<span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
                         </div>
-                        
-                        <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
-                            {/* Selector de Billetera */}
+
+                        <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
+                            {/* Selector de billetera */}
                             <button type="button" onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4 flex items-center justify-between active:scale-[0.98] transition-all hover:border-[rgb(var(--fg-rgb))]/20 group">
                                 <div className="flex items-center gap-3 overflow-hidden">
                                     {selectedWallet ? (
                                         <>
                                             <div className="w-8 h-8 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={14} /></div>
-                                            <div className="text-left">
-                                                <span className="block text-[12px] font-bold text-text-primary truncate leading-none mb-0.5">
-                                                    <span className="text-[9px] text-text-disabled mr-1">{selectedWallet.currency}</span>
-                                                    {selectedWallet.name}
-                                                </span>
-                                            </div>
+                                            <span className="text-[12px] font-bold text-text-primary truncate">
+                                                <span className="text-[10px] text-text-disabled mr-1">{selectedWallet.currency}</span>
+                                                {selectedWallet.name}
+                                            </span>
                                         </>
                                     ) : (
                                         <>
@@ -381,32 +455,34 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                                 <ChevronDown size={16} className="text-text-disabled shrink-0 group-hover:text-text-primary transition-colors" />
                             </button>
 
-                            {/* Input de Monto */}
+                            {/* Monto */}
                             <div className="relative h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
-                                <DollarSign size={24} className="text-status-success mr-2" />
-                                <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint" placeholder="0.00" inputMode="decimal" />
+                                <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
+                                <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint pr-12" placeholder="0.00" inputMode="decimal" />
                                 {selectedWallet && <span className="text-xs font-semibold text-text-disabled absolute right-5 top-1/2 -translate-y-1/2">{selectedWallet.currency}</span>}
                             </div>
+
+                            {/* Ganancia estimada */}
+                            {estimatedProfit !== 0 && (
+                                <div className="flex items-center justify-between px-1 text-[12px]">
+                                    <span className="text-text-disabled font-medium">Ganancia estimada</span>
+                                    <span className={`font-bold flex items-center gap-1.5 ${estimatedProfit > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
+                                        <TrendingUp size={14} /> {settings.currency} {estimatedProfit.toFixed(2)}
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    {estimatedProfit !== 0 && (
-                        <div className="flex justify-center">
-                            <span className={`text-[10px] font-semibold px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${estimatedProfit > 0 ? 'bg-status-success/10 text-status-success-soft border-status-success/20' : 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'}`}>
-                                <TrendingUp size={12} /> Ganancia Est.: {settings.currency} {estimatedProfit.toFixed(2)}
-                            </span>
-                        </div>
-                    )}
-
                 </div>
 
-                {/* Footer Actions */}
-                <div className="p-6 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-                    <button onClick={() => handleRenew(false)} className="flex-1 h-[56px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary rounded-2xl font-semibold text-xs uppercase tracking-wider transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover:text-text-primary">
+                {/* ───────── FOOTER ───────── */}
+                <div className="px-6 py-5 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
+                    <button onClick={() => handleRenew(false)} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                         <Check size={18} /> Guardar
                     </button>
-                    <button onClick={() => handleRenew(true)} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
-                        <MessageCircle size={18} strokeWidth={2.5} /> Renovar y Notificar
+                    <button onClick={() => handleRenew(true)} className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2">
+                        <MessageCircle size={18} strokeWidth={2.5} /> Renovar y notificar
                     </button>
                 </div>
 
