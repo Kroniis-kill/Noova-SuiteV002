@@ -5,19 +5,100 @@ import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { 
-  ShieldCheck, Calendar, ChevronDown, Lock, AlertTriangle, 
-  LayoutGrid, RefreshCw, Search, X, ChevronRight, 
-  MessageCircle, Check, Monitor, ArrowRightLeft, 
-  ArrowRight, Info, ShoppingCart, Layers, Timer, Wallet
+  ShieldCheck, ChevronDown, ChevronRight, Search, RefreshCw, Check, Monitor, 
+  ArrowRightLeft, ArrowRight, Info, ShoppingCart, Layers, Mail, User, Hash,
+  Minus, Plus, Loader2
 } from 'lucide-react';
-import { sendWhatsAppMessage, formatDate, parseLocalISO, getLocalDateISO } from '../../utils/contactosUtils';
-import { generateUUID } from '../../utils/uuid';
+import { parseLocalISO, getLocalDateISO } from '../../utils/contactosUtils';
 import { calculateOccupancy } from '../../utils/inventarioUtils';
-import { supabase } from '../../supabaseClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDaysRemaining } from '../../utils/expiredUtils';
 
-// --- SUB-COMPONENTS ---
+// --- CONSTANTES Y HELPERS ---
+
+// index.css aplica a TODOS los inputs fondo, borde, radio de 16px, anillo de foco y
+// font-size: 16px !important. Esta clase los neutraliza para inputs que viven dentro
+// de un contenedor con su propio estilo (el contenedor dibuja el borde y el foco).
+// El tamaño de fuente NO se toca aquí: los inputs pequeños conservan los 16px globales
+// (evita el auto-zoom de iOS) y los grandes lo sobrescriben con !text-*.
+const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0";
+
+// Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
+const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
+
+const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+
+const DAY_CHIPS = [0, 3, 7, 15];
+
+// [valor que se guarda, texto del chip]
+const REASONS: Array<[string, string]> = [
+  ['Bloqueo de hogar', 'Bloqueo de hogar'],
+  ['Caída de cuenta', 'Caída de cuenta'],
+  ['Error en perfil', 'Error en perfil'],
+  ['Compensación', 'Compensación por fallas'],
+];
+
+const formatLongDate = (dateStr?: string | null): string => {
+  if (!dateStr) return '---';
+  const d = parseLocalISO(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+};
+
+const getStatusBadge = (isFailing: boolean, days: number) => {
+  if (isFailing) return { label: 'Con falla', cls: 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' };
+  if (days < 0) return { label: 'Vencido', cls: 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' };
+  if (days === 0) return { label: 'Vence hoy', cls: 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' };
+  if (days <= 5) return { label: `Vence en ${days} d`, cls: 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' };
+  return { label: `Vence en ${days} d`, cls: 'bg-status-success/10 text-status-success-soft border-status-success/20' };
+};
+
+// --- SUB-COMPONENTES ---
+
+interface StepperControlProps {
+  value: number;
+  onChange: (value: number) => void;
+  label: string;
+}
+
+// Fuera del modal para no remontarse en cada render (si no, el input pierde el foco al escribir)
+const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label }) => (
+  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+    <button type="button" aria-label="Menos días" onClick={() => onChange(value - 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
+    <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full gap-0.5">
+      <input
+        type="number"
+        inputMode="numeric"
+        value={value}
+        onFocus={(e) => e.target.select()}
+        onChange={(e) => onChange(parseInt(e.target.value) || 0)}
+        className={`${CLEAN_INPUT} h-6 text-center !text-lg font-bold leading-none text-text-primary`}
+      />
+      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
+    </div>
+    <button type="button" aria-label="Más días" onClick={() => onChange(value + 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
+  </div>
+);
+
+interface PickerRowProps {
+  icon: React.ReactNode;
+  iconClass: string;
+  title: string;
+  subtitle: string;
+  selected?: boolean;
+}
+
+// Fila que se ve dentro de las listas de búsqueda (cuenta, plataforma, servicio destino)
+const PickerRow: React.FC<PickerRowProps> = ({ icon, iconClass, title, subtitle, selected }) => (
+  <div className={`flex items-center gap-3 p-3 rounded-xl border transition-all text-left ${selected ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4'}`}>
+    <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
+    <div className="flex-1 min-w-0">
+      <p className="text-sm font-bold text-text-primary truncate">{title}</p>
+      <p className="text-[11px] text-text-disabled mt-0.5">{subtitle}</p>
+    </div>
+    {selected ? <Check size={16} className="text-brand-primary shrink-0" strokeWidth={3} /> : <ChevronRight size={16} className="text-text-faint shrink-0" />}
+  </div>
+);
 
 interface SearchListModalProps {
   isOpen: boolean;
@@ -44,12 +125,12 @@ const SearchListModal: React.FC<SearchListModalProps> = ({ isOpen, onClose, item
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} zIndex={zIndex}>
       <div className="flex flex-col h-[60vh] md:h-[450px] pt-1">
-        <div className="relative mb-4 shrink-0">
-           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
+        <div className={`${FIELD_BOX} mb-4 shrink-0`}>
+           <Search size={16} className="text-text-faint shrink-0" />
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder={placeholder || "Buscar..."}
-             className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-10 py-3.5 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium"
+             className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-faint`}
              autoFocus
            />
         </div>
@@ -64,7 +145,7 @@ const SearchListModal: React.FC<SearchListModalProps> = ({ isOpen, onClose, item
                     onSelect(item); 
                     onClose(); 
                 }} 
-                className="w-full text-left mb-2 outline-none"
+                className="w-full text-left outline-none"
               >
                  {renderItem(item)}
               </button>
@@ -274,167 +355,233 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
     }
   };
 
-  const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1.5 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60",
-    input: "w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-md",
-    modeBtn: "flex-1 py-3.5 rounded-md text-[11px] font-semibold uppercase transition-all flex items-center justify-center gap-2 border"
-  };
+  // --- DERIVADOS PARA LA UI ---
+  const destService = services.find(s => s.id === selectedServiceId);
+  const serviceChanged = !!destService && destService.name !== sale.serviceName;
+  const selectedAccount = accounts.find(a => a.id === selectedAccountId);
+  const totalAdj = daysToAdd + prorataAdjustment;
+  const statusBadge = getStatusBadge(currentAccount?.status === 'fallando', getDaysRemaining(sale.expiryDate, currentAccount));
+  // Solo tiene sentido editar el perfil si la venta tiene perfiles asignados (handleSave ignora el resto)
+  const hasProfiles = !!sale.assignedProfiles && sale.assignedProfiles.length > 0;
+  const targetNewDate = targetSale
+    ? (() => {
+        const d = parseLocalISO(targetSale.expiryDate);
+        d.setDate(d.getDate() + prorataAdjustment);
+        return d.toISOString().split('T')[0];
+      })()
+    : '';
+  const isConfirmDisabled = isSubmitting || (warrantyMode === 'replace' && (!reason || !selectedAccountId)) || (warrantyMode === 'credit' && !targetSaleId);
 
   const subModalZIndex = (zIndex || 10000) + 100;
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} title="Gestión de Garantía" zIndex={zIndex}>
-         <div className="space-y-4 pt-1">
-            
-            {/* SEGMENTED CONTROL MODO */}
-            <div className="flex bg-surface-sunken p-1 rounded-lg border border-[rgb(var(--fg-rgb))]/10">
-                <button 
-                    onClick={() => setWarrantyMode('replace')}
-                    className={`${styles.modeBtn} ${warrantyMode === 'replace' ? 'bg-surface-4 text-text-primary border-[rgb(var(--fg-rgb))]/10 shadow-sm' : 'bg-transparent text-text-disabled border-transparent'}`}
-                >
-                    <RefreshCw size={14} /> Reponer / Cambiar
-                </button>
-                <button 
-                    onClick={() => setWarrantyMode('credit')}
-                    className={`${styles.modeBtn} ${warrantyMode === 'credit' ? 'bg-surface-4 text-brand-primary border-[rgb(var(--fg-rgb))]/10 shadow-sm' : 'bg-transparent text-text-disabled border-transparent'}`}
-                >
-                    <ArrowRightLeft size={14} /> Abonar a otro
-                </button>
-            </div>
+      <Modal isOpen={isOpen} onClose={onClose} title="Gestión de garantía" zIndex={zIndex}>
+         <div className="flex flex-col animate-fade-in pt-1">
 
-            <AnimatePresence mode="wait">
-                {warrantyMode === 'replace' ? (
-                    <motion.div key="replace" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="space-y-4">
-                        {/* SELECTOR SERVICIO */}
-                        <div>
-                           <label className={styles.label}>PLATAFORMA DESTINO</label>
-                           <button type="button" onClick={() => setModalSearch('service')} className={`${styles.inputContainer} w-full text-left`}>
-                              <LayoutGrid size={18} className="absolute left-4 text-text-disabled" />
-                              <div className={`${styles.input} pl-11 flex items-center justify-between pr-8`}>
-                                <span className="text-text-primary truncate">{services.find(s => s.id === selectedServiceId)?.name || sale.serviceName}</span>
-                                {selectedServiceId && services.find(s => s.id === selectedServiceId)?.name !== sale.serviceName && (
-                                    <span className="text-[9px] bg-status-warning/20 text-status-warning-soft px-2 py-0.5 rounded font-bold border border-status-warning/20">CAMBIO</span>
-                                )}
-                              </div>
-                              <ChevronDown size={14} className="absolute right-4 text-text-disabled" />
-                           </button>
-                        </div>
+            <p className="text-[11px] text-text-disabled font-medium mb-4 truncate">{client?.name}</p>
 
-                        {/* SELECTOR CUENTA */}
-                        <div>
-                           <label className={styles.label}>CUENTA DE REEMPLAZO</label>
-                           <button type="button" onClick={() => setModalSearch('account')} className={`${styles.inputContainer} w-full text-left`}>
-                              <RefreshCw size={18} className="absolute left-4 text-text-disabled" />
-                              <div className={`${styles.input} pl-11 flex items-center`}><span className="text-text-primary truncate">{accounts.find(a => a.id === selectedAccountId)?.email || 'Seleccionar cuenta...'}</span></div>
-                              <ChevronDown size={14} className="absolute right-4 text-text-disabled" />
-                           </button>
-                        </div>
+            <div className="flex flex-col gap-5">
 
-                        {/* AJUSTE TIEMPO */}
-                        <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/[0.04] rounded-xl p-4">
-                           <div className="flex items-center gap-2 mb-3 text-[10px] font-semibold text-text-disabled uppercase"><Calendar size={12} /><span>Compensación de tiempo</span></div>
-                           <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5">
-                                 <label className="text-[9px] text-text-faint font-bold mb-1 block uppercase">Días Manuales</label>
-                                 <input type="number" value={daysToAdd} onChange={(e) => setDaysToAdd(parseInt(e.target.value) || 0)} className="w-full bg-transparent text-text-primary font-bold outline-none" />
-                              </div>
-                              <div className="bg-surface-sunken rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 text-center">
-                                 <label className="text-[9px] text-text-faint font-bold mb-1 block uppercase">Nueva Fecha</label>
-                                 <div className="text-status-success-soft font-bold text-sm font-mono">{newExpiryDate}</div>
-                              </div>
-                           </div>
-                           {prorataAdjustment !== 0 && (
-                               <div className="mt-3 p-2.5 bg-status-info/10 border border-status-info/20 rounded-xl flex items-center justify-between">
-                                   <span className="text-[10px] text-blue-300 font-medium">Equivalencia por cambio de precio:</span>
-                                   <span className={`text-xs font-semibold ${prorataAdjustment > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment}d</span>
-                               </div>
-                           )}
-                        </div>
+                {/* 1. RESUMEN DEL SERVICIO CON FALLA */}
+                <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20"><ShieldCheck size={18} /></div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
+                        <p className="text-[11px] text-text-muted font-medium mt-0.5 truncate">Vence el {formatLongDate(sale.expiryDate)}{currentAccount ? ` · ${currentAccount.email}` : ''}</p>
+                    </div>
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${statusBadge.cls}`}>{statusBadge.label}</span>
+                </div>
 
-                        {/* CREDENCIALES PERFIL */}
-                        <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/[0.04] rounded-xl p-4">
-                           <div className="flex items-center gap-2 mb-3 text-[10px] font-semibold text-text-disabled uppercase"><Monitor size={12} /><span>Credenciales de perfil</span></div>
-                           <div className="flex gap-3">
-                              <div className="flex-1 h-[44px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/5"><input placeholder="Nombre Perfil" value={profileName} onChange={(e) => setProfileName(e.target.value)} className="w-full h-full bg-transparent px-3 text-xs text-text-primary outline-none" /></div>
-                              <div className="w-[80px] h-[44px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/5"><input placeholder="PIN" value={profilePin} onChange={(e) => setProfilePin(e.target.value)} className="w-full h-full bg-transparent text-center text-xs text-text-primary font-mono outline-none" /></div>
-                           </div>
-                        </div>
+                {/* 2. MODO */}
+                <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
+                    <button
+                        type="button"
+                        onClick={() => setWarrantyMode('replace')}
+                        className={`h-11 rounded-lg text-[13px] font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'replace' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                    >
+                        <RefreshCw size={16} /> Reponer / cambiar
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setWarrantyMode('credit')}
+                        className={`h-11 rounded-lg text-[13px] font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'credit' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                    >
+                        <ArrowRightLeft size={16} /> Abonar a otro
+                    </button>
+                </div>
 
-                        <div>
-                           <label className={styles.label}>MOTIVO <span className="text-status-danger-soft">*</span></label>
-                           <div className={styles.inputContainer}>
-                              <AlertTriangle size={18} className="absolute left-4 text-text-disabled" />
-                              <select value={reason} onChange={(e) => setReason(e.target.value)} className="w-full h-full bg-transparent text-[13px] text-text-primary px-11 outline-none appearance-none cursor-pointer font-medium">
-                                 <option value="">Seleccionar...</option>
-                                 <option value="Bloqueo de hogar">Bloqueo de hogar</option>
-                                 <option value="Caída de cuenta">Caída de cuenta</option>
-                                 <option value="Error en perfil">Error en perfil</option>
-                                 <option value="Compensación">Compensación por fallas</option>
-                              </select>
-                              <ChevronDown size={14} className="absolute right-4 text-text-disabled" />
-                           </div>
-                        </div>
-                    </motion.div>
-                ) : (
-                    <motion.div key="credit" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-6">
-                        <div className="bg-status-info/10 border border-status-info/20 p-4 rounded-md flex gap-3 items-start">
-                            <div className="p-2 bg-status-info/20 rounded-full text-status-info-soft shrink-0"><Info size={18} /></div>
-                            <p className="text-[11px] text-blue-200 leading-snug">Ideal si el cliente prefiere sumar el tiempo restante de este servicio fallido a otro que ya tenga activo.</p>
-                        </div>
+                <AnimatePresence mode="wait">
+                    {warrantyMode === 'replace' ? (
+                        <motion.div key="replace" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="flex flex-col gap-5">
 
-                        <div>
-                           <label className={styles.label}>SELECCIONAR SERVICIO DESTINO</label>
-                           <button type="button" onClick={() => setModalSearch('target_sale')} className={`${styles.inputContainer} w-full text-left cursor-pointer active:scale-95 transition-all`}>
-                              <ShoppingCart size={18} className="absolute left-4 text-text-disabled" />
-                              <div className={`${styles.input} pl-11 flex items-center`}><span className={targetSale ? 'text-text-primary' : 'text-text-disabled'}>{targetSale ? `${targetSale.serviceName} (Vence: ${targetSale.expiryDate})` : 'Elegir servicio activo...'}</span></div>
-                              <ChevronDown size={14} className="absolute right-4 text-text-disabled" />
-                           </button>
-                        </div>
-
-                        {targetSale && (
-                            <div className="bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 text-center space-y-4">
-                                <div className="flex items-center justify-center gap-6">
-                                    <div className="flex flex-col items-center">
-                                        <div className="w-12 h-12 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft mb-2 border border-status-danger/20"><Layers size={20} /></div>
-                                        <span className="text-[10px] font-semibold text-text-disabled uppercase">Origen</span>
-                                        <span className="text-xs font-semibold text-text-primary truncate max-w-[80px]">{sale.serviceName}</span>
-                                    </div>
-                                    <ArrowRight className="text-text-faint" />
-                                    <div className="flex flex-col items-center">
-                                        <div className="w-12 h-12 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft mb-2 border border-status-success/20"><RefreshCw size={20} /></div>
-                                        <span className="text-[10px] font-semibold text-text-disabled uppercase">Destino</span>
-                                        <span className="text-xs font-semibold text-text-primary truncate max-w-[80px]">{targetSale.serviceName}</span>
-                                    </div>
-                                </div>
-                                
-                                <div className="pt-4 border-t border-[rgb(var(--fg-rgb))]/5">
-                                    <p className="text-[11px] text-text-muted font-medium uppercase tracking-widest">Equivalencia Abonar:</p>
-                                    <p className="text-3xl font-extrabold text-status-success-soft mt-1">+{prorataAdjustment} DÍAS</p>
-                                    <p className="text-[10px] text-text-disabled mt-2">Próxima fecha: <span className="text-text-secondary font-bold">{
-                                        (() => {
-                                            const d = parseLocalISO(targetSale.expiryDate);
-                                            d.setDate(d.getDate() + prorataAdjustment);
-                                            return d.toISOString().split('T')[0];
-                                        })()
-                                    }</span></p>
+                            {/* 3A. ORIGEN: PLATAFORMA Y CUENTA */}
+                            <div className="space-y-3">
+                                <label className={SECTION_LABEL}>Origen</label>
+                                <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+                                    <button type="button" onClick={() => setModalSearch('service')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
+                                        <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><Monitor size={18} /></div>
+                                        <div className="flex-1 min-w-0">
+                                            <span className="block text-[10px] font-semibold text-text-disabled uppercase">Plataforma destino</span>
+                                            <span className="block text-sm font-bold text-text-primary truncate">{destService?.name || sale.serviceName}</span>
+                                        </div>
+                                        {serviceChanged && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning-soft border border-status-warning/20 shrink-0">Cambio</span>}
+                                        <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
+                                    </button>
+                                    <button type="button" onClick={() => setModalSearch('account')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
+                                        <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-status-success shrink-0"><Mail size={18} /></div>
+                                        <div className="flex-1 min-w-0">
+                                            <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cuenta de reemplazo</span>
+                                            <span className={`block text-[13px] font-bold truncate ${selectedAccount ? 'text-text-primary' : 'text-text-faint'}`}>{selectedAccount?.email || 'Seleccionar cuenta...'}</span>
+                                        </div>
+                                        <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
+                                    </button>
                                 </div>
                             </div>
-                        )}
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
-            <div className="pt-4 flex flex-col gap-3">
-              <button 
-                  onClick={() => handleSave()} 
-                  disabled={isSubmitting || (warrantyMode === 'replace' && (!reason || !selectedAccountId)) || (warrantyMode === 'credit' && !targetSaleId)} 
-                  className="bg-gradient-to-r from-brand-primary to-brand-accent text-white h-12 rounded-md font-bold shadow-glow transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-[13px]"
-              >
-                  {isSubmitting ? <RefreshCw size={18} className="animate-spin" /> : <><Check size={18} /> {warrantyMode === 'replace' ? 'Confirmar Reposición' : 'Confirmar Abono'}</>}
-              </button>
-              <button onClick={onClose} className="w-full py-3 text-text-disabled text-xs font-semibold active:text-text-primary">Cerrar</button>
+                            {/* 3B. COMPENSACIÓN DE TIEMPO */}
+                            <div className="space-y-3">
+                                <label className={SECTION_LABEL}>Compensación de tiempo</label>
+                                <div className="flex flex-wrap gap-2">
+                                    {DAY_CHIPS.map(n => (
+                                        <button
+                                            key={n}
+                                            type="button"
+                                            onClick={() => setDaysToAdd(n)}
+                                            className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${daysToAdd === n ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                        >
+                                            {n === 0 ? 'Sin días' : `+${n} días`}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <StepperControl value={daysToAdd} onChange={setDaysToAdd} label="DÍAS MANUALES" />
+                                    <div className="bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[52px] px-4 flex flex-col justify-center min-w-0">
+                                        <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">Nuevo vencimiento</span>
+                                        <span className={`text-[15px] font-bold leading-tight mt-1 ${totalAdj > 0 ? 'text-status-success-soft' : 'text-text-primary'}`}>{formatLongDate(newExpiryDate)}</span>
+                                    </div>
+                                </div>
+                                {prorataAdjustment !== 0 && (
+                                    <div className="p-3 bg-status-info/10 border border-status-info/20 rounded-xl flex items-center justify-between gap-3">
+                                        <span className="text-xs text-status-info-soft font-medium">Equivalencia por cambio de precio</span>
+                                        <span className={`text-[13px] font-bold shrink-0 ${prorataAdjustment > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment} d</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* 3C. CREDENCIALES DE PERFIL */}
+                            {hasProfiles && (
+                                <div className="space-y-3">
+                                    <label className={SECTION_LABEL}>Credenciales de perfil</label>
+                                    <div className="flex gap-2">
+                                        <div className={`${FIELD_BOX} flex-1 min-w-0`}>
+                                            <User size={16} className="text-text-faint shrink-0" />
+                                            <input
+                                                value={profileName}
+                                                onChange={(e) => setProfileName(e.target.value)}
+                                                placeholder="Nombre del perfil"
+                                                className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-faint`}
+                                            />
+                                        </div>
+                                        <div className={`${FIELD_BOX} w-[104px] shrink-0 !gap-2 !px-3`}>
+                                            <Hash size={14} className="text-text-faint shrink-0" />
+                                            <input
+                                                value={profilePin}
+                                                onChange={(e) => setProfilePin(e.target.value)}
+                                                placeholder="PIN"
+                                                inputMode="numeric"
+                                                className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-faint`}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 3D. MOTIVO (obligatorio) */}
+                            <div className="space-y-3">
+                                <label className={SECTION_LABEL}>Motivo <span className="text-status-danger-soft">*</span></label>
+                                <div className="flex flex-wrap gap-2">
+                                    {REASONS.map(([value, label]) => (
+                                        <button
+                                            key={value}
+                                            type="button"
+                                            onClick={() => setReason(value)}
+                                            className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${reason === value ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <motion.div key="credit" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="flex flex-col gap-5">
+
+                            {/* 4A. AVISO */}
+                            <div className="p-3.5 bg-status-info/10 border border-status-info/20 rounded-xl flex gap-3 items-start">
+                                <Info size={18} className="text-status-info-soft shrink-0 mt-0.5" />
+                                <p className="text-xs text-status-info-soft leading-relaxed">Suma el tiempo restante de este servicio con falla a otro servicio activo del cliente.</p>
+                            </div>
+
+                            {/* 4B. SERVICIO DESTINO */}
+                            <div className="space-y-3">
+                                <label className={SECTION_LABEL}>Servicio destino</label>
+                                <button type="button" onClick={() => setModalSearch('target_sale')} className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 text-left active:scale-[0.99] transition-all group">
+                                    <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><ShoppingCart size={18} /></div>
+                                    <div className="flex-1 min-w-0">
+                                        <span className="block text-[10px] font-semibold text-text-disabled uppercase">Servicio activo</span>
+                                        <span className={`block text-[13px] font-bold truncate ${targetSale ? 'text-text-primary' : 'text-text-faint'}`}>
+                                            {targetSale ? `${targetSale.serviceName} · vence ${formatLongDate(targetSale.expiryDate)}` : 'Elegir servicio...'}
+                                        </span>
+                                    </div>
+                                    <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
+                                </button>
+                            </div>
+
+                            {/* 4C. RESULTADO DEL ABONO */}
+                            {targetSale && (
+                                <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4">
+                                    <div className="flex items-center justify-center gap-5">
+                                        <div className="flex flex-col items-center min-w-0">
+                                            <div className="w-11 h-11 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft mb-1.5 border border-status-danger/20"><Layers size={20} /></div>
+                                            <span className="text-[10px] font-semibold text-text-disabled uppercase">Origen</span>
+                                            <span className="text-xs font-bold text-text-primary truncate max-w-[110px]">{sale.serviceName}</span>
+                                        </div>
+                                        <ArrowRight size={20} className="text-text-faint shrink-0" />
+                                        <div className="flex flex-col items-center min-w-0">
+                                            <div className="w-11 h-11 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft mb-1.5 border border-status-success/20"><RefreshCw size={20} /></div>
+                                            <span className="text-[10px] font-semibold text-text-disabled uppercase">Destino</span>
+                                            <span className="text-xs font-bold text-text-primary truncate max-w-[110px]">{targetSale.serviceName}</span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4 pt-4 border-t border-[rgb(var(--fg-rgb))]/5 text-center">
+                                        <p className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Equivalencia a abonar</p>
+                                        <p className="text-4xl font-black text-status-success-soft leading-tight mt-1">+{prorataAdjustment} días</p>
+                                        <p className="text-xs text-text-muted mt-2">Nueva fecha del destino: <span className="text-text-primary font-bold">{formatLongDate(targetNewDate)}</span></p>
+                                    </div>
+                                </div>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* 5. ACCIONES (quedan pegadas abajo al hacer scroll) */}
+            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex gap-3">
+                <button
+                    onClick={onClose}
+                    className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]"
+                >
+                    Cerrar
+                </button>
+                <button
+                    onClick={() => handleSave()}
+                    disabled={isConfirmDisabled}
+                    className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100"
+                >
+                    {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Check size={18} strokeWidth={3} />}
+                    {warrantyMode === 'replace' ? 'Confirmar reposición' : 'Confirmar abono'}
+                </button>
             </div>
          </div>
       </Modal>
@@ -443,61 +590,57 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
       <SearchListModal 
          isOpen={modalSearch === 'account'} 
          onClose={() => setModalSearch(null)} 
-         title="Seleccionar Cuenta"
+         title="Seleccionar cuenta"
          zIndex={subModalZIndex}
          items={accounts.filter(a => a.serviceId === selectedServiceId && a.status === 'activa' && (a.id === currentAccount?.id || (a.maxScreens - calculateOccupancy(a) >= (sale.screensCount || 1))))}
          onSelect={(acc) => setSelectedAccountId(acc.id)}
-         renderItem={(acc: Account) => (
-            <div className="flex items-center gap-3 p-3 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 transition-all group text-left">
-                <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary shrink-0"><RefreshCw size={18} /></div>
-                <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.email}</p>
-                    <p className="text-[10px] text-text-disabled">{acc.maxScreens - calculateOccupancy(acc)} disponibles</p>
-                </div>
-                <ChevronRight size={16} className="text-text-faint group-hover:text-text-primary" />
-            </div>
-         )}
+         renderItem={(acc: Account) => {
+            const free = acc.maxScreens - calculateOccupancy(acc);
+            return (
+              <PickerRow
+                icon={<Mail size={18} />}
+                iconClass="bg-status-success/10 text-status-success-soft"
+                title={acc.email}
+                subtitle={`${free} ${free === 1 ? 'cupo libre' : 'cupos libres'}`}
+                selected={selectedAccountId === acc.id}
+              />
+            );
+         }}
       />
 
       <SearchListModal 
         isOpen={modalSearch === 'service'} 
         onClose={() => setModalSearch(null)} 
-        title="Cambiar Servicio"
+        title="Cambiar servicio"
         zIndex={subModalZIndex}
         items={services} 
         onSelect={(svc) => { setSelectedServiceId(svc.id); if (svc.id !== currentAccount?.serviceId) setSelectedAccountId(''); }}
         renderItem={(s: Service) => (
-            <div className="flex items-center justify-between p-3 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 transition-all group text-left">
-                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary shrink-0"><Monitor size={18} /></div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{s.name}</p>
-                        <p className="text-[10px] text-text-disabled">${s.publicPrice} / mes</p>
-                    </div>
-                 </div>
-                 <ChevronRight size={16} className="text-text-faint group-hover:text-text-primary" />
-            </div>
+          <PickerRow
+            icon={<Monitor size={18} />}
+            iconClass="bg-brand-primary/15 text-brand-primary-hi"
+            title={s.name}
+            subtitle={`$${s.publicPrice} / mes`}
+            selected={selectedServiceId === s.id}
+          />
         )}
       />
 
       <SearchListModal 
         isOpen={modalSearch === 'target_sale'} 
         onClose={() => setModalSearch(null)} 
-        title="Elegir Servicio Destino"
+        title="Elegir servicio destino"
         zIndex={subModalZIndex}
         items={clientOtherActiveSales} 
         onSelect={(s: Sale) => setTargetSaleId(s.id)}
         renderItem={(s: Sale) => (
-            <div className="flex items-center justify-between p-3 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/30 transition-all text-left">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20"><RefreshCw size={18} /></div>
-                    <div>
-                        <p className="text-sm font-bold text-text-primary leading-tight">{s.serviceName}</p>
-                        <p className="text-[10px] text-text-disabled mt-0.5">Vence: {formatDate(s.expiryDate)}</p>
-                    </div>
-                </div>
-                <ChevronRight size={14} className="text-text-faint" />
-            </div>
+          <PickerRow
+            icon={<Layers size={18} />}
+            iconClass="bg-brand-primary/15 text-brand-primary-hi"
+            title={s.serviceName}
+            subtitle={`Vence ${formatLongDate(s.expiryDate)}`}
+            selected={targetSaleId === s.id}
+          />
         )}
       />
     </>
