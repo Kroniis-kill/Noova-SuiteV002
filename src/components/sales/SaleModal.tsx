@@ -1,19 +1,12 @@
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState, useEffect, useMemo } from 'react';
 import Modal from '../ui/Modal';
 import { Sale, Client, ScreenProfile, ServiceType, Service, Account, FinancialAccount } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { 
-  Check, ChevronRight, Wallet, Search, Minus, Plus, ChevronDown, 
-  Loader2, Ban, DollarSign, ShoppingCart, Trash2, ArrowLeft, 
-  X, MessageCircle, RefreshCw, Wand2, FileText, Save, 
-  Calendar, User, LayoutTemplate, Lock, Mail, Tag, 
-  Briefcase, TrendingUp, History, Layers, 
-  CreditCard, Info, ArrowRight, Monitor, UserPlus, Phone,
-  Hash, Clock, AlertCircle
+  Check, ChevronRight, Wallet, Search, Plus, Ban, DollarSign, ShoppingCart, Trash2, ArrowLeft, MessageCircle, History, Layers, ArrowRight, UserPlus, AlertCircle
 } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { generatePin } from '../../utils/uuid';
@@ -21,7 +14,7 @@ import { addTime, sendWhatsAppMessage, getLocalDateISO } from '../../utils/conta
 import { getCombinedWhatsAppTemplate } from '../../utils/salesUtils';
 import { calculateOccupancy } from '../../utils/inventarioUtils';
 import { useHaptic } from '../../hooks/useHaptic';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { withRetry } from '../../utils/supabaseUtils';
 import { supabase } from '../../supabaseClient';
 
@@ -32,6 +25,7 @@ import BlockWarningModal from './BlockWarningModal';
 import NewClientFormModal from './NewClientFormModal';
 import SearchListModal from './SearchListModal';
 import ItemConfigPanel from './ItemConfigPanel';
+import ItemConfigForm, { SALE_TYPE_LABELS } from './ItemConfigForm';
 import { CartItem, SaleModalProps } from './saleModal.types';
 
 const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIndex }) => {
@@ -382,266 +376,164 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
   const totalCart = cart.reduce((acc, i) => acc + i.amount, 0);
 
+  // --- DERIVADOS Y HANDLERS DE LA UI ---
+
+  // Cuentas de stock con cupo libre para la plataforma elegida
+  const availableAccounts = accounts.filter(a => a.serviceId === tempServiceId && a.status === 'activa' && (a.maxScreens - calculateOccupancy(a)) > 0);
+
+  // Abre el panel de configuración con los datos de un item ya agregado al carrito
+  const openItemForEdit = (item: CartItem) => {
+      haptic('nav');
+      setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate);
+      setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens);
+      setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType);
+      setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || '');
+      setIsItemConfigOpen(true);
+  };
+
+  const handleGoToCheckout = () => {
+      if (cart.length === 0) return;
+      if (!selectedClientId) { showToast('Selecciona un cliente', 'error'); return; }
+      haptic('nav'); setTotalToPay(totalCart); setStep(2);
+  };
+
+  // Props compartidas por el panel "Configurar servicio" y por el modo "Editar servicio"
+  const itemFormProps = {
+      tempServiceId, services, tempAccountId, accounts: availableAccounts,
+      tempStartDate, tempMonths, tempDays, tempScreens, tempAmount, tempProfiles, tempType,
+      tempInvitedEmail, tempInvitedPassword, setTempInvitedEmail, setTempInvitedPassword,
+      isResellerClient, setTempStartDate, setTempMonths, setTempDays, setTempScreens, setTempAmount,
+      handleProfileChange,
+      openServiceSearch: () => setModalSearch('service'),
+      openAccountSearch: () => { if (tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio', 'error'); },
+      onAutoAssign: handleAutoAssign,
+  };
+
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={() => { haptic('nav'); onClose(); if(!initialData) resetAll(); }} title={initialData ? "Editar Servicio" : "Nueva Venta"} zIndex={zIndex}>
+      <Modal isOpen={isOpen} onClose={() => { haptic('nav'); onClose(); if(!initialData) resetAll(); }} title={initialData ? "Editar servicio" : "Nueva venta"} zIndex={zIndex}>
          <div className="flex flex-col h-full relative">
             
             {step === 1 && (
                 initialData ? (
-                    <div className="flex flex-col animate-fade-in pb-4 pt-1 space-y-6">
-                        {/* 1. SELECCIÓN DE SERVICIO Y CUENTA */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Origen del Servicio</label>
-                            
-                            <button onClick={() => { haptic('nav'); setModalSearch('service'); }} className="w-full bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary">
-                                        <Monitor size={22} />
-                                    </div>
-                                    <div className="text-left">
-                                        <span className="block text-[10px] font-semibold text-text-disabled uppercase">Plataforma</span>
-                                        <span className={`block text-sm font-bold truncate ${tempServiceId ? 'text-text-primary' : 'text-text-faint'}`}>
-                                            {services.find(s => s.id === tempServiceId)?.name || 'Seleccionar...'}
-                                        </span>
-                                    </div>
-                                </div>
-                                <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
-                            </button>
-
-                            <div className="flex gap-2">
-                                <button onClick={() => { haptic('nav'); if(tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio','error'); }} disabled={!tempServiceId} className={`flex-1 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex items-center justify-between active:scale-[0.98] transition-all hover:bg-surface-3 group ${!tempServiceId ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
-                                    <div className="flex items-center gap-4 min-w-0">
-                                        <div className="w-12 h-12 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-success shrink-0">
-                                            <Mail size={22} />
-                                        </div>
-                                        <div className="text-left min-w-0">
-                                            <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cuenta / Stock</span>
-                                            <span className={`block text-sm font-bold truncate ${tempAccountId ? 'text-text-primary' : 'text-text-faint'}`}>
-                                                {accounts.find(a => a.id === tempAccountId)?.email || 'Asignar cuenta...'}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <ChevronDown size={18} className="text-text-faint group-hover:text-text-primary shrink-0" />
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* 2. TIEMPO Y DURACIÓN */}
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1">Vigencia y Tiempo</label>
-                            <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
-                                <div className="flex items-center bg-surface-sunken rounded-md px-4 h-[52px] border border-[rgb(var(--fg-rgb))]/10">
-                                    <Calendar size={18} className="text-text-disabled mr-3" />
-                                    <input type="date" value={tempStartDate} onChange={e => setTempStartDate(e.target.value)} className="bg-transparent text-sm text-text-primary font-bold w-full outline-none uppercase tracking-wider" />
-                                </div>
-                                <div className="flex gap-3">
-                                    <div className="flex-1">
-                                        <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full">
-                                            <button onClick={() => setTempMonths(Math.max(0, tempMonths - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
-                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-text-primary">{tempMonths}</span><span className="text-[8px] font-bold text-text-faint uppercase tracking-wide">MESES</span></div>
-                                            <button onClick={() => setTempMonths(tempMonths + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full">
-                                            <button onClick={() => setTempDays(Math.max(0, tempDays - 1))} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
-                                            <div className="flex flex-col items-center leading-none"><span className="text-lg font-bold text-text-primary">{tempDays}</span><span className="text-[8px] font-bold text-text-faint uppercase tracking-wide">DÍAS</span></div>
-                                            <button onClick={() => setTempDays(tempDays + 1)} className="w-10 h-full rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* 3. PRECIO Y PERFILES */}
-                        <div className="grid grid-cols-1 gap-6">
-                            <div>
-                                <div className="flex justify-between items-center mb-3 px-1">
-                                    <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Precio de Venta</label>
-                                    {isResellerClient && <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa Socio</span>}
-                                </div>
-                                <div className="relative h-[60px] bg-surface-zinc rounded-lg border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
-                                    <DollarSign size={24} className="text-status-success mr-2" />
-                                    <input type="number" value={tempAmount} onChange={e => setTempAmount(e.target.value)} className="w-full bg-transparent text-2xl font-black text-text-primary outline-none placeholder:text-text-faint" placeholder="0.00" inputMode="decimal" />
-                                </div>
-                            </div>
-
-                            {tempType === 'por_pantalla' && (
-                                <div className="space-y-3">
-                                    <div className="flex justify-between items-center px-1">
-                                        <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Perfiles ({tempScreens})</label>
-                                        <div className="flex gap-1">
-                                            <button onClick={() => setTempScreens(Math.max(1, tempScreens - 1))} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary"><Minus size={14}/></button>
-                                            <button onClick={() => setTempScreens(tempScreens + 1)} className="w-7 h-7 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary"><Plus size={14}/></button>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        {tempProfiles.map((p, idx) => (
-                                            <div key={idx} className="flex gap-2">
-                                                <div className="flex-1 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-4 focus-within:border-brand-primary/40 transition-colors">
-                                                    <User size={16} className="text-text-faint mr-3" />
-                                                    <input value={p.name} onChange={e => handleProfileChange(idx, 'name', e.target.value)} placeholder={`Perfil ${idx+1}`} className="bg-transparent w-full text-sm text-text-primary font-bold outline-none placeholder:text-text-faint" />
-                                                </div>
-                                                <div className="w-24 bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[50px] flex items-center px-3 focus-within:border-brand-primary/40 transition-colors">
-                                                    <Hash size={14} className="text-text-faint mr-2" />
-                                                    <input value={p.pin} onChange={e => handleProfileChange(idx, 'pin', e.target.value)} placeholder="PIN" className="bg-transparent w-full text-sm text-text-primary font-mono font-bold outline-none text-center placeholder:text-text-faint" inputMode="numeric" />
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {(tempType === 'usuario_unico' || tempType === 'cuenta_completa') && (
-                                <div className="p-4 bg-status-info/5 border border-status-info/10 rounded-md space-y-4">
-                                    <div className="flex items-center gap-2 text-status-info-soft mb-1">
-                                        <Info size={16} />
-                                        <span className="text-xs font-semibold uppercase">Credenciales de Acceso</span>
-                                    </div>
-                                    
-                                    {tempType === 'usuario_unico' && (
-                                        <>
-                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                                                <Mail size={16} className="text-text-disabled mr-3" />
-                                                <input value={tempInvitedEmail} onChange={e => setTempInvitedEmail(e.target.value)} placeholder="Correo del cliente" className="bg-transparent w-full text-sm text-text-primary outline-none font-medium" />
-                                            </div>
-                                            <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                                                <Lock size={16} className="text-text-disabled mr-3" />
-                                                <input value={tempInvitedPassword} onChange={e => setTempInvitedPassword(e.target.value)} placeholder="Contraseña asignada" className="bg-transparent w-full text-sm text-text-primary outline-none font-mono font-medium" />
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {tempType === 'cuenta_completa' && (
-                                        <div className="flex items-center bg-surface-sunken rounded-md h-[48px] px-4 border border-[rgb(var(--fg-rgb))]/5">
-                                            <User size={16} className="text-text-disabled mr-3" />
-                                            <input value={tempProfiles[0]?.name || ''} onChange={e => handleProfileChange(0, 'name', e.target.value)} placeholder="Nombre referencial" className="bg-transparent w-full text-sm text-text-primary outline-none font-medium" />
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Footer Actions for Edit Mode */}
-                        <div className="pt-6 flex gap-3">
-                            <button onClick={onClose} className="flex-1 h-[56px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs uppercase tracking-wider hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
+                    /* ───────── MODO EDICIÓN: mismo formulario que "Configurar servicio" ───────── */
+                    <div className="flex flex-col animate-fade-in pt-1 gap-5">
+                        <ItemConfigForm
+                            {...itemFormProps}
+                            accounts={accounts}
+                            isEditing
+                            currentExpiry={initialData.expiryDate}
+                        />
+                        <div className="flex gap-3">
+                            <button onClick={onClose} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">
                                 Cancelar
                             </button>
-                            <button onClick={() => { haptic('nav'); handleAddItem(); }} className="flex-[2] h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-xs uppercase tracking-widest shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all hover:brightness-110">
-                               <Check size={18} strokeWidth={3} />
-                               Guardar Cambios
+                            <button onClick={() => { haptic('nav'); handleAddItem(); }} className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2">
+                                <Check size={18} strokeWidth={3} />
+                                Guardar cambios
                             </button>
                         </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col animate-fade-in pb-32 pt-1">
-                    
-                    {/* 1. CLIENT SELECTION AREA */}
-                    
-                    {/* CASE A: No selection made yet */}
-                    { !selectedClientId && (
-                        <div className="grid grid-cols-2 gap-3 mb-4 shrink-0">
-                             <button onClick={() => { haptic('nav'); setModalSearch('client'); }} className="h-28 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
-                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors">
-                                     <Search size={24} className="text-text-muted group-hover:text-text-primary" />
-                                 </div>
-                                 <div className="text-center leading-tight">
-                                     <span className="block text-[13px] font-bold text-text-primary">Cliente</span>
-                                     <span className="block text-[11px] font-medium text-text-disabled">Registrado</span>
-                                 </div>
-                             </button>
-                             <button onClick={() => { haptic('nav'); setIsNewClientModalOpen(true); }} className="h-28 bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-brand-primary/40 active:scale-95 transition-all group shadow-sm">
-                                 <div className="w-12 h-12 rounded-full bg-surface-1 flex items-center justify-center group-hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors">
-                                     <UserPlus size={24} className="text-text-muted group-hover:text-text-primary" />
-                                 </div>
-                                 <div className="text-center leading-tight">
-                                     <span className="block text-[13px] font-bold text-text-primary">Nuevo</span>
-                                     <span className="block text-[11px] font-medium text-text-disabled">Cliente</span>
-                                 </div>
-                             </button>
-                        </div>
-                    )}
-                    
-                    {/* CASE B: Registered Client Selected */}
-                    { selectedClientId && (
-                        <div className="mb-4 shrink-0">
-                             <div className="flex items-center justify-between bg-surface-3 p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5 shadow-sm animate-fade-in">
-                                 <div className="flex items-center gap-4">
-                                     <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-bold text-sm shadow-glow">
-                                         {clients.find(c => c.id === selectedClientId)?.name?.substring(0,2).toUpperCase()}
-                                     </div>
-                                     <div>
-                                         <p className="text-[10px] text-text-disabled font-black uppercase tracking-widest leading-none mb-1">Cliente</p>
-                                         <p className="text-sm font-bold text-text-primary truncate max-w-[180px]">{clients.find(c => c.id === selectedClientId)?.name}</p>
-                                     </div>
-                                 </div>
-                                 {!initialData && <button onClick={() => { haptic('nav'); setSelectedClientId(''); }} className="w-10 h-10 bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-full flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"><RefreshCw size={16} /></button>}
-                             </div>
-                        </div>
-                    )}
+                    /* ───────── NUEVA VENTA: paso 1 (cliente + carrito) ───────── */
+                    <div className="flex flex-col animate-fade-in pt-1">
 
-                    {/* 2. CART AREA */}
-                    <div className="bg-surface-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-1 relative overflow-hidden flex flex-col mb-4 w-full min-h-[200px]">
-                        <div className="p-3 border-b border-[rgb(var(--fg-rgb))]/5 bg-surface-3 z-10 sticky top-0">
-                            <h4 className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-2">Servicios en carrito</h4>
+                        {/* Progreso */}
+                        <div className="mb-5">
+                            <p className="text-[11px] text-text-disabled font-medium mb-2">Paso 1 de 2 · Cliente y servicios</p>
+                            <div className="flex gap-1.5">
+                                <div className="flex-1 h-[3px] rounded-full bg-brand-primary" />
+                                <div className="flex-1 h-[3px] rounded-full bg-[rgb(var(--fg-rgb))]/10" />
+                            </div>
                         </div>
-                        
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
-                             {cart.length === 0 ? (
-                                <div className="h-full flex flex-col items-center justify-center opacity-30 min-h-[150px]">
-                                    <ShoppingCart size={40} className="mb-3 text-text-disabled" strokeWidth={1.5} />
-                                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-disabled">Sin Items</p>
+
+                        {/* 1. CLIENTE */}
+                        <div className="mb-5">
+                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Cliente</label>
+                            {!selectedClientId ? (
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button onClick={() => { haptic('nav'); setModalSearch('client'); }} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-brand-primary/40 active:scale-95 transition-all">
+                                        <Search size={22} className="text-text-muted" />
+                                        <span className="text-[13px] font-bold text-text-primary">Cliente registrado</span>
+                                    </button>
+                                    <button onClick={() => { haptic('nav'); setIsNewClientModalOpen(true); }} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-brand-primary/40 active:scale-95 transition-all">
+                                        <UserPlus size={22} className="text-text-muted" />
+                                        <span className="text-[13px] font-bold text-text-primary">Cliente nuevo</span>
+                                    </button>
                                 </div>
-                             ) : (
-                                cart.map(item => (
-                                    <div key={item.tempId} onClick={() => { haptic('nav'); setTempServiceId(item.serviceId); setTempAccountId(item.accountId); setTempStartDate(item.startDate); setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens); setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType); setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || ''); setIsItemConfigOpen(true); }} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-3.5 rounded-xl flex justify-between items-center relative overflow-hidden group shadow-sm active:scale-95 transition-all">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-sm bg-surface-3 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5"><Layers size={18} /></div>
-                                            <div><h4 className="text-sm font-bold text-text-primary leading-tight">{item.serviceName}</h4><p className="text-[10px] text-text-disabled font-mono mt-0.5">{item.accountEmail}</p></div>
-                                        </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className="text-right"><span className="block text-status-success-soft font-bold text-sm">${item.amount}</span><span className="text-[8px] text-text-faint font-bold uppercase">{item.saleType.replace('_',' ')}</span></div>
-                                            {!initialData && <button onClick={(e) => { e.stopPropagation(); setCart(cart.filter(i => i.tempId !== item.tempId)); }} className="w-8 h-8 flex items-center justify-center bg-status-danger/10 text-status-danger rounded-lg hover:bg-status-danger/20 transition-colors"><Trash2 size={14} /></button>}
-                                        </div>
+                            ) : (
+                                <div className="flex items-center gap-3 bg-surface-3 p-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5 animate-fade-in">
+                                    <div className="w-11 h-11 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                        {selectedClient?.name?.substring(0, 2).toUpperCase()}
                                     </div>
-                                ))
-                             )}
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-bold text-text-primary truncate">{selectedClient?.name}</p>
+                                        {selectedClient?.phone && <p className="text-[11px] text-text-disabled font-mono mt-0.5 truncate">{selectedClient.phone}</p>}
+                                    </div>
+                                    <button onClick={() => { haptic('nav'); setSelectedClientId(''); }} className="h-9 px-3 rounded-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 text-xs font-semibold text-text-muted hover:text-text-primary transition-colors shrink-0 active:scale-95">
+                                        Cambiar
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* 2. SERVICIOS DEL CARRITO */}
+                        <div>
+                            <div className="flex items-center justify-between mb-2 px-1">
+                                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Servicios</label>
+                                {cart.length > 0 && <span className="text-[11px] text-text-disabled">{cart.length} {cart.length === 1 ? 'agregado' : 'agregados'}</span>}
+                            </div>
+
+                            <div className="space-y-2">
+                                {cart.length === 0 ? (
+                                    <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl py-6 flex flex-col items-center justify-center gap-2 text-text-disabled">
+                                        <ShoppingCart size={26} strokeWidth={1.5} />
+                                        <p className="text-[13px] font-medium">Aún no agregaste servicios</p>
+                                    </div>
+                                ) : (
+                                    cart.map(item => (
+                                        <div key={item.tempId} onClick={() => openItemForEdit(item)} className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-xl flex items-center gap-3 cursor-pointer active:scale-[0.98] transition-all">
+                                            <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Layers size={18} /></div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-bold text-text-primary truncate">{item.serviceName}</p>
+                                                <p className="text-[11px] text-text-disabled font-mono truncate mt-0.5">{item.accountEmail}</p>
+                                                <span className="inline-block mt-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted">{SALE_TYPE_LABELS[item.saleType] || item.saleType}</span>
+                                            </div>
+                                            <div className="flex flex-col items-end gap-1.5 shrink-0">
+                                                <span className="text-[15px] font-bold text-status-success-soft">${item.amount.toFixed(2)}</span>
+                                                <button aria-label="Quitar servicio" onClick={(e) => { e.stopPropagation(); setCart(cart.filter(i => i.tempId !== item.tempId)); }} className="w-8 h-8 flex items-center justify-center bg-status-danger/10 text-status-danger rounded-lg hover:bg-status-danger/20 transition-colors"><Trash2 size={14} /></button>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            <button
+                                onClick={() => { haptic('nav'); resetItemForm(); setIsItemConfigOpen(true); }}
+                                className="mt-2 w-full h-12 rounded-xl border border-dashed border-[rgb(var(--fg-rgb))]/15 hover:border-[rgb(var(--fg-rgb))]/25 text-text-muted hover:text-text-primary text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-all"
+                            >
+                                <Plus size={18} /> Agregar servicio
+                            </button>
+                        </div>
+
+                        {/* 3. TOTAL + CONTINUAR (queda pegado abajo al hacer scroll) */}
+                        <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                            <div className="min-w-0">
+                                <p className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Total</p>
+                                <p className="text-2xl font-black text-text-primary leading-none mt-1">${totalCart.toFixed(2)}</p>
+                            </div>
+                            <button
+                                onClick={handleGoToCheckout}
+                                disabled={cart.length === 0}
+                                className="btn-primary flex-1 h-[52px] rounded-md text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:shadow-none"
+                            >
+                                Ir a cobrar <ArrowRight size={18} />
+                            </button>
                         </div>
                     </div>
-
-                    {/* 3. ADD BUTTON */}
-                    {!initialData && (
-                        <button 
-                            onClick={() => { haptic('nav'); resetItemForm(); setIsItemConfigOpen(true); }} 
-                            className="w-full h-14 bg-surface-3 border-2 border-dashed border-[rgb(var(--fg-rgb))]/10 hover:border-[rgb(var(--fg-rgb))]/20 hover:bg-surface-3 rounded-md text-text-muted font-bold text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all mb-6"
-                        >
-                            <Plus size={18} /> Agregar Servicio
-                        </button>
-                    )}
-
-                    {/* 4. FOOTER */}
-                    <div className="fixed bottom-6 left-6 right-6 z-30">
-                        <div className="bg-white text-black rounded-xl p-2 flex items-center justify-between shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)] border border-[rgb(var(--fg-rgb))]/10">
-                             <div className="pl-5 flex flex-col justify-center">
-                                 <p className="text-[8px] font-black uppercase tracking-widest opacity-50 mb-0.5">Total a Pagar</p>
-                                 <p className="text-2xl font-black leading-none">${totalCart.toFixed(2)}</p>
-                             </div>
-                             <button 
-                                onClick={() => { 
-                                    if(cart.length === 0) return; 
-                                    if(!selectedClientId) { showToast('Selecciona un cliente', 'error'); return; }
-                                    haptic('nav'); setTotalToPay(totalCart); setStep(2); 
-                                }} 
-                                disabled={cart.length === 0} 
-                                className="h-14 px-8 rounded-lg bg-black text-white font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 active:scale-95 disabled:opacity-30 transition-all shadow-lg"
-                             >
-                                {initialData ? 'Confirmar' : 'Checkout'} <ArrowRight size={16} />
-                             </button>
-                        </div>
-                    </div>
-                </div>
-            ))}
+                )
+            )}
 
             {step === 2 && (
               <div className="flex flex-col h-full bg-surface-1 lg:rounded-2xl overflow-hidden animate-fade-in">
@@ -801,35 +693,11 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
       
       <BlockWarningModal isOpen={isBlockWarningOpen} onClose={() => setIsBlockWarningOpen(false)} onConfirm={() => { haptic('nav'); executeAddItem(); }} accountEmail={accounts.find(a => a.id === tempAccountId)?.email} />
       <ItemConfigPanel 
+        {...itemFormProps}
         isOpen={isItemConfigOpen} 
         onClose={() => setIsItemConfigOpen(false)} 
         zIndex={zIndex ? zIndex + 50 : undefined} 
-        tempServiceId={tempServiceId} 
-        services={services} 
-        tempAccountId={tempAccountId} 
-        accounts={accounts.filter(a => a.serviceId === tempServiceId && a.status === 'activa' && (a.maxScreens - calculateOccupancy(a)) > 0)} 
-        tempStartDate={tempStartDate} 
-        tempMonths={tempMonths} 
-        tempDays={tempDays} 
-        tempScreens={tempScreens} 
-        tempAmount={tempAmount} 
-        tempProfiles={tempProfiles} 
-        tempType={tempType} 
-        tempInvitedEmail={tempInvitedEmail} 
-        tempInvitedPassword={tempInvitedPassword} 
-        setTempInvitedEmail={setTempInvitedEmail} 
-        setTempInvitedPassword={setTempInvitedPassword} 
-        isResellerClient={isResellerClient} 
-        setTempStartDate={setTempStartDate} 
-        setTempMonths={setTempMonths} 
-        setTempDays={setTempDays} 
-        setTempScreens={setTempScreens} 
-        setTempAmount={setTempAmount} 
-        handleProfileChange={handleProfileChange} 
         handleAddItem={handleAddItem} 
-        openServiceSearch={() => setModalSearch('service')} 
-        openAccountSearch={() => { if(tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio','error'); }} 
-        onAutoAssign={handleAutoAssign}
         isEditing={!!initialData}
       />
       <SearchListModal 
@@ -856,7 +724,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
         )} 
       />
       <SearchListModal isOpen={modalSearch === 'service'} onClose={() => setModalSearch(null)} items={services} onSelect={(s: Service) => setTempServiceId(s.id)} title="Elegir Plataforma" filterFn={(s, q) => s.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(s: Service) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">{s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={20} className="text-text-disabled" />}</div><span className="text-sm font-bold text-text-primary">{s.name}</span></div><span className="text-[9px] font-black text-text-disabled uppercase tracking-widest">{s.screens} Cupos</span></div>)} />
-      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={accounts.filter(a => a.serviceId === tempServiceId && a.status === 'activa' && (a.maxScreens - calculateOccupancy(a)) > 0)} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-text-primary truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-[10px] font-mono text-text-disabled mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-[9px] font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-xl border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-[8px] text-text-faint font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
+      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={availableAccounts} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-text-primary truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-[10px] font-mono text-text-disabled mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-[9px] font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-xl border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-[8px] text-text-faint font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
       <SearchListModal isOpen={modalSearch === 'wallet'} onClose={() => setModalSearch(null)} items={financialAccounts.filter(f => f.isActive !== false)} onSelect={(w: FinancialAccount) => setWalletId(w.id)} title="Billetera de Cobro" filterFn={(w, q) => w.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(w: FinancialAccount) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-sm"><Wallet size={18} /></div><span className="text-sm font-bold text-text-primary">{w.name}</span></div><span className="text-[10px] font-bold text-text-disabled font-mono tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-xl">{w.currency}</span></div>)} />
     </>
   );
