@@ -6,7 +6,7 @@ import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { 
-  Check, ChevronRight, Wallet, Search, Plus, Ban, DollarSign, ShoppingCart, Trash2, ArrowLeft, MessageCircle, History, Layers, ArrowRight, UserPlus, AlertCircle
+  Check, ChevronRight, Wallet, Search, Plus, Ban, DollarSign, ShoppingCart, Trash2, ChevronLeft, MessageCircle, History, Layers, ArrowRight, UserPlus, AlertCircle
 } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { generatePin } from '../../utils/uuid';
@@ -14,7 +14,6 @@ import { addTime, sendWhatsAppMessage, getLocalDateISO } from '../../utils/conta
 import { getCombinedWhatsAppTemplate } from '../../utils/salesUtils';
 import { calculateOccupancy } from '../../utils/inventarioUtils';
 import { useHaptic } from '../../hooks/useHaptic';
-import { motion } from 'framer-motion';
 import { withRetry } from '../../utils/supabaseUtils';
 import { supabase } from '../../supabaseClient';
 
@@ -397,6 +396,18 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
       haptic('nav'); setTotalToPay(totalCart); setStep(2);
   };
 
+  // --- PASO 2: COBRO ---
+  const selectedWallet = financialAccounts.find(f => f.id === walletId);
+  const showConversion = addToWallet && !!walletId && selectedWallet?.currency !== 'USD';
+  const isCheckoutBlocked = isSubmitting || (addToWallet && !walletId && !initialData && !isMigration);
+
+  // Cobrar (suma saldo a una billetera) o Historial (solo deja el registro)
+  const handleSelectIncomeMode = (migration: boolean) => {
+      haptic('nav');
+      setIsMigration(migration);
+      setAddToWallet(!migration);
+  };
+
   // Props compartidas por el panel "Configurar servicio" y por el modo "Editar servicio"
   const itemFormProps = {
       tempServiceId, services, tempAccountId, accounts: availableAccounts,
@@ -536,149 +547,121 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
             )}
 
             {step === 2 && (
-              <div className="flex flex-col h-full bg-surface-1 lg:rounded-2xl overflow-hidden animate-fade-in">
-                  
-                  {/* Header & Total - Matching the clean look of the reference top section */}
-                  <div className="pt-10 pb-8 px-6 text-center relative">
-                       <button onClick={() => { haptic('nav'); setStep(1); }} className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-90">
-                           <ArrowLeft size={20} />
-                       </button>
-                       
-                       <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-center">
-                           <span className="text-[10px] font-bold text-brand-primary uppercase tracking-[0.2em] mb-2 bg-brand-primary/10 px-3 py-1 rounded-full border border-brand-primary/20">Total a Pagar</span>
-                           <div className="flex items-baseline justify-center gap-1">
-                               <span className="text-2xl font-medium text-text-disabled relative -top-1">$</span>
-                               <span className="text-6xl font-black text-text-primary tracking-tighter">{totalToPay.toFixed(2)}</span>
-                           </div>
-                           {/* If wallet selected and currency differs, show conversion like reference "≈ $12" */}
-                           {addToWallet && walletId && financialAccounts.find(f => f.id === walletId)?.currency !== 'USD' && (
-                               <p className="text-sm font-bold text-text-disabled mt-2 font-mono">
-                                   ≈ {convertedAmount.toFixed(2)} {financialAccounts.find(f => f.id === walletId)?.currency}
-                               </p>
-                           )}
-                       </motion.div>
-                  </div>
+              /* ───────── NUEVA VENTA: paso 2 (cobro) ───────── */
+              <div className="flex flex-col animate-fade-in pt-1">
 
-                  <div className="flex-1 overflow-y-auto custom-scrollbar px-6 space-y-6">
-                       
-                       {/* "Detalles Bancarios" Style Section -> Wallet Selection */}
-                       {!initialData && (
-                         <div className="mb-6">
-                            <div className="flex items-center justify-between mb-4 px-1">
-                                <h3 className="text-sm font-bold text-text-primary">Método de Ingreso</h3>
-                                {/* Sweep Switch */}
-                                <div 
-                                    onClick={() => { 
-                                        haptic('nav'); 
-                                        const newValue = !isMigration;
-                                        setIsMigration(newValue); 
-                                        setAddToWallet(!newValue); 
-                                    }}
-                                    className="flex items-center gap-3 cursor-pointer"
-                                >
-                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${!isMigration ? 'text-status-success' : 'text-text-faint'}`}>
-                                        Cobrar
-                                    </span>
-                                    
-                                    <div 
-                                        className={`w-14 h-8 rounded-full relative transition-colors duration-300 border ${isMigration ? 'bg-status-warning/20 border-status-warning' : 'bg-status-success/20 border-status-success'}`}
-                                    >
-                                        <motion.div 
-                                            initial={false}
-                                            animate={{ x: isMigration ? 24 : 0 }}
-                                            className={`absolute top-1 left-1 w-6 h-6 rounded-full shadow-md flex items-center justify-center ${isMigration ? 'bg-status-warning' : 'bg-status-success'}`}
-                                        >
-                                             {isMigration ? <History size={14} className="text-black" /> : <DollarSign size={14} className="text-text-primary" />}
-                                        </motion.div>
-                                    </div>
-                                    
-                                    <span className={`text-[10px] font-semibold uppercase tracking-widest transition-colors ${isMigration ? 'text-status-warning' : 'text-text-faint'}`}>
-                                        Historial
-                                    </span>
-                                </div>
+                {/* Progreso + volver */}
+                <div className="mb-5">
+                    <div className="flex items-center justify-between mb-2">
+                        <p className="text-[11px] text-text-disabled font-medium">Paso 2 de 2 · Cobro</p>
+                        <button onClick={() => { haptic('nav'); setStep(1); }} className="h-8 pl-2 pr-3 rounded-full bg-surface-3 hover:bg-surface-4 text-xs font-semibold text-text-muted hover:text-text-primary flex items-center gap-0.5 transition-colors active:scale-95">
+                            <ChevronLeft size={15} /> Volver
+                        </button>
+                    </div>
+                    <div className="flex gap-1.5">
+                        <div className="flex-1 h-[3px] rounded-full bg-brand-primary" />
+                        <div className="flex-1 h-[3px] rounded-full bg-brand-primary" />
+                    </div>
+                </div>
+
+                {/* 1. RESUMEN Y TOTAL */}
+                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 mb-5">
+                    <div className="text-center">
+                        <p className="text-xs text-text-disabled">{selectedClient?.name} · {cart.length} {cart.length === 1 ? 'servicio' : 'servicios'}</p>
+                        <p className="text-[11px] font-semibold text-brand-primary-hi uppercase tracking-widest mt-3">Total a pagar</p>
+                        <p className="flex items-baseline justify-center gap-1 mt-1">
+                            <span className="text-2xl font-medium text-text-disabled">$</span>
+                            <span className="text-[42px] leading-none font-black text-text-primary tracking-tighter">{totalToPay.toFixed(2)}</span>
+                        </p>
+                        {showConversion && (
+                            <p className="text-sm font-bold text-text-disabled mt-2 font-mono">≈ {convertedAmount.toFixed(2)} {selectedWallet?.currency}</p>
+                        )}
+                    </div>
+                    <div className="border-t border-[rgb(var(--fg-rgb))]/5 mt-4 pt-3 space-y-2">
+                        {cart.map(item => (
+                            <div key={item.tempId} className="flex justify-between gap-3 text-[13px]">
+                                <span className="text-text-muted truncate">{item.serviceName}</span>
+                                <span className="text-text-primary font-semibold shrink-0">${item.amount.toFixed(2)}</span>
                             </div>
+                        ))}
+                    </div>
+                </div>
 
-                            {!isMigration && (
-                                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl overflow-hidden">
-                                     {/* Billetera Row */}
-                                     <button 
-                                        onClick={() => { haptic('nav'); setModalSearch('wallet'); }}
-                                        className="w-full p-4 flex items-center justify-between hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors group border-b border-[rgb(var(--fg-rgb))]/5"
-                                     >
-                                         <div className="flex items-center gap-4">
-                                             <div className={`w-12 h-12 rounded-md flex items-center justify-center border ${walletId ? 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary' : 'bg-zinc-800/50 border-zinc-700 text-text-disabled'}`}>
-                                                 <Wallet size={20} />
-                                             </div>
-                                             <div className="text-left">
-                                                 <span className="block text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-0.5">Billetera Destino</span>
-                                                 <span className={`block text-sm font-bold ${walletId ? 'text-text-primary' : 'text-text-muted'}`}>
-                                                     {financialAccounts.find(f => f.id === walletId)?.name || 'Seleccionar...'}
-                                                 </span>
-                                             </div>
-                                         </div>
-                                         <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled group-hover:text-text-primary">
-                                             <ChevronRight size={16} />
-                                         </div>
-                                     </button>
+                {!initialData && (
+                    <>
+                        {/* 2. MÉTODO DE INGRESO */}
+                        <div className="mb-5">
+                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Método de ingreso</label>
+                            <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
+                                <button onClick={() => handleSelectIncomeMode(false)} className={`h-11 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${!isMigration ? 'bg-status-success/15 text-status-success-soft' : 'text-text-disabled hover:text-text-primary'}`}>
+                                    <DollarSign size={17} /> Cobrar
+                                </button>
+                                <button onClick={() => handleSelectIncomeMode(true)} className={`h-11 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${isMigration ? 'bg-status-warning/15 text-status-warning-soft' : 'text-text-disabled hover:text-text-primary'}`}>
+                                    <History size={17} /> Historial
+                                </button>
+                            </div>
+                        </div>
 
-                                     {/* Currency Details Row (If wallet selected) */}
-                                     {walletId && (
-                                        <div className="p-4 flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
-                                                 <div className="w-12 h-12 rounded-md bg-status-success/10 flex items-center justify-center border border-status-success/20 text-status-success">
-                                                     <DollarSign size={20} />
-                                                 </div>
-                                                 <div className="text-left">
-                                                     <span className="block text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-0.5">Monto a Ingresar</span>
-                                                     <span className="block text-sm font-bold text-text-primary font-mono">
-                                                         {convertedAmount.toFixed(2)} {financialAccounts.find(f => f.id === walletId)?.currency}
-                                                     </span>
-                                                 </div>
-                                            </div>
+                        {/* 3A. BILLETERA DESTINO (modo cobrar) */}
+                        {!isMigration && (
+                            <div>
+                                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Billetera destino</label>
+                                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl overflow-hidden">
+                                    <button onClick={() => { haptic('nav'); setModalSearch('wallet'); }} className="w-full h-16 px-4 flex items-center gap-3 text-left active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
+                                        <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${selectedWallet ? 'bg-brand-primary/15 text-brand-primary-hi' : 'bg-surface-sunken text-text-disabled'}`}>
+                                            <Wallet size={19} />
                                         </div>
-                                     )}
+                                        <div className="flex-1 min-w-0">
+                                            <p className={`text-sm font-bold truncate ${selectedWallet ? 'text-text-primary' : 'text-text-muted'}`}>{selectedWallet?.name || 'Seleccionar billetera'}</p>
+                                            {selectedWallet && <p className="text-[11px] text-text-disabled">{selectedWallet.currency}</p>}
+                                        </div>
+                                        <ChevronRight size={17} className="text-text-faint group-hover:text-text-primary shrink-0" />
+                                    </button>
+                                    {selectedWallet && (
+                                        <div className="px-4 py-3 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
+                                            <span className="text-xs text-text-disabled">Monto a ingresar</span>
+                                            <span className="text-sm font-bold font-mono text-status-success-soft">{convertedAmount.toFixed(2)} {selectedWallet.currency}</span>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                            
-                            {isMigration && (
-                                <div className="p-4 rounded-md bg-status-warning/10 border border-status-warning/20 flex gap-3 items-start">
-                                     <History size={20} className="text-status-warning shrink-0 mt-0.5" />
-                                     <p className="text-xs text-amber-200/80 leading-relaxed">
-                                         Estás registrando una venta histórica. No se sumará saldo a ninguna billetera, solo quedará el registro en el historial del cliente.
-                                     </p>
-                                </div>
-                            )}
-                         </div>
-                       )}
-                       
-                       {/* Warning if no wallet selected in Real mode */}
-                       {!isMigration && !walletId && !initialData && (
-                           <div className="flex items-center gap-3 p-4 rounded-md bg-status-danger/10 border border-status-danger/20">
-                               <AlertCircle size={20} className="text-status-danger-soft" />
-                               <p className="text-xs font-semibold text-red-300">Debes seleccionar una billetera para continuar.</p>
-                           </div>
-                       )}
-                  </div>
+                                {!selectedWallet && (
+                                    <div className="mt-2.5 flex items-center gap-2.5 p-3 rounded-xl bg-status-danger/10 border border-status-danger/20">
+                                        <AlertCircle size={18} className="text-status-danger-soft shrink-0" />
+                                        <p className="text-[13px] font-medium text-status-danger-soft">Elige una billetera para continuar.</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
-                  {/* Bottom Actions - Styled big like the reference */}
-                  <div className="p-6 border-t border-[rgb(var(--fg-rgb))]/5 bg-surface-1 space-y-3">
-                       <button 
-                          onClick={() => { haptic('nav'); handleFinalize('send'); }} 
-                          disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)} 
-                          className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md text-white font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_-5px_rgba(106,44,255,0.4)] hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:shadow-none"
-                       >
-                          <MessageCircle size={18} fill="currentColor" />
-                          Confirmar y Notificar
-                       </button>
-                       
-                       <button 
-                          onClick={() => { haptic('nav'); handleFinalize('save'); }} 
-                          disabled={isSubmitting || (addToWallet && !walletId && !initialData && !isMigration)}
-                          className="w-full h-12 bg-surface-3 text-text-muted font-semibold text-xs rounded-md border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-all"
-                       >
-                          Guardar
-                       </button>
-                  </div>
+                        {/* 3B. AVISO DE HISTORIAL */}
+                        {isMigration && (
+                            <div className="p-3.5 rounded-xl bg-status-warning/10 border border-status-warning/20 flex gap-3 items-start">
+                                <History size={18} className="text-status-warning-soft shrink-0 mt-0.5" />
+                                <p className="text-[13px] text-status-warning-soft leading-relaxed">
+                                    Venta histórica: no se suma saldo a ninguna billetera. Solo queda en el historial del cliente.
+                                </p>
+                            </div>
+                        )}
+                    </>
+                )}
+
+                {/* 4. ACCIONES (quedan pegadas abajo al hacer scroll) */}
+                <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 pt-3 pb-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-2.5">
+                    <button
+                        onClick={() => { haptic('nav'); handleFinalize('send'); }}
+                        disabled={isCheckoutBlocked}
+                        className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100"
+                    >
+                        <MessageCircle size={18} /> Confirmar y notificar
+                    </button>
+                    <button
+                        onClick={() => { haptic('nav'); handleFinalize('save'); }}
+                        disabled={isCheckoutBlocked}
+                        className="w-full h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] disabled:opacity-40"
+                    >
+                        Guardar
+                    </button>
+                </div>
               </div>
             )}
          </div>
