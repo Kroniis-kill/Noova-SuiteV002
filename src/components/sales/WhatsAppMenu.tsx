@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
-import { Sale, Account } from '../../types';
+import { Sale } from '../../types';
 import { useData } from '../../context/DataContext';
 import { getCombinedWhatsAppTemplate, WhatsAppTemplateType } from '../../utils/salesUtils';
-import { sendWhatsAppMessage } from '../../utils/contactosUtils';
+import { sendWhatsAppMessage, parseLocalISO } from '../../utils/contactosUtils';
 import { getDaysInFailure } from '../../utils/expiredUtils';
 import { 
-  MessageSquare, Key, RotateCw, ShieldCheck, FileText, Check, 
-  Send, DollarSign, RefreshCw, ImagePlus, Timer, ChevronRight, 
-  AlertTriangle, Monitor, Zap, User, ArrowLeft 
+  MessageCircle, Key, RotateCw, ShieldCheck, FileText, Check, 
+  Send, DollarSign, RefreshCw, ImagePlus, Timer, ChevronRight, ChevronLeft,
+  AlertTriangle, Layers, Zap
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Avatar from '../ui/Avatar';
+
+// --- HELPERS ---
+
+const formatLongDate = (dateStr?: string | null): string => {
+  if (!dateStr) return '---';
+  const d = parseLocalISO(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+};
+
+const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 interface WhatsAppMenuProps {
   isOpen: boolean;
@@ -99,187 +108,199 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
       return maxDays;
   })();
 
+  // --- PLANTILLAS ---
   const templateOptions = [
-    { id: 'data', label: 'Datos Acceso', icon: FileText, color: 'text-status-info-soft', bg: 'bg-status-info/10' },
-    { id: 'renewal_success', label: 'Renovación', icon: RotateCw, color: 'text-status-success-soft', bg: 'bg-status-success/10' },
-    { id: 'password', label: 'Nueva Clave', icon: Key, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' },
-    { id: 'replacement', label: 'Garantía', icon: ShieldCheck, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-    { id: 'warrantyExtension', label: 'Extensión', icon: Timer, color: 'text-brand-primary', bg: 'bg-brand-primary/10', badge: compensatedDays > 0 ? `+${compensatedDays}d` : null },
+    { id: 'data', label: 'Datos de acceso', desc: 'Correo, clave y perfil', icon: FileText, color: 'text-status-info-soft', bg: 'bg-status-info/10' },
+    { id: 'renewal_success', label: 'Renovación', desc: 'Confirma el nuevo vencimiento', icon: RotateCw, color: 'text-status-success-soft', bg: 'bg-status-success/10' },
+    { id: 'password', label: 'Nueva clave', desc: 'Avisa el cambio de contraseña', icon: Key, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' },
+    { id: 'replacement', label: 'Garantía', desc: 'Informa la reposición del servicio', icon: ShieldCheck, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+    { id: 'warrantyExtension', label: 'Extensión', desc: 'Compensa días por falla', icon: Timer, color: 'text-brand-primary-hi', bg: 'bg-brand-primary/15', badge: compensatedDays > 0 ? `+${compensatedDays}d` : null },
   ];
 
-  const PlatformIcon = platform === 'telegram' ? Send : MessageSquare;
+  const failureOption = { id: 'failure', label: 'Reporte de falla', desc: 'Informa problemas técnicos', icon: AlertTriangle, color: 'text-status-warning-soft', bg: 'bg-status-warning/10' };
+
+  // --- DERIVADOS PARA LA UI ---
+  const isTelegram = platform === 'telegram';
+  const platformName = isTelegram ? 'Telegram' : 'WhatsApp';
+  const PlatformIcon = isTelegram ? Send : MessageCircle;
+  const contactLabel = isTelegram ? (clientTelegram || 'Sin usuario de Telegram') : clientPhone;
+  const noneSelected = selectedIds.length === 0;
+  const chosenOption = selectedType === 'failure' ? failureOption : templateOptions.find(o => o.id === selectedType);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={step === 'select' ? "Enviar por WhatsApp" : "Configurar Mensaje"} zIndex={zIndex}>
-      <div className="space-y-6 pt-1 pb-4">
-        
+    <Modal isOpen={isOpen} onClose={onClose} title={step === 'select' ? `Enviar por ${platformName}` : 'Configurar mensaje'} zIndex={zIndex}>
+      <div className="flex flex-col animate-fade-in pt-1">
+
+        {/* Progreso (+ volver en el paso 2) */}
+        <div className="mb-5">
+          <div className="flex items-center justify-between mb-2 min-h-[30px]">
+            <p className="text-[11px] text-text-disabled font-medium">{step === 'select' ? 'Paso 1 de 2 · Plantilla' : 'Paso 2 de 2 · Envío'}</p>
+            {step === 'config' && (
+              <button onClick={() => setStep('select')} className="h-[30px] pl-2 pr-3 rounded-full bg-surface-3 hover:bg-surface-4 text-xs font-semibold text-text-muted hover:text-text-primary flex items-center gap-0.5 transition-colors active:scale-95">
+                <ChevronLeft size={15} /> Volver
+              </button>
+            )}
+          </div>
+          <div className="flex gap-1.5">
+            <div className="flex-1 h-[3px] rounded-full bg-brand-primary" />
+            <div className={`flex-1 h-[3px] rounded-full transition-colors ${step === 'config' ? 'bg-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/10'}`} />
+          </div>
+        </div>
+
         {step === 'select' ? (
-            <div className="space-y-6 animate-fade-in">
-                {/* CLIENT PROFILE HEADER - Removed Active Tag */}
-                <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center gap-4 shadow-sm">
-                    <div className="w-12 h-12 rounded-full p-[1.5px] bg-gradient-to-tr from-brand-primary to-brand-accent">
-                        <Avatar name={clientName} size="100%" className="rounded-full border-2 border-surface-3" />
-                    </div>
+          <div className="flex flex-col gap-5">
+
+            {/* 1. CLIENTE */}
+            <div className="flex items-center gap-3 bg-surface-3 p-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+              <div className="w-11 h-11 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
+                {clientName.substring(0, 2).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-text-primary truncate">{clientName}</p>
+                <p className="text-[11px] text-text-disabled font-mono mt-0.5 truncate">{contactLabel}</p>
+              </div>
+            </div>
+
+            {/* 2. SERVICIOS DEL MENSAJE */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Servicios del mensaje</span>
+                <span className="text-[11px] text-text-disabled">{selectedIds.length} de {sales.length}</span>
+              </div>
+              <div className="max-h-[232px] overflow-y-auto custom-scrollbar space-y-2">
+                {sales.map(sale => {
+                  const isSelected = selectedIds.includes(sale.id);
+                  const acc = accounts.find(a => a.id === sale.accountId);
+                  const isFailing = acc?.status === 'fallando';
+                  return (
+                    <button
+                      key={sale.id}
+                      type="button"
+                      onClick={() => toggleSale(sale.id)}
+                      className={`w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 text-left active:scale-[0.98] transition-all ${isSelected ? '' : 'opacity-55'}`}
+                    >
+                      <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Layers size={18} /></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
+                        <p className="text-[11px] text-text-disabled mt-0.5 flex items-center gap-1.5">
+                          Vence {formatLongDate(sale.expiryDate)}
+                          {isFailing && <span className="text-status-warning-soft flex items-center gap-0.5"><Zap size={10} className="fill-current" /> con falla</span>}
+                        </p>
+                      </div>
+                      <div className={`w-[22px] h-[22px] rounded-full border-[1.5px] flex items-center justify-center shrink-0 transition-all ${isSelected ? 'bg-brand-primary border-brand-primary text-white' : 'border-[rgb(var(--fg-rgb))]/20'}`}>
+                        {isSelected && <Check size={13} strokeWidth={3} />}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3. PLANTILLAS */}
+            <div className="space-y-3">
+              <label className={SECTION_LABEL}>Elegir plantilla</label>
+              <div className="space-y-2">
+                {templateOptions.map(opt => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => handleTemplateClick(opt.id as WhatsAppTemplateType)}
+                    disabled={noneSelected}
+                    className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 text-left hover:border-[rgb(var(--fg-rgb))]/10 active:scale-[0.98] transition-all disabled:opacity-40 group"
+                  >
+                    <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${opt.bg} ${opt.color}`}><opt.icon size={18} /></div>
                     <div className="flex-1 min-w-0">
-                        <h4 className="text-[15px] font-bold text-text-primary truncate">{clientName}</h4>
-                        <p className="text-[10px] text-text-disabled font-mono tracking-tight">{clientPhone}</p>
+                      <span className="block text-sm font-bold text-text-primary">{opt.label}</span>
+                      <span className="block text-[11px] text-text-disabled mt-0.5 truncate">{opt.desc}</span>
                     </div>
-                </div>
+                    {opt.badge && <span className="px-2 py-0.5 bg-brand-primary text-white rounded-full text-[11px] font-bold shrink-0">{opt.badge}</span>}
+                    <ChevronRight size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
+                  </button>
+                ))}
 
-                {/* SERVICE SELECTION LIST - Removed Borders from items */}
-                <div className="space-y-3">
-                   <div className="flex items-center justify-between px-1">
-                      <span className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em]">Servicios del Mensaje</span>
-                      <span className="text-[10px] font-semibold text-brand-primary bg-brand-primary/10 px-2 py-0.5 rounded-full border border-brand-primary/20">{selectedIds.length} ítems</span>
-                   </div>
-                   
-                   <div className="max-h-[160px] overflow-y-auto custom-scrollbar pr-1 space-y-2">
-                      {sales.map(sale => {
-                         const isSelected = selectedIds.includes(sale.id);
-                         const acc = accounts.find(a => a.id === sale.accountId);
-                         const isFailing = acc?.status === 'fallando';
-                         
-                         return (
-                            <div 
-                              key={sale.id}
-                              onClick={() => toggleSale(sale.id)}
-                              className={`flex items-center justify-between p-3.5 rounded-lg cursor-pointer transition-all duration-300 ${
-                                 isSelected 
-                                   ? 'bg-surface-zinc shadow-glow-sm' 
-                                   : 'bg-surface-sunken opacity-50'
-                              }`}
-                            >
-                               <div className="flex items-center gap-3 min-w-0">
-                                  <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 ${isSelected ? 'bg-brand-primary/10 text-brand-primary' : 'bg-zinc-800 text-text-faint'}`}>
-                                      <Monitor size={18} />
-                                  </div>
-                                  <div className="min-w-0">
-                                      <p className={`text-[13px] font-bold truncate ${isSelected ? 'text-text-primary' : 'text-text-faint'}`}>{sale.serviceName}</p>
-                                      <div className="flex items-center gap-2">
-                                          <span className="text-[9px] text-text-disabled font-bold uppercase">Corte: {sale.expiryDate}</span>
-                                          {isFailing && <Zap size={10} className="text-status-warning fill-status-warning animate-pulse" />}
-                                      </div>
-                                  </div>
-                               </div>
-                               <div className={`w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
-                                  isSelected ? 'bg-brand-primary border-brand-primary text-white shadow-glow-sm' : 'border-zinc-800 bg-black/20'
-                               }`}>
-                                  {isSelected && <Check size={12} strokeWidth={3} />}
-                               </div>
-                            </div>
-                         );
-                      })}
-                   </div>
-                </div>
-
-                <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/5" />
-
-                {/* TEMPLATE GRID - Reconfigured to horizontal buttons */}
-                <div className="space-y-3">
-                    <span className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em] ml-1">Elegir Plantilla</span>
-                    <div className="grid grid-cols-1 gap-2.5">
-                      {templateOptions.map((opt) => (
-                        <button
-                          key={opt.id}
-                          onClick={() => handleTemplateClick(opt.id as WhatsAppTemplateType)}
-                          disabled={selectedIds.length === 0}
-                          className="flex items-center gap-4 p-3.5 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/10 active:scale-[0.98] transition-all group overflow-hidden relative disabled:opacity-20"
-                        >
-                            <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 ${opt.bg} ${opt.color}`}>
-                               <opt.icon size={18} />
-                            </div>
-                            <div className="flex-1 text-left">
-                                <span className="block text-[13px] font-bold text-text-primary group-hover:text-text-primary transition-colors">{opt.label}</span>
-                                <span className="block text-[8px] font-bold text-text-faint uppercase tracking-[0.2em] mt-0.5">Plantilla del Sistema</span>
-                            </div>
-                            {opt.badge && (
-                              <div className="px-2 py-0.5 bg-brand-primary text-white rounded-full text-[8px] font-black shadow-lg animate-pulse mr-2">
-                                  {opt.badge}
-                              </div>
-                            )}
-                            <ChevronRight size={16} className="text-text-faint opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </button>
-                      ))}
-                      
-                      <button
-                        onClick={() => handleTemplateClick('failure')}
-                        disabled={selectedIds.length === 0}
-                        className="flex items-center gap-4 p-3.5 rounded-lg bg-status-warning/5 border border-status-warning/10 text-status-warning hover:bg-status-warning/10 transition-all disabled:opacity-20 active:scale-[0.98]"
-                      >
-                         <div className="w-9 h-9 rounded-sm bg-status-warning/10 flex items-center justify-center border border-status-warning/20">
-                            <AlertTriangle size={18} />
-                         </div>
-                         <div className="text-left flex-1 min-w-0">
-                            <span className="block text-[13px] font-semibold uppercase tracking-wider text-text-primary">Reporte de Falla</span>
-                            <p className="text-[9px] text-status-warning/80 truncate">Informa problemas técnicos masivos</p>
-                         </div>
-                         <ChevronRight size={18} className="opacity-40" />
-                      </button>
-                    </div>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => handleTemplateClick('failure')}
+                  disabled={noneSelected}
+                  className="w-full flex items-center gap-3 p-3 rounded-xl bg-status-warning/5 border border-status-warning/15 text-left hover:bg-status-warning/10 active:scale-[0.98] transition-all disabled:opacity-40"
+                >
+                  <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${failureOption.bg} ${failureOption.color}`}><failureOption.icon size={18} /></div>
+                  <div className="flex-1 min-w-0">
+                    <span className="block text-sm font-bold text-text-primary">{failureOption.label}</span>
+                    <span className="block text-[11px] text-status-warning-soft/80 mt-0.5 truncate">{failureOption.desc}</span>
+                  </div>
+                  <ChevronRight size={16} className="text-status-warning-soft/50 shrink-0" />
+                </button>
+              </div>
+              {noneSelected && <p className="text-xs text-status-danger-soft ml-1">Elige al menos un servicio.</p>}
             </div>
+          </div>
         ) : (
-            <div className="space-y-8 animate-fade-in">
-                {/* SELECTOR DE MONEDA - Estilo Segmentado Premium */}
-                <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em] ml-1">Formato de Precios</label>
-                    <div className="flex bg-surface-1 p-1.5 rounded-lg border border-[rgb(var(--fg-rgb))]/[0.08] w-full shadow-lg">
-                        <button 
-                            onClick={() => setUseSecondaryCurrency(false)}
-                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${!useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-text-disabled hover:text-text-secondary'}`}
-                        >
-                            <DollarSign size={16} strokeWidth={3} />
-                            {settings.currency || 'USD'}
-                        </button>
-                        <button 
-                            onClick={() => setUseSecondaryCurrency(true)}
-                            className={`flex-1 flex items-center justify-center gap-2.5 py-4 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all ${useSecondaryCurrency ? 'bg-white text-black shadow-[0_4px_15px_rgba(255,255,255,0.2)]' : 'text-text-disabled hover:text-text-secondary'}`}
-                        >
-                            <RefreshCw size={16} strokeWidth={3} />
-                            {settings.subCurrency || 'SEC'}
-                        </button>
-                    </div>
-                </div>
+          <div className="flex flex-col gap-5">
 
-                {/* COMPROBANTE - Estilo Fila Studio */}
-                <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em] ml-1">Opciones Adicionales</label>
-                    <button 
-                        onClick={() => setIncludeReceipt(!includeReceipt)}
-                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-300 ${includeReceipt ? 'bg-brand-primary/10 border-brand-primary shadow-glow-sm' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/10'}`}
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${includeReceipt ? 'bg-brand-primary text-white shadow-glow' : 'bg-surface-sunken text-text-faint'}`}>
-                                <ImagePlus size={22} />
-                            </div>
-                            <div className="text-left">
-                                <span className={`block text-sm font-bold ${includeReceipt ? 'text-text-primary' : 'text-text-secondary'}`}>Comprobante Digital</span>
-                                <span className="block text-[9px] text-text-disabled font-semibold uppercase tracking-widest">Incluye link al portal</span>
-                            </div>
-                        </div>
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all ${includeReceipt ? 'bg-status-success border-status-success text-black' : 'border-zinc-800 bg-black/20'}`}>
-                            {includeReceipt && <Check size={14} strokeWidth={4} />}
-                        </div>
-                    </button>
+            {/* 1. RESUMEN */}
+            {chosenOption && (
+              <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${chosenOption.bg} ${chosenOption.color}`}><chosenOption.icon size={18} /></div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-text-primary truncate">{chosenOption.label}</p>
+                  <p className="text-[11px] text-text-muted font-medium mt-0.5 truncate">{selectedIds.length} {selectedIds.length === 1 ? 'servicio' : 'servicios'} · {clientName}</p>
                 </div>
-                
-                {/* ACTION BUTTONS */}
-                <div className="pt-4 space-y-3">
-                    <button 
-                        onClick={() => selectedType && executeSend(selectedType, useSecondaryCurrency, includeReceipt)}
-                        className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-sm uppercase tracking-widest shadow-glow flex items-center justify-center gap-3 active:scale-[0.98] hover:brightness-110"
-                    >
-                        <PlatformIcon size={22} fill="currentColor" /> Enviar por {platform === 'telegram' ? 'Telegram' : 'WhatsApp'}
-                    </button>
-                    
-                    <button 
-                        onClick={() => setStep('select')} 
-                        className="w-full h-14 flex items-center justify-center gap-2 text-text-faint hover:text-text-primary text-[10px] font-semibold uppercase tracking-[0.3em] transition-all active:scale-95"
-                    >
-                        <ArrowLeft size={14} /> Volver al Menú
-                    </button>
-                </div>
+              </div>
+            )}
+
+            {/* 2. FORMATO DE PRECIOS */}
+            <div className="space-y-3">
+              <label className={SECTION_LABEL}>Formato de precios</label>
+              <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setUseSecondaryCurrency(false)}
+                  className={`h-11 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${!useSecondaryCurrency ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                >
+                  <DollarSign size={17} /> {settings.currency || 'USD'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setUseSecondaryCurrency(true)}
+                  className={`h-11 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${useSecondaryCurrency ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                >
+                  <RefreshCw size={16} /> {settings.subCurrency || 'SEC'}
+                </button>
+              </div>
             </div>
+
+            {/* 3. OPCIONES ADICIONALES */}
+            <div className="space-y-3">
+              <label className={SECTION_LABEL}>Opciones adicionales</label>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={includeReceipt}
+                onClick={() => setIncludeReceipt(!includeReceipt)}
+                className={`w-full p-3 rounded-xl bg-surface-zinc border flex items-center gap-3 text-left transition-all active:scale-[0.99] ${includeReceipt ? 'border-brand-primary/50' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+              >
+                <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 transition-colors ${includeReceipt ? 'bg-brand-primary/20 text-brand-primary-hi' : 'bg-surface-sunken text-text-faint'}`}><ImagePlus size={19} /></div>
+                <div className="flex-1 min-w-0">
+                  <span className="block text-sm font-bold text-text-primary">Comprobante digital</span>
+                  <span className="block text-[11px] text-text-disabled mt-0.5">Incluye el link al portal del cliente</span>
+                </div>
+                <div className={`w-11 h-[26px] rounded-full relative shrink-0 transition-colors ${includeReceipt ? 'bg-brand-primary' : 'bg-surface-4'}`}>
+                  <div className={`absolute top-[3px] w-5 h-5 rounded-full bg-white transition-all ${includeReceipt ? 'left-[21px]' : 'left-[3px]'}`} />
+                </div>
+              </button>
+            </div>
+
+            {/* 4. ENVIAR (queda pegado abajo al hacer scroll) */}
+            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 pt-3 pb-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5">
+              <button
+                onClick={() => selectedType && executeSend(selectedType, useSecondaryCurrency, includeReceipt)}
+                className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2"
+              >
+                <PlatformIcon size={19} /> Enviar por {platformName}
+              </button>
+            </div>
+          </div>
         )}
 
       </div>
