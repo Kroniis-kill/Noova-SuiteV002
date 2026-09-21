@@ -440,7 +440,7 @@ const DashboardDesktop: React.FC = () => {
       <SyncQueueModal isOpen={isSyncModalOpen} onClose={() => setIsSyncModalOpen(false)} pendingItems={pendingItems} isOnline={isOnline} />
 
       {/* ───────── ENCABEZADO ───────── */}
-      <div className="flex items-center justify-between gap-6 mb-6">
+      <div className="flex items-center justify-between gap-6 mb-5">
         <div className="min-w-0">
           <p className={SECTION_LABEL}>{greeting}</p>
           <h1 className="text-3xl font-black tracking-tighter leading-tight mt-1 truncate">
@@ -482,7 +482,7 @@ const DashboardDesktop: React.FC = () => {
       </div>
 
       {/* Avisos (suscripción, sincronización, primeros pasos): no ocupan espacio si no hay ninguno */}
-      <div className="space-y-4 mb-6 empty:hidden">
+      <div className="space-y-3 mb-5 empty:hidden">
         <SubscriptionAlert />
         <SyncStatusWidget />
         <OnboardingWidget onNavigate={setView} />
@@ -490,7 +490,7 @@ const DashboardDesktop: React.FC = () => {
 
       {/* ───────── MÉTRICAS ───────── */}
       {hasKpiRow && (
-        <div className={`grid gap-4 ${kpiGridCols}`}>
+        <div className={`grid gap-3 ${kpiGridCols}`}>
 
           {widgets.showSales && (
             <div className={`${CARD} p-6 flex flex-col justify-between min-h-[196px] ${widgets.showProfit ? 'col-span-2 xl:col-span-1' : ''}`}>
@@ -586,10 +586,10 @@ const DashboardDesktop: React.FC = () => {
       )}
 
       {/* ───────── CONTENIDO PRINCIPAL ───────── */}
-      <div className={`grid gap-4 mt-4 items-start ${hasSidePanel ? 'grid-cols-1 xl:grid-cols-[minmax(0,1fr)_372px]' : 'grid-cols-1'}`}>
+      <div className={`grid gap-3 mt-3 items-start ${hasSidePanel ? 'grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px]' : 'grid-cols-1'}`}>
 
         {/* Columna izquierda: atajos + movimientos */}
-        <div className="flex flex-col gap-4 min-w-0">
+        <div className="flex flex-col gap-3 min-w-0">
 
           {widgets.showQuickActions && (
             <div className={`${CARD} p-5`}>
@@ -672,7 +672,7 @@ const DashboardDesktop: React.FC = () => {
 
         {/* Columna derecha: alertas, vencimientos y stock */}
         {hasSidePanel && (
-          <div className="flex flex-col gap-4 min-w-0">
+          <div className="flex flex-col gap-3 min-w-0">
 
             {widgets.showExchangeRate && failingAccounts.length > 0 && (
               <div className="rounded-xl p-4 flex items-center gap-3 bg-status-danger/[0.06] border border-status-danger/25">
