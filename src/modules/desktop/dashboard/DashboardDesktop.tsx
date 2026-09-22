@@ -40,9 +40,9 @@ import WidgetConfigModal from '../../../components/dashboard/WidgetConfigModal';
 // de un contenedor con su propio estilo (el contenedor dibuja el borde y el foco).
 const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none";
 
-const CARD = "bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl transition-colors hover:border-[rgb(var(--fg-rgb))]/[0.14]";
+const CARD = "bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl transition-colors";
 
-const SECTION_LABEL = "text-[11px] font-bold text-text-disabled uppercase tracking-widest";
+const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest";
 
 const formatMoney = (amount: number) => amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -443,40 +443,40 @@ const DashboardDesktop: React.FC = () => {
       <div className="flex items-center justify-between gap-6 mb-5">
         <div className="min-w-0">
           <p className={SECTION_LABEL}>{greeting}</p>
-          <h1 className="text-3xl font-black tracking-tighter leading-tight mt-1 truncate">
+          <h1 className="text-xl font-black tracking-tight leading-tight mt-0.5 truncate">
             {user?.name?.split(' ')[0] || 'Hola'}<span className="text-brand-primary">.</span>
           </h1>
-          <p className="text-[13px] text-text-disabled mt-0.5 first-letter:uppercase">{todayLabel}</p>
+          <p className="text-xs text-text-disabled mt-0.5 first-letter:uppercase">{todayLabel}</p>
         </div>
 
         <div className="flex items-center gap-2.5 shrink-0">
           <button
             onClick={() => pendingCount > 0 && setIsSyncModalOpen(true)}
-            className={`h-10 px-4 rounded-full border text-xs font-semibold flex items-center gap-2 transition-colors ${syncChip.cls}`}
+            className={`h-8 px-3 rounded-full border text-[11px] font-semibold flex items-center gap-1.5 transition-colors ${syncChip.cls}`}
           >
             {syncChip.icon} {syncChip.label}
           </button>
           <button
             onClick={() => { haptic('nav'); setIsNotifOpen(true); }}
             aria-label="Notificaciones"
-            className="relative w-11 h-11 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
+            className="relative w-8 h-8 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
           >
-            <Bell size={18} />
+            <Bell size={15} />
             {sales.some(s => getDaysRemaining(s.expiryDate) <= 1) && (
               <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_10px_#FF1493]" />
             )}
           </button>
           <button
             onClick={() => { haptic('nav'); setIsExpenseModalOpen(true); }}
-            className="h-11 px-5 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-sm font-semibold text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all active:scale-[0.98]"
+            className="h-8 px-3.5 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-xs font-semibold text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all active:scale-[0.98]"
           >
-            <Receipt size={17} className="text-brand-accent" /> Registrar gasto
+            <Receipt size={14} className="text-brand-accent" /> Registrar gasto
           </button>
           <button
             onClick={() => { haptic('nav'); setIsSaleModalOpen(true); }}
-            className="btn-primary h-11 px-5 rounded-md text-sm flex items-center justify-center gap-2"
+            className="btn-primary h-8 px-3.5 rounded-md text-xs flex items-center justify-center gap-1.5"
           >
-            <ShoppingCart size={17} /> Nueva venta
+            <ShoppingCart size={14} /> Nueva venta
           </button>
         </div>
       </div>
@@ -493,20 +493,20 @@ const DashboardDesktop: React.FC = () => {
         <div className={`grid gap-3 ${kpiGridCols}`}>
 
           {widgets.showSales && (
-            <div className={`${CARD} p-6 flex flex-col justify-between min-h-[196px] ${widgets.showProfit ? 'col-span-2 xl:col-span-1' : ''}`}>
+            <div className={`${CARD} p-4 flex flex-col justify-between ${widgets.showProfit ? 'col-span-2 xl:col-span-1' : ''}`}>
               <div className="flex justify-between items-start">
                 <div>
-                  <p className={`${SECTION_LABEL} flex items-center gap-2`}><PiggyBank size={15} className="text-brand-primary" /> Balance total</p>
-                  <div className="flex items-baseline gap-2 mt-3.5">
-                    <span className="text-lg font-bold text-text-faint">{settings.currency}</span>
-                    <h2 className="text-4xl xl:text-[44px] font-black tracking-tighter leading-none">
+                  <p className={`${SECTION_LABEL} flex items-center gap-1.5`}><PiggyBank size={12} className="text-brand-primary" /> Balance total</p>
+                  <div className="flex items-baseline gap-1.5 mt-2">
+                    <span className="text-xs font-bold text-text-faint">{settings.currency}</span>
+                    <h2 className="text-[26px] font-black tracking-tight leading-none">
                       {showBalance ? formatMoney(walletStats.totalMain).split('.')[0] : '•••••'}
-                      <span className="text-2xl text-text-disabled opacity-60">.{showBalance ? formatMoney(walletStats.totalMain).split('.')[1] : '••'}</span>
+                      <span className="text-sm text-text-disabled opacity-60">.{showBalance ? formatMoney(walletStats.totalMain).split('.')[1] : '••'}</span>
                     </h2>
                   </div>
                   {settings.subCurrency && (
-                    <p className="text-[13px] text-text-disabled mt-2 flex items-center gap-1.5">
-                      <RotateCcw size={13} className="text-brand-accent" />
+                    <p className="text-[11px] text-text-disabled mt-1.5 flex items-center gap-1">
+                      <RotateCcw size={11} className="text-brand-accent" />
                       {showBalance ? formatMoney(walletStats.secondaryTotal) : '••••'} {settings.subCurrency}
                     </p>
                   )}
@@ -514,18 +514,18 @@ const DashboardDesktop: React.FC = () => {
                 <button
                   onClick={toggleBalance}
                   aria-label={showBalance ? 'Ocultar balance' : 'Mostrar balance'}
-                  className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
+                  className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
                 >
-                  {showBalance ? <Eye size={18} /> : <EyeOff size={18} />}
+                  {showBalance ? <Eye size={14} /> : <EyeOff size={14} />}
                 </button>
               </div>
-              <div className="mt-4 pt-3.5 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
-                <span className="text-xs text-text-disabled flex items-center gap-2">
+              <div className="mt-3 pt-2.5 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
+                <span className="text-[11px] text-text-disabled flex items-center gap-1.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-status-success' : 'bg-status-danger'}`} />
                   {activeWalletsCount} {activeWalletsCount === 1 ? 'billetera activa' : 'billeteras activas'}
                 </span>
-                <button onClick={() => { haptic('nav'); setView('reports'); }} className="text-xs font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
-                  Ver reportes <ArrowRight size={14} />
+                <button onClick={() => { haptic('nav'); setView('reports'); }} className="text-[11px] font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
+                  Ver reportes <ArrowRight size={12} />
                 </button>
               </div>
             </div>
@@ -533,51 +533,51 @@ const DashboardDesktop: React.FC = () => {
 
           {widgets.showProfit && (
             <>
-              <div className={`${CARD} p-5 flex flex-col justify-between`}>
+              <div className={`${CARD} p-3.5 flex flex-col justify-between`}>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-[34px] h-[34px] rounded-md bg-status-success/10 text-status-success-soft flex items-center justify-center"><TrendingUp size={17} strokeWidth={2.5} /></div>
-                    <span className="text-[13px] text-text-muted font-medium">Ventas</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-md bg-status-success/10 text-status-success-soft flex items-center justify-center"><TrendingUp size={12} strokeWidth={2.5} /></div>
+                    <span className="text-xs text-text-muted font-medium">Ventas</span>
                   </div>
-                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled">Este mes</span>
+                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled">Este mes</span>
                 </div>
-                <div className="mt-3">
-                  <p className="text-[28px] font-black tracking-tighter leading-none"><span className="text-xs text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(salesThisMonth)}</p>
-                  <p className="text-xs text-text-disabled mt-1.5">{salesThisMonthList.length} {salesThisMonthList.length === 1 ? 'venta' : 'ventas'}</p>
+                <div className="mt-2">
+                  <p className="text-lg font-black tracking-tight leading-none"><span className="text-[9px] text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(salesThisMonth)}</p>
+                  <p className="text-[10px] text-text-disabled mt-1">{salesThisMonthList.length} {salesThisMonthList.length === 1 ? 'venta' : 'ventas'}</p>
                 </div>
-                <MiniBars data={salesSeries} className="text-status-success mt-2.5" />
+                <MiniBars data={salesSeries} className="text-status-success mt-1.5" />
               </div>
 
-              <div className={`${CARD} p-5 flex flex-col justify-between`}>
+              <div className={`${CARD} p-3.5 flex flex-col justify-between`}>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-[34px] h-[34px] rounded-md bg-rose-500/10 text-rose-400 flex items-center justify-center"><TrendingDown size={17} strokeWidth={2.5} /></div>
-                    <span className="text-[13px] text-text-muted font-medium">Gastos</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-md bg-rose-500/10 text-rose-400 flex items-center justify-center"><TrendingDown size={12} strokeWidth={2.5} /></div>
+                    <span className="text-xs text-text-muted font-medium">Gastos</span>
                   </div>
-                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled">Este mes</span>
+                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled">Este mes</span>
                 </div>
-                <div className="mt-3">
-                  <p className="text-[28px] font-black tracking-tighter leading-none"><span className="text-xs text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(financeStats.expense)}</p>
-                  <p className="text-xs text-text-disabled mt-1.5">{financeStats.expenseCount} {financeStats.expenseCount === 1 ? 'movimiento' : 'movimientos'}</p>
+                <div className="mt-2">
+                  <p className="text-lg font-black tracking-tight leading-none"><span className="text-[9px] text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(financeStats.expense)}</p>
+                  <p className="text-[10px] text-text-disabled mt-1">{financeStats.expenseCount} {financeStats.expenseCount === 1 ? 'movimiento' : 'movimientos'}</p>
                 </div>
-                <MiniBars data={expenseSeries} className="text-rose-400 mt-2.5" />
+                <MiniBars data={expenseSeries} className="text-rose-400 mt-1.5" />
               </div>
 
-              <div className={`${CARD} p-5 flex flex-col justify-between`}>
+              <div className={`${CARD} p-3.5 flex flex-col justify-between`}>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-[34px] h-[34px] rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center"><LineChart size={17} strokeWidth={2.5} /></div>
-                    <span className="text-[13px] text-text-muted font-medium">Ganancia real</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center"><LineChart size={12} strokeWidth={2.5} /></div>
+                    <span className="text-xs text-text-muted font-medium">Ganancia real</span>
                   </div>
-                  <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${profitUi.pill}`}>{profitUi.label}</span>
+                  <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${profitUi.pill}`}>{profitUi.label}</span>
                 </div>
-                <div className="mt-3">
-                  <p className={`text-[28px] font-black tracking-tighter leading-none ${profitUi.text}`}><span className="text-xs text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(realMonthlyProfit)}</p>
-                  <p className="text-xs text-text-disabled mt-1.5">Ingresos − costos − retiros</p>
+                <div className="mt-2">
+                  <p className={`text-lg font-black tracking-tight leading-none ${profitUi.text}`}><span className="text-[9px] text-text-disabled font-bold mr-1">{settings.currency}</span>{formatMoney(realMonthlyProfit)}</p>
+                  <p className="text-[10px] text-text-disabled mt-1">Ingresos − costos − retiros</p>
                 </div>
-                <div className="mt-4 flex items-center gap-2.5">
-                  <div className="flex-1 h-1.5 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] overflow-hidden"><div className={`h-full rounded-full ${profitUi.bar}`} style={{ width: `${profitMargin}%` }} /></div>
-                  <span className="text-[11px] text-text-disabled font-semibold shrink-0">Margen {profitMargin}%</span>
+                <div className="mt-2.5 flex items-center gap-1.5">
+                  <div className="flex-1 h-1 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] overflow-hidden"><div className={`h-full rounded-full ${profitUi.bar}`} style={{ width: `${profitMargin}%` }} /></div>
+                  <span className="text-[9px] text-text-disabled font-semibold shrink-0">Margen {profitMargin}%</span>
                 </div>
               </div>
             </>
@@ -592,48 +592,48 @@ const DashboardDesktop: React.FC = () => {
         <div className="flex flex-col gap-3 min-w-0">
 
           {widgets.showQuickActions && (
-            <div className={`${CARD} p-5`}>
-              <div className="flex items-center justify-between mb-3.5">
+            <div className={`${CARD} p-3.5`}>
+              <div className="flex items-center justify-between mb-2.5">
                 <h3 className={SECTION_LABEL}>Atajos rápidos</h3>
-                <button onClick={() => setIsConfigModalOpen(true)} className="text-xs font-semibold text-text-disabled hover:text-text-primary transition-colors flex items-center gap-1.5">
-                  <SlidersHorizontal size={13} /> Editar
+                <button onClick={() => setIsConfigModalOpen(true)} className="text-[10px] font-semibold text-text-disabled hover:text-text-primary transition-colors flex items-center gap-1">
+                  <SlidersHorizontal size={11} /> Editar
                 </button>
               </div>
               {renderedActions.length > 0 ? (
-                <div className="grid gap-2.5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(84px, 1fr))' }}>
+                <div className="grid gap-1.5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(64px, 1fr))' }}>
                   {renderedActions.map((action, index) => (
                     <button
                       key={index}
                       onClick={() => { haptic('nav'); action.onClick(); }}
-                      className="h-[88px] rounded-lg bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] flex flex-col items-center justify-center gap-2 text-text-disabled hover:text-text-primary hover:border-[rgb(var(--fg-rgb))]/[0.16] hover:-translate-y-px active:scale-95 transition-all group"
+                      className="h-[60px] rounded-lg bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] flex flex-col items-center justify-center gap-1 text-text-disabled hover:text-text-primary hover:border-[rgb(var(--fg-rgb))]/[0.16] active:scale-95 transition-all group"
                     >
-                      <div className={`w-[38px] h-[38px] rounded-md bg-[rgb(var(--fg-rgb))]/[0.04] flex items-center justify-center transition-transform group-hover:scale-105 ${action.color}`}>
-                        <action.icon size={19} strokeWidth={2.5} />
+                      <div className={`w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/[0.04] flex items-center justify-center transition-transform group-hover:scale-105 ${action.color}`}>
+                        <action.icon size={13} strokeWidth={2.5} />
                       </div>
-                      <span className="text-xs font-semibold">{action.label}</span>
+                      <span className="text-[10px] font-semibold">{action.label}</span>
                     </button>
                   ))}
                 </div>
               ) : (
-                <p className="py-6 text-center text-xs text-text-disabled">No hay atajos. Usa Editar para elegir cuáles mostrar.</p>
+                <p className="py-4 text-center text-xs text-text-disabled">No hay atajos. Usa Editar para elegir cuáles mostrar.</p>
               )}
             </div>
           )}
 
           <div className={`${CARD} overflow-hidden`}>
-            <div className="flex items-center justify-between px-5 pt-[18px] pb-3.5">
-              <div className="flex items-center gap-2.5">
-                <div className="w-[30px] h-[30px] rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center"><ArrowUpRight size={15} /></div>
-                <h3 className="text-[15px] font-bold tracking-tight">Últimos movimientos</h3>
+            <div className="flex items-center justify-between px-3.5 pt-3 pb-2">
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center"><ArrowUpRight size={12} /></div>
+                <h3 className="text-xs font-bold tracking-tight">Últimos movimientos</h3>
               </div>
-              <button onClick={() => { haptic('nav'); setView('accounts'); }} className="text-xs font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
-                Ver todos <ChevronRight size={14} />
+              <button onClick={() => { haptic('nav'); setView('accounts'); }} className="text-[10px] font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
+                Ver todos <ChevronRight size={11} />
               </button>
             </div>
 
             {monthlyMovements.length > 0 ? (
               <>
-                <div className="grid grid-cols-[44px_minmax(0,1fr)_110px_120px_120px] gap-3 items-center px-5 py-2 border-t border-[rgb(var(--fg-rgb))]/5">
+                <div className="grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-1 border-t border-[rgb(var(--fg-rgb))]/5">
                   <span />
                   <span className={SECTION_LABEL}>Concepto</span>
                   <span className={SECTION_LABEL}>Fecha</span>
@@ -646,24 +646,24 @@ const DashboardDesktop: React.FC = () => {
                     <button
                       key={mov.id}
                       onClick={() => setSelectedMovement(mov)}
-                      className="w-full grid grid-cols-[44px_minmax(0,1fr)_110px_120px_120px] gap-3 items-center px-5 py-3 border-t border-[rgb(var(--fg-rgb))]/5 text-left hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors"
+                      className="w-full grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-2 border-t border-[rgb(var(--fg-rgb))]/5 text-left hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors"
                     >
-                      <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isIncome ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
-                        {isIncome ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isIncome ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
+                        {isIncome ? <ArrowUpRight size={11} /> : <ArrowDownRight size={11} />}
                       </div>
-                      <span className="text-sm font-semibold truncate">{mov.description || 'Movimiento'}</span>
-                      <span className="text-[13px] text-text-disabled">{new Date(mov.date).toLocaleDateString()}</span>
-                      <span><span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted capitalize">{mov.paymentMethod || 'Manual'}</span></span>
+                      <span className="text-xs font-semibold truncate">{mov.description || 'Movimiento'}</span>
+                      <span className="text-[10px] text-text-disabled">{new Date(mov.date).toLocaleDateString()}</span>
+                      <span><span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted capitalize">{mov.paymentMethod || 'Manual'}</span></span>
                       <span className="text-right">
-                        <span className={`block text-[15px] font-bold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{isIncome ? '+' : '-'}{formatMoney(mov.amount)}</span>
-                        <span className="block text-[10px] text-text-faint font-semibold">{mov.currency}</span>
+                        <span className={`block text-xs font-bold ${isIncome ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{isIncome ? '+' : '-'}{formatMoney(mov.amount)}</span>
+                        <span className="block text-[9px] text-text-faint font-semibold">{mov.currency}</span>
                       </span>
                     </button>
                   );
                 })}
               </>
             ) : (
-              <div className="py-14 text-center text-text-disabled text-xs border-t border-[rgb(var(--fg-rgb))]/5">
+              <div className="py-8 text-center text-text-disabled text-xs border-t border-[rgb(var(--fg-rgb))]/5">
                 No hay movimientos este mes.
               </div>
             )}
@@ -675,27 +675,27 @@ const DashboardDesktop: React.FC = () => {
           <div className="flex flex-col gap-3 min-w-0">
 
             {widgets.showExchangeRate && failingAccounts.length > 0 && (
-              <div className="rounded-xl p-4 flex items-center gap-3 bg-status-danger/[0.06] border border-status-danger/25">
-                <div className="w-9 h-9 rounded-md bg-status-danger/15 text-status-danger-soft flex items-center justify-center shrink-0"><AlertOctagon size={18} /></div>
+              <div className="rounded-xl p-3 flex items-center gap-2 bg-status-danger/[0.06] border border-status-danger/25">
+                <div className="w-7 h-7 rounded-md bg-status-danger/15 text-status-danger-soft flex items-center justify-center shrink-0"><AlertOctagon size={13} /></div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold">{failingAccounts.length} {failingAccounts.length === 1 ? 'cuenta en falla' : 'cuentas en falla'}</p>
-                  <p className="text-xs text-status-danger-soft/80 mt-0.5">Afectan a {affectedClientsCount} {affectedClientsCount === 1 ? 'cliente' : 'clientes'}</p>
+                  <p className="text-xs font-bold">{failingAccounts.length} {failingAccounts.length === 1 ? 'cuenta en falla' : 'cuentas en falla'}</p>
+                  <p className="text-[10px] text-status-danger-soft/80 mt-0.5">Afectan a {affectedClientsCount} {affectedClientsCount === 1 ? 'cliente' : 'clientes'}</p>
                 </div>
-                <button onClick={() => { haptic('nav'); setView('agenda'); }} className="text-xs font-semibold text-status-danger-soft hover:text-text-primary transition-colors flex items-center gap-1 shrink-0">
-                  Agenda <ArrowRight size={14} />
+                <button onClick={() => { haptic('nav'); setView('agenda'); }} className="text-[10px] font-semibold text-status-danger-soft hover:text-text-primary transition-colors flex items-center gap-1 shrink-0">
+                  Agenda <ArrowRight size={11} />
                 </button>
               </div>
             )}
 
             {widgets.showExchangeRate && (
               <div className={`${CARD} overflow-hidden`}>
-                <div className="flex items-center justify-between px-5 pt-[18px] pb-3.5">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-[15px] font-bold tracking-tight">Vencen pronto</h3>
-                    {expiringSales.length > 0 && <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning-soft">{expiringSales.length}</span>}
+                <div className="flex items-center justify-between px-3.5 pt-3 pb-2">
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="text-xs font-bold tracking-tight">Vencen pronto</h3>
+                    {expiringSales.length > 0 && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-status-warning/10 text-status-warning-soft">{expiringSales.length}</span>}
                   </div>
-                  <button onClick={() => { haptic('nav'); setView('expired'); }} className="text-xs font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
-                    Ver todas <ChevronRight size={14} />
+                  <button onClick={() => { haptic('nav'); setView('expired'); }} className="text-[10px] font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
+                    Ver todas <ChevronRight size={11} />
                   </button>
                 </div>
                 {expiringSales.length > 0 ? (
@@ -703,53 +703,53 @@ const DashboardDesktop: React.FC = () => {
                     const clientName = clients.find(c => c.id === sale.clientId)?.name || 'Cliente';
                     const pill = getExpiryPill(days);
                     return (
-                      <div key={sale.id} className="flex items-center gap-3 px-5 py-3 border-t border-[rgb(var(--fg-rgb))]/5">
-                        <div className="w-[34px] h-[34px] rounded-full bg-surface-3 flex items-center justify-center text-xs font-bold shrink-0">{clientName.substring(0, 2).toUpperCase()}</div>
+                      <div key={sale.id} className="flex items-center gap-2 px-3.5 py-2 border-t border-[rgb(var(--fg-rgb))]/5">
+                        <div className="w-6 h-6 rounded-full bg-surface-3 flex items-center justify-center text-[9px] font-bold shrink-0">{clientName.substring(0, 2).toUpperCase()}</div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold truncate">{clientName}</p>
-                          <p className="text-xs text-text-disabled truncate mt-0.5">{sale.serviceName}</p>
+                          <p className="text-xs font-semibold truncate">{clientName}</p>
+                          <p className="text-[10px] text-text-disabled truncate mt-0.5">{sale.serviceName}</p>
                         </div>
-                        <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 ${pill.cls}`}>{pill.label}</span>
-                        <button onClick={() => openRenew(sale)} aria-label={`Renovar ${sale.serviceName}`} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-brand-primary-hi flex items-center justify-center transition-all active:scale-90 shrink-0">
-                          <CalendarClock size={16} />
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${pill.cls}`}>{pill.label}</span>
+                        <button onClick={() => openRenew(sale)} aria-label={`Renovar ${sale.serviceName}`} className="w-6 h-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-brand-primary-hi flex items-center justify-center transition-all active:scale-90 shrink-0">
+                          <CalendarClock size={12} />
                         </button>
                       </div>
                     );
                   })
                 ) : (
-                  <div className="py-10 flex flex-col items-center gap-2 text-text-disabled border-t border-[rgb(var(--fg-rgb))]/5">
-                    <CheckCircle2 size={26} strokeWidth={1.5} className="text-status-success-soft" />
-                    <p className="text-xs">Nada por vencer esta semana.</p>
+                  <div className="py-6 flex flex-col items-center gap-1.5 text-text-disabled border-t border-[rgb(var(--fg-rgb))]/5">
+                    <CheckCircle2 size={20} strokeWidth={1.5} className="text-status-success-soft" />
+                    <p className="text-[11px]">Nada por vencer esta semana.</p>
                   </div>
                 )}
               </div>
             )}
 
             {widgets.showInventory && (
-              <div className={`${CARD} p-5`}>
-                <div className="flex items-center justify-between mb-3.5">
-                  <h3 className="text-[15px] font-bold tracking-tight">Stock disponible</h3>
-                  <button onClick={openStockFinder} className="text-xs font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
-                    Consultar <ChevronRight size={14} />
+              <div className={`${CARD} p-3.5`}>
+                <div className="flex items-center justify-between mb-2.5">
+                  <h3 className="text-xs font-bold tracking-tight">Stock disponible</h3>
+                  <button onClick={openStockFinder} className="text-[10px] font-semibold text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1">
+                    Consultar <ChevronRight size={11} />
                   </button>
                 </div>
                 {stockData.length > 0 ? (
-                  <div className="space-y-3.5">
+                  <div className="space-y-2.5">
                     {stockData.slice(0, 4).map(s => (
                       <button key={s.id} onClick={() => { haptic('nav'); setSelectedStockService(s); }} className="w-full text-left group">
-                        <div className="flex justify-between text-[13px] mb-1.5">
+                        <div className="flex justify-between text-[11px] mb-1">
                           <span className="font-medium group-hover:text-text-primary transition-colors truncate pr-2">{s.name}</span>
                           <span className="font-bold text-status-success-soft shrink-0">{s.totalFree} {s.totalFree === 1 ? 'cupo' : 'cupos'}</span>
                         </div>
-                        <div className="h-1.5 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] overflow-hidden">
+                        <div className="h-1 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] overflow-hidden">
                           <div className="h-full rounded-full bg-status-success" style={{ width: `${(s.totalFree / stockData[0].totalFree) * 100}%` }} />
                         </div>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <div className="py-6 flex flex-col items-center gap-2 text-text-disabled">
-                    <Box size={26} strokeWidth={1.5} />
+                  <div className="py-4 flex flex-col items-center gap-1.5 text-text-disabled">
+                    <Box size={20} strokeWidth={1.5} />
                     <p className="text-xs">Sin stock disponible actualmente.</p>
                   </div>
                 )}
