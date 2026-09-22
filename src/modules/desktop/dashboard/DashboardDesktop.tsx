@@ -466,18 +466,6 @@ const DashboardDesktop: React.FC = () => {
               <span className="absolute top-3 right-3 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_10px_#FF1493]" />
             )}
           </button>
-          <button
-            onClick={() => { haptic('nav'); setIsExpenseModalOpen(true); }}
-            className="h-8 px-3.5 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-4 text-xs font-semibold text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all active:scale-[0.98]"
-          >
-            <Receipt size={14} className="text-brand-accent" /> Registrar gasto
-          </button>
-          <button
-            onClick={() => { haptic('nav'); setIsSaleModalOpen(true); }}
-            className="btn-primary h-8 px-3.5 rounded-md text-xs flex items-center justify-center gap-1.5"
-          >
-            <ShoppingCart size={14} /> Nueva venta
-          </button>
         </div>
       </div>
 
