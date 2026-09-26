@@ -36,12 +36,16 @@
     <meta name="apple-mobile-web-app-title" content="Noova" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Favicon -->
+    <!-- Favicon: PNG primero (svg como respaldo). Safari en iOS no soporta
+         apple-touch-icon en SVG (antes apuntaba a logo.svg y no se veía en
+         "Añadir a inicio" de iPhone), por eso ahora usa un PNG dedicado. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <title>Noova</title>
 
