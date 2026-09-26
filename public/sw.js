@@ -1,15 +1,24 @@
 importScripts("https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js");
 
-const CACHE_NAME = "noova-suite-v7"; // Incremented version
+const CACHE_NAME = "noova-suite-v8"; // Incremented: nuevo logo + fix de precache roto
 const OFFLINE_URL = "/index.html";
 
+// Antes esta lista incluía "/android-chrome-192x192.png" y
+// "/android-chrome-512x512.png", archivos que NUNCA existieron en /public.
+// cache.addAll() falla entero si UN solo archivo de la lista da 404, así
+// que el precache llevaba tiempo rompiéndose en silencio (el install
+// event fallaba y no dejaba nada en caché). Se corrige con los nombres
+// reales de los íconos.
 const PRECACHE_ASSETS = [
   "/",
   "/index.html",
   "/manifest.json",
   "/logo.svg",
-  "/android-chrome-192x192.png",
-  "/android-chrome-512x512.png"
+  "/icon-192.png",
+  "/icon-512.png",
+  "/icon-192-maskable.png",
+  "/icon-512-maskable.png",
+  "/apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
