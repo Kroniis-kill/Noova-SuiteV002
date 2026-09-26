@@ -63,12 +63,16 @@ export const useSupabaseData = (userId: string | undefined) => {
   // react-query es la única fuente de verdad — los datos se leen desde acá
   // mismo (financialAccountsQ.data, etc.) y desde DataContext.tsx.
   const financialAccountsQ = useTableQuery('financial_accounts', 'financial_accounts', mappers.financial.fromDb, true, 1000, 'id, name, currency, balance, payment_methods, is_active');
-  const movementsQ = useTableQuery('movements', 'movements', mappers.movement.fromDb, true, 500, '*');
+  // Antes: '*' en movements/expenses/supplies. Estas 3 tablas se re-piden
+  // enteras cada vez que se invalida (ver fix en DataContext.tsx), así que
+  // traer columnas de más multiplicaba el Egress sin necesidad. Se listan
+  // explícitas según lo que realmente lee mappers.*.fromDb en mappers.ts.
+  const movementsQ = useTableQuery('movements', 'movements', mappers.movement.fromDb, true, 500, 'id, account_id, related_account_id, type, amount, currency, exchange_rate, usd_equivalent, date, description, payment_method, reconciled, reconciled_at, reconciled_by, verified');
   const resellersQ = useTableQuery('resellers', 'resellers', mappers.reseller.fromDb, true, 1000, 'id, name, code, whatsapp, telegram, color, registration_date');
   const providersQ = useTableQuery('providers', 'providers', mappers.provider.fromDb, true, 1000, 'id, name, whatsapp, telegram, color, registration_date, quality_score');
   const payableExpensesQ = useTableQuery('payable_expenses', 'payable_expenses', mappers.payable.fromDb, true, 1000, 'id, name, amount, currency, due_date, recurrence');
-  const expensesQ = useTableQuery('expenses', 'expenses', mappers.expense.fromDb, true, 1000, '*');
-  const suppliesQ = useTableQuery('supplies', 'supplies', mappers.supply.fromDb, true, 1000, '*');
+  const expensesQ = useTableQuery('expenses', 'expenses', mappers.expense.fromDb, true, 1000, 'id, user_id, date, amount, exchange_rate, category, category_id, description, payment_method, financial_account_id, created_at');
+  const suppliesQ = useTableQuery('supplies', 'supplies', mappers.supply.fromDb, true, 1000, 'id, user_id, provider_name, item_type, label, quantity, unit_cost, total_cost, exchange_rate, date, payment_method, financial_account_id, created_at');
   
   // service_failures + activity_logs queries movidos a ./queries/useActivityLogs
   const serviceFailuresQ = useServiceFailuresQ(userId);
