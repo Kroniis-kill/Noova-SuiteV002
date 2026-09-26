@@ -134,6 +134,22 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     let resubscribeTimer: NodeJS.Timeout | null = null;
     let mounted = true;
 
+    // --- Fix Egress: evitar "tormenta" de refetch completo en cada blip de red ---
+    // Antes: cada vez que UN canal reportaba CHANNEL_ERROR/TIMED_OUT/CLOSED
+    // (algo normal con datos móviles/VPN inestables), se invalidaban las 11
+    // tablas completas (varias con `select('*')`), aunque la desconexión
+    // hubiera durado 1-2 segundos. Con conexión intermitente esto se repetía
+    // decenas de veces por hora, multiplicando el tráfico transferido sin
+    // que los datos hubieran cambiado realmente.
+    // Ahora: solo invalidamos todo si la desconexión duró más de 60s
+    // (igual que el umbral de 3min que ya usa useOfflineSync para el
+    // refresh en foreground), y como mucho una vez cada 2 minutos aunque
+    // la red siga parpadeando.
+    const DISCONNECT_INVALIDATE_THRESHOLD_MS = 60_000;
+    const FULL_INVALIDATE_COOLDOWN_MS = 2 * 60_000;
+    let disconnectedAt: number | null = null;
+    let lastFullInvalidateAt = 0;
+
     // Solo se usa como red de seguridad: si el patch quirúrgico falla (tabla
     // sin mapper, forma de dato inesperada, etc.), caemos al invalidate
     // completo de antes, pero eso ya no es el camino feliz.
@@ -172,14 +188,30 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             // #5: Reconexión automática si el canal se cae o expira
             if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
               if (!mounted) return;
+              if (disconnectedAt === null) disconnectedAt = Date.now();
               if (resubscribeTimer) return; // ya hay un retry programado
               console.warn(`[Realtime] ${table} status=${status}, re-suscribiendo en 5s...`);
               resubscribeTimer = setTimeout(() => {
                 resubscribeTimer = null;
-                // Invalida todo para recuperar el estado perdido durante la desconexión
-                tables.forEach(t => queryClient.invalidateQueries({ queryKey: [t, user.id] }));
+                const downSince = disconnectedAt;
+                disconnectedAt = null;
+                const now = Date.now();
+                const wasDownLongEnough = downSince !== null && (now - downSince) >= DISCONNECT_INVALIDATE_THRESHOLD_MS;
+                const cooldownElapsed = (now - lastFullInvalidateAt) >= FULL_INVALIDATE_COOLDOWN_MS;
+                if (wasDownLongEnough && cooldownElapsed) {
+                  // Solo pedimos todo de nuevo si estuvimos realmente
+                  // desconectados un buen rato Y no acabamos de hacerlo.
+                  lastFullInvalidateAt = now;
+                  tables.forEach(t => queryClient.invalidateQueries({ queryKey: [t, user.id] }));
+                } else {
+                  console.warn('[Realtime] reconexión rápida, se omite el refetch completo (evita gasto de Egress)');
+                }
                 setup();
               }, 5000);
+            } else if (status === 'SUBSCRIBED') {
+              // Canal recuperado sin pasar por el timeout de arriba (p.ej.
+              // reconectó solo): limpiamos la marca de desconexión.
+              disconnectedAt = null;
             }
           })
       );
