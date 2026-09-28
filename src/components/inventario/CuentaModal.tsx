@@ -221,7 +221,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                   </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="overflow-y-auto px-5 pt-4 pb-[18px] flex flex-col gap-[14px]">
+                <form onSubmit={handleSubmit} className="overflow-y-auto px-5 pt-4 pb-[18px] flex flex-col gap-[14px] [&>*]:shrink-0">
 
                   {/* SERVICIO + PROVEEDOR */}
                   <div className="grid grid-cols-2 gap-2">
@@ -368,7 +368,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                   {/* BOTÓN FINAL */}
                   <button
                     type="submit"
-                    className="w-full h-[46px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-text-primary font-bold text-[13px] flex items-center justify-center gap-[6px] active:scale-95 transition-all hover:brightness-110"
+                    className="btn-primary w-full h-[52px] shrink-0 rounded-md text-sm flex items-center justify-center gap-2"
                   >
                     <Check size={16} strokeWidth={3} /> {initialData ? 'Guardar cambios' : 'Crear cuenta'}
                   </button>

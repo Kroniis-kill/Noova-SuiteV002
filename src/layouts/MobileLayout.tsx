@@ -62,7 +62,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
         <main 
           ref={mainRef}
           className={`flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar relative z-10 will-change-scroll ${
-            (isBottomNavVisible && currentView !== 'settings') ? 'pb-[calc(8rem+env(safe-area-inset-bottom))]' : 'pb-[calc(2.5rem+env(safe-area-inset-bottom))]'
+            (isBottomNavVisible && currentView !== 'settings') ? 'pb-[calc(7.5rem+env(safe-area-inset-bottom))]' : 'pb-[calc(2.5rem+env(safe-area-inset-bottom))]'
           }`}
         >
              <div className="view-container">
@@ -76,6 +76,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
         setView={setView}
         onMenuClick={() => setIsMobileOpen(true)}
         isVisible={isBottomNavVisible && currentView !== 'settings'}
+        isMenuOpen={isMobileOpen}
       />
     </div>
   );

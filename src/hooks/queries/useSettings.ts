@@ -116,6 +116,22 @@ export function useSettings(userId: string | undefined) {
         throw error;
       }
     },
+    // Actualización optimista: la pantalla refleja el cambio al instante,
+    // sin esperar la respuesta de Supabase. Si la petición falla, se revierte.
+    onMutate: async (newSettings: AppSettings) => {
+      await queryClient.cancelQueries({ queryKey: ['settings', userId] });
+      const previousSettings = queryClient.getQueryData<AppSettings>(['settings', userId]);
+      queryClient.setQueryData(['settings', userId], newSettings);
+      cacheUtils.save('settings', newSettings, userId);
+      return { previousSettings };
+    },
+    onError: (_err, _newSettings, context) => {
+      if (context?.previousSettings) {
+        queryClient.setQueryData(['settings', userId], context.previousSettings);
+        cacheUtils.save('settings', context.previousSettings, userId);
+      }
+      showToast('No se pudo guardar la configuración, se revirtió el cambio', 'error');
+    },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['settings', userId] }),
   }).mutateAsync;
 

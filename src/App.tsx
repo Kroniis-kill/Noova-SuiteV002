@@ -65,6 +65,7 @@ const MyPlanPage = lazyRetry(() => import('./pages/MyPlanPage'));
 const PortalPage = lazyRetry(() => import('./pages/PortalPage')); 
 const LegalPage = lazyRetry(() => import('./pages/LegalPage'));
 const RefundPage = lazyRetry(() => import('./pages/Refund'));
+const PersonalizeHomePage = lazyRetry(() => import('./pages/PersonalizeHome'));
 
 const viewLabels: Record<ViewState, string> = {
   dashboard: 'Dashboard', 
@@ -86,6 +87,7 @@ const viewLabels: Record<ViewState, string> = {
   agenda: 'Agenda de Fallas', 
   trash: 'Papelera',
   refund: 'Reembolso',
+  personalize_home: 'Personaliza tu inicio',
 };
 
 const MainLayout: React.FC = () => {
@@ -287,6 +289,7 @@ const MainLayout: React.FC = () => {
                 case 'admin': return isAdmin ? <AdminPage /> : <DashboardPage setView={setGlobalView} />;
                 case 'my_plan': return <MyPlanPage />;
                 case 'refund': return <RefundPage onBack={() => setGlobalView('dashboard')} />;
+                case 'personalize_home': return <PersonalizeHomePage onBack={() => setGlobalView('dashboard')} />;
                 default: return <DashboardPage setView={setGlobalView} />;
               }
             })()}

@@ -93,14 +93,16 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
   // LOGIC 1: SALES (CLIENTS)
   // ==========================================
   
+  const warningDays = settings.salesPreferences?.warningDays ?? 2;
+
   const expiredSales = useMemo(() => {
     let result = sales.filter(sale => {
        const days = getDaysRemaining(sale.expiryDate);
-       // Adjusted rule: Show clients when they have 1 day or less remaining
-       return days <= 1; 
+       // Usa el umbral configurado en Configuración > Preferencia de Venta
+       return days <= warningDays; 
     });
     return result;
-  }, [sales]);
+  }, [sales, warningDays]);
 
   const groupedSales = useMemo(() => {
      let groups = groupSalesByClientAndDate(expiredSales, clients, resellers);
@@ -138,8 +140,8 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
     let result = accounts.filter(acc => {
        if (acc.status === 'inactiva') return false;
        const days = getDaysRemaining(acc.endDate);
-       // Adjusted rule: Show stock when 2 days or less remaining
-       return days <= 2; 
+       // Usa el mismo umbral configurado en Configuración > Preferencia de Venta
+       return days <= warningDays; 
     });
 
     if (searchQuery) {
@@ -152,7 +154,7 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
     }
 
     return result.sort((a, b) => getDaysRemaining(a.endDate) - getDaysRemaining(b.endDate));
-  }, [accounts, searchQuery, services, filterService]);
+  }, [accounts, searchQuery, services, filterService, warningDays]);
 
   const uniqueInventoryServices = useMemo(() => {
      const ids = new Set(accounts.map(a => a.serviceId));

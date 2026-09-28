@@ -5,15 +5,11 @@ import SaleCard from '../../../components/sales/SaleCard';
 import SaleModal from '../../../components/sales/SaleModal';
 import EditSaleModal from '../../../components/sales/EditSaleModal';
 import SaleDetailPage from '../../../components/sales/SaleDetailPage';
+import FailureManageModal from '../../../components/sales/FailureManageModal';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions'; 
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
 import { 
-  Search, Plus, Upload, X, Filter, ClipboardList, CheckCircle, 
-  MonitorPlay, ShoppingCart, MessageCircle, 
-  AlertTriangle, Mail, Lock, Copy, 
-  Database, Monitor, AlertCircle, Trash2, Check, Clock, Zap,
-  ChevronRight, Key, LayoutTemplate, CheckCircle2, User, FileText, Send,
-  ShieldCheck, ChevronDown, Layers, Users
+  Search, Plus, Upload, X, Filter, ClipboardList, CheckCircle, ShoppingCart, MessageCircle, AlertTriangle, Mail, Lock, Database, Monitor, AlertCircle, Trash2, Check, Clock, Zap, ChevronRight, Key, LayoutTemplate, CheckCircle2, FileText, Send, ShieldCheck, Layers, Users
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -472,100 +468,14 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          </AnimatePresence>
       </div>
 
-      {/* MODAL DETALLE DE FALLA */}
-      <Modal isOpen={!!selectedFailure} onClose={() => setSelectedFailure(null)} title="Gestionar Incidencia" zIndex={60000}>
-         {selectedFailure && (() => {
-            const sale = sales.find(s => s.id === selectedFailure.saleId);
-            const client = clients.find(c => c.id === sale?.clientId);
-            const account = accounts.find(a => a.id === sale?.accountId);
-            const service = services.find(s => s.name === sale?.serviceName);
-            const isUnique = sale?.saleType === 'usuario_unico';
-
-            return (
-                <div className="pt-0 pb-4 space-y-5">
-                    {/* Header Info */}
-                    <div className="flex items-center gap-4 px-1">
-                         <div className="w-16 h-16 rounded-full bg-surface-zinc flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-lg">
-                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <MonitorPlay size={28} className="text-text-disabled" />}
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-black text-text-primary truncate uppercase tracking-tight">{sale?.serviceName}</h4>
-                            <p className="text-sm font-medium text-text-disabled flex items-center gap-1.5"><User size={14} className="text-text-muted" /> {client?.name}</p>
-                        </div>
-                    </div>
-
-                    {/* Credentials Sections */}
-                    <div className="space-y-4">
-                        {isUnique && (
-                            <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5">
-                                <h5 className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-3 ml-1">Cuenta de Invitado (Cliente)</h5>
-                                <div className="space-y-3">
-                                    <div>
-                                        <label className="text-[9px] font-bold text-text-faint uppercase mb-1 block ml-1">Correo</label>
-                                        <div className="bg-surface-sunken rounded-md h-12 flex items-center justify-between px-4 border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-transform" onClick={() => { navigator.clipboard.writeText(sale?.invitedEmail || ''); showToast('Copiado', 'success'); }}>
-                                            <span className="text-sm font-bold text-text-primary truncate">{sale?.invitedEmail || '---'}</span>
-                                            <Copy size={14} className="text-text-faint" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="text-[9px] font-bold text-text-faint uppercase mb-1 block ml-1">Contraseña</label>
-                                        <div className="bg-surface-sunken rounded-md h-12 flex items-center justify-between px-4 border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-transform" onClick={() => { navigator.clipboard.writeText(sale?.invitedPassword || ''); showToast('Copiado', 'success'); }}>
-                                            <span className="text-sm font-mono font-bold text-text-primary truncate">{sale?.invitedPassword || '---'}</span>
-                                            <Copy size={14} className="text-text-faint" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5">
-                             <h5 className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-3 ml-1">Cuenta Maestra</h5>
-                             <div className="space-y-3">
-                                <div>
-                                    <label className="text-[9px] font-bold text-text-faint uppercase mb-1 block ml-1">Correo</label>
-                                    <div className="bg-surface-sunken rounded-md h-12 flex items-center justify-between px-4 border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-transform" onClick={() => { navigator.clipboard.writeText(account?.email || ''); showToast('Copiado', 'success'); }}>
-                                        <span className="text-sm font-bold text-text-primary truncate">{account?.email || '---'}</span>
-                                        <Copy size={14} className="text-text-faint" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className="text-[9px] font-bold text-text-faint uppercase mb-1 block ml-1">Contraseña</label>
-                                    <div className="bg-surface-sunken rounded-md h-12 flex items-center justify-between px-4 border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-transform" onClick={() => { navigator.clipboard.writeText(account?.password || ''); showToast('Copiado', 'success'); }}>
-                                        <span className="text-sm font-mono font-bold text-text-primary truncate">{account?.password || '---'}</span>
-                                        <Copy size={14} className="text-text-faint" />
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-                    </div>
-
-                    {/* Report Note */}
-                    <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5">
-                        <label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1">Motivo Reportado</label>
-                        <div className="bg-surface-sunken rounded-xl p-4 min-h-[80px] border border-[rgb(var(--fg-rgb))]/5">
-                             <p className="text-sm text-text-secondary font-medium leading-relaxed italic">"{selectedFailure.notes || 'Sin descripción detallada.'}"</p>
-                        </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="space-y-3 pt-2">
-                        <div className="grid grid-cols-2 gap-3">
-                            <button onClick={() => onHandleNotifyFailure(selectedFailure)} className="h-14 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-semibold text-xs shadow-sm flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all">
-                                Avisar Falla
-                            </button>
-                            <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-semibold text-xs shadow-glow flex items-center justify-center text-center leading-tight active:scale-95 transition-all">
-                                Resolver y Notificar
-                            </button>
-                        </div>
-                        
-                        <button onClick={() => onHandleSolveFailure(selectedFailure, false)} className="w-full h-14 bg-surface-3 text-text-muted font-semibold text-xs rounded-md flex items-center justify-center gap-2 border border-[rgb(var(--fg-rgb))]/5 hover:text-text-primary transition-colors active:scale-95">
-                            Solo Resolver <ChevronDown size={14} />
-                        </button>
-                    </div>
-                </div>
-            )
-         })()}
-      </Modal>
+      {/* MODAL GESTIONAR INCIDENCIA */}
+      <FailureManageModal
+        failure={selectedFailure}
+        onClose={() => setSelectedFailure(null)}
+        onNotify={onHandleNotifyFailure}
+        onSolve={onHandleSolveFailure}
+        zIndex={60000}
+      />
 
       <ImportGuideModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} onConfirm={() => fileInputRef.current?.click()} title="Importar Ventas" type="sales" />
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />

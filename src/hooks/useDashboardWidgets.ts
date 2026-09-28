@@ -9,6 +9,11 @@ const DEFAULT_WIDGETS: DashboardWidgets = {
   showInventory: true,
   showExchangeRate: true,
   showQuickActions: true,
+  showExpiringSales: true,
+  showExpiringAccounts: true,
+  showMovements: true,
+  showStock: true,
+  showAgenda: true,
   quickActions: ['sale', 'expense', 'stock', 'services'] 
 };
 

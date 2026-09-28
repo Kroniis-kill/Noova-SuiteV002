@@ -16,7 +16,7 @@ import {
   Receipt, Bell, Eye, EyeOff, Search, MonitorPlay, Key, 
   ChevronRight, SlidersHorizontal, PiggyBank, HelpCircle, RotateCcw, UserMinus, AlertOctagon, CheckCircle2,
   RefreshCw, DollarSign, User, Briefcase, Truck, UserPlus, BarChart3, AlertTriangle, ArrowLeft, Copy,
-  ClipboardList, Trash2, X, Box, Cloud, CloudOff, UploadCloud
+  ClipboardList, Trash2, X, Box, Cloud, CloudOff, UploadCloud, MessageCircle, Pencil, Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ViewState, Movement, FinancialAccount, Sale, Reseller, Provider, Client, PayableExpense } from '../../../types';
@@ -56,7 +56,7 @@ import { useDashboardWidgets } from '../../../hooks/useDashboardWidgets';
 // Components
 import AccountCard from '../../../components/cuentas/AccountCard';
 import ScrollFloatingActions, { ActionItem } from '../../../components/ui/ScrollFloatingActions';
-import AnimatedLogo from '../../../components/ui/AnimatedLogo'; 
+import Avatar from '../../../components/ui/Avatar';
 import ExpiredCard from '../../../components/expired/ExpiredCard';
 
 const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; movement: Movement | null; settings: any }> = ({ isOpen, onClose, movement, settings }) => {
@@ -152,7 +152,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
     sales, movements, settings, financialAccounts, accounts, services, clients,
     addClient, addPayable, isLoading, expenses, supplies, updateSettings, resellers,
     addFinancialAccount, updateFinancialAccount, deleteFinancialAccount, 
-    addReseller, addProvider, executeTransaction
+    addReseller, addProvider, executeTransaction, serviceFailures, deleteFailure
   } = useData();
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -195,6 +195,8 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
   const [historyAccount, setHistoryAccount] = useState<FinancialAccount | null>(null);
   const [isAccountFormOpen, setIsAccountFormOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isEditingRate, setIsEditingRate] = useState(false);
+  const [rateInput, setRateInput] = useState('');
   const [editingAccount, setEditingAccount] = useState<FinancialAccount | null>(null);
   const [selectedMovement, setSelectedMovement] = useState<Movement | null>(null);
 
@@ -213,6 +215,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
         return { 
           id: svc.id, 
           name: svc.name, 
+          image_url: svc.image_url,
           totalFree, 
           accounts: accountsWithSpace.map(a => ({ 
             id: a.id,
@@ -221,8 +224,64 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             available: a.maxScreens - calculateOccupancy(a) 
           })) 
         };
-    }).filter(s => s.totalFree > 0).sort((a, b) => b.totalFree - a.totalFree);
+    }).sort((a, b) => b.totalFree - a.totalFree);
   }, [services, accounts]);
+
+  // Igual que stockData pero con lo más urgente primero (0 o poco stock arriba) — usado en el widget del dashboard
+  const stockDataByUrgency = useMemo(() => {
+    return [...stockData].sort((a, b) => a.totalFree - b.totalFree);
+  }, [stockData]);
+
+  // Umbral configurado en Configuración > Preferencia de Venta (mismo que usa la página de Vencimientos)
+  const warningDays = settings.salesPreferences?.warningDays ?? 2;
+
+  // --- Vencimientos · Ventas (clientes vencidos y por vencer) ---
+  const expiringSalesGroups = useMemo(() => {
+    const filtered = sales.filter(s => getDaysRemaining(s.expiryDate) <= warningDays);
+    const groups = groupSalesByClientAndDate(filtered, clients, resellers);
+    return groups.sort((a, b) => {
+      const minA = Math.min(...a.renewalGroups.flatMap(g => g.sales).map(s => getDaysRemaining(s.expiryDate)));
+      const minB = Math.min(...b.renewalGroups.flatMap(g => g.sales).map(s => getDaysRemaining(s.expiryDate)));
+      return minA - minB;
+    });
+  }, [sales, clients, resellers, warningDays]);
+
+  // --- Vencimientos · Cuentas (inventario/cuentas por vencer) ---
+  const expiringAccountsList = useMemo(() => {
+    return accounts
+      .filter(acc => acc.status !== 'inactiva' && getDaysRemaining(acc.endDate) <= warningDays)
+      .sort((a, b) => getDaysRemaining(a.endDate) - getDaysRemaining(b.endDate));
+  }, [accounts, warningDays]);
+
+  // --- Agenda (fallas pendientes de seguimiento) ---
+  const pendingFailures = useMemo(() => {
+    return [...(serviceFailures || [])].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }, [serviceFailures]);
+
+  const handleSendExpiryReminder = (salesGroup: Sale[], client: Client) => {
+    const days = getDaysRemaining(salesGroup[0]?.expiryDate);
+    let type: 'warning2Days' | 'warning1Day' | 'expiration' = 'warning2Days';
+    if (days <= 0) type = 'expiration';
+    else if (days === 1) type = 'warning1Day';
+    const message = getCombinedWhatsAppTemplate(type, salesGroup, client.name, accounts, settings, 'whatsapp', false);
+    sendWhatsAppMessage(client.phone || '', message);
+  };
+
+  const handleRenewFromDashboard = (salesGroup: Sale[]) => {
+    setSalesToRenew(salesGroup);
+    setIsRenewModalOpen(true);
+  };
+
+  const handleSaveRate = () => {
+    const value = parseFloat(rateInput.replace(',', '.'));
+    if (isNaN(value) || value <= 0) {
+      showToast('Ingresa una tasa válida', 'error');
+      return;
+    }
+    updateSettings({ ...settings, exchangeRate: value });
+    setIsEditingRate(false);
+    showToast('Tasa de cambio actualizada', 'success');
+  };
 
   const renderedActions = (widgets.quickActions || []).map(id => {
       const config: any = {
@@ -406,120 +465,141 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
   return (
     <div className="min-h-screen pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
       <SyncQueueModal isOpen={isSyncModalOpen} onClose={() => setIsSyncModalOpen(false)} pendingItems={pendingItems} isOnline={isOnline} />
-      <div className={`px-[var(--mobile-side-pad)] pt-safe ${isNative ? 'mt-2' : 'mt-4'} pb-5 relative z-50 flex justify-between items-center sticky top-0 transition-colors duration-500 ${isSyncing ? 'bg-brand-primary/5' : ''}`}>
-          <div className="flex items-center gap-3">
-              <div className={`w-9 h-9 rounded-sm p-px shrink-0 transition-all duration-700 shadow-glow-sm ${logoWrapperStyle}`}>
-                 <div className="w-full h-full rounded-sm bg-surface-sunken flex items-center justify-center overflow-hidden">
-                    <AnimatedLogo size={28} showFill={true} isStatic={true} />
-                 </div>
+      <div className={`px-[var(--mobile-side-pad)] pt-safe ${isNative ? 'mt-2' : 'mt-4'} relative z-10 space-y-6`}>
+
+          {/* ================= ENCABEZADO (fuera de la tarjeta) ================= */}
+          <div className="flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                  <Avatar name={user?.name || 'Usuario'} image={user?.avatar} size={40} className="rounded-full shrink-0" />
+                  <div className="flex flex-col">
+                      <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] leading-none mb-1">{greeting}</p>
+                      <h1 className="text-xl font-black text-text-primary leading-none tracking-tight">
+                          {user?.name?.split(' ')[0] || 'Hola'}
+                          <span className="text-brand-primary">.</span>
+                      </h1>
+                  </div>
               </div>
-              <div className="flex flex-col">
-                  <p className="text-text-disabled text-[8px] font-black uppercase tracking-[0.2em] leading-none mb-1">{greeting}</p>
-                  <h1 className="text-lg font-black text-text-primary leading-none tracking-tighter">
-                    {user?.name?.split(' ')[0] || 'Hola'}
-                    <span className="text-brand-primary">.</span>
-                  </h1>
+              <div className="flex gap-3">
+                  <motion.button
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => pendingCount > 0 && setIsSyncModalOpen(true)}
+                      className="w-8 h-8 flex items-center justify-center relative transition-all"
+                  >
+                      {isSyncing ? (
+                          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}>
+                              <RefreshCw size={18} className="text-brand-primary" />
+                          </motion.div>
+                      ) : !isOnline ? (
+                          <CloudOff size={18} className="text-status-danger" />
+                      ) : pendingCount > 0 ? (
+                          <UploadCloud size={18} className="text-brand-lime" />
+                      ) : (
+                          <Cloud size={18} className="text-status-success" />
+                      )}
+                  </motion.button>
+                  <motion.button
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsNotifOpen(true)}
+                      className="w-8 h-8 flex items-center justify-center text-text-muted relative transition-all hover:text-text-primary"
+                  >
+                      <Bell size={18} />
+                      {(sales.filter(s => getDaysRemaining(s.expiryDate) <= warningDays).length > 0) && (
+                          <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_10px_#FF1493]" />
+                      )}
+                  </motion.button>
               </div>
           </div>
-          <div className="flex gap-2">
-             <motion.button 
-                whileTap={{ scale: 0.95 }} 
-                onClick={() => pendingCount > 0 && setIsSyncModalOpen(true)} 
-                className={`w-9 h-9 rounded-sm border flex items-center justify-center shadow-inner relative transition-all active:bg-[rgb(var(--fg-rgb))]/[0.08] ${isSyncing ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/[0.03] border-[rgb(var(--fg-rgb))]/10'}`}
-             >
-                {isSyncing ? (
-                   <motion.div
-                     animate={{ rotate: 360 }}
-                     transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                   >
-                     <RefreshCw size={16} className="text-brand-primary" />
-                   </motion.div>
-                ) : !isOnline ? (
-                   <CloudOff size={16} className="text-status-danger" />
-                ) : pendingCount > 0 ? (
-                   <UploadCloud size={16} className="text-brand-lime" />
-                ) : (
-                   <Cloud size={16} className="text-status-success" />
-                )}
-             </motion.button>
-             <motion.button 
-                whileTap={{ scale: 0.95 }} 
-                onClick={() => setIsNotifOpen(true)} 
-                className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted relative shadow-inner transition-all hover:text-text-primary"
-             >
-                <Bell size={16} />
-                {(sales.filter(s => getDaysRemaining(s.expiryDate) <= 1).length > 0) && (
-                   <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_10px_#FF1493]" />
-                )}
-             </motion.button>
-          </div>
-      </div>
-      <div className="px-[var(--mobile-side-pad)] relative z-10 space-y-6">
-          <SubscriptionAlert />
-          <SyncStatusWidget />
-          <OnboardingWidget onNavigate={setView} />
-          
+
+          {/* ================= TARJETA PRINCIPAL (Balance + Atajos) ================= */}
           {widgets.showSales && (
-            <motion.div 
-              layout 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              className="group relative"
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative"
             >
-                {/* Balance Card Premium */}
-                
-                <div className="relative z-10 overflow-hidden rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-2xl p-6 transition-all duration-500 hover:border-[rgb(var(--fg-rgb))]/[0.12] active:scale-[0.99] group/card">
-                    
+                <div className="relative z-10 overflow-hidden rounded-lg bg-brand-gradient shadow-2xl p-3.5 transition-all duration-500 active:scale-[0.99]">
+
+                    {/* Balance */}
                     <div className="flex justify-between items-start relative z-20">
                         <div className="flex flex-col">
-                            <span className="flex items-center gap-2 text-text-disabled text-[9px] font-black uppercase tracking-[0.2em] mb-3">
-                                <PiggyBank size={12} className="text-brand-primary" />
+                            <span className="flex items-center gap-2 text-white/70 text-[9px] font-black uppercase tracking-[0.2em] mb-2">
+                                <PiggyBank size={12} className="text-white" />
                                 Balance Total
                             </span>
                             <div className="flex items-baseline gap-1.5">
-                                <span className="text-lg font-bold text-text-faint">{settings.currency}</span>
-                                <h2 className="text-3xl font-black text-text-primary tracking-tighter">
+                                <span className="text-lg font-bold text-white/60">{settings.currency}</span>
+                                <h2 className="text-4xl font-black text-white tracking-tight">
                                     {showBalance ? formatMoney(walletStats.totalMain).split('.')[0] : '•••••'}
-                                    <span className="text-xl text-text-disabled opacity-50">
+                                    <span className="text-2xl text-white/50">
                                       .{showBalance ? formatMoney(walletStats.totalMain).split('.')[1] : '••'}
                                     </span>
                                 </h2>
                             </div>
                             {settings.subCurrency && (
-                                <p className="text-text-disabled text-[10px] font-semibold mt-1.5 flex items-center gap-1.5 opacity-60">
-                                    <RotateCcw size={9} className="text-brand-accent" />
+                                <p className="text-white/70 text-[10px] font-semibold mt-1 flex items-center gap-1.5">
+                                    <RotateCcw size={9} className="text-white/70" />
                                     {showBalance ? formatMoney(walletStats.secondaryTotal) : '••••'} {settings.subCurrency}
                                 </p>
                             )}
                         </div>
-                        
-                        <div className="flex flex-col items-end gap-6">
-                             <button 
-                               onClick={toggleBalance} 
-                               className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-all shadow-inner"
+
+                        <div className="flex flex-col items-end gap-3">
+                             <button
+                               onClick={toggleBalance}
+                               className="w-8 h-8 flex items-center justify-center text-white transition-all"
                              >
-                                {showBalance ? <Eye size={16} /> : <EyeOff size={16} />}
+                                {showBalance ? <Eye size={18} /> : <EyeOff size={18} />}
                              </button>
-                             <span className="text-[9px] font-black text-brand-lime bg-brand-lime/10 px-2.5 py-0.5 rounded-full border border-brand-lime/20">ACTIVO</span>
+                             <span className="text-[9px] font-black text-brand-lime tracking-wider">ACTIVO</span>
                         </div>
                     </div>
 
-                    <div className="mt-6 pt-5 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider relative z-20">
-                        <div className="flex items-center gap-2 text-text-disabled">
-                             <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-status-success shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-status-danger shadow-[0_0_8px_rgba(239,68,68,0.5)]'} animate-pulse`} />
+                    {/* 4 accesos directos dentro de la tarjeta */}
+                    {widgets.showQuickActions && renderedActions.length > 0 && (
+                      <>
+                      <div className="flex items-center justify-end mt-4 mb-1.5">
+                        <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-white/60 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-[0.15em]">
+                           EDITAR <SlidersHorizontal size={9} />
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1.5">
+                        {renderedActions.slice(0, 4).map((action, index) => (
+                          <button
+                            key={index}
+                            onClick={action.onClick}
+                            className="bg-white/15 border border-white/20 rounded-sm py-1.5 flex flex-col items-center justify-center gap-1 active:scale-95 transition-all"
+                          >
+                            <div className="w-7 h-7 rounded-sm bg-white/10 flex items-center justify-center">
+                              <action.icon size={14} className="text-white" strokeWidth={2.5} />
+                            </div>
+                            <span className="text-[8px] font-black text-white/90 uppercase tracking-tight">{action.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                      </>
+                    )}
+
+                    <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[9px] font-semibold uppercase tracking-wider relative z-20">
+                        <div className="flex items-center gap-1.5 text-white/60">
+                             <div className={`w-1 h-1 rounded-full ${isOnline ? 'bg-brand-lime' : 'bg-status-danger'}`} />
                              {isOnline ? 'Sincronizado' : 'Offline'}
                         </div>
-                        <button 
+                        <button
                           onClick={() => setView('reports')}
-                          className="flex items-center gap-1.5 text-brand-primary hover:translate-x-1 transition-transform"
+                          className="flex items-center gap-1 text-white/60 hover:text-white transition-colors"
                         >
                             Ver Reportes
-                            <ChevronRight size={12} />
+                            <ChevronRight size={10} />
                         </button>
                     </div>
                 </div>
             </motion.div>
           )}
+
+          <SubscriptionAlert />
+          <SyncStatusWidget />
+          <OnboardingWidget onNavigate={setView} />
 
           {/* Bento Grid Stats */}
           {widgets.showProfit && (
@@ -568,32 +648,239 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             </div>
           )}
 
-          {/* Quick Actions Bento Style */}
-          {widgets.showQuickActions && (
-            <div className="space-y-3">
-               <div className="flex items-center justify-between px-1">
-                  <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Atajos Rápidos</h3>
-                  <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-text-disabled hover:text-text-primary transition-colors flex items-center gap-1.5 uppercase tracking-[0.15em]">
-                     EDITAR <SlidersHorizontal size={9} />
+          {/* Tasa de cambio */}
+          {widgets.showExchangeRate && (
+            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3.5 flex items-center gap-3 shadow-sm">
+              <div className="w-9 h-9 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center shrink-0">
+                <RefreshCw size={16} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-black text-text-disabled uppercase tracking-wider mb-0.5">Tasa de cambio</p>
+                {isEditingRate ? (
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      autoFocus
+                      type="number"
+                      inputMode="decimal"
+                      value={rateInput}
+                      onChange={(e) => setRateInput(e.target.value)}
+                      className="w-24 h-7 px-2 rounded-md bg-surface-sunken border border-brand-primary/30 text-[12px] text-text-primary outline-none focus:ring-2 focus:ring-brand-primary/40"
+                    />
+                    <span className="text-[11px] text-text-muted">{settings.subCurrency || 'Bs'}</span>
+                    <button onClick={handleSaveRate} className="w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90">
+                      <Check size={12} />
+                    </button>
+                    <button onClick={() => setIsEditingRate(false)} className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center active:scale-90">
+                      <X size={12} />
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => { setRateInput(String(settings.exchangeRate || '')); setIsEditingRate(true); }} className="flex items-center gap-1.5">
+                    <span className="text-sm font-bold text-text-primary">
+                      1 {settings.currency || 'USD'} = {(settings.exchangeRate || 0).toLocaleString()} {settings.subCurrency || 'Bs'}
+                    </span>
+                    <Pencil size={11} className="text-brand-primary" />
                   </button>
-               </div>
-               <motion.div className="flex gap-3 overflow-x-auto no-scrollbar snap-x pb-1" layout>
-                 {renderedActions.map((action, index) => (
-                   <button 
-                     key={index} 
-                     onClick={action.onClick} 
-                     className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-lg min-w-[88px] h-[88px] p-2.5 flex flex-col items-center justify-center gap-2.5 active:scale-95 transition-all shadow-xl hover:border-[rgb(var(--fg-rgb))]/10 group snap-center"
-                   >
-                     <div className={`w-10 h-10 rounded-md flex items-center justify-center transition-all duration-300 shadow-inner group-hover:scale-110 group-hover:shadow-glow-sm ${action.color.split(' ')[0]} bg-[rgb(var(--fg-rgb))]/[0.02]`}>
-                       <action.icon size={20} strokeWidth={2.5} />
-                     </div>
-                     <span className="text-[9px] font-black text-text-disabled group-hover:text-text-primary transition-colors uppercase tracking-tight">{action.label}</span>
-                   </button>
-                 ))}
-               </motion.div>
+                )}
+              </div>
             </div>
           )}
 
+          {/* Vencimientos · Ventas */}
+          {widgets.showExpiringSales && expiringSalesGroups.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center px-1 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-status-danger/15 text-status-danger-soft flex items-center justify-center">
+                    <AlertTriangle size={14} />
+                  </div>
+                  <h3 className="text-sm font-bold text-text-primary tracking-tight">Vencimientos · Ventas</h3>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-status-danger/15 text-status-danger-soft">{expiringSalesGroups.length}</span>
+                </div>
+                <button
+                  onClick={() => setView('expired')}
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1"
+                >
+                  Ver todos <ChevronRight size={12} />
+                </button>
+              </div>
+              <div className="space-y-2 max-h-[360px] overflow-y-auto custom-scrollbar pr-0.5">
+                {expiringSalesGroups.map(group => {
+                  const groupSales = group.renewalGroups.flatMap(g => g.sales);
+                  const client: Client = { id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 } as Client;
+                  return (
+                    <ExpiredCard
+                      key={group.clientId}
+                      sales={groupSales}
+                      client={client}
+                      settings={settings}
+                      onRenew={handleRenewFromDashboard}
+                      onClick={() => setView('expired')}
+                      onMessageClick={handleSendExpiryReminder}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Vencimientos · Cuentas */}
+          {widgets.showExpiringAccounts && expiringAccountsList.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center px-1 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-status-warning/15 text-status-warning-soft flex items-center justify-center">
+                    <AlertOctagon size={14} />
+                  </div>
+                  <h3 className="text-sm font-bold text-text-primary tracking-tight">Vencimientos · Cuentas</h3>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-status-warning/15 text-status-warning-soft">{expiringAccountsList.length}</span>
+                </div>
+                <button
+                  onClick={() => setView('expired')}
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1"
+                >
+                  Ver todos <ChevronRight size={12} />
+                </button>
+              </div>
+              <div className="space-y-2 max-h-[320px] overflow-y-auto custom-scrollbar pr-0.5">
+                {expiringAccountsList.map(acc => {
+                  const days = getDaysRemaining(acc.endDate);
+                  const isExpired = days < 0;
+                  const service = services.find(s => s.id === acc.serviceId);
+                  return (
+                    <div
+                      key={acc.id}
+                      onClick={() => setView('expired')}
+                      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-center gap-3 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+                    >
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 overflow-hidden ${isExpired ? 'bg-status-danger/10 text-status-danger-soft' : 'bg-status-warning/10 text-status-warning-soft'}`}>
+                        {service?.image_url ? <img src={service.image_url} alt={service.name} className="w-full h-full object-cover" /> : <AlertOctagon size={15} />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-text-primary truncate">{service?.name || 'Servicio'}</p>
+                        <p className="text-[10px] text-text-disabled truncate">{acc.email}</p>
+                      </div>
+                      <span className={`text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide shrink-0 ${isExpired ? 'bg-status-danger/10 text-status-danger-soft' : 'bg-status-warning/10 text-status-warning-soft'}`}>
+                        {isExpired ? `Vencida ${Math.abs(days)}d` : days === 0 ? 'Hoy' : `${days}d`}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Stock */}
+          {widgets.showStock && stockDataByUrgency.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center px-1 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-status-success/15 text-status-success-soft flex items-center justify-center">
+                    <Search size={14} />
+                  </div>
+                  <h3 className="text-sm font-bold text-text-primary tracking-tight">Stock</h3>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/10 text-text-disabled">{stockDataByUrgency.length}</span>
+                </div>
+                <button
+                  onClick={() => { setSelectedStockService(null); setIsStockFinderOpen(true); }}
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1"
+                >
+                  Ver todos <ChevronRight size={12} />
+                </button>
+              </div>
+              <div className="space-y-2 max-h-[320px] overflow-y-auto custom-scrollbar pr-0.5">
+                {stockDataByUrgency.map(svc => {
+                  const isOut = svc.totalFree === 0;
+                  const isLow = !isOut && svc.totalFree <= 2;
+                  const tone = isOut
+                    ? { bg: 'bg-status-danger/[0.06]', border: 'border-status-danger/20', chip: 'bg-status-danger/15 text-status-danger-soft', text: 'text-status-danger-soft', label: 'Sin stock' }
+                    : isLow
+                      ? { bg: 'bg-status-warning/[0.06]', border: 'border-status-warning/20', chip: 'bg-status-warning/15 text-status-warning-soft', text: 'text-status-warning-soft', label: 'Quedan pocos' }
+                      : { bg: 'bg-surface-1', border: 'border-[rgb(var(--fg-rgb))]/[0.08]', chip: 'bg-status-success/10 text-status-success-soft', text: 'text-status-success-soft', label: 'Disponible' };
+                  return (
+                    <div
+                      key={svc.id}
+                      onClick={() => setSelectedStockService(svc)}
+                      className={`${tone.bg} border ${tone.border} rounded-xl p-3 flex items-center gap-3 active:scale-[0.98] transition-all cursor-pointer shadow-sm`}
+                    >
+                      <div className={`w-9 h-9 rounded-lg ${tone.chip} flex items-center justify-center shrink-0 overflow-hidden`}>
+                        {svc.image_url ? (
+                          <img src={svc.image_url} alt={svc.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <Layers size={15} />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-text-primary truncate">{svc.name}</p>
+                        <p className={`text-[10px] ${isOut || isLow ? tone.text : 'text-text-disabled'}`}>{tone.label}</p>
+                      </div>
+                      <span className={`text-base font-black shrink-0 ${tone.text}`}>{svc.totalFree}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Agenda (fallas pendientes) */}
+          {widgets.showAgenda && pendingFailures.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center px-1 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-brand-primary/15 text-brand-primary flex items-center justify-center">
+                    <ClipboardList size={14} />
+                  </div>
+                  <h3 className="text-sm font-bold text-text-primary tracking-tight">Agenda</h3>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-brand-primary/15 text-brand-primary">{pendingFailures.length}</span>
+                </div>
+                <button
+                  onClick={() => setView('agenda')}
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] text-brand-primary hover:text-text-primary transition-colors flex items-center gap-1"
+                >
+                  Ver todas <ChevronRight size={12} />
+                </button>
+              </div>
+              <div className="space-y-2 max-h-[320px] overflow-y-auto custom-scrollbar pr-0.5">
+                {pendingFailures.map(f => {
+                  const sale = sales.find(s => s.id === f.saleId);
+                  const client = sale ? clients.find(c => c.id === sale.clientId) : null;
+                  const daysAgo = Math.max(0, Math.floor((Date.now() - new Date(f.createdAt).getTime()) / (1000 * 3600 * 24)));
+                  const timeLabel = daysAgo === 0 ? 'hoy' : daysAgo === 1 ? 'hace 1 día' : `hace ${daysAgo} días`;
+                  const tone = daysAgo >= 3
+                    ? { bg: 'bg-status-danger/10', text: 'text-status-danger-soft' }
+                    : daysAgo >= 1
+                      ? { bg: 'bg-status-warning/10', text: 'text-status-warning-soft' }
+                      : { bg: 'bg-brand-primary/10', text: 'text-brand-primary' };
+                  return (
+                    <div
+                      key={f.id}
+                      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-start gap-3 shadow-sm"
+                    >
+                      <div onClick={() => setView('agenda')} className={`w-9 h-9 rounded-lg ${tone.bg} ${tone.text} flex items-center justify-center shrink-0 cursor-pointer mt-0.5`}>
+                        <AlertTriangle size={15} />
+                      </div>
+                      <div onClick={() => setView('agenda')} className="flex-1 min-w-0 cursor-pointer">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-xs font-semibold text-text-primary truncate">{client?.name || 'Cliente'} {sale ? `· ${sale.serviceName}` : ''}</p>
+                          <span className={`text-[9px] font-semibold ${tone.text} shrink-0`}>{timeLabel}</span>
+                        </div>
+                        <p className="text-[10px] text-text-disabled truncate mt-0.5">{f.notes || 'Sin notas'}</p>
+                      </div>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteFailure(f.id); }}
+                        className="w-7 h-7 rounded-lg bg-status-success/15 text-status-success-soft flex items-center justify-center shrink-0 active:scale-90 transition-all mt-0.5"
+                        title="Marcar como resuelto"
+                      >
+                        <Check size={14} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {widgets.showMovements && (
           <div className="pb-10">
             <div className="flex justify-between items-center px-1 mb-3">
               <div className="flex items-center gap-2">
@@ -643,9 +930,18 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
               )}
             </div>
           </div>
+          )}
+
+          <button
+            onClick={() => setView('personalize_home')}
+            className="w-full py-3 rounded-xl border border-dashed border-[rgb(var(--fg-rgb))]/15 text-text-disabled hover:text-text-primary hover:border-brand-primary/40 transition-all flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-wide"
+          >
+            <Plus size={14} /> Agregar widgets
+          </button>
       </div>
       <ScrollFloatingActions actions={actions} />
       <SaleModal isOpen={isSaleModalOpen} onClose={() => setIsSaleModalOpen(false)} initialData={null} />
+      <RenewModal isOpen={isRenewModalOpen} onClose={() => setIsRenewModalOpen(false)} salesToRenew={salesToRenew} />
       <ContactoModal isOpen={isClientModalOpen} onClose={() => setIsClientModalOpen(false)} onSubmit={handleClientSubmit} />
       <PayableModal isOpen={isPayableModalOpen} onClose={() => setIsPayableModalOpen(false)} onSubmit={handlePayableSubmit} />
       <ExpenseModal isOpen={isExpenseModalOpen} onClose={() => setIsExpenseModalOpen(false)} />

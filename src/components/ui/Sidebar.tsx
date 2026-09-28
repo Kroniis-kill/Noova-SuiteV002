@@ -1,10 +1,9 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, Layers, ShoppingCart, Users, 
   AlertOctagon, CreditCard, Settings, LogOut, Briefcase, 
-  X, ChevronRight, Truck, ShieldCheck, Crown, ChevronDown, Calculator
+  ChevronRight, Truck, ShieldCheck, Crown, ChevronDown, Calculator
 } from 'lucide-react';
 import { ViewState } from '../../types';
 import { useAuth } from '../../context/AuthContext';
@@ -15,8 +14,8 @@ import { PLAN_LABELS } from '../../types/subscriptionTypes';
 import AnimatedLogo from './AnimatedLogo';
 import Avatar from './Avatar';
 import { APP_VERSION } from '../../version';
-import { isNativePlatform } from '../../utils/platformUtils';
 import { useHaptic } from '../../hooks/useHaptic';
+import MobileMenuSheet from './MobileMenuSheet';
 
 interface SidebarProps {
   currentView: ViewState;
@@ -123,8 +122,10 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="overflow-hidden flex flex-col gap-0.5 mt-0.5 mb-2"
+            className="relative overflow-hidden flex flex-col gap-0.5 mt-0.5 mb-2 pl-2"
           >
+            {/* Línea que conecta visualmente los sub-ítems con "Contacto" */}
+            <div className="absolute left-[19px] top-0 bottom-2 w-px bg-[rgb(var(--fg-rgb))]/[0.08]" />
             {item.subItems?.map((sub) => {
               const SubIcon = sub.icon;
               const isSubActive = currentView === sub.id;
@@ -137,7 +138,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
                     if (!isDesktop) closeMobile();
                   }}
                   className={`
-                    w-[calc(100%-40px)] ml-10 flex items-center justify-between px-2.5 ${isDesktop ? 'py-2' : 'py-3'} 
+                    relative w-[calc(100%-32px)] ml-8 flex items-center justify-between px-2.5 ${isDesktop ? 'py-2' : 'py-3'} 
                     rounded-sm transition-all duration-200 group
                     ${isSubActive ? 'bg-[rgb(var(--fg-rgb))]/[0.06] text-text-primary font-bold' : 'text-text-disabled hover:text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/[0.02]'}
                   `}
@@ -165,36 +166,48 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
   const { user, logout } = useAuth();
   const { settings } = useData();
   const { isAdmin, subscription } = useSubscription();
-  const isNative = isNativePlatform();
   const haptic = useHaptic();
 
-  const finalItems = useMemo(() => {
-    const items: NavItemData[] = [
-      { id: 'dashboard', label: 'Inicio', icon: LayoutDashboard },
-      { id: 'sales', label: 'Ventas', icon: ShoppingCart },
-      { id: 'inventory', label: 'Inventario', icon: Layers },
-      { 
-        id: 'contacts', 
-        label: 'Contacto', 
-        icon: Users,
-        subItems: [
-          { id: 'contacts', label: 'Clientes', icon: Users },
-          { id: 'resellers', label: 'Revendedores', icon: Briefcase },
-          { id: 'providers', label: 'Proveedores', icon: Truck },
-        ]
+  // Los accesos van agrupados por sección para que el menú se lea de un vistazo
+  const navSections = useMemo(() => {
+    const sections: { label: string; items: NavItemData[] }[] = [
+      {
+        label: 'General',
+        items: [
+          { id: 'dashboard', label: 'Inicio', icon: LayoutDashboard },
+          { id: 'sales', label: 'Ventas', icon: ShoppingCart },
+          { id: 'inventory', label: 'Inventario', icon: Layers },
+        ],
       },
-      { id: 'expired', label: 'Vencimientos', icon: AlertOctagon },
-      { id: 'accounts', label: 'Finanzas', icon: CreditCard },
-      { id: 'refund', label: 'Reembolso', icon: Calculator },
-      { id: 'settings', label: 'Configuración', icon: Settings },
+      {
+        label: 'Gestión',
+        items: [
+          {
+            id: 'contacts',
+            label: 'Contacto',
+            icon: Users,
+            subItems: [
+              { id: 'contacts', label: 'Clientes', icon: Users },
+              { id: 'resellers', label: 'Revendedores', icon: Briefcase },
+              { id: 'providers', label: 'Proveedores', icon: Truck },
+            ],
+          },
+          { id: 'expired', label: 'Vencimientos', icon: AlertOctagon },
+          { id: 'accounts', label: 'Finanzas', icon: CreditCard },
+          { id: 'refund', label: 'Reembolso', icon: Calculator },
+        ],
+      },
+      {
+        label: 'Cuenta',
+        items: [
+          { id: 'settings', label: 'Configuración', icon: Settings },
+          isAdmin
+            ? { id: 'admin', label: 'Admin Panel', icon: ShieldCheck }
+            : { id: 'my_plan', label: 'Mi Suscripción', icon: Crown },
+        ],
+      },
     ];
-
-    if (isAdmin) {
-      items.push({ id: 'admin', label: 'Admin Panel', icon: ShieldCheck });
-    } else {
-      items.push({ id: 'my_plan', label: 'Mi Suscripción', icon: Crown });
-    }
-    return items;
+    return sections;
   }, [isAdmin]);
 
   const planLabel = isAdmin 
@@ -224,17 +237,24 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
       </div>
 
-      {/* Nav List - Better Spacing */}
+      {/* Nav List - Agrupada por sección */}
       <div className={`flex-1 overflow-y-auto no-scrollbar ${isDesktop ? 'px-4' : 'px-4'} py-4`}>
-        {finalItems.map((item) => (
-          <NavItem 
-            key={item.id} 
-            item={item} 
-            setView={setView} 
-            closeMobile={closeMobile}
-            isDesktop={isDesktop}
-            currentView={currentView}
-          />
+        {navSections.map((section, sIdx) => (
+          <div key={section.label} className={sIdx > 0 ? 'mt-1' : ''}>
+            <p className={`px-3 ${isDesktop ? 'text-[9px] mb-1.5' : 'text-[10px] mb-2'} ${sIdx > 0 ? 'mt-3' : ''} font-bold text-text-faint uppercase tracking-widest`}>
+              {section.label}
+            </p>
+            {section.items.map((item) => (
+              <NavItem
+                key={item.id}
+                item={item}
+                setView={setView}
+                closeMobile={closeMobile}
+                isDesktop={isDesktop}
+                currentView={currentView}
+              />
+            ))}
+          </div>
         ))}
       </div>
 
@@ -285,37 +305,12 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
       </aside>
 
-      {typeof document !== 'undefined' && document.body && createPortal(
-        <AnimatePresence>
-          {isMobileOpen && (
-            <>
-              <motion.div 
-                key="backdrop"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                onClick={closeMobile}
-                className={`fixed inset-0 z-[100] ${isNative ? 'bg-black/70' : 'bg-black/60 backdrop-blur-md'}`}
-              />
-              
-              <motion.div
-                key="sidebar"
-                initial={{ x: "-100%" }} animate={{ x: "0%" }} exit={{ x: "-100%" }}
-                transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
-                className={`fixed z-[101] lg:hidden w-[72vw] max-w-[270px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl shadow-2xl overflow-hidden flex flex-col gpu-accelerated ${isNative ? 'top-4 bottom-4 left-4 my-auto max-h-[92vh]' : 'top-[calc(0.5rem+env(safe-area-inset-top))] bottom-[calc(0.5rem+env(safe-area-inset-bottom))] left-[calc(0.5rem+env(safe-area-inset-left))]'}`}
-              >
-                <button
-                  onClick={closeMobile}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary z-50 border border-[rgb(var(--fg-rgb))]/[0.08] active:scale-95 transition-transform"
-                >
-                  <X size={18} />
-                </button>
-
-                <SidebarContent isDesktop={false} />
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      <MobileMenuSheet
+        isOpen={isMobileOpen}
+        onClose={closeMobile}
+        currentView={currentView}
+        setView={setView}
+      />
     </>
   );
 };

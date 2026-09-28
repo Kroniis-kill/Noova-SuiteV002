@@ -1,6 +1,6 @@
 
 // Fix: Added ViewState type definition
-export type ViewState = 'dashboard' | 'inventory' | 'sales' | 'contacts' | 'resellers' | 'providers' | 'expired' | 'accounts' | 'reports' | 'services' | 'settings' | 'admin' | 'admin_history' | 'admin_analytics' | 'my_plan' | 'expired_plan' | 'agenda' | 'trash' | 'refund';
+export type ViewState = 'dashboard' | 'inventory' | 'sales' | 'contacts' | 'resellers' | 'providers' | 'expired' | 'accounts' | 'reports' | 'services' | 'settings' | 'admin' | 'admin_history' | 'admin_analytics' | 'my_plan' | 'expired_plan' | 'agenda' | 'trash' | 'refund' | 'personalize_home';
 
 // Fix: Added ServiceType type definition
 export type ServiceType = 'por_pantalla' | 'cuenta_completa' | 'usuario_unico';
@@ -243,6 +243,11 @@ export interface DashboardWidgets {
   showInventory: boolean;
   showExchangeRate: boolean;
   showQuickActions: boolean;
+  showExpiringSales: boolean;
+  showExpiringAccounts: boolean;
+  showMovements: boolean;
+  showStock: boolean;
+  showAgenda: boolean;
   quickActions?: string[];
   onboardingDismissed?: boolean;
 }

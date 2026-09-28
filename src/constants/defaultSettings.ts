@@ -37,7 +37,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   notificationPreferences: { expiry: true, stock: true, payments: true, system: true },
   digestSettings: { enabled: false, interval_hours: 5, max_per_day: 3, include_today: true, include_1d: true, include_3d: true, include_overdue: true, include_accounts_risk: true },
   businessInfo: { name: '', whatsapp: '', logo: '' },
-  dashboardWidgets: { showProfit: true, showSales: true, showClients: true, showInventory: true, showExchangeRate: true, showQuickActions: true, quickActions: ['sale', 'expense', 'stock', 'services'] },
+  dashboardWidgets: { showProfit: true, showSales: true, showClients: true, showInventory: true, showExchangeRate: true, showQuickActions: true, showExpiringSales: true, showExpiringAccounts: true, showMovements: true, showStock: true, showAgenda: true, quickActions: ['sale', 'expense', 'stock', 'services'] },
   useBusinessLogo: false,
   theme: 'dark',
   backupPreferences: {

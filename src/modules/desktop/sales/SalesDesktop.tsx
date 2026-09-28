@@ -6,12 +6,10 @@ import SaleCard from '../../../components/sales/SaleCard';
 import SaleModal from '../../../components/sales/SaleModal';
 import EditSaleModal from '../../../components/sales/EditSaleModal';
 import SaleDetailPage from '../../../components/sales/SaleDetailPage';
+import FailureManageModal from '../../../components/sales/FailureManageModal';
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
 import { 
-  Search, Plus, Upload, Filter, ClipboardList, CheckCircle, 
-  MonitorPlay, ShoppingCart, MessageCircle, 
-  Monitor, Trash2, Check, Clock, User, FileText, Send, Database, ShieldCheck, Key, Copy,
-  Lock, ChevronDown, CheckCircle2, AlertCircle, AlertTriangle, Layers, Users, Mail, Calendar
+  Search, Plus, Upload, Filter, ClipboardList, CheckCircle, ShoppingCart, Monitor, Trash2, Check, User, Database, ShieldCheck, Key, Copy, Lock, ChevronDown, CheckCircle2, AlertCircle, AlertTriangle, Layers, Users, Mail, Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import EmptyState from '../../../components/ui/EmptyState';
@@ -396,58 +394,14 @@ const SalesDesktop: React.FC = () => {
         </AnimatePresence>
       </div>
 
-      <Modal isOpen={!!selectedFailure} onClose={() => setSelectedFailure(null)} title="Detalle de Incidencia" zIndex={60000}>
-         {/* ... (Existing modal content logic remains unchanged, omitted for brevity as it is just display logic) ... */}
-         {/* Ensuring functionality remains consistent */}
-         {selectedFailure && (() => {
-             // ... Logic to find data ...
-             const sale = sales.find(s => s.id === selectedFailure.saleId);
-             const client = clients.find(c => c.id === sale?.clientId);
-             const account = accounts.find(a => a.id === sale?.accountId);
-             const service = services.find(s => s.name === sale?.serviceName);
-             const isUnique = sale?.saleType === 'usuario_unico';
-             
-             return (
-                <div className="pt-2 pb-4 space-y-8">
-                     <div className="flex items-center gap-6 bg-[rgb(var(--fg-rgb))]/[0.02] p-6 rounded-2xl border border-[rgb(var(--fg-rgb))]/5">
-                         {/* ... Display Code ... */}
-                         <div className="w-20 h-20 rounded-xl bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-lg">
-                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <MonitorPlay size={32} className="text-status-success-soft" />}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <h4 className="text-2xl font-black text-text-primary truncate uppercase tracking-tight">{sale?.serviceName}</h4>
-                            <div className="flex items-center gap-4 mt-2">
-                                <p className="text-base text-text-muted flex items-center gap-2 truncate max-w-[300px]"><User size={18} className="text-text-faint" /> {client?.name}</p>
-                            </div>
-                        </div>
-                     </div>
-                     {/* ... Rest of the modal (Credentials, Note, Buttons) same as previous version ... */}
-                      <div className="bg-status-warning/[0.03] border border-status-warning/10 rounded-2xl p-8 space-y-4">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3 text-status-warning">
-                                <FileText size={20} />
-                                <span className="text-xs font-semibold uppercase tracking-[0.2em]">Nota del Problema</span>
-                            </div>
-                        </div>
-                        <p className="text-lg text-text-secondary leading-relaxed font-medium pl-1 italic">"{selectedFailure.notes || 'Sin descripción detallada'}"</p>
-                        <div className="pt-4 border-t border-[rgb(var(--fg-rgb))]/[0.05] flex items-center gap-2 text-xs text-text-disabled font-bold">
-                            <Clock size={16} /> Reportado el {new Date(selectedFailure.createdAt).toLocaleString()}
-                        </div>
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
-                        <button onClick={() => onHandleNotifyFailure(selectedFailure)} className="px-8 py-4 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-bold text-sm flex-1 hover:bg-[rgb(var(--fg-rgb))]/10 transition-all flex items-center justify-center gap-2">
-                            <Send size={18} className="text-brand-primary" /> Avisar Falla
-                        </button>
-                        <button onClick={() => onHandleSolveFailure(selectedFailure, false)} className="px-8 py-4 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg font-bold text-sm flex-1 hover:bg-[rgb(var(--fg-rgb))]/10 transition-all">Solo Resolver</button>
-                        <button onClick={() => onHandleSolveFailure(selectedFailure, true)} className="flex-[2] py-4 bg-status-success text-bg rounded-lg font-bold text-sm uppercase tracking-widest shadow-lg flex items-center justify-center gap-3 hover:brightness-110 active:scale-95 transition-all">
-                            <MessageCircle size={20} fill="currentColor" /> Resolver y Notificar vía WhatsApp
-                        </button>
-                    </div>
-                </div>
-             )
-         })()}
-      </Modal>
+      {/* MODAL GESTIONAR INCIDENCIA */}
+      <FailureManageModal
+        failure={selectedFailure}
+        onClose={() => setSelectedFailure(null)}
+        onNotify={onHandleNotifyFailure}
+        onSolve={onHandleSolveFailure}
+        zIndex={60000}
+      />
 
       <SaleDetailPage isOpen={isDetailOpen} onClose={() => setIsDetailOpen(false)} group={mobileSelectedGroup} onEdit={handleEditSale} onDelete={handleDeleteSingleSale} />
       <ImportGuideModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} onConfirm={() => fileInputRef.current?.click()} title="Importar Ventas" type="sales" />
