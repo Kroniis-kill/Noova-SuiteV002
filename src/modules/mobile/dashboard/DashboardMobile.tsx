@@ -555,31 +555,6 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                         </div>
                     </div>
 
-                    {/* 4 accesos directos dentro de la tarjeta */}
-                    {widgets.showQuickActions && renderedActions.length > 0 && (
-                      <>
-                      <div className="flex items-center justify-end mt-4 mb-1.5">
-                        <button onClick={() => setIsConfigModalOpen(true)} className="text-[9px] font-black text-white/60 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-[0.15em]">
-                           EDITAR <SlidersHorizontal size={9} />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-4 gap-1.5">
-                        {renderedActions.slice(0, 4).map((action, index) => (
-                          <button
-                            key={index}
-                            onClick={action.onClick}
-                            className="bg-white/15 border border-white/20 rounded-sm py-1.5 flex flex-col items-center justify-center gap-1 active:scale-95 transition-all"
-                          >
-                            <div className="w-7 h-7 rounded-sm bg-white/10 flex items-center justify-center">
-                              <action.icon size={14} className="text-white" strokeWidth={2.5} />
-                            </div>
-                            <span className="text-[8px] font-black text-white/90 uppercase tracking-tight">{action.label}</span>
-                          </button>
-                        ))}
-                      </div>
-                      </>
-                    )}
-
                     <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[9px] font-semibold uppercase tracking-wider relative z-20">
                         <div className="flex items-center gap-1.5 text-white/60">
                              <div className={`w-1 h-1 rounded-full ${isOnline ? 'bg-brand-lime' : 'bg-status-danger'}`} />
@@ -606,16 +581,13 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
             <div className="grid grid-cols-2 gap-3">
               <motion.div 
                 whileHover={{ y: -2 }}
-                className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-4 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
+                className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
               >
-                <div className="flex items-center justify-between mb-4">
-                   <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
-                         <TrendingUp size={16} strokeWidth={2.5} />
-                      </div>
-                      <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">VENTAS</p>
+                <div className="flex items-center gap-2 mb-2">
+                   <div className="w-7 h-7 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
+                      <TrendingUp size={14} strokeWidth={2.5} />
                    </div>
-                   <span className="text-[8px] font-black text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
+                   <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">VENTAS</p>
                 </div>
                 <div className="flex items-baseline gap-1">
                   <span className="text-[10px] text-text-disabled font-black uppercase">{settings.currency}</span>
@@ -627,16 +599,13 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
               <motion.div 
                  whileHover={{ y: -2 }}
-                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-4 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
+                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
               >
-                <div className="flex items-center justify-between mb-4">
-                   <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-sm bg-rose-500/10 text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105">
-                         <TrendingDown size={16} strokeWidth={2.5} />
-                      </div>
-                      <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">GASTOS</p>
+                <div className="flex items-center gap-2 mb-2">
+                   <div className="w-7 h-7 rounded-sm bg-rose-500/10 text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105">
+                      <TrendingDown size={14} strokeWidth={2.5} />
                    </div>
-                   <span className="text-[8px] font-black text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">MES</span>
+                   <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.05em]">GASTOS</p>
                 </div>
                 <div className="flex items-baseline gap-1">
                   <span className="text-[10px] text-text-disabled font-black uppercase">{settings.currency}</span>
@@ -645,6 +614,40 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   </p>
                 </div>
               </motion.div>
+            </div>
+          )}
+
+          {/* ================= WIDGET: ATAJOS RÁPIDOS ================= */}
+          {widgets.showQuickActions && (
+            <div>
+              <div className="flex items-center justify-between mb-2 px-1">
+                <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Atajos Rápidos</h3>
+              </div>
+              <div className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3.5">
+                <div className="grid grid-cols-4 gap-y-4">
+                  <button
+                    onClick={() => setIsConfigModalOpen(true)}
+                    className="flex flex-col items-center gap-1.5 active:scale-95 transition-all"
+                  >
+                    <div className="w-[52px] h-[52px] rounded-md bg-brand-gradient shadow-glow-sm flex items-center justify-center">
+                      <SlidersHorizontal size={20} className="text-white" strokeWidth={2.25} />
+                    </div>
+                    <span className="text-[10.5px] font-semibold text-text-primary leading-none">Editar</span>
+                  </button>
+                  {renderedActions.map((action, index) => (
+                    <button
+                      key={index}
+                      onClick={action.onClick}
+                      className="flex flex-col items-center gap-1.5 active:scale-95 transition-all"
+                    >
+                      <div className="w-[52px] h-[52px] rounded-md bg-surface-4 flex items-center justify-center">
+                        <action.icon size={20} className="text-text-secondary" strokeWidth={2} />
+                      </div>
+                      <span className="text-[10.5px] font-medium text-text-secondary leading-none truncate max-w-[60px]">{action.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
