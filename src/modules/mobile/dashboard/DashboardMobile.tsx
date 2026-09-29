@@ -620,8 +620,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
           {/* ================= WIDGET: ATAJOS RÁPIDOS ================= */}
           {widgets.showQuickActions && (
             <div>
-              <div className="flex items-center justify-between mb-2 px-1">
-                <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Atajos Rápidos</h3>
+              <div className="flex items-center justify-between mb-2 px-1"
               </div>
               <div className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3.5">
                 <div className="grid grid-cols-4 gap-y-4">
