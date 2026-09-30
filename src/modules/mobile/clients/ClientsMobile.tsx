@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 import ContactoModal from '../../../components/contactos/ContactoModal';
 import ContactoBottomSheet from '../../../components/contactos/ContactoBottomSheet';
+import Avatar from '../../../components/ui/Avatar';
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
 import { getClientTags, getLocalDateISO } from '../../../utils/contactosUtils';
 import { loadXlsx } from '../../../utils/lazyXlsx';
@@ -213,26 +214,23 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                  </div>
              </div>
 
-             <div className="grid grid-cols-2 gap-3 mb-3.5">
+             <div className="flex items-center bg-surface-1 border border-border-subtle rounded-xl p-1 mb-3.5">
                 <button
                   onClick={() => onHandleTabChange('active')}
-                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'active' ? 'border-status-success/30 ring-1 ring-status-success/20' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'active' ? 'bg-status-success/10' : ''}`}
                 >
-                   <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-status-success" />
-                      <span className="text-[9px] font-bold text-status-success-soft uppercase tracking-[0.1em]">Activos</span>
-                   </div>
-                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.active}</div>
+                   <span className="w-[7px] h-[7px] rounded-full bg-status-success" />
+                   <span className="text-[13px] font-bold text-status-success-soft">{stats.active}</span>
+                   <span className="text-[11px] font-semibold text-text-muted">Activos</span>
                 </button>
+                <div className="w-px h-[22px] bg-border-subtle" />
                 <button
                   onClick={() => onHandleTabChange('inactive')}
-                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'inactive' ? 'border-[rgb(var(--fg-rgb))]/20 ring-1 ring-[rgb(var(--fg-rgb))]/10' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'inactive' ? 'bg-[rgb(var(--fg-rgb))]/[0.05]' : ''}`}
                 >
-                   <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-text-faint" />
-                      <span className="text-[9px] font-bold text-text-muted uppercase tracking-[0.1em]">Inactivos</span>
-                   </div>
-                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.inactive}</div>
+                   <span className="w-[7px] h-[7px] rounded-full bg-text-faint" />
+                   <span className="text-[13px] font-bold text-text-secondary">{stats.inactive}</span>
+                   <span className="text-[11px] font-semibold text-text-muted">Inactivos</span>
                 </button>
              </div>
 
@@ -254,10 +252,10 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                 const primaryTag = displayTags[0];
                 const initials = client.name.trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('');
                 const tagBadge: Record<string, { icon: React.ElementType; className: string }> = {
-                   'VIP': { icon: Crown, className: 'bg-status-warning/15 text-status-warning-soft' },
-                   'Frecuente': { icon: Star, className: 'bg-brand-primary/15 text-brand-primary-hi' },
-                   'Nuevo': { icon: Sparkles, className: 'bg-status-success/15 text-status-success-soft' },
-                   'Problemático': { icon: AlertTriangle, className: 'bg-status-danger/15 text-status-danger-soft' },
+                   'VIP': { icon: Crown, className: 'bg-status-warning' },
+                   'Frecuente': { icon: Star, className: 'bg-brand-primary' },
+                   'Nuevo': { icon: Sparkles, className: 'bg-status-success' },
+                   'Problemático': { icon: AlertTriangle, className: 'bg-status-danger' },
                 };
                 const badge = client.isBlocked ? null : (primaryTag ? tagBadge[primaryTag] : undefined);
 
@@ -277,14 +275,10 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                       className={`flex flex-col items-center rounded-xl bg-surface-1 border border-border-subtle p-3 pt-3.5 text-center active:scale-[0.96] transition-all duration-150 ease-out-soft outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/60 ${isActive ? '' : 'opacity-60'}`}
                    >
                       <div className="relative w-14 h-14">
-                         <div className={`w-14 h-14 rounded-full p-0.5 ${isActive ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-4'}`}>
-                            <div className={`w-full h-full rounded-full flex items-center justify-center text-[14px] font-black ${isActive ? 'bg-surface-sunken text-text-primary' : 'bg-surface-4 text-text-muted'}`}>
-                               {initials}
-                            </div>
-                         </div>
+                         <Avatar name={client.name} size={56} className="rounded-full shadow-md border border-[rgb(var(--fg-rgb))]/10" />
                          {badge && (
-                            <span className={`absolute -right-0.5 -bottom-0.5 w-[22px] h-[22px] rounded-full border-2 border-surface-1 flex items-center justify-center ${badge.className}`}>
-                               <badge.icon size={12} strokeWidth={2.5} aria-hidden="true" />
+                            <span className={`absolute -right-1 -bottom-1 w-7 h-7 rounded-full border-[2.5px] border-surface-1 flex items-center justify-center shadow-md ${badge.className}`}>
+                               <badge.icon size={14} strokeWidth={2.5} className="text-white" aria-hidden="true" />
                             </span>
                          )}
                       </div>
