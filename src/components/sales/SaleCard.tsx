@@ -159,14 +159,16 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                            <Briefcase size={10} strokeWidth={3} />
                        </div>
                     )}
-                    <button
-                        onClick={handleOpenRenew}
-                        aria-label="Renovar"
-                        title="Renovar"
-                        className="relative w-5 h-5 -my-0.5 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 flex items-center justify-center transition-all active:scale-90 before:absolute before:-inset-2 before:content-['']"
-                    >
-                        <RefreshCw size={11} strokeWidth={2.5} />
-                    </button>
+                    {isUrgent && (
+                        <button
+                            onClick={handleOpenRenew}
+                            aria-label="Renovar"
+                            title="Renovar"
+                            className="relative w-5 h-5 -my-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/10 backdrop-blur-md text-text-primary border border-[rgb(var(--fg-rgb))]/20 flex items-center justify-center transition-all active:scale-90 before:absolute before:-inset-2 before:content-['']"
+                        >
+                            <RefreshCw size={11} strokeWidth={2.5} />
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -281,14 +283,16 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     <span className={`font-medium ${timeColor}`}>{statusText}</span>
                   </div>
               </div>
-              <button
-                onClick={handleOpenRenew}
-                aria-label="Renovar"
-                title="Renovar"
-                className="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 flex items-center justify-center shrink-0 transition-all active:scale-90"
-              >
-                <RefreshCw size={14} strokeWidth={2.5} />
-              </button>
+              {isUrgent && (
+                <button
+                  onClick={handleOpenRenew}
+                  aria-label="Renovar"
+                  title="Renovar"
+                  className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/10 backdrop-blur-md text-text-primary border border-[rgb(var(--fg-rgb))]/20 flex items-center justify-center shrink-0 transition-all active:scale-90"
+                >
+                  <RefreshCw size={14} strokeWidth={2.5} />
+                </button>
+              )}
               <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled group-hover:text-text-primary group-hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><ChevronRight size={16} /></div>
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.08]">
