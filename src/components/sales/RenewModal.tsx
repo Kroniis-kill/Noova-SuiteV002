@@ -18,7 +18,7 @@ interface WalletSearchModalProps {
   zIndex?: number;
 }
 
-const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, accounts, onSelect, zIndex }) => {
+export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, accounts, onSelect, zIndex }) => {
   const [search, setSearch] = useState('');
   const filtered = accounts.filter(a => a.isActive !== false && a.name.toLowerCase().includes(search.toLowerCase()));
 

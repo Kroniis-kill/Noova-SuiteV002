@@ -3,6 +3,7 @@ import { SalesGroup, getCombinedWhatsAppTemplate } from '../../utils/salesUtils'
 import { motion } from 'framer-motion';
 import { Layers, MessageCircle, Trash2, ChevronRight, Clock, Briefcase, BellRing, DollarSign, RefreshCw, AlertTriangle, ClipboardList, Check, AlertCircle } from 'lucide-react';
 import Avatar from '../ui/Avatar';
+import QuickRenewModal from './QuickRenewModal';
 import { sendWhatsAppMessage } from '../../utils/contactosUtils'; 
 import Modal from '../ui/Modal';
 import { getDaysRemaining } from '../../utils/expiredUtils';
@@ -24,6 +25,7 @@ interface SaleCardProps {
 const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsApp, onDelete, compact, warningThreshold, hasFailingAccount, hasPendingFailInAgenda, settings, accounts }) => {
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [showRenewModal, setShowRenewModal] = useState(false);
   
   const allSales = group.renewalGroups.flatMap(g => g.sales);
   // Cambiado: Ahora suma el total de pantallas de todas las ventas del grupo
@@ -107,9 +109,27 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
       setShowCurrencyModal(false);
   };
 
+  const handleOpenRenew = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setShowRenewModal(true);
+  };
+
+  const renewModal = showRenewModal ? (
+      <QuickRenewModal
+          isOpen={true}
+          onClose={() => setShowRenewModal(false)}
+          sales={allSales}
+          clientName={group.clientName}
+          clientPhone={group.clientPhone}
+          warningThreshold={warningThreshold}
+          zIndex={20000}
+      />
+  ) : null;
+
   if (compact) {
     return (
       <>
+        {renewModal}
         <div 
           onClick={() => onClick(group)}
           className={`relative border rounded-xl p-2.5 min-h-[132px] cursor-pointer flex flex-col justify-between h-full group active:scale-95 overflow-hidden ${cardStyle}`}
@@ -139,6 +159,14 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                            <Briefcase size={10} strokeWidth={3} />
                        </div>
                     )}
+                    <button
+                        onClick={handleOpenRenew}
+                        aria-label="Renovar"
+                        title="Renovar"
+                        className="relative w-5 h-5 -my-0.5 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 flex items-center justify-center transition-all active:scale-90 before:absolute before:-inset-2 before:content-['']"
+                    >
+                        <RefreshCw size={11} strokeWidth={2.5} />
+                    </button>
                 </div>
             </div>
 
@@ -218,6 +246,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
 
   return (
     <>
+      {renewModal}
       <div 
         onClick={() => onClick(group)}
         className={`relative overflow-hidden border rounded-xl p-0 cursor-pointer group ${cardStyle}`}
@@ -252,6 +281,14 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     <span className={`font-medium ${timeColor}`}>{statusText}</span>
                   </div>
               </div>
+              <button
+                onClick={handleOpenRenew}
+                aria-label="Renovar"
+                title="Renovar"
+                className="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 flex items-center justify-center shrink-0 transition-all active:scale-90"
+              >
+                <RefreshCw size={14} strokeWidth={2.5} />
+              </button>
               <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled group-hover:text-text-primary group-hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><ChevronRight size={16} /></div>
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.08]">
