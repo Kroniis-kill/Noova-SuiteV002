@@ -1,14 +1,19 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   AccountSecuritySettings, BusinessSettings, MessagesSection, 
   DataSection, ActivitySection, IntegrationsSection, LegalSection, NotificationSettings, BusinessIdentitySection
 } from '../../../components/settings/SettingsComponents';
 import ServicesMobile from '../services/ServicesMobile'; 
-import { ChevronRight, Briefcase, MessageSquare, User, Database, Settings2, ShieldCheck, Bell, Building, ShieldAlert, Lock, Smartphone, History } from 'lucide-react';
+import {
+  ChevronRight, Briefcase, MessageSquare, User, Database, Settings2, ShieldCheck, Bell,
+  Building, Lock, Smartphone, History, Search, Crown, LogOut,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { APP_VERSION } from '../../../version';
 import { useUIStore } from '../../../store/uiStore';
+import { useAuth } from '../../../context/AuthContext';
+import { useSubscription } from '../../../context/SubscriptionContext';
+import { useHaptic } from '../../../hooks/useHaptic';
 
 const SecurityHub = () => (
   <div className="space-y-6 animate-fade-in">
@@ -71,43 +76,83 @@ const SecurityHub = () => (
   </div>
 );
 
+interface SettingItem {
+  id: string;
+  label: string;
+  icon: React.ElementType;
+  desc: string;
+}
+
+interface SettingGroup {
+  title: string;
+  items: SettingItem[];
+}
+
+const PLAN_LABELS: Record<string, string> = {
+  free: 'Plan Gratis',
+  pro: 'Plan Pro',
+  lifetime: 'Plan Lifetime',
+};
+
 const SettingsMobile: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
   const { setBackAction, setBottomNavVisible } = useUIStore();
+  const { user, logout } = useAuth();
+  const { subscription, isAdmin } = useSubscription();
+  const haptic = useHaptic();
 
   useEffect(() => {
     setBottomNavVisible(false);
     return () => setBottomNavVisible(true);
   }, [setBottomNavVisible]);
 
-  const MENU_GROUPS = [
+  const MENU_GROUPS = useMemo<SettingGroup[]>(() => [
     {
       title: 'Negocio',
       items: [
-        { id: 'business', label: 'Configuracion General', icon: Briefcase, desc: 'Moneda, Finanzas y Categorias' },
-        { id: 'identity', label: 'Identidad del Negocio', icon: Building, desc: 'Logo y Nombre comercial' },
-        { id: 'services', label: 'Catálogo de Servicio', icon: Settings2, desc: 'Plataformas y precios' }
-      ]
+        { id: 'business', label: 'Configuración General', icon: Briefcase, desc: 'Moneda, finanzas y categorías' },
+        { id: 'identity', label: 'Identidad del Negocio', icon: Building, desc: 'Logo y nombre comercial' },
+        { id: 'services', label: 'Catálogo de Servicios', icon: Settings2, desc: 'Plataformas y precios' },
+        { id: 'messages', label: 'Mensajería', icon: MessageSquare, desc: 'Plantillas de WhatsApp' },
+      ],
     },
     {
-      title: 'Ayuda y Soporte',
+      title: 'Seguridad y alertas',
       items: [
-        { id: 'security', label: 'Centro de Seguridad', icon: ShieldCheck, desc: 'Encriptación y Sesiones' },
-        { id: 'messages', label: 'Mensajeria', icon: MessageSquare, desc: 'Plantillas de Whatsapp' },
-        { id: 'notifications', label: 'Notificaciones', icon: Bell, desc: 'Alertas en dispositivo' }
-      ]
+        { id: 'security', label: 'Centro de Seguridad', icon: ShieldCheck, desc: 'Encriptación y sesiones' },
+        { id: 'notifications', label: 'Notificaciones', icon: Bell, desc: 'Alertas en el dispositivo' },
+      ],
     },
     {
-      title: 'Sistema',
+      title: 'Datos',
       items: [
-        { id: 'account', label: 'Cuenta y Perfil', icon: User, desc: 'Tu Informacion y apariencia' },
+        { id: 'data', label: 'Datos y Copias', icon: Database, desc: 'Exportar información' },
         { id: 'activity', label: 'Historial de Cambios', icon: History, desc: 'Registro de operaciones' },
-        { id: 'data', label: 'Datos y Copias', icon: Database, desc: 'Exportacion Informacion' },
         { id: 'integrations', label: 'Integraciones', icon: Settings2, desc: 'Estado del sistema' },
-        { id: 'legal', label: 'Legal y Privacidad', icon: ShieldCheck, desc: 'Terminos y Condiciones' }
-      ]
-    }
-  ];
+      ],
+    },
+    {
+      title: 'Cuenta',
+      items: [
+        { id: 'account', label: 'Cuenta y Perfil', icon: User, desc: 'Tu información y apariencia' },
+        { id: 'legal', label: 'Legal y Privacidad', icon: ShieldCheck, desc: 'Términos y condiciones' },
+      ],
+    },
+  ], []);
+
+  const filteredGroups = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return MENU_GROUPS;
+    return MENU_GROUPS
+      .map((group) => ({
+        ...group,
+        items: group.items.filter(
+          (item) => item.label.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+        ),
+      }))
+      .filter((group) => group.items.length > 0);
+  }, [MENU_GROUPS, query]);
 
   useEffect(() => {
     if (activeTab) {
@@ -136,6 +181,9 @@ const SettingsMobile: React.FC = () => {
   };
 
   const activeItem = MENU_GROUPS.flatMap(g => g.items).find(i => i.id === activeTab);
+  const planLabel = PLAN_LABELS[subscription?.plan ?? 'free'] ?? PLAN_LABELS.free;
+  const displayName = user?.name || user?.email?.split('@')[0] || 'Mi Negocio';
+  const initials = displayName.trim().split(/\s+/).slice(0, 2).map((w) => w.charAt(0).toUpperCase()).join('') || 'NS';
 
   return (
     <div className="w-full min-h-screen pb-10 font-sans relative text-text-primary px-6 pt-safe mt-2">
@@ -143,27 +191,63 @@ const SettingsMobile: React.FC = () => {
       <AnimatePresence mode="wait">
         {!activeTab && (
           <motion.div key="menu" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 relative z-10" >
-            <div className="mt-6 mb-10">
+            <div className="mt-6 mb-5">
                <h1 className="text-2xl font-black text-text-primary tracking-tight">Ajustes</h1>
-               <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Personaliza tu Noova</p>
+               <p className="text-text-muted text-[11px] font-semibold uppercase tracking-[0.15em] mt-1">Personaliza tu Noova</p>
             </div>
+
+            <div className="relative">
+              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Buscar un ajuste"
+                className="w-full h-12 bg-surface-1 border border-border-subtle rounded-xl pl-11 pr-4 text-[13px] text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium"
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => { haptic('nav'); setActiveTab('account'); }}
+              className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-1 border border-border-subtle shadow-elev-sm active:scale-[0.98] transition-all"
+            >
+              <div className="w-14 h-14 shrink-0 rounded-full bg-brand-gradient shadow-glow-sm flex items-center justify-center text-white text-[16px] font-black">
+                {initials}
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <div className="text-[15px] font-bold text-text-primary truncate">{displayName}</div>
+                {user?.email && <div className="text-[11px] text-text-muted truncate mt-0.5">{user.email}</div>}
+                <span className="inline-flex items-center gap-1 mt-1.5 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md bg-brand-primary/10 border border-brand-primary/25 text-brand-primary-hi">
+                  <Crown size={10} /> {isAdmin ? 'Admin' : planLabel}
+                </span>
+              </div>
+              <ChevronRight size={18} className="text-text-faint shrink-0" />
+            </button>
+
             <div className="space-y-6">
-              {MENU_GROUPS.map((group, idx) => (
-                <div key={idx} className="space-y-2.5">
-                   <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
-                   <div className="space-y-1">
-                      {group.items.map((item) => {
+              {filteredGroups.length === 0 && (
+                <p className="text-center text-[12px] text-text-muted py-6">No se encontró ningún ajuste.</p>
+              )}
+              {filteredGroups.map((group) => (
+                <div key={group.title} className="space-y-2">
+                   <h3 className="text-[11px] font-black text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
+                   <div className="rounded-xl bg-surface-1 border border-border-subtle shadow-elev-sm overflow-hidden">
+                      {group.items.map((item, idx) => {
                         const Icon = item.icon;
                         return (
-                          <button key={item.id} onClick={() => setActiveTab(item.id)} className="w-full p-3 rounded-xl flex items-center gap-3 bg-surface-1 border border-border-subtle shadow-elev-sm active:scale-[0.98] transition-all hover:bg-surface-2 group" >
-                            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-surface-sunken text-text-primary shrink-0 border border-border-subtle">
-                              <Icon size={14} strokeWidth={2.5} />
+                          <button
+                            key={item.id}
+                            onClick={() => { haptic('nav'); setActiveTab(item.id); }}
+                            className={`w-full min-h-[64px] p-3 flex items-center gap-3 active:bg-surface-2 transition-all ${idx > 0 ? 'border-t border-hairline' : ''}`}
+                          >
+                            <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center bg-brand-primary/10 text-brand-primary-hi">
+                              <Icon size={18} strokeWidth={2.25} />
                             </div>
-                            <div className="flex-1 text-left">
-                              <span className="block text-[13px] font-semibold text-text-primary/90 leading-tight">{item.label}</span>
-                              <span className="block text-[9px] text-text-faint mt-0.5 font-medium uppercase tracking-wider">{item.desc}</span>
+                            <div className="flex-1 text-left min-w-0">
+                              <span className="block text-[14px] font-semibold text-text-primary leading-tight truncate">{item.label}</span>
+                              <span className="block text-[11px] text-text-muted mt-0.5 truncate">{item.desc}</span>
                             </div>
-                            <ChevronRight size={16} className="text-text-faint group-active:text-text-muted transition-colors" />
+                            <ChevronRight size={18} className="text-text-faint shrink-0" />
                           </button>
                         );
                       })}
@@ -171,8 +255,20 @@ const SettingsMobile: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="py-12 text-center">
-              <p className="text-[9px] text-text-faint font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
+
+            <button
+              type="button"
+              onClick={() => { haptic('heavy'); logout(); }}
+              className="w-full min-h-[60px] p-3 flex items-center gap-3 rounded-xl bg-surface-1 border border-border-subtle shadow-elev-sm active:scale-[0.98] transition-all"
+            >
+              <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center bg-status-danger/10 text-status-danger-soft">
+                <LogOut size={18} strokeWidth={2.25} />
+              </div>
+              <span className="text-[14px] font-semibold text-status-danger-soft">Cerrar sesión</span>
+            </button>
+
+            <div className="py-10 text-center">
+              <p className="text-[10px] text-text-faint font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
             </div>
           </motion.div>
         )}

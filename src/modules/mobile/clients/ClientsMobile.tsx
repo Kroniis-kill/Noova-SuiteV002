@@ -9,11 +9,12 @@ import { useOfflineSync } from '../../../hooks/useOfflineSync';
 import { useHighlightAction } from '../../../hooks/useHighlightAction';
 import { Client } from '../../../types';
 import { Virtuoso } from 'react-virtuoso';
-import { Search, Plus, Upload, RefreshCw, ChevronRight, Phone, Layers, Ban, History as HistoryIcon } from 'lucide-react';
+import { Search, Plus, Upload, RefreshCw, Layers, Ban, Crown, Star, Sparkles, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 import ContactoModal from '../../../components/contactos/ContactoModal';
 import ContactoBottomSheet from '../../../components/contactos/ContactoBottomSheet';
+import Avatar from '../../../components/ui/Avatar';
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
 import { getClientTags, getLocalDateISO } from '../../../utils/contactosUtils';
 import { loadXlsx } from '../../../utils/lazyXlsx';
@@ -213,26 +214,23 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                  </div>
              </div>
 
-             <div className="grid grid-cols-2 gap-3 mb-3.5">
+             <div className="flex items-center bg-surface-1 border border-border-subtle rounded-xl p-1 mb-3.5">
                 <button
                   onClick={() => onHandleTabChange('active')}
-                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'active' ? 'border-status-success/30 ring-1 ring-status-success/20' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'active' ? 'bg-status-success/10' : ''}`}
                 >
-                   <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-status-success" />
-                      <span className="text-[9px] font-bold text-status-success-soft uppercase tracking-[0.1em]">Activos</span>
-                   </div>
-                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.active}</div>
+                   <span className="w-[7px] h-[7px] rounded-full bg-status-success" />
+                   <span className="text-[13px] font-bold text-status-success-soft">{stats.active}</span>
+                   <span className="text-[11px] font-semibold text-text-muted">Activos</span>
                 </button>
+                <div className="w-px h-[22px] bg-border-subtle" />
                 <button
                   onClick={() => onHandleTabChange('inactive')}
-                  className={`text-left bg-surface-1 border rounded-xl p-4 transition-all ${activeTab === 'inactive' ? 'border-[rgb(var(--fg-rgb))]/20 ring-1 ring-[rgb(var(--fg-rgb))]/10' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'inactive' ? 'bg-[rgb(var(--fg-rgb))]/[0.05]' : ''}`}
                 >
-                   <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-text-faint" />
-                      <span className="text-[9px] font-bold text-text-muted uppercase tracking-[0.1em]">Inactivos</span>
-                   </div>
-                   <div className="text-[22px] font-black text-text-primary leading-none">{stats.inactive}</div>
+                   <span className="w-[7px] h-[7px] rounded-full bg-text-faint" />
+                   <span className="text-[13px] font-bold text-text-secondary">{stats.inactive}</span>
+                   <span className="text-[11px] font-semibold text-text-muted">Inactivos</span>
                 </button>
              </div>
 
@@ -246,79 +244,58 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                 />
              </div>
        </div>
-       <div className="flex flex-col gap-3 relative z-10 h-full pb-24 px-4">
+       <div className="grid grid-cols-3 gap-2.5 relative z-10 pb-24 px-4">
           <AnimatePresence mode='popLayout'>
              {filteredList.map((client, index) => {
                 const isActive = client.activeServices > 0;
                 const displayTags = getClientTags(client, client.activeServices);
+                const primaryTag = displayTags[0];
                 const initials = client.name.trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('');
-                 return (
-                    <motion.div 
-                       key={client.id} 
-                       layout
-                       initial={{ opacity: 0, y: 20 }}
-                       animate={{ 
-                         opacity: 1, 
-                         y: 0,
-                         transition: { delay: index * 0.05, duration: 0.4, ease: "easeOut" } 
-                       }}
-                       exit={{ opacity: 0, scale: 0.95 }}
-                       className="group"
-                    >
-                       <div 
-                         onClick={() => onHandleCardClick(client)} 
-                         className={`relative flex items-center gap-3 p-4 rounded-xl border cursor-pointer active:scale-[0.98] transition-all duration-300 overflow-hidden ${isActive ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.08] hover:border-brand-primary/30' : 'bg-surface-sunken/60 border-[rgb(var(--fg-rgb))]/[0.06] opacity-70 hover:opacity-100'}`}
-                       >
-                          {isActive && <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-brand-primary to-brand-accent" />}
+                const tagBadge: Record<string, { icon: React.ElementType; className: string }> = {
+                   'VIP': { icon: Crown, className: 'bg-status-warning' },
+                   'Frecuente': { icon: Star, className: 'bg-brand-primary' },
+                   'Nuevo': { icon: Sparkles, className: 'bg-status-success' },
+                   'Problemático': { icon: AlertTriangle, className: 'bg-status-danger' },
+                };
+                const badge = client.isBlocked ? null : (primaryTag ? tagBadge[primaryTag] : undefined);
 
-                          <div className={`w-[42px] h-[42px] rounded-md flex items-center justify-center text-white text-[13px] font-black shrink-0 ${isActive ? 'ml-1 bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-4 text-text-muted'}`}>
-                             {initials}
-                          </div>
+                return (
+                   <motion.button
+                      key={client.id}
+                      layout
+                      type="button"
+                      onClick={() => onHandleCardClick(client)}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        transition: { delay: Math.min(index, 12) * 0.03, duration: 0.3, ease: "easeOut" }
+                      }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className={`flex flex-col items-center rounded-xl bg-surface-1 border border-border-subtle p-3 pt-3.5 text-center active:scale-[0.96] transition-all duration-150 ease-out-soft outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/60 ${isActive ? '' : 'opacity-60'}`}
+                   >
+                      <div className="relative w-14 h-14">
+                         <Avatar name={client.name} size={56} className="rounded-full shadow-md border border-[rgb(var(--fg-rgb))]/10" />
+                         {badge && (
+                            <span className={`absolute -right-1 -bottom-1 w-7 h-7 rounded-full border-[2.5px] border-surface-1 flex items-center justify-center shadow-md ${badge.className}`}>
+                               <badge.icon size={14} strokeWidth={2.5} className="text-white" aria-hidden="true" />
+                            </span>
+                         )}
+                      </div>
 
-                          <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                  <h3 className="text-[13px] font-bold truncate text-text-primary">{client.name}</h3>
-                                  {client.isBlocked && (
-                                    <span className="text-[8px] font-black text-brand-accent bg-brand-accent/10 px-1.5 py-0.5 rounded-full border border-brand-accent/20 flex items-center gap-1 uppercase tracking-widest leading-none shrink-0">
-                                      <Ban size={8} /> Bloqueado
-                                    </span>
-                                  )}
-                              </div>
-                              <div className="flex items-center gap-1 mt-1">
-                                  <Phone size={10} className="text-text-faint shrink-0" />
-                                  <span className="text-[10px] text-text-disabled font-mono font-bold leading-none">{client.phone}</span>
-                              </div>
-                              {displayTags.length > 0 && (
-                                <div className="flex flex-wrap gap-1 mt-1.5">
-                                    {displayTags.map(tag => (
-                                      <span key={tag} className="text-[7px] bg-[rgb(var(--fg-rgb))]/[0.06] text-text-muted px-1.5 py-0.5 rounded-full uppercase font-black tracking-widest">
-                                        {tag}
-                                      </span>
-                                    ))}
-                                </div>
-                              )}
-                          </div>
+                      <h3 className="text-[12px] font-bold text-text-primary truncate w-full mt-2.5 leading-tight">
+                         {client.name}
+                      </h3>
 
-                          <div className="flex flex-col items-end gap-2 shrink-0">
-                              {isActive && (
-                                <span className="flex items-center gap-1 text-[9px] font-black text-white bg-brand-primary px-2 py-0.5 rounded-full">
-                                  <Layers size={9} strokeWidth={3} /> {client.activeServices}
-                                </span>
-                              )}
-                              <div className="flex items-center gap-1">
-                                  <button 
-                                    onClick={(e) => onHandleHistoryClick(e, client)}
-                                    className="w-7 h-7 rounded-md bg-[rgb(var(--fg-rgb))]/[0.03] flex items-center justify-center text-text-disabled hover:text-brand-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-90"
-                                    title="Historial de compras"
-                                  >
-                                    <HistoryIcon size={13} />
-                                  </button>
-                                  <ChevronRight size={16} className="text-text-faint group-hover:text-text-muted transition-colors" />
-                              </div>
-                          </div>
-                       </div>
-                    </motion.div>
-                 );
+                      <div className="flex items-center gap-1 mt-0.5 text-[10px] font-semibold text-text-disabled">
+                         {client.isBlocked ? (
+                           <><Ban size={11} className="text-status-danger-soft" aria-hidden="true" /><span className="text-status-danger-soft">Bloqueado</span></>
+                         ) : (
+                           <><Layers size={11} aria-hidden="true" /><span>{client.activeServices} {client.activeServices === 1 ? 'servicio' : 'servicios'}</span></>
+                         )}
+                      </div>
+                   </motion.button>
+                );
              })}
           </AnimatePresence>
        </div>

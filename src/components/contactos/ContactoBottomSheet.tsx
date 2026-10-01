@@ -9,6 +9,7 @@ import { useToast } from '../../context/ToastContext';
 import { useData } from '../../context/DataContext';
 import ClientHistory from './ClientHistory';
 import ClientPurchaseHistory from './ClientPurchaseHistory';
+import Avatar from '../ui/Avatar';
 
 interface ContactoBottomSheetProps {
   client: Client | null;
@@ -100,11 +101,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                 </div>
 
                 <div className="px-5 pb-4 flex flex-col items-center shrink-0">
-                    <div className="w-[76px] h-[76px] rounded-xl p-0.5 bg-gradient-to-br from-brand-primary to-brand-accent mb-3">
-                        <div className="w-full h-full rounded-[22px] bg-surface-3 flex items-center justify-center text-text-primary text-2xl font-black">
-                            {client.name.trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('')}
-                        </div>
-                    </div>
+                    <Avatar name={client.name} size={76} className="rounded-xl shadow-md mb-3" />
                     <h3 className="text-[19px] font-black text-text-primary text-center tracking-tight leading-tight">{client.name}</h3>
                     <div className="flex items-center gap-1.5 mt-2">
                         <span className="text-[11px] font-mono text-text-muted bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 px-2.5 py-1 rounded-full">{client.phone}</span>
