@@ -5,7 +5,8 @@ import { LogAction, LogEntity } from '../types';
 export interface SyncItem {
   id?: number;
   action: LogAction;
-  entity: LogEntity;
+  // 'SETTINGS' no es una entidad de bitácora, pero sí se puede encolar offline.
+  entity: LogEntity | 'SETTINGS';
   payload: any;
   createdAt: number;
   // Número de intentos no-red fallidos. Tras N intentos se descarta el item

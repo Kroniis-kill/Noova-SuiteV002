@@ -8,6 +8,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { useUIStore } from '../store/uiStore';
+import { useSaveStatus } from '../store/saveStatusStore';
 
 // `navigator.onLine` solo dice si el dispositivo tiene una interfaz de red
 // activa — no confirma que se pueda llegar realmente a internet/Supabase
@@ -130,12 +131,16 @@ const mapEntityToQueryKey = (entity: string) => {
     case 'PAYABLE': return 'payable_expenses';
     case 'CATEGORY': return 'expense_categories';
     case 'MOVEMENT': return 'movements';
+    case 'SETTINGS': return 'settings';
     default: return null;
   }
 };
 
 const updateLocalCache = (action: string, entity: string, payload: any) => {
   if (!queryClientRef) return;
+  // Settings ya se actualiza de forma optimista en useSettings; su payload está en
+  // formato de base de datos y no debe mezclarse con la caché en formato de app.
+  if (entity === 'SETTINGS') return;
   const queryKey = mapEntityToQueryKey(entity);
   if (!queryKey) return;
   queryClientRef.setQueryData([queryKey, currentUserId], (oldData: any[]) => {
@@ -161,14 +166,45 @@ const tableForEntity = (entity: SyncItem['entity']) => {
     case 'PAYABLE': return 'payable_expenses';
     case 'CATEGORY': return 'expense_categories';
     case 'MOVEMENT': return 'movements';
+    case 'SETTINGS': return 'settings';
     default: return '';
   }
 };
 
 const executeSupabaseAction = async (item: SyncItem) => {
-  if (!currentUserId) return;
+  // Antes: sin usuario o con una entidad desconocida esta función devolvía sin
+  // hacer nada y el llamador lo contaba como "sincronizado" y BORRABA el item
+  // de la cola sin haberlo enviado. Ahora nunca se confirma algo que no se envió.
+  if (!currentUserId) throw Object.assign(new Error('No hay sesión activa para sincronizar'), { status: 0 });
   const table = tableForEntity(item.entity);
-  if (!table) return;
+  if (!table) throw new Error(`Entidad desconocida en la cola de sincronización: ${item.entity}`);
+
+  // Configuración: se guarda completa (upsert por usuario).
+  if (item.entity === 'SETTINGS') {
+    let { error } = await withRetry(() => supabase.from('settings').upsert(item.payload, { onConflict: 'user_id' }));
+    if (error && error.message?.includes('backup_preferences')) {
+      const { backup_preferences, ...clean } = item.payload;
+      ({ error } = await withRetry(() => supabase.from('settings').upsert(clean, { onConflict: 'user_id' })));
+    }
+    if (error) throw error;
+    return;
+  }
+
+  // Ventas: se usan las mismas funciones transaccionales que el guardado normal,
+  // para que las cuentas/perfiles queden sincronizados igual que online.
+  if (item.entity === 'SALE') {
+    if (item.action === 'CREATE') {
+      const { error } = await withRetry(() => supabase.rpc('create_sale_with_sync', { p_sale: item.payload }));
+      if (error) throw error;
+    } else if (item.action === 'UPDATE') {
+      const { error } = await withRetry(() => supabase.rpc('update_sale_with_sync', { p_sale: item.payload }));
+      if (error) throw error;
+    } else if (item.action === 'DELETE') {
+      const { error } = await withRetry(() => supabase.rpc('delete_sale_with_sync', { p_sale_id: item.payload.id }));
+      if (error) throw error;
+    }
+    return;
+  }
 
   if (item.action === 'CREATE') {
     const { error } = await withRetry(() => supabase.from(table).insert(item.payload));
@@ -184,6 +220,8 @@ const executeSupabaseAction = async (item: SyncItem) => {
 
 const processSyncQueue = async () => {
   if (isGlobalSyncing) return;
+  // Sin usuario conocido no se toca la cola (se procesará cuando haya sesión).
+  if (!currentUserId) return;
   const count = await dbLocal.syncQueue.count();
   if (count === 0) return;
   if (!navigator.onLine) return;
@@ -210,6 +248,8 @@ const processSyncQueue = async () => {
         networkInterrupted = true;
         break;
       }
+      // Items creados con otra sesión: se conservan, no se envían ni se descartan.
+      if (item.payload?.user_id && item.payload.user_id !== currentUserId) continue;
       try {
         await executeSupabaseAction(item);
         if (item.id) await dbLocal.syncQueue.delete(item.id);
@@ -252,14 +292,16 @@ const processSyncQueue = async () => {
     }
 
     if (successCount > 0) {
-      toastRef?.(`Sincronización completada: ${successCount} ${successCount === 1 ? 'item' : 'items'}`, 'success');
+      useSaveStatus.getState().showSynced(successCount);
       // Invalidar solo las queries afectadas, en lugar de TODO.
       invalidatedKeys.forEach((qk) => {
         queryClientRef?.invalidateQueries({ queryKey: [qk, currentUserId] });
       });
     }
     if (droppedCount > 0) {
-      toastRef?.(`${droppedCount} ${droppedCount === 1 ? 'cambio fue descartado' : 'cambios fueron descartados'} tras varios intentos fallidos`, 'error');
+      const droppedMsg = `${droppedCount} ${droppedCount === 1 ? 'cambio no se pudo guardar' : 'cambios no se pudieron guardar'} tras varios intentos`;
+      toastRef?.(droppedMsg, 'error');
+      useSaveStatus.getState().showError(droppedMsg);
     }
 
     if (networkInterrupted) {
@@ -301,6 +343,12 @@ const addToSyncQueue = async (
 
     const recordId = payload?.id;
 
+    // Configuración: siempre se envía el objeto completo, solo importa la última versión.
+    if (entity === 'SETTINGS') {
+      const oldKeys = await dbLocal.syncQueue.where('entity').equals('SETTINGS').primaryKeys();
+      if (oldKeys.length) await dbLocal.syncQueue.bulkDelete(oldKeys as number[]);
+    }
+
     if (recordId) {
       // Buscar entradas previas del mismo registro (mismo entity + mismo id).
       const existing = await dbLocal.syncQueue
@@ -338,6 +386,7 @@ const addToSyncQueue = async (
             payload: { ...pendingCreate.payload, ...payload },
           });
           updateLocalCache(action, entity, payload);
+          useSaveStatus.getState().noteQueued();
           return;
         }
       }
@@ -349,6 +398,7 @@ const addToSyncQueue = async (
       tries: 0,
     });
     updateLocalCache(action, entity, payload);
+    useSaveStatus.getState().noteQueued();
 
     if (navigator.onLine) {
       if (pendingFlushTimer) clearTimeout(pendingFlushTimer);

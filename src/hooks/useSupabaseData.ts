@@ -10,7 +10,7 @@ import { cacheUtils } from '../utils/cacheUtils';
 import { useOfflineSync } from './useOfflineSync';
 import { useToast } from '../context/ToastContext';
 import { DEFAULT_SETTINGS } from '../constants/defaultSettings';
-import { useTableQuery as useSharedTableQuery } from './queries/useTableQuery';
+import { useTableQuery as useSharedTableQuery, TableQueryOptions } from './queries/useTableQuery';
 import { useSettings } from './queries/useSettings';
 import { useExpenseCategories } from './queries/useExpenseCategories';
 import { useActivityLogs, useServiceFailuresQ } from './queries/useActivityLogs';
@@ -54,8 +54,8 @@ export const useSupabaseData = (userId: string | undefined) => {
   // Shared table-query helper extracted to ./queries/useTableQuery
   const useTableQuery = <T>(
     key: string, table: string, mapper: (d: any) => T,
-    enabled = true, limit = 1000, columns = '*'
-  ) => useSharedTableQuery<T>(key, table, userId, mapper, undefined, enabled, limit, columns);
+    enabled = true, limit = 1000, columns = '*', options: TableQueryOptions = {}
+  ) => useSharedTableQuery<T>(key, table, userId, mapper, undefined, enabled, limit, columns, options);
 
   // REMOVED REDUNDANT QUERIES (Handled by modular hooks: useClients, useSales, useInventory)
 
@@ -67,7 +67,11 @@ export const useSupabaseData = (userId: string | undefined) => {
   // enteras cada vez que se invalida (ver fix en DataContext.tsx), así que
   // traer columnas de más multiplicaba el Egress sin necesidad. Se listan
   // explícitas según lo que realmente lee mappers.*.fromDb en mappers.ts.
-  const movementsQ = useTableQuery('movements', 'movements', mappers.movement.fromDb, true, 500, 'id, account_id, related_account_id, type, amount, currency, exchange_rate, usd_equivalent, date, description, payment_method, reconciled, reconciled_at, reconciled_by, verified');
+  // Movimientos: sin límite (trae todo en bloques de 1000, del más reciente al más antiguo).
+  // Antes: .range(0, 499) sin orden → con más de 500 movimientos mostraba un grupo
+  // arbitrario, no necesariamente los últimos. Para volver a limitar, cambia
+  // `all: true` por `all: false` y ajusta el 500 (el orden por fecha se mantiene).
+  const movementsQ = useTableQuery('movements', 'movements', mappers.movement.fromDb, true, 500, 'id, account_id, related_account_id, type, amount, currency, exchange_rate, usd_equivalent, date, description, payment_method, reconciled, reconciled_at, reconciled_by, verified', { orderBy: { column: 'date', ascending: false }, all: true });
   const resellersQ = useTableQuery('resellers', 'resellers', mappers.reseller.fromDb, true, 1000, 'id, name, code, whatsapp, telegram, color, registration_date');
   const providersQ = useTableQuery('providers', 'providers', mappers.provider.fromDb, true, 1000, 'id, name, whatsapp, telegram, color, registration_date, quality_score');
   const payableExpensesQ = useTableQuery('payable_expenses', 'payable_expenses', mappers.payable.fromDb, true, 1000, 'id, name, amount, currency, due_date, recurrence');

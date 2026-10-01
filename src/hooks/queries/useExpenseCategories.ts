@@ -25,14 +25,17 @@ export function useExpenseCategories(userId: string | undefined) {
       const { data, error } = await withRetry(() =>
         supabase.from('expense_categories').select('id, name, color').eq('user_id', userId)
       );
-      if (error) return [];
+      // Antes: `return []` ante un error hacía que las categorías aparecieran vacías
+      // sin ningún aviso. Ahora el error se propaga y se conservan los datos en caché.
+      if (error) throw error;
       const mappedData = (data || []).map(mappers.expenseCategory.fromDb);
       cacheUtils.save('expense_categories', mappedData, userId);
       return mappedData;
     },
     initialData: () => cacheUtils.load<ExpenseCategory[]>('expense_categories', userId) || undefined,
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('expense_categories', userId) ?? undefined,
     enabled: !!userId && userId !== 'offline-user-id',
-    staleTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 5,
   });
 
   const addCategory = useMutation({

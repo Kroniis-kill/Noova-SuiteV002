@@ -64,6 +64,7 @@ export function useSettings(userId: string | undefined) {
       return settings;
     },
     initialData: () => cacheUtils.load<AppSettings>('settings', userId) || undefined,
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('settings', userId) ?? undefined,
     enabled: !!userId,
     // 60s en vez de 0: evita re-descargar todo en cada repintado/remount.
     // Los cambios propios ya se ven al toque por la actualización optimista
@@ -101,7 +102,10 @@ export function useSettings(userId: string | undefined) {
         if (error) {
           if (error.message?.includes('backup_preferences')) {
             const { backup_preferences, ...cleanData } = dbData;
-            await supabase.from('settings').upsert(cleanData, { onConflict: 'user_id' });
+            // Antes el resultado de este segundo intento se ignoraba: si fallaba,
+            // la app decía "guardado" sin haber guardado nada.
+            const retry = await withRetry(() => supabase.from('settings').upsert(cleanData, { onConflict: 'user_id' }));
+            if (retry.error) throw retry.error;
             console.warn('backup_preferences column missing in DB. Savings settings without it.');
           } else {
             throw error;
@@ -109,7 +113,9 @@ export function useSettings(userId: string | undefined) {
         }
       } catch (error) {
         if (isNetworkError(error)) {
-          await addToSyncQueue('UPDATE', 'FINANCE', dbData);
+          // Antes se encolaba como 'FINANCE' (tabla financial_accounts), así que la
+          // configuración nunca llegaba a la tabla settings y se descartaba.
+          await addToSyncQueue('UPDATE', 'SETTINGS', dbData);
           showToast('Configuración guardada localmente', 'info');
           return;
         }

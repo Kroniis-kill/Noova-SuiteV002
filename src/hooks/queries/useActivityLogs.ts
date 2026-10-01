@@ -23,6 +23,7 @@ export function useActivityLogs(userId: string | undefined) {
       return mappedData;
     },
     initialData: () => cacheUtils.load<ActivityLog[]>('logs', userId) || undefined,
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('logs', userId) ?? undefined,
     enabled: !!userId,
     staleTime: 1000 * 60 * 5,
   });
@@ -46,6 +47,7 @@ export function useServiceFailuresQ(userId: string | undefined) {
       return mappedData;
     },
     initialData: () => cacheUtils.load<ServiceFailure[]>('service_failures', userId) || undefined,
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('service_failures', userId) ?? undefined,
     enabled: !!userId && userId !== 'offline-user-id',
     // 60s en vez de 0: evita re-descargar todo en cada repintado/remount.
     // Los cambios propios ya se ven al toque por la actualización optimista

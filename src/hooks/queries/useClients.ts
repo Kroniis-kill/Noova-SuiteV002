@@ -43,6 +43,7 @@ export const useClients = () => {
     initialData: () => {
       return cacheUtils.load<Client[]>('clients', userId) || undefined;
     },
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('clients', userId) ?? undefined,
     enabled: !!userId,
     // Realtime + scheduleReconcile keep this fresh; 30s prevents back-to-back refetches.
     staleTime: 30_000,

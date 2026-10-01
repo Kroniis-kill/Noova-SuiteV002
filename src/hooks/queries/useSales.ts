@@ -60,6 +60,11 @@ export const useSales = () => {
       }
       return undefined;
     },
+    initialDataUpdatedAt: () => cacheUtils.loadedAt('sales_p1', userId) ?? undefined,
+    // Al abrir la app, la copia local solo sirve para pintar rápido: siempre se
+    // confirma contra el servidor para que ventas ya borradas/cambiadas no queden
+    // mostrándose desde una copia vieja.
+    refetchOnMount: 'always',
     enabled: !!userId,
     // 60s en vez de 0: evita re-descargar todo en cada repintado/remount.
     // Los cambios propios ya se ven al toque por la actualización optimista
@@ -176,7 +181,20 @@ export const useSales = () => {
         // RPC transaccional: borra la venta Y libera de vuelta los
         // perfiles/pantallas de la cuenta, atómicamente.
         const { error } = await withRetry(() => supabase.rpc('delete_sale_with_sync', { p_sale_id: id }));
-        if (error) throw error;
+        if (error) {
+          // Borrado idempotente: si el servidor dice que la venta ya no existe, el
+          // objetivo (que no exista) ya está cumplido. Antes esto mostraba un error
+          // y la venta "fantasma" se quedaba en pantalla para siempre, porque venía
+          // de una copia local vieja. Ahora se confirma el borrado y se recarga
+          // la lista real desde el servidor.
+          const msg = String((error as any)?.message || '').toLowerCase();
+          if (msg.includes('venta no encontrada')) {
+            queryClient.invalidateQueries({ queryKey: ['sales', userId] });
+            queryClient.invalidateQueries({ queryKey: ['accounts', userId] });
+            return;
+          }
+          throw error;
+        }
         queryClient.invalidateQueries({ queryKey: ['accounts', userId] });
       } catch (error) {
         if (isNetworkError(error)) {
