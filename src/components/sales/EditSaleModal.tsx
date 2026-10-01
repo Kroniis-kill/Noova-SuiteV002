@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
-import { Sale, ScreenProfile } from '../../types';
+import { Sale, ScreenProfile, Client } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useToast } from '../../context/ToastContext';
 import { useHaptic } from '../../hooks/useHaptic';
 import {
   Check, X, Mail, Lock, DollarSign, User, Hash, Layers,
-  ChevronDown, Search, ArrowRight, Loader2
+  ChevronDown, Search, ArrowRight, Loader2, ArrowLeftRight, RotateCcw, Ban, ChevronRight
 } from 'lucide-react';
 import { getLocalDateISO, addTime, parseLocalISO } from '../../utils/contactosUtils';
 import { calculateOccupancy } from '../../utils/inventarioUtils';
 import { motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { SALE_TYPE_LABELS } from './ItemConfigForm';
+import SearchListModal from './SearchListModal';
 
 // --- CONSTANTES Y HELPERS ---
 
@@ -62,15 +63,24 @@ const EXTEND_OPTIONS: Array<[string, number, number]> = [
   ['+3 meses', 3, 0],
 ];
 
+export interface ClientChangeInfo {
+  fromClientId: string;
+  toClientId: string;
+  /** false = el cliente anterior se quedó sin ventas (la pantalla de detalle de ese cliente quedaría vacía). */
+  fromClientHasOtherSales: boolean;
+}
+
 interface EditSaleModalProps {
   isOpen: boolean;
   onClose: () => void;
   sale: Sale | null;
   zIndex?: number;
+  /** Se llama después de guardar una venta que cambió de cliente. Opcional: sin esto todo funciona igual que antes. */
+  onClientChanged?: (info: ClientChangeInfo) => void;
 }
 
-const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zIndex }) => {
-  const { accounts, services, updateSale, clients, settings } = useData();
+const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zIndex, onClientChanged }) => {
+  const { accounts, services, updateSale, clients, settings, sales, updateClient, logAction } = useData();
   const { showToast } = useToast();
   const haptic = useHaptic();
 
@@ -78,6 +88,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAccountSearchOpen, setIsAccountSearchOpen] = useState(false);
   const [accountSearch, setAccountSearch] = useState('');
+  const [isClientSearchOpen, setIsClientSearchOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen && sale) {
@@ -88,6 +99,9 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
   if (!isOpen || !sale) return null;
 
   const client = clients.find(c => c.id === sale.clientId);
+  // Cliente elegido en el formulario (igual al original mientras no se cambie).
+  const selectedClient = clients.find(c => c.id === formData.clientId);
+  const clientChanged = !!formData.clientId && formData.clientId !== sale.clientId;
   const currentAccount = accounts.find(a => a.id === formData.accountId);
   const service = services.find(s => s.name === sale.serviceName);
 
@@ -101,18 +115,58 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
       showToast('Debe seleccionar una cuenta', 'error');
       return;
     }
+    if (clientChanged && !selectedClient) {
+      showToast('El cliente seleccionado ya no existe', 'error');
+      return;
+    }
 
     setIsSubmitting(true);
     try {
       await updateSale(formData as Sale);
       haptic('success');
-      showToast('Venta actualizada correctamente', 'success');
+
+      if (clientChanged && selectedClient) {
+        const today = getLocalDateISO();
+        const fromId = sale.clientId;
+        const toId = selectedClient.id;
+        const fromOtherSales = sales.filter(s => s.clientId === fromId && s.id !== sale.id);
+
+        // Mantener al día el contador de servicios activos de los dos clientes
+        // (mismo criterio que el botón de sincronizar de Clientes). Si falla, la venta
+        // ya quedó bien guardada: ese botón lo corrige después.
+        try {
+          const fromActive = fromOtherSales.filter(s => s.expiryDate >= today).length;
+          const toActive = sales.filter(s => s.clientId === toId && s.expiryDate >= today).length
+            + ((formData.expiryDate || '') >= today ? 1 : 0);
+          if (client && client.activeServices !== fromActive) await updateClient({ ...client, activeServices: fromActive });
+          if (selectedClient.activeServices !== toActive) await updateClient({ ...selectedClient, activeServices: toActive });
+        } catch (counterError) {
+          console.warn('No se pudo actualizar el contador de servicios activos:', counterError);
+        }
+
+        logAction('UPDATE', 'SALE', `Venta ${sale.serviceName} movida de ${client?.name || 'cliente'} a ${selectedClient.name}`);
+        showToast(`Venta movida a ${selectedClient.name}`, 'success');
+        onClientChanged?.({ fromClientId: fromId, toClientId: toId, fromClientHasOtherSales: fromOtherSales.length > 0 });
+      } else {
+        showToast('Venta actualizada correctamente', 'success');
+      }
       onClose();
     } catch (error) {
       showToast('Error al actualizar la venta', 'error');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handlePickClient = (c: Client) => {
+    if (c.isBlocked) { haptic('error'); showToast('Cliente Bloqueado', 'error'); return; }
+    // Igual que al crear una venta: la venta toma el revendedor del cliente elegido.
+    setFormData({ ...formData, clientId: c.id, resellerId: c.resellerId });
+  };
+
+  const revertClient = () => {
+    haptic('nav');
+    setFormData({ ...formData, clientId: sale.clientId, resellerId: sale.resellerId });
   };
 
   const handleProfileChange = (idx: number, field: keyof ScreenProfile, value: string) => {
@@ -162,6 +216,36 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               <p className="text-[11px] text-text-muted font-medium mt-0.5">Vence el {formatLongDate(formData.expiryDate)}</p>
             </div>
             <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
+          </div>
+
+          {/* 1B. CLIENTE (permite pasar la venta a otro cliente sin borrarla) */}
+          <div className="space-y-3">
+            <label className={SECTION_LABEL}>Cliente</label>
+            <button
+              type="button"
+              onClick={() => { haptic('nav'); setIsClientSearchOpen(true); }}
+              className={`w-full h-[60px] px-3 bg-surface-zinc rounded-xl border flex items-center gap-3 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+            >
+              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-[11px] font-bold shrink-0 border border-[rgb(var(--fg-rgb))]/10">
+                {(selectedClient?.name || '?').substring(0, 2).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cliente de la venta</span>
+                <span className="block text-[13px] font-bold truncate text-text-primary">{selectedClient?.name || 'Seleccionar cliente...'}</span>
+              </div>
+              <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
+            </button>
+            {clientChanged && (
+              <div className="flex items-start justify-between gap-3 px-1">
+                <p className="text-xs text-brand-primary-hi flex items-start gap-1.5 min-w-0">
+                  <ArrowLeftRight size={13} className="mt-0.5 shrink-0" />
+                  <span>Pasará de {client?.name || 'otro cliente'} a {selectedClient?.name} al guardar.</span>
+                </p>
+                <button type="button" onClick={revertClient} className="text-xs font-semibold text-text-muted hover:text-text-primary flex items-center gap-1 shrink-0">
+                  <RotateCcw size={12} /> Deshacer
+                </button>
+              </div>
+            )}
           </div>
 
           {/* 2. CUENTA */}
@@ -333,6 +417,38 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           </button>
         </div>
       </div>
+
+      {/* SELECTOR DE CLIENTE */}
+      <SearchListModal
+        isOpen={isClientSearchOpen}
+        onClose={() => setIsClientSearchOpen(false)}
+        items={clients}
+        onSelect={handlePickClient}
+        title="Cambiar cliente"
+        filterFn={(c: Client, q: string) => c.name.toLowerCase().includes(q) || (c.phone || '').includes(q)}
+        zIndex={(zIndex || 60000) + 10000}
+        renderItem={(c: Client) => {
+          const isCurrent = c.id === formData.clientId;
+          return (
+            <div className={`p-4 rounded-xl border mb-2 flex items-center justify-between transition-all ${c.isBlocked ? 'bg-status-danger/10 border-status-danger/20 opacity-50' : isCurrent ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-zinc active:scale-[0.98]'}`}>
+              <div className="flex items-center gap-4 min-w-0">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-[rgb(var(--fg-rgb))]/10 shrink-0">
+                  {c.name.substring(0, 2).toUpperCase()}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-text-primary leading-tight truncate">{c.name}</p>
+                  <p className="text-[11px] text-text-disabled font-mono mt-0.5">{c.phone}</p>
+                </div>
+              </div>
+              {c.isBlocked
+                ? <Ban size={18} className="text-status-danger shrink-0" />
+                : isCurrent
+                  ? <Check size={16} className="text-brand-primary shrink-0" strokeWidth={3} />
+                  : <ChevronRight size={18} className="text-text-faint shrink-0" />}
+            </div>
+          );
+        }}
+      />
 
       {/* SELECTOR DE CUENTA */}
       {isAccountSearchOpen && createPortal(
