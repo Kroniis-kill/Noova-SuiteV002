@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useData } from '../../context/DataContext';
 import { useSubscription } from '../../context/SubscriptionContext';
 import NotificationCenter from './NotificationCenter';
+import SyncIconButton from '../dashboard/SyncIconButton';
 
 interface HeaderProps {
   openMobile: () => void;
@@ -64,7 +65,8 @@ const Header: React.FC<HeaderProps> = ({ title, showBack, onBack }) => {
             </span>
           </div>
 
-          <div className="flex-1 flex justify-end">
+          <div className="flex-1 flex justify-end items-center gap-2 min-w-0">
+            <SyncIconButton />
             <button
               type="button"
               onClick={() => setIsNotifOpen(true)}

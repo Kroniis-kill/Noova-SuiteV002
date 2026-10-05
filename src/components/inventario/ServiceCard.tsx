@@ -55,38 +55,38 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
                        alt={service.name}
                      />
                    ) : (
-                     <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-white/5 to-white/10 text-[11px] font-bold text-white rounded-md">
+                     <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-white/5 to-white/10 text-caption font-bold text-white rounded-md">
                         {initials}
                      </div>
                    )}
                 </div>
                 <div className="text-right">
                    <span className="text-lg font-bold text-text-primary leading-none block">{stats.total}</span>
-                   <span className="text-[9px] text-text-disabled font-medium uppercase tracking-wide">Cuentas</span>
+                   <span className="text-micro text-text-disabled font-medium uppercase tracking-wide">Cuentas</span>
                 </div>
              </div>
 
-             <h3 className="text-[13px] font-bold text-text-primary leading-tight truncate mb-0.5 pr-2">{service.name}</h3>
-             <p className="text-[10px] text-text-disabled font-medium">{stats.totalScreens} cupos totales</p>
+             <h3 className="text-body-sm font-bold text-text-primary leading-tight truncate mb-0.5 pr-2">{service.name}</h3>
+             <p className="text-tiny text-text-disabled font-medium">{stats.totalScreens} cupos totales</p>
           </div>
           
           <div className="relative z-10 w-full mt-3 flex flex-wrap gap-1.5">
              {hasFailure && (
                  <div className="flex-1 bg-status-expiring/20 border border-status-expiring/30 rounded-xs py-1 px-2 flex items-center justify-center gap-1">
                     <AlertTriangle size={10} className="text-status-expiring" />
-                    <span className="text-[9px] font-bold text-status-expiring-soft">{stats.fallando}</span>
+                    <span className="text-micro font-bold text-status-expiring-soft">{stats.fallando}</span>
                  </div>
              )}
              {(hasExpired || hasWarning) && (
                  <div className={`flex-1 ${hasExpired ? 'bg-status-danger/10 border-status-danger/20' : 'bg-status-warning/10 border-status-warning/20'} rounded-xs py-1 flex items-center justify-center`}>
-                    <span className={`text-[9px] font-bold ${hasExpired ? 'text-status-danger-soft' : 'text-status-warning-soft'}`}>
+                    <span className={`text-micro font-bold ${hasExpired ? 'text-status-danger-soft' : 'text-status-warning-soft'}`}>
                       {hasExpired ? `${stats.vencida} Venc.` : `${stats.por_vencer} Aler.`}
                     </span>
                  </div>
              )}
              {!hasExpired && !hasWarning && !hasFailure && (
                  <div className="w-full bg-status-success/5 border border-status-success/10 rounded-xs py-1 flex items-center justify-center">
-                    <span className="text-[9px] font-bold text-status-success">Estado Óptimo</span>
+                    <span className="text-micro font-bold text-status-success">Estado Óptimo</span>
                  </div>
              )}
           </div>
@@ -114,7 +114,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
                       onError={() => setImgError(true)}
                     />
                 ) : (
-                    <span className="text-[9px] font-black">{initials}</span>
+                    <span className="text-micro font-black">{initials}</span>
                 )}
             </div>
             <span className={`text-xs font-semibold truncate max-w-[120px] ${isActive ? 'text-text-primary' : 'text-text-secondary'}`}>{service.name}</span>
@@ -125,7 +125,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
             {(hasExpired || hasWarning) && !hasFailure && (
                 <div className={`w-2 h-2 rounded-full ${hasExpired ? 'bg-status-danger-soft' : 'bg-status-warning-soft'} animate-pulse`} />
             )}
-            <span className={`text-[10px] font-mono ${isActive ? 'text-text-primary/80' : 'text-text-faint group-hover:text-text-muted'}`}>
+            <span className={`text-tiny font-mono ${isActive ? 'text-text-primary/80' : 'text-text-faint group-hover:text-text-muted'}`}>
                 {stats.total}
             </span>
         </div>

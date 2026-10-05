@@ -173,20 +173,20 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
                    >
                        <div className="flex items-center gap-3.5">
                            <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${step.done ? 'bg-status-success/20 text-status-success' : 'bg-zinc-800 text-text-disabled border border-zinc-700'}`}>
-                               {step.done ? <CheckCircle2 size={14} /> : <span className="text-[10px] font-semibold">{idx + 1}</span>}
+                               {step.done ? <CheckCircle2 size={14} /> : <span className="text-tiny font-semibold">{idx + 1}</span>}
                            </div>
                            <div>
                                <p className={`text-sm font-medium ${step.done ? 'text-text-disabled line-through' : 'text-text-secondary'}`}>
                                    {step.label}
                                </p>
-                               {!step.done && <p className="text-[10px] text-text-disabled">{step.sub}</p>}
+                               {!step.done && <p className="text-tiny text-text-disabled">{step.sub}</p>}
                            </div>
                        </div>
 
                        {!step.done && (
                            <button 
                              onClick={step.action}
-                             className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 border border-brand-primary/20 px-3 py-1.5 rounded-md text-[10px] font-semibold flex items-center gap-1 transition-colors whitespace-nowrap"
+                             className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 border border-brand-primary/20 px-3 py-1.5 rounded-md text-tiny font-semibold flex items-center gap-1 transition-colors whitespace-nowrap"
                            >
                                {step.cta} <ArrowRight size={10} />
                            </button>

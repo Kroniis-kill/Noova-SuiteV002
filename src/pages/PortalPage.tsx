@@ -76,7 +76,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                 <div>
                   <h3 className="text-sm font-bold text-text-primary leading-tight">{service.service_name || 'Servicio'}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className={`text-[9px] font-bold uppercase ${isExpired ? 'text-status-danger-soft' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`} text-brand-primary`}>
+                    <span className={`text-micro font-bold uppercase ${isExpired ? 'text-status-danger-soft' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`} text-brand-primary`}>
                         {isExpired ? 'Expirado' : isWarning ? `Vence en ${daysLeft}d` : `${daysLeft} días`}
                     </span>
                   </div>
@@ -105,7 +105,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                         <div className="flex items-center gap-3 min-w-0 pr-2">
                             <Mail size={14} className="text-text-disabled" />
                             <div className="flex flex-col">
-                              <span className="text-[8px] font-bold text-text-disabled uppercase">Usuario</span>
+                              <span className="text-nano font-bold text-text-disabled uppercase">Usuario</span>
                               <span className="text-xs font-medium text-text-primary truncate">{user || '---'}</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                         <div className="flex items-center gap-3 min-w-0 pr-2">
                             <Key size={14} className="text-text-disabled" />
                             <div className="flex flex-col">
-                              <span className="text-[8px] font-bold text-text-disabled uppercase">Contraseña</span>
+                              <span className="text-nano font-bold text-text-disabled uppercase">Contraseña</span>
                               <span className="text-xs font-medium text-text-primary truncate font-mono">{pass || '---'}</span>
                             </div>
                         </div>
@@ -131,13 +131,13 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                             <div className="grid grid-cols-2 gap-3 pt-1">
                               {pName && (
                                   <div className="bg-surface-1 rounded-md p-2.5 border border-[rgb(var(--fg-rgb))]/5" onClick={() => copyToClipboard(pName, 'Perfil')}>
-                                      <span className="text-[8px] font-bold text-text-disabled uppercase block mb-0.5">Perfil</span>
+                                      <span className="text-nano font-bold text-text-disabled uppercase block mb-0.5">Perfil</span>
                                       <span className="text-xs font-semibold text-text-primary truncate block">{pName}</span>
                                   </div>
                               )}
                               {pPin && (
                                   <div className="bg-surface-1 rounded-md p-2.5 border border-[rgb(var(--fg-rgb))]/5 text-center" onClick={() => copyToClipboard(pPin, 'PIN')}>
-                                      <span className="text-[8px] font-bold text-text-disabled uppercase block mb-0.5">PIN</span>
+                                      <span className="text-nano font-bold text-text-disabled uppercase block mb-0.5">PIN</span>
                                       <span className="text-xs font-semibold text-text-primary font-mono">{pPin}</span>
                                   </div>
                               )}
@@ -147,11 +147,11 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                   </div>
 
                   <div className="flex items-center justify-between px-1">
-                      <div className="flex items-center gap-1.5 text-[10px] text-text-disabled font-medium">
+                      <div className="flex items-center gap-1.5 text-tiny text-text-disabled font-medium">
                         <Calendar size={12} />
                         <span>Vence: <span className="text-text-secondary font-mono">{formatDate(service.expiry_date)}</span></span>
                       </div>
-                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 text-text-muted hover:text-status-danger-soft font-bold text-[9px] transition-colors border border-[rgb(var(--fg-rgb))]/5">
+                      <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 text-text-muted hover:text-status-danger-soft font-bold text-micro transition-colors border border-[rgb(var(--fg-rgb))]/5">
                           <MessageSquareWarning size={12} /> Reportar Falla
                       </button>
                   </div>
@@ -293,10 +293,10 @@ const PortalPage: React.FC = () => {
                     <h2 className="text-xl font-bold text-text-primary mb-1 tracking-tight">{isSetup ? (!confirmPin ? 'Crea tu PIN' : 'Confirma tu PIN') : `Hola, ${clientData?.name?.split(' ')[0]}`}</h2>
                     <p className="text-text-disabled text-xs">{isSetup ? 'Define un código de 4 dígitos.' : 'Ingresa tu código de seguridad.'}</p>
                     <div className="flex gap-4 justify-center mt-6 h-3">
-                        {[0,1,2,3].map((i) => (<div key={i} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i < pin.length ? 'bg-brand-primary scale-125 shadow-[0_0_8px_#6A2CFF]' : 'bg-surface-3'}`} />))}
+                        {[0,1,2,3].map((i) => (<div key={i} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i < pin.length ? 'bg-brand-primary scale-125 shadow-dot-primary' : 'bg-surface-3'}`} />))}
                     </div>
                     <div className="h-6 mt-4">
-                        {pinError && <p className="text-status-danger-soft text-[10px] font-semibold bg-status-danger/10 py-1 px-3 rounded-full inline-block border border-status-danger/20">{pinError}</p>}
+                        {pinError && <p className="text-status-danger-soft text-tiny font-semibold bg-status-danger/10 py-1 px-3 rounded-full inline-block border border-status-danger/20">{pinError}</p>}
                     </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3 w-full mb-6 select-none px-4">
@@ -330,7 +330,7 @@ const PortalPage: React.FC = () => {
               </div>
               <div className="relative z-10 flex items-center gap-5">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-glow"><div className="w-full h-full bg-surface-1 rounded-lg flex items-center justify-center overflow-hidden"><User size={32} className="text-white" /></div></div>
-                  <div><h1 className="text-xl font-bold text-text-primary tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[9px] font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
+                  <div><h1 className="text-xl font-bold text-text-primary tracking-tight">{clientData?.name}</h1><div className="flex items-center gap-2 mt-1"><span className="px-2.5 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-micro font-bold rounded-lg uppercase tracking-wider">Acceso Verificado</span></div></div>
               </div>
           </div>
 
@@ -345,7 +345,7 @@ const PortalPage: React.FC = () => {
                   services.map((service, idx) => <ServiceCard key={idx} service={service} onReport={handleReportIssue} />)
               )}
               
-              <div className="mt-12 text-center opacity-30 pb-8"><p className="text-[10px] text-text-disabled font-semibold uppercase tracking-[0.3em]">Noova Suite • Client Portal</p></div>
+              <div className="mt-12 text-center opacity-30 pb-8"><p className="text-tiny text-text-disabled font-semibold uppercase tracking-[0.3em]">Noova Suite • Client Portal</p></div>
           </div>
       </div>
   );

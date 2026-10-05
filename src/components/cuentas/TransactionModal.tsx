@@ -47,7 +47,7 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
                  <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.name}</p>
-                    <p className="text-[10px] text-text-disabled">{acc.currency}</p>
+                    <p className="text-tiny text-text-disabled">{acc.currency}</p>
                  </div>
                  <ChevronRight size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
               </button>
@@ -149,10 +149,10 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-sm h-[44px] transition-all focus-within:ring-1 focus-within:ring-status-info/60",
-    input: "w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
-    select: "w-full bg-transparent text-[13px] text-text-primary px-3 pl-3 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
+    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    select: "w-full bg-transparent text-body-sm text-text-primary px-3 pl-3 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
     iconRight: "absolute right-3 text-text-disabled pointer-events-none",
   };
 
@@ -173,13 +173,13 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
                <div>
                   <label className={styles.label}>Cuenta Destino</label>
                   <div className="flex items-center gap-3 bg-surface-sunken p-1.5 rounded-md">
-                     <div className="flex-1 bg-surface-zinc rounded-sm py-2.5 text-[11px] text-text-muted text-center font-bold">{account.name}</div>
+                     <div className="flex-1 bg-surface-zinc rounded-sm py-2.5 text-caption text-text-muted text-center font-bold">{account.name}</div>
                      <ArrowRight size={14} className="text-status-info" />
                      <div className="flex-1 relative h-[36px]">
                         <button 
                            type="button"
                            onClick={() => { haptic('nav'); setIsAccountSearchOpen(true); }}
-                           className="w-full h-full bg-surface-zinc rounded-sm flex items-center justify-between px-3 text-[11px] text-text-primary font-bold hover:bg-surface-4 transition-colors active:scale-95"
+                           className="w-full h-full bg-surface-zinc rounded-sm flex items-center justify-between px-3 text-caption text-text-primary font-bold hover:bg-surface-4 transition-colors active:scale-95"
                         >
                            <span className={targetAccount ? "text-text-primary" : "text-text-disabled"}>{targetAccount ? targetAccount.name : "Seleccionar..."}</span>
                            <ChevronDown size={12} className="text-text-disabled" />

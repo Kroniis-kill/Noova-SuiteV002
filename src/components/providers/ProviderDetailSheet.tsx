@@ -1,5 +1,5 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Provider, Account, Service } from '../../types';
@@ -7,6 +7,7 @@ import { X, MessageCircle, Send, Phone, Calendar, Layers, ExternalLink, Copy, Ch
 import { sendWhatsAppMessage, formatDate } from '../../utils/contactosUtils'; 
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useToast } from '../../context/ToastContext';
+import { useDialog } from '../../hooks/useDialog';
 
 interface ProviderDetailSheetProps {
   isOpen: boolean;
@@ -24,6 +25,8 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
 }) => {
   const isMobile = useIsMobile();
   const { showToast } = useToast();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const layerZ = useDialog({ isOpen: isOpen && !!provider, onClose, containerRef: dialogRef });
   
   const providerAccounts = useMemo(() => {
     if (!provider) return [];
@@ -60,8 +63,8 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div variants={backdropVariants} initial="hidden" animate="visible" exit="exit" onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]" />
-          <div className={`fixed inset-0 z-[9999] flex justify-center pointer-events-none ${isMobile ? 'items-end' : 'items-center'}`}>
+          <motion.div variants={backdropVariants} initial="hidden" animate="visible" exit="exit" onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm" style={{ zIndex: layerZ - 1 }} />
+          <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Detalle del proveedor" tabIndex={-1} style={{ zIndex: layerZ }} className={`fixed inset-0 flex justify-center pointer-events-none outline-none ${isMobile ? 'items-end' : 'items-center'}`}>
             <motion.div 
                 variants={modalVariants} 
                 initial="hidden" 
@@ -87,12 +90,12 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                 <h2 className="text-2xl font-bold text-text-primary tracking-tight">{provider.name}</h2>
                                 <div className="flex items-center gap-2 mt-1.5">
                                     {provider.whatsapp && (
-                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-[11px] font-medium text-text-muted">
+                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
                                             <MessageCircle size={12} /> {provider.whatsapp}
                                         </button>
                                     )}
                                     {provider.telegram && (
-                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-[11px] font-medium text-text-muted">
+                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
                                             <Send size={12} /> Telegram
                                         </button>
                                     )}
@@ -119,15 +122,15 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-[rgb(var(--fg-rgb))]/5">
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Cuentas Totales</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Cuentas Totales</p>
                         <p className="text-lg font-bold text-text-primary">{providerAccounts.length}</p>
                     </div>
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
                         <p className="text-lg font-bold text-status-success-soft">{activeCount}</p>
                     </div>
                     <div className="p-4 text-center">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Alertas</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Alertas</p>
                         <p className="text-lg font-bold text-status-warning-soft">{expiredCount}</p>
                     </div>
                 </div>
@@ -156,7 +159,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                             <div>
                                                 <h4 className="text-text-primary font-bold text-sm truncate max-w-[180px]">{acc.email}</h4>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-[10px] text-text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">
+                                                    <span className="text-tiny text-text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">
                                                         {service?.name || 'Servicio'}
                                                     </span>
                                                 </div>
@@ -166,13 +169,13 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/5">
-                                            <div className="flex items-center gap-1.5 text-text-disabled text-[11px]">
+                                            <div className="flex items-center gap-1.5 text-text-disabled text-caption">
                                                 <Calendar size={12} />
                                                 <span>Vence: <span className="text-text-secondary font-mono">{formatDate(acc.endDate)}</span></span>
                                             </div>
                                             <button 
                                                 onClick={(e) => handleCopy(acc.email, e)}
-                                                className="text-[10px] font-semibold text-brand-primary flex items-center gap-1 hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100"
+                                                className="text-tiny font-semibold text-brand-primary flex items-center gap-1 hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100"
                                             >
                                                 <Copy size={10} /> Copiar
                                             </button>

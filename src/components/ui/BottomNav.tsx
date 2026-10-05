@@ -85,7 +85,7 @@ const BottomNav: React.FC<BottomNavProps> = ({
                     ) : (
                       <>
                         <Icon size={22} strokeWidth={2} aria-hidden="true" className="text-text-disabled" />
-                        <span className="text-[11px] font-medium leading-none text-text-disabled tracking-tight">
+                        <span className="text-caption font-medium leading-none text-text-disabled tracking-tight">
                           {item.label}
                         </span>
                       </>

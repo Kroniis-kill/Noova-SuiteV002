@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { MotionConfig } from 'framer-motion';
 import App from './App';
 import AdminPortalApp from './pages/admin-portal/AdminPortalApp';
 import './index.css'; 
@@ -36,6 +37,10 @@ const isAdminPortalRoute = window.location.pathname.startsWith('/admin');
 
 root.render(
   <React.StrictMode>
-    {isAdminPortalRoute ? <AdminPortalApp /> : <App />}
+    {/* reducedMotion="user": framer-motion respeta prefers-reduced-motion
+        (desactiva transformaciones/desplazamientos; mantiene opacidad). */}
+    <MotionConfig reducedMotion="user">
+      {isAdminPortalRoute ? <AdminPortalApp /> : <App />}
+    </MotionConfig>
   </React.StrictMode>
 );

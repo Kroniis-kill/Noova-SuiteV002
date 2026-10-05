@@ -56,11 +56,11 @@ const AccountCard: React.FC<AccountCardProps> = ({
                <CreditCard size={12} />
             </div>
             <div>
-               <p className="text-text-primary font-semibold text-[11px] leading-tight">{account.name}</p>
+               <p className="text-text-primary font-semibold text-caption leading-tight">{account.name}</p>
                <p className="text-[7px] text-text-faint font-mono tracking-tighter uppercase">{account.currency}</p>
             </div>
          </div>
-         <p className="text-[11px] font-semibold text-text-primary font-mono">{showBalance ? formatCurrency(account.balance) : '••••'}</p>
+         <p className="text-caption font-semibold text-text-primary font-mono">{showBalance ? formatCurrency(account.balance) : '••••'}</p>
       </div>
     );
   }
@@ -81,7 +81,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
                <CreditCard size={14} strokeWidth={1.5} />
             </div>
             <div>
-               <h3 className="text-[11px] font-semibold text-text-primary tracking-tight leading-none">{account.name}</h3>
+               <h3 className="text-caption font-semibold text-text-primary tracking-tight leading-none">{account.name}</h3>
                <span className="text-[6px] font-black text-text-faint uppercase tracking-[0.2em] font-mono block leading-none mt-1">{account.currency}</span>
             </div>
          </div>
@@ -97,7 +97,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
       <div className="relative z-10 py-0.5">
          <div className="flex flex-col">
             <div className="flex items-baseline gap-1">
-               <span className="text-[9px] font-bold text-text-disabled">{account.currency}</span>
+               <span className="text-micro font-bold text-text-disabled">{account.currency}</span>
                <h2 className="text-xl font-black text-text-primary tracking-tighter font-mono leading-none">
                   {showBalance ? formatCurrency(account.balance) : '••••'}
                </h2>

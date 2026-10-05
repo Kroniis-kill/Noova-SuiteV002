@@ -75,7 +75,7 @@ const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label 
         }}
         className={`${CLEAN_INPUT} h-6 text-center !text-lg font-bold leading-none text-text-primary`}
       />
-      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
+      <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
     </div>
     <button type="button" aria-label={`Más ${label}`} onClick={() => onChange(value + 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
   </div>
@@ -267,7 +267,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
           <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
             <div className="min-w-0">
               <h3 className="text-lg font-black text-text-primary leading-tight">Renovar servicios</h3>
-              <p className="text-[11px] text-text-disabled font-medium truncate">{subtitle}</p>
+              <p className="text-caption text-text-disabled font-medium truncate">{subtitle}</p>
             </div>
             <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
           </div>
@@ -278,8 +278,8 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
             {/* 1. SERVICIOS A RENOVAR */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
-                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Servicios a renovar</label>
-                <span className="text-[10px] font-semibold text-text-disabled">{selectedSales.length} de {sales.length}</span>
+                <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Servicios a renovar</label>
+                <span className="text-tiny font-semibold text-text-disabled">{selectedSales.length} de {sales.length}</span>
               </div>
               <div className="space-y-2">
                 {orderedSales.map(s => {
@@ -299,26 +299,26 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-text-primary truncate">{s.serviceName}</p>
                         {active ? (
-                          <p className="text-[11px] text-status-success-soft font-medium mt-0.5 flex items-center gap-1 truncate">
+                          <p className="text-caption text-status-success-soft font-medium mt-0.5 flex items-center gap-1 truncate">
                             {formatLongDate(s.expiryDate)} <ArrowRight size={11} /> {formatLongDate(addTime(s.expiryDate, months, days))}
                           </p>
                         ) : (
-                          <p className="text-[11px] text-text-muted font-medium mt-0.5">Vence el {formatLongDate(s.expiryDate)}</p>
+                          <p className="text-caption text-text-muted font-medium mt-0.5">Vence el {formatLongDate(s.expiryDate)}</p>
                         )}
                       </div>
-                      <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${badge.cls}`}>{badge.label}</span>
+                      <span className={`text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 ${badge.cls}`}>{badge.label}</span>
                     </button>
                   );
                 })}
               </div>
               {noneSelected && (
-                <p className="text-[11px] font-medium text-status-danger-soft px-1">Selecciona al menos un servicio para renovar.</p>
+                <p className="text-caption font-medium text-status-danger-soft px-1">Selecciona al menos un servicio para renovar.</p>
               )}
             </div>
 
             {/* 2. DURACIÓN */}
             <div className="space-y-3">
-              <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block">Duración</label>
+              <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block">Duración</label>
               <div className="flex flex-wrap gap-2">
                 {QUICK_MONTHS.map(m => {
                   const active = days === 0 && months === m;
@@ -327,7 +327,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                       key={m}
                       type="button"
                       onClick={() => { haptic('nav'); setMonths(m); setDays(0); }}
-                      className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                      className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
                     >
                       {m} {m === 1 ? 'mes' : 'meses'}
                     </button>
@@ -343,9 +343,9 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
             {/* 3. PAGO Y BILLETERA */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
-                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Pago y billetera</label>
+                <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Pago y billetera</label>
                 {isConversionActive && (
-                  <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>
+                  <span className="text-micro bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>
                 )}
               </div>
 
@@ -355,15 +355,15 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                     {selectedWallet ? (
                       <>
                         <div className="w-8 h-8 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={14} /></div>
-                        <span className="text-[12px] font-bold text-text-primary truncate">
-                          <span className="text-[10px] text-text-disabled mr-1">{selectedWallet.currency}</span>
+                        <span className="text-label font-bold text-text-primary truncate">
+                          <span className="text-tiny text-text-disabled mr-1">{selectedWallet.currency}</span>
                           {selectedWallet.name}
                         </span>
                       </>
                     ) : (
                       <>
                         <div className="w-8 h-8 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled shrink-0"><X size={14} /></div>
-                        <span className="text-[12px] font-medium text-text-disabled">No registrar pago</span>
+                        <span className="text-label font-medium text-text-disabled">No registrar pago</span>
                       </>
                     )}
                   </div>
@@ -376,7 +376,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                   {selectedWallet && <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{selectedWallet.currency}</span>}
                 </div>
 
-                <div className="flex items-center justify-between px-1 text-[12px]">
+                <div className="flex items-center justify-between px-1 text-label">
                   <span className="text-text-disabled font-medium">Periodo a renovar</span>
                   <span className="font-bold text-text-primary">{getPeriodLabel(months, days)}</span>
                 </div>

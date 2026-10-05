@@ -92,7 +92,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
                      </div>
                   )}
                   <Mail size={12} className={`${isActive ? "text-brand-primary" : "text-text-disabled"} ${isFailing ? 'opacity-40' : ''}`} />
-                  <h4 className={`text-[13px] font-bold truncate ${isActive ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'} ${isFailing ? 'opacity-40' : ''}`}>
+                  <h4 className={`text-body-sm font-bold truncate ${isActive ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'} ${isFailing ? 'opacity-40' : ''}`}>
                      {account.email}
                   </h4>
                   {isFailing && <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />}
@@ -100,7 +100,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
                <div className={`flex items-center gap-2 ${isFailing ? 'opacity-40' : ''}`}>
                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08]">
                       <Lock size={10} className="text-text-faint" />
-                      <span className="text-[10px] font-mono text-text-muted truncate max-w-[100px]">{account.password}</span>
+                      <span className="text-tiny font-mono text-text-muted truncate max-w-[100px]">{account.password}</span>
                    </div>
                </div>
             </div>
@@ -108,18 +108,18 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
 
          <div className={`flex items-end justify-between pt-1 ${isFailing ? 'opacity-40' : ''}`}>
              <div className={`flex flex-col gap-1 ${isFailing ? 'lg:hidden' : ''}`}>
-                <span className="text-[9px] font-bold text-text-disabled uppercase tracking-wider">Vencimiento</span>
-                <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-text-secondary">
+                <span className="text-micro font-bold text-text-disabled uppercase tracking-wider">Vencimiento</span>
+                <div className="flex items-center gap-1.5 text-caption font-mono font-medium text-text-secondary">
                    <Calendar size={12} className={isExpired || isWarning || isToday ? "text-status-danger-soft" : "text-text-disabled"} />
                    <span>{account.endDate}</span>
-                   <span className="text-[10px] text-text-faint font-sans ml-1 opacity-70">
+                   <span className="text-tiny text-text-faint font-sans ml-1 opacity-70">
                       ({daysLeft} días)
                    </span>
                 </div>
              </div>
 
              <div className="flex flex-col items-end gap-1">
-                <div className="flex items-center gap-1 text-[10px] text-text-muted">
+                <div className="flex items-center gap-1 text-tiny text-text-muted">
                    <Users size={10} />
                    <span>{usedSlots}/{totalSlots}</span>
                 </div>
@@ -134,7 +134,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
       </div>
 
       <div className="absolute right-4 top-4 flex flex-col items-end gap-2">
-          <span className={`px-2 py-0.5 rounded-xs text-[9px] font-semibold uppercase tracking-wide border ${statusColor} !opacity-100 shadow-sm`}>
+          <span className={`px-2 py-0.5 rounded-xs text-micro font-semibold uppercase tracking-wide border ${statusColor} !opacity-100 shadow-sm`}>
              {statusText}
           </span>
       </div>

@@ -41,7 +41,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
           <Icon size={20} className="text-text-primary" />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full border ${trendUp ? 'bg-status-success/10 text-status-success border-status-success/20' : 'bg-status-danger/10 text-status-danger border-status-danger/20'}`}>
+          <div className={`flex items-center gap-1 text-tiny font-semibold px-2 py-1 rounded-full border ${trendUp ? 'bg-status-success/10 text-status-success border-status-success/20' : 'bg-status-danger/10 text-status-danger border-status-danger/20'}`}>
             {trendUp ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
             {trend}
           </div>
@@ -49,10 +49,10 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, trend, tr
       </div>
       
       <div className="relative z-10">
-        <h4 className="text-text-primary/50 text-[11px] font-semibold uppercase tracking-wider mb-1">{title}</h4>
+        <h4 className="text-text-primary/50 text-caption font-semibold uppercase tracking-wider mb-1">{title}</h4>
         <div className="text-2xl md:text-3xl font-bold text-text-primary tracking-tight drop-shadow-sm">{value}</div>
         {subValue && (
-          <p className="text-[11px] text-text-primary/40 mt-1 font-medium">{subValue}</p>
+          <p className="text-caption text-text-primary/40 mt-1 font-medium">{subValue}</p>
         )}
       </div>
 

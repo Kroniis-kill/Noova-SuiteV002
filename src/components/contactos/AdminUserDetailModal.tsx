@@ -61,15 +61,15 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             </div>
 
             <div className="mt-4 flex gap-2 justify-center">
-                 <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border uppercase ${getPlanColor()}`}>
+                 <span className={`text-tiny font-semibold px-2.5 py-1 rounded-full border uppercase ${getPlanColor()}`}>
                     {PLAN_LABELS[user.plan]}
                  </span>
                  {isBanned ? (
-                     <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full border bg-status-danger/10 text-status-danger-soft border-status-danger/20 flex items-center gap-1">
+                     <span className="text-tiny font-semibold px-2.5 py-1 rounded-full border bg-status-danger/10 text-status-danger-soft border-status-danger/20 flex items-center gap-1">
                         <Ban size={10} /> BLOQUEADO
                      </span>
                  ) : (
-                     <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full border bg-status-success/10 text-status-success-soft border-status-success/20 flex items-center gap-1">
+                     <span className="text-tiny font-semibold px-2.5 py-1 rounded-full border bg-status-success/10 text-status-success-soft border-status-success/20 flex items-center gap-1">
                         <CheckCircle2 size={10} /> ACTIVO
                      </span>
                  )}
@@ -80,7 +80,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
         <div className="grid grid-cols-2 gap-3">
             <div className="bg-surface-1 rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">
                 <div className="flex items-center gap-2 text-text-disabled mb-1">
-                    <Calendar size={14} /> <span className="text-[10px] font-semibold uppercase">Vencimiento</span>
+                    <Calendar size={14} /> <span className="text-tiny font-semibold uppercase">Vencimiento</span>
                 </div>
                 <p className={`text-sm font-bold font-mono ${isExpired ? 'text-status-danger-soft' : 'text-text-primary'}`}>
                     {isLifetime ? (
@@ -89,12 +89,12 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                         formatDate(user.expires_at)
                     )}
                 </p>
-                {isExpired && !isLifetime && <span className="text-[9px] text-status-danger block mt-1">Expirado</span>}
+                {isExpired && !isLifetime && <span className="text-micro text-status-danger block mt-1">Expirado</span>}
             </div>
             
             <div className="bg-surface-1 rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">
                 <div className="flex items-center gap-2 text-text-disabled mb-1">
-                    <Clock size={14} /> <span className="text-[10px] font-semibold uppercase">Registro</span>
+                    <Clock size={14} /> <span className="text-tiny font-semibold uppercase">Registro</span>
                 </div>
                 <p className="text-sm font-bold text-text-primary font-mono">
                     {formatDate(user.created_at || new Date().toISOString())}
@@ -104,7 +104,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
 
         {/* Actions List */}
         <div className="space-y-2">
-            <p className="text-[10px] font-semibold text-text-disabled uppercase ml-1">Acciones Administrativas</p>
+            <p className="text-tiny font-semibold text-text-disabled uppercase ml-1">Acciones Administrativas</p>
             
             {!isLifetime && (
                 <button onClick={() => handleAction(onExtend)} className="w-full flex items-center justify-between p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] hover:bg-surface-1 transition-all group">

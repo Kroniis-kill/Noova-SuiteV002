@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Modal from '../ui/Modal';
 import { Account, Service, ScreenProfile, ServiceType, Provider, Sale } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useToast } from '../../context/ToastContext';
+import { useDialog } from '../../hooks/useDialog';
 import { 
   ChevronDown, Mail, Key, Calendar, Layers, Globe, Check, 
   Truck, Monitor, User, LayoutGrid, RefreshCw, Search, 
@@ -39,7 +40,7 @@ function SearchListModal<T>({ isOpen, onClose, items, onSelect, title, placehold
   useEffect(() => { if (isOpen) setSearch(''); }, [isOpen]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title} zIndex={70000}>
+    <Modal isOpen={isOpen} onClose={onClose} title={title}>
       <div className="flex flex-col h-[60vh] md:h-[400px] pt-1">
         <div className="relative mb-4 shrink-0 px-1">
            <Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-text-disabled" />
@@ -77,6 +78,8 @@ interface CuentaModalProps {
 const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, initialData, serviceId, services }) => {
   const { providers, sales, clients } = useData();
   const { showToast } = useToast();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const layerZ = useDialog({ isOpen, onClose, containerRef: dialogRef });
 
   const [isServiceSearchOpen, setIsServiceSearchOpen] = useState(false);
   const [isProviderSearchOpen, setIsProviderSearchOpen] = useState(false);
@@ -181,9 +184,9 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
   };
 
   const styles = {
-    sectionLabel: "text-[9px] font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] block",
+    sectionLabel: "text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] block",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
-    input: "w-full h-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 outline-none border-none appearance-none font-semibold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
+    input: "w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 outline-none border-none appearance-none font-semibold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
     cardDark: "bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px]",
     toggleBtn: "w-[38px] h-[22px] rounded-full relative transition-all duration-300 shrink-0",
   };
@@ -202,19 +205,20 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         <AnimatePresence>
           {isOpen && (
             <>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]" />
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm" style={{ zIndex: layerZ - 1 }} />
               <motion.div
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl z-[9999] flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden"
+                ref={dialogRef} role="dialog" aria-modal="true" aria-label={initialData ? 'Editar cuenta' : 'Nueva cuenta'} tabIndex={-1} style={{ zIndex: layerZ }}
+                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden outline-none"
               >
                 {/* Header */}
                 <div className="px-5 pt-[18px] pb-[14px] flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 shrink-0">
                   <div className="min-w-0">
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight">{initialData ? 'Editar cuenta' : 'Nueva cuenta'}</h3>
-                    <p className="text-[9px] text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{selectedService?.name || 'Agregar al inventario'}</p>
+                    <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{selectedService?.name || 'Agregar al inventario'}</p>
                   </div>
                   <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
                     <X size={16} />
@@ -234,8 +238,8 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                         <Layers size={15} />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[8px] text-text-faint uppercase font-bold">Servicio</div>
-                        <div className={`text-[11px] font-bold truncate ${formData.serviceId ? 'text-text-primary' : 'text-text-faint'}`}>{selectedService?.name || 'Seleccionar...'}</div>
+                        <div className="text-nano text-text-faint uppercase font-bold">Servicio</div>
+                        <div className={`text-caption font-bold truncate ${formData.serviceId ? 'text-text-primary' : 'text-text-faint'}`}>{selectedService?.name || 'Seleccionar...'}</div>
                       </div>
                     </button>
 
@@ -248,8 +252,8 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                         <Truck size={15} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-[8px] text-text-faint uppercase font-bold">Proveedor</div>
-                        <div className={`text-[11px] font-bold truncate ${formData.providerId ? 'text-text-primary' : 'text-text-faint'}`}>{selectedProvider?.name || 'Seleccionar...'}</div>
+                        <div className="text-nano text-text-faint uppercase font-bold">Proveedor</div>
+                        <div className={`text-caption font-bold truncate ${formData.providerId ? 'text-text-primary' : 'text-text-faint'}`}>{selectedProvider?.name || 'Seleccionar...'}</div>
                       </div>
                       {formData.providerId && (
                         <span onClick={(e) => { e.stopPropagation(); setFormData({ ...formData, providerId: '' }); }} className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-surface-sunken flex items-center justify-center text-text-faint hover:text-text-primary">
@@ -264,14 +268,14 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
                         <Mail size={15} className="text-text-faint shrink-0" />
-                        <input value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="correo@ejemplo.com" className="w-full h-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint outline-none border-none font-medium" required />
+                        <input value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="correo@ejemplo.com" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint outline-none border-none font-medium" required />
                       </div>
                     </div>
                     <div className="h-px bg-[rgb(var(--fg-rgb))]/5 my-3" />
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
                         <Key size={15} className="text-text-faint shrink-0" />
-                        <input value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Contraseña" className="w-full h-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint outline-none border-none font-mono" required />
+                        <input value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Contraseña" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint outline-none border-none font-mono" required />
                         <button type="button" onClick={handleGeneratePassword} className="shrink-0 text-brand-primary-hi">
                           <RefreshCw size={15} />
                         </button>
@@ -285,21 +289,21 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <div className="flex flex-col gap-[6px]">
                       {profiles.map((prof, idx) => (
                         <div key={idx} className="flex gap-2 items-center bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[46px] pl-2 pr-2">
-                          <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center text-[10px] font-bold shrink-0">
+                          <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center text-tiny font-bold shrink-0">
                             {idx + 1}
                           </div>
                           <input
                             value={prof.name}
                             onChange={e => handleProfileChange(idx, 'name', e.target.value)}
                             placeholder="Nombre del Perfil"
-                            className="flex-1 min-w-0 h-full bg-transparent px-1 text-[12px] text-text-primary outline-none border-none font-medium placeholder:text-text-faint"
+                            className="flex-1 min-w-0 h-full bg-transparent px-1 text-label text-text-primary outline-none border-none font-medium placeholder:text-text-faint"
                           />
                           <div className="w-[72px] shrink-0 h-8 flex items-center bg-surface-sunken rounded-md">
                             <input
                               value={prof.pin}
                               onChange={e => handleProfileChange(idx, 'pin', e.target.value)}
                               placeholder="PIN"
-                              className="w-full h-full bg-transparent px-2 text-center text-[11px] text-text-primary font-mono outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-text-faint"
+                              className="w-full h-full bg-transparent px-2 text-center text-caption text-text-primary font-mono outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-text-faint"
                               inputMode="numeric"
                             />
                           </div>
@@ -315,8 +319,8 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                         <RotateCcw size={16} className={formData.autoRenewal ? 'animate-spin-slow' : ''} />
                       </div>
                       <div>
-                        <div className="text-[12px] font-bold text-text-primary leading-tight">Renovación automática</div>
-                        <div className="text-[9px] text-text-faint mt-[1px]">Se extiende 1 mes al vencer</div>
+                        <div className="text-label font-bold text-text-primary leading-tight">Renovación automática</div>
+                        <div className="text-micro text-text-faint mt-[1px]">Se extiende 1 mes al vencer</div>
                       </div>
                     </div>
                     <button
@@ -343,11 +347,11 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         <div className={styles.inputContainer}>
-                          <span className="pl-3 text-[8px] font-bold text-text-faint uppercase shrink-0">Mes</span>
+                          <span className="pl-3 text-nano font-bold text-text-faint uppercase shrink-0">Mes</span>
                           <input type="number" value={months} onChange={e => setMonths(e.target.value)} className={`${styles.input} text-center`} placeholder="0" />
                         </div>
                         <div className={styles.inputContainer}>
-                          <span className="pl-3 text-[8px] font-bold text-text-faint uppercase shrink-0">Día</span>
+                          <span className="pl-3 text-nano font-bold text-text-faint uppercase shrink-0">Día</span>
                           <input type="number" value={days} onChange={e => setDays(e.target.value)} className={`${styles.input} text-center`} placeholder="0" />
                         </div>
                       </div>
@@ -361,7 +365,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                       value={formData.notes || ''}
                       onChange={e => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Escribe detalles adicionales sobre esta cuenta..."
-                      className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-[14px] text-[12px] text-text-muted outline-none placeholder:text-text-faint min-h-[90px] resize-none leading-[1.5]"
+                      className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-[14px] text-label text-text-muted outline-none placeholder:text-text-faint min-h-[90px] resize-none leading-[1.5]"
                     />
                   </div>
 
@@ -397,7 +401,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
               </div>
               <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-text-primary truncate">{s.name}</p>
-                  <p className="text-[9px] text-text-faint font-black uppercase tracking-widest">{s.type.replace('_', ' ')}</p>
+                  <p className="text-micro text-text-faint font-black uppercase tracking-widest">{s.type.replace('_', ' ')}</p>
               </div>
               <ChevronRight size={18} className="text-text-faint" />
           </div>
@@ -419,7 +423,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
               </div>
               <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-text-primary truncate">{p.name}</p>
-                  <p className="text-[10px] text-text-faint font-mono">{p.whatsapp}</p>
+                  <p className="text-tiny text-text-faint font-mono">{p.whatsapp}</p>
               </div>
               <ChevronRight size={18} className="text-text-faint" />
           </div>

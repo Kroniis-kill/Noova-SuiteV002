@@ -1,4 +1,5 @@
 
+import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useData } from '../../../context/DataContext';
 import { Reseller, Client, Sale } from '../../../types';
@@ -13,7 +14,8 @@ import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions'
 import { 
   Plus, Search, Upload, X, Trash2, AlertTriangle, 
   ChevronRight, Users, ShoppingCart, 
-  MessageCircle, Edit2, Send, Briefcase
+  MessageCircle, Edit2, Send, Briefcase,
+  SearchX
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '../../../context/ToastContext';
@@ -208,7 +210,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
           <div className="flex justify-between items-center mb-4">
               <div>
                   <h1 className="text-2xl font-black text-text-primary tracking-tight">Socios</h1>
-                  <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Gestión de revendedores</p>
+                  <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Gestión de revendedores</p>
               </div>
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
@@ -243,7 +245,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
                       <Users size={20} />
                   </div>
                   <div>
-                      <p className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider">Red Total</p>
+                      <p className="text-caption font-semibold text-text-disabled uppercase tracking-wider">Red Total</p>
                       <p className="text-xs text-text-muted">Clientes indirectos</p>
                   </div>
               </div>
@@ -252,6 +254,15 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
        </div>
 
        <motion.div variants={listVariants} initial="hidden" animate="visible" className="grid grid-cols-1 lg:grid-cols-2 gap-4 relative z-10 pb-20">
+          {filteredResellers.length === 0 && (
+            <div className="lg:col-span-2">
+              {resellers.length === 0 ? (
+                <EmptyState compact icon={Users} title="Aún no tienes revendedores" description="Registra a tus revendedores para asignarles clientes y ver sus ventas." actionLabel="Nuevo revendedor" onAction={handleAdd} />
+              ) : (
+                <EmptyState compact icon={SearchX} title="Sin resultados" description={`No encontramos coincidencias para “${searchQuery}”.`} actionLabel="Limpiar búsqueda" onAction={() => setSearchQuery('')} actionIcon={<X size={16} aria-hidden="true" />} />
+              )}
+            </div>
+          )}
           <AnimatePresence mode='popLayout'>
              {filteredResellers.map(reseller => (
                 <motion.div key={reseller.id} variants={itemVariants} layout >
@@ -280,11 +291,11 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
              </div>
              <div className="flex flex-col gap-3">
                 <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors">
-                   <div><span className="block text-text-primary font-bold text-sm">Desvincular Clientes</span><span className="block text-text-disabled text-[10px]">Los clientes pasarán a ser directos.</span></div>
+                   <div><span className="block text-text-primary font-bold text-sm">Desvincular Clientes</span><span className="block text-text-disabled text-tiny">Los clientes pasarán a ser directos.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>
                 <button onClick={() => handleDeleteConfirm('delete_clients')} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/20 flex items-center justify-between hover:bg-status-danger/10 transition-colors">
-                   <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el revendedor y sus clientes.</span></div>
+                   <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-tiny">Se eliminará el revendedor y sus clientes.</span></div>
                    <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>
              </div>

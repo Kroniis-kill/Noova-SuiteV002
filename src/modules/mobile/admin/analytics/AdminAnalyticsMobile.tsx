@@ -20,7 +20,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
            <Icon size={16} />
         </div>
         <div>
-           <span className="text-[10px] text-text-disabled uppercase font-semibold">{label}</span>
+           <span className="text-tiny text-text-disabled uppercase font-semibold">{label}</span>
            <span className="text-2xl font-bold text-text-primary block">{value}</span>
         </div>
      </div>
@@ -45,7 +45,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
        <AnalyticsCharts data={data} />
 
        <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-5 space-y-4">
-          <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Detalles Críticos</h3>
+          <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Detalles Críticos</h3>
           <div className="flex justify-between items-center py-2 border-b border-[rgb(var(--fg-rgb))]/5">
              <span className="text-xs text-text-muted">Próximo a expirar</span>
              <span className="text-xs font-semibold text-status-warning-soft text-right">

@@ -47,7 +47,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[150] flex items-center justify-center bg-transparent font-sans text-text-primary overflow-hidden"
+      className="fixed inset-0 z-page flex items-center justify-center bg-transparent font-sans text-text-primary overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

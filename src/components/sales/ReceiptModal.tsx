@@ -117,13 +117,13 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
               <div className="flex bg-surface-zinc p-1 rounded-sm border border-[rgb(var(--fg-rgb))]/10 mb-4 w-full max-w-[360px]">
                   <button 
                     onClick={() => setCurrencyMode('main')}
-                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all ${currencyMode === 'main' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
+                    className={`flex-1 py-2 text-tiny font-semibold rounded-xs transition-all ${currencyMode === 'main' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
                   >
                      {settings.currency}
                   </button>
                   <button 
                     onClick={() => setCurrencyMode('secondary')}
-                    className={`flex-1 py-2 text-[10px] font-semibold rounded-xs transition-all flex items-center justify-center gap-1 ${currencyMode === 'secondary' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
+                    className={`flex-1 py-2 text-tiny font-semibold rounded-xs transition-all flex items-center justify-center gap-1 ${currencyMode === 'secondary' ? 'bg-white text-black' : 'text-text-disabled hover:text-text-primary'}`}
                   >
                      <RefreshCw size={10} /> {settings.subCurrency}
                   </button>
@@ -148,13 +148,13 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                        )}
                    </div>
                    <h2 className="text-black font-bold text-lg tracking-wide uppercase text-center">{businessName}</h2>
-                   <p className="text-text-disabled text-[10px] uppercase tracking-wider mb-1">Comprobante de Pago</p>
-                   <p className="text-text-muted text-[9px]">{new Date().toLocaleDateString()} • {new Date().toLocaleTimeString()}</p>
+                   <p className="text-text-disabled text-tiny uppercase tracking-wider mb-1">Comprobante de Pago</p>
+                   <p className="text-text-muted text-micro">{new Date().toLocaleDateString()} • {new Date().toLocaleTimeString()}</p>
                 </div>
 
                 {/* Client Info */}
                 <div className="mb-6 border-b border-dashed border-zinc-300 pb-6 relative z-10">
-                   <p className="text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-1">Cliente</p>
+                   <p className="text-tiny font-semibold text-text-muted uppercase tracking-wider mb-1">Cliente</p>
                    <p className="text-black font-bold text-sm">{client.name}</p>
                    <p className="text-text-disabled text-xs">{client.phone}</p>
                 </div>
@@ -168,8 +168,8 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                            <div key={idx} className="flex justify-between items-start">
                                <div className="flex flex-col">
                                    <span className="text-black font-semibold text-xs">{s.serviceName}</span>
-                                   <span className="text-[9px] text-text-disabled">{s.saleType?.replace('_', ' ')}</span>
-                                   {isPartial && <span className="text-[9px] text-status-danger font-bold">Debe: {displayCurrency}{calculateAmount(debt).toFixed(2)}</span>}
+                                   <span className="text-micro text-text-disabled">{s.saleType?.replace('_', ' ')}</span>
+                                   {isPartial && <span className="text-micro text-status-danger font-bold">Debe: {displayCurrency}{calculateAmount(debt).toFixed(2)}</span>}
                                </div>
                                <span className="text-black text-xs font-mono font-bold">{displayCurrency}{calculateAmount(s.amount).toFixed(2)}</span>
                            </div>
@@ -197,7 +197,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                    ) : (
                        <div className="mt-2 bg-status-success/10 border border-status-success/20 rounded-lg p-2 flex items-center justify-center gap-2">
                            <CheckCircle2 size={14} className="text-emerald-600" />
-                           <span className="text-[10px] font-semibold text-emerald-600 uppercase">Pagado Completamente</span>
+                           <span className="text-tiny font-semibold text-emerald-600 uppercase">Pagado Completamente</span>
                        </div>
                    )}
                 </div>
@@ -205,14 +205,14 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, sales, cli
                 {/* QR Section */}
                 <div className="flex flex-col items-center justify-center pt-4 border-t border-zinc-100">
                     <img src={qrUrl} alt="QR" className="w-24 h-24 mix-blend-multiply" />
-                    <p className="text-[8px] text-text-muted mt-2 text-center max-w-[150px]">
+                    <p className="text-nano text-text-muted mt-2 text-center max-w-[150px]">
                         Escanea para ver tus credenciales actualizadas
                     </p>
                 </div>
 
                 {/* Footer */}
                 <div className="mt-6 text-center relative z-10">
-                   <p className="text-[8px] text-text-muted mt-1">Generado por {businessName}</p>
+                   <p className="text-nano text-text-muted mt-1">Generado por {businessName}</p>
                 </div>
              </div>
           </div>

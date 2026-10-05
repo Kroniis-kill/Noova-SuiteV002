@@ -31,14 +31,14 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
       <div className="flex-1 min-w-0">
         <div className="flex justify-between items-start">
            <h4 className="text-sm font-bold text-text-primary uppercase tracking-wide">{item.action}</h4>
-           <span className="text-[10px] text-text-disabled font-mono">{date}</span>
+           <span className="text-tiny text-text-disabled font-mono">{date}</span>
         </div>
         <p className="text-xs text-text-secondary mt-1 truncate">
            Usuario: <span className="font-bold">{item.user_email || item.user_id}</span>
         </p>
         
         {(item.old_plan || item.new_plan) && (
-           <div className="mt-2 text-[11px] bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+           <div className="mt-2 text-caption bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
               {item.old_plan && <span className="text-text-disabled">{item.old_plan}</span>}
               {item.old_plan && item.new_plan && <span className="mx-2 text-text-faint">→</span>}
               {item.new_plan && <span className="text-status-success-soft font-bold">{item.new_plan}</span>}

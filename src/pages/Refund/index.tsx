@@ -256,7 +256,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
             </div>
             <div>
               <h2 className="text-2xl font-black text-text-primary tracking-tight">Calculadora de Reembolso</h2>
-              <p className="text-[12px] text-text-muted leading-tight mt-0.5">
+              <p className="text-label text-text-muted leading-tight mt-0.5">
                 Calcula el reembolso exacto según los días realmente usados.
               </p>
             </div>
@@ -276,12 +276,12 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                   <User size={18} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cliente</span>
-                  <span className="block text-[13px] font-bold truncate text-text-faint">Seleccionar cliente...</span>
+                  <span className="block text-tiny font-semibold text-text-disabled uppercase">Cliente</span>
+                  <span className="block text-body-sm font-bold truncate text-text-faint">Seleccionar cliente...</span>
                 </div>
                 <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
               </button>
-              <p className="text-[11px] text-text-disabled mt-2 ml-1">
+              <p className="text-caption text-text-disabled mt-2 ml-1">
                 {refundableClients.length} {refundableClients.length === 1 ? 'cliente con servicios activos' : 'clientes con servicios activos'}
               </p>
             </>
@@ -293,13 +293,13 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-bold text-text-primary leading-tight truncate">{selectedClient?.name}</p>
-                  {selectedClient?.phone && <p className="text-[11px] text-text-disabled mt-0.5">{selectedClient.phone}</p>}
+                  {selectedClient?.phone && <p className="text-caption text-text-disabled mt-0.5">{selectedClient.phone}</p>}
                   <div className="flex flex-wrap gap-1.5 mt-2">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${TAG_BRAND}`}>
+                    <span className={`text-tiny font-bold px-2 py-0.5 rounded-full border ${TAG_BRAND}`}>
                       {clientInfo?.count} {clientInfo?.count === 1 ? 'servicio activo' : 'servicios activos'}
                     </span>
                     {clientInfo && (
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${clientInfo.nearest <= 7 ? TAG_WARN : TAG_NEUTRAL}`}>
+                      <span className={`text-tiny font-bold px-2 py-0.5 rounded-full border ${clientInfo.nearest <= 7 ? TAG_WARN : TAG_NEUTRAL}`}>
                         Próximo vence en {clientInfo.nearest} d
                       </span>
                     )}
@@ -308,7 +308,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </div>
               <button
                 onClick={handleReset}
-                className="text-[11px] text-text-muted hover:text-text-primary px-2.5 py-1.5 rounded-md border border-[rgb(var(--fg-rgb))]/10 shrink-0"
+                className="text-caption text-text-muted hover:text-text-primary px-2.5 py-1.5 rounded-md border border-[rgb(var(--fg-rgb))]/10 shrink-0"
               >
                 Cambiar
               </button>
@@ -326,7 +326,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </div>
             ) : (
               <>
-                <p className="text-[11px] text-text-disabled mb-3 leading-relaxed">
+                <p className="text-caption text-text-disabled mb-3 leading-relaxed">
                   Los servicios que vencen el mismo día forman un combo. Reembolsa el combo completo o elige solo los que necesites.
                 </p>
                 <div className="space-y-3">
@@ -346,8 +346,8 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                               {multi ? <Layers size={15} /> : <Box size={15} />}
                             </div>
                             <div className="min-w-0">
-                              <p className="text-[13px] font-bold text-text-primary leading-tight">{multi ? 'Combo' : 'Servicio individual'}</p>
-                              <p className="text-[10px] text-text-disabled mt-0.5 truncate">
+                              <p className="text-body-sm font-bold text-text-primary leading-tight">{multi ? 'Combo' : 'Servicio individual'}</p>
+                              <p className="text-tiny text-text-disabled mt-0.5 truncate">
                                 Vence el {shortDate(combo.expiry)} · ${fmt(comboTotal)} pagado{multi && count > 0 && !all ? ` · ${count} de ${combo.items.length}` : ''}
                               </p>
                             </div>
@@ -356,7 +356,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                             <button
                               type="button"
                               onClick={() => toggleCombo(combo)}
-                              className={`h-8 px-3 rounded-full border text-[11px] font-bold flex items-center gap-1 shrink-0 transition-all active:scale-95 ${all ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                              className={`h-8 px-3 rounded-full border text-caption font-bold flex items-center gap-1 shrink-0 transition-all active:scale-95 ${all ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
                             >
                               {all && <Check size={12} strokeWidth={3} />} Combo completo
                             </button>
@@ -377,7 +377,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                               </span>
                               <span className="flex-1 min-w-0">
                                 <span className="block text-sm font-bold text-text-primary truncate">{s.serviceName}</span>
-                                <span className="block text-[10px] text-text-disabled">{dur} días · comprado {shortDate(s.date)}</span>
+                                <span className="block text-tiny text-text-disabled">{dur} días · comprado {shortDate(s.date)}</span>
                               </span>
                               <span className="text-sm font-bold text-text-primary">${fmt(s.amount)}</span>
                             </button>
@@ -387,7 +387,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                     );
                   })}
                 </div>
-                <div className="flex justify-between text-[11px] text-text-disabled mt-3 px-1">
+                <div className="flex justify-between text-caption text-text-disabled mt-3 px-1">
                   <span>
                     {selectedSales.length === 0
                       ? 'Nada seleccionado'
@@ -409,7 +409,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 if (items.length === 0) return null;
                 return (
                   <div key={combo.key} className="rounded-xl border border-[rgb(var(--fg-rgb))]/[0.06] bg-surface-sunken p-3">
-                    <p className="text-[13px] font-bold text-text-primary mb-3">
+                    <p className="text-body-sm font-bold text-text-primary mb-3">
                       {combo.items.length > 1 ? `Combo · vence el ${shortDate(combo.expiry)}` : items[0].serviceName}
                     </p>
 
@@ -425,7 +425,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                         <button
                           type="button"
                           onClick={() => { haptic('nav'); setUsedByCombo(p => ({ ...p, [combo.key]: String(elapsedDays(items[0].date)) })); touch(); }}
-                          className="h-[44px] px-3 rounded-md border border-[rgb(var(--fg-rgb))]/10 bg-surface-3 text-[11px] font-bold text-text-muted hover:text-text-primary flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
+                          className="h-[44px] px-3 rounded-md border border-[rgb(var(--fg-rgb))]/10 bg-surface-3 text-caption font-bold text-text-muted hover:text-text-primary flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
                         >
                           <Calendar size={12} /> Transcurridos: {elapsedDays(items[0].date)} d
                         </button>
@@ -438,8 +438,8 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                       return (
                         <div key={s.id} className="mt-3 pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.06]">
                           <div className="flex justify-between items-baseline gap-2 mb-2">
-                            <span className="text-[13px] font-semibold text-text-primary truncate">{s.serviceName}</span>
-                            <span className="text-[10px] text-text-disabled shrink-0">
+                            <span className="text-body-sm font-semibold text-text-primary truncate">{s.serviceName}</span>
+                            <span className="text-tiny text-text-disabled shrink-0">
                               Plan {dur} d · restan {Math.max(0, dur - usedFor(s))} d
                             </span>
                           </div>
@@ -469,7 +469,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               })}
             </div>
 
-            {error && <p className="text-[12px] font-medium text-status-danger-soft mt-3">{error}</p>}
+            {error && <p className="text-label font-medium text-status-danger-soft mt-3">{error}</p>}
 
             <div className="flex gap-2 mt-4">
               <button
@@ -501,12 +501,12 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               className="relative overflow-hidden rounded-2xl border border-status-success/30 bg-gradient-to-br from-status-success/[0.08] via-surface-3 to-surface-3 p-5"
             >
               <div className="relative z-10 text-center mb-5">
-                <p className="text-[11px] uppercase tracking-widest text-status-success-soft font-bold mb-1">Reembolso de</p>
+                <p className="text-caption uppercase tracking-widest text-status-success-soft font-bold mb-1">Reembolso de</p>
                 <p className="text-4xl font-black text-text-primary tracking-tight">
                   ${fmt(result.refund)} <span className="text-base font-bold text-text-muted">{mainCurrency}</span>
                 </p>
-                <p className="text-[11px] text-text-muted mt-1">≈ ${fmt(result.refundSub)} {subCurrency}</p>
-                <span className="inline-block mt-3 text-[11px] font-bold px-3 py-1 rounded-full border bg-status-success/10 text-status-success-soft border-status-success/20">
+                <p className="text-caption text-text-muted mt-1">≈ ${fmt(result.refundSub)} {subCurrency}</p>
+                <span className="inline-block mt-3 text-caption font-bold px-3 py-1 rounded-full border bg-status-success/10 text-status-success-soft border-status-success/20">
                   {result.label}
                 </span>
               </div>
@@ -515,12 +515,12 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 {result.rows.map((r, i) => (
                   <div key={i} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-[rgb(var(--fg-rgb))]/[0.05]">
                     <div className="min-w-0">
-                      <p className="text-[13px] font-bold text-text-primary truncate">{r.name}</p>
-                      <p className="text-[10px] text-text-disabled">{r.used} usados · {r.remaining} restantes de {r.duration} d</p>
+                      <p className="text-body-sm font-bold text-text-primary truncate">{r.name}</p>
+                      <p className="text-tiny text-text-disabled">{r.used} usados · {r.remaining} restantes de {r.duration} d</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[13px] font-black text-emerald-300">${fmt(r.refund)} {mainCurrency}</p>
-                      <p className="text-[10px] text-text-disabled">${fmt(r.refundSub)} {subCurrency}</p>
+                      <p className="text-body-sm font-black text-emerald-300">${fmt(r.refund)} {mainCurrency}</p>
+                      <p className="text-tiny text-text-disabled">${fmt(r.refundSub)} {subCurrency}</p>
                     </div>
                   </div>
                 ))}
@@ -549,7 +549,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
 
               <div className="relative z-10 mt-5 p-3 rounded-md bg-status-warning/5 border border-status-warning/20 flex gap-2.5">
                 <AlertTriangle size={14} className="text-status-warning-soft shrink-0 mt-0.5" />
-                <p className="text-[11px] leading-relaxed text-text-muted">
+                <p className="text-caption leading-relaxed text-text-muted">
                   Este cálculo es una <span className="text-amber-300">estimación basada en el costo diario proporcional</span>. El monto real puede variar según las políticas de reembolso de cada servicio.
                 </p>
               </div>
@@ -577,14 +577,14 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-bold text-text-primary leading-tight truncate">{r.client.name}</p>
-                <p className="text-[11px] text-text-disabled font-mono mt-0.5">{r.client.phone}</p>
+                <p className="text-caption text-text-disabled font-mono mt-0.5">{r.client.phone}</p>
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${TAG_BRAND}`}>
+              <span className={`text-tiny font-bold px-2 py-0.5 rounded-full border ${TAG_BRAND}`}>
                 {r.count} {r.count === 1 ? 'servicio' : 'servicios'}
               </span>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${r.nearest <= 7 ? TAG_WARN : TAG_NEUTRAL}`}>
+              <span className={`text-tiny font-bold px-2 py-0.5 rounded-full border ${r.nearest <= 7 ? TAG_WARN : TAG_NEUTRAL}`}>
                 vence en {r.nearest} d
               </span>
             </div>
@@ -602,7 +602,7 @@ const Section: React.FC<{ icon: React.ReactNode; title: string; children: React.
   >
     <div className="flex items-center gap-2 mb-3">
       <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary flex items-center justify-center">{icon}</div>
-      <h3 className="text-[12px] font-bold text-text-primary uppercase tracking-wider">{title}</h3>
+      <h3 className="text-label font-bold text-text-primary uppercase tracking-wider">{title}</h3>
     </div>
     {children}
   </motion.div>
@@ -610,7 +610,7 @@ const Section: React.FC<{ icon: React.ReactNode; title: string; children: React.
 
 const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
   <label className="block">
-    <span className="block text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1.5">{label}</span>
+    <span className="block text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1.5">{label}</span>
     {children}
   </label>
 );
@@ -624,11 +624,11 @@ const ResultRow: React.FC<{
     <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-[rgb(var(--fg-rgb))]/[0.05] ${bold ? 'border-status-success/30' : ''}`}>
       <div className="flex items-center gap-2.5 min-w-0">
         <span className="text-base">{icon}</span>
-        <span className="text-[12px] text-text-secondary font-medium truncate">{label}</span>
+        <span className="text-label text-text-secondary font-medium truncate">{label}</span>
       </div>
       <div className="text-right shrink-0">
-        <p className={`text-[13px] ${bold ? 'font-black' : 'font-bold'} ${valueColor}`}>{value}</p>
-        {sub && <p className="text-[10px] text-text-disabled">{sub}</p>}
+        <p className={`text-body-sm ${bold ? 'font-black' : 'font-bold'} ${valueColor}`}>{value}</p>
+        {sub && <p className="text-tiny text-text-disabled">{sub}</p>}
       </div>
     </div>
   );

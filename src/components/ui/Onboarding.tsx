@@ -109,7 +109,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 font-sans text-text-primary">
+    <div className="fixed inset-0 z-fullscreen bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 font-sans text-text-primary">
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

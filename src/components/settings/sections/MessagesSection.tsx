@@ -89,11 +89,11 @@ export const MessagesSection = () => {
     return (
         <div className="space-y-6 animate-fade-in pb-10">
             <div className="flex bg-surface-1 p-1.5 rounded-xl border border-border-subtle w-full shadow-elev-md">
-                <button onClick={() => setPlatform('whatsapp')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all active:scale-[0.98] ${platform === 'whatsapp' ? 'bg-brand-whatsapp text-black shadow-[0_8px_20px_-5px_rgba(37,211,102,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
+                <button onClick={() => setPlatform('whatsapp')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg text-caption font-semibold uppercase tracking-widest transition-all active:scale-[0.98] ${platform === 'whatsapp' ? 'bg-brand-whatsapp text-black shadow-[0_8px_20px_-5px_rgba(37,211,102,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
                     <MessageSquare size={14} fill={platform === 'whatsapp' ? "currentColor" : "none"} />
                     WhatsApp
                 </button>
-                <button onClick={() => setPlatform('telegram')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg text-[11px] font-semibold uppercase tracking-widest transition-all active:scale-[0.98] ${platform === 'telegram' ? 'bg-brand-telegram text-white shadow-[0_8px_20px_-5px_rgba(0,136,204,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
+                <button onClick={() => setPlatform('telegram')} className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-lg text-caption font-semibold uppercase tracking-widest transition-all active:scale-[0.98] ${platform === 'telegram' ? 'bg-brand-telegram text-white shadow-[0_8px_20px_-5px_rgba(0,136,204,0.4)]' : 'text-text-disabled hover:text-text-primary'}`}>
                     <Send size={14} fill={platform === 'telegram' ? "currentColor" : "none"} />
                     Telegram
                 </button>
@@ -109,8 +109,8 @@ export const MessagesSection = () => {
                         const isSelected = selectedTemplateKey === item.id;
                         return (
                             <button key={item.id} onClick={() => setSelectedTemplateKey(item.id)} className={`flex flex-col text-left p-3 rounded-xl border transition-all active:scale-95 group overflow-hidden relative ${isSelected ? 'bg-brand-primary/10 border-brand-primary shadow-glow-sm' : 'bg-surface-1 border-hairline hover:border-border-subtle'}`}>
-                                <span className={`text-[8px] font-black uppercase tracking-[0.2em] mb-1 ${isSelected ? 'text-brand-primary' : 'text-text-faint'}`}>{isSelected ? 'EDITANDO' : 'PLANTILLA'}</span>
-                                <span className={`text-[12px] font-bold leading-tight truncate ${isSelected ? 'text-text-primary' : 'text-text-disabled group-hover:text-text-secondary'}`}>{item.label}</span>
+                                <span className={`text-nano font-black uppercase tracking-[0.2em] mb-1 ${isSelected ? 'text-brand-primary' : 'text-text-faint'}`}>{isSelected ? 'EDITANDO' : 'PLANTILLA'}</span>
+                                <span className={`text-label font-bold leading-tight truncate ${isSelected ? 'text-text-primary' : 'text-text-disabled group-hover:text-text-secondary'}`}>{item.label}</span>
                                 {isSelected && <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-brand-primary/10 rounded-full blur-md" />}
                             </button>
                         );
@@ -120,8 +120,8 @@ export const MessagesSection = () => {
                 <div className={`flex flex-col transition-all duration-500 bg-surface-sunken ${editorHeight === 'expanded' ? 'min-h-[500px]' : 'min-h-[280px]'}`}>
                     <div className="flex items-center justify-between py-3.5 px-6 bg-black/10 border-b border-hairline shrink-0">
                         <div className="flex items-center gap-2.5">
-                           <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse shadow-[0_0_8px_#6A2CFF]" />
-                           <h4 className="text-[11px] font-bold text-text-primary uppercase tracking-widest">{CATEGORIES[activeCategory].find(i => i.id === selectedTemplateKey)?.label}</h4>
+                           <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse shadow-dot-primary" />
+                           <h4 className="text-caption font-bold text-text-primary uppercase tracking-widest">{CATEGORIES[activeCategory].find(i => i.id === selectedTemplateKey)?.label}</h4>
                         </div>
                         <button onClick={() => setEditorHeight(editorHeight === 'normal' ? 'expanded' : 'normal')} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-xl text-text-disabled hover:text-text-primary transition-colors active:scale-90">
                            {editorHeight === 'normal' ? <Maximize2 size={15} /> : <Minimize2 size={15} />}
@@ -135,11 +135,11 @@ export const MessagesSection = () => {
                     <div className="bg-surface-zinc border border-hairline rounded-xl p-4 shadow-inner">
                         <div className="flex items-center gap-2 mb-3 px-1">
                             <Zap size={10} className="text-brand-accent" fill="currentColor" />
-                            <span className="text-[9px] font-black text-text-disabled uppercase tracking-[0.2em]">Variables del Sistema</span>
+                            <span className="text-micro font-black text-text-disabled uppercase tracking-[0.2em]">Variables del Sistema</span>
                         </div>
                         <div className="flex gap-2.5 overflow-x-auto no-scrollbar pb-1">
                             {VARIABLE_PILLS.map(pill => (
-                                <button key={pill} onClick={() => insertVariable(pill)} className="px-4 py-2 bg-black/40 border border-border-subtle rounded-xl text-[11px] font-mono font-bold text-brand-primary whitespace-nowrap active:scale-95 transition-all hover:bg-brand-primary hover:text-text-primary hover:border-brand-primary shadow-elev-sm">{pill}</button>
+                                <button key={pill} onClick={() => insertVariable(pill)} className="px-4 py-2 bg-black/40 border border-border-subtle rounded-xl text-caption font-mono font-bold text-brand-primary whitespace-nowrap active:scale-95 transition-all hover:bg-brand-primary hover:text-text-primary hover:border-brand-primary shadow-elev-sm">{pill}</button>
                             ))}
                         </div>
                     </div>

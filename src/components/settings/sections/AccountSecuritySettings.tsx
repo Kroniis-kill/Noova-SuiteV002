@@ -4,6 +4,7 @@ import { User, Lock, Trash2, ImagePlus, AlertTriangle, Moon, Sun, Monitor, Camer
 import { useAuth } from '../../../context/AuthContext';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
+import { useConfirm } from '../../../context/ConfirmContext';
 import { useSubscription } from '../../../context/SubscriptionContext';
 import { backupService } from '../../../services/backupService';
 import Avatar from '../../ui/Avatar';
@@ -12,6 +13,7 @@ import { styles, ToggleSwitch, SectionHeading } from './_shared';
 export const AccountSecuritySettings = () => {
     const { user, updateProfile, updatePassword } = useAuth();
     const { showToast } = useToast();
+    const confirm = useConfirm();
     const { updateSettings, settings } = useData();
     const { isAdmin } = useSubscription();
 
@@ -50,7 +52,13 @@ export const AccountSecuritySettings = () => {
     const deleteAll = async (type: string) => {
         if (!user?.id) return;
         const typeMap: any = { 'Ventas': 'Ventas', 'Clientes': 'Clientes', 'Productos': 'Productos', 'Todo': 'Todo' };
-        if (confirm(`¿Estás seguro de ELIMINAR TODOS los datos de ${type}? Esta acción no se puede deshacer.`)) {
+        const accepted = await confirm({
+            title: `Eliminar datos de ${type}`,
+            message: `¿Estás seguro de ELIMINAR TODOS los datos de ${type}? Esta acción no se puede deshacer.`,
+            confirmLabel: 'Eliminar todo',
+            tone: 'danger',
+        });
+        if (accepted) {
             try {
                 showToast(`Eliminando ${type}...`, 'info');
                 await (backupService as any).deleteUserData(user.id, typeMap[type] || 'Todo');
@@ -65,7 +73,13 @@ export const AccountSecuritySettings = () => {
 
     const handleDeleteAccount = async () => {
         if (!user?.id) return;
-        if (confirm("¿ELIMINAR TU CUENTA? Esta acción borrará todos tus datos permanentemente y cerrará tu sesión.")) {
+        const accepted = await confirm({
+            title: 'Eliminar cuenta',
+            message: 'Esta acción borrará todos tus datos permanentemente y cerrará tu sesión. No se puede deshacer.',
+            confirmLabel: 'Eliminar mi cuenta',
+            tone: 'danger',
+        });
+        if (accepted) {
              try {
                  showToast('Eliminando todos tus datos...', 'info');
                  await (backupService as any).deleteUserData(user.id, 'Todo');
@@ -88,7 +102,7 @@ export const AccountSecuritySettings = () => {
                      <div className={`w-24 h-24 rounded-full p-[3px] bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow`}>
                          <Avatar name={name} image={previewAvatar} size="100%" className="rounded-full w-full h-full border-4 border-surface-1" />
                      </div>
-                     {isAdmin && <div className="absolute bottom-0 right-0 bg-status-warning-soft text-black text-[9px] font-bold px-2 py-0.5 rounded-pill border-2 border-surface-1">ADMIN</div>}
+                     {isAdmin && <div className="absolute bottom-0 right-0 bg-status-warning-soft text-black text-micro font-bold px-2 py-0.5 rounded-pill border-2 border-surface-1">ADMIN</div>}
                  </div>
 
                  <div className="space-y-4 text-left mt-2">
@@ -103,7 +117,7 @@ export const AccountSecuritySettings = () => {
                          <div className="flex items-center justify-between">
                              <div>
                                  <span className="text-xs font-semibold text-text-primary block">Usar Logo del Negocio</span>
-                                 <span className="text-[10px] text-text-disabled">Como foto de perfil en la app</span>
+                                 <span className="text-tiny text-text-disabled">Como foto de perfil en la app</span>
                              </div>
                              <ToggleSwitch checked={useBizLogo} onChange={() => setUseBizLogo(!useBizLogo)} />
                          </div>
@@ -156,13 +170,13 @@ export const AccountSecuritySettings = () => {
                         deben verse siempre como "una tarjeta oscura", "una tarjeta clara" y
                         "mitad y mitad", sin importar qué tema esté activo en ese momento. */}
                      <button onClick={() => toggleTheme('dark')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-[#0a0a0a] text-white ${settings.theme === 'dark' ? 'border-brand-primary shadow-glow-sm' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
-                         <motion.div whileHover={{ scale: 1.1 }}><Moon size={20} /></motion.div> <span className="text-[10px] font-semibold uppercase">Oscuro</span>
+                         <motion.div whileHover={{ scale: 1.1 }}><Moon size={20} /></motion.div> <span className="text-tiny font-semibold uppercase">Oscuro</span>
                      </button>
                      <button onClick={() => toggleTheme('light')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-white text-black ${settings.theme === 'light' ? 'border-brand-primary shadow-glow-sm' : 'border-zinc-200 opacity-70'}`}>
-                         <motion.div whileHover={{ scale: 1.1 }}><Sun size={20} /></motion.div> <span className="text-[10px] font-semibold uppercase">Claro</span>
+                         <motion.div whileHover={{ scale: 1.1 }}><Sun size={20} /></motion.div> <span className="text-tiny font-semibold uppercase">Claro</span>
                      </button>
                      <button onClick={() => toggleTheme('system')} className={`h-[80px] rounded-xl border flex flex-col items-center justify-center gap-2 transition-all active:scale-[0.98] bg-gradient-to-br from-[#0a0a0a] from-50% to-white to-50% text-white ${settings.theme === 'system' ? 'border-brand-primary shadow-glow-sm' : 'border-[rgba(255,255,255,0.1)] opacity-70'}`}>
-                         <motion.div whileHover={{ scale: 1.1 }}><Monitor size={20} className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" /></motion.div> <span className="text-[10px] font-semibold uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Sistema</span>
+                         <motion.div whileHover={{ scale: 1.1 }}><Monitor size={20} className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" /></motion.div> <span className="text-tiny font-semibold uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Sistema</span>
                      </button>
                  </div>
              </div>

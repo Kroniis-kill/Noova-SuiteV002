@@ -88,12 +88,12 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                                 <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isActive ? 'bg-brand-primary text-white' : 'bg-zinc-700 text-text-muted'}`}>
                                     {isActive ? <CheckSquare size={12} /> : <btn.icon size={12} />}
                                 </div>
-                                <span className={`text-[11px] font-semibold ${isActive ? 'text-text-primary' : 'text-text-disabled'}`}>{btn.label}</span>
+                                <span className={`text-caption font-semibold ${isActive ? 'text-text-primary' : 'text-text-disabled'}`}>{btn.label}</span>
                             </button>
                         );
                     })}
                 </div>
-                <p className="text-[10px] text-text-faint mt-2 ml-1">Selecciona los accesos directos que usas frecuentemente.</p>
+                <p className="text-tiny text-text-faint mt-2 ml-1">Selecciona los accesos directos que usas frecuentemente.</p>
             </div>
         )}
 

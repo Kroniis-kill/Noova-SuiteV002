@@ -100,12 +100,12 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                                 <h4 className="text-sm font-bold text-text-primary leading-tight">
                                     {service?.name || 'Servicio'}
                                 </h4>
-                                <p className="text-[10px] text-text-disabled mt-0.5 font-mono">
+                                <p className="text-tiny text-text-disabled mt-0.5 font-mono">
                                     {account?.email || 'Cuenta no disponible'}
                                 </p>
                                 
                                 {entry.notes && (
-                                    <div className={`mt-2 text-[11px] p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
+                                    <div className={`mt-2 text-caption p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
                                         {entry.notes}
                                     </div>
                                 )}
@@ -113,10 +113,10 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                         </div>
 
                         <div className="text-right shrink-0">
-                             <span className="text-[9px] font-bold text-text-disabled block uppercase tracking-wider mb-1">
+                             <span className="text-micro font-bold text-text-disabled block uppercase tracking-wider mb-1">
                                  {getDaysElapsed(entry.createdAt)}
                              </span>
-                             <span className="text-[10px] text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded">
+                             <span className="text-tiny text-text-faint bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded">
                                  {formatDate(entry.createdAt)}
                              </span>
                         </div>

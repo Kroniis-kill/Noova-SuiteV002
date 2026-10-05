@@ -1,9 +1,10 @@
 
+import ConfirmDialog from '../ui/ConfirmDialog';
 import React, { useState } from 'react';
 import Modal from '../ui/Modal';
 import { FinancialAccount, Movement } from '../../types';
 import { useData } from '../../context/DataContext';
-import { TrendingUp, TrendingDown, ArrowRightLeft, Calendar, Trash2, RefreshCw, AlertTriangle } from 'lucide-react';
+import { TrendingUp, TrendingDown, ArrowRightLeft, Calendar, Trash2, RefreshCw } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 
 interface MovementsModalProps {
@@ -71,7 +72,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
             <div className="flex justify-end mb-2">
                <button 
                   onClick={handleRecalculate}
-                  className="flex items-center gap-2 text-[10px] font-semibold text-brand-primary bg-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary/20 transition-colors"
+                  className="flex items-center gap-2 text-tiny font-semibold text-brand-primary bg-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary/20 transition-colors"
                >
                   <RefreshCw size={12} /> Recalcular Saldo
                </button>
@@ -93,10 +94,10 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                               {getIcon(mov.type)}
                            </div>
                            <div className="min-w-0">
-                              <p className="text-text-primary font-semibold text-[13px] truncate max-w-[140px]">
+                              <p className="text-text-primary font-semibold text-body-sm truncate max-w-[140px]">
                                  {mov.description || (mov.type === 'funding' ? 'Ingreso' : 'Retiro')}
                               </p>
-                              <div className="flex items-center gap-2 text-[10px] text-text-disabled mt-0.5">
+                              <div className="flex items-center gap-2 text-tiny text-text-disabled mt-0.5">
                                  <span>{new Date(mov.date).toLocaleDateString()}</span>
                                  {mov.paymentMethod && (
                                     <span className="bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">{mov.paymentMethod}</span>
@@ -109,10 +110,10 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                            <div className="text-right">
                               <p className={`font-bold text-sm ${mov.type.includes('out') || mov.type === 'withdrawal' ? 'text-status-danger-soft' : 'text-status-success-soft'}`}>
                                   {mov.type.includes('out') || mov.type === 'withdrawal' ? '-' : '+'}
-                                  {mov.amount.toLocaleString()} <span className="text-[10px] font-normal">{mov.currency}</span>
+                                  {mov.amount.toLocaleString()} <span className="text-tiny font-normal">{mov.currency}</span>
                               </p>
                               {mov.currency !== 'USD' && (
-                                  <p className="text-[10px] text-text-faint">≈ ${(mov.usdEquivalent || 0).toFixed(2)}</p>
+                                  <p className="text-tiny text-text-faint">≈ ${(mov.usdEquivalent || 0).toFixed(2)}</p>
                               )}
                            </div>
                            <button 
@@ -134,35 +135,15 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
       </Modal>
 
       {/* Modal de Confirmación de Eliminación */}
-      <Modal isOpen={!!movementIdToDelete} onClose={() => setMovementIdToDelete(null)} title="Eliminar Movimiento">
-         <div className="space-y-4 pt-2">
-            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
-                <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
-                    <AlertTriangle size={24} className="text-status-danger" />
-                </div>
-                <div>
-                    <h4 className="text-text-primary font-bold text-sm">¿Estás seguro?</h4>
-                    <p className="text-text-muted text-xs mt-1 leading-relaxed">
-                        Se eliminará este registro del historial y <strong>el monto será revertido</strong> automáticamente al saldo de la cuenta.
-                    </p>
-                </div>
-            </div>
-            <div className="flex gap-3">
-                <button 
-                    onClick={() => setMovementIdToDelete(null)} 
-                    className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"
-                >
-                    Cancelar
-                </button>
-                <button 
-                    onClick={confirmDelete} 
-                    className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors"
-                >
-                    Sí, Eliminar
-                </button>
-            </div>
-         </div>
-      </Modal>
+      <ConfirmDialog
+        isOpen={!!movementIdToDelete}
+        onClose={() => setMovementIdToDelete(null)}
+        onConfirm={confirmDelete}
+        title="Eliminar Movimiento"
+        message={<>Se eliminará este registro del historial y <strong className="text-text-primary">el monto será revertido</strong> automáticamente al saldo de la cuenta.</>}
+        confirmLabel="Eliminar"
+        tone="danger"
+      />
     </>
   );
 };

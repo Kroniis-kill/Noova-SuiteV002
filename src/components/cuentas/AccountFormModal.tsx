@@ -95,7 +95,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
     input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
     select: "w-full h-full bg-transparent text-sm text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
@@ -165,7 +165,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
 
         <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4">
            <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Métodos de Pago</span>
+              <span className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Métodos de Pago</span>
            </div>
            
            <div className="flex gap-2 mb-3">

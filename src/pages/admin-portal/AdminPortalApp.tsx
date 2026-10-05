@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AuthProvider, useAuth } from '../../context/AuthContext';
 import { SubscriptionProvider } from '../../context/SubscriptionContext';
 import { ToastProvider } from '../../context/ToastContext';
+import { ConfirmProvider } from '../../context/ConfirmContext';
 import LoadingScreen from '../../components/ui/LoadingScreen';
 import AdminLoginScreen from './AdminLoginScreen';
 import AdminPortalShell from './AdminPortalShell';
@@ -66,11 +67,13 @@ const AdminAccessGate: React.FC = () => {
 const AdminPortalApp: React.FC = () => {
   return (
     <ToastProvider>
-      <AuthProvider>
-        <SubscriptionProvider>
-          <AdminAccessGate />
-        </SubscriptionProvider>
-      </AuthProvider>
+      <ConfirmProvider>
+        <AuthProvider>
+          <SubscriptionProvider>
+            <AdminAccessGate />
+          </SubscriptionProvider>
+        </AuthProvider>
+      </ConfirmProvider>
     </ToastProvider>
   );
 };

@@ -81,7 +81,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
   };
 
   const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
-  const labelClass = "text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
+  const labelClass = "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={initialData ? 'Editar Servicio' : 'Nuevo Servicio'}>
@@ -104,7 +104,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
               <div className="flex-1">
                  <h4 className="text-text-primary font-bold text-sm">Logo o Icono</h4>
                  <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
-                 {image_url && <button type="button" onClick={() => setImageUrl('')} className="mt-2 text-status-danger-soft text-[10px] font-semibold">Eliminar imagen</button>}
+                 {image_url && <button type="button" onClick={() => setImageUrl('')} className="mt-2 text-status-danger-soft text-tiny font-semibold">Eliminar imagen</button>}
               </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
         </div>
 
         <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
-            <h4 className="text-[11px] font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
+            <h4 className="text-caption font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <label className={labelClass}>Inversión Total</label>
@@ -141,7 +141,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
               <div><label className={labelClass}>P. Público</label><input type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
               <div><label className={labelClass}>P. Socio</label><input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
             </div>
-            <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-text-primary">${calculatedCost.toFixed(2)}</span></div>
+            <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-tiny font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-text-primary">${calculatedCost.toFixed(2)}</span></div>
         </div>
 
         <button type="submit" className="w-full h-[56px] bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all">

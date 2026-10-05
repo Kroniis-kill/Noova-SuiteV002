@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, PanInfo, useDragControls } from 'framer-motion';
 import {
@@ -9,6 +9,7 @@ import { ViewState } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { useSubscription } from '../../context/SubscriptionContext';
 import { useHaptic } from '../../hooks/useHaptic';
+import { useDialog } from '../../hooks/useDialog';
 import { APP_VERSION } from '../../version';
 
 interface MobileMenuSheetProps {
@@ -47,6 +48,8 @@ const MobileMenuSheet: React.FC<MobileMenuSheetProps> = ({ isOpen, onClose, curr
   const { isAdmin } = useSubscription();
   const haptic = useHaptic();
   const dragControls = useDragControls();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const layerZ = useDialog({ isOpen, onClose, containerRef: dialogRef });
 
   const isContactsActive = CONTACT_SUB_ITEMS.some((s) => s.id === currentView);
   const [contactsOpen, setContactsOpen] = useState(isContactsActive);
@@ -92,11 +95,15 @@ const MobileMenuSheet: React.FC<MobileMenuSheetProps> = ({ isOpen, onClose, curr
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            style={{ zIndex: layerZ - 1 }}
           />
 
           <motion.div
             key="menu-sheet"
+            ref={dialogRef}
+            tabIndex={-1}
+            style={{ zIndex: layerZ }}
             role="dialog"
             aria-modal="true"
             aria-label="Menú"
@@ -110,7 +117,7 @@ const MobileMenuSheet: React.FC<MobileMenuSheetProps> = ({ isOpen, onClose, curr
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.4 }}
             onDragEnd={handleDragEnd}
-            className="fixed left-0 right-0 bottom-0 z-[101] max-h-[88dvh] flex flex-col bg-surface-1 border-t border-border-subtle rounded-t-xl shadow-modal gpu-accelerated"
+            className="fixed left-0 right-0 bottom-0 outline-none max-h-[88dvh] flex flex-col bg-surface-1 border-t border-border-subtle rounded-t-xl shadow-modal gpu-accelerated"
           >
             {/* Handle + título */}
             <div
@@ -138,7 +145,7 @@ const MobileMenuSheet: React.FC<MobileMenuSheetProps> = ({ isOpen, onClose, curr
                     <span className={`text-[15px] text-text-primary ${isContactsActive ? 'font-bold' : 'font-medium'}`}>
                       Contactos
                     </span>
-                    <span className="text-[12px] text-text-muted truncate">
+                    <span className="text-label text-text-muted truncate">
                       Clientes, revendedores, proveedores
                     </span>
                   </div>
@@ -220,7 +227,7 @@ const MobileMenuSheet: React.FC<MobileMenuSheetProps> = ({ isOpen, onClose, curr
               </div>
 
               <div className="border-t border-border-subtle text-center pt-3 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-                <span className="text-[11px] text-text-faint font-mono tracking-widest">v{APP_VERSION}</span>
+                <span className="text-caption text-text-faint font-mono tracking-widest">v{APP_VERSION}</span>
               </div>
             </div>
           </motion.div>

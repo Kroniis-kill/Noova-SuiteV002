@@ -97,7 +97,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
       {/* Header */}
       <div className="mb-5">
         <h1 className="text-2xl font-black text-text-primary tracking-tight">Vencimientos</h1>
-        <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">
+        <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">
           Vencidos y por vencer en {warningDays} {warningDays === 1 ? 'día' : 'días'}
         </p>
       </div>
@@ -109,7 +109,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
             <div className="w-7 h-7 rounded-lg bg-brand-primary/15 text-brand-primary flex items-center justify-center">
               <Wallet size={14} />
             </div>
-            <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Total por cobrar</p>
+            <p className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Total por cobrar</p>
           </div>
           <p className="text-4xl font-extrabold text-text-primary tracking-tight leading-none mb-3">
             <span className="text-lg text-text-disabled font-medium mr-1 align-top relative top-1">{currency}</span>
@@ -117,7 +117,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
           </p>
           <div className="inline-flex items-center gap-2 bg-status-success/10 border border-status-success/20 px-3 py-1.5 rounded-full">
             <TrendingUp size={12} className="text-status-success-soft" />
-            <span className="text-[10px] font-semibold text-status-success-soft uppercase tracking-wide">
+            <span className="text-tiny font-semibold text-status-success-soft uppercase tracking-wide">
               Ganancia est.: {currency} {totalProfit.toLocaleString()}
             </span>
           </div>
@@ -128,18 +128,18 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
       <div className="relative pb-4 pt-1 -mx-4 px-4 border-b border-border-subtle mb-4">
         <div className="flex gap-2 items-center">
           <div className={`flex bg-surface-sunken p-1 rounded-md border border-border-subtle transition-all duration-300 ${isSearchOpen ? 'w-0 opacity-0 overflow-hidden p-0 border-0' : 'flex-1'}`}>
-            <button onClick={() => setActiveTab('sales')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'sales' ? 'bg-surface-1 text-text-primary shadow-md' : 'text-text-disabled'}`}>
+            <button onClick={() => setActiveTab('sales')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-caption font-semibold transition-all ${activeTab === 'sales' ? 'bg-surface-1 text-text-primary shadow-md' : 'text-text-disabled'}`}>
               <Users size={14} /> Clientes
               {groupedSales.length > 0 && (
-                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === 'sales' ? 'bg-brand-primary/15 text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/10 text-text-disabled'}`}>
+                <span className={`text-micro font-bold px-1.5 py-0.5 rounded-full ${activeTab === 'sales' ? 'bg-brand-primary/15 text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/10 text-text-disabled'}`}>
                   {groupedSales.length}
                 </span>
               )}
             </button>
-            <button onClick={() => setActiveTab('inventory')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-[11px] font-semibold transition-all ${activeTab === 'inventory' ? 'bg-surface-1 text-text-primary shadow-md' : 'text-text-disabled'}`}>
+            <button onClick={() => setActiveTab('inventory')} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-sm text-caption font-semibold transition-all ${activeTab === 'inventory' ? 'bg-surface-1 text-text-primary shadow-md' : 'text-text-disabled'}`}>
               <Layers size={14} /> Stock
               {expiredAccounts.length > 0 && (
-                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === 'inventory' ? 'bg-brand-primary/15 text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/10 text-text-disabled'}`}>
+                <span className={`text-micro font-bold px-1.5 py-0.5 rounded-full ${activeTab === 'inventory' ? 'bg-brand-primary/15 text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/10 text-text-disabled'}`}>
                   {expiredAccounts.length}
                 </span>
               )}
@@ -151,7 +151,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
               <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 rounded-md transition-all ${isSearchOpen ? 'text-text-muted -ml-3' : 'bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary'}`}>
                 <Search size={18} />
               </button>
-              <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-[13px] text-text-primary outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
+              <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-body-sm text-text-primary outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
               {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="p-1 text-text-disabled"><X size={16} /></button>}
             </div>
           </div>
@@ -162,7 +162,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
           <div className="flex gap-2 mt-3 overflow-x-auto custom-scrollbar pb-1">
             <button
               onClick={() => setFilterService('all')}
-              className={`shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all flex items-center gap-1.5 ${filterService === 'all' ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
+              className={`shrink-0 px-3 py-1.5 rounded-full text-caption font-semibold border transition-all flex items-center gap-1.5 ${filterService === 'all' ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
             >
               <Filter size={11} /> Todos
             </button>
@@ -170,7 +170,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
               <button
                 key={name}
                 onClick={() => setFilterService(name)}
-                className={`shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all ${filterService === name ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
+                className={`shrink-0 px-3 py-1.5 rounded-full text-caption font-semibold border transition-all ${filterService === name ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
               >
                 {name}
               </button>
@@ -189,7 +189,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                     <div className="w-7 h-7 rounded-lg bg-status-danger/15 text-status-danger-soft flex items-center justify-center">
                       <AlertCircle size={13} />
                     </div>
-                    <h3 className="text-[10px] font-semibold text-status-danger-soft uppercase tracking-[0.2em]">Ya vencidos</h3>
+                    <h3 className="text-tiny font-semibold text-status-danger-soft uppercase tracking-[0.2em]">Ya vencidos</h3>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {vencidos.map((group, idx) => (
@@ -207,7 +207,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                     <div className="w-7 h-7 rounded-lg bg-status-expiring/15 text-status-expiring-soft flex items-center justify-center">
                       <Clock size={13} />
                     </div>
-                    <h3 className="text-[10px] font-semibold text-status-expiring-soft uppercase tracking-[0.2em]">Vencen hoy / pronto</h3>
+                    <h3 className="text-tiny font-semibold text-status-expiring-soft uppercase tracking-[0.2em]">Vencen hoy / pronto</h3>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {vencenHoy.map((group, idx) => (
@@ -256,24 +256,24 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                       <div className="flex justify-between items-start">
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/10 text-text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
-                            {provider && <span className="text-[10px] font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
+                            <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/10 text-text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
+                            {provider && <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
                           </div>
-                          <h4 className="text-[13px] font-bold text-text-primary truncate">{acc.email}</h4>
+                          <h4 className="text-body-sm font-bold text-text-primary truncate">{acc.email}</h4>
                         </div>
-                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wide shrink-0 ${statusBadge}`}>
+                        <span className={`text-micro font-bold px-2 py-0.5 rounded border uppercase tracking-wide shrink-0 ${statusBadge}`}>
                           {isExpired ? 'Vencida' : days === 0 ? 'Hoy' : 'Por vencer'}
                         </span>
                       </div>
                       <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
-                        <p className={`text-[11px] font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-text-muted'}`}>
+                        <p className={`text-caption font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-text-muted'}`}>
                           {isExpired ? `Venció hace ${Math.abs(days)}d` : days === 0 ? 'Expira hoy' : `${days} días restantes`}
                         </p>
                         <div className="flex gap-2">
                           <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft border border-border-subtle active:scale-90 transition-all">
                             <Trash2 size={14} />
                           </button>
-                          <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-[10px] font-semibold flex items-center gap-1.5 active:scale-95 transition-all">
+                          <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-tiny font-semibold flex items-center gap-1.5 active:scale-95 transition-all">
                             <RefreshCw size={12} /> Renovar
                           </button>
                         </div>
@@ -298,7 +298,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
         <div className="space-y-4 pt-2">
           {selectedSalesForMsg.length > 1 && (
             <div className="mb-2">
-              <label className="text-[10px] font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
+              <label className="text-tiny font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
               <div className="space-y-2 max-h-[160px] overflow-y-auto custom-scrollbar pr-1">
                 {selectedSalesForMsg.map(s => (
                   <button

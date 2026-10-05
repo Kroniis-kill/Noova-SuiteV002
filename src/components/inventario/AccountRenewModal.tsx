@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from '../ui/Modal';
@@ -6,6 +6,7 @@ import { Account, FinancialAccount } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useDialog } from '../../hooks/useDialog';
 import { Calendar, Wallet, RefreshCw, Check, ChevronDown, Search, X, ChevronRight } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { addTime, formatDate } from '../../utils/contactosUtils';
@@ -63,7 +64,7 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors truncate">{acc.name}</p>
-                <p className="text-[10px] text-text-disabled font-mono mt-0.5">{acc.balance} {acc.currency}</p>
+                <p className="text-tiny text-text-disabled font-mono mt-0.5">{acc.balance} {acc.currency}</p>
               </div>
               <ChevronRight size={16} className="ml-auto text-text-faint group-hover:text-text-primary" />
             </button>
@@ -97,6 +98,8 @@ interface AccountRenewModalProps {
 const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, accounts, serviceName }) => {
   const { updateAccount, executeTransaction, addExpense, financialAccounts, settings } = useData();
   const { showToast } = useToast();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const layerZ = useDialog({ isOpen, onClose, containerRef: dialogRef });
   const { user } = useAuth();
   
   const [months, setMonths] = useState('1');
@@ -210,7 +213,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
   };
 
   const styles = {
-    label: "text-[9px] font-bold text-text-faint uppercase tracking-[0.1em]",
+    label: "text-micro font-bold text-text-faint uppercase tracking-[0.1em]",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
     input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none border-none appearance-none font-bold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
   };
@@ -229,19 +232,20 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
         <AnimatePresence>
           {isOpen && (
             <>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]" />
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm" style={{ zIndex: layerZ - 1 }} />
               <motion.div
                 variants={modalVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl z-[9999] flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden"
+                ref={dialogRef} role="dialog" aria-modal="true" aria-label="Renovar cuenta" tabIndex={-1} style={{ zIndex: layerZ }}
+                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden outline-none"
               >
                 {/* Header */}
                 <div className="px-5 pt-[18px] pb-[14px] flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 shrink-0">
                   <div className="min-w-0">
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight">Renovar inventario</h3>
-                    <p className="text-[9px] text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{serviceName} · {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</p>
+                    <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{serviceName} · {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</p>
                   </div>
                   <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
                     <X size={16} />
@@ -256,30 +260,30 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                       <Calendar size={20} />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] text-text-muted">Vence actualmente</p>
+                      <p className="text-caption text-text-muted">Vence actualmente</p>
                       <h4 className="text-text-primary font-bold text-[15px] mt-[1px]">{formatDate(accounts[0]?.endDate)}</h4>
                     </div>
                   </div>
 
                   {/* Extender por */}
                   <div>
-                    <div className="text-[9px] font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
+                    <div className="text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
                       <Calendar size={12} /> Extender por
                     </div>
                     <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px] flex flex-col gap-[10px]">
                       <div className="grid grid-cols-2 gap-2">
                         <div className={styles.inputContainer}>
-                          <span className="pl-3 text-[12px] font-bold text-text-faint shrink-0">+M</span>
+                          <span className="pl-3 text-label font-bold text-text-faint shrink-0">+M</span>
                           <input type="number" min="0" value={months} onChange={e => setMonths(e.target.value)} className={`${styles.input} text-right`} placeholder="0" inputMode="numeric" />
                         </div>
                         <div className={styles.inputContainer}>
-                          <span className="pl-3 text-[12px] font-bold text-text-faint shrink-0">+D</span>
+                          <span className="pl-3 text-label font-bold text-text-faint shrink-0">+D</span>
                           <input type="number" min="0" value={days} onChange={e => setDays(e.target.value)} className={`${styles.input} text-right`} placeholder="0" inputMode="numeric" />
                         </div>
                       </div>
                       <div className="h-px bg-[rgb(var(--fg-rgb))]/5" />
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-text-faint font-bold uppercase">Nueva fecha</span>
+                        <span className="text-tiny text-text-faint font-bold uppercase">Nueva fecha</span>
                         <input type="date" value={newDateStr} onChange={(e) => setNewDateStr(e.target.value)} className="bg-transparent text-[14px] text-status-success-soft font-bold outline-none border-none appearance-none [color-scheme:dark] text-right" />
                       </div>
                     </div>
@@ -287,7 +291,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
 
                   {/* Costo de renovación */}
                   <div>
-                    <div className="text-[9px] font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
+                    <div className="text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] flex items-center gap-[6px]">
                       <Wallet size={12} /> Costo de renovación
                     </div>
                     <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px] flex flex-col gap-[10px]">
@@ -296,24 +300,24 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                           <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0">
                             <Wallet size={13} />
                           </div>
-                          <span className={`text-[12px] font-semibold truncate ${selectedWallet ? 'text-text-primary' : 'text-text-faint'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
+                          <span className={`text-label font-semibold truncate ${selectedWallet ? 'text-text-primary' : 'text-text-faint'}`}>{selectedWallet ? selectedWallet.name : 'No registrar'}</span>
                         </div>
                         <ChevronDown size={15} className="text-text-faint shrink-0" />
                       </button>
                       <div className="bg-surface-sunken rounded-md p-3 flex items-center gap-2">
                         <span className="text-[18px] text-status-success-soft font-bold">$</span>
                         <input type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="0.00" className="flex-1 min-w-0 bg-transparent text-[20px] text-text-primary font-bold outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" inputMode="decimal" />
-                        <span className="text-[10px] text-text-faint font-bold shrink-0">{settings.currency}</span>
+                        <span className="text-tiny text-text-faint font-bold shrink-0">{settings.currency}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Botones */}
                   <div className="flex flex-col gap-2 pt-[2px]">
-                    <button onClick={handleRenew} className="w-full h-[46px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-text-primary font-bold text-[13px] flex items-center justify-center gap-[6px] active:scale-95 transition-all hover:brightness-110">
+                    <button onClick={handleRenew} className="w-full h-[46px] rounded-md bg-gradient-to-r from-brand-primary to-brand-accent text-text-primary font-bold text-body-sm flex items-center justify-center gap-[6px] active:scale-95 transition-all hover:brightness-110">
                       <Check size={16} /> Confirmar renovación
                     </button>
-                    <button onClick={onClose} className="w-full h-11 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-[12px] active:scale-95 transition-all">
+                    <button onClick={onClose} className="w-full h-11 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-label active:scale-95 transition-all">
                       Cancelar operación
                     </button>
                   </div>

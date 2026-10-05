@@ -38,7 +38,7 @@ export const NotificationSettings = () => {
                 <div className="flex justify-between items-center mb-4">
                     <div>
                         <h3 className="text-text-primary font-bold text-sm">Alertas Activas (In-App)</h3>
-                        <p className="text-[10px] text-text-disabled mt-0.5">Controla qué avisos ves mientras usas Noova</p>
+                        <p className="text-tiny text-text-disabled mt-0.5">Controla qué avisos ves mientras usas Noova</p>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@ export const NotificationSettings = () => {
                             <div className="w-9 h-9 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0"><BellRing size={16} className="text-status-success-soft" /></div>
                             <div>
                                 <span className="text-sm font-bold text-text-primary block">Resumen de Inicio</span>
-                                <span className="text-[9px] text-text-disabled">Mostrar recordatorios al entrar</span>
+                                <span className="text-micro text-text-disabled">Mostrar recordatorios al entrar</span>
                             </div>
                         </div>
                         <ToggleSwitch checked={perms.system} onChange={() => handlePermToggle('system')} />
@@ -84,7 +84,7 @@ export const NotificationSettings = () => {
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h3 className="text-text-primary font-bold text-sm">Resumen Agrupado (Digest)</h3>
-                        <p className="text-[10px] text-text-disabled">Agrupa las notificaciones push en una sola, en vez de una por evento</p>
+                        <p className="text-tiny text-text-disabled">Agrupa las notificaciones push en una sola, en vez de una por evento</p>
                     </div>
                     <ToggleSwitch checked={digest.enabled} onChange={handleDigestToggle} />
                 </div>
@@ -118,19 +118,19 @@ export const NotificationSettings = () => {
                         <div>
                             <label className={styles.label}>Incluir en el resumen:</label>
                             <div className="grid grid-cols-2 gap-2">
-                                <button onClick={() => setDigest({...digest, include_today: !digest.include_today})} className={`p-3 rounded-xl border flex items-center justify-between text-[11px] font-semibold transition-all active:scale-[0.98] ${digest.include_today ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
+                                <button onClick={() => setDigest({...digest, include_today: !digest.include_today})} className={`p-3 rounded-xl border flex items-center justify-between text-caption font-semibold transition-all active:scale-[0.98] ${digest.include_today ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
                                     Vencen Hoy <CheckCircle2 size={14} className={digest.include_today ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_1d: !digest.include_1d})} className={`p-3 rounded-xl border flex items-center justify-between text-[11px] font-semibold transition-all active:scale-[0.98] ${digest.include_1d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
+                                <button onClick={() => setDigest({...digest, include_1d: !digest.include_1d})} className={`p-3 rounded-xl border flex items-center justify-between text-caption font-semibold transition-all active:scale-[0.98] ${digest.include_1d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
                                     Vencen Mañana <CheckCircle2 size={14} className={digest.include_1d ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_3d: !digest.include_3d})} className={`p-3 rounded-xl border flex items-center justify-between text-[11px] font-semibold transition-all active:scale-[0.98] ${digest.include_3d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
+                                <button onClick={() => setDigest({...digest, include_3d: !digest.include_3d})} className={`p-3 rounded-xl border flex items-center justify-between text-caption font-semibold transition-all active:scale-[0.98] ${digest.include_3d ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
                                     En 3 Días <CheckCircle2 size={14} className={digest.include_3d ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_overdue: !digest.include_overdue})} className={`p-3 rounded-xl border flex items-center justify-between text-[11px] font-semibold transition-all active:scale-[0.98] ${digest.include_overdue ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
+                                <button onClick={() => setDigest({...digest, include_overdue: !digest.include_overdue})} className={`p-3 rounded-xl border flex items-center justify-between text-caption font-semibold transition-all active:scale-[0.98] ${digest.include_overdue ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
                                     Ya Vencidas <CheckCircle2 size={14} className={digest.include_overdue ? 'opacity-100' : 'opacity-0'} />
                                 </button>
-                                <button onClick={() => setDigest({...digest, include_accounts_risk: !digest.include_accounts_risk})} className={`p-3 rounded-xl border flex items-center justify-between text-[11px] font-semibold col-span-2 transition-all active:scale-[0.98] ${digest.include_accounts_risk ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
+                                <button onClick={() => setDigest({...digest, include_accounts_risk: !digest.include_accounts_risk})} className={`p-3 rounded-xl border flex items-center justify-between text-caption font-semibold col-span-2 transition-all active:scale-[0.98] ${digest.include_accounts_risk ? 'bg-brand-primary/10 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-hairline text-text-disabled'}`}>
                                     Stock en Riesgo <CheckCircle2 size={14} className={digest.include_accounts_risk ? 'opacity-100' : 'opacity-0'} />
                                 </button>
                             </div>

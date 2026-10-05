@@ -1,4 +1,5 @@
 
+import ConfirmDialog from '../ui/ConfirmDialog';
 import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SalesGroup, getCombinedWhatsAppTemplate } from '../../utils/salesUtils';
@@ -26,7 +27,7 @@ import { useContactos } from '../../hooks/useContactos';
 
 // --- HELPERS Y SUB-COMPONENTES ---
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 // Lucide no trae el logo de WhatsApp: ícono propio con el mismo trazo que los demás
 const WhatsAppIcon: React.FC<{ size?: number; className?: string }> = ({ size = 16, className }) => (
@@ -53,8 +54,8 @@ const CopyRow: React.FC<CopyRowProps> = ({ icon, iconClass, label, labelClass = 
     <div className="flex items-center gap-2.5 min-w-0">
       <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
       <div className="flex flex-col min-w-0">
-        <span className={`text-[10px] font-semibold ${labelClass}`}>{label}</span>
-        <span className={`truncate ${mono ? 'text-[13px] font-mono font-bold text-text-secondary' : muted ? 'text-xs font-medium text-text-disabled' : 'text-[13px] font-semibold text-text-secondary'}`}>{value}</span>
+        <span className={`text-tiny font-semibold ${labelClass}`}>{label}</span>
+        <span className={`truncate ${mono ? 'text-body-sm font-mono font-bold text-text-secondary' : muted ? 'text-xs font-medium text-text-disabled' : 'text-body-sm font-semibold text-text-secondary'}`}>{value}</span>
       </div>
     </div>
     <Copy size={14} className="text-text-faint group-hover:text-text-primary shrink-0" />
@@ -232,7 +233,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-          className="fixed inset-0 lg:left-[226px] z-[150] bg-bg flex flex-col overflow-hidden text-text-primary"
+          className="fixed inset-0 lg:left-[226px] z-page bg-bg flex flex-col overflow-hidden text-text-primary"
         >
           {/* HEADER UNIFICADO */}
           <Header 
@@ -270,7 +271,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                           <div className="flex flex-wrap items-center gap-2 mt-1">
                             <p className="text-sm text-text-disabled font-mono tracking-widest">{group.clientPhone}</p>
                             {group.reseller && (
-                                <span className="bg-status-warning/10 text-status-warning text-[11px] font-semibold px-2 py-0.5 rounded-md border border-status-warning/20 flex items-center gap-1">
+                                <span className="bg-status-warning/10 text-status-warning text-caption font-semibold px-2 py-0.5 rounded-md border border-status-warning/20 flex items-center gap-1">
                                     <Briefcase size={12} /> {group.reseller.name}
                                 </span>
                             )}
@@ -280,11 +281,11 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
 
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
-                          <span className="text-[11px] font-bold text-text-faint uppercase tracking-widest mb-1">Activos</span>
+                          <span className="text-caption font-bold text-text-faint uppercase tracking-widest mb-1">Activos</span>
                           <span className="text-2xl font-black text-text-primary">{allGroupSales.length}</span>
                       </div>
                       <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
-                          <span className="text-[11px] font-bold text-text-faint uppercase tracking-widest mb-1">Inversión</span>
+                          <span className="text-caption font-bold text-text-faint uppercase tracking-widest mb-1">Inversión</span>
                           <span className="text-2xl font-black text-status-success-soft">{settings.currency}{totalAmount.toLocaleString()}</span>
                       </div>
                   </div>
@@ -305,12 +306,12 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                       <div className="flex items-center gap-2">
                                           <span className="text-xs font-semibold text-text-muted tracking-wide">{formatDate(dateKey)}</span>
                                           {isGroupFrozen && (
-                                              <span className="bg-status-info/10 text-status-info-soft text-[10px] font-semibold px-1.5 py-0.5 rounded border border-status-info/20 flex items-center gap-1">
+                                              <span className="bg-status-info/10 text-status-info-soft text-tiny font-semibold px-1.5 py-0.5 rounded border border-status-info/20 flex items-center gap-1">
                                                   <Snowflake size={11} /> Congelado
                                               </span>
                                           )}
                                       </div>
-                                      <span className={`text-[11px] font-medium mt-0.5 ${isGroupFrozen ? 'text-status-info-soft' : isExpired ? 'text-status-danger' : 'text-text-faint'}`}>
+                                      <span className={`text-caption font-medium mt-0.5 ${isGroupFrozen ? 'text-status-info-soft' : isExpired ? 'text-status-danger' : 'text-text-faint'}`}>
                                           {isGroupFrozen ? 'Tiempo en pausa' : isExpired ? `Vencido hace ${Math.abs(days)} ${Math.abs(days) === 1 ? 'día' : 'días'}` : days === 0 ? 'Vence hoy' : `Vence en ${days} ${days === 1 ? 'día' : 'días'}`}
                                       </span>
                                   </div>
@@ -347,18 +348,18 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                                           {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" /> : <Tv size={18} className="text-text-faint" />}
                                                       </div>
                                                       <div className="min-w-0">
-                                                          <h4 className="text-[13px] font-bold text-text-primary truncate">{sale.serviceName}</h4>
+                                                          <h4 className="text-body-sm font-bold text-text-primary truncate">{sale.serviceName}</h4>
                                                           <div className="flex items-center gap-1.5 flex-wrap">
-                                                            <p className="text-[11px] font-medium text-text-faint">{isUnique ? 'Usuario único' : isFull ? 'Cuenta completa' : 'Pantalla asignada'}</p>
-                                                            {isFailing && <span className="text-[10px] font-semibold text-status-info-soft bg-status-info/10 px-1.5 rounded">Pausado · {getDaysInFailure(account?.failure_started_at)} días</span>}
+                                                            <p className="text-caption font-medium text-text-faint">{isUnique ? 'Usuario único' : isFull ? 'Cuenta completa' : 'Pantalla asignada'}</p>
+                                                            {isFailing && <span className="text-tiny font-semibold text-status-info-soft bg-status-info/10 px-1.5 rounded">Pausado · {getDaysInFailure(account?.failure_started_at)} días</span>}
                                                           </div>
                                                       </div>
                                                   </div>
                                                   <div className="flex items-center gap-3 shrink-0">
                                                       {!isExpanded && (
                                                           <div className="flex flex-col items-end">
-                                                              <span className="text-[13px] font-semibold text-text-primary">{settings.currency}{sale.amount}</span>
-                                                              <span className="text-[11px] font-semibold text-status-success/70">+{settings.currency}{profit}</span>
+                                                              <span className="text-body-sm font-semibold text-text-primary">{settings.currency}{sale.amount}</span>
+                                                              <span className="text-caption font-semibold text-status-success/70">+{settings.currency}{profit}</span>
                                                           </div>
                                                       )}
                                                       <ChevronDown size={18} className={`text-text-faint transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
@@ -427,12 +428,12 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                                                               {sale.assignedProfiles.map((profile, pIdx) => (
                                                                                   <div key={pIdx} className="flex gap-2">
                                                                                       <div className="flex-1 min-w-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-[rgb(var(--fg-rgb))]/5 cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.name, 'Perfil')}>
-                                                                                          <span className="text-[10px] font-semibold text-text-faint flex items-center gap-1 mb-0.5"><UserCircle size={12} /> Perfil {sale.assignedProfiles!.length > 1 ? pIdx + 1 : ''}</span>
-                                                                                          <span className="text-[13px] font-semibold text-text-secondary truncate block">{profile.name}</span>
+                                                                                          <span className="text-tiny font-semibold text-text-faint flex items-center gap-1 mb-0.5"><UserCircle size={12} /> Perfil {sale.assignedProfiles!.length > 1 ? pIdx + 1 : ''}</span>
+                                                                                          <span className="text-body-sm font-semibold text-text-secondary truncate block">{profile.name}</span>
                                                                                       </div>
                                                                                       <div className="w-[72px] shrink-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-[rgb(var(--fg-rgb))]/5 text-center cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.pin, 'PIN')}>
-                                                                                          <span className="text-[10px] font-semibold text-text-faint block mb-0.5">PIN</span>
-                                                                                          <span className="text-[13px] font-semibold text-text-secondary font-mono">{profile.pin || '0000'}</span>
+                                                                                          <span className="text-tiny font-semibold text-text-faint block mb-0.5">PIN</span>
+                                                                                          <span className="text-body-sm font-semibold text-text-secondary font-mono">{profile.pin || '0000'}</span>
                                                                                       </div>
                                                                                   </div>
                                                                               ))}
@@ -518,12 +519,12 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                             <button onClick={() => handleConfirmSmartReminder(false)} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
                                 <DollarSign size={22} className="text-brand-primary mb-0.5" />
                                 <span className="text-sm font-bold text-text-primary">{settings.currency || 'USD'}</span>
-                                <span className="text-[11px] text-text-disabled">Principal</span>
+                                <span className="text-caption text-text-disabled">Principal</span>
                             </button>
                             <button onClick={() => handleConfirmSmartReminder(true)} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
                                 <RefreshCw size={22} className="text-status-success-soft mb-0.5" />
                                 <span className="text-sm font-bold text-text-primary">{settings.subCurrency || 'SEC'}</span>
-                                <span className="text-[11px] text-text-disabled">Secundaria</span>
+                                <span className="text-caption text-text-disabled">Secundaria</span>
                             </button>
                         </div>
                     </div>
@@ -532,18 +533,15 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
             </Modal>
           )}
 
-          <Modal isOpen={isDeleteConfirmOpen} onClose={() => setIsDeleteConfirmOpen(false)} title="Eliminar servicio" zIndex={MODAL_Z_INDEX + 100}>
-             <div className="flex flex-col gap-5 pt-1 pb-2">
-                <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-xl flex gap-3 items-start">
-                    <div className="bg-status-danger/20 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-status-danger"><Trash2 size={20} /></div>
-                    <div className="min-w-0"><h4 className="text-text-primary font-bold text-sm">¿Confirmar eliminación?</h4><p className="text-text-muted text-xs mt-1 leading-relaxed">Esta acción es permanente. Se liberará el cupo en el inventario pero el historial de esta venta se perderá.</p></div>
-                </div>
-                <div className="flex gap-3">
-                    <button onClick={() => setIsDeleteConfirmOpen(false)} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">Cancelar</button>
-                    <button onClick={confirmDelete} className="flex-[2] h-[52px] bg-status-danger text-white rounded-md font-bold text-sm active:scale-[0.98] transition-all">Eliminar ahora</button>
-                </div>
-             </div>
-          </Modal>
+          <ConfirmDialog
+            isOpen={isDeleteConfirmOpen}
+            onClose={() => setIsDeleteConfirmOpen(false)}
+            onConfirm={confirmDelete}
+            title="Eliminar servicio"
+            message={'Esta acción es permanente. Se liberará el cupo en el inventario pero el historial de esta venta se perderá.'}
+            confirmLabel="Eliminar ahora"
+            tone="danger"
+          />
 
           {isClientModalOpen && selectedClient && (
             <ContactoBottomSheet 

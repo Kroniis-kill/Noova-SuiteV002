@@ -104,7 +104,7 @@ const ServicesDesktop: React.FC = () => {
 
   const filtered = services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
   const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
-  const labelClass = "text-[11px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
+  const labelClass = "text-caption font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
     <div className="space-y-10 max-w-[1400px] mx-auto">
@@ -139,7 +139,7 @@ const ServicesDesktop: React.FC = () => {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-text-primary leading-tight">{service.name}</h3>
-                                    <p className="text-[10px] text-text-disabled font-bold uppercase mt-1">{service.screens} Pantallas • {service.type.replace('_', ' ')}</p>
+                                    <p className="text-tiny text-text-disabled font-bold uppercase mt-1">{service.screens} Pantallas • {service.type.replace('_', ' ')}</p>
                                 </div>
                             </div>
                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -149,20 +149,20 @@ const ServicesDesktop: React.FC = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
                             <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
-                                <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
+                                <span className="text-tiny font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
                                 <p className="text-xl font-bold text-text-primary font-mono">${service.cost}</p>
                             </div>
                             <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
-                                <span className="text-[10px] font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
+                                <span className="text-tiny font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
                                 <p className="text-xl font-bold text-status-success-soft font-mono">${service.publicPrice}</p>
                             </div>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-brand-primary/5 border border-brand-primary/20 rounded-lg">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-lg bg-brand-primary/20 flex items-center justify-center text-brand-primary"><BarChart2 size={16} /></div>
-                                <div><p className="text-[10px] font-semibold text-brand-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-text-primary font-mono">+${profit.toFixed(1)}</p></div>
+                                <div><p className="text-tiny font-semibold text-brand-primary uppercase">Margen Est.</p><p className="text-sm font-bold text-text-primary font-mono">+${profit.toFixed(1)}</p></div>
                             </div>
-                            <div className="text-right"><span className="text-[10px] font-semibold text-text-disabled uppercase">ROI</span><p className="text-sm font-bold text-status-success">{margin.toFixed(0)}%</p></div>
+                            <div className="text-right"><span className="text-tiny font-semibold text-text-disabled uppercase">ROI</span><p className="text-sm font-bold text-status-success">{margin.toFixed(0)}%</p></div>
                         </div>
                     </motion.div>
                 );
@@ -193,7 +193,7 @@ const ServicesDesktop: React.FC = () => {
                          ) : (
                             <div className="flex flex-col items-center gap-2 text-text-faint group-hover:text-text-muted transition-colors">
                                <Camera size={32} />
-                               <span className="text-[10px] font-semibold uppercase tracking-widest">Subir Imagen</span>
+                               <span className="text-tiny font-semibold uppercase tracking-widest">Subir Imagen</span>
                             </div>
                          )}
                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">

@@ -263,7 +263,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     viewLevel === 'all_accounts' ? 'Todas las Cuentas' :
                     services.find(s => s.id === selectedServiceId)?.name}
                </h1>
-               <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
+               <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
             </div>
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
@@ -284,7 +284,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     value={searchQuery} 
                     onChange={e => { setSearchQuery(e.target.value); if(viewLevel === 'services') setViewLevel('all_accounts'); }} 
                     placeholder="Buscar cuenta o servicio..." 
-                    className="bg-transparent border-none outline-none text-[12px] leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-faint font-medium" 
+                    className="bg-transparent border-none outline-none text-label leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-faint font-medium" 
                 />
                 {searchQuery && <button onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-text-disabled" /></button>}
             </div>
@@ -341,7 +341,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                                             <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Monitor size={18} /></div>
                                             <div className="min-w-0">
                                                 <h4 className="text-sm font-bold text-text-primary truncate">{svc?.name || 'Servicio'}</h4>
-                                                <p className="text-[10px] text-text-disabled truncate">{acc.email}</p>
+                                                <p className="text-tiny text-text-disabled truncate">{acc.email}</p>
                                             </div>
                                         </div>
                                         <div className="flex gap-2">
@@ -414,7 +414,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
         <ImportGuideModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} onConfirm={() => fileInputRef.current?.click()} type="inventory" title="Importar Inventario" />
         <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />
 
-        <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro" zIndex={60000}>
+        <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro">
           <div className="space-y-5 pt-2">
               <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
                   <div className="bg-status-danger/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-status-danger" /></div>
@@ -430,7 +430,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                   <button onClick={handleMoveToTrash} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
                     <div>
                       <span className="block text-text-primary font-bold text-sm">Archivar en Papelera</span>
-                      <span className="block text-text-disabled text-[10px]">Podrás recuperarla más tarde si la necesitas.</span>
+                      <span className="block text-text-disabled text-tiny">Podrás recuperarla más tarde si la necesitas.</span>
                     </div>
                     <RotateCcw size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
                   </button>
@@ -438,7 +438,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                 <button onClick={confirmDelete} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-all group">
                   <div>
                     <span className="block text-status-danger-soft font-bold text-sm">Eliminar para siempre</span>
-                    <span className="block text-status-danger-soft/50 text-[10px]">El registro será borrado definitivamente del sistema.</span>
+                    <span className="block text-status-danger-soft/50 text-tiny">El registro será borrado definitivamente del sistema.</span>
                   </div>
                   <Trash2 size={16} className="text-status-danger-soft/50 group-hover:text-status-danger-soft transition-colors" />
                 </button>

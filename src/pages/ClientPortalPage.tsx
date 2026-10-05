@@ -77,12 +77,12 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-text-primary leading-tight">{service.service_name || 'Servicio'}</h3>
-                  <p className="text-[10px] text-text-disabled uppercase tracking-wide mt-0.5">
+                  <p className="text-tiny text-text-disabled uppercase tracking-wide mt-0.5">
                     {service.sale_type ? service.sale_type.replace('_', ' ') : 'Suscripción'}
                   </p>
                 </div>
             </div>
-            <div className={`px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase border ${isExpired ? 'bg-status-danger/10 text-status-danger border-status-danger/20' : isWarning ? 'bg-status-warning/10 text-status-warning border-status-warning/20' : 'bg-status-success/10 text-status-success border-status-success/20'}`}>
+            <div className={`px-2.5 py-1 rounded-full text-tiny font-semibold uppercase border ${isExpired ? 'bg-status-danger/10 text-status-danger border-status-danger/20' : isWarning ? 'bg-status-warning/10 text-status-warning border-status-warning/20' : 'bg-status-success/10 text-status-success border-status-success/20'}`}>
               {isExpired ? 'Vencido' : `${daysLeft} días`}
             </div>
         </div>
@@ -90,7 +90,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
         <div className="bg-surface-sunken rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3 mb-5 ml-2">
             <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(user || '')}>
               <div className="flex flex-col min-w-0 pr-2">
-                  <span className="text-[9px] font-bold text-text-disabled uppercase">Usuario</span>
+                  <span className="text-micro font-bold text-text-disabled uppercase">Usuario</span>
                   <span className="text-xs font-medium text-text-primary truncate">{user || '---'}</span>
               </div>
               <Copy size={14} className="text-text-faint group-hover:text-text-primary transition-colors shrink-0" />
@@ -100,7 +100,7 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
             
             <div className="flex justify-between items-center group cursor-pointer" onClick={() => copyToClipboard(pass || '')}>
               <div className="flex flex-col min-w-0 pr-2">
-                  <span className="text-[9px] font-bold text-text-disabled uppercase">Contraseña</span>
+                  <span className="text-micro font-bold text-text-disabled uppercase">Contraseña</span>
                   <span className="text-xs font-medium text-text-primary truncate font-mono">{pass || '---'}</span>
               </div>
               <Copy size={14} className="text-text-faint group-hover:text-text-primary transition-colors shrink-0" />
@@ -112,13 +112,13 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
                   <div className="flex gap-4 pt-1">
                     {pName && (
                         <div className="flex-1 bg-surface-1 rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5">
-                            <span className="text-[9px] font-bold text-text-disabled uppercase block mb-1">Perfil</span>
+                            <span className="text-micro font-bold text-text-disabled uppercase block mb-1">Perfil</span>
                             <span className="text-xs font-semibold text-text-primary truncate block">{pName}</span>
                         </div>
                     )}
                     {pPin && (
                         <div className="w-20 bg-surface-1 rounded-md p-3 border border-[rgb(var(--fg-rgb))]/5 text-center">
-                            <span className="text-[9px] font-bold text-text-disabled uppercase block mb-1">PIN</span>
+                            <span className="text-micro font-bold text-text-disabled uppercase block mb-1">PIN</span>
                             <span className="text-xs font-semibold text-text-primary font-mono">{pPin}</span>
                         </div>
                     )}
@@ -128,11 +128,11 @@ const ServiceCard: React.FC<{ service: PortalService; onReport: (s: PortalServic
         </div>
 
         <div className="flex items-center justify-between pl-3">
-            <div className="flex items-center gap-1.5 text-[10px] text-text-disabled font-medium">
+            <div className="flex items-center gap-1.5 text-tiny text-text-disabled font-medium">
               <Calendar size={12} />
               <span>Vence: <span className="text-text-secondary font-mono">{formatDate(service.expiry_date)}</span></span>
             </div>
-            <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary font-semibold text-[10px] transition-colors border border-[rgb(var(--fg-rgb))]/5">
+            <button onClick={() => onReport(service)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary font-semibold text-tiny transition-colors border border-[rgb(var(--fg-rgb))]/5">
                 <MessageSquareWarning size={12} /> Reportar
             </button>
         </div>
@@ -458,7 +458,7 @@ const PortalPage: React.FC = () => {
                   <div>
                      <h1 className="text-2xl font-bold text-text-primary">{clientData?.name || 'Cliente'}</h1>
                      <div className="flex items-center gap-2 mt-1">
-                        <span className="px-2 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-[10px] font-semibold rounded uppercase">
+                        <span className="px-2 py-0.5 bg-status-success/10 border border-status-success/20 text-status-success-soft text-tiny font-semibold rounded uppercase">
                             Activo
                         </span>
                         <span className="text-text-disabled text-xs font-mono">{clientData?.phone}</span>
@@ -482,7 +482,7 @@ const PortalPage: React.FC = () => {
               )}
               
               <div className="mt-12 text-center opacity-40">
-                 <p className="text-[10px] text-text-faint font-medium uppercase tracking-widest">Powered by Noova Suite</p>
+                 <p className="text-tiny text-text-faint font-medium uppercase tracking-widest">Powered by Noova Suite</p>
               </div>
           </div>
       </div>

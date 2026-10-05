@@ -19,7 +19,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-transparent overflow-hidden font-sans gpu-accelerated"
+      className="fixed inset-0 z-fullscreen flex flex-col items-center justify-center bg-transparent overflow-hidden font-sans gpu-accelerated"
       initial={{ opacity: 1 }}
       exit={{ 
         opacity: 0, 
@@ -64,7 +64,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
            initial={{ opacity: 0 }}
            animate={{ opacity: 0.6 }}
            transition={{ delay: 0.9 }}
-           className="text-[10px] text-text-primary font-medium uppercase tracking-[0.4em]"
+           className="text-tiny text-text-primary font-medium uppercase tracking-[0.4em]"
         >
            Suite Manager
         </motion.p>

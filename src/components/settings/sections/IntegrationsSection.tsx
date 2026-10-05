@@ -59,12 +59,12 @@ export const IntegrationsSection = () => {
                  />
 
                  {!isOnline && (
-                    <p className="text-[10px] text-text-disabled mt-4 px-1 leading-relaxed">
+                    <p className="text-tiny text-text-disabled mt-4 px-1 leading-relaxed">
                         Estás trabajando sin conexión. Los cambios se guardan en el dispositivo y se sincronizan automáticamente al recuperar internet.
                     </p>
                  )}
                  {isOnline && pendingCount > 0 && !isSyncing && (
-                    <p className="text-[10px] text-text-disabled mt-4 px-1 leading-relaxed">
+                    <p className="text-tiny text-text-disabled mt-4 px-1 leading-relaxed">
                         Hay cambios esperando a subirse a la nube — se sincronizarán en breve.
                     </p>
                  )}

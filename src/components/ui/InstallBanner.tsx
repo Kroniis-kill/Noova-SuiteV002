@@ -43,7 +43,7 @@ const InstallBanner: React.FC = () => {
 
             <div className="flex-1 min-w-0">
               <h4 className="text-text-primary font-bold text-[15px] leading-tight">Instala Noova Suite</h4>
-              <p className="text-text-muted text-[11px] leading-snug mt-0.5">
+              <p className="text-text-muted text-caption leading-snug mt-0.5">
                 {isIOS 
                   ? "Acceso directo desde tu pantalla de inicio." 
                   : "Experiencia fluida y rápida sin navegador."}

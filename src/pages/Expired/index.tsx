@@ -1,4 +1,5 @@
 
+import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import React, { useMemo, useState, useEffect } from 'react';
 import { useData } from '../../context/DataContext';
 
@@ -15,8 +16,6 @@ import ExpiredMobile from '../../modules/mobile/expired/ExpiredMobile';
 import RenewModal from '../../components/sales/RenewModal';
 import AccountRenewModal from '../../components/inventario/AccountRenewModal';
 import SaleDetailPage from '../../components/sales/SaleDetailPage';
-import Modal from '../../components/ui/Modal';
-import { Trash2 } from 'lucide-react';
 
 interface ExpiredPageProps {
   onBack?: () => void;
@@ -249,29 +248,15 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
       />
 
       {/* DELETE ACCOUNT CONFIRMATION */}
-      <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Cuenta">
-         <div className="space-y-4 pt-2">
-            <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
-                <div className="bg-status-danger/20 p-3 rounded-full shrink-0">
-                    <Trash2 size={24} className="text-status-danger" />
-                </div>
-                <div>
-                    <h4 className="text-text-primary font-bold text-sm">¿Estás seguro?</h4>
-                    <p className="text-text-muted text-xs mt-1 leading-relaxed">
-                        Se eliminará la cuenta <strong>{accountToDelete?.email}</strong> del inventario. Perderás el historial.
-                    </p>
-                </div>
-            </div>
-            <div className="flex gap-3">
-                <button onClick={() => setAccountToDelete(null)} className="flex-1 py-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-xs font-semibold hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
-                    Cancelar
-                </button>
-                <button onClick={confirmDeleteAccount} className="flex-1 py-3 rounded-md bg-status-danger text-white text-xs font-semibold hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-colors">
-                    Sí, Eliminar
-                </button>
-            </div>
-         </div>
-      </Modal>
+      <ConfirmDialog
+        isOpen={!!accountToDelete}
+        onClose={() => setAccountToDelete(null)}
+        onConfirm={confirmDeleteAccount}
+        title="Eliminar Cuenta"
+        message={<>Se eliminará la cuenta <strong className="text-text-primary">{accountToDelete?.email}</strong> del inventario. Perderás el historial.</>}
+        confirmLabel="Eliminar"
+        tone="danger"
+      />
 
     </>
   );

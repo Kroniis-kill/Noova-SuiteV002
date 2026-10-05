@@ -138,7 +138,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
             
             {/* Header Indicators */}
             <div className="flex justify-between items-center w-full z-10 px-0.5">
-                <div className="flex items-center gap-1 text-[9px] text-text-disabled font-medium bg-[rgb(var(--fg-rgb))]/[0.03] px-1.5 py-0.5 rounded-md">
+                <div className="flex items-center gap-1 text-micro text-text-disabled font-medium bg-[rgb(var(--fg-rgb))]/[0.03] px-1.5 py-0.5 rounded-md">
                     <Layers size={10} strokeWidth={3} />
                     <span>{totalScreens}</span>
                 </div>
@@ -179,10 +179,10 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 </div>
                 
                 <div className="text-center w-full space-y-0.5">
-                    <h3 className="text-[10px] font-semibold text-text-primary leading-tight tracking-tight line-clamp-2 px-1 not-italic">
+                    <h3 className="text-tiny font-semibold text-text-primary leading-tight tracking-tight line-clamp-2 px-1 not-italic">
                         {group.clientName}
                     </h3>
-                    <div className={`flex items-center justify-center gap-1 text-[8px] font-black uppercase tracking-widest ${timeColor}`}>
+                    <div className={`flex items-center justify-center gap-1 text-nano font-black uppercase tracking-widest ${timeColor}`}>
                        <Clock size={8} strokeWidth={3} />
                        <span>{statusText}</span>
                     </div>
@@ -207,11 +207,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
         </div>
 
         {showCurrencyModal && (
-            <Modal isOpen={true} onClose={() => setShowCurrencyModal(false)} title="Enviar Aviso" zIndex={20000}>
+            <Modal isOpen={true} onClose={() => setShowCurrencyModal(false)} title="Enviar Aviso">
               <div className="space-y-4 pt-2" onClick={e => e.stopPropagation()}>
                 {urgentSales.length > 1 && (
                     <div className="mb-2">
-                        <label className="text-[10px] font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
+                        <label className="text-tiny font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
                         <div className="space-y-2 max-h-[160px] overflow-y-auto custom-scrollbar pr-1">
                             {urgentSales.map(s => (
                                 <button
@@ -275,7 +275,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
               <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-sm font-medium text-text-primary truncate leading-tight not-italic">{group.clientName}</h3>
-                      {isReseller && <span className="flex items-center gap-1 text-[9px] bg-status-warning/10 text-status-warning px-1.5 py-0.5 rounded border border-status-warning/20 font-bold uppercase"><Briefcase size={8} /> Socio</span>}
+                      {isReseller && <span className="flex items-center gap-1 text-micro bg-status-warning/10 text-status-warning px-1.5 py-0.5 rounded border border-status-warning/20 font-bold uppercase"><Briefcase size={8} /> Socio</span>}
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-text-muted flex items-center gap-1"><Layers size={12} /> {totalScreens} Cupos</span>
@@ -297,11 +297,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.08]">
               <div className="flex flex-col">
-                  <span className="text-[9px] font-semibold text-text-disabled uppercase tracking-wider">Total</span>
+                  <span className="text-micro font-semibold text-text-disabled uppercase tracking-wider">Total</span>
                   <span className="text-sm font-medium text-text-primary">${allSales.reduce((a,c)=>a+c.amount,0).toLocaleString()}</span>
               </div>
               <div className="flex gap-2">
-                  <button onClick={handleSmartWhatsApp} className={`h-9 px-4 rounded-full border flex items-center gap-2 transition-colors active:scale-95 text-[11px] font-semibold ${isUrgent ? 'bg-brand-whatsapp text-black border-brand-whatsapp hover:brightness-110 shadow-glow' : 'bg-brand-whatsapp/10 text-brand-whatsapp border-brand-whatsapp/20 hover:bg-brand-whatsapp/20'}`}>
+                  <button onClick={handleSmartWhatsApp} className={`h-9 px-4 rounded-full border flex items-center gap-2 transition-colors active:scale-95 text-caption font-semibold ${isUrgent ? 'bg-brand-whatsapp text-black border-brand-whatsapp hover:brightness-110 shadow-glow' : 'bg-brand-whatsapp/10 text-brand-whatsapp border-brand-whatsapp/20 hover:bg-brand-whatsapp/20'}`}>
                     {isUrgent ? <BellRing size={14} fill="currentColor" /> : <MessageCircle size={14} />}
                     {isUrgent ? 'Recordar' : 'WhatsApp'}
                   </button>
@@ -311,11 +311,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
         </div>
       </div>
       {showCurrencyModal && (
-        <Modal isOpen={true} onClose={() => setShowCurrencyModal(false)} title="Enviar Aviso" zIndex={20000}>
+        <Modal isOpen={true} onClose={() => setShowCurrencyModal(false)} title="Enviar Aviso">
           <div className="space-y-4 pt-2" onClick={e => e.stopPropagation()}>
             {urgentSales.length > 1 && (
                 <div className="mb-2">
-                    <label className="text-[10px] font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
+                    <label className="text-tiny font-semibold text-text-disabled uppercase mb-2 block ml-1 tracking-wider">Servicios a incluir</label>
                     <div className="space-y-2 max-h-[160px] overflow-y-auto custom-scrollbar pr-1">
                         {urgentSales.map(s => (
                             <button

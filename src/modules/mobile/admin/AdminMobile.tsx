@@ -1,3 +1,4 @@
+import ConfirmDialog from '../../../components/ui/ConfirmDialog';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSubscription } from '../../../context/SubscriptionContext';
 import { UserSubscription, PLAN_LABELS, PlanType, PLAN_PRICES } from '../../../types/subscriptionTypes';
@@ -135,7 +136,7 @@ const AdminMobile: React.FC = () => {
           </div>
           <div>
             <h1 className="text-2xl font-black text-text-primary tracking-tight">Panel Admin</h1>
-            <p className="text-text-disabled text-[10px]">Gestión de suscripciones</p>
+            <p className="text-text-disabled text-tiny">Gestión de suscripciones</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -158,7 +159,7 @@ const AdminMobile: React.FC = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 min-w-[70px] py-2 px-2 rounded-lg text-[10px] font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
+              className={`flex-1 min-w-[70px] py-2 px-2 rounded-lg text-tiny font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
                 active ? 'bg-brand-primary text-white' : 'text-text-muted'
               }`}
             >
@@ -193,7 +194,7 @@ const AdminMobile: React.FC = () => {
             <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-sm font-semibold text-text-primary">Últimos usuarios</h3>
-                <button onClick={() => setActiveTab('users')} className="text-[11px] font-semibold text-brand-primary">Ver todos</button>
+                <button onClick={() => setActiveTab('users')} className="text-caption font-semibold text-brand-primary">Ver todos</button>
               </div>
               <div className="space-y-2">
                 {subs.slice(0, 4).map(sub => (
@@ -240,9 +241,9 @@ const AdminMobile: React.FC = () => {
             ) : feedback.map(f => (
               <div key={f.id} className={`p-4 rounded-xl border ${f.status === 'read' ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.06]' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[11px] font-semibold text-text-muted">{f.user_email}</span>
+                  <span className="text-caption font-semibold text-text-muted">{f.user_email}</span>
                   {f.status === 'pending' && (
-                    <button onClick={() => { markFeedbackAsRead(f.id); loadData(); }} className="text-[10px] font-semibold text-brand-primary">
+                    <button onClick={() => { markFeedbackAsRead(f.id); loadData(); }} className="text-tiny font-semibold text-brand-primary">
                       Leído
                     </button>
                   )}
@@ -292,7 +293,7 @@ const AdminMobile: React.FC = () => {
                 <Settings size={15} className="text-brand-primary" /> Configuración global
               </h3>
               <div>
-                <label className="text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
+                <label className="text-tiny font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
                 <div className="relative">
                   <Smartphone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
                   <input
@@ -301,14 +302,14 @@ const AdminMobile: React.FC = () => {
                     className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                   />
                 </div>
-                <p className="text-[10px] text-text-disabled mt-1.5">Visible para usuarios bloqueados o expirados.</p>
+                <p className="text-tiny text-text-disabled mt-1.5">Visible para usuarios bloqueados o expirados.</p>
               </div>
 
               <div className="p-3 bg-status-warning/5 border border-status-warning/20 rounded-md flex gap-3 items-start">
                 <ShieldAlert size={16} className="text-status-warning-soft shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-amber-300 font-semibold text-xs">Kill switch</h4>
-                  <p className="text-[10px] text-text-muted mt-0.5 leading-relaxed">Pausará el acceso a toda la plataforma. Próximamente.</p>
+                  <p className="text-tiny text-text-muted mt-0.5 leading-relaxed">Pausará el acceso a toda la plataforma. Próximamente.</p>
                 </div>
               </div>
 
@@ -342,7 +343,7 @@ const AdminMobile: React.FC = () => {
       <Modal isOpen={isConfigOpen} onClose={() => setIsConfigOpen(false)} title="Configuración">
         <div className="space-y-4 pt-2">
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
             <div className="relative">
               <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
               <input
@@ -365,20 +366,15 @@ const AdminMobile: React.FC = () => {
         </div>
       </Modal>
 
-      <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Eliminar usuario">
-        <div className="space-y-4 pt-2">
-          <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-3 items-start">
-            <Trash2 size={20} className="text-status-danger-soft shrink-0" />
-            <p className="text-sm text-text-secondary leading-relaxed">
-              ¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-text-secondary text-sm font-medium">Cancelar</button>
-            <button onClick={handleDelete} className="flex-1 py-3 bg-status-danger rounded-lg text-white text-sm font-semibold">Eliminar</button>
-          </div>
-        </div>
-      </Modal>
+      <ConfirmDialog
+        isOpen={!!deleteConfirm}
+        onClose={() => setDeleteConfirm(null)}
+        onConfirm={handleDelete}
+        title="Eliminar usuario"
+        message={<>¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>? Borrará todos sus datos.</>}
+        confirmLabel="Eliminar"
+        tone="danger"
+      />
     </div>
   );
 };
@@ -389,7 +385,7 @@ const MetricCard = ({ label, value, icon: Icon, accent, bg }: any) => (
       <Icon size={15} />
     </div>
     <p className="text-xl font-bold text-text-primary tracking-tight">{value}</p>
-    <p className="text-[10px] font-medium text-text-disabled uppercase tracking-wider mt-0.5">{label}</p>
+    <p className="text-tiny font-medium text-text-disabled uppercase tracking-wider mt-0.5">{label}</p>
   </div>
 );
 
@@ -418,13 +414,13 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
       className={`bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-all ${isBanned ? 'opacity-50' : ''}`}
     >
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-[11px] shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-caption shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
           {displayName.substring(0, 2).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-text-primary truncate">{displayName}</p>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded border uppercase ${
+            <span className={`text-micro font-semibold px-1.5 py-0.5 rounded border uppercase ${
               isLifetime ? 'bg-brand-accent/10 text-brand-accent border-brand-accent/20'
               : isPro ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'
               : 'bg-zinc-500/10 text-text-muted border-zinc-500/20'
@@ -432,17 +428,17 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
               {sub.plan}
             </span>
             {isBanned ? (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Bloq</span>
+              <span className="text-micro font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Bloq</span>
             ) : isExpired ? (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Exp</span>
+              <span className="text-micro font-semibold px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 uppercase">Exp</span>
             ) : null}
           </div>
         </div>
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <div className="text-right">
-          <p className="text-[9px] text-text-disabled uppercase tracking-wider">Vence</p>
-          <p className="text-[10px] font-mono text-text-muted">
+          <p className="text-micro text-text-disabled uppercase tracking-wider">Vence</p>
+          <p className="text-tiny font-mono text-text-muted">
             {isLifetime ? '∞' : formatDate(sub.expires_at)}
           </p>
         </div>

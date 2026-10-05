@@ -21,7 +21,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
     <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl overflow-hidden shadow-lg">
        <table className="w-full text-left border-collapse">
           <thead>
-             <tr className="border-b border-[rgb(var(--fg-rgb))]/5 text-[10px] font-semibold text-text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
+             <tr className="border-b border-[rgb(var(--fg-rgb))]/5 text-tiny font-semibold text-text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
                 <th className="p-5 pl-8">Cuenta / Correo</th>
                 <th className="p-5">Contraseña</th>
                 <th className="p-5">Vencimiento</th>
@@ -62,7 +62,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                          </span>
                       </td>
                       <td className="p-5">
-                         <span className={`px-3 py-1 rounded-lg text-[10px] font-semibold border uppercase tracking-wide ${statusStyle}`}>
+                         <span className={`px-3 py-1 rounded-lg text-tiny font-semibold border uppercase tracking-wide ${statusStyle}`}>
                             {getStatusLabel(status)}
                          </span>
                       </td>

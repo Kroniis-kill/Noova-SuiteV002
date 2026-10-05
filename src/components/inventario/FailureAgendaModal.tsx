@@ -20,7 +20,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
   const activeSales = sales.filter(s => s.accountId === account.id && s.expiryDate >= todayStr);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Reportar Falla" zIndex={70000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Reportar Falla">
       <div className="space-y-6 pt-2">
         <div className="bg-status-expiring/10 border border-status-expiring/20 p-5 rounded-xl flex gap-4 items-start shadow-sm">
           <div className="bg-status-expiring/20 p-3 rounded-full shrink-0 text-status-expiring">
@@ -38,7 +38,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
                     {activeSales.map(sale => {
                       const client = clients.find(c => c.id === sale.clientId);
                       return (
-                        <div key={sale.id} className="flex items-center gap-2 text-[10px] text-text-secondary font-medium">
+                        <div key={sale.id} className="flex items-center gap-2 text-tiny text-text-secondary font-medium">
                           <div className="w-1.5 h-1.5 rounded-full bg-status-expiring" />
                           <span className="truncate">{client?.name || 'Cliente'}</span>
                           <span className="text-text-faint ml-auto font-mono">{sale.expiryDate}</span>
@@ -46,7 +46,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
                       );
                     })}
                   </div>
-                  <p className="text-[10px] text-text-disabled italic">¿Deseas agregarlos automáticamente a la <strong>Agenda de Fallas</strong>?</p>
+                  <p className="text-tiny text-text-disabled italic">¿Deseas agregarlos automáticamente a la <strong>Agenda de Fallas</strong>?</p>
                 </div>
               ) : (
                 <p className="text-text-disabled italic">No se encontraron clientes activos vinculados a esta cuenta.</p>

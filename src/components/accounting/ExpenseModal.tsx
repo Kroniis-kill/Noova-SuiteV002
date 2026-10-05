@@ -3,6 +3,7 @@ import Modal from '../ui/Modal';
 import { Expense, SupplyPurchase, Movement } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { Tag, DollarSign, Calendar, FileText, ShoppingBag, Briefcase, Check, ChevronDown, CreditCard, RefreshCw, Wallet, Box, User, Settings2 } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { useUIStore } from '../../store/uiStore';
@@ -17,6 +18,7 @@ interface ExpenseModalProps {
 const ExpenseModal: React.FC<ExpenseModalProps> = ({ isOpen, onClose, initialTab = 'expense' }) => {
   const { addExpense, addSupply, settings, financialAccounts, executeTransaction, expenseCategories } = useData();
   const { user } = useAuth();
+  const { showToast } = useToast();
   const { setView } = useUIStore();
   const [tab, setTab] = useState<'expense' | 'supply'>('expense');
 
@@ -100,18 +102,19 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({ isOpen, onClose, initialTab
       }
       onClose();
     } catch (error: any) {
+      // El detalle técnico queda en consola; el usuario ve un mensaje claro.
       console.error("Error saving:", error);
-      alert("Error saving: " + error.message);
+      showToast('No pudimos guardar el movimiento. Revisa tu conexión e inténtalo de nuevo.', 'error');
     }
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-1.5 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-1.5 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-10 lg:h-11 transition-all focus-within:border-brand-primary/80 focus-within:ring-1 focus-within:ring-brand-primary/10",
     input: "w-full h-full bg-transparent text-xs text-text-primary placeholder:text-text-faint px-4 outline-none font-medium",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none group-focus-within:text-brand-primary",
     tabsContainer: "grid grid-cols-2 gap-2 mb-6 bg-surface-sunken p-1 rounded-md border border-[rgb(var(--fg-rgb))]/10 max-w-sm mx-auto shadow-inner",
-    tabButton: "flex items-center justify-center py-2.5 rounded-sm transition-all active:scale-[0.98] text-[10px] font-semibold uppercase tracking-widest",
+    tabButton: "flex items-center justify-center py-2.5 rounded-sm transition-all active:scale-[0.98] text-tiny font-semibold uppercase tracking-widest",
   };
 
   return (

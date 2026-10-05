@@ -46,7 +46,7 @@ const SyncStatusWidget: React.FC = () => {
           <h4 className="text-[14px] font-black tracking-tight uppercase">
             {!isOnline ? 'Modo Sin Conexión' : 'Sync en curso'}
           </h4>
-          <p className="text-[11px] opacity-60 font-bold tracking-tight">
+          <p className="text-caption opacity-60 font-bold tracking-tight">
             {pendingCount > 0 
               ? `${pendingCount} cambios por subir` 
               : 'Protección de datos activa'}
@@ -61,14 +61,14 @@ const SyncStatusWidget: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => processSyncQueue()}
             disabled={isSyncing}
-            className="flex items-center gap-2 px-4 py-2.5 bg-brand-primary hover:bg-brand-primary-hi text-white rounded-full text-[10px] font-semibold uppercase tracking-wider transition-all shadow-glow-sm disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2.5 bg-brand-primary hover:bg-brand-primary-hi text-white rounded-full text-tiny font-semibold uppercase tracking-wider transition-all shadow-glow-sm disabled:opacity-50"
           >
             <RefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
             {isSyncing ? 'Subiendo' : 'Subir Ahora'}
           </motion.button>
         )}
         {!isOnline && (
-          <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider bg-status-danger/20 border border-status-danger/20 px-3 py-1.5 rounded-full">
+          <div className="flex items-center gap-1.5 text-tiny font-semibold uppercase tracking-wider bg-status-danger/20 border border-status-danger/20 px-3 py-1.5 rounded-full">
             <AlertCircle size={12} strokeWidth={3} />
             Offline
           </div>

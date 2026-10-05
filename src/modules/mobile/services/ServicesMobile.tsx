@@ -1,3 +1,4 @@
+import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useEffect, useRef } from 'react';
 import { useData } from '../../../context/DataContext';
 import { Service, ServiceType } from '../../../types';
@@ -5,7 +6,8 @@ import {
   Trash2, Plus, MonitorPlay, LayoutTemplate, User, 
   Edit2, Save, ChevronDown, Tag, DollarSign, 
   Hash, Layers, Calculator, ShoppingBag, Briefcase,
-  TrendingUp, Search, X, Image as ImageIcon, Upload, Camera
+  TrendingUp, Search, X, Image as ImageIcon, Upload, Camera,
+  SearchX
 } from 'lucide-react';
 import Modal from '../../../components/ui/Modal';
 import { useToast } from '../../../context/ToastContext';
@@ -140,7 +142,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
   const filteredServices = services.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
-  const labelClass = "text-[10px] font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
+  const labelClass = "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
   const isHighlighted = useHighlightAction('services');
 
   const renderFields = () => (
@@ -166,7 +168,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                 ) : (
                   <div className="flex flex-col items-center gap-1 text-text-disabled">
                     <Camera size={24} />
-                    <span className="text-[8px] font-bold uppercase">Subir</span>
+                    <span className="text-nano font-bold uppercase">Subir</span>
                   </div>
                 )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
@@ -175,7 +177,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
               </div>
               <div className="flex-1">
                  <h4 className="text-text-primary font-bold text-sm leading-tight">Logo o Icono</h4>
-                 <p className="text-text-disabled text-[10px] mt-1">Sube una imagen cuadrada de alta calidad para identificar mejor el servicio.</p>
+                 <p className="text-text-disabled text-tiny mt-1">Sube una imagen cuadrada de alta calidad para identificar mejor el servicio.</p>
                  <input 
                     type="file" 
                     ref={fileInputRef} 
@@ -187,7 +189,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                    <button 
                      type="button"
                      onClick={() => setImageUrl('')}
-                     className="mt-2 text-status-danger-soft text-[10px] font-semibold flex items-center gap-1"
+                     className="mt-2 text-status-danger-soft text-tiny font-semibold flex items-center gap-1"
                    >
                      <X size={12} /> Eliminar imagen
                    </button>
@@ -219,7 +221,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
         </div>
       </div>
       <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
-        <h4 className="text-[11px] font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
+        <h4 className="text-caption font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
         <div>
           <label className={labelClass}>Inversión Total</label>
           <div className="relative flex items-center">
@@ -238,7 +240,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
           </div>
         </div>
         <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between">
-            <span className="text-[10px] font-semibold text-brand-primary uppercase">Costo Real p/ Pantalla</span>
+            <span className="text-tiny font-semibold text-brand-primary uppercase">Costo Real p/ Pantalla</span>
             <span className="text-lg font-bold text-text-primary">${calculatedCost.toFixed(2)}</span>
         </div>
       </div>
@@ -250,7 +252,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
       <div className="relative z-20 flex items-center justify-between mb-4 px-2">
          <div>
             <h1 className="text-2xl font-black text-text-primary tracking-tight">Catálogo</h1>
-            <p className="text-text-muted text-[11px] font-medium mt-0.5">Gestión de plataformas y precios</p>
+            <p className="text-text-muted text-caption font-medium mt-0.5">Gestión de plataformas y precios</p>
          </div>
          <button 
            onClick={() => { resetForm(); setIsAddModalOpen(true); }} 
@@ -278,6 +280,15 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {filteredServices.length === 0 && (
+          <div className="lg:col-span-2">
+            {services.length === 0 ? (
+              <EmptyState compact icon={Layers} title="Aún no tienes servicios" description="Crea tu primer servicio (por ejemplo, Netflix) para empezar a vender." actionLabel="Nuevo servicio" onAction={() => { resetForm(); setIsAddModalOpen(true); }} />
+            ) : (
+              <EmptyState compact icon={SearchX} title="Sin resultados" description={`No encontramos coincidencias para “${searchTerm}”.`} actionLabel="Limpiar búsqueda" onAction={() => setSearchTerm('')} actionIcon={<X size={16} aria-hidden="true" />} />
+            )}
+          </div>
+        )}
         <AnimatePresence mode='popLayout'>
             {filteredServices.map((svc, idx) => (
               <motion.div key={svc.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: idx * 0.05 }} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 shadow-lg relative overflow-hidden">
@@ -288,7 +299,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                       </div>
                       <div>
                         <h4 className="text-text-primary font-bold text-base leading-tight">{svc.name}</h4>
-                        <p className="text-[10px] text-text-disabled uppercase font-semibold mt-0.5">{svc.screens} Cupos • {svc.type.replace('_', ' ')}</p>
+                        <p className="text-tiny text-text-disabled uppercase font-semibold mt-0.5">{svc.screens} Cupos • {svc.type.replace('_', ' ')}</p>
                       </div>
                    </div>
                    <div className="flex gap-2">
@@ -297,9 +308,9 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                    </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/5">
-                   <div className="text-center"><p className="text-[9px] font-bold text-text-disabled uppercase">Costo</p><p className="text-text-secondary font-bold text-sm mt-0.5">${svc.cost || 0}</p></div>
-                   <div className="text-center"><p className="text-[9px] font-bold text-text-disabled uppercase">Venta</p><p className="text-status-success-soft font-bold text-sm mt-0.5">${svc.publicPrice || 0}</p></div>
-                   <div className="text-center"><p className="text-[9px] font-bold text-text-disabled uppercase">Utilidad</p><p className="text-brand-primary font-bold text-sm mt-0.5">${((svc.publicPrice || 0) - (svc.cost || 0)).toFixed(1)}</p></div>
+                   <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Costo</p><p className="text-text-secondary font-bold text-sm mt-0.5">${svc.cost || 0}</p></div>
+                   <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Venta</p><p className="text-status-success-soft font-bold text-sm mt-0.5">${svc.publicPrice || 0}</p></div>
+                   <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Utilidad</p><p className="text-brand-primary font-bold text-sm mt-0.5">${((svc.publicPrice || 0) - (svc.cost || 0)).toFixed(1)}</p></div>
                 </div>
               </motion.div>
             ))}

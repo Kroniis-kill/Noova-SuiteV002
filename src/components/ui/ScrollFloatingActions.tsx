@@ -86,7 +86,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-[100] p-4 flex items-end justify-between pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-24 pointer-events-none"
+          className="fixed bottom-0 left-0 right-0 z-header p-4 flex items-end justify-between pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-24 pointer-events-none"
         >
            {/* Left Group: Scroll Top Only */}
            <div className="flex gap-3 pointer-events-auto">

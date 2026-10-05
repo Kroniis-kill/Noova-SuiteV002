@@ -41,7 +41,7 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
                  <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.name}</p>
-                    <p className="text-[10px] text-text-disabled">Saldo: {acc.balance} {acc.currency}</p>
+                    <p className="text-tiny text-text-disabled">Saldo: {acc.balance} {acc.currency}</p>
                  </div>
                  <ChevronRight size={16} className="text-text-faint group-hover:text-brand-primary transition-colors" />
               </button>
@@ -123,10 +123,10 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-sm h-[44px] transition-all focus-within:ring-1 focus-within:ring-status-info/60",
-    input: "w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
-    select: "w-full bg-transparent text-[13px] text-text-primary px-3 pl-9 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
+    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    select: "w-full bg-transparent text-body-sm text-text-primary px-3 pl-9 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
     iconLeft: "pl-9",
     iconElement: "absolute left-3 text-text-disabled pointer-events-none",
     iconRight: "absolute right-3 text-text-disabled pointer-events-none",
@@ -139,11 +139,11 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
             
             <div className="bg-surface-zinc p-3 rounded-md border border-[rgb(var(--fg-rgb))]/5 mb-2">
                <div className="flex justify-between items-center mb-1">
-                  <span className="text-text-muted text-[11px] font-medium">Concepto:</span>
+                  <span className="text-text-muted text-caption font-medium">Concepto:</span>
                   <span className="text-text-primary text-sm font-bold">{payable.name}</span>
                </div>
                <div className="flex justify-between items-center">
-                  <span className="text-text-muted text-[11px] font-medium">Monto Original:</span>
+                  <span className="text-text-muted text-caption font-medium">Monto Original:</span>
                   <span className="text-text-primary text-sm font-mono">{payable.amount} {payable.currency}</span>
                </div>
             </div>
@@ -184,7 +184,7 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
             {conversionInfo && (
                <div className="flex gap-2 items-start bg-status-warning/10 p-2.5 rounded-sm border border-status-warning/20">
                   <AlertCircle size={14} className="text-status-warning shrink-0 mt-0.5" />
-                  <p className="text-[10px] text-amber-200/80 leading-snug">{conversionInfo}</p>
+                  <p className="text-tiny text-amber-200/80 leading-snug">{conversionInfo}</p>
                </div>
             )}
 
@@ -204,7 +204,7 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
             </div>
 
             <div className="pt-2">
-               <button type="submit" disabled={!selectedAccountId} className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[13px] disabled:opacity-50 disabled:cursor-not-allowed">
+               <button type="submit" disabled={!selectedAccountId} className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-glow-primary-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-body-sm disabled:opacity-50 disabled:cursor-not-allowed">
                   <Check size={16} /> Confirmar Pago
                </button>
             </div>

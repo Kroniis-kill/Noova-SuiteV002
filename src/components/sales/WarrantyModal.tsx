@@ -26,7 +26,7 @@ const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!rin
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
 const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 const DAY_CHIPS = [0, 3, 7, 15];
 
@@ -74,7 +74,7 @@ const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label 
         onChange={(e) => onChange(parseInt(e.target.value) || 0)}
         className={`${CLEAN_INPUT} h-6 text-center !text-lg font-bold leading-none text-text-primary`}
       />
-      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
+      <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
     </div>
     <button type="button" aria-label="Más días" onClick={() => onChange(value + 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
   </div>
@@ -94,7 +94,7 @@ const PickerRow: React.FC<PickerRowProps> = ({ icon, iconClass, title, subtitle,
     <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
     <div className="flex-1 min-w-0">
       <p className="text-sm font-bold text-text-primary truncate">{title}</p>
-      <p className="text-[11px] text-text-disabled mt-0.5">{subtitle}</p>
+      <p className="text-caption text-text-disabled mt-0.5">{subtitle}</p>
     </div>
     {selected ? <Check size={16} className="text-brand-primary shrink-0" strokeWidth={3} /> : <ChevronRight size={16} className="text-text-faint shrink-0" />}
   </div>
@@ -379,7 +379,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
       <Modal isOpen={isOpen} onClose={onClose} title="Gestión de garantía" zIndex={zIndex}>
          <div className="flex flex-col animate-fade-in pt-1">
 
-            <p className="text-[11px] text-text-disabled font-medium mb-4 truncate">{client?.name}</p>
+            <p className="text-caption text-text-disabled font-medium mb-4 truncate">{client?.name}</p>
 
             <div className="flex flex-col gap-5">
 
@@ -388,9 +388,9 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                     <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20"><ShieldCheck size={18} /></div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
-                        <p className="text-[11px] text-text-muted font-medium mt-0.5 truncate">Vence el {formatLongDate(sale.expiryDate)}{currentAccount ? ` · ${currentAccount.email}` : ''}</p>
+                        <p className="text-caption text-text-muted font-medium mt-0.5 truncate">Vence el {formatLongDate(sale.expiryDate)}{currentAccount ? ` · ${currentAccount.email}` : ''}</p>
                     </div>
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${statusBadge.cls}`}>{statusBadge.label}</span>
+                    <span className={`text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 ${statusBadge.cls}`}>{statusBadge.label}</span>
                 </div>
 
                 {/* 2. MODO */}
@@ -398,14 +398,14 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                     <button
                         type="button"
                         onClick={() => setWarrantyMode('replace')}
-                        className={`h-11 rounded-lg text-[13px] font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'replace' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                        className={`h-11 rounded-lg text-body-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'replace' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
                     >
                         <RefreshCw size={16} /> Reponer / cambiar
                     </button>
                     <button
                         type="button"
                         onClick={() => setWarrantyMode('credit')}
-                        className={`h-11 rounded-lg text-[13px] font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'credit' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
+                        className={`h-11 rounded-lg text-body-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${warrantyMode === 'credit' ? 'bg-brand-primary/20 text-text-primary' : 'text-text-disabled hover:text-text-primary'}`}
                     >
                         <ArrowRightLeft size={16} /> Abonar a otro
                     </button>
@@ -422,17 +422,17 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                     <button type="button" onClick={() => setModalSearch('service')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
                                         <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><Monitor size={18} /></div>
                                         <div className="flex-1 min-w-0">
-                                            <span className="block text-[10px] font-semibold text-text-disabled uppercase">Plataforma destino</span>
+                                            <span className="block text-tiny font-semibold text-text-disabled uppercase">Plataforma destino</span>
                                             <span className="block text-sm font-bold text-text-primary truncate">{destService?.name || sale.serviceName}</span>
                                         </div>
-                                        {serviceChanged && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning-soft border border-status-warning/20 shrink-0">Cambio</span>}
+                                        {serviceChanged && <span className="text-tiny font-bold px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning-soft border border-status-warning/20 shrink-0">Cambio</span>}
                                         <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
                                     </button>
                                     <button type="button" onClick={() => setModalSearch('account')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
                                         <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-status-success shrink-0"><Mail size={18} /></div>
                                         <div className="flex-1 min-w-0">
-                                            <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cuenta de reemplazo</span>
-                                            <span className={`block text-[13px] font-bold truncate ${selectedAccount ? 'text-text-primary' : 'text-text-faint'}`}>{selectedAccount?.email || 'Seleccionar cuenta...'}</span>
+                                            <span className="block text-tiny font-semibold text-text-disabled uppercase">Cuenta de reemplazo</span>
+                                            <span className={`block text-body-sm font-bold truncate ${selectedAccount ? 'text-text-primary' : 'text-text-faint'}`}>{selectedAccount?.email || 'Seleccionar cuenta...'}</span>
                                         </div>
                                         <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
                                     </button>
@@ -448,7 +448,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                             key={n}
                                             type="button"
                                             onClick={() => setDaysToAdd(n)}
-                                            className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${daysToAdd === n ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${daysToAdd === n ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
                                         >
                                             {n === 0 ? 'Sin días' : `+${n} días`}
                                         </button>
@@ -457,14 +457,14 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                 <div className="grid grid-cols-2 gap-3">
                                     <StepperControl value={daysToAdd} onChange={setDaysToAdd} label="DÍAS MANUALES" />
                                     <div className="bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[52px] px-4 flex flex-col justify-center min-w-0">
-                                        <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">Nuevo vencimiento</span>
+                                        <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">Nuevo vencimiento</span>
                                         <span className={`text-[15px] font-bold leading-tight mt-1 ${totalAdj > 0 ? 'text-status-success-soft' : 'text-text-primary'}`}>{formatLongDate(newExpiryDate)}</span>
                                     </div>
                                 </div>
                                 {prorataAdjustment !== 0 && (
                                     <div className="p-3 bg-status-info/10 border border-status-info/20 rounded-xl flex items-center justify-between gap-3">
                                         <span className="text-xs text-status-info-soft font-medium">Equivalencia por cambio de precio</span>
-                                        <span className={`text-[13px] font-bold shrink-0 ${prorataAdjustment > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment} d</span>
+                                        <span className={`text-body-sm font-bold shrink-0 ${prorataAdjustment > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{prorataAdjustment > 0 ? `+${prorataAdjustment}` : prorataAdjustment} d</span>
                                     </div>
                                 )}
                             </div>
@@ -506,7 +506,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                             key={value}
                                             type="button"
                                             onClick={() => setReason(value)}
-                                            className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${reason === value ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${reason === value ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
                                         >
                                             {label}
                                         </button>
@@ -529,8 +529,8 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                 <button type="button" onClick={() => setModalSearch('target_sale')} className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 text-left active:scale-[0.99] transition-all group">
                                     <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><ShoppingCart size={18} /></div>
                                     <div className="flex-1 min-w-0">
-                                        <span className="block text-[10px] font-semibold text-text-disabled uppercase">Servicio activo</span>
-                                        <span className={`block text-[13px] font-bold truncate ${targetSale ? 'text-text-primary' : 'text-text-faint'}`}>
+                                        <span className="block text-tiny font-semibold text-text-disabled uppercase">Servicio activo</span>
+                                        <span className={`block text-body-sm font-bold truncate ${targetSale ? 'text-text-primary' : 'text-text-faint'}`}>
                                             {targetSale ? `${targetSale.serviceName} · vence ${formatLongDate(targetSale.expiryDate)}` : 'Elegir servicio...'}
                                         </span>
                                     </div>
@@ -544,18 +544,18 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                     <div className="flex items-center justify-center gap-5">
                                         <div className="flex flex-col items-center min-w-0">
                                             <div className="w-11 h-11 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft mb-1.5 border border-status-danger/20"><Layers size={20} /></div>
-                                            <span className="text-[10px] font-semibold text-text-disabled uppercase">Origen</span>
+                                            <span className="text-tiny font-semibold text-text-disabled uppercase">Origen</span>
                                             <span className="text-xs font-bold text-text-primary truncate max-w-[110px]">{sale.serviceName}</span>
                                         </div>
                                         <ArrowRight size={20} className="text-text-faint shrink-0" />
                                         <div className="flex flex-col items-center min-w-0">
                                             <div className="w-11 h-11 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft mb-1.5 border border-status-success/20"><RefreshCw size={20} /></div>
-                                            <span className="text-[10px] font-semibold text-text-disabled uppercase">Destino</span>
+                                            <span className="text-tiny font-semibold text-text-disabled uppercase">Destino</span>
                                             <span className="text-xs font-bold text-text-primary truncate max-w-[110px]">{targetSale.serviceName}</span>
                                         </div>
                                     </div>
                                     <div className="mt-4 pt-4 border-t border-[rgb(var(--fg-rgb))]/5 text-center">
-                                        <p className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Equivalencia a abonar</p>
+                                        <p className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Equivalencia a abonar</p>
                                         <p className="text-4xl font-black text-status-success-soft leading-tight mt-1">+{prorataAdjustment} días</p>
                                         <p className="text-xs text-text-muted mt-2">Nueva fecha del destino: <span className="text-text-primary font-bold">{formatLongDate(targetNewDate)}</span></p>
                                     </div>

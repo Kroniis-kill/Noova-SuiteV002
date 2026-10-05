@@ -49,7 +49,7 @@ const SubscriptionAlert: React.FC = () => {
               
               <button 
                 onClick={() => setView('my_plan')}
-                className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-text-primary bg-[rgb(var(--fg-rgb))]/10 px-3 py-1.5 rounded-full hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors w-fit"
+                className="mt-3 flex items-center gap-1 text-tiny font-semibold text-text-primary bg-[rgb(var(--fg-rgb))]/10 px-3 py-1.5 rounded-full hover:bg-[rgb(var(--fg-rgb))]/20 transition-colors w-fit"
               >
                  Ver Membresía <ChevronRight size={10} />
               </button>

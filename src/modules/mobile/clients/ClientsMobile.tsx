@@ -1,3 +1,4 @@
+import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useContactos } from '../../../hooks/useContactos';
 import { useData } from '../../../context/DataContext';
@@ -9,7 +10,7 @@ import { useOfflineSync } from '../../../hooks/useOfflineSync';
 import { useHighlightAction } from '../../../hooks/useHighlightAction';
 import { Client } from '../../../types';
 import { Virtuoso } from 'react-virtuoso';
-import { Search, Plus, Upload, RefreshCw, Layers, Ban, Crown, Star, Sparkles, AlertTriangle } from 'lucide-react';
+import { Search, Plus, Upload, RefreshCw, Layers, Ban, Crown, Star, Sparkles, AlertTriangle, Users, SearchX, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 import ContactoModal from '../../../components/contactos/ContactoModal';
@@ -199,7 +200,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
              <div className="flex justify-between items-center mb-4">
                  <div className="flex flex-col">
                     <h1 className="text-2xl font-black text-text-primary tracking-tight leading-none mb-1">Clientes</h1>
-                    <p className="text-text-muted text-[9px] font-bold uppercase tracking-[0.15em]">{clients.length} en cartera</p>
+                    <p className="text-text-muted text-micro font-bold uppercase tracking-[0.15em]">{clients.length} en cartera</p>
                  </div>
                  <div className="flex gap-2">
                      <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
@@ -220,8 +221,8 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                   className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'active' ? 'bg-status-success/10' : ''}`}
                 >
                    <span className="w-[7px] h-[7px] rounded-full bg-status-success" />
-                   <span className="text-[13px] font-bold text-status-success-soft">{stats.active}</span>
-                   <span className="text-[11px] font-semibold text-text-muted">Activos</span>
+                   <span className="text-body-sm font-bold text-status-success-soft">{stats.active}</span>
+                   <span className="text-caption font-semibold text-text-muted">Activos</span>
                 </button>
                 <div className="w-px h-[22px] bg-border-subtle" />
                 <button
@@ -229,8 +230,8 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                   className={`flex-1 flex items-center justify-center gap-2 h-[42px] rounded-sm transition-all ${activeTab === 'inactive' ? 'bg-[rgb(var(--fg-rgb))]/[0.05]' : ''}`}
                 >
                    <span className="w-[7px] h-[7px] rounded-full bg-text-faint" />
-                   <span className="text-[13px] font-bold text-text-secondary">{stats.inactive}</span>
-                   <span className="text-[11px] font-semibold text-text-muted">Inactivos</span>
+                   <span className="text-body-sm font-bold text-text-secondary">{stats.inactive}</span>
+                   <span className="text-caption font-semibold text-text-muted">Inactivos</span>
                 </button>
              </div>
 
@@ -240,11 +241,20 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   placeholder="Buscar por nombre o celular..." 
-                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-[12px] text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium" 
+                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-label text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium" 
                 />
              </div>
        </div>
        <div className="grid grid-cols-3 gap-2.5 relative z-10 pb-24 px-4">
+          {filteredList.length === 0 && (
+            <div className="col-span-3">
+              {clients.length === 0 ? (
+                <EmptyState compact icon={Users} title="Aún no tienes clientes" description="Registra tu primer cliente o importa tu lista desde Excel." actionLabel="Nuevo cliente" onAction={() => { setEditingClient(null); setIsModalOpen(true); }} />
+              ) : (
+                <EmptyState compact icon={SearchX} title="Sin resultados" description={`No encontramos coincidencias para “${searchQuery}”.`} actionLabel="Limpiar búsqueda" onAction={() => setSearchQuery('')} actionIcon={<X size={16} aria-hidden="true" />} />
+              )}
+            </div>
+          )}
           <AnimatePresence mode='popLayout'>
              {filteredList.map((client, index) => {
                 const isActive = client.activeServices > 0;
@@ -283,11 +293,11 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                          )}
                       </div>
 
-                      <h3 className="text-[12px] font-bold text-text-primary truncate w-full mt-2.5 leading-tight">
+                      <h3 className="text-label font-bold text-text-primary truncate w-full mt-2.5 leading-tight">
                          {client.name}
                       </h3>
 
-                      <div className="flex items-center gap-1 mt-0.5 text-[10px] font-semibold text-text-disabled">
+                      <div className="flex items-center gap-1 mt-0.5 text-tiny font-semibold text-text-disabled">
                          {client.isBlocked ? (
                            <><Ban size={11} className="text-status-danger-soft" aria-hidden="true" /><span className="text-status-danger-soft">Bloqueado</span></>
                          ) : (

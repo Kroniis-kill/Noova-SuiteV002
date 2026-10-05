@@ -1,4 +1,5 @@
 
+import ConfirmDialog from '../../../components/ui/ConfirmDialog';
 import React, { useRef, useState, useCallback } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { useSalesLogic } from '../../../hooks/useSalesLogic';
@@ -134,7 +135,7 @@ const SalesDesktop: React.FC = () => {
                             <AlertCircle size={28} strokeWidth={2.5} />
                         </div>
                         <div>
-                            <p className="text-text-disabled text-[10px] font-semibold uppercase tracking-[0.2em]">Fallas de Clientes</p>
+                            <p className="text-text-disabled text-tiny font-semibold uppercase tracking-[0.2em]">Fallas de Clientes</p>
                             <h4 className="text-3xl font-black text-text-primary mt-1 tabular-nums">{serviceFailures.length}</h4>
                         </div>
                     </div>
@@ -143,7 +144,7 @@ const SalesDesktop: React.FC = () => {
                             <AlertTriangle size={28} strokeWidth={2.5} />
                         </div>
                         <div>
-                            <p className="text-text-disabled text-[10px] font-semibold uppercase tracking-[0.2em]">Cuentas en Falla</p>
+                            <p className="text-text-disabled text-tiny font-semibold uppercase tracking-[0.2em]">Cuentas en Falla</p>
                             <h4 className="text-3xl font-black text-text-primary mt-1 tabular-nums">{accounts.filter(a => a.status === 'fallando').length}</h4>
                         </div>
                     </div>
@@ -152,7 +153,7 @@ const SalesDesktop: React.FC = () => {
                             <CheckCircle2 size={28} strokeWidth={2.5} />
                         </div>
                         <div>
-                            <p className="text-text-disabled text-[10px] font-semibold uppercase tracking-[0.2em]">Tasa de Resolución</p>
+                            <p className="text-text-disabled text-tiny font-semibold uppercase tracking-[0.2em]">Tasa de Resolución</p>
                             <h4 className="text-3xl font-black text-text-primary mt-1 tabular-nums">98.4%</h4>
                         </div>
                     </div>
@@ -178,7 +179,7 @@ const SalesDesktop: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <span className="text-text-disabled text-[10px] font-semibold uppercase tracking-widest">Ordenar por:</span>
+                        <span className="text-text-disabled text-tiny font-semibold uppercase tracking-widest">Ordenar por:</span>
                         <select className="bg-transparent border-none text-text-primary text-xs font-semibold outline-none cursor-pointer hover:text-brand-primary transition-colors">
                             <option value="recent">Más Recientes</option>
                             <option value="oldest">Más Antiguos</option>
@@ -212,7 +213,7 @@ const SalesDesktop: React.FC = () => {
                                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-status-danger" />
                                     
                                     <div className="flex justify-between items-center w-full z-10 pl-2">
-                                        <div className="flex items-center gap-1 text-[9px] text-text-disabled font-medium bg-[rgb(var(--fg-rgb))]/[0.03] px-1.5 py-0.5 rounded-md -mt-[2px]">
+                                        <div className="flex items-center gap-1 text-micro text-text-disabled font-medium bg-[rgb(var(--fg-rgb))]/[0.03] px-1.5 py-0.5 rounded-md -mt-[2px]">
                                             <Layers size={10} strokeWidth={3} />
                                             <span>{sale?.screensCount || 1}</span>
                                         </div>
@@ -236,7 +237,7 @@ const SalesDesktop: React.FC = () => {
                                         </div>
                                         
                                         <div className="text-center w-full space-y-1">
-                                            <p className="text-[10px] text-text-disabled font-medium truncate px-2">
+                                            <p className="text-tiny text-text-disabled font-medium truncate px-2">
                                                 {client?.name || 'Cliente'}
                                             </p>
                                         </div>
@@ -246,10 +247,10 @@ const SalesDesktop: React.FC = () => {
                                     <div className="mt-2 w-full shrink-0 pl-2">
                                         <button 
                                           onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                          className="w-full h-[31px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center gap-2 hover:text-status-danger hover:bg-status-danger/10 hover:border-status-danger/20 transition-all active:scale-95 text-[11px]"
+                                          className="w-full h-[31px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center gap-2 hover:text-status-danger hover:bg-status-danger/10 hover:border-status-danger/20 transition-all active:scale-95 text-caption"
                                         >
                                            <Trash2 size={11} />
-                                           <span className="text-[8px] font-black uppercase tracking-widest">Eliminar Reporte</span>
+                                           <span className="text-nano font-black uppercase tracking-widest">Eliminar Reporte</span>
                                         </button>
                                     </div>
                                 </div>
@@ -284,7 +285,7 @@ const SalesDesktop: React.FC = () => {
                                                     </div>
                                                     <div className="min-w-0">
                                                         <div className="flex items-center gap-2 mb-0.5">
-                                                            <h4 className="text-[13px] font-bold truncate text-text-primary tracking-tight font-sans">
+                                                            <h4 className="text-body-sm font-bold truncate text-text-primary tracking-tight font-sans">
                                                                 {account.email}
                                                             </h4>
                                                             <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />
@@ -292,7 +293,7 @@ const SalesDesktop: React.FC = () => {
                                                         <div className="flex items-center gap-2">
                                                             <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08]">
                                                                 <Lock size={10} className="text-text-faint" />
-                                                                <span className="text-[11px] font-mono text-text-muted truncate">{account.password}</span>
+                                                                <span className="text-caption font-mono text-text-muted truncate">{account.password}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -300,7 +301,7 @@ const SalesDesktop: React.FC = () => {
 
                                                 <div className="flex items-center gap-6 shrink-0">
                                                     <div className="flex flex-col items-end gap-1 min-w-[100px] h-[52px] justify-center bg-surface-sunken/50 px-4 rounded-md border border-[rgb(var(--fg-rgb))]/[0.03]">
-                                                        <div className="flex items-center gap-1.5 text-[11px] text-text-muted">
+                                                        <div className="flex items-center gap-1.5 text-caption text-text-muted">
                                                             <Users size={12} />
                                                             <span className="font-medium">{account.usedScreens} / {account.maxScreens}</span>
                                                         </div>
@@ -319,14 +320,14 @@ const SalesDesktop: React.FC = () => {
                                                         className={`h-[35px] px-4 rounded-md border flex items-center justify-center gap-2 transition-all active:scale-90 ${isExpanded ? 'bg-white text-black font-bold' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/[0.05] text-text-muted hover:text-text-primary'}`}
                                                     >
                                                         <ChevronDown size={14} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                                                        <span className="text-[10px] font-semibold uppercase tracking-widest">{isExpanded ? 'Cerrar' : 'Detalles'}</span>
+                                                        <span className="text-tiny font-semibold uppercase tracking-widest">{isExpanded ? 'Cerrar' : 'Detalles'}</span>
                                                     </button>
                                                     <button 
                                                         onClick={(e) => { e.stopPropagation(); onHandleSolveAccountFailure(account); }} 
                                                         className="h-[35px] px-4 rounded-md bg-status-success text-white shadow-glow-sm flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-90"
                                                     >
                                                         <CheckCircle2 size={14} strokeWidth={3} />
-                                                        <span className="text-[10px] font-semibold uppercase tracking-widest">Resolver</span>
+                                                        <span className="text-tiny font-semibold uppercase tracking-widest">Resolver</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -344,9 +345,9 @@ const SalesDesktop: React.FC = () => {
                                                             <div className="bg-status-expiring/5 rounded-md p-4 border border-status-expiring/10">
                                                                 <div className="flex items-center gap-2 mb-2">
                                                                     <AlertCircle size={14} className="text-status-expiring" />
-                                                                    <span className="text-[10px] font-bold text-status-expiring uppercase tracking-widest">Reporte de Falla Crítico</span>
+                                                                    <span className="text-tiny font-bold text-status-expiring uppercase tracking-widest">Reporte de Falla Crítico</span>
                                                                 </div>
-                                                                <p className="text-[12px] text-text-muted italic leading-relaxed">
+                                                                <p className="text-label text-text-muted italic leading-relaxed">
                                                                     Esta cuenta maestra ha sido reportada con fallas técnicas. Es necesario verificar el acceso y el estado de la suscripción. Una vez solucionado, presione el botón "Resolver" para limpiar el estado de la cuenta.
                                                                 </p>
                                                             </div>
@@ -407,7 +408,15 @@ const SalesDesktop: React.FC = () => {
       <ImportGuideModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} onConfirm={() => fileInputRef.current?.click()} title="Importar Ventas" type="sales" />
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />
       <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filtrar Ventas"><div className="space-y-3 pt-2">{filterOptions.map(opt => (<button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/5'}`}><span className={`text-sm font-bold ${statusFilter === opt.id ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>{opt.label}</span>{statusFilter === opt.id && <Check size={18} className="text-brand-primary" strokeWidth={3} />}</button>))}</div></Modal>
-      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Eliminar Venta" zIndex={60000}><div className="pt-2 pb-4 space-y-6"><div className="bg-status-danger/10 border border-status-danger/20 p-6 rounded-2xl flex gap-5 items-start"><div className="bg-status-danger/20 p-4 rounded-lg shrink-0 text-status-danger"><Trash2 size={28} /></div><div><h4 className="text-text-primary font-bold text-lg">¿Confirmar eliminación?</h4><p className="text-text-muted text-sm">Se eliminarán todos los servicios vinculados a este cliente. Los cupos en las cuentas maestras se liberarán automáticamente.</p></div></div><div className="flex justify-end gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="px-8 py-3 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted rounded-lg font-bold text-sm">Cancelar</button><button onClick={confirmDelete} className="px-8 py-3 bg-status-danger text-white rounded-lg font-bold text-sm shadow-glow active:scale-95">Confirmar Eliminación</button></div></div></Modal>
+      <ConfirmDialog
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={confirmDelete}
+        title="Eliminar Venta"
+        message={'Se eliminarán todos los servicios vinculados a este cliente. Los cupos en las cuentas maestras se liberarán automáticamente.'}
+        confirmLabel="Eliminar"
+        tone="danger"
+      />
       <SaleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} initialData={editingSale} zIndex={60000} />
       <EditSaleModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} sale={editingSale} zIndex={60000} onClientChanged={(info) => { if (!info.fromClientHasOtherSales) setIsDetailOpen(false); }} />
     </div>

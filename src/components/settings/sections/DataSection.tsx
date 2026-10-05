@@ -3,11 +3,13 @@ import { Save, Database, Upload, Download, RefreshCw, ChevronRight, Clock } from
 import { useAuth } from '../../../context/AuthContext';
 import { useData } from '../../../context/DataContext';
 import { useToast } from '../../../context/ToastContext';
+import { useConfirm } from '../../../context/ConfirmContext';
 import { backupService } from '../../../services/backupService';
 import { styles, ToggleSwitch, SectionHeading } from './_shared';
 
 export const DataSection = () => {
     const { showToast } = useToast();
+    const confirm = useConfirm();
     const { user } = useAuth();
     const { settings, updateSettings } = useData();
     const [loading, setLoading] = useState(false);
@@ -57,7 +59,13 @@ export const DataSection = () => {
         const file = e.target.files?.[0];
         if (!file || !user?.id) return;
 
-        if (!confirm('Esta acción sobreescribirá tus datos actuales con la información de la copia. ¿Deseas continuar?')) {
+        const accepted = await confirm({
+            title: 'Restaurar copia de seguridad',
+            message: 'Esta acción sobreescribirá tus datos actuales con la información de la copia. ¿Deseas continuar?',
+            confirmLabel: 'Restaurar',
+            tone: 'danger',
+        });
+        if (!accepted) {
             if (fileInputRef.current) fileInputRef.current.value = '';
             return;
         }
@@ -97,7 +105,7 @@ export const DataSection = () => {
     return (
         <div className="space-y-6 animate-fade-in pb-10">
              {loading && (
-                <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={(e) => e.stopPropagation()}>
+                <div className="fixed inset-0 z-blocking flex flex-col items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={(e) => e.stopPropagation()}>
                     <div className="relative w-24 h-24 mb-6">
                         <div className="absolute inset-0 rounded-full border-4 border-hairline border-t-status-info animate-spin" />
                         <div className="absolute inset-4 rounded-full border-4 border-hairline border-b-status-success animate-spin-slow" />
@@ -127,7 +135,7 @@ export const DataSection = () => {
                         </div>
                         <div className="text-center px-2">
                            <span className="text-text-primary font-semibold text-xs block">Exportar Backup</span>
-                           <span className="text-[9px] text-text-disabled uppercase tracking-tighter">Backup Completo (JSON)</span>
+                           <span className="text-micro text-text-disabled uppercase tracking-tighter">Backup Completo (JSON)</span>
                         </div>
                     </button>
 
@@ -137,7 +145,7 @@ export const DataSection = () => {
                         </div>
                         <div className="text-center px-2">
                            <span className="text-text-primary font-semibold text-xs block">Importar Backup</span>
-                           <span className="text-[9px] text-text-disabled uppercase tracking-tighter">Restaurar Información</span>
+                           <span className="text-micro text-text-disabled uppercase tracking-tighter">Restaurar Información</span>
                         </div>
                     </button>
                 </div>
@@ -146,7 +154,7 @@ export const DataSection = () => {
                     <div className="flex items-center justify-between mb-4 px-1">
                         <div>
                             <span className="text-text-primary font-semibold text-xs block">Recordatorio de Respaldo</span>
-                            <span className="text-[9px] text-text-disabled">Notificar descarga periódica periódica</span>
+                            <span className="text-micro text-text-disabled">Notificar descarga periódica periódica</span>
                         </div>
                         <ToggleSwitch checked={backupPrefs.autoBackup || false} onChange={toggleAutoBackup} />
                     </div>
@@ -154,7 +162,7 @@ export const DataSection = () => {
                     {backupPrefs.autoBackup && (
                         <div className="grid grid-cols-3 gap-2 mt-2 animate-in fade-in slide-in-from-top-2 duration-300">
                             {['daily', 'weekly', 'monthly'].map((f) => (
-                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all active:scale-[0.98] ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-hairline text-text-faint'}`}>
+                                <button key={f} onClick={() => setFrequency(f as any)} className={`py-2.5 rounded-xl text-micro font-black uppercase tracking-widest border transition-all active:scale-[0.98] ${backupPrefs.frequency === f ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' : 'bg-black/20 border-hairline text-text-faint'}`}>
                                     {f === 'daily' ? 'Diario' : f === 'weekly' ? 'Semanal' : 'Mensual'}
                                 </button>
                             ))}
@@ -170,7 +178,7 @@ export const DataSection = () => {
                             </div>
                             <div className="text-left">
                                 <span className="text-text-primary font-bold text-sm block">Exportar a Excel</span>
-                                <span className="text-[10px] text-text-disabled">Reporte tabular de datos clave</span>
+                                <span className="text-tiny text-text-disabled">Reporte tabular de datos clave</span>
                             </div>
                         </div>
                         <div className="text-text-faint group-hover:text-text-primary transition-colors">
@@ -179,7 +187,7 @@ export const DataSection = () => {
                     </button>
 
                     {backupPrefs.lastBackup && (
-                        <div className="mt-4 px-1 flex items-center gap-2 text-[10px] text-text-faint font-semibold uppercase tracking-widest">
+                        <div className="mt-4 px-1 flex items-center gap-2 text-tiny text-text-faint font-semibold uppercase tracking-widest">
                             <Clock size={10} />
                             Ultimo Backup: {new Date(backupPrefs.lastBackup).toLocaleDateString()} {new Date(backupPrefs.lastBackup).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>

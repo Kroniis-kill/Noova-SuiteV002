@@ -9,7 +9,7 @@ import { SALE_TYPE_LABELS } from './ItemConfigForm';
 
 // --- HELPERS Y SUB-COMPONENTES ---
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 const ROW_DIVIDER = "w-full h-px bg-[rgb(var(--fg-rgb))]/5";
 
@@ -56,8 +56,8 @@ const CopyRow: React.FC<CopyRowProps> = ({ icon, iconClass = 'bg-[rgb(var(--fg-r
   <button type="button" onClick={onCopy} className="w-full flex items-center gap-3 px-3 py-2.5 text-left group active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors">
     <div className={`w-[30px] h-[30px] rounded-md flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
     <div className="flex-1 min-w-0 flex flex-col">
-      <span className={`text-[10px] font-semibold ${labelClass}`}>{label}</span>
-      <span className={`truncate text-[13px] font-semibold text-text-secondary ${mono ? 'font-mono' : ''}`}>{value}</span>
+      <span className={`text-tiny font-semibold ${labelClass}`}>{label}</span>
+      <span className={`truncate text-body-sm font-semibold text-text-secondary ${mono ? 'font-mono' : ''}`}>{value}</span>
     </div>
     <Copy size={15} className="text-text-faint group-hover:text-text-primary shrink-0" />
   </button>
@@ -110,7 +110,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
                   {sale && <span className="text-text-faint shrink-0">· {SALE_TYPE_LABELS[sale.saleType] || sale.saleType}</span>}
                 </p>
               </div>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 bg-status-danger/10 text-status-danger-soft border-status-danger/20">En falla</span>
+              <span className="text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 bg-status-danger/10 text-status-danger-soft border-status-danger/20">En falla</span>
             </div>
 
             {/* 2. MOTIVO REPORTADO */}

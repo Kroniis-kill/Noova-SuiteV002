@@ -30,7 +30,7 @@ export const LegalSection = () => {
             </div>
 
             <div className="text-center opacity-30">
-                <p className="text-[10px] text-text-disabled uppercase font-semibold tracking-widest">Noova Suite Legal Compliance</p>
+                <p className="text-tiny text-text-disabled uppercase font-semibold tracking-widest">Noova Suite Legal Compliance</p>
             </div>
         </div>
     );

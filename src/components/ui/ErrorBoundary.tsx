@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, WifiOff } from 'lucide-react';
+import Button from './Button';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
@@ -83,29 +84,32 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
       const isNetworkError = error?.message?.includes('fetch') || error?.message?.includes('network');
 
+      // El detalle técnico ya se registró en componentDidCatch (consola/logging);
+      // al usuario solo se le muestra un mensaje claro y una acción.
       return (
-        <div className="w-full h-full min-h-[400px] flex flex-col items-center justify-center p-8 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl text-center animate-fade-in mx-auto max-w-md my-4 shadow-2xl relative overflow-hidden">
-          
-
-          <div className="w-20 h-20 rounded-xl bg-status-danger/10 flex items-center justify-center mb-6 border border-[rgb(var(--fg-rgb))]/5 shadow-inner shrink-0 relative z-10">
-            {isNetworkError ? <WifiOff className="text-status-danger" size={40} /> : <AlertTriangle className="text-status-danger" size={40} />}
+        <div
+          role="alert"
+          className="w-full min-h-[400px] flex flex-col items-center justify-center p-8 bg-surface-3 border border-border-subtle rounded-xl text-center animate-fade-in mx-auto max-w-md my-4 shadow-elev-lg"
+        >
+          <div className="w-20 h-20 rounded-xl bg-status-danger/10 flex items-center justify-center mb-6 border border-border-subtle shrink-0">
+            {isNetworkError
+              ? <WifiOff className="text-status-danger" size={40} aria-hidden="true" />
+              : <AlertTriangle className="text-status-danger" size={40} aria-hidden="true" />}
           </div>
-          
-          <h3 className="text-text-primary font-bold text-xl mb-2 relative z-10">
-            {isNetworkError ? 'Error de Conexión' : 'Algo salió mal'}
+
+          <h3 className="text-text-primary font-bold text-xl mb-2">
+            {isNetworkError ? 'Sin conexión' : 'Algo salió mal'}
           </h3>
-          
-          <p className="text-text-muted text-sm mb-8 max-w-xs mx-auto leading-relaxed relative z-10">
-            {error?.message || "Ha ocurrido un error inesperado al procesar los datos."}
-            <br/><span className="text-[10px] opacity-60 mt-2 block">Alcance: {scope || 'General'}</span>
+
+          <p className="text-text-muted text-sm mb-8 max-w-xs mx-auto leading-relaxed">
+            {isNetworkError
+              ? 'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.'
+              : `No pudimos cargar ${scope ? `la sección "${scope}"` : 'esta sección'} correctamente.`}
           </p>
-          
-          <button
-            onClick={this.handleRetry}
-            className="flex items-center gap-2 px-8 py-4 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-lg text-sm font-bold transition-all border border-[rgb(var(--fg-rgb))]/10 active:scale-95 hover:border-[rgb(var(--fg-rgb))]/20 relative z-10 shadow-lg"
-          >
-            <RefreshCw size={18} /> {isNetworkError ? 'Reconectar' : 'Intentar de nuevo'}
-          </button>
+
+          <Button variant="secondary" onClick={this.handleRetry} leftIcon={<RefreshCw size={18} aria-hidden="true" />}>
+            {isNetworkError ? 'Reintentar' : 'Intentar nuevamente'}
+          </Button>
         </div>
       );
     }

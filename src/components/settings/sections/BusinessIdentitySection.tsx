@@ -68,7 +68,7 @@ export const BusinessIdentitySection = () => {
                             </button>
                             <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
                         </div>
-                        <p className="text-[10px] text-text-disabled mt-2 ml-1">Este logo aparecerá en el Portal de Cliente y Recibos.</p>
+                        <p className="text-tiny text-text-disabled mt-2 ml-1">Este logo aparecerá en el Portal de Cliente y Recibos.</p>
 
                         {logo && (
                             <div className="mt-4 flex flex-col items-center">
@@ -78,7 +78,7 @@ export const BusinessIdentitySection = () => {
                                         <X size={12} />
                                     </button>
                                 </div>
-                                <span className="text-[9px] font-bold text-text-faint mt-2 uppercase tracking-widest">Vista Previa</span>
+                                <span className="text-micro font-bold text-text-faint mt-2 uppercase tracking-widest">Vista Previa</span>
                             </div>
                         )}
                     </div>

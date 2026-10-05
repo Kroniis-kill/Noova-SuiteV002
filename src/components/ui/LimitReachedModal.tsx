@@ -56,7 +56,7 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="" zIndex={20000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="">
        <div className="flex flex-col items-center text-center px-2 pb-4 pt-2">
           
           {/* Icon Animation Wrapper */}
@@ -69,7 +69,7 @@ const LimitReachedModal: React.FC<LimitReachedModalProps> = ({ isOpen, onClose, 
              </div>
           </div>
 
-          <span className="text-[10px] font-semibold text-brand-accent uppercase tracking-widest mb-2 bg-brand-accent/10 px-3 py-1 rounded-full border border-brand-accent/20">
+          <span className="text-tiny font-semibold text-brand-accent uppercase tracking-widest mb-2 bg-brand-accent/10 px-3 py-1 rounded-full border border-brand-accent/20">
              {info.subtitle}
           </span>
 

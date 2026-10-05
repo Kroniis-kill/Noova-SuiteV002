@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, CheckCircle2, Info, XCircle } from 'lucide-react';
 import { useAlert } from '../../context/AlertContext';
+import Button from './Button';
 
 const CustomAlert: React.FC = () => {
   const { isOpen, closeAlert, alertData } = useAlert();
@@ -35,40 +36,40 @@ const CustomAlert: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-[100000] lg:hidden"
+            className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-alert-overlay lg:hidden"
             onClick={closeAlert}
           />
           
           {/* Contenedor: En móvil arriba centrado, en Desktop abajo a la derecha */}
-          <div className="fixed inset-x-0 top-0 flex justify-center z-[100001] pointer-events-none p-4 mt-safe lg:top-auto lg:bottom-6 lg:right-6 lg:left-auto lg:inset-x-auto lg:p-0">
+          <div className="fixed inset-x-0 top-0 flex justify-center z-alert pointer-events-none p-4 mt-safe lg:top-auto lg:bottom-6 lg:right-6 lg:left-auto lg:inset-x-auto lg:p-0">
             <motion.div
               initial={{ opacity: 0, x: 100, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 100, scale: 0.95 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
-              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-modal relative overflow-hidden"
+              role={alertData.type === 'error' ? 'alert' : 'alertdialog'}
+              aria-labelledby="custom-alert-title"
+              aria-describedby="custom-alert-message"
             >
               <div className="relative z-10 flex flex-col">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-2.5 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-[rgb(var(--fg-rgb))]/5 shadow-inner shrink-0">
                     {getIcon()}
                   </div>
-                  <h3 className={`text-lg font-bold tracking-tight leading-tight ${getTitleColor()}`}>
+                  <h3 id="custom-alert-title" className={`text-lg font-bold tracking-tight leading-tight ${getTitleColor()}`}>
                     {alertData.title}
                   </h3>
                 </div>
                 
-                <p className="text-sm text-text-secondary mb-6 leading-relaxed whitespace-pre-wrap pl-1">
+                <p id="custom-alert-message" className="text-sm text-text-secondary mb-6 leading-relaxed whitespace-pre-wrap pl-1">
                   {alertData.message}
                 </p>
 
                 <div className="flex justify-end">
-                  <button
-                    onClick={closeAlert}
-                    className="px-8 h-11 bg-brand-primary hover:bg-brand-primary-hi text-white font-semibold text-xs rounded-2xl transition-all active:scale-95 shadow-lg shadow-brand-primary/20 flex items-center"
-                  >
+                  <Button size="sm" autoFocus onClick={closeAlert} className="px-8">
                     Entendido
-                  </button>
+                  </Button>
                 </div>
               </div>
               

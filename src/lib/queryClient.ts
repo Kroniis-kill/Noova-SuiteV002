@@ -39,7 +39,7 @@ const mutationCache = new MutationCache({
     const message = error?.message || 'Ocurrió un error. Intenta de nuevo.';
     useSaveStatus.getState().failMutation(message);
     if (mutation.options.meta?.skipGlobalErrorToast) return;
-    showGlobalToast(`Error: ${message}`, 'error');
+    showGlobalToast('No se pudo completar la acción', 'error', { description: message });
   },
 });
 

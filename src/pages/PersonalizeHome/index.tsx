@@ -53,11 +53,11 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
         </button>
         <div>
           <h1 className="text-xl font-black text-text-primary tracking-tight">Personaliza tu inicio</h1>
-          <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-0.5">Elige qué quieres ver en tu dashboard</p>
+          <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-0.5">Elige qué quieres ver en tu dashboard</p>
         </div>
       </div>
 
-      <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-3 ml-1">Tarjetas visibles</p>
+      <p className="text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-3 ml-1">Tarjetas visibles</p>
 
       <div className="flex flex-col gap-2">
         {WIDGET_OPTIONS.map((opt, idx) => {
@@ -87,9 +87,9 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
                         inputMode="decimal"
                         value={rateInput}
                         onChange={(e) => setRateInput(e.target.value)}
-                        className="w-24 h-7 px-2 rounded-md bg-surface-sunken border border-brand-primary/30 text-[11px] text-text-primary outline-none focus:ring-2 focus:ring-brand-primary/40"
+                        className="w-24 h-7 px-2 rounded-md bg-surface-sunken border border-brand-primary/30 text-caption text-text-primary outline-none focus:ring-2 focus:ring-brand-primary/40"
                       />
-                      <span className="text-[10px] text-text-muted">{settings.subCurrency || 'Bs'}</span>
+                      <span className="text-tiny text-text-muted">{settings.subCurrency || 'Bs'}</span>
                       <button onClick={handleSaveRate} className="w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90">
                         <Check size={12} />
                       </button>

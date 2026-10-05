@@ -35,7 +35,7 @@ const ExtensionModal: React.FC<ExtensionModalProps> = ({ isOpen, onClose, user }
             <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md p-4">
                 <p className="text-text-muted text-xs uppercase font-semibold mb-1">Usuario</p>
                 <p className="text-text-primary font-bold text-sm">{user.user_email}</p>
-                <p className="text-text-disabled text-[10px] mt-1">Plan Actual: <span className="text-status-success-soft uppercase">{user.plan}</span></p>
+                <p className="text-text-disabled text-tiny mt-1">Plan Actual: <span className="text-status-success-soft uppercase">{user.plan}</span></p>
             </div>
 
             <div>
@@ -54,7 +54,7 @@ const ExtensionModal: React.FC<ExtensionModalProps> = ({ isOpen, onClose, user }
                     <button 
                         key={d}
                         onClick={() => setDays(d)}
-                        className={`px-3 py-1.5 rounded-sm text-[10px] font-semibold border transition-all ${days === d ? 'bg-brand-primary border-brand-primary text-white' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}
+                        className={`px-3 py-1.5 rounded-sm text-tiny font-semibold border transition-all ${days === d ? 'bg-brand-primary border-brand-primary text-white' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}
                     >
                         +{d}d
                     </button>

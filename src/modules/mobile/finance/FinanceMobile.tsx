@@ -97,7 +97,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
        <div className="pt-safe mt-6 mb-6 flex justify-between items-center relative z-10">
           <div>
              <h1 className="text-2xl font-black text-text-primary tracking-tight">Finanzas</h1>
-             <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Capital Management</p>
+             <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Capital Management</p>
           </div>
           <button 
              onClick={props.onNewExpense}
@@ -113,7 +113,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 py-3 rounded-sm text-[8px] font-black uppercase tracking-widest flex flex-col items-center gap-1 transition-all relative ${activeTab === tab.id ? 'text-text-primary' : 'text-text-faint'}`}
+                  className={`flex-1 py-3 rounded-sm text-nano font-black uppercase tracking-widest flex flex-col items-center gap-1 transition-all relative ${activeTab === tab.id ? 'text-text-primary' : 'text-text-faint'}`}
                 >
                    {activeTab === tab.id && (
                        <motion.div 
@@ -146,7 +146,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       ].map((kpi, i) => (
                         <div key={i} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex flex-col justify-between h-24">
                            <div className="flex justify-between items-start">
-                              <span className="text-[10px] font-bold text-text-disabled uppercase tracking-wider">{kpi.label}</span>
+                              <span className="text-tiny font-bold text-text-disabled uppercase tracking-wider">{kpi.label}</span>
                               <kpi.icon size={14} className="text-brand-primary" />
                            </div>
                            <span className="text-lg font-black text-text-primary">{formatCurrency(kpi.val)}</span>
@@ -160,7 +160,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                         <button 
                           key={r}
                           onClick={() => props.setReportRange(r)}
-                          className={`flex-1 py-2 text-[10px] font-semibold rounded-full transition-all ${props.reportRange === r ? 'bg-surface-4 text-text-primary shadow-sm' : 'text-text-disabled'}`}
+                          className={`flex-1 py-2 text-tiny font-semibold rounded-full transition-all ${props.reportRange === r ? 'bg-surface-4 text-text-primary shadow-sm' : 'text-text-disabled'}`}
                         >
                           {r === 'current_month' ? 'Mes' : r === 'last_month' ? 'Mes Ant.' : r === 'year' ? 'Año' : 'Todo'}
                         </button>
@@ -172,13 +172,13 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-5">
                          <div className="flex items-center gap-2 mb-4">
                             <Target size={14} className="text-brand-primary" />
-                            <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Top Ventas</h3>
+                            <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Top Ventas</h3>
                          </div>
                          <div className="space-y-3">
                             {(props.reportData?.topServicesProfit || []).slice(0, 3).map((svc: any) => (
                                <div key={svc.id} className="flex justify-between items-center p-3 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-[rgb(var(--fg-rgb))]/5">
                                   <span className="text-xs font-semibold text-text-primary">{svc.name}</span>
-                                  <span className="text-[11px] font-mono font-black text-status-success-soft">{formatCurrency(svc.value)}</span>
+                                  <span className="text-caption font-mono font-black text-status-success-soft">{formatCurrency(svc.value)}</span>
                                </div>
                             ))}
                             {(!props.reportData?.topServicesProfit || props.reportData.topServicesProfit.length === 0) && (
@@ -191,15 +191,15 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       <div className="bg-surface-sunken border border-brand-primary/10 rounded-xl p-5 relative overflow-hidden">
                          <div className="flex items-center gap-2 mb-4 relative z-10">
                             <Users size={14} className="text-brand-primary" />
-                            <h3 className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Retención de Clientes</h3>
+                            <h3 className="text-tiny font-black text-brand-primary uppercase tracking-[0.2em]">Retención de Clientes</h3>
                          </div>
                          <div className="flex items-end justify-between relative z-10">
                             <div>
-                               <p className="text-[10px] font-semibold text-text-disabled mb-1">Clientes Activos</p>
+                               <p className="text-tiny font-semibold text-text-disabled mb-1">Clientes Activos</p>
                                <span className="text-3xl font-black text-text-primary">{props.reportData?.metrics?.activeClients || 0}</span>
                             </div>
                             <div className="text-right">
-                               <p className="text-[10px] font-semibold text-text-disabled mb-1">Total Registrados</p>
+                               <p className="text-tiny font-semibold text-text-disabled mb-1">Total Registrados</p>
                                <span className="text-xl font-bold text-text-muted">{props.clients?.length || 0}</span>
                             </div>
                          </div>
@@ -214,8 +214,8 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Cuentas de Origen</h3>
-                      <button onClick={props.onNewAccount} className={`text-[8px] font-black text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-3 py-1.5 rounded-full border border-brand-primary/20 ${isHighlighted ? 'ring-4 ring-brand-primary animate-pulse' : ''}`}>
+                      <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Cuentas de Origen</h3>
+                      <button onClick={props.onNewAccount} className={`text-nano font-black text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-3 py-1.5 rounded-full border border-brand-primary/20 ${isHighlighted ? 'ring-4 ring-brand-primary animate-pulse' : ''}`}>
                         + Nueva
                       </button>
                    </div>
@@ -233,7 +233,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Todos los Movimientos</h3>
+                      <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Todos los Movimientos</h3>
                    </div>
                    <div className="space-y-3">
                       {allMovements.map(mov => {
@@ -246,7 +246,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                                   </div>
                                   <div className="min-w-0">
                                      <p className="text-xs font-semibold text-text-primary truncate max-w-[160px]">{mov.description || 'Movimiento'}</p>
-                                     <p className="text-[9px] font-black tracking-widest text-text-disabled mt-1 uppercase">{new Date(mov.date).toLocaleDateString()}</p>
+                                     <p className="text-micro font-black tracking-widest text-text-disabled mt-1 uppercase">{new Date(mov.date).toLocaleDateString()}</p>
                                   </div>
                                </div>
                                <span className={`text-sm font-bold font-mono ${isInc ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
@@ -268,7 +268,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                   className="space-y-4"
                 >
                    <div className="flex justify-between items-center px-1">
-                      <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Pagos Pendientes</h3>
+                      <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Pagos Pendientes</h3>
                       <button onClick={props.onNewPayable} className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary"><Plus size={14} /></button>
                    </div>
                    {props.combinedPayables.map(item => (

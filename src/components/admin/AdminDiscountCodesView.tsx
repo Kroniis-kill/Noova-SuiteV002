@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tag, Plus, Trash2, Power, Copy, Check } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
+import { useConfirm } from '../../context/ConfirmContext';
 import {
   DiscountCode, getDiscountCodes, createDiscountCode,
   toggleDiscountCodeActive, deleteDiscountCode,
@@ -20,6 +21,7 @@ const formatValue = (c: DiscountCode) => {
 
 const AdminDiscountCodesView: React.FC = () => {
   const { showToast } = useToast();
+  const confirm = useConfirm();
   const [codes, setCodes] = useState<DiscountCode[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -75,7 +77,13 @@ const AdminDiscountCodesView: React.FC = () => {
   };
 
   const handleDelete = async (c: DiscountCode) => {
-    if (!window.confirm(`¿Eliminar el código "${c.code}"? Esta acción no se puede deshacer.`)) return;
+    const accepted = await confirm({
+      title: 'Eliminar código',
+      message: `¿Eliminar el código "${c.code}"? Esta acción no se puede deshacer.`,
+      confirmLabel: 'Eliminar',
+      tone: 'danger',
+    });
+    if (!accepted) return;
     const ok = await deleteDiscountCode(c.id);
     if (ok) {
       setCodes(prev => prev.filter(x => x.id !== c.id));
@@ -111,7 +119,7 @@ const AdminDiscountCodesView: React.FC = () => {
       {isCreateOpen && (
         <form onSubmit={handleCreate} className="bg-surface-1 border border-border-subtle rounded-xl p-5 shadow-elev-sm grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Código</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Código</label>
             <input
               value={form.code}
               onChange={e => setForm(f => ({ ...f, code: e.target.value.toUpperCase() }))}
@@ -120,7 +128,7 @@ const AdminDiscountCodesView: React.FC = () => {
             />
           </div>
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Tipo</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Tipo</label>
             <select
               value={form.discount_type}
               onChange={e => setForm(f => ({ ...f, discount_type: e.target.value as DiscountCode['discount_type'] }))}
@@ -132,7 +140,7 @@ const AdminDiscountCodesView: React.FC = () => {
             </select>
           </div>
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Valor</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Valor</label>
             <input
               type="number"
               min="0"
@@ -144,7 +152,7 @@ const AdminDiscountCodesView: React.FC = () => {
             />
           </div>
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Usos máximos (opcional)</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Usos máximos (opcional)</label>
             <input
               type="number"
               min="1"
@@ -155,7 +163,7 @@ const AdminDiscountCodesView: React.FC = () => {
             />
           </div>
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Vence (opcional)</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Vence (opcional)</label>
             <input
               type="date"
               value={form.expires_at}
@@ -164,7 +172,7 @@ const AdminDiscountCodesView: React.FC = () => {
             />
           </div>
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1 block">Nota interna (opcional)</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Nota interna (opcional)</label>
             <input
               value={form.note}
               onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
@@ -195,11 +203,11 @@ const AdminDiscountCodesView: React.FC = () => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-hairline text-left">
-                <th className="p-3.5 text-[11px] font-semibold text-text-muted uppercase tracking-wide">Código</th>
-                <th className="p-3.5 text-[11px] font-semibold text-text-muted uppercase tracking-wide">Beneficio</th>
-                <th className="p-3.5 text-[11px] font-semibold text-text-muted uppercase tracking-wide">Usos</th>
-                <th className="p-3.5 text-[11px] font-semibold text-text-muted uppercase tracking-wide">Vence</th>
-                <th className="p-3.5 text-[11px] font-semibold text-text-muted uppercase tracking-wide">Estado</th>
+                <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Código</th>
+                <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Beneficio</th>
+                <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Usos</th>
+                <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Vence</th>
+                <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Estado</th>
                 <th className="p-3.5"></th>
               </tr>
             </thead>
@@ -213,13 +221,13 @@ const AdminDiscountCodesView: React.FC = () => {
                         {copiedCode === c.code ? <Check size={13} className="text-status-success-soft" /> : <Copy size={13} />}
                       </button>
                     </div>
-                    {c.note && <p className="text-[11px] text-text-faint mt-0.5">{c.note}</p>}
+                    {c.note && <p className="text-caption text-text-faint mt-0.5">{c.note}</p>}
                   </td>
                   <td className="p-3.5 text-text-secondary font-medium">{formatValue(c)}</td>
                   <td className="p-3.5 text-text-muted">{c.uses_count}{c.max_uses ? ` / ${c.max_uses}` : ''}</td>
                   <td className="p-3.5 text-text-muted">{c.expires_at ? new Date(c.expires_at).toLocaleDateString() : 'Sin vencimiento'}</td>
                   <td className="p-3.5">
-                    <span className={`px-2 py-0.5 rounded-xs text-[10px] font-semibold uppercase border ${c.is_active ? 'bg-status-success/10 text-status-success-soft border-status-success/20' : 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'}`}>
+                    <span className={`px-2 py-0.5 rounded-xs text-tiny font-semibold uppercase border ${c.is_active ? 'bg-status-success/10 text-status-success-soft border-status-success/20' : 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'}`}>
                       {c.is_active ? 'Activo' : 'Inactivo'}
                     </span>
                   </td>

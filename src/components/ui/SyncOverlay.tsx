@@ -47,13 +47,13 @@ const SyncOverlay: React.FC = () => {
             <>
               <AlertCircle size={16} aria-hidden="true" />
               <div className="flex flex-col">
-                <span className="text-[11px] font-semibold tracking-premium">Error de sincronización</span>
-                <span className="text-[9px] opacity-70 truncate max-w-[180px]">{syncError}</span>
+                <span className="text-caption font-semibold tracking-premium">Error de sincronización</span>
+                <span className="text-micro opacity-70 truncate max-w-[180px]">{syncError}</span>
               </div>
               <button
                 type="button"
                 onClick={() => { setSyncError(null); processSyncQueue(); }}
-                className="ml-2 px-2.5 py-1 rounded-sm bg-status-danger/20 hover:bg-status-danger/30 transition-colors duration-150 ease-out-soft text-[10px] font-semibold uppercase tracking-eyebrow focus-visible:ring-2 focus-visible:ring-status-danger/50 outline-none"
+                className="ml-2 px-2.5 py-1 rounded-sm bg-status-danger/20 hover:bg-status-danger/30 transition-colors duration-150 ease-out-soft text-tiny font-semibold uppercase tracking-eyebrow focus-visible:ring-2 focus-visible:ring-status-danger/50 outline-none"
               >
                 Reintentar
               </button>
@@ -69,14 +69,14 @@ const SyncOverlay: React.FC = () => {
               >
                 <RefreshCw size={16} />
               </motion.div>
-              <span className="text-[12px] font-bold tracking-premium uppercase">Sincronizando…</span>
+              <span className="text-label font-bold tracking-premium uppercase">Sincronizando…</span>
             </>
           )}
 
           {state === 'pending' && (
             <>
               <UploadCloud size={16} className="text-brand-primary" aria-hidden="true" />
-              <span className="text-[11px] font-semibold tracking-premium uppercase">
+              <span className="text-caption font-semibold tracking-premium uppercase">
                 {pendingCount} {pendingCount === 1 ? 'cambio pendiente' : 'cambios pendientes'}
               </span>
               <button
@@ -84,7 +84,7 @@ const SyncOverlay: React.FC = () => {
                 onClick={() => processSyncQueue()}
                 disabled={!isOnline}
                 aria-label="Subir cambios ahora"
-                className="ml-1 px-2.5 py-1 rounded-sm bg-brand-primary hover:bg-brand-primary-hi disabled:opacity-40 transition-colors duration-150 ease-out-soft text-[10px] font-semibold uppercase tracking-eyebrow text-white focus-visible:ring-2 focus-visible:ring-brand-primary/60 outline-none"
+                className="ml-1 px-2.5 py-1 rounded-sm bg-brand-primary hover:bg-brand-primary-hi disabled:opacity-40 transition-colors duration-150 ease-out-soft text-tiny font-semibold uppercase tracking-eyebrow text-white focus-visible:ring-2 focus-visible:ring-brand-primary/60 outline-none"
               >
                 Subir
               </button>

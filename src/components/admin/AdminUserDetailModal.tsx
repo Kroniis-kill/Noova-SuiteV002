@@ -32,7 +32,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
         <Icon size={16} />
       </div>
       <div>
-        <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-wider">{label}</p>
+        <p className="text-tiny font-semibold text-text-disabled uppercase tracking-wider">{label}</p>
         <p className="text-xs font-semibold text-text-primary">{value}</p>
       </div>
     </div>
@@ -51,10 +51,10 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             <p className="text-xs text-text-disabled">{user.user_email}</p>
           </div>
           <div className="flex gap-2">
-            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
+            <span className={`px-3 py-1 rounded-full text-tiny font-semibold uppercase tracking-widest border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
               {isExpired ? 'Expirado' : 'Vigente'}
             </span>
-            <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-status-info/10 text-status-info-soft border-status-info/20' : 'bg-zinc-500/10 text-text-muted border-zinc-500/20'}`}>
+            <span className={`px-3 py-1 rounded-full text-tiny font-semibold uppercase tracking-widest border ${user.is_active ? 'bg-status-info/10 text-status-info-soft border-status-info/20' : 'bg-zinc-500/10 text-text-muted border-zinc-500/20'}`}>
               {user.is_active ? 'Activo' : 'Inactivo'}
             </span>
           </div>
@@ -75,34 +75,34 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <Edit2 size={20} className="mb-2 text-status-info-soft" />
-            <span className="text-[10px] font-semibold uppercase">Editar</span>
+            <span className="text-tiny font-semibold uppercase">Editar</span>
           </button>
           <button 
             onClick={() => onExtend(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <History size={20} className="mb-2 text-status-success-soft" />
-            <span className="text-[10px] font-semibold uppercase">Extender</span>
+            <span className="text-tiny font-semibold uppercase">Extender</span>
           </button>
           <button 
             onClick={() => onBlock(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             {isBanned ? <CheckCircle2 size={20} className="mb-2 text-status-success-soft" /> : <Ban size={20} className="mb-2 text-status-warning-soft" />}
-            <span className="text-[10px] font-semibold uppercase">{isBanned ? 'Desbloquear' : 'Bloquear'}</span>
+            <span className="text-tiny font-semibold uppercase">{isBanned ? 'Desbloquear' : 'Bloquear'}</span>
           </button>
           <button 
             onClick={() => onDelete(user)}
             className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <ShieldAlert size={20} className="mb-2 text-status-danger-soft" />
-            <span className="text-[10px] font-semibold uppercase">Eliminar</span>
+            <span className="text-tiny font-semibold uppercase">Eliminar</span>
           </button>
         </div>
 
         <button 
           onClick={onClose}
-          className="w-full py-4 text-text-disabled text-[10px] font-semibold uppercase tracking-widest hover:text-text-primary transition-colors"
+          className="w-full py-4 text-text-disabled text-tiny font-semibold uppercase tracking-widest hover:text-text-primary transition-colors"
         >
           Cerrar
         </button>

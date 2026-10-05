@@ -30,7 +30,7 @@ export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, on
           <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
               <div>
                   <h3 className="text-text-primary font-black text-lg">Billetera</h3>
-                  <p className="text-[11px] text-text-disabled font-medium">Selecciona cuenta de ingreso</p>
+                  <p className="text-caption text-text-disabled font-medium">Selecciona cuenta de ingreso</p>
               </div>
               <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
           </div>
@@ -50,11 +50,11 @@ export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, on
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center">
                                 <p className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors truncate">
-                                    <span className="text-[10px] text-text-disabled mr-1">{acc.currency}</span>
+                                    <span className="text-tiny text-text-disabled mr-1">{acc.currency}</span>
                                     {acc.name}
                                 </p>
                             </div>
-                            <p className="text-[11px] text-text-disabled font-mono mt-0.5">Saldo: {acc.balance.toLocaleString()}</p>
+                            <p className="text-caption text-text-disabled font-mono mt-0.5">Saldo: {acc.balance.toLocaleString()}</p>
                         </div>
                     </button>
                 ))}
@@ -129,7 +129,7 @@ const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label,
         }}
         className={`${CLEAN_INPUT} h-6 text-center !text-lg font-bold leading-none text-text-primary`}
       />
-      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
+      <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
     </div>
     <button type="button" aria-label={`Más ${label}`} onClick={() => onChange(value + 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
   </div>
@@ -374,7 +374,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                 <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
                     <div className="min-w-0">
                         <h3 className="text-lg font-black text-text-primary leading-tight">Renovar servicio</h3>
-                        <p className="text-[11px] text-text-disabled font-medium truncate">{subtitle}</p>
+                        <p className="text-caption text-text-disabled font-medium truncate">{subtitle}</p>
                     </div>
                     <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
                 </div>
@@ -389,14 +389,14 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-bold text-text-primary truncate">{serviceLabel}</p>
-                            <p className="text-[11px] text-text-muted font-medium mt-0.5">Vence el {formatLongDate(currentExpiry)}</p>
+                            <p className="text-caption text-text-muted font-medium mt-0.5">Vence el {formatLongDate(currentExpiry)}</p>
                         </div>
-                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
+                        <span className={`text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
                     </div>
 
                     {/* 2. DURACIÓN */}
                     <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block">Duración</label>
+                        <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block">Duración</label>
                         <div className="flex flex-wrap gap-2">
                             {QUICK_MONTHS.map(m => {
                                 const active = days === 0 && months === m;
@@ -405,7 +405,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                                         key={m}
                                         type="button"
                                         onClick={() => { haptic('nav'); setMonths(m); setDays(0); }}
-                                        className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                        className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
                                     >
                                         {m} {m === 1 ? 'mes' : 'meses'}
                                     </button>
@@ -421,7 +421,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     {/* 3. NUEVO VENCIMIENTO */}
                     <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 focus-within:border-brand-primary/40 flex items-center justify-between gap-3 transition-colors">
                         <div className="min-w-0 flex-1">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
+                            <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
                                 <Calendar size={12} /> Nuevo vencimiento
                             </label>
                             <input
@@ -437,8 +437,8 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     {/* 4. PAGO Y BILLETERA */}
                     <div className="space-y-3">
                         <div className="flex justify-between items-center px-1">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Pago y billetera</label>
-                            {isConversionActive && (<span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
+                            <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Pago y billetera</label>
+                            {isConversionActive && (<span className="text-micro bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
                         </div>
 
                         <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
@@ -448,15 +448,15 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                                     {selectedWallet ? (
                                         <>
                                             <div className="w-8 h-8 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={14} /></div>
-                                            <span className="text-[12px] font-bold text-text-primary truncate">
-                                                <span className="text-[10px] text-text-disabled mr-1">{selectedWallet.currency}</span>
+                                            <span className="text-label font-bold text-text-primary truncate">
+                                                <span className="text-tiny text-text-disabled mr-1">{selectedWallet.currency}</span>
                                                 {selectedWallet.name}
                                             </span>
                                         </>
                                     ) : (
                                         <>
                                             <div className="w-8 h-8 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled shrink-0"><X size={14} /></div>
-                                            <span className="text-[12px] font-medium text-text-disabled">No registrar pago</span>
+                                            <span className="text-label font-medium text-text-disabled">No registrar pago</span>
                                         </>
                                     )}
                                 </div>
@@ -472,7 +472,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
 
                             {/* Ganancia estimada */}
                             {estimatedProfit !== 0 && (
-                                <div className="flex items-center justify-between px-1 text-[12px]">
+                                <div className="flex items-center justify-between px-1 text-label">
                                     <span className="text-text-disabled font-medium">Ganancia estimada</span>
                                     <span className={`font-bold flex items-center gap-1.5 ${estimatedProfit > 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                                         <TrendingUp size={14} /> {settings.currency} {estimatedProfit.toFixed(2)}

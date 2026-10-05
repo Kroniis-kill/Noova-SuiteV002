@@ -198,7 +198,8 @@ export const useSales = () => {
         queryClient.invalidateQueries({ queryKey: ['accounts', userId] });
       } catch (error) {
         if (isNetworkError(error)) {
-          await addToSyncQueue('DELETE', 'SALE', { id });
+          const queued = await addToSyncQueue('DELETE', 'SALE', { id });
+          if (!queued) throw new Error('No se pudo guardar la eliminación en este dispositivo. Intenta de nuevo.');
           showToast('Eliminación pendiente de sincronización', 'info');
           return;
         }

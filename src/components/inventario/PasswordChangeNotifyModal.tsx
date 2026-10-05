@@ -5,6 +5,7 @@ import { MessageCircle, Key, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { getCombinedWhatsAppTemplate } from '../../utils/salesUtils';
 import { sendWhatsAppMessage } from '../../utils/contactosUtils';
 import { useData } from '../../context/DataContext';
+import { useToast } from '../../context/ToastContext';
 
 interface PasswordChangeNotifyModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
   isOpen, onClose, affectedSales, account, clients 
 }) => {
   const { settings, accounts } = useData();
+  const { showToast } = useToast();
 
   const handleNotify = (sale: Sale, client: Client) => {
     const message = getCombinedWhatsAppTemplate(
@@ -35,11 +37,11 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
      // Esta función es compleja en web/móvil porque abriría muchas ventanas.
      // Por ahora, notificamos al primero o dejamos que el usuario lo haga uno a uno.
      // Para mejor UX, dejamos que el usuario pulse uno por uno.
-     alert("Por restricciones de WhatsApp, debes enviar los mensajes uno por uno pulsando en cada cliente.");
+     showToast('WhatsApp solo permite enviar los mensajes uno por uno: toca cada cliente de la lista.', 'info');
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Cambio de Contraseña Detectado" zIndex={20000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Cambio de Contraseña Detectado">
       <div className="pt-2 space-y-5">
         
         <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-md flex gap-4 items-start">
@@ -56,7 +58,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
         </div>
 
         <div className="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-1">
-           <p className="text-[10px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Clientes Afectados</p>
+           <p className="text-tiny font-semibold text-text-disabled uppercase tracking-wider ml-1">Clientes Afectados</p>
            
            {affectedSales.map(sale => {
               const client = clients.find(c => c.id === sale.clientId);
@@ -68,7 +70,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
                  <div key={sale.id} className="flex items-center justify-between p-3 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md">
                     <div className="min-w-0 flex-1 mr-3">
                        <p className="text-sm font-bold text-text-primary truncate">{client.name}</p>
-                       <p className="text-[10px] text-text-disabled truncate flex items-center gap-1">
+                       <p className="text-tiny text-text-disabled truncate flex items-center gap-1">
                           {profile?.name || 'Perfil'} 
                           <span className="w-1 h-1 bg-zinc-600 rounded-full" /> 
                           {client.phone}
@@ -76,7 +78,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
                     </div>
                     <button 
                        onClick={() => handleNotify(sale, client)}
-                       className="h-9 px-3 bg-brand-whatsapp/10 hover:bg-brand-whatsapp/20 text-brand-whatsapp border border-brand-whatsapp/20 rounded-sm flex items-center gap-2 text-[10px] font-semibold transition-all active:scale-95"
+                       className="h-9 px-3 bg-brand-whatsapp/10 hover:bg-brand-whatsapp/20 text-brand-whatsapp border border-brand-whatsapp/20 rounded-sm flex items-center gap-2 text-tiny font-semibold transition-all active:scale-95"
                     >
                        <MessageCircle size={14} /> Notificar
                     </button>

@@ -13,7 +13,7 @@ interface ImportConflictModalProps {
 
 const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClose, duplicates, newEntries, onResolve }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Conflicto de Importación" zIndex={20000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Conflicto de Importación">
       <div className="space-y-5 pt-1">
         
         <div className="bg-status-warning/10 border border-status-warning/20 rounded-md p-4 flex gap-4 items-start">
@@ -25,7 +25,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
               <p className="text-text-secondary text-xs leading-relaxed">
                  Hemos encontrado <strong>{duplicates.length} cuentas</strong> que ya existen en tu inventario (coinciden por correo y servicio).
               </p>
-              <div className="mt-2 text-[10px] text-text-muted bg-black/20 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+              <div className="mt-2 text-tiny text-text-muted bg-black/20 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
                  Adicionalmente se crearán <strong>{newEntries.length}</strong> cuentas nuevas.
               </div>
            </div>
@@ -43,7 +43,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
                 </div>
                 <div>
                     <span className="block text-text-primary font-bold text-sm">Actualizar Existentes</span>
-                    <span className="block text-text-disabled text-[10px] mt-0.5">Sobreescribir contraseñas, fechas y estados.</span>
+                    <span className="block text-text-disabled text-tiny mt-0.5">Sobreescribir contraseñas, fechas y estados.</span>
                 </div>
             </button>
 
@@ -56,7 +56,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
                 </div>
                 <div>
                     <span className="block text-text-primary font-bold text-sm">Ignorar Duplicados</span>
-                    <span className="block text-text-disabled text-[10px] mt-0.5">Solo importar las cuentas nuevas ({newEntries.length}).</span>
+                    <span className="block text-text-disabled text-tiny mt-0.5">Solo importar las cuentas nuevas ({newEntries.length}).</span>
                 </div>
             </button>
         </div>

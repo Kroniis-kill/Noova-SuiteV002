@@ -452,7 +452,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
                         {/* Progreso */}
                         <div className="mb-5">
-                            <p className="text-[11px] text-text-disabled font-medium mb-2">Paso 1 de 2 · Cliente y servicios</p>
+                            <p className="text-caption text-text-disabled font-medium mb-2">Paso 1 de 2 · Cliente y servicios</p>
                             <div className="flex gap-1.5">
                                 <div className="flex-1 h-[3px] rounded-full bg-brand-primary" />
                                 <div className="flex-1 h-[3px] rounded-full bg-[rgb(var(--fg-rgb))]/10" />
@@ -461,16 +461,16 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
 
                         {/* 1. CLIENTE */}
                         <div className="mb-5">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Cliente</label>
+                            <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Cliente</label>
                             {!selectedClientId ? (
                                 <div className="grid grid-cols-2 gap-3">
                                     <button onClick={() => { haptic('nav'); setModalSearch('client'); }} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-brand-primary/40 active:scale-95 transition-all">
                                         <Search size={22} className="text-text-muted" />
-                                        <span className="text-[13px] font-bold text-text-primary">Cliente registrado</span>
+                                        <span className="text-body-sm font-bold text-text-primary">Cliente registrado</span>
                                     </button>
                                     <button onClick={() => { haptic('nav'); setIsNewClientModalOpen(true); }} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-brand-primary/40 active:scale-95 transition-all">
                                         <UserPlus size={22} className="text-text-muted" />
-                                        <span className="text-[13px] font-bold text-text-primary">Cliente nuevo</span>
+                                        <span className="text-body-sm font-bold text-text-primary">Cliente nuevo</span>
                                     </button>
                                 </div>
                             ) : (
@@ -480,7 +480,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-bold text-text-primary truncate">{selectedClient?.name}</p>
-                                        {selectedClient?.phone && <p className="text-[11px] text-text-disabled font-mono mt-0.5 truncate">{selectedClient.phone}</p>}
+                                        {selectedClient?.phone && <p className="text-caption text-text-disabled font-mono mt-0.5 truncate">{selectedClient.phone}</p>}
                                     </div>
                                     <button onClick={() => { haptic('nav'); setSelectedClientId(''); }} className="h-9 px-3 rounded-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 text-xs font-semibold text-text-muted hover:text-text-primary transition-colors shrink-0 active:scale-95">
                                         Cambiar
@@ -492,15 +492,15 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                         {/* 2. SERVICIOS DEL CARRITO */}
                         <div>
                             <div className="flex items-center justify-between mb-2 px-1">
-                                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Servicios</label>
-                                {cart.length > 0 && <span className="text-[11px] text-text-disabled">{cart.length} {cart.length === 1 ? 'agregado' : 'agregados'}</span>}
+                                <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Servicios</label>
+                                {cart.length > 0 && <span className="text-caption text-text-disabled">{cart.length} {cart.length === 1 ? 'agregado' : 'agregados'}</span>}
                             </div>
 
                             <div className="space-y-2">
                                 {cart.length === 0 ? (
                                     <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl py-6 flex flex-col items-center justify-center gap-2 text-text-disabled">
                                         <ShoppingCart size={26} strokeWidth={1.5} />
-                                        <p className="text-[13px] font-medium">Aún no agregaste servicios</p>
+                                        <p className="text-body-sm font-medium">Aún no agregaste servicios</p>
                                     </div>
                                 ) : (
                                     cart.map(item => (
@@ -508,8 +508,8 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                             <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Layers size={18} /></div>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-sm font-bold text-text-primary truncate">{item.serviceName}</p>
-                                                <p className="text-[11px] text-text-disabled font-mono truncate mt-0.5">{item.accountEmail}</p>
-                                                <span className="inline-block mt-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted">{SALE_TYPE_LABELS[item.saleType] || item.saleType}</span>
+                                                <p className="text-caption text-text-disabled font-mono truncate mt-0.5">{item.accountEmail}</p>
+                                                <span className="inline-block mt-1 text-tiny font-semibold px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted">{SALE_TYPE_LABELS[item.saleType] || item.saleType}</span>
                                             </div>
                                             <div className="flex flex-col items-end gap-1.5 shrink-0">
                                                 <span className="text-[15px] font-bold text-status-success-soft">${item.amount.toFixed(2)}</span>
@@ -531,7 +531,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                         {/* 3. TOTAL + CONTINUAR (queda pegado abajo al hacer scroll) */}
                         <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
                             <div className="min-w-0">
-                                <p className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Total</p>
+                                <p className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Total</p>
                                 <p className="text-2xl font-black text-text-primary leading-none mt-1">${totalCart.toFixed(2)}</p>
                             </div>
                             <button
@@ -553,7 +553,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                 {/* Progreso + volver */}
                 <div className="mb-5">
                     <div className="flex items-center justify-between mb-2">
-                        <p className="text-[11px] text-text-disabled font-medium">Paso 2 de 2 · Cobro</p>
+                        <p className="text-caption text-text-disabled font-medium">Paso 2 de 2 · Cobro</p>
                         <button onClick={() => { haptic('nav'); setStep(1); }} className="h-8 pl-2 pr-3 rounded-full bg-surface-3 hover:bg-surface-4 text-xs font-semibold text-text-muted hover:text-text-primary flex items-center gap-0.5 transition-colors active:scale-95">
                             <ChevronLeft size={15} /> Volver
                         </button>
@@ -568,7 +568,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                 <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 mb-5">
                     <div className="text-center">
                         <p className="text-xs text-text-disabled">{selectedClient?.name} · {cart.length} {cart.length === 1 ? 'servicio' : 'servicios'}</p>
-                        <p className="text-[11px] font-semibold text-brand-primary-hi uppercase tracking-widest mt-3">Total a pagar</p>
+                        <p className="text-caption font-semibold text-brand-primary-hi uppercase tracking-widest mt-3">Total a pagar</p>
                         <p className="flex items-baseline justify-center gap-1 mt-1">
                             <span className="text-2xl font-medium text-text-disabled">$</span>
                             <span className="text-[42px] leading-none font-black text-text-primary tracking-tighter">{totalToPay.toFixed(2)}</span>
@@ -579,7 +579,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     </div>
                     <div className="border-t border-[rgb(var(--fg-rgb))]/5 mt-4 pt-3 space-y-2">
                         {cart.map(item => (
-                            <div key={item.tempId} className="flex justify-between gap-3 text-[13px]">
+                            <div key={item.tempId} className="flex justify-between gap-3 text-body-sm">
                                 <span className="text-text-muted truncate">{item.serviceName}</span>
                                 <span className="text-text-primary font-semibold shrink-0">${item.amount.toFixed(2)}</span>
                             </div>
@@ -591,7 +591,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     <>
                         {/* 2. MÉTODO DE INGRESO */}
                         <div className="mb-5">
-                            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Método de ingreso</label>
+                            <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Método de ingreso</label>
                             <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
                                 <button onClick={() => handleSelectIncomeMode(false)} className={`h-11 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] ${!isMigration ? 'bg-status-success/15 text-status-success-soft' : 'text-text-disabled hover:text-text-primary'}`}>
                                     <DollarSign size={17} /> Cobrar
@@ -605,7 +605,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                         {/* 3A. BILLETERA DESTINO (modo cobrar) */}
                         {!isMigration && (
                             <div>
-                                <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Billetera destino</label>
+                                <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Billetera destino</label>
                                 <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl overflow-hidden">
                                     <button onClick={() => { haptic('nav'); setModalSearch('wallet'); }} className="w-full h-16 px-4 flex items-center gap-3 text-left active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
                                         <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${selectedWallet ? 'bg-brand-primary/15 text-brand-primary-hi' : 'bg-surface-sunken text-text-disabled'}`}>
@@ -613,7 +613,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className={`text-sm font-bold truncate ${selectedWallet ? 'text-text-primary' : 'text-text-muted'}`}>{selectedWallet?.name || 'Seleccionar billetera'}</p>
-                                            {selectedWallet && <p className="text-[11px] text-text-disabled">{selectedWallet.currency}</p>}
+                                            {selectedWallet && <p className="text-caption text-text-disabled">{selectedWallet.currency}</p>}
                                         </div>
                                         <ChevronRight size={17} className="text-text-faint group-hover:text-text-primary shrink-0" />
                                     </button>
@@ -627,7 +627,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                                 {!selectedWallet && (
                                     <div className="mt-2.5 flex items-center gap-2.5 p-3 rounded-xl bg-status-danger/10 border border-status-danger/20">
                                         <AlertCircle size={18} className="text-status-danger-soft shrink-0" />
-                                        <p className="text-[13px] font-medium text-status-danger-soft">Elige una billetera para continuar.</p>
+                                        <p className="text-body-sm font-medium text-status-danger-soft">Elige una billetera para continuar.</p>
                                     </div>
                                 )}
                             </div>
@@ -637,7 +637,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                         {isMigration && (
                             <div className="p-3.5 rounded-xl bg-status-warning/10 border border-status-warning/20 flex gap-3 items-start">
                                 <History size={18} className="text-status-warning-soft shrink-0 mt-0.5" />
-                                <p className="text-[13px] text-status-warning-soft leading-relaxed">
+                                <p className="text-body-sm text-status-warning-soft leading-relaxed">
                                     Venta histórica: no se suma saldo a ninguna billetera. Solo queda en el historial del cliente.
                                 </p>
                             </div>
@@ -699,16 +699,16 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                     </div>
                     <div>
                         <p className="text-sm font-bold text-text-primary leading-tight">{c.name}</p>
-                        <p className="text-[11px] text-text-disabled font-mono mt-0.5">{c.phone}</p>
+                        <p className="text-caption text-text-disabled font-mono mt-0.5">{c.phone}</p>
                     </div>
                 </div>
                 {c.isBlocked ? <Ban size={18} className="text-status-danger" /> : <ChevronRight size={18} className="text-text-faint" />}
             </div>
         )} 
       />
-      <SearchListModal isOpen={modalSearch === 'service'} onClose={() => setModalSearch(null)} items={services} onSelect={(s: Service) => setTempServiceId(s.id)} title="Elegir Plataforma" filterFn={(s, q) => s.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(s: Service) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">{s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={20} className="text-text-disabled" />}</div><span className="text-sm font-bold text-text-primary">{s.name}</span></div><span className="text-[9px] font-black text-text-disabled uppercase tracking-widest">{s.screens} Cupos</span></div>)} />
-      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={availableAccounts} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-text-primary truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-[10px] font-mono text-text-disabled mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-[9px] font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-xl border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-[8px] text-text-faint font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
-      <SearchListModal isOpen={modalSearch === 'wallet'} onClose={() => setModalSearch(null)} items={financialAccounts.filter(f => f.isActive !== false)} onSelect={(w: FinancialAccount) => setWalletId(w.id)} title="Billetera de Cobro" filterFn={(w, q) => w.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(w: FinancialAccount) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-sm"><Wallet size={18} /></div><span className="text-sm font-bold text-text-primary">{w.name}</span></div><span className="text-[10px] font-bold text-text-disabled font-mono tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-xl">{w.currency}</span></div>)} />
+      <SearchListModal isOpen={modalSearch === 'service'} onClose={() => setModalSearch(null)} items={services} onSelect={(s: Service) => setTempServiceId(s.id)} title="Elegir Plataforma" filterFn={(s, q) => s.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(s: Service) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">{s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={20} className="text-text-disabled" />}</div><span className="text-sm font-bold text-text-primary">{s.name}</span></div><span className="text-micro font-black text-text-disabled uppercase tracking-widest">{s.screens} Cupos</span></div>)} />
+      <SearchListModal isOpen={modalSearch === 'account'} onClose={() => setModalSearch(null)} items={availableAccounts} onSelect={(a: Account) => setTempAccountId(a.id)} title="Seleccionar Stock" filterFn={(a, q) => a.email.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(a: Account) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex flex-col min-w-0 pr-3"><span className="text-sm font-bold text-text-primary truncate max-w-[200px] leading-tight">{a.email}</span><span className="text-tiny font-mono text-text-disabled mt-1">Expira: {a.endDate}</span></div><div className="flex flex-col items-end"><span className={`text-micro font-black text-status-success-soft uppercase bg-status-success/10 px-2 py-1 rounded-xl border border-status-success/20 tracking-widest`}>Disponible</span><span className="text-nano text-text-faint font-bold mt-1">{a.maxScreens - calculateOccupancy(a)} LIBRES</span></div></div>)} />
+      <SearchListModal isOpen={modalSearch === 'wallet'} onClose={() => setModalSearch(null)} items={financialAccounts.filter(f => f.isActive !== false)} onSelect={(w: FinancialAccount) => setWalletId(w.id)} title="Billetera de Cobro" filterFn={(w, q) => w.name.toLowerCase().includes(q)} zIndex={zIndex ? zIndex + 200 : undefined} renderItem={(w: FinancialAccount) => (<div className="p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 mb-1 flex justify-between items-center hover:border-brand-primary/40 transition-all"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shadow-sm"><Wallet size={18} /></div><span className="text-sm font-bold text-text-primary">{w.name}</span></div><span className="text-tiny font-bold text-text-disabled font-mono tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-xl">{w.currency}</span></div>)} />
     </>
   );
 };

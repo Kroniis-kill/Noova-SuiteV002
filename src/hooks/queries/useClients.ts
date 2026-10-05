@@ -141,7 +141,8 @@ export const useClients = () => {
         if (error) throw new Error(getSupabaseErrorMessage(error));
       } catch (error) {
         if (isNetworkError(error)) {
-          await addToSyncQueue('DELETE', 'CLIENT', { id });
+          const queued = await addToSyncQueue('DELETE', 'CLIENT', { id });
+          if (!queued) throw new Error('No se pudo guardar la eliminación en este dispositivo. Intenta de nuevo.');
           showToast('Eliminación pendiente de sincronización', 'info');
           return;
         }

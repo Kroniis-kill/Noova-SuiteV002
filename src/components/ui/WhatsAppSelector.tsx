@@ -57,7 +57,7 @@ const WhatsAppSelector: React.FC = () => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Enviar Mensaje" zIndex={99999}>
+    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Enviar Mensaje">
       <div className="pt-2 pb-2">
         <p className="text-text-muted text-sm mb-6 text-center">
           ¿Qué aplicación deseas usar?
@@ -125,7 +125,7 @@ const WhatsAppSelector: React.FC = () => {
           </button>
         </div>
         
-        <p className="text-[10px] text-text-faint text-center mt-4">
+        <p className="text-tiny text-text-faint text-center mt-4">
           Puedes cambiar esto después en Configuración.
         </p>
       </div>

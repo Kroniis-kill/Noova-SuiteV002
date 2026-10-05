@@ -23,13 +23,13 @@ const SecurityHub = () => (
       </div>
       <div>
         <h4 className="text-text-primary font-bold text-sm">Tu cuenta está protegida</h4>
-        <p className="text-text-muted text-[10px]">Encriptación de nivel bancario activa.</p>
+        <p className="text-text-muted text-tiny">Encriptación de nivel bancario activa.</p>
       </div>
     </div>
 
     <div className="bg-surface-3 border border-border-subtle rounded-xl overflow-hidden">
       <div className="p-4 border-b border-hairline">
-        <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Protocolos de Privacidad</h3>
+        <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Protocolos de Privacidad</h3>
       </div>
       <div className="p-2 space-y-1">
         <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
@@ -37,21 +37,21 @@ const SecurityHub = () => (
             <Lock size={16} className="text-brand-primary" />
             <span className="text-sm text-text-secondary">Encriptación en Reposo</span>
           </div>
-          <span className="text-[10px] font-semibold text-status-success-soft uppercase">AES-256</span>
+          <span className="text-tiny font-semibold text-status-success-soft uppercase">AES-256</span>
         </div>
         <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
           <div className="flex items-center gap-3">
             <Smartphone size={16} className="text-brand-primary" />
             <span className="text-sm text-text-secondary">Acceso al Portal</span>
           </div>
-          <span className="text-[10px] font-semibold text-status-success-soft uppercase">Protegido por PIN</span>
+          <span className="text-tiny font-semibold text-status-success-soft uppercase">Protegido por PIN</span>
         </div>
         <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--fg-rgb))]/5">
           <div className="flex items-center gap-3">
             <Database size={16} className="text-brand-primary" />
             <span className="text-sm text-text-secondary">Sincronización Segura</span>
           </div>
-          <span className="text-[10px] font-semibold text-status-success-soft uppercase">SSL / TLS 1.3</span>
+          <span className="text-tiny font-semibold text-status-success-soft uppercase">SSL / TLS 1.3</span>
         </div>
       </div>
     </div>
@@ -64,12 +64,12 @@ const SecurityHub = () => (
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
             <span className="text-xs text-text-primary font-bold">Este dispositivo</span>
-            <span className="text-[10px] text-text-disabled">Activo ahora mismo</span>
+            <span className="text-tiny text-text-disabled">Activo ahora mismo</span>
           </div>
-          <span className="w-2 h-2 rounded-full bg-status-success shadow-[0_0_8px_#10b981]" />
+          <span className="w-2 h-2 rounded-full bg-status-success shadow-dot-success" />
         </div>
       </div>
-      <button className="w-full mt-6 py-3 border border-status-danger/30 text-status-danger-soft text-[10px] font-semibold uppercase rounded-md active:bg-status-danger/10 transition-colors">
+      <button className="w-full mt-6 py-3 border border-status-danger/30 text-status-danger-soft text-tiny font-semibold uppercase rounded-md active:bg-status-danger/10 transition-colors">
         Cerrar todas las demás sesiones
       </button>
     </div>
@@ -193,7 +193,7 @@ const SettingsMobile: React.FC = () => {
           <motion.div key="menu" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 relative z-10" >
             <div className="mt-6 mb-5">
                <h1 className="text-2xl font-black text-text-primary tracking-tight">Ajustes</h1>
-               <p className="text-text-muted text-[11px] font-semibold uppercase tracking-[0.15em] mt-1">Personaliza tu Noova</p>
+               <p className="text-text-muted text-caption font-semibold uppercase tracking-[0.15em] mt-1">Personaliza tu Noova</p>
             </div>
 
             <div className="relative">
@@ -202,7 +202,7 @@ const SettingsMobile: React.FC = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar un ajuste"
-                className="w-full h-12 bg-surface-1 border border-border-subtle rounded-xl pl-11 pr-4 text-[13px] text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium"
+                className="w-full h-12 bg-surface-1 border border-border-subtle rounded-xl pl-11 pr-4 text-body-sm text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium"
               />
             </div>
 
@@ -216,8 +216,8 @@ const SettingsMobile: React.FC = () => {
               </div>
               <div className="flex-1 min-w-0 text-left">
                 <div className="text-[15px] font-bold text-text-primary truncate">{displayName}</div>
-                {user?.email && <div className="text-[11px] text-text-muted truncate mt-0.5">{user.email}</div>}
-                <span className="inline-flex items-center gap-1 mt-1.5 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md bg-brand-primary/10 border border-brand-primary/25 text-brand-primary-hi">
+                {user?.email && <div className="text-caption text-text-muted truncate mt-0.5">{user.email}</div>}
+                <span className="inline-flex items-center gap-1 mt-1.5 text-micro font-black uppercase tracking-widest px-2 py-0.5 rounded-md bg-brand-primary/10 border border-brand-primary/25 text-brand-primary-hi">
                   <Crown size={10} /> {isAdmin ? 'Admin' : planLabel}
                 </span>
               </div>
@@ -226,11 +226,11 @@ const SettingsMobile: React.FC = () => {
 
             <div className="space-y-6">
               {filteredGroups.length === 0 && (
-                <p className="text-center text-[12px] text-text-muted py-6">No se encontró ningún ajuste.</p>
+                <p className="text-center text-label text-text-muted py-6">No se encontró ningún ajuste.</p>
               )}
               {filteredGroups.map((group) => (
                 <div key={group.title} className="space-y-2">
-                   <h3 className="text-[11px] font-black text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
+                   <h3 className="text-caption font-black text-text-faint uppercase tracking-[0.2em] px-1">{group.title}</h3>
                    <div className="rounded-xl bg-surface-1 border border-border-subtle shadow-elev-sm overflow-hidden">
                       {group.items.map((item, idx) => {
                         const Icon = item.icon;
@@ -245,7 +245,7 @@ const SettingsMobile: React.FC = () => {
                             </div>
                             <div className="flex-1 text-left min-w-0">
                               <span className="block text-[14px] font-semibold text-text-primary leading-tight truncate">{item.label}</span>
-                              <span className="block text-[11px] text-text-muted mt-0.5 truncate">{item.desc}</span>
+                              <span className="block text-caption text-text-muted mt-0.5 truncate">{item.desc}</span>
                             </div>
                             <ChevronRight size={18} className="text-text-faint shrink-0" />
                           </button>
@@ -268,7 +268,7 @@ const SettingsMobile: React.FC = () => {
             </button>
 
             <div className="py-10 text-center">
-              <p className="text-[10px] text-text-faint font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
+              <p className="text-tiny text-text-faint font-bold tracking-[0.3em] uppercase">Noova Suite v{APP_VERSION}</p>
             </div>
           </motion.div>
         )}
@@ -277,7 +277,7 @@ const SettingsMobile: React.FC = () => {
             {activeTab !== 'services' && (
               <div className="mb-4 pt-2 px-2">
                 <h2 className="text-2xl font-bold text-text-primary leading-tight tracking-tight">{activeItem.label}</h2>
-                <p className="text-text-muted text-[11px] font-medium mt-0.5">{activeItem.desc}</p>
+                <p className="text-text-muted text-caption font-medium mt-0.5">{activeItem.desc}</p>
               </div>
             )}
             <div className="pb-40 animate-fade-in">{renderContent()}</div>

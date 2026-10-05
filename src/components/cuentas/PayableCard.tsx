@@ -38,12 +38,12 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
                 {item.type === 'inventory' ? <Tag size={16} /> : <Calendar size={16} />}
              </div>
              <div className="min-w-0">
-                <h4 className="text-[13px] font-bold text-text-primary truncate pr-2 leading-tight">{item.title}</h4>
+                <h4 className="text-body-sm font-bold text-text-primary truncate pr-2 leading-tight">{item.title}</h4>
                 <div className="flex items-center gap-1.5 mt-1">
                    <span className={`px-1.5 py-0.5 rounded-xs text-[7px] font-black uppercase tracking-widest border ${urgencyBg} ${urgencyColor}`}>
                       {statusText}
                    </span>
-                   <span className="text-[9px] text-text-faint font-mono tracking-tighter">{item.dueDate}</span>
+                   <span className="text-micro text-text-faint font-mono tracking-tighter">{item.dueDate}</span>
                 </div>
              </div>
           </div>
@@ -65,7 +65,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
           </button>
           <button 
             onClick={() => onPay(item)}
-            className="h-7 px-3 bg-status-success/5 hover:bg-status-success/10 border border-status-success/10 rounded-xs text-[9px] font-black uppercase tracking-widest text-status-success transition-all ml-auto"
+            className="h-7 px-3 bg-status-success/5 hover:bg-status-success/10 border border-status-success/10 rounded-xs text-micro font-black uppercase tracking-widest text-status-success transition-all ml-auto"
           >
              Pagar
           </button>

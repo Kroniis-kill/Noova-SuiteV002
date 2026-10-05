@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../ui/Modal';
 import { Sale, ScreenProfile, Client } from '../../types';
 import { useData } from '../../context/DataContext';
 import { useToast } from '../../context/ToastContext';
 import { useHaptic } from '../../hooks/useHaptic';
+import { useDialog } from '../../hooks/useDialog';
 import {
   Check, X, Mail, Lock, DollarSign, User, Hash, Layers,
   ChevronDown, Search, ArrowRight, Loader2, ArrowLeftRight, RotateCcw, Ban, ChevronRight
@@ -27,7 +28,7 @@ const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!rin
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
 const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 const dateOnly = (value?: string | null): string => (value ? value.split('T')[0] : '');
 
@@ -88,6 +89,12 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAccountSearchOpen, setIsAccountSearchOpen] = useState(false);
   const [accountSearch, setAccountSearch] = useState('');
+  const accountSearchRef = useRef<HTMLDivElement>(null);
+  const accountSearchZ = useDialog({
+    isOpen: isAccountSearchOpen,
+    onClose: () => { setIsAccountSearchOpen(false); setAccountSearch(''); },
+    containerRef: accountSearchRef,
+  });
   const [isClientSearchOpen, setIsClientSearchOpen] = useState(false);
 
   useEffect(() => {
@@ -200,7 +207,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
     <Modal isOpen={isOpen} onClose={onClose} title="Editar servicio" zIndex={zIndex || 60000}>
       <div className="flex flex-col animate-fade-in pt-1">
 
-        <p className="text-[11px] text-text-disabled font-medium mb-4 truncate">
+        <p className="text-caption text-text-disabled font-medium mb-4 truncate">
           {[client?.name, SALE_TYPE_LABELS[sale.saleType] || sale.saleType].filter(Boolean).join(' · ')}
         </p>
 
@@ -213,9 +220,9 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
-              <p className="text-[11px] text-text-muted font-medium mt-0.5">Vence el {formatLongDate(formData.expiryDate)}</p>
+              <p className="text-caption text-text-muted font-medium mt-0.5">Vence el {formatLongDate(formData.expiryDate)}</p>
             </div>
-            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
+            <span className={`text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
           </div>
 
           {/* 1B. CLIENTE (permite pasar la venta a otro cliente sin borrarla) */}
@@ -226,12 +233,12 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               onClick={() => { haptic('nav'); setIsClientSearchOpen(true); }}
               className={`w-full h-[60px] px-3 bg-surface-zinc rounded-xl border flex items-center gap-3 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-[rgb(var(--fg-rgb))]/5'}`}
             >
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-[11px] font-bold shrink-0 border border-[rgb(var(--fg-rgb))]/10">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-caption font-bold shrink-0 border border-[rgb(var(--fg-rgb))]/10">
                 {(selectedClient?.name || '?').substring(0, 2).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cliente de la venta</span>
-                <span className="block text-[13px] font-bold truncate text-text-primary">{selectedClient?.name || 'Seleccionar cliente...'}</span>
+                <span className="block text-tiny font-semibold text-text-disabled uppercase">Cliente de la venta</span>
+                <span className="block text-body-sm font-bold truncate text-text-primary">{selectedClient?.name || 'Seleccionar cliente...'}</span>
               </div>
               <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
             </button>
@@ -258,8 +265,8 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             >
               <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-status-success shrink-0"><Mail size={18} /></div>
               <div className="flex-1 min-w-0">
-                <span className="block text-[10px] font-semibold text-text-disabled uppercase">Cuenta asignada</span>
-                <span className={`block text-[13px] font-bold truncate ${currentAccount ? 'text-text-primary' : 'text-text-faint'}`}>
+                <span className="block text-tiny font-semibold text-text-disabled uppercase">Cuenta asignada</span>
+                <span className={`block text-body-sm font-bold truncate ${currentAccount ? 'text-text-primary' : 'text-text-faint'}`}>
                   {currentAccount?.email || 'Seleccionar cuenta...'}
                 </span>
               </div>
@@ -277,7 +284,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   key={label}
                   type="button"
                   onClick={() => extendExpiry(months, days)}
-                  className="h-9 px-4 rounded-full border text-[13px] font-semibold bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary"
+                  className="h-9 px-4 rounded-full border text-body-sm font-semibold bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary"
                 >
                   {label}
                 </button>
@@ -286,7 +293,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
             <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
+                <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
                 <input
                   type="date"
                   value={startDate}
@@ -299,7 +306,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               </div>
               <ArrowRight size={18} className="text-text-faint shrink-0" />
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
+                <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
                 <input
                   type="date"
                   value={endDate}
@@ -437,7 +444,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-bold text-text-primary leading-tight truncate">{c.name}</p>
-                  <p className="text-[11px] text-text-disabled font-mono mt-0.5">{c.phone}</p>
+                  <p className="text-caption text-text-disabled font-mono mt-0.5">{c.phone}</p>
                 </div>
               </div>
               {c.isBlocked
@@ -452,7 +459,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
       {/* SELECTOR DE CUENTA */}
       {isAccountSearchOpen && createPortal(
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-end md:items-center justify-center p-4 z-[70000]" onClick={closeAccountSearch}>
+        <div ref={accountSearchRef} role="dialog" aria-modal="true" aria-label="Cambiar cuenta" tabIndex={-1} style={{ zIndex: accountSearchZ }} className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-end md:items-center justify-center p-4 outline-none" onClick={closeAccountSearch}>
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, y: 20 }} 
             animate={{ opacity: 1, scale: 1, y: 0 }} 
@@ -493,7 +500,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                     <div className={`w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-status-success' : 'bg-status-danger'}`} />
                     <div className="text-left min-w-0 flex-1">
                       <p className="text-sm font-bold text-text-primary truncate">{acc.email}</p>
-                      <p className="text-[11px] text-text-disabled mt-0.5">
+                      <p className="text-caption text-text-disabled mt-0.5">
                         {isActive ? `${freeSlots} ${freeSlots === 1 ? 'cupo libre' : 'cupos libres'}` : acc.status.charAt(0).toUpperCase() + acc.status.slice(1)}
                       </p>
                     </div>

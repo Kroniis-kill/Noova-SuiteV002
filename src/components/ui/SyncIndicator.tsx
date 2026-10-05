@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Cloud, CloudOff, UploadCloud, AlertCircle, X } from 'lucide-react';
 import { useOfflineSync } from '../../hooks/useOfflineSync';
@@ -37,6 +37,18 @@ const SyncIndicator: React.FC = () => {
   const toast = useSaveStatus((s) => s.toast);
   const dismiss = useSaveStatus((s) => s.dismiss);
 
+  // En el dashboard, el estado persistente (pendientes / sin conexión) ya lo muestra el
+  // icono de sincronización del encabezado. Aquí solo se deja el aviso momentáneo de
+  // "Guardado en este dispositivo" unos segundos, para no repetir lo mismo en dos sitios.
+  const onDashboard = useUIStore((s) => s.currentView) === 'dashboard';
+  const [queuedFlash, setQueuedFlash] = useState(false);
+  useEffect(() => {
+    if (toast?.kind !== 'queued') { setQueuedFlash(false); return; }
+    setQueuedFlash(true);
+    const t = setTimeout(() => setQueuedFlash(false), 3000);
+    return () => clearTimeout(t);
+  }, [toast?.id, toast?.kind]);
+
   let view: View | null = null;
 
   if (toast?.kind === 'error') {
@@ -44,25 +56,32 @@ const SyncIndicator: React.FC = () => {
   } else if (syncError && syncError !== RETRYING_MESSAGE) {
     view = { key: 'error', message: syncError, canRetry: true };
   } else if (!isOnline) {
-    view = { key: 'offline', pending: pendingCount };
+    if (!onDashboard) view = { key: 'offline', pending: pendingCount };
   } else if (saving > 0) {
     view = { key: 'saving' };
   } else if (syncError === RETRYING_MESSAGE && pendingCount > 0) {
-    view = { key: 'retrying', pending: pendingCount };
+    if (!onDashboard) view = { key: 'retrying', pending: pendingCount };
   } else if (pendingCount > 0 || toast?.kind === 'queued') {
-    view = { key: 'queued', pending: pendingCount };
+    if (!onDashboard || queuedFlash) view = { key: 'queued', pending: pendingCount };
   } else if (toast?.kind === 'synced') {
     view = { key: 'synced', count: toast.count || 0 };
   } else if (toast?.kind === 'saved') {
     view = { key: 'saved' };
   }
 
+  // Avisa a los toasts si la cápsula está visible, para que se acomoden debajo y no se encimen.
+  const hasView = !!view;
+  useEffect(() => {
+    useSaveStatus.getState().setPillVisible(hasView);
+    return () => useSaveStatus.getState().setPillVisible(false);
+  }, [hasView]);
+
   const retry = () => { setSyncError(null); dismiss(); processSyncQueue(); };
   const close = () => { setSyncError(null); dismiss(); };
 
   const bubble = 'w-7 h-7 rounded-full flex items-center justify-center shrink-0';
-  const title = 'text-[12px] font-semibold leading-tight text-text-primary';
-  const sub = 'text-[10px] leading-tight text-text-primary/55';
+  const title = 'text-label font-semibold leading-tight text-text-primary';
+  const sub = 'text-tiny leading-tight text-text-primary/55';
 
   return (
     <div
@@ -136,7 +155,7 @@ const SyncIndicator: React.FC = () => {
                   </span>
                 </div>
                 {view.pending > 0 && (
-                  <button type="button" onClick={() => processSyncQueue()} className="ml-1 px-2.5 py-1 rounded-full bg-brand-primary text-white text-[10px] font-bold hover:brightness-110 active:scale-95 transition">
+                  <button type="button" onClick={() => processSyncQueue()} className="ml-1 px-2.5 py-1 rounded-full bg-brand-primary text-white text-tiny font-bold hover:brightness-110 active:scale-95 transition">
                     Subir
                   </button>
                 )}
@@ -179,7 +198,7 @@ const SyncIndicator: React.FC = () => {
                   <span className={`${sub} truncate max-w-[200px]`}>{view.message}</span>
                 </div>
                 {view.canRetry && (
-                  <button type="button" onClick={retry} className="ml-1 px-2.5 py-1 rounded-full bg-status-danger/20 hover:bg-status-danger/30 text-status-danger text-[10px] font-bold active:scale-95 transition">
+                  <button type="button" onClick={retry} className="ml-1 px-2.5 py-1 rounded-full bg-status-danger/20 hover:bg-status-danger/30 text-status-danger text-tiny font-bold active:scale-95 transition">
                     Reintentar
                   </button>
                 )}

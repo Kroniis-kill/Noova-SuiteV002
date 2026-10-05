@@ -49,7 +49,7 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({
 
       <div className="flex-1 flex flex-col h-full relative z-10 min-w-0">
         {currentView !== 'dashboard' && (
-          <div className="sticky top-0 z-[100] w-full pt-safe">
+          <div className="sticky top-0 z-header w-full pt-safe">
             <Header 
                 openMobile={toggleSidebar} 
                 title={viewLabels[currentView]} 

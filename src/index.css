@@ -7,6 +7,8 @@
   /* ===== Premium Dark · Design Tokens (tema por defecto) ===== */
 
   /* Superficies (escala de elevación) — RGB channels para soportar alpha modifiers */
+  color-scheme: dark;
+
   --bg:                10 10 10;
   --surface-1:         18 18 18;
   --surface-2:         22 22 22;
@@ -85,22 +87,35 @@
   --shadow-modal:      0 30px 80px -20px rgba(0,0,0,0.9);
   --glow-primary:      0 8px 25px -6px rgba(106,44,255,0.6);
   --glow-primary-sm:   0 0 15px -3px rgba(106,44,255,0.4);
+  --glow-primary-md:   0 0 25px -5px rgba(106,44,255,0.5);
   --glow-accent:       0 0 12px rgba(255,20,147,0.5);
 
   /* Tipografía: tracking premium */
   --tracking-tight:    -0.02em;
   --tracking-uppercase: 0.2em;
 
-  /* Capas (z-index) */
+  /* Capas (z-index) — ÚNICA fuente de verdad. Orden de menor a mayor:
+     contenido < nav < header < dropdown < página completa < pantalla completa
+     < banner < modal (hojas incluidas, apiladas por useDialog) < toast < alerta.
+     Usar siempre estos tokens (clases z-nav, z-header, z-banner, z-toast…).
+     No escribir z-[N] ni zIndex numérico nuevo. */
+  --z-base:          0;
   --z-nav:           50;
   --z-header:        100;
-  --z-sync-overlay:  9999;
+  --z-dropdown:      110;
+  --z-page:          150;      /* vistas a pantalla completa dentro de la app (detalle de venta) */
+  --z-fullscreen:    200;      /* splash, onboarding, suscripción vencida */
+  --z-banner:        9990;     /* avisos in-app flotantes: sobre la página, bajo cualquier modal */
+  --z-blocking:      9999;     /* overlays que bloquean la app (cargando, sincronizando) */
+  --z-sync-overlay:  var(--z-blocking);
   --z-modal-base:    10000;
   --z-modal-overlay: 10001;
   --z-modal-content: 10002;
   --z-modal-top:     20000;
-  --z-toast:         30000;
-  --z-alert:         40000;
+  --z-lockout:       99999;    /* acceso bloqueado: por encima de cualquier modal */
+  --z-toast:         100000;
+  --z-alert-overlay: 100100;
+  --z-alert:         100101;
 
   /* Consistencia Visual */
   --mobile-side-pad:  0.75rem;   /* 12px — tighter side margins */
@@ -121,6 +136,8 @@
    estado se mantienen — solo cambian superficies, texto, bordes y
    sombras para adaptarse a fondo claro. */
 :root.light {
+  color-scheme: light;
+
   --bg:                246 246 248;
   --surface-1:         255 255 255;
   --surface-2:         250 250 251;
@@ -156,6 +173,7 @@
   --shadow-modal:      0 24px 60px -15px rgba(24,24,27,0.18);
   --glow-primary:      0 8px 25px -8px rgba(106,44,255,0.35);
   --glow-primary-sm:   0 0 15px -4px rgba(106,44,255,0.25);
+  --glow-primary-md:   0 0 25px -6px rgba(106,44,255,0.3);
   --glow-accent:       0 0 12px rgba(255,20,147,0.25);
 }
 
@@ -183,7 +201,7 @@
   }
   
   body {
-    @apply bg-bg text-text-primary font-sans antialiased selection:bg-[#FF1493]/30;
+    @apply bg-bg text-text-primary font-sans antialiased selection:bg-brand-accent/30;
     /* Asegurar que el cuerpo ocupe exactamente el espacio disponible */
     height: 100dvh;
     width: 100vw;
@@ -229,30 +247,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-brand-primary to-brand-accent text-white font-bold shadow-[0_10px_40px_-10px_rgba(106,44,255,0.5)] transition-all active:scale-95 hover:brightness-110 hover:scale-[1.02];
-  }
-
-  .glass-card-pro {
-    @apply bg-surface-1/80 backdrop-blur-3xl border border-white/[0.08] shadow-2xl transition-all duration-300;
-  }
-
-  .glass-card-glow {
-    @apply bg-surface-1/60 backdrop-blur-2xl border border-white/[0.05] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] transition-all;
-  }
-
-  .shadow-glow-sm {
-    box-shadow: 0 0 15px -3px rgba(106, 44, 255, 0.4);
-  }
-
-  .shadow-glow-md {
-    box-shadow: 0 0 25px -5px rgba(106, 44, 255, 0.5);
-  }
-
-  .border-gradient {
-    position: relative;
-    background: linear-gradient(var(--background), var(--background)) padding-box,
-                linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) border-box;
-    border: 1px solid transparent;
+    @apply bg-gradient-to-r from-brand-primary to-brand-accent text-white font-bold shadow-glow-primary transition-all active:scale-95 hover:brightness-110 hover:scale-[1.02];
   }
 
   .view-container {
@@ -266,7 +261,7 @@
 
 @layer utilities {
   .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { @apply bg-white/10 rounded-full hover:bg-brand-primary/40 transition-colors; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { @apply bg-[rgb(var(--fg-rgb))]/10 rounded-full hover:bg-brand-primary/40 transition-colors; }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -282,4 +277,19 @@
   .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
   .mt-safe { margin-top: env(safe-area-inset-top); }
   .mb-safe { margin-bottom: env(safe-area-inset-bottom); }
+}
+
+/* Movimiento reducido: respeta la preferencia del sistema. Se acortan
+   transiciones y animaciones decorativas; los indicadores de progreso
+   (animate-spin) se mantienen porque comunican estado. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *:not(.animate-spin),
+  *:not(.animate-spin)::before,
+  *:not(.animate-spin)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

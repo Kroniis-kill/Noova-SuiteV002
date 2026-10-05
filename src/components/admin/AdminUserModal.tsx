@@ -99,14 +99,14 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
         <div className={`absolute top-2 right-2 w-2 h-2 rounded-full bg-${color}-500 shadow-[0_0_8px_currentColor]`} />
       )}
       <Icon size={20} className={`mb-2 ${plan === type ? `text-${color}-400` : 'text-text-faint'}`} />
-      <span className="text-[10px] font-semibold uppercase tracking-wide">{label}</span>
+      <span className="text-tiny font-semibold uppercase tracking-wide">{label}</span>
     </button>
   );
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
-    input: "w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
     iconLeft: "pl-10",
     iconElement: "absolute left-3.5 text-text-disabled pointer-events-none",
   };
@@ -183,7 +183,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
           <div className="pt-2 flex flex-col gap-3">
              <button 
                type="submit" 
-               className="btn-primary w-full h-[52px] rounded-md text-[13px] flex items-center justify-center gap-2"
+               className="btn-primary w-full h-[52px] rounded-md text-body-sm flex items-center justify-center gap-2"
              >
                 {initialData ? <><Edit2 size={18} /> Actualizar Datos</> : <><Check size={18} /> Registrar Usuario</>}
              </button>
@@ -193,7 +193,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                  <button 
                     type="button"
                     onClick={handleRevokeClick}
-                    className="w-full h-[48px] bg-status-danger/10 hover:bg-status-danger/20 border border-status-danger/20 text-status-danger-soft rounded-md font-bold transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[12px]"
+                    className="w-full h-[48px] bg-status-danger/10 hover:bg-status-danger/20 border border-status-danger/20 text-status-danger-soft rounded-md font-bold transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-label"
                  >
                     <ShieldAlert size={16} /> Quitar Plan (Downgrade a Free)
                  </button>

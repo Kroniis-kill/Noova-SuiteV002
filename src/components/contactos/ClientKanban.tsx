@@ -109,7 +109,7 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
                        <Avatar name={client.name} size={36} className="rounded-sm text-xs font-semibold" />
                        <div className="min-w-0 flex-1">
                           <h4 className="text-sm font-bold text-text-primary truncate leading-tight group-hover:text-brand-primary transition-colors">{client.name}</h4>
-                          <p className="text-[10px] text-text-disabled flex items-center gap-1 mt-0.5">
+                          <p className="text-tiny text-text-disabled flex items-center gap-1 mt-0.5">
                              <Phone size={10} /> {client.phone}
                           </p>
                        </div>
@@ -117,7 +117,7 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
                     
                     {client.activeServices > 0 && (
                        <div className="mt-3 flex items-center justify-between pt-2 border-t border-[rgb(var(--fg-rgb))]/5">
-                          <span className="text-[10px] font-semibold text-text-muted bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-1">
+                          <span className="text-tiny font-semibold text-text-muted bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-1">
                              <Layers size={10} /> {client.activeServices} Servicios
                           </span>
                        </div>
@@ -127,7 +127,7 @@ const ClientKanban: React.FC<ClientKanbanProps> = ({ clients, sales, onClientCli
                
                {items.length === 0 && (
                   <div className="py-8 text-center opacity-40">
-                     <p className="text-[10px] text-text-disabled uppercase font-semibold tracking-wider">Vacío</p>
+                     <p className="text-tiny text-text-disabled uppercase font-semibold tracking-wider">Vacío</p>
                   </div>
                )}
             </div>

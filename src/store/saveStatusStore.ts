@@ -26,6 +26,9 @@ interface SaveStatusState {
   /** Sube cada vez que algo se encola localmente (sirve para saber si una mutación terminó "en cola"). */
   queueEpoch: number;
   toast: SaveToast | null;
+  /** true mientras la cápsula de sincronización está en pantalla (los avisos se desplazan debajo). */
+  pillVisible: boolean;
+  setPillVisible: (v: boolean) => void;
 
   begin: () => void;
   end: (outcome: 'confirmed' | 'queued') => void;
@@ -64,6 +67,8 @@ export const useSaveStatus = create<SaveStatusState>((set, get) => {
     saving: 0,
     queueEpoch: 0,
     toast: null,
+    pillVisible: false,
+    setPillVisible: (v) => set((s) => (s.pillVisible === v ? s : { pillVisible: v })),
 
     begin: () => set((s) => ({ saving: s.saving + 1 })),
 

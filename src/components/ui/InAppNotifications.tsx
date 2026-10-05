@@ -139,8 +139,8 @@ const InAppNotifications: React.FC = () => {
   };
 
   const containerStyle: React.CSSProperties = isDesktop
-    ? { top: 'calc(env(safe-area-inset-top) + 70px)', right: 16, zIndex: 9990 }
-    : { bottom: 'calc(env(safe-area-inset-bottom) + 140px)', left: 16, right: 16, zIndex: 9990 };
+    ? { top: 'calc(env(safe-area-inset-top) + 70px)', right: 16, zIndex: 'var(--z-banner)' }
+    : { bottom: 'calc(env(safe-area-inset-bottom) + 140px)', left: 16, right: 16, zIndex: 'var(--z-banner)' };
 
   return (
     <div className="pointer-events-none fixed flex justify-center" style={containerStyle}>
@@ -162,10 +162,10 @@ const InAppNotifications: React.FC = () => {
               <Icon size={18} className="text-status-danger" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-black uppercase tracking-[0.12em] text-text-primary truncate">
+              <p className="text-caption font-black uppercase tracking-[0.12em] text-text-primary truncate">
                 {current.title}
               </p>
-              <p className="text-[12px] text-text-secondary truncate">{current.message}</p>
+              <p className="text-label text-text-secondary truncate">{current.message}</p>
             </div>
             <span
               onClick={(e) => { e.stopPropagation(); dismiss(current.id); }}

@@ -16,7 +16,7 @@ const AccessBlocked: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-bg flex flex-col items-center justify-center p-6 text-center font-sans overflow-hidden">
+    <div className="fixed inset-0 z-lockout bg-bg flex flex-col items-center justify-center p-6 text-center font-sans overflow-hidden">
         
         {/* Background Effects */}
         <div className="absolute top-[-20%] left-[-20%] w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -61,7 +61,7 @@ const AccessBlocked: React.FC = () => {
 
             <div className="mt-8 flex items-center gap-2 opacity-50">
                <AnimatedLogo size={24} showFill={false} />
-               <span className="text-[10px] font-semibold text-text-disabled tracking-widest uppercase">Noova Suite</span>
+               <span className="text-tiny font-semibold text-text-disabled tracking-widest uppercase">Noova Suite</span>
             </div>
         </motion.div>
     </div>

@@ -21,7 +21,7 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
           <div className="flex items-center justify-between px-6 pt-6 pb-4 shrink-0 bg-surface-1">
             <div className="min-w-0">
               <h3 className="text-lg font-black text-text-primary leading-tight">{props.isEditing ? 'Editar servicio' : 'Configurar servicio'}</h3>
-              <p className="text-[11px] text-text-disabled font-medium">Define los detalles de la venta</p>
+              <p className="text-caption text-text-disabled font-medium">Define los detalles de la venta</p>
             </div>
             <button onClick={() => { haptic('nav'); props.onClose(); }} aria-label="Cerrar" className="w-9 h-9 bg-surface-3 hover:bg-surface-4 rounded-full flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0"><X size={18} /></button>
           </div>

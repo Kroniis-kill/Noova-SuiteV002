@@ -66,14 +66,14 @@ const NotificationPermissionModal: React.FC = () => {
           <div className="flex flex-col gap-3 w-full">
              <button 
                onClick={handleAllow}
-               className="w-full h-[48px] rounded-md bg-gradient-to-r from-status-info to-brand-primary-hi text-white font-bold text-[13px] shadow-glow hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+               className="w-full h-[48px] rounded-md bg-gradient-to-r from-status-info to-brand-primary-hi text-white font-bold text-body-sm shadow-glow hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
              >
                 Activar Ahora
              </button>
              
              <button 
                onClick={handleDismiss}
-               className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-[13px] hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
+               className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-body-sm hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
              >
                 Quizás más tarde
              </button>

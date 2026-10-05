@@ -49,7 +49,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
           <div className="relative shrink-0">
              <Avatar name={client.name} size={40} className="rounded-sm shadow-sm border border-[rgb(var(--fg-rgb))]/5" />
              {sales.length > 1 && (
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-primary rounded-full border-2 border-surface-1 flex items-center justify-center text-[8px] font-bold text-white">
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-primary rounded-full border-2 border-surface-1 flex items-center justify-center text-nano font-bold text-white">
                    {sales.length}
                 </div>
              )}
@@ -57,11 +57,11 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
           
           {/* Info Central */}
           <div className="flex-1 min-w-0">
-             <h4 className="text-[13px] font-bold text-text-primary truncate leading-tight group-hover:text-text-primary transition-colors">
+             <h4 className="text-body-sm font-bold text-text-primary truncate leading-tight group-hover:text-text-primary transition-colors">
                 {client.name}
              </h4>
              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-[10px] text-text-disabled font-medium truncate max-w-[120px]">
+                <span className="text-tiny text-text-disabled font-medium truncate max-w-[120px]">
                    {sales.map(s => s.serviceName).join(', ')}
                 </span>
              </div>
@@ -69,7 +69,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
 
           {/* Acciones y Estado (Compacto a la derecha) */}
           <div className="flex items-center gap-2 shrink-0">
-             <div className={`px-2 py-0.5 rounded-md ${statusConfig.bg} ${statusConfig.color} text-[9px] font-semibold uppercase tracking-wider`}>
+             <div className={`px-2 py-0.5 rounded-md ${statusConfig.bg} ${statusConfig.color} text-micro font-semibold uppercase tracking-wider`}>
                 {statusConfig.label}
              </div>
              

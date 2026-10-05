@@ -65,9 +65,9 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
 
   const getPriorityBadge = (priority: string) => {
     switch (priority) {
-      case 'high': return <span className="px-2 py-0.5 rounded-full bg-status-danger/10 text-status-danger text-[9px] font-black uppercase tracking-widest border border-status-danger/20">Urgente</span>;
-      case 'medium': return <span className="px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning text-[9px] font-black uppercase tracking-widest border border-status-warning/20">Pendiente</span>;
-      default: return <span className="px-2 py-0.5 rounded-full bg-zinc-500/10 text-text-disabled text-[9px] font-black uppercase tracking-widest border border-zinc-500/20">Info</span>;
+      case 'high': return <span className="px-2 py-0.5 rounded-full bg-status-danger/10 text-status-danger text-micro font-black uppercase tracking-widest border border-status-danger/20">Urgente</span>;
+      case 'medium': return <span className="px-2 py-0.5 rounded-full bg-status-warning/10 text-status-warning text-micro font-black uppercase tracking-widest border border-status-warning/20">Pendiente</span>;
+      default: return <span className="px-2 py-0.5 rounded-full bg-zinc-500/10 text-text-disabled text-micro font-black uppercase tracking-widest border border-zinc-500/20">Info</span>;
     }
   };
 
@@ -125,10 +125,10 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2 mb-1.5">
                 {getPriorityBadge(n.priority)}
-                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-[9px] font-black uppercase tracking-widest border border-[rgb(var(--fg-rgb))]/10">{n.type}</span>
+                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-micro font-black uppercase tracking-widest border border-[rgb(var(--fg-rgb))]/10">{n.type}</span>
               </div>
               <h3 className="text-lg font-black text-text-primary leading-tight">{n.title}</h3>
-              <p className="text-[10px] text-text-disabled font-mono mt-1 uppercase tracking-wider">{new Date(n.date).toLocaleString()}</p>
+              <p className="text-tiny text-text-disabled font-mono mt-1 uppercase tracking-wider">{new Date(n.date).toLocaleString()}</p>
             </div>
           </div>
 
@@ -140,13 +140,13 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
 
           {(client || account) && (
             <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 mb-6 animate-in fade-in zoom-in-95 duration-500">
-              <h4 className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em] mb-3">Información Relevante</h4>
+              <h4 className="text-tiny font-bold text-text-disabled uppercase tracking-[0.2em] mb-3">Información Relevante</h4>
               {client && (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-semibold text-xs">{client.name.charAt(0)}</div>
                   <div>
                     <p className="text-xs font-semibold text-text-primary">{client.name}</p>
-                    <p className="text-[10px] text-text-disabled font-mono">{client.phone}</p>
+                    <p className="text-tiny text-text-disabled font-mono">{client.phone}</p>
                   </div>
                 </div>
               )}
@@ -155,7 +155,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                   <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center text-text-muted"><Package size={18} /></div>
                   <div className="min-w-0">
                     <p className="text-xs font-semibold text-text-primary truncate">{account.email}</p>
-                    <p className="text-[10px] text-text-disabled font-mono uppercase">Vence: {formatDate(account.endDate)}</p>
+                    <p className="text-tiny text-text-disabled font-mono uppercase">Vence: {formatDate(account.endDate)}</p>
                   </div>
                 </div>
               )}
@@ -166,14 +166,14 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
             {n.type === 'expiry' && client && (
               <button 
                 onClick={() => handleWhatsApp(n)}
-                className="flex items-center justify-center gap-2 h-12 bg-brand-whatsapp text-black rounded-2xl font-bold text-[11px] uppercase tracking-wider shadow-lg shadow-brand-whatsapp/20 active:scale-95 transition-all"
+                className="flex items-center justify-center gap-2 h-12 bg-brand-whatsapp text-black rounded-2xl font-bold text-caption uppercase tracking-wider shadow-lg shadow-brand-whatsapp/20 active:scale-95 transition-all"
               >
                 <MessageCircle size={16} /> WhatsApp
               </button>
             )}
             <button 
               onClick={() => executeAction(n)}
-              className={`flex items-center justify-center gap-2 h-12 rounded-2xl font-bold text-[11px] uppercase tracking-wider active:scale-95 transition-all ${
+              className={`flex items-center justify-center gap-2 h-12 rounded-2xl font-bold text-caption uppercase tracking-wider active:scale-95 transition-all ${
                 n.type === 'expiry' && client 
                   ? 'bg-white text-black' 
                   : 'col-span-2 bg-gradient-to-r from-brand-primary to-brand-accent text-white shadow-glow'
@@ -188,7 +188,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Centro de Notificaciones" zIndex={2000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Centro de Notificaciones">
        <div className="flex flex-col h-[75vh] md:h-[600px] pt-1">
           
           {!selectedNotification && (
@@ -207,7 +207,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                       <button 
                         key={cat.id}
                         onClick={() => setCategoryFilter(cat.id as CategoryFilter)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-sm whitespace-nowrap text-[11px] font-semibold uppercase transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-sm whitespace-nowrap text-caption font-semibold uppercase transition-all ${
                           isActive 
                             ? 'bg-surface-3 text-text-primary shadow-lg border border-[rgb(var(--fg-rgb))]/10' 
                             : 'text-text-disabled hover:text-text-secondary'
@@ -232,7 +232,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                       <button 
                         key={t.id}
                         onClick={() => setTimeFilter(t.id as TimeFilter)}
-                        className={`flex-1 py-2 rounded-sm text-[10px] font-semibold uppercase tracking-widest transition-all border ${
+                        className={`flex-1 py-2 rounded-sm text-tiny font-semibold uppercase tracking-widest transition-all border ${
                           isActive 
                             ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
                             : 'bg-transparent border-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:border-[rgb(var(--fg-rgb))]/10'
@@ -254,7 +254,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                   {filtered.length === 0 ? (
                       <div className="h-full flex flex-col items-center justify-center text-text-disabled py-20 px-6 border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
                         <div className="w-16 h-16 bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-status-success/40" /></div>
-                        <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em]">Sin pendientes</h3>
+                        <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Sin pendientes</h3>
                         <p className="text-xs mt-1 text-text-disabled italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
                       </div>
                   ) : (
@@ -278,12 +278,12 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                             <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-start mb-0.5">
                                   <h4 className={`text-xs font-semibold truncate pr-2 ${item.priority === 'high' ? 'text-red-100' : 'text-text-primary'}`}>{item.title}</h4>
-                                  <span className="text-[9px] text-text-disabled whitespace-nowrap font-mono bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded uppercase tracking-tighter shrink-0">{new Date(item.date).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}</span>
+                                  <span className="text-micro text-text-disabled whitespace-nowrap font-mono bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded uppercase tracking-tighter shrink-0">{new Date(item.date).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}</span>
                                 </div>
-                                <p className="text-[11px] text-text-muted leading-snug line-clamp-1">{item.message}</p>
+                                <p className="text-caption text-text-muted leading-snug line-clamp-1">{item.message}</p>
                                 <div className="flex items-center gap-2 mt-2">
-                                  <span className="text-[9px] font-black uppercase text-text-faint tracking-wider bg-[rgb(var(--fg-rgb))]/5 px-1.5 rounded">{item.type}</span>
-                                  {item.priority === 'high' && <span className="text-[9px] font-black uppercase text-status-danger/80 animate-pulse">Urgente</span>}
+                                  <span className="text-micro font-black uppercase text-text-faint tracking-wider bg-[rgb(var(--fg-rgb))]/5 px-1.5 rounded">{item.type}</span>
+                                  {item.priority === 'high' && <span className="text-micro font-black uppercase text-status-danger/80 animate-pulse">Urgente</span>}
                                 </div>
                             </div>
                             <div className="self-center opacity-40 group-hover:opacity-100 transition-opacity -mr-1 text-text-disabled"><ChevronRight size={14} /></div>

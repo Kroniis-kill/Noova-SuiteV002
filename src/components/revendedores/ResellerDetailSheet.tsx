@@ -1,11 +1,12 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Reseller, Client, Sale } from '../../types';
 import { X, MessageCircle, Edit2, Trash2, Users, ChevronRight, Send, Briefcase } from 'lucide-react';
 import { openWhatsAppBusiness } from '../../utils/contactosUtils';
 import { useIsMobile } from '../../hooks/useIsMobile';
+import { useDialog } from '../../hooks/useDialog';
 import { getInitials } from '../../utils/revendedoresUtils';
 
 interface ResellerDetailSheetProps {
@@ -23,6 +24,8 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
   isOpen, onClose, reseller, clients, sales, onEdit, onDelete, onClientClick
 }) => {
   const isMobile = useIsMobile();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const layerZ = useDialog({ isOpen: isOpen && !!reseller, onClose, containerRef: dialogRef });
 
   // Filter Logic
   const assignedClients = useMemo(() => {
@@ -80,10 +83,10 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
             variants={backdropVariants}
             initial="hidden" animate="visible" exit="exit"
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm" style={{ zIndex: layerZ - 1 }}
           />
           
-          <div className={`fixed inset-0 z-[9999] flex justify-center pointer-events-none ${isMobile ? 'items-end' : 'items-center'}`}>
+          <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Detalle del revendedor" tabIndex={-1} style={{ zIndex: layerZ }} className={`fixed inset-0 flex justify-center pointer-events-none outline-none ${isMobile ? 'items-end' : 'items-center'}`}>
             <motion.div
                 variants={modalVariants}
                 initial="hidden" animate="visible" exit="exit"
@@ -112,7 +115,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                             <div>
                                 <h2 className="text-2xl font-bold text-text-primary tracking-tight">{reseller.name}</h2>
                                 <div className="flex items-center gap-2 mt-1.5">
-                                    <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-[11px] font-mono text-text-muted">
+                                    <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-caption font-mono text-text-muted">
                                         {reseller.code}
                                     </span>
                                 </div>
@@ -163,15 +166,15 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-[rgb(var(--fg-rgb))]/5">
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Total Generado</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Total Generado</p>
                         <p className="text-lg font-bold text-status-success-soft">${totalRevenue.toLocaleString()}</p>
                     </div>
                     <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Clientes Activos</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Clientes Activos</p>
                         <p className="text-lg font-bold text-text-primary">{activeClientsCount}</p>
                     </div>
                     <div className="p-4 text-center">
-                        <p className="text-[10px] text-text-disabled font-semibold uppercase tracking-wider mb-1">Total Clientes</p>
+                        <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Total Clientes</p>
                         <p className="text-lg font-bold text-text-secondary">{assignedClients.length}</p>
                     </div>
                 </div>
@@ -200,11 +203,11 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold text-text-primary truncate max-w-[120px]">{client.name}</p>
-                                            <p className="text-[10px] text-text-disabled font-mono group-hover:text-text-muted">{client.phone}</p>
+                                            <p className="text-tiny text-text-disabled font-mono group-hover:text-text-muted">{client.phone}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${client.activeServices > 0 ? 'bg-status-success/10 text-status-success-soft' : 'bg-zinc-500/10 text-text-disabled'}`}>
+                                        <span className={`text-tiny font-semibold px-2 py-0.5 rounded ${client.activeServices > 0 ? 'bg-status-success/10 text-status-success-soft' : 'bg-zinc-500/10 text-text-disabled'}`}>
                                             {client.activeServices} Serv.
                                         </span>
                                         <ChevronRight size={14} className="text-text-faint group-hover:text-text-primary transition-colors" />

@@ -40,6 +40,33 @@ export default {
         'border-subtle': 'var(--border-subtle)',
         'border-strong': 'var(--border-strong)',
       },
+      zIndex: {
+        nav: 'var(--z-nav)',
+        header: 'var(--z-header)',
+        dropdown: 'var(--z-dropdown)',
+        page: 'var(--z-page)',
+        fullscreen: 'var(--z-fullscreen)',
+        banner: 'var(--z-banner)',
+        blocking: 'var(--z-blocking)',
+        'modal-base': 'var(--z-modal-base)',
+        'modal-overlay': 'var(--z-modal-overlay)',
+        'modal-content': 'var(--z-modal-content)',
+        'modal-top': 'var(--z-modal-top)',
+        lockout: 'var(--z-lockout)',
+        toast: 'var(--z-toast)',
+        'alert-overlay': 'var(--z-alert-overlay)',
+        alert: 'var(--z-alert)',
+      },
+      // Escala tipográfica para tamaños que no cubre Tailwind. Son solo
+      // font-size (sin line-height), igual que antes con text-[Npx].
+      fontSize: {
+        nano: '8px',
+        micro: '9px',
+        tiny: '10px',
+        caption: '11px',
+        label: '12px',
+        'body-sm': '13px',
+      },
       borderRadius: {
         xs: 'var(--radius-xs)',
         sm: 'var(--radius-sm)',
@@ -57,6 +84,16 @@ export default {
         'glow-primary': 'var(--glow-primary)',
         'glow-primary-sm': 'var(--glow-primary-sm)',
         'glow-accent': 'var(--glow-accent)',
+        'glow-md': 'var(--glow-primary-md)',
+        'glow-danger': '0 0 20px rgb(var(--status-danger) / 0.4)',
+        // Puntos de estado luminosos (antes shadow-[0_0_8px_#hex])
+        'dot-primary': '0 0 8px rgb(var(--brand-primary))',
+        'dot-accent': '0 0 10px rgb(var(--brand-accent))',
+        'dot-accent-sm': '0 0 5px rgb(var(--brand-accent))',
+        'dot-success': '0 0 8px rgb(var(--status-success))',
+        'dot-success-sm': '0 0 5px rgb(var(--status-success))',
+        'dot-warning-sm': '0 0 5px rgb(var(--status-warning))',
+        'dot-danger-sm': '0 0 5px rgb(var(--status-danger))',
         // Alias: antes `shadow-glow`/`shadow-glow-sm` solo existían en el
         // script de respaldo de Tailwind cargado en index.html (ya
         // eliminado). Se agregan acá, apuntando a los mismos tokens

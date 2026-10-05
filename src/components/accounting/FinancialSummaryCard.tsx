@@ -42,7 +42,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <BarChart3 className="text-brand-primary" size={16} />
                 Inteligencia Real
              </h2>
-             <p className="text-text-faint text-[8px] font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
+             <p className="text-text-faint text-nano font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
           </div>
           
           <div className="flex bg-bg p-1 rounded-sm border border-[rgb(var(--fg-rgb))]/[0.05]">
@@ -50,7 +50,7 @@ const FinancialSummaryCard: React.FC = () => {
                 <button
                   key={p}
                   onClick={() => setPeriod(p as any)}
-                  className={`px-3 py-1 rounded-xs text-[8px] font-black uppercase tracking-widest transition-all ${period === p ? 'bg-surface-4 text-text-primary' : 'text-text-faint hover:text-text-muted'}`}
+                  className={`px-3 py-1 rounded-xs text-nano font-black uppercase tracking-widest transition-all ${period === p ? 'bg-surface-4 text-text-primary' : 'text-text-faint hover:text-text-muted'}`}
                 >
                    {p === 'week' ? 'Sem' : p === 'month' ? 'Mes' : 'Año'}
                 </button>
@@ -62,7 +62,7 @@ const FinancialSummaryCard: React.FC = () => {
           <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
              <div className="flex items-center gap-1.5 text-status-success mb-1">
                 <ArrowUpRight size={12} strokeWidth={3} />
-                <span className="text-[8px] font-black uppercase tracking-widest">Ingresos</span>
+                <span className="text-nano font-black uppercase tracking-widest">Ingresos</span>
              </div>
              <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.income.toLocaleString()}</p>
           </div>
@@ -70,7 +70,7 @@ const FinancialSummaryCard: React.FC = () => {
           <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
              <div className="flex items-center gap-1.5 text-status-danger mb-1">
                 <ArrowDownRight size={12} strokeWidth={3} />
-                <span className="text-[8px] font-black uppercase tracking-widest">Egresos</span>
+                <span className="text-nano font-black uppercase tracking-widest">Egresos</span>
              </div>
              <p className="text-sm font-bold text-text-primary font-mono">{currency}{totalOutflow.toLocaleString()}</p>
           </div>
@@ -78,7 +78,7 @@ const FinancialSummaryCard: React.FC = () => {
           <div className="bg-brand-primary/5 rounded-lg p-3.5 border border-brand-primary/10">
              <div className="flex items-center gap-1.5 text-brand-primary mb-1">
                 <Wallet size={12} strokeWidth={3} />
-                <span className="text-[8px] font-black uppercase tracking-widest">Beneficio</span>
+                <span className="text-nano font-black uppercase tracking-widest">Beneficio</span>
              </div>
              <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.netProfit.toLocaleString()}</p>
           </div>
@@ -110,12 +110,12 @@ const FinancialSummaryCard: React.FC = () => {
                 <PieChart size={16} strokeWidth={2} />
              </div>
              <div>
-                <p className="text-[8px] text-text-faint font-black uppercase tracking-[0.2em]">Margen Neto</p>
+                <p className="text-nano text-text-faint font-black uppercase tracking-[0.2em]">Margen Neto</p>
                 <p className="text-sm font-bold text-text-primary font-mono">{margin.toFixed(1)}%</p>
              </div>
           </div>
           
-          <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${margin >= 20 ? 'bg-status-success/5 text-status-success border-status-success/20' : 'bg-status-warning/5 text-status-warning border-status-warning/20'}`}>
+          <span className={`px-3 py-1 rounded-full text-nano font-black uppercase tracking-widest border ${margin >= 20 ? 'bg-status-success/5 text-status-success border-status-success/20' : 'bg-status-warning/5 text-status-warning border-status-warning/20'}`}>
              {margin >= 20 ? 'Status Ok' : 'Low ROI'}
           </span>
        </div>

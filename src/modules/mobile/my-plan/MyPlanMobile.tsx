@@ -90,7 +90,7 @@ const MyPlanMobile: React.FC = () => {
                              <Star size={16} className="text-brand-accent" />
                          )}
                          
-                         <span className={`text-[10px] font-semibold uppercase tracking-widest ${isTrial ? 'text-text-muted' : isLifetime ? 'text-status-warning-soft' : 'text-brand-accent'}`}>
+                         <span className={`text-tiny font-semibold uppercase tracking-widest ${isTrial ? 'text-text-muted' : isLifetime ? 'text-status-warning-soft' : 'text-brand-accent'}`}>
                              {isTrial ? 'MODO TRIAL' : isLifetime ? 'SOCIO VITALICIO' : 'MIEMBRO PRO'}
                          </span>
                       </div>
@@ -104,19 +104,19 @@ const MyPlanMobile: React.FC = () => {
               <div>
                   <div className="flex items-end justify-between">
                       <div className="flex flex-col">
-                          <span className="text-[11px] text-text-secondary font-bold mb-0.5 uppercase tracking-wide">
+                          <span className="text-caption text-text-secondary font-bold mb-0.5 uppercase tracking-wide">
                               {getPlanTypeLabel()}
                           </span>
                           
                           <div className="flex items-center gap-2">
-                             <div className={`w-2 h-2 rounded-full ${isBlocked ? 'bg-status-danger animate-pulse' : 'bg-status-success-soft shadow-[0_0_8px_#34d399]'}`} />
+                             <div className={`w-2 h-2 rounded-full ${isBlocked ? 'bg-status-danger animate-pulse' : 'bg-status-success-soft shadow-dot-success'}`} />
                              <span className="text-xs font-semibold text-text-muted">
                                  {isBlocked ? 'Bloqueada' : 'Cuenta Activa'}
                              </span>
                           </div>
                       </div>
                       <div className="text-right">
-                          <span className="text-[9px] text-text-disabled uppercase font-semibold block mb-0.5">
+                          <span className="text-micro text-text-disabled uppercase font-semibold block mb-0.5">
                               {isLifetime ? 'Acceso Total' : 'Vencimiento'}
                           </span>
                           
@@ -150,7 +150,7 @@ const MyPlanMobile: React.FC = () => {
                   </div>
                   <div className="text-left">
                       <span className="block text-text-primary font-bold text-sm">{isTrial ? 'Activar Plan PRO' : 'Renovar Plan'}</span>
-                      <span className="block text-text-primary/80 text-[10px]">Desbloquea todo el poder</span>
+                      <span className="block text-text-primary/80 text-tiny">Desbloquea todo el poder</span>
                   </div>
               </div>
               <ChevronRight size={20} className="text-text-primary relative z-10" />
@@ -171,7 +171,7 @@ const MyPlanMobile: React.FC = () => {
                 
                 <div className="relative z-10">
                     <span className="text-3xl font-extrabold text-text-primary block tracking-tight">{clients.length}</span>
-                    <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Clientes</span>
+                    <span className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Clientes</span>
                 </div>
              </div>
 
@@ -184,7 +184,7 @@ const MyPlanMobile: React.FC = () => {
                 
                 <div className="relative z-10">
                     <span className="text-3xl font-extrabold text-text-primary block tracking-tight">{sales.length}</span>
-                    <span className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest">Ventas</span>
+                    <span className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Ventas</span>
                 </div>
              </div>
           </div>
@@ -207,7 +207,7 @@ const MyPlanMobile: React.FC = () => {
                          </div>
                          <div className="text-left">
                              <h4 className="text-sm font-bold text-text-primary group-hover:text-status-success-soft transition-colors">Renovar Membresía</h4>
-                             <p className="text-[11px] text-text-disabled">Gestionar pagos de Noova</p>
+                             <p className="text-caption text-text-disabled">Gestionar pagos de Noova</p>
                          </div>
                      </div>
                      <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
@@ -224,7 +224,7 @@ const MyPlanMobile: React.FC = () => {
                      </div>
                      <div className="text-left">
                          <h4 className="text-sm font-bold text-text-primary group-hover:text-status-info-soft transition-colors">Soporte Técnico</h4>
-                         <p className="text-[11px] text-text-disabled">Reportar fallas de la app</p>
+                         <p className="text-caption text-text-disabled">Reportar fallas de la app</p>
                      </div>
                  </div>
                  <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
@@ -240,7 +240,7 @@ const MyPlanMobile: React.FC = () => {
                      </div>
                      <div className="text-left">
                          <h4 className="text-sm font-bold text-text-primary group-hover:text-brand-primary transition-colors">Tutoriales</h4>
-                         <p className="text-[11px] text-text-disabled">Aprende a usar Noova Suite</p>
+                         <p className="text-caption text-text-disabled">Aprende a usar Noova Suite</p>
                      </div>
                  </div>
                  <ChevronRight size={18} className="text-text-faint group-hover:text-text-primary" />
@@ -250,7 +250,7 @@ const MyPlanMobile: React.FC = () => {
        </div>
 
        <div className="mt-8 text-center opacity-40">
-          <p className="text-[10px] text-text-faint">Noova Suite • Build 1.4.0</p>
+          <p className="text-tiny text-text-faint">Noova Suite • Build 1.4.0</p>
        </div>
     </div>
   );

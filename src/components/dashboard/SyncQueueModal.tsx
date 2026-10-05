@@ -22,7 +22,7 @@ const SyncQueueModal: React.FC<SyncQueueModalProps> = ({ isOpen, onClose, pendin
           {!isOnline && (
             <div className="mt-3 flex items-center gap-2 text-status-danger-soft bg-status-danger-soft/10 p-2.5 rounded-sm border border-status-danger-soft/20">
               <AlertTriangle size={14} />
-              <span className="text-[10px] font-semibold uppercase tracking-widest">Actualmente sin conexión</span>
+              <span className="text-tiny font-semibold uppercase tracking-widest">Actualmente sin conexión</span>
             </div>
           )}
         </div>
@@ -36,13 +36,13 @@ const SyncQueueModal: React.FC<SyncQueueModalProps> = ({ isOpen, onClose, pendin
                 <Activity size={14} />
               </div>
               <div>
-                <p className="text-[11px] font-bold text-text-primary uppercase">{item.entity}</p>
-                <p className="text-[9px] text-status-warning font-semibold uppercase tracking-widest mt-0.5">{item.action}</p>
+                <p className="text-caption font-bold text-text-primary uppercase">{item.entity}</p>
+                <p className="text-micro text-status-warning font-semibold uppercase tracking-widest mt-0.5">{item.action}</p>
               </div>
             </div>
             <div className="flex flex-col items-end gap-1">
               <Clock size={12} className="text-text-disabled" />
-              <span className="text-[9px] text-text-disabled font-mono">
+              <span className="text-micro text-text-disabled font-mono">
                 {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>

@@ -1,4 +1,5 @@
 
+import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useData } from '../../../context/DataContext';
 import { Provider, Account } from '../../../types';
@@ -13,7 +14,8 @@ import Modal from '../../../components/ui/Modal';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 import { 
   Plus, Search, Upload, Trash2, AlertTriangle, 
-  ChevronRight, Layers, Truck, X
+  ChevronRight, Layers, Truck, X,
+  SearchX
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '../../../context/ToastContext';
@@ -241,7 +243,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
           <div className="flex justify-between items-center mb-4">
               <div>
                   <h1 className="text-2xl font-black text-text-primary tracking-tight">Proveedores</h1>
-                  <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
+                  <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
               </div>
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
@@ -275,13 +277,22 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                   <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />
                   </div>
-                  <div><p className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider">Inventario Externo</p><p className="text-xs text-text-muted">Cuentas de proveedores</p></div>
+                  <div><p className="text-caption font-semibold text-text-disabled uppercase tracking-wider">Inventario Externo</p><p className="text-xs text-text-muted">Cuentas de proveedores</p></div>
               </div>
               <p className="text-3xl font-bold text-text-primary tracking-tight relative z-10">{globalStats.totalProviderAccounts}</p>
           </div>
        </div>
 
        <motion.div variants={listVariants} initial="hidden" animate="visible" className="grid grid-cols-1 lg:grid-cols-2 gap-4 relative z-10 pb-20">
+          {filteredProviders.length === 0 && (
+            <div className="lg:col-span-2">
+              {providers.length === 0 ? (
+                <EmptyState compact icon={Truck} title="Aún no tienes proveedores" description="Agrega a quienes te surten las cuentas para llevar el control de cada uno." actionLabel="Nuevo proveedor" onAction={handleAdd} />
+              ) : (
+                <EmptyState compact icon={SearchX} title="Sin resultados" description={`No encontramos coincidencias para “${searchQuery}”.`} actionLabel="Limpiar búsqueda" onAction={() => setSearchQuery('')} actionIcon={<X size={16} aria-hidden="true" />} />
+              )}
+            </div>
+          )}
           <AnimatePresence mode='popLayout'>
              {filteredProviders.map(provider => (
                 <motion.div key={provider.id} variants={itemVariants} layout >
@@ -313,11 +324,11 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
              </div>
              <div className="flex flex-col gap-3">
                 <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
-                   <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-[10px]">Las cuentas quedarán sin proveedor.</span></div>
+                   <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-tiny">Las cuentas quedarán sin proveedor.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>
                 <button onClick={() => handleDeleteConfirm('delete_accounts')} className="w-full p-4 rounded-xl bg-status-danger/5 border border-status-danger/10 hover:bg-status-danger/10 text-left flex justify-between items-center transition-colors shadow-sm">
-                   <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-[10px]">Se eliminará el proveedor y sus cuentas.</span></div>
+                   <div><span className="block text-status-danger-soft font-bold text-sm">Eliminar Todo</span><span className="block text-status-danger-soft/60 text-tiny">Se eliminará el proveedor y sus cuentas.</span></div>
                    <Trash2 size={16} className="text-status-danger-soft/60" />
                 </button>
              </div>

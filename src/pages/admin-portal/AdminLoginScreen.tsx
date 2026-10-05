@@ -82,7 +82,7 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ deniedMessage }) =>
           </button>
         </form>
 
-        <p className="text-center text-[11px] text-text-faint mt-8">
+        <p className="text-center text-caption text-text-faint mt-8">
           Este panel es distinto al de la app de tu negocio. Si buscás iniciar sesión en tu cuenta, volvé al inicio.
         </p>
       </div>

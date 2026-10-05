@@ -29,7 +29,7 @@ const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!rin
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
 const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 const formatLongDate = (dateStr?: string | null): string => {
   if (!dateStr) return '---';
@@ -63,7 +63,7 @@ const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label,
         }}
         className={`${CLEAN_INPUT} h-6 text-center !text-lg font-bold leading-none text-text-primary`}
       />
-      <span className="text-[9px] font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
+      <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">{label}</span>
     </div>
     <button type="button" aria-label={`Más ${label}`} onClick={() => onChange(value + 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Plus size={16} /></button>
   </div>
@@ -109,13 +109,13 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           >
             <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><Monitor size={18} /></div>
             <div className="flex-1 min-w-0">
-              <span className="block text-[10px] font-semibold text-text-disabled uppercase">Plataforma</span>
+              <span className="block text-tiny font-semibold text-text-disabled uppercase">Plataforma</span>
               <span className={`block text-sm font-bold truncate ${selectedService ? 'text-text-primary' : 'text-text-faint'}`}>
                 {selectedService?.name || 'Seleccionar...'}
               </span>
             </div>
             {selectedService && (
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted shrink-0">
+              <span className="text-tiny font-semibold px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted shrink-0">
                 {SALE_TYPE_LABELS[props.tempType] || props.tempType}
               </span>
             )}
@@ -131,11 +131,11 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
             >
               <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-status-success shrink-0"><Mail size={18} /></div>
               <div className="flex-1 min-w-0">
-                <span className="block text-[10px] font-semibold text-text-disabled uppercase">
+                <span className="block text-tiny font-semibold text-text-disabled uppercase">
                   Cuenta de stock
                   {!props.isEditing && freeSlots !== null && <span className="text-status-success-soft normal-case"> · {freeSlots} {freeSlots === 1 ? 'libre' : 'libres'}</span>}
                 </span>
-                <span className={`block text-[13px] font-bold truncate ${selectedAccount ? 'text-text-primary' : 'text-text-faint'}`}>
+                <span className={`block text-body-sm font-bold truncate ${selectedAccount ? 'text-text-primary' : 'text-text-faint'}`}>
                   {selectedAccount?.email || 'Asignar cuenta...'}
                 </span>
               </div>
@@ -167,7 +167,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
                 key={m}
                 type="button"
                 onClick={() => { haptic('nav'); props.setTempMonths(m); props.setTempDays(0); }}
-                className={`h-9 px-4 rounded-full border text-[13px] font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
               >
                 {m} {m === 1 ? 'mes' : 'meses'}
               </button>
@@ -181,7 +181,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
 
         <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
           <div className="min-w-0 flex-1">
-            <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
+            <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
               <Calendar size={12} /> {props.isEditing ? 'Vence actualmente' : 'Inicio'}
             </span>
             {props.isEditing ? (
@@ -197,7 +197,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           </div>
           <ArrowRight size={18} className="text-text-faint shrink-0" />
           <div className="text-right shrink-0">
-            <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest block">{props.isEditing ? 'Nuevo' : 'Vence'}</span>
+            <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block">{props.isEditing ? 'Nuevo' : 'Vence'}</span>
             <p className="h-8 mt-1 flex items-center justify-end text-[15px] font-bold text-brand-primary-hi">{formatLongDate(endDate)}</p>
           </div>
         </div>
@@ -206,8 +206,8 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
       {/* 3. PRECIO */}
       <div className="space-y-3">
         <div className="flex justify-between items-center px-1">
-          <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Precio de venta</label>
-          {props.isResellerClient && <span className="text-[9px] bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa socio</span>}
+          <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Precio de venta</label>
+          {props.isResellerClient && <span className="text-micro bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa socio</span>}
         </div>
         <div className="h-[60px] bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
           <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
@@ -228,7 +228,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
       {isScreen && (
         <div className="space-y-3">
           <div className="flex justify-between items-center px-1">
-            <label className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Perfiles ({props.tempScreens})</label>
+            <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Perfiles ({props.tempScreens})</label>
             <div className="flex gap-1.5">
               <button type="button" aria-label="Quitar perfil" onClick={() => props.setTempScreens(Math.max(1, props.tempScreens - 1))} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Minus size={14} /></button>
               <button type="button" aria-label="Agregar perfil" onClick={() => props.setTempScreens(props.tempScreens + 1)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Plus size={14} /></button>

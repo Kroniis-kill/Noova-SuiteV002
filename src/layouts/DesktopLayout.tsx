@@ -53,7 +53,7 @@ const DesktopLayout: React.FC<DesktopLayoutProps> = ({
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="sticky top-0 z-[100] w-full pt-8 px-10"
+              className="sticky top-0 z-header w-full pt-8 px-10"
             >
               <Header 
                   openMobile={() => {}} 

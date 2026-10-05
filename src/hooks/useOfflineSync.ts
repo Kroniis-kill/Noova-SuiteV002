@@ -333,7 +333,7 @@ const addToSyncQueue = async (
   action: SyncItem['action'],
   entity: SyncItem['entity'],
   payload: any
-) => {
+): Promise<boolean> => {
   try {
     // Red de seguridad: si la app acaba de volver de segundo plano y la
     // conexión a IndexedDB quedó congelada, esto la recupera ANTES de
@@ -369,7 +369,7 @@ const addToSyncQueue = async (
             if (e.action === 'UPDATE' && e.id) await dbLocal.syncQueue.delete(e.id);
           }
           updateLocalCache(action, entity, payload);
-          return;
+          return true;
         }
       }
 
@@ -387,7 +387,7 @@ const addToSyncQueue = async (
           });
           updateLocalCache(action, entity, payload);
           useSaveStatus.getState().noteQueued();
-          return;
+          return true;
         }
       }
     }
@@ -407,9 +407,13 @@ const addToSyncQueue = async (
         processSyncQueue();
       }, 400);
     }
+    return true;
   } catch (error) {
     console.error('[Sync] error encolando acción offline:', error);
     toastRef?.('Error guardando en local', 'error');
+    // Antes esta función no avisaba a quien la llamó, y los borrados mostraban
+    // "pendiente de sincronización" aunque el cambio no se hubiera guardado en ningún lado.
+    return false;
   }
 };
 

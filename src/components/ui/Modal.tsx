@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { isNativePlatform } from '../../utils/platformUtils';
+import { useDialog } from '../../hooks/useDialog';
+import { Z_MODAL_BASE, Z_MODAL_TOP } from '../../constants/zIndex';
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,6 +15,8 @@ interface ModalProps {
   isTopMost?: boolean;
   /** Ancho máximo en desktop. sm=md(28rem) · md=lg(32rem · default) · lg=2xl(42rem) · xl=4xl(56rem) */
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Elemento que recibe el foco al abrir (por defecto, el primero enfocable). */
+  initialFocusRef?: React.RefObject<HTMLElement>;
 }
 
 const SIZE_CLASSES: Record<NonNullable<ModalProps['size']>, string> = {
@@ -22,13 +26,21 @@ const SIZE_CLASSES: Record<NonNullable<ModalProps['size']>, string> = {
   xl: 'lg:max-w-4xl',
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex, isTopMost = false, size = 'md' }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex, isTopMost = false, size = 'md', initialFocusRef }) => {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const isNative = isNativePlatform();
 
-  const baseZIndex = isTopMost
-    ? 'var(--z-modal-top)'
-    : (zIndex ? String(zIndex) : 'var(--z-modal-base)');
+  // El z-index pedido es solo un mínimo: useDialog apila cada modal nuevo
+  // por encima de los que ya están abiertos, sin números mágicos.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const layerZ = useDialog({
+    isOpen,
+    onClose,
+    containerRef: rootRef,
+    requestedZ: isTopMost ? Z_MODAL_TOP : (zIndex ?? Z_MODAL_BASE),
+    initialFocusRef,
+  });
 
   const springTransition = {
     type: 'spring' as const,
@@ -61,11 +73,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
     <AnimatePresence>
       {isOpen && (
         <div
-          style={{ zIndex: baseZIndex }}
-          className="fixed inset-0 overflow-hidden flex items-end lg:items-center justify-center"
+          ref={rootRef}
+          tabIndex={-1}
+          style={{ zIndex: layerZ }}
+          className="fixed inset-0 overflow-hidden flex items-end lg:items-center justify-center outline-none"
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-labelledby={title ? titleId : undefined}
+          aria-label={title ? undefined : 'Ventana'}
         >
           <motion.div
             key="overlay"
@@ -93,7 +108,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
           >
             {isMobile && (
               <div className="w-full flex justify-center pt-3 pb-1 shrink-0" onClick={onClose}>
-                <div className="w-12 h-1.5 bg-text-text-faint rounded-pill" />
+                <div className="w-12 h-1.5 bg-text-faint rounded-pill" aria-hidden="true" />
               </div>
             )}
 
@@ -103,6 +118,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
               }`}
             >
               <h3
+                id={titleId}
                 className={`${
                   isMobile ? 'text-lg' : 'text-sm uppercase tracking-eyebrow'
                 } font-extrabold text-text-primary`}
@@ -113,14 +129,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
                 type="button"
                 onClick={onClose}
                 aria-label="Cerrar"
-                className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 focus-visible:ring-2 focus-visible:ring-brand-primary/50 outline-none"
+                className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-primary"
               >
                 <X size={18} />
               </button>
             </div>
 
             <div
-              className={`overflow-y-auto custom-scrollbar flex-1 pb-safe ${
+              className={`overflow-y-auto overscroll-contain custom-scrollbar flex-1 pb-safe ${
                 isMobile ? 'p-[var(--mobile-side-pad)]' : 'p-6'
               }`}
             >

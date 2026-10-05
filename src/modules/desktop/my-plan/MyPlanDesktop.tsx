@@ -97,10 +97,10 @@ const MyPlanDesktop: React.FC = () => {
                       <div>
                          <div className="flex items-center gap-2 mb-1">
                             <h2 className="text-2xl font-bold text-text-primary tracking-tight">{PLAN_LABELS[currentPlan]}</h2>
-                            {isPro && <span className={`text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm ${isLifetime ? 'bg-status-warning' : 'bg-brand-accent'}`}>{isLifetime ? 'VITALICIO' : 'PRO'}</span>}
+                            {isPro && <span className={`text-white text-tiny font-semibold px-2 py-0.5 rounded shadow-sm ${isLifetime ? 'bg-status-warning' : 'bg-brand-accent'}`}>{isLifetime ? 'VITALICIO' : 'PRO'}</span>}
                          </div>
                          <div className="flex items-center gap-2 text-text-muted text-xs font-medium">
-                            <span className={`w-2 h-2 rounded-full ${displaySub.is_active ? 'bg-status-success-soft shadow-[0_0_8px_#34d399]' : 'bg-status-danger-soft'}`} />
+                            <span className={`w-2 h-2 rounded-full ${displaySub.is_active ? 'bg-status-success-soft shadow-dot-success' : 'bg-status-danger-soft'}`} />
                             {displaySub.is_active ? 'Suscripción Activa' : 'Inactiva'} 
                             <span className="text-text-faint">•</span>
                             {isLifetime ? (
@@ -184,7 +184,7 @@ const MyPlanDesktop: React.FC = () => {
                              </div>
                              <div className="text-right">
                                 <p className="text-sm font-bold text-text-primary">${inv.amount}</p>
-                                <span className={`text-[10px] uppercase font-semibold ${inv.status === 'paid' ? 'text-status-success-soft' : 'text-status-warning-soft'}`}>{inv.status}</span>
+                                <span className={`text-tiny uppercase font-semibold ${inv.status === 'paid' ? 'text-status-success-soft' : 'text-status-warning-soft'}`}>{inv.status}</span>
                              </div>
                              <button className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100">
                                 <Download size={14} />

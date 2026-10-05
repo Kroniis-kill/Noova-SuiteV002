@@ -133,7 +133,7 @@ export const BusinessSettings = () => {
                                 <div className={styles.toggleContainer}>
                                     <div>
                                         <p className="text-sm font-bold text-text-primary">Compras como Costo</p>
-                                        <p className="text-[10px] text-text-disabled">Restar stock de la ganancia</p>
+                                        <p className="text-tiny text-text-disabled">Restar stock de la ganancia</p>
                                     </div>
                                     <ToggleSwitch checked={purchaseAsCost} onChange={() => setPurchaseAsCost(!purchaseAsCost)} />
                                 </div>
@@ -167,7 +167,7 @@ export const BusinessSettings = () => {
                             <div className={styles.toggleContainer}>
                                 <div>
                                     <p className="text-sm font-bold text-text-primary">Generar PIN Automático</p>
-                                    <p className="text-[10px] text-text-disabled">Asignar PIN aleatorio al vender</p>
+                                    <p className="text-tiny text-text-disabled">Asignar PIN aleatorio al vender</p>
                                 </div>
                                 <ToggleSwitch checked={autoPin} onChange={() => setAutoPin(!autoPin)} />
                             </div>

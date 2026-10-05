@@ -76,8 +76,8 @@ const ChangePasswordModal: React.FC = () => {
               <ShieldAlert size={20} />
            </div>
            <div>
-              <h4 className="text-status-warning font-bold text-[13px] mb-1">Actualización Requerida</h4>
-              <p className="text-text-muted text-[11px] leading-relaxed">
+              <h4 className="text-status-warning font-bold text-body-sm mb-1">Actualización Requerida</h4>
+              <p className="text-text-muted text-caption leading-relaxed">
                  Por seguridad, te recomendamos cambiar tu contraseña temporal asignada por el administrador.
               </p>
            </div>
@@ -113,7 +113,7 @@ const ChangePasswordModal: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-[0_0_15px_rgba(106,44,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-[13px]"
+                className="w-full h-[48px] bg-gradient-to-r from-brand-primary to-brand-accent hover:brightness-110 text-white rounded-md font-bold shadow-glow-primary-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-body-sm"
               >
                  {loading ? 'Actualizando...' : <><Check size={16} /> Cambiar Contraseña</>}
               </button>

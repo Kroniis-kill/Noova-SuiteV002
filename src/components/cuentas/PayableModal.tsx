@@ -68,7 +68,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
   };
 
   const styles = {
-    label: "text-[10px] font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
+    label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
     input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
     select: "w-full h-full bg-transparent text-[14px] text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
@@ -135,7 +135,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
            <div className="grid grid-cols-2 gap-4 mb-4">
               <div className={styles.inputContainer}>
                  <div className="absolute left-1 w-10 h-[44px] bg-surface-zinc rounded-sm flex items-center justify-center top-[3px] border border-[rgb(var(--fg-rgb))]/5">
-                    <span className="text-[9px] font-bold text-text-disabled uppercase">MES</span>
+                    <span className="text-micro font-bold text-text-disabled uppercase">MES</span>
                  </div>
                  <input 
                    type="number" min="0"
@@ -150,7 +150,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
               
               <div className={styles.inputContainer}>
                  <div className="absolute left-1 w-10 h-[44px] bg-surface-zinc rounded-sm flex items-center justify-center top-[3px] border border-[rgb(var(--fg-rgb))]/5">
-                    <span className="text-[9px] font-bold text-text-disabled uppercase">DIA</span>
+                    <span className="text-micro font-bold text-text-disabled uppercase">DIA</span>
                  </div>
                  <input 
                    type="number" min="0"
@@ -167,7 +167,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 h-[52px] flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                  <Calendar size={16} className="text-text-disabled" />
-                 <span className="text-text-disabled text-[10px] font-semibold uppercase tracking-wide">Fecha Límite:</span>
+                 <span className="text-text-disabled text-tiny font-semibold uppercase tracking-wide">Fecha Límite:</span>
               </div>
               <input 
                 type="date" value={dueDate} onChange={e => setDueDate(e.target.value)}

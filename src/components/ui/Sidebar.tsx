@@ -98,7 +98,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
           </div>
 
           <span className={`
-            text-left ${isDesktop ? 'text-[12px]' : 'text-[15px]'} tracking-tight transition-all 
+            text-left ${isDesktop ? 'text-label' : 'text-[15px]'} tracking-tight transition-all 
             ${isParentActive ? 'font-bold' : 'font-medium'}
           `}>
             {item.label}
@@ -145,12 +145,12 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
                 >
                   <div className="flex items-center gap-2">
                     <SubIcon size={isDesktop ? 12 : 16} className={isSubActive ? 'text-brand-accent' : 'text-text-faint'} />
-                    <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} tracking-tight`}>
+                    <span className={`${isDesktop ? 'text-label' : 'text-[15px]'} tracking-tight`}>
                       {sub.label}
                     </span>
                   </div>
                   {isSubActive && (
-                    <motion.div layoutId="sub-dot" className="w-1 h-1 bg-brand-accent rounded-full shadow-[0_0_5px_#FF1493]" />
+                    <motion.div layoutId="sub-dot" className="w-1 h-1 bg-brand-accent rounded-full shadow-dot-accent-sm" />
                   )}
                 </button>
               );
@@ -231,7 +231,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
          <div className="flex flex-col relative z-20">
             <span className={`${isDesktop ? 'text-xl' : 'text-2xl'} font-black text-text-primary tracking-tighter leading-none`}>NOOVA</span>
-            <span className={`text-[10px] font-bold tracking-[0.3em] uppercase mt-1 ${isAdmin ? 'text-status-warning-soft' : 'text-brand-primary'}`}>
+            <span className={`text-tiny font-bold tracking-[0.3em] uppercase mt-1 ${isAdmin ? 'text-status-warning-soft' : 'text-brand-primary'}`}>
                {isAdmin ? 'MASTER' : 'SUITE'}
             </span>
          </div>
@@ -241,7 +241,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
       <div className={`flex-1 overflow-y-auto no-scrollbar ${isDesktop ? 'px-4' : 'px-4'} py-4`}>
         {navSections.map((section, sIdx) => (
           <div key={section.label} className={sIdx > 0 ? 'mt-1' : ''}>
-            <p className={`px-3 ${isDesktop ? 'text-[9px] mb-1.5' : 'text-[10px] mb-2'} ${sIdx > 0 ? 'mt-3' : ''} font-bold text-text-faint uppercase tracking-widest`}>
+            <p className={`px-3 ${isDesktop ? 'text-micro mb-1.5' : 'text-tiny mb-2'} ${sIdx > 0 ? 'mt-3' : ''} font-bold text-text-faint uppercase tracking-widest`}>
               {section.label}
             </p>
             {section.items.map((item) => (
@@ -273,10 +273,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
             </div>
 
             <div className="flex-1 min-w-0 flex flex-col justify-center">
-               <span className={`${isDesktop ? 'text-[12px]' : 'text-[15px]'} font-bold text-text-primary truncate leading-tight`}>
+               <span className={`${isDesktop ? 'text-label' : 'text-[15px]'} font-bold text-text-primary truncate leading-tight`}>
                  {user?.name?.split(' ')[0]}
                </span>
-               <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border mt-1.5 w-fit uppercase tracking-wider ${isAdmin ? 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'}`}>
+               <span className={`text-tiny font-bold px-1.5 py-0.5 rounded border mt-1.5 w-fit uppercase tracking-wider ${isAdmin ? 'bg-status-warning/10 text-status-warning-soft border-status-warning/20' : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'}`}>
                   {planLabel}
                </span>
             </div>
@@ -291,7 +291,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
          </div>
 
          <div className="text-center mt-3">
-            <span className="text-[8px] text-text-faint font-mono tracking-widest uppercase opacity-50">v{APP_VERSION}</span>
+            <span className="text-nano text-text-faint font-mono tracking-widest uppercase opacity-50">v{APP_VERSION}</span>
          </div>
       </div>
     </div>

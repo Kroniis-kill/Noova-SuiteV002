@@ -150,7 +150,8 @@ export const useInventory = () => {
             if(error) throw error;
           } catch (error) {
             if (isNetworkError(error)) {
-              await addToSyncQueue('DELETE', 'ACCOUNT', { id });
+              const queued = await addToSyncQueue('DELETE', 'ACCOUNT', { id });
+              if (!queued) throw new Error('No se pudo guardar la eliminación en este dispositivo. Intenta de nuevo.');
               showToast('Eliminación pendiente de sincronización', 'info');
               return;
             }
@@ -246,7 +247,8 @@ export const useInventory = () => {
             if(error) throw error;
           } catch (error) {
             if (isNetworkError(error)) {
-              await addToSyncQueue('DELETE', 'SERVICE', { id });
+              const queued = await addToSyncQueue('DELETE', 'SERVICE', { id });
+              if (!queued) throw new Error('No se pudo guardar la eliminación en este dispositivo. Intenta de nuevo.');
               showToast('Eliminación pendiente de sincronización', 'info');
               return;
             }

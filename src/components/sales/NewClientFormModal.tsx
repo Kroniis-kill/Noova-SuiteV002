@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
+import Button from '../ui/Button';
+import { Input } from '../ui/Input';
 import { useData } from '../../context/DataContext';
 import { useToast } from '../../context/ToastContext';
-import { Check, Loader2, User, Phone } from 'lucide-react';
+import { Check, User, Phone } from 'lucide-react';
 import { generateUUID } from '../../utils/uuid';
 import { useHaptic } from '../../hooks/useHaptic';
 
@@ -62,43 +64,33 @@ const NewClientFormModal: React.FC<NewClientFormModalProps> = ({ isOpen, onClose
     <Modal isOpen={isOpen} onClose={onClose} title="Nuevo Cliente" zIndex={zIndex || 60000}>
       <form onSubmit={handleSubmit} className="pt-2 pb-4 space-y-5">
         <div className="space-y-4">
-          <div>
-            <label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">Nombre Completo</label>
-            <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
-              <User size={18} className="absolute left-4 text-text-disabled" />
-              <input
-                autoFocus
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder="Ej. Juan Pérez"
-                className="w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-faint pl-12 pr-4 outline-none font-medium rounded-md"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="text-[10px] font-semibold text-text-disabled uppercase tracking-widest ml-1 mb-2 block">WhatsApp (Opcional)</label>
-            <div className="relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20">
-              <Phone size={18} className="absolute left-4 text-text-disabled" />
-              <input
-                type="tel"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
-                placeholder="Ej. 57300..."
-                className="w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-faint pl-12 pr-4 outline-none font-medium rounded-md"
-              />
-            </div>
-          </div>
+          <Input
+            autoFocus
+            label="Nombre completo"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Ej. Juan Pérez"
+            leftIcon={<User size={18} />}
+          />
+          <Input
+            type="tel"
+            label="WhatsApp (opcional)"
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
+            placeholder="Ej. 57300..."
+            leftIcon={<Phone size={18} />}
+          />
         </div>
 
         <div className="pt-2">
-          <button
+          <Button
             type="submit"
-            disabled={isSubmitting}
-            className="w-full h-12 bg-gradient-to-r from-brand-primary to-brand-accent text-white rounded-md font-bold text-sm shadow-glow flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50"
+            fullWidth
+            loading={isSubmitting}
+            leftIcon={<Check size={20} strokeWidth={3} />}
           >
-            {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Check size={20} strokeWidth={3} />}
             {isSubmitting ? 'Guardando...' : 'Registrar y Seleccionar'}
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

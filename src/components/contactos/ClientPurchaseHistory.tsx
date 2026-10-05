@@ -25,7 +25,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
       <div className="flex flex-col items-center justify-center p-12 text-text-disabled opacity-60 bg-[rgb(var(--fg-rgb))]/[0.01] border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl">
         <ShoppingCart size={40} className="mb-4 stroke-[1.5]" />
         <p className="text-sm font-medium">No se registran compras</p>
-        <p className="text-[10px] mt-1 uppercase tracking-widest font-black text-center">El historial incluye todas las suscripciones registradas hasta la fecha</p>
+        <p className="text-tiny mt-1 uppercase tracking-widest font-black text-center">El historial incluye todas las suscripciones registradas hasta la fecha</p>
       </div>
     );
   }
@@ -53,14 +53,14 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                   </div>
                   <div className="min-w-0">
                      <h4 className="text-[14px] font-black text-text-primary uppercase tracking-tight truncate mb-0.5">{sale.serviceName}</h4>
-                     <p className="text-[11px] text-text-muted font-mono truncate selection:bg-brand-primary/30">{displayEmail}</p>
+                     <p className="text-caption text-text-muted font-mono truncate selection:bg-brand-primary/30">{displayEmail}</p>
                      
                      <div className="flex items-center gap-2 mt-2">
-                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-[9px] font-bold text-text-disabled uppercase border border-[rgb(var(--fg-rgb))]/5">
+                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-micro font-bold text-text-disabled uppercase border border-[rgb(var(--fg-rgb))]/5">
                             {sale.saleType.replace('_', ' ')}
                         </span>
                         {sale.screensCount && sale.screensCount > 1 && (
-                            <span className="text-[9px] text-brand-primary font-semibold uppercase tracking-widest bg-brand-primary/10 px-1.5 py-0.5 rounded-md border border-brand-primary/20">
+                            <span className="text-micro text-brand-primary font-semibold uppercase tracking-widest bg-brand-primary/10 px-1.5 py-0.5 rounded-md border border-brand-primary/20">
                                 {sale.screensCount}P
                             </span>
                         )}
@@ -72,7 +72,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                      <DollarSign size={14} className="stroke-[3]" />
                      <span className="text-lg font-black tracking-tighter tabular-nums">{sale.amount.toFixed(2)}</span>
                   </div>
-                  <p className={`text-[9px] font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-status-warning' : 'text-text-faint'}`}>
+                  <p className={`text-micro font-black uppercase tracking-widest mt-0.5 ${sale.isPartial ? 'text-status-warning' : 'text-text-faint'}`}>
                     {sale.isPartial ? 'Pago Pendiente' : 'Completado'}
                   </p>
                </div>
@@ -84,8 +84,8 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                       <Calendar size={14} />
                   </div>
                   <div className="min-w-0">
-                     <p className="text-[8px] text-text-disabled font-black uppercase tracking-widest">Adquirido</p>
-                     <p className="text-[10px] text-text-secondary font-bold truncate">{formatDate(sale.date)}</p>
+                     <p className="text-nano text-text-disabled font-black uppercase tracking-widest">Adquirido</p>
+                     <p className="text-tiny text-text-secondary font-bold truncate">{formatDate(sale.date)}</p>
                   </div>
                </div>
                <div className="flex items-center gap-2.5">
@@ -93,8 +93,8 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                       <Clock size={14} />
                   </div>
                   <div className="min-w-0">
-                     <p className="text-[8px] text-text-disabled font-black uppercase tracking-widest">Vencimiento</p>
-                     <p className="text-[10px] text-brand-accent font-bold truncate">{formatDate(sale.expiryDate)}</p>
+                     <p className="text-nano text-text-disabled font-black uppercase tracking-widest">Vencimiento</p>
+                     <p className="text-tiny text-brand-accent font-bold truncate">{formatDate(sale.expiryDate)}</p>
                   </div>
                </div>
             </div>

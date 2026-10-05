@@ -48,7 +48,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
           <div className="flex justify-between items-center mb-4">
              <div>
                 <h1 className="text-2xl font-black text-text-primary tracking-tight">Reportes</h1>
-                <p className="text-text-muted text-[10px] font-semibold uppercase tracking-[0.15em] mt-1">Resumen de rendimiento</p>
+                <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Resumen de rendimiento</p>
              </div>
              <button 
                onClick={onExport}
@@ -63,7 +63,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                 <button
                   key={r}
                   onClick={() => setRange(r as DateRangeType)}
-                  className={`px-4 py-2 rounded-md text-[11px] font-semibold whitespace-nowrap border transition-all ${
+                  className={`px-4 py-2 rounded-md text-caption font-semibold whitespace-nowrap border transition-all ${
                     range === r 
                       ? 'bg-gradient-to-r from-brand-primary to-brand-accent text-white border-transparent shadow-lg shadow-brand-primary/20' 
                       : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/10 text-text-disabled'
@@ -87,28 +87,28 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
                 <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                    <Wallet size={16} />
-                   <span className="text-[10px] font-semibold uppercase tracking-wider">Ganancia Neta</span>
+                   <span className="text-tiny font-semibold uppercase tracking-wider">Ganancia Neta</span>
                 </div>
                 <p className="text-2xl font-bold text-text-primary tracking-tight">{currency}{formatMoney(metrics.totalProfit)}</p>
                 <div className="flex items-center gap-1 mt-1">
-                   <span className={`text-[10px] font-semibold ${metrics.profitGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
+                   <span className={`text-tiny font-semibold ${metrics.profitGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {metrics.profitGrowth >= 0 ? '+' : ''}{metrics.profitGrowth.toFixed(1)}%
                    </span>
-                   <span className="text-[10px] text-text-faint">vs periodo ant.</span>
+                   <span className="text-tiny text-text-faint">vs periodo ant.</span>
                 </div>
              </motion.div>
 
              <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
                 <div className="flex items-center gap-2 mb-2 text-brand-primary">
                    <TrendingUp size={16} />
-                   <span className="text-[10px] font-semibold uppercase tracking-wider">Ventas</span>
+                   <span className="text-tiny font-semibold uppercase tracking-wider">Ventas</span>
                 </div>
                 <p className="text-2xl font-bold text-text-primary tracking-tight">{currency}{formatMoney(metrics.totalSales)}</p>
                 <div className="flex items-center gap-1 mt-1">
-                   <span className={`text-[10px] font-semibold ${metrics.salesGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
+                   <span className={`text-tiny font-semibold ${metrics.salesGrowth >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {metrics.salesGrowth >= 0 ? '+' : ''}{metrics.salesGrowth.toFixed(1)}%
                    </span>
-                   <span className="text-[10px] text-text-faint">crecimiento</span>
+                   <span className="text-tiny text-text-faint">crecimiento</span>
                 </div>
              </motion.div>
           </div>
@@ -120,8 +120,8 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                    <BarChart3 size={16} className="text-text-muted" /> Rendimiento
                 </h3>
                 <div className="flex bg-surface-sunken p-1 rounded-sm">
-                   <button onClick={() => setChartTab('finance')} className={`px-3 py-1 rounded-sm text-[10px] font-semibold transition-all ${chartTab === 'finance' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled'}`}>$$$</button>
-                   <button onClick={() => setChartTab('volume')} className={`px-3 py-1 rounded-sm text-[10px] font-semibold transition-all ${chartTab === 'volume' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled'}`}>Vol</button>
+                   <button onClick={() => setChartTab('finance')} className={`px-3 py-1 rounded-sm text-tiny font-semibold transition-all ${chartTab === 'finance' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled'}`}>$$$</button>
+                   <button onClick={() => setChartTab('volume')} className={`px-3 py-1 rounded-sm text-tiny font-semibold transition-all ${chartTab === 'volume' ? 'bg-surface-4 text-text-primary' : 'text-text-disabled'}`}>Vol</button>
                 </div>
              </div>
 
@@ -158,19 +158,19 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
 
           {/* 4. TOP SERVICES LIST */}
           <motion.div variants={itemVariants}>
-             <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Top Servicios</h3>
+             <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Top Servicios</h3>
              <div className="space-y-2">
                 {topServices.map((item, idx) => (
                    <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-[10px] font-semibold border border-brand-primary/20">
+                         <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-tiny font-semibold border border-brand-primary/20">
                             #{idx + 1}
                          </div>
                          <span className="text-sm font-bold text-text-primary">{item.name}</span>
                       </div>
                       <div className="flex flex-col items-end">
                          <span className="text-sm font-bold text-text-primary">{item.value}</span>
-                         <span className="text-[10px] text-text-disabled">ventas</span>
+                         <span className="text-tiny text-text-disabled">ventas</span>
                       </div>
                    </div>
                 ))}
@@ -179,19 +179,19 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
 
           {/* 5. TOP CLIENTS LIST */}
           <motion.div variants={itemVariants}>
-             <h3 className="text-[10px] font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Mejores Clientes</h3>
+             <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Mejores Clientes</h3>
              <div className="space-y-2">
                 {topClients.map((item, idx) => (
                    <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft text-[10px] font-semibold border border-status-success/20">
+                         <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft text-tiny font-semibold border border-status-success/20">
                             <Users size={14} />
                          </div>
                          <span className="text-sm font-bold text-text-primary">{item.name}</span>
                       </div>
                       <div className="flex flex-col items-end">
                          <span className="text-sm font-bold text-text-primary">{currency}{formatMoney(item.value)}</span>
-                         <span className="text-[10px] text-text-disabled">invertido</span>
+                         <span className="text-tiny text-text-disabled">invertido</span>
                       </div>
                    </div>
                 ))}

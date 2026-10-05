@@ -176,7 +176,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                                 <button
                                     type="button"
                                     onClick={() => setIsRecovering(true)}
-                                    className="text-[11px] font-semibold text-text-disabled hover:text-text-secondary transition-colors"
+                                    className="text-caption font-semibold text-text-disabled hover:text-text-secondary transition-colors"
                                 >
                                     ¿Olvidaste tu contraseña?
                                 </button>
@@ -184,7 +184,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                         )}
 
                         {isRegistering && (
-                            <p className="text-[11px] text-text-disabled leading-tight px-1">
+                            <p className="text-caption text-text-disabled leading-tight px-1">
                                 Al crear una cuenta, aceptas nuestros <span className="text-brand-primary-hi font-semibold">Términos y condiciones</span>
                             </p>
                         )}
@@ -230,10 +230,10 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                     <div className="relative z-10 flex flex-col items-center">
                         <AnimatedLogo size={100} showFill={true} isStatic={true} />
                         <h1 className="text-3xl font-black text-text-primary tracking-tighter mt-4 uppercase">NOOVA</h1>
-                        <p className="text-text-disabled font-bold tracking-[0.4em] uppercase text-[9px] mt-1">Suite Manager</p>
+                        <p className="text-text-disabled font-bold tracking-[0.4em] uppercase text-micro mt-1">Suite Manager</p>
                     </div>
 
-                    <div className="absolute bottom-6 text-text-faint text-[9px] font-mono uppercase tracking-widest">
+                    <div className="absolute bottom-6 text-text-faint text-micro font-mono uppercase tracking-widest">
                         Build {APP_VERSION} • Secure Core
                     </div>
                 </div>
@@ -268,7 +268,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                         <form onSubmit={props.onSubmit} className="flex flex-col gap-4">
                             {props.isRegistering && (
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Nombre</label>
+                                    <label className="text-caption font-semibold text-text-disabled uppercase tracking-wider ml-1">Nombre</label>
                                     <FieldInput
                                         icon={<UserIcon size={18} />}
                                         value={props.name}
@@ -280,7 +280,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                             )}
 
                             <div className="space-y-2">
-                                <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Correo electrónico</label>
+                                <label className="text-caption font-semibold text-text-disabled uppercase tracking-wider ml-1">Correo electrónico</label>
                                 <FieldInput
                                     icon={<Mail size={18} />}
                                     type="email"
@@ -294,9 +294,9 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                             {!props.isRecovering && (
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center mb-1">
-                                        <label className="text-[11px] font-semibold text-text-disabled uppercase tracking-wider ml-1">Contraseña</label>
+                                        <label className="text-caption font-semibold text-text-disabled uppercase tracking-wider ml-1">Contraseña</label>
                                         {!props.isRegistering && (
-                                            <button type="button" onClick={() => props.setIsRecovering(true)} className="text-[10px] font-semibold text-text-faint hover:text-brand-primary transition-colors uppercase">¿Olvidaste?</button>
+                                            <button type="button" onClick={() => props.setIsRecovering(true)} className="text-tiny font-semibold text-text-faint hover:text-brand-primary transition-colors uppercase">¿Olvidaste?</button>
                                         )}
                                     </div>
                                     <FieldInput

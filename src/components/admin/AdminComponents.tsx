@@ -40,10 +40,10 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
         <div>
            <p className="text-text-primary font-bold text-sm">{sub.user_email || sub.user_id}</p>
            <div className="flex items-center gap-2 mt-1">
-              <span className="text-[10px] bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 text-text-muted">
+              <span className="text-tiny bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 text-text-muted">
                  {PLAN_LABELS[sub.plan]}
               </span>
-              <span className={`text-[10px] px-2 py-0.5 rounded border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
+              <span className={`text-tiny px-2 py-0.5 rounded border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>
                  {isExpired ? 'Expirado' : 'Vigente'}
               </span>
            </div>
@@ -52,7 +52,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
       
       <div className="flex items-center gap-4 justify-between md:justify-end">
          <div className="text-right">
-            <p className="text-[10px] text-text-disabled font-bold uppercase">Vence</p>
+            <p className="text-tiny text-text-disabled font-bold uppercase">Vence</p>
             <p className="text-xs text-text-secondary font-mono">{new Date(sub.expires_at).toLocaleDateString()}</p>
          </div>
          

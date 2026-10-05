@@ -149,7 +149,7 @@ const DashboardProDesktop: React.FC = () => {
                     <Tooltip contentStyle={{ backgroundColor: '#09090b', border: 'none', borderRadius: '8px' }} />
                  </PieChart>
               </ResponsiveContainer>
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"><span className="text-2xl font-bold text-text-primary">{sales.length}</span><span className="text-[10px] text-text-disabled uppercase font-semibold tracking-widest">Total</span></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"><span className="text-2xl font-bold text-text-primary">{sales.length}</span><span className="text-tiny text-text-disabled uppercase font-semibold tracking-widest">Total</span></div>
            </div>
         </div>
       </div>
@@ -166,8 +166,8 @@ const KPICard = ({ title, value, icon: Icon, color, trend, desc }: any) => {
     };
     return (
         <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 shadow-sm group hover:border-brand-primary/30 transition-all">
-            <div className="flex justify-between items-start mb-4"><div className={`p-3 rounded-md border ${colorStyles[color]}`}><Icon size={24} /></div><div className={`px-2 py-1 rounded-full text-[10px] font-semibold border ${colorStyles[color]}`}>{trend}</div></div>
-            <div><p className="text-text-disabled text-[10px] font-semibold uppercase tracking-widest">{title}</p><h4 className="text-2xl font-extrabold text-text-primary mt-1 tracking-tight">{value}</h4><p className="text-text-faint text-[11px] mt-2 font-medium">{desc}</p></div>
+            <div className="flex justify-between items-start mb-4"><div className={`p-3 rounded-md border ${colorStyles[color]}`}><Icon size={24} /></div><div className={`px-2 py-1 rounded-full text-tiny font-semibold border ${colorStyles[color]}`}>{trend}</div></div>
+            <div><p className="text-text-disabled text-tiny font-semibold uppercase tracking-widest">{title}</p><h4 className="text-2xl font-extrabold text-text-primary mt-1 tracking-tight">{value}</h4><p className="text-text-faint text-caption mt-2 font-medium">{desc}</p></div>
         </div>
     );
 };

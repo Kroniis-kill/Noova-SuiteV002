@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../ui/Modal';
+import { useToast } from '../../context/ToastContext';
 import { Sale } from '../../types';
 import { useData } from '../../context/DataContext';
 import { getCombinedWhatsAppTemplate, WhatsAppTemplateType } from '../../utils/salesUtils';
@@ -20,7 +21,7 @@ const formatLongDate = (dateStr?: string | null): string => {
   return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
 };
 
-const SECTION_LABEL = "text-[10px] font-bold text-text-disabled uppercase tracking-widest ml-1 block";
+const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
 interface WhatsAppMenuProps {
   isOpen: boolean;
@@ -34,6 +35,7 @@ interface WhatsAppMenuProps {
 }
 
 const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, clientName, clientPhone, clientTelegram, platform = 'whatsapp', zIndex }) => {
+  const { showToast } = useToast();
   const { accounts, settings } = useData();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   
@@ -89,7 +91,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
         const url = `https://t.me/${user}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
       } else {
-        alert('El cliente no tiene un usuario de Telegram configurado.');
+        showToast('Este cliente no tiene un usuario de Telegram configurado.', 'warning');
       }
     }
     onClose();
@@ -134,7 +136,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
         {/* Progreso (+ volver en el paso 2) */}
         <div className="mb-5">
           <div className="flex items-center justify-between mb-2 min-h-[30px]">
-            <p className="text-[11px] text-text-disabled font-medium">{step === 'select' ? 'Paso 1 de 2 · Plantilla' : 'Paso 2 de 2 · Envío'}</p>
+            <p className="text-caption text-text-disabled font-medium">{step === 'select' ? 'Paso 1 de 2 · Plantilla' : 'Paso 2 de 2 · Envío'}</p>
             {step === 'config' && (
               <button onClick={() => setStep('select')} className="h-[30px] pl-2 pr-3 rounded-full bg-surface-3 hover:bg-surface-4 text-xs font-semibold text-text-muted hover:text-text-primary flex items-center gap-0.5 transition-colors active:scale-95">
                 <ChevronLeft size={15} /> Volver
@@ -157,15 +159,15 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-text-primary truncate">{clientName}</p>
-                <p className="text-[11px] text-text-disabled font-mono mt-0.5 truncate">{contactLabel}</p>
+                <p className="text-caption text-text-disabled font-mono mt-0.5 truncate">{contactLabel}</p>
               </div>
             </div>
 
             {/* 2. SERVICIOS DEL MENSAJE */}
             <div className="space-y-3">
               <div className="flex items-center justify-between px-1">
-                <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">Servicios del mensaje</span>
-                <span className="text-[11px] text-text-disabled">{selectedIds.length} de {sales.length}</span>
+                <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Servicios del mensaje</span>
+                <span className="text-caption text-text-disabled">{selectedIds.length} de {sales.length}</span>
               </div>
               <div className="max-h-[232px] overflow-y-auto custom-scrollbar space-y-2">
                 {sales.map(sale => {
@@ -182,7 +184,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                       <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Layers size={18} /></div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
-                        <p className="text-[11px] text-text-disabled mt-0.5 flex items-center gap-1.5">
+                        <p className="text-caption text-text-disabled mt-0.5 flex items-center gap-1.5">
                           Vence {formatLongDate(sale.expiryDate)}
                           {isFailing && <span className="text-status-warning-soft flex items-center gap-0.5"><Zap size={10} className="fill-current" /> con falla</span>}
                         </p>
@@ -211,9 +213,9 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                     <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${opt.bg} ${opt.color}`}><opt.icon size={18} /></div>
                     <div className="flex-1 min-w-0">
                       <span className="block text-sm font-bold text-text-primary">{opt.label}</span>
-                      <span className="block text-[11px] text-text-disabled mt-0.5 truncate">{opt.desc}</span>
+                      <span className="block text-caption text-text-disabled mt-0.5 truncate">{opt.desc}</span>
                     </div>
-                    {opt.badge && <span className="px-2 py-0.5 bg-brand-primary text-white rounded-full text-[11px] font-bold shrink-0">{opt.badge}</span>}
+                    {opt.badge && <span className="px-2 py-0.5 bg-brand-primary text-white rounded-full text-caption font-bold shrink-0">{opt.badge}</span>}
                     <ChevronRight size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
                   </button>
                 ))}
@@ -227,7 +229,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                   <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${failureOption.bg} ${failureOption.color}`}><failureOption.icon size={18} /></div>
                   <div className="flex-1 min-w-0">
                     <span className="block text-sm font-bold text-text-primary">{failureOption.label}</span>
-                    <span className="block text-[11px] text-status-warning-soft/80 mt-0.5 truncate">{failureOption.desc}</span>
+                    <span className="block text-caption text-status-warning-soft/80 mt-0.5 truncate">{failureOption.desc}</span>
                   </div>
                   <ChevronRight size={16} className="text-status-warning-soft/50 shrink-0" />
                 </button>
@@ -244,7 +246,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                 <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${chosenOption.bg} ${chosenOption.color}`}><chosenOption.icon size={18} /></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-text-primary truncate">{chosenOption.label}</p>
-                  <p className="text-[11px] text-text-muted font-medium mt-0.5 truncate">{selectedIds.length} {selectedIds.length === 1 ? 'servicio' : 'servicios'} · {clientName}</p>
+                  <p className="text-caption text-text-muted font-medium mt-0.5 truncate">{selectedIds.length} {selectedIds.length === 1 ? 'servicio' : 'servicios'} · {clientName}</p>
                 </div>
               </div>
             )}
@@ -283,7 +285,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                 <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 transition-colors ${includeReceipt ? 'bg-brand-primary/20 text-brand-primary-hi' : 'bg-surface-sunken text-text-faint'}`}><ImagePlus size={19} /></div>
                 <div className="flex-1 min-w-0">
                   <span className="block text-sm font-bold text-text-primary">Comprobante digital</span>
-                  <span className="block text-[11px] text-text-disabled mt-0.5">Incluye el link al portal del cliente</span>
+                  <span className="block text-caption text-text-disabled mt-0.5">Incluye el link al portal del cliente</span>
                 </div>
                 <div className={`w-11 h-[26px] rounded-full relative shrink-0 transition-colors ${includeReceipt ? 'bg-brand-primary' : 'bg-surface-4'}`}>
                   <div className={`absolute top-[3px] w-5 h-5 rounded-full bg-white transition-all ${includeReceipt ? 'left-[21px]' : 'left-[3px]'}`} />

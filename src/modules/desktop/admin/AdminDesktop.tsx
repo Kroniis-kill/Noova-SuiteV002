@@ -1,3 +1,4 @@
+import ConfirmDialog from '../../../components/ui/ConfirmDialog';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSubscription } from '../../../context/SubscriptionContext';
 import { UserSubscription, PLAN_LABELS, PlanType, PLAN_PRICES } from '../../../types/subscriptionTypes';
@@ -198,7 +199,7 @@ const AdminDesktop: React.FC = () => {
             <div className="p-5 border-b border-[rgb(var(--fg-rgb))]/[0.06] flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <h3 className="text-base font-semibold text-text-primary">Suscripciones</h3>
-                <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-[10px] font-semibold">{filteredSubs.length}</span>
+                <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-tiny font-semibold">{filteredSubs.length}</span>
               </div>
               <div className="flex gap-2 items-center">
                 <select
@@ -234,7 +235,7 @@ const AdminDesktop: React.FC = () => {
               ) : (
                 <table className="w-full text-left">
                   <thead className="sticky top-0 bg-surface-1 z-10 border-b border-[rgb(var(--fg-rgb))]/[0.06]">
-                    <tr className="text-[10px] font-semibold text-text-disabled uppercase tracking-wider">
+                    <tr className="text-tiny font-semibold text-text-disabled uppercase tracking-wider">
                       <th className="px-5 py-3">Usuario</th>
                       <th className="px-5 py-3">Plan</th>
                       <th className="px-5 py-3">Vencimiento</th>
@@ -261,13 +262,13 @@ const AdminDesktop: React.FC = () => {
                               </div>
                               <div className="min-w-0">
                                 <p className="text-text-primary text-sm font-medium truncate">{sub.full_name || 'Sin nombre'}</p>
-                                <p className="text-[11px] text-text-disabled font-mono truncate">{sub.user_email}</p>
+                                <p className="text-caption text-text-disabled font-mono truncate">{sub.user_email}</p>
                               </div>
                             </div>
                           </td>
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-2">
-                              <span className={`text-[10px] font-semibold px-2 py-1 rounded-md border ${
+                              <span className={`text-tiny font-semibold px-2 py-1 rounded-md border ${
                                 isLifetime ? 'bg-brand-accent/10 text-brand-accent border-brand-accent/20'
                                 : isPro ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20'
                                 : 'bg-zinc-500/10 text-text-muted border-zinc-500/20'
@@ -275,7 +276,7 @@ const AdminDesktop: React.FC = () => {
                                 {PLAN_LABELS[sub.plan]}
                               </span>
                               {isBanned && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 font-semibold uppercase">
+                                <span className="text-micro px-1.5 py-0.5 rounded bg-status-danger/10 text-status-danger-soft border border-status-danger/20 font-semibold uppercase">
                                   Bloqueado
                                 </span>
                               )}
@@ -326,7 +327,7 @@ const AdminDesktop: React.FC = () => {
                 <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
                   <TrendingUp size={15} className="text-brand-primary" /> Crecimiento semanal
                 </h3>
-                <span className="text-[10px] font-semibold text-status-success-soft bg-status-success/10 px-2 py-0.5 rounded">+12.5%</span>
+                <span className="text-tiny font-semibold text-status-success-soft bg-status-success/10 px-2 py-0.5 rounded">+12.5%</span>
               </div>
               <div className="h-32 relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
@@ -380,7 +381,7 @@ const AdminDesktop: React.FC = () => {
               <div className="flex justify-between items-start mb-2">
                 <span className="text-xs font-semibold text-text-muted">{f.user_email}</span>
                 {f.status === 'pending' && (
-                  <button onClick={() => { markFeedbackAsRead(f.id); loadData(); }} className="text-[10px] font-semibold text-brand-primary hover:underline">
+                  <button onClick={() => { markFeedbackAsRead(f.id); loadData(); }} className="text-tiny font-semibold text-brand-primary hover:underline">
                     Marcar leído
                   </button>
                 )}
@@ -446,7 +447,7 @@ const AdminDesktop: React.FC = () => {
       <Modal isOpen={isConfigOpen} onClose={() => setIsConfigOpen(false)} title="Configuración global">
         <div className="space-y-5 pt-2">
           <div>
-            <label className="text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
+            <label className="text-caption font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
             <div className="relative">
               <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
               <input
@@ -456,14 +457,14 @@ const AdminDesktop: React.FC = () => {
                 className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
-            <p className="text-[11px] text-text-disabled mt-2">Se mostrará a usuarios bloqueados o con suscripción expirada.</p>
+            <p className="text-caption text-text-disabled mt-2">Se mostrará a usuarios bloqueados o con suscripción expirada.</p>
           </div>
 
           <div className="p-4 bg-status-warning/5 border border-status-warning/20 rounded-md flex gap-3">
             <ShieldAlert size={18} className="text-status-warning-soft shrink-0 mt-0.5" />
             <div>
               <h4 className="text-amber-300 font-semibold text-xs">Modo mantenimiento</h4>
-              <p className="text-[11px] text-text-muted mt-1 leading-relaxed">Próximamente. Permitirá pausar el acceso a toda la plataforma.</p>
+              <p className="text-caption text-text-muted mt-1 leading-relaxed">Próximamente. Permitirá pausar el acceso a toda la plataforma.</p>
             </div>
           </div>
 
@@ -481,23 +482,15 @@ const AdminDesktop: React.FC = () => {
       </Modal>
 
       {/* Delete confirm */}
-      <Modal isOpen={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} title="Eliminar usuario">
-        <div className="space-y-5 pt-2">
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-xl bg-status-danger/10 border border-status-danger/20 flex items-center justify-center text-status-danger-soft mb-4">
-              <Trash2 size={28} />
-            </div>
-            <p className="text-text-secondary text-sm leading-relaxed">
-              ¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>?
-            </p>
-            <p className="text-[11px] text-status-danger-soft mt-2">Esta acción borra todos sus datos y es irreversible.</p>
-          </div>
-          <div className="flex gap-3">
-            <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-3 bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary rounded-lg text-sm font-medium transition-all">Cancelar</button>
-            <button onClick={handleDelete} className="flex-1 py-3 bg-status-danger hover:bg-red-600 text-white rounded-lg text-sm font-semibold transition-all">Eliminar</button>
-          </div>
-        </div>
-      </Modal>
+      <ConfirmDialog
+        isOpen={!!deleteConfirm}
+        onClose={() => setDeleteConfirm(null)}
+        onConfirm={handleDelete}
+        title="Eliminar usuario"
+        message={<>¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>? Esta acción borra todos sus datos y es irreversible.</>}
+        confirmLabel="Eliminar"
+        tone="danger"
+      />
     </div>
   );
 };
@@ -510,7 +503,7 @@ const KPICard = ({ title, value, icon: Icon, accent, bg }: any) => (
       </div>
     </div>
     <p className="text-2xl font-bold text-text-primary tracking-tight">{value}</p>
-    <p className="text-[11px] font-medium text-text-disabled uppercase tracking-wider mt-1">{title}</p>
+    <p className="text-caption font-medium text-text-disabled uppercase tracking-wider mt-1">{title}</p>
   </div>
 );
 
@@ -520,7 +513,7 @@ const HealthRow = ({ label, status, color }: { label: string; status: string; co
   return (
     <div className="flex justify-between items-center">
       <span className="text-xs text-text-muted">{label}</span>
-      <span className={`text-[11px] font-semibold ${text} flex items-center gap-2`}>
+      <span className={`text-caption font-semibold ${text} flex items-center gap-2`}>
         <span className={`w-1.5 h-1.5 rounded-full ${dot}`} /> {status}
       </span>
     </div>

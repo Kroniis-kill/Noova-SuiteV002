@@ -103,7 +103,7 @@ const ActivityLogList: React.FC = () => {
           
           {(Object.entries(groupedLogs) as [string, ActivityLog[]][]).map(([date, logs]) => (
               <div key={date} className="relative pl-4 border-l border-border-subtle">
-                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-[10px] font-semibold text-text-disabled uppercase py-1 px-2 border border-hairline rounded-pill">{date}</span>
+                  <span className="absolute -left-[19px] -top-1 bg-surface-1 text-tiny font-semibold text-text-disabled uppercase py-1 px-2 border border-hairline rounded-pill">{date}</span>
                   
                   <div className="space-y-3 mt-4">
                       {logs.map(log => {
@@ -117,9 +117,9 @@ const ActivityLogList: React.FC = () => {
                                   <div className="flex-1 min-w-0">
                                       <p className="text-sm text-text-secondary leading-snug">{log.details}</p>
                                       <div className="flex items-center gap-2 mt-1">
-                                          <span className="text-[10px] font-mono text-text-disabled">{time}</span>
+                                          <span className="text-tiny font-mono text-text-disabled">{time}</span>
                                           <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                                          <span className="text-[10px] font-semibold text-text-disabled uppercase">{getEntityLabel(log.entity)}</span>
+                                          <span className="text-tiny font-semibold text-text-disabled uppercase">{getEntityLabel(log.entity)}</span>
                                       </div>
                                   </div>
                               </div>

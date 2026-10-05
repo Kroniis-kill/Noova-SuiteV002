@@ -153,7 +153,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Auditoría de Salud" zIndex={20000}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Auditoría de Salud">
        <div className="flex flex-col h-[80vh] md:h-[600px] pt-1">
           
           <div className="flex items-center justify-between mb-4 bg-status-info/10 border border-status-info/20 p-3 rounded-md">
@@ -161,13 +161,13 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                   <div className="bg-status-info/20 p-1.5 rounded-full text-status-info-soft"><Activity size={16} /></div>
                   <div className="flex flex-col">
                       <span className="text-xs font-semibold text-blue-300">Corrector de Inventario</span>
-                      <span className="text-[9px] text-status-info-soft/80">Sincroniza ventas vs stock automáticamente</span>
+                      <span className="text-micro text-status-info-soft/80">Sincroniza ventas vs stock automáticamente</span>
                   </div>
               </div>
               <button 
                 onClick={handleSyncStock} 
                 disabled={isSyncing}
-                className="px-4 py-2 bg-status-info hover:bg-blue-600 text-white rounded-xl text-[10px] font-semibold flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-status-info/20 active:scale-95 disabled:opacity-50 min-w-[120px]"
+                className="px-4 py-2 bg-status-info hover:bg-blue-600 text-white rounded-xl text-tiny font-semibold flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-status-info/20 active:scale-95 disabled:opacity-50 min-w-[120px]"
               >
                  {isSyncing ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
                  {isSyncing ? 'Procesando...' : 'Corregir Stock'}
@@ -177,30 +177,30 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
           <div className="grid grid-cols-3 gap-2 mb-4 shrink-0">
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><CheckCircle2 size={18} className="text-status-success-soft" /></div>
-                  <p className="text-[10px] text-text-disabled font-bold uppercase">Rentables</p>
+                  <p className="text-tiny text-text-disabled font-bold uppercase">Rentables</p>
                   <p className="text-lg font-bold text-text-primary">{stats.verde}</p>
               </div>
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><AlertTriangle size={18} className="text-status-warning-soft" /></div>
-                  <p className="text-[10px] text-text-disabled font-bold uppercase">En Riesgo</p>
+                  <p className="text-tiny text-text-disabled font-bold uppercase">En Riesgo</p>
                   <p className="text-lg font-bold text-text-primary">{stats.amarillo}</p>
               </div>
               <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><XCircle size={18} className="text-status-danger-soft" /></div>
-                  <p className="text-[10px] text-text-disabled font-bold uppercase">Pérdida</p>
+                  <p className="text-tiny text-text-disabled font-bold uppercase">Pérdida</p>
                   <p className="text-lg font-bold text-text-primary">{stats.rojo}</p>
               </div>
           </div>
 
           <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 mb-4 flex justify-between items-center shrink-0">
               <div>
-                  <p className="text-[10px] text-text-disabled font-bold uppercase">Balance Estimado</p>
+                  <p className="text-tiny text-text-disabled font-bold uppercase">Balance Estimado</p>
                   <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                       {settings.currency} {formatMoney(stats.totalProfit + stats.totalLoss)}
                   </p>
               </div>
               <div className="text-right">
-                  <p className="text-[10px] text-text-disabled font-bold uppercase">Rentabilidad Bruta</p>
+                  <p className="text-tiny text-text-disabled font-bold uppercase">Rentabilidad Bruta</p>
                   <p className="text-sm font-mono text-text-secondary">{settings.currency} {formatMoney(stats.totalProfit)}</p>
               </div>
           </div>
@@ -210,7 +210,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                   <button 
                     key={f}
                     onClick={() => setFilter(f as any)}
-                    className={`px-4 py-2 rounded-full text-[11px] font-semibold uppercase border transition-all ${
+                    className={`px-4 py-2 rounded-full text-caption font-semibold uppercase border transition-all ${
                         filter === f 
                         ? 'bg-white text-black border-white' 
                         : 'bg-surface-zinc text-text-disabled border-[rgb(var(--fg-rgb))]/10 hover:text-text-primary'
@@ -232,20 +232,20 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                       <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                               <span className={`w-2 h-2 rounded-full ${
-                                  item.status === 'verde' ? 'bg-status-success shadow-[0_0_5px_#10b981]' : 
-                                  item.status === 'amarillo' ? 'bg-status-warning shadow-[0_0_5px_#f59e0b]' : 
-                                  'bg-status-danger shadow-[0_0_5px_#ef4444]'
+                                  item.status === 'verde' ? 'bg-status-success shadow-dot-success-sm' : 
+                                  item.status === 'amarillo' ? 'bg-status-warning shadow-dot-warning-sm' : 
+                                  'bg-status-danger shadow-dot-danger-sm'
                               }`} />
                               <h4 className="text-sm font-bold text-text-primary truncate">{item.accountEmail}</h4>
                           </div>
-                          <p className="text-[10px] text-text-disabled truncate">{item.suggestion}</p>
+                          <p className="text-tiny text-text-disabled truncate">{item.suggestion}</p>
                       </div>
                       
                       <div className="flex flex-col items-end ml-4">
                           <span className={`font-mono font-bold text-sm ${item.profit >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
                               {item.profit >= 0 ? '+' : ''}{formatMoney(item.profit)}
                           </span>
-                          <div className="flex items-center gap-1 text-[10px] text-text-faint">
+                          <div className="flex items-center gap-1 text-tiny text-text-faint">
                               <span>ROI: {item.roi.toFixed(0)}%</span>
                               <ChevronRight size={12} />
                           </div>
@@ -283,7 +283,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                                {selectedHealth.status === 'rojo' && <Activity size={32} />}
                            </div>
                            <h2 className="text-2xl font-bold text-text-primary mb-1">{selectedHealth.accountEmail}</h2>
-                           <span className={`px-3 py-1 rounded-full text-[10px] font-semibold uppercase border ${getStatusColor(selectedHealth.status)}`}>
+                           <span className={`px-3 py-1 rounded-full text-tiny font-semibold uppercase border ${getStatusColor(selectedHealth.status)}`}>
                                Estado: {selectedHealth.status}
                            </span>
                        </div>
@@ -299,21 +299,21 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
 
                        <div className="grid grid-cols-2 gap-4">
                            <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ingresos</p>
+                               <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Ingresos</p>
                                <p className="text-lg font-bold text-status-success-soft">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Costo Base</p>
+                               <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Costo Base</p>
                                <p className="text-lg font-bold text-status-danger-soft">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Días Activos</p>
+                               <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Días Activos</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Calendar size={16} className="text-status-info-soft" /> {selectedHealth.daysActive}d
                                </div>
                            </div>
                            <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
-                               <p className="text-[10px] text-text-disabled font-bold uppercase mb-1">Ocupación</p>
+                               <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Ocupación</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Users size={16} className="text-purple-400" /> {selectedHealth.occupancy}
                                </div>
