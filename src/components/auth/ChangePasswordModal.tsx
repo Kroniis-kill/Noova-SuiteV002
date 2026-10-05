@@ -87,23 +87,23 @@ const ChangePasswordModal: React.FC = () => {
            <div className="space-y-3">
               <div className="relative group">
                  <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
-                 <input 
+                 <input aria-label="Nueva Contraseña" 
                    type="password" 
                    placeholder="Nueva Contraseña"
                    value={newPassword}
                    onChange={(e) => setNewPassword(e.target.value)}
-                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint"
+                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
                    required
                  />
               </div>
               <div className="relative group">
                  <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
-                 <input 
+                 <input aria-label="Confirmar Contraseña" 
                    type="password" 
                    placeholder="Confirmar Contraseña"
                    value={confirmPassword}
                    onChange={(e) => setConfirmPassword(e.target.value)}
-                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint"
+                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
                    required
                  />
               </div>

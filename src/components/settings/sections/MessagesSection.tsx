@@ -123,12 +123,12 @@ export const MessagesSection = () => {
                            <div className="w-2 h-2 rounded-full bg-brand-primary animate-pulse shadow-dot-primary" />
                            <h4 className="text-caption font-bold text-text-primary uppercase tracking-widest">{CATEGORIES[activeCategory].find(i => i.id === selectedTemplateKey)?.label}</h4>
                         </div>
-                        <button onClick={() => setEditorHeight(editorHeight === 'normal' ? 'expanded' : 'normal')} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-xl text-text-disabled hover:text-text-primary transition-colors active:scale-90">
+                        <button aria-label="Expandir o contraer editor" onClick={() => setEditorHeight(editorHeight === 'normal' ? 'expanded' : 'normal')} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-xl text-text-disabled hover:text-text-primary transition-colors active:scale-90">
                            {editorHeight === 'normal' ? <Maximize2 size={15} /> : <Minimize2 size={15} />}
                         </button>
                     </div>
 
-                    <textarea value={currentTemplates[selectedTemplateKey] || ''} onChange={e => updateCurrentTemplateValue(e.target.value)} className="flex-1 w-full bg-transparent text-[14px] text-text-secondary outline-none p-6 resize-none leading-relaxed font-medium placeholder:text-text-faint custom-scrollbar" placeholder="Redacta el contenido dinámico de la plantilla aquí..." />
+                    <textarea aria-label="Redacta el contenido dinámico de la plantilla aquí" value={currentTemplates[selectedTemplateKey] || ''} onChange={e => updateCurrentTemplateValue(e.target.value)} className="flex-1 w-full bg-transparent text-[14px] text-text-secondary outline-none p-6 resize-none leading-relaxed font-medium placeholder:text-text-disabled custom-scrollbar" placeholder="Redacta el contenido dinámico de la plantilla aquí..." />
                 </div>
 
                 <div className="px-5 py-4 shrink-0 bg-surface-sunken border-t border-hairline">

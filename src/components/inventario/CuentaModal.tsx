@@ -47,10 +47,10 @@ function SearchListModal<T>({ isOpen, onClose, items, onSelect, title, placehold
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder={placeholder}
-             className="w-full bg-surface-zinc rounded-md pl-12 pr-10 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/40 transition-all placeholder:text-text-faint font-medium"
+             className="w-full bg-surface-zinc rounded-md pl-12 pr-10 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/40 transition-all placeholder:text-text-disabled font-medium"
              autoFocus
            />
-           {search && <button onClick={() => setSearch('')} className="absolute right-6 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={16} /></button>}
+           {search && <button aria-label="Cerrar" onClick={() => setSearch('')} className="absolute right-6 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={16} /></button>}
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-2">
            {filtered.map((item, idx) => (
@@ -186,7 +186,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
   const styles = {
     sectionLabel: "text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] block",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
-    input: "w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 outline-none border-none appearance-none font-semibold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
+    input: "w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled px-3 outline-none border-none appearance-none font-semibold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
     cardDark: "bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px]",
     toggleBtn: "w-[38px] h-[22px] rounded-full relative transition-all duration-300 shrink-0",
   };
@@ -220,7 +220,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight">{initialData ? 'Editar cuenta' : 'Nueva cuenta'}</h3>
                     <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{selectedService?.name || 'Agregar al inventario'}</p>
                   </div>
-                  <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
+                  <button aria-label="Cerrar" onClick={onClose} className="tap-44 w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
                     <X size={16} />
                   </button>
                 </div>
@@ -268,15 +268,15 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
                         <Mail size={15} className="text-text-faint shrink-0" />
-                        <input value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="correo@ejemplo.com" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint outline-none border-none font-medium" required />
+                        <input aria-label="correo@ejemplo.com" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="correo@ejemplo.com" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled outline-none border-none font-medium" required />
                       </div>
                     </div>
                     <div className="h-px bg-[rgb(var(--fg-rgb))]/5 my-3" />
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
                         <Key size={15} className="text-text-faint shrink-0" />
-                        <input value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Contraseña" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint outline-none border-none font-mono" required />
-                        <button type="button" onClick={handleGeneratePassword} className="shrink-0 text-brand-primary-hi">
+                        <input aria-label="Contraseña" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Contraseña" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled outline-none border-none font-mono" required />
+                        <button aria-label="Actualizar" type="button" onClick={handleGeneratePassword} className="shrink-0 text-brand-primary-hi">
                           <RefreshCw size={15} />
                         </button>
                       </div>
@@ -292,18 +292,18 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                           <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center text-tiny font-bold shrink-0">
                             {idx + 1}
                           </div>
-                          <input
+                          <input aria-label="Nombre del Perfil"
                             value={prof.name}
                             onChange={e => handleProfileChange(idx, 'name', e.target.value)}
                             placeholder="Nombre del Perfil"
-                            className="flex-1 min-w-0 h-full bg-transparent px-1 text-label text-text-primary outline-none border-none font-medium placeholder:text-text-faint"
+                            className="flex-1 min-w-0 h-full bg-transparent px-1 text-label text-text-primary outline-none border-none font-medium placeholder:text-text-disabled"
                           />
                           <div className="w-[72px] shrink-0 h-8 flex items-center bg-surface-sunken rounded-md">
-                            <input
+                            <input aria-label="PIN"
                               value={prof.pin}
                               onChange={e => handleProfileChange(idx, 'pin', e.target.value)}
                               placeholder="PIN"
-                              className="w-full h-full bg-transparent px-2 text-center text-caption text-text-primary font-mono outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-text-faint"
+                              className="w-full h-full bg-transparent px-2 text-center text-caption text-text-primary font-mono outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-text-disabled"
                               inputMode="numeric"
                             />
                           </div>
@@ -339,7 +339,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                       <div className="grid grid-cols-2 gap-2">
                         <div className={styles.inputContainer}>
                           <Globe size={15} className="absolute left-3 text-text-faint pointer-events-none" />
-                          <input value={formData.country} onChange={e => setFormData({ ...formData, country: e.target.value })} placeholder="Global" className={`${styles.input} pl-8`} />
+                          <input aria-label="Vigencia" value={formData.country} onChange={e => setFormData({ ...formData, country: e.target.value })} placeholder="Global" className={`${styles.input} pl-8`} />
                         </div>
                         <div className={styles.inputContainer}>
                           <input type="date" value={formData.startDate} onChange={e => setFormData({ ...formData, startDate: e.target.value })} className={`${styles.input} text-center`} />
@@ -361,11 +361,11 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                   {/* NOTAS INTERNAS */}
                   <div>
                     <label className={styles.sectionLabel}>Notas internas</label>
-                    <textarea
+                    <textarea aria-label="Notas internas"
                       value={formData.notes || ''}
                       onChange={e => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Escribe detalles adicionales sobre esta cuenta..."
-                      className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-[14px] text-label text-text-muted outline-none placeholder:text-text-faint min-h-[90px] resize-none leading-[1.5]"
+                      className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-[14px] text-label text-text-muted outline-none placeholder:text-text-disabled min-h-[90px] resize-none leading-[1.5]"
                     />
                   </div>
 
@@ -397,7 +397,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         renderItem={(s) => (
           <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md bg-surface-sunken flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
-                {s.image_url ? <img src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={22} />}
+                {s.image_url ? <img alt="Vista previa" src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={22} />}
               </div>
               <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-text-primary truncate">{s.name}</p>

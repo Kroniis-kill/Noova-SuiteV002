@@ -92,7 +92,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
             {onHistoryClick && (
                 <button 
                 onClick={handleHistory}
-                className={`
+                className={`tap-44 
                     w-8 h-8 rounded-sm flex items-center justify-center transition-all bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-primary hover:bg-brand-primary/10 border border-[rgb(var(--fg-rgb))]/[0.08]
                 `}
                 title="Historial de compras"
@@ -100,9 +100,9 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
                 <History size={14} />
                 </button>
             )}
-            <button 
+            <button aria-label="Enviar por WhatsApp" 
                 onClick={handleWhatsApp}
-                className={`
+                className={`tap-44 
                     w-8 h-8 rounded-sm flex items-center justify-center transition-all shrink-0
                     ${isActive 
                         ? 'bg-brand-whatsapp text-black shadow-lg hover:brightness-110' 

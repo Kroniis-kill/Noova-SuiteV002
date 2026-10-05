@@ -186,7 +186,7 @@ const MyPlanDesktop: React.FC = () => {
                                 <p className="text-sm font-bold text-text-primary">${inv.amount}</p>
                                 <span className={`text-tiny uppercase font-semibold ${inv.status === 'paid' ? 'text-status-success-soft' : 'text-status-warning-soft'}`}>{inv.status}</span>
                              </div>
-                             <button className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100">
+                             <button aria-label="Descargar" className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors opacity-0 group-hover:opacity-100">
                                 <Download size={14} />
                              </button>
                           </div>

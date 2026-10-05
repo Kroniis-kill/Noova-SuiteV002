@@ -42,7 +42,7 @@ const FieldInput: React.FC<{
             onChange={onChange}
             autoComplete={autoComplete}
             placeholder={placeholder}
-            className={`w-full h-12 sm:h-13 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint text-sm ${rightSlot ? 'pr-12' : 'pr-4'}`}
+            className={`w-full h-12 sm:h-13 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled text-sm ${rightSlot ? 'pr-12' : 'pr-4'}`}
         />
         {rightSlot}
     </div>
@@ -108,9 +108,9 @@ const MobileLogin: React.FC<LoginProps> = ({
                     className="w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pt-6 px-6 pb-6 flex flex-col shadow-2xl gap-5"
                 >
                     {isRecovering && (
-                        <button
+                        <button aria-label="Volver"
                             onClick={() => setIsRecovering(false)}
-                            className="w-8 h-8 -ml-1 -mb-2 flex items-center justify-center text-text-disabled active:scale-90 transition-transform shrink-0"
+                            className="tap-44 w-8 h-8 -ml-1 -mb-2 flex items-center justify-center text-text-disabled active:scale-90 transition-transform shrink-0"
                         >
                             <ArrowLeft size={20} />
                         </button>
@@ -160,7 +160,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                                 placeholder="••••••••"
                                 autoComplete={isRegistering ? 'new-password' : 'current-password'}
                                 rightSlot={
-                                    <button
+                                    <button aria-label="Mostrar u ocultar contraseña"
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
                                         className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-faint"
@@ -243,9 +243,9 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                     <div className="max-w-[340px] mx-auto w-full flex flex-col gap-5">
                         <div className="flex items-center gap-2 -mb-1">
                             {props.isRecovering && (
-                                <button
+                                <button aria-label="Volver"
                                     onClick={() => props.setIsRecovering(false)}
-                                    className="w-7 h-7 -ml-1 flex items-center justify-center text-text-disabled hover:text-text-secondary transition-colors shrink-0"
+                                    className="tap-44 w-7 h-7 -ml-1 flex items-center justify-center text-text-disabled hover:text-text-secondary transition-colors shrink-0"
                                 >
                                     <ArrowLeft size={18} />
                                 </button>
@@ -307,7 +307,7 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
                                         placeholder="••••••••"
                                         autoComplete={props.isRegistering ? 'new-password' : 'current-password'}
                                         rightSlot={
-                                            <button
+                                            <button aria-label="Mostrar u ocultar contraseña"
                                                 type="button"
                                                 onClick={() => props.setShowPassword(!props.showPassword)}
                                                 className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-faint"

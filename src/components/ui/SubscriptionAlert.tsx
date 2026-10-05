@@ -56,7 +56,7 @@ const SubscriptionAlert: React.FC = () => {
            </div>
         </div>
 
-        <button 
+        <button aria-label="Cerrar" 
           onClick={() => setIsVisible(false)} 
           className="p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-text-muted hover:text-text-primary transition-colors"
         >

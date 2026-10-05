@@ -33,12 +33,12 @@ const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, onClose, 
       <div className="space-y-4 pt-1">
         <div className="relative">
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-          <input 
+          <input aria-label="Buscar billetera" 
             autoFocus 
             value={search} 
             onChange={e => setSearch(e.target.value)} 
             placeholder="Buscar billetera..." 
-            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-11 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" 
+            className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-11 text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/50 transition-all placeholder:text-text-disabled font-medium" 
           />
         </div>
         
@@ -215,7 +215,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
   const styles = {
     label: "text-micro font-bold text-text-faint uppercase tracking-[0.1em]",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
-    input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-3 h-full outline-none border-none appearance-none font-bold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
+    input: "w-full bg-transparent text-[14px] text-text-primary placeholder:text-text-disabled px-3 h-full outline-none border-none appearance-none font-bold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
   };
 
   const modalVariants = {
@@ -247,7 +247,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight">Renovar inventario</h3>
                     <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{serviceName} · {accounts.length} {accounts.length === 1 ? 'cuenta' : 'cuentas'}</p>
                   </div>
-                  <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
+                  <button aria-label="Cerrar" onClick={onClose} className="tap-44 w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
                     <X size={16} />
                   </button>
                 </div>
@@ -306,7 +306,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
                       </button>
                       <div className="bg-surface-sunken rounded-md p-3 flex items-center gap-2">
                         <span className="text-[18px] text-status-success-soft font-bold">$</span>
-                        <input type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="0.00" className="flex-1 min-w-0 bg-transparent text-[20px] text-text-primary font-bold outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" inputMode="decimal" />
+                        <input aria-label="0.00" type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="0.00" className="flex-1 min-w-0 bg-transparent text-[20px] text-text-primary font-bold outline-none border-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" inputMode="decimal" />
                         <span className="text-tiny text-text-faint font-bold shrink-0">{settings.currency}</span>
                       </div>
                     </div>

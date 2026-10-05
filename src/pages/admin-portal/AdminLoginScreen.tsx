@@ -47,7 +47,7 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ deniedMessage }) =>
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="relative">
             <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-            <input
+            <input aria-label="Correo de administrador"
               type="email"
               required
               autoFocus
@@ -59,7 +59,7 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ deniedMessage }) =>
           </div>
           <div className="relative">
             <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-            <input
+            <input aria-label="Contraseña"
               type="password"
               required
               value={password}

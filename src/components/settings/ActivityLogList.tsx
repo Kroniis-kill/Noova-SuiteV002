@@ -73,11 +73,11 @@ const ActivityLogList: React.FC = () => {
           <div className="flex gap-3">
              <div className="relative group flex-1">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
-                <input 
+                <input aria-label="Buscar en logs" 
                   value={search} 
                   onChange={e => setSearch(e.target.value)} 
                   placeholder="Buscar en logs..."
-                  className="bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-faint font-medium"
+                  className="bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 py-2.5 text-xs text-text-primary w-full md:w-64 focus:border-brand-primary/50 outline-none transition-all placeholder:text-text-disabled font-medium"
                 />
              </div>
              

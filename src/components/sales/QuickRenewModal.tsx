@@ -269,7 +269,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
               <h3 className="text-lg font-black text-text-primary leading-tight">Renovar servicios</h3>
               <p className="text-caption text-text-disabled font-medium truncate">{subtitle}</p>
             </div>
-            <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
+            <button aria-label="Cerrar" onClick={() => { haptic('nav'); onClose(); }} className="tap-44 w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
           </div>
 
           {/* ───────── CONTENIDO ───────── */}
@@ -372,7 +372,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
 
                 <div className="h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                   <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
-                  <input type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-faint`} placeholder="0.00" inputMode="decimal" />
+                  <input aria-label="0.00" type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`} placeholder="0.00" inputMode="decimal" />
                   {selectedWallet && <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{selectedWallet.currency}</span>}
                 </div>
 

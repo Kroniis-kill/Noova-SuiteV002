@@ -253,7 +253,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
   };
 
   return (
-    <div className="min-h-screen pb-32 pt-4 px-4 font-sans text-text-primary relative flex flex-col">
+    <div className="min-h-dvh pb-32 pt-4 px-4 font-sans text-text-primary relative flex flex-col">
         
         <div className="relative z-20 flex items-center justify-between mb-4">
             <div>
@@ -269,24 +269,24 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                 {viewLevel === 'services' && (
                     <>
                         <button onClick={() => setIsHealthCheckOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
-                        <button onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
+                        <button aria-label="Eliminar" onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
-                <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
-                <button onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
+                <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
+                <button aria-label="Agregar" onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
             </div>
         </div>
 
         <div className="relative z-20 mb-6">
             <div className="relative w-full h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
                 <Search size={18} className="text-text-disabled shrink-0" />
-                <input 
+                <input aria-label="Buscar cuenta o servicio" 
                     value={searchQuery} 
                     onChange={e => { setSearchQuery(e.target.value); if(viewLevel === 'services') setViewLevel('all_accounts'); }} 
                     placeholder="Buscar cuenta o servicio..." 
-                    className="bg-transparent border-none outline-none text-label leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-faint font-medium" 
+                    className="bg-transparent border-none outline-none text-label leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-disabled font-medium" 
                 />
-                {searchQuery && <button onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-text-disabled" /></button>}
+                {searchQuery && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-text-disabled" /></button>}
             </div>
         </div>
         

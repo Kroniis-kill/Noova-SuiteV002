@@ -93,13 +93,14 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
   };
 
   return (
-    <div className="pb-40 font-sans text-text-primary min-h-screen px-4">
+    <div className="pb-40 font-sans text-text-primary min-h-dvh px-4">
        <div className="pt-safe mt-6 mb-6 flex justify-between items-center relative z-10">
           <div>
              <h1 className="text-2xl font-black text-text-primary tracking-tight">Finanzas</h1>
              <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Capital Management</p>
           </div>
           <button 
+             aria-label="Nuevo gasto"
              onClick={props.onNewExpense}
              className="w-10 h-10 bg-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-90 transition-all shadow-brand-accent/20"
           >
@@ -269,7 +270,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                 >
                    <div className="flex justify-between items-center px-1">
                       <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Pagos Pendientes</h3>
-                      <button onClick={props.onNewPayable} className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary"><Plus size={14} /></button>
+                      <button aria-label="Agregar" onClick={props.onNewPayable} className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary"><Plus size={14} /></button>
                    </div>
                    {props.combinedPayables.map(item => (
                      <PayableCard key={item.id} item={item} onPay={props.onPayPayable} onDelete={props.onDeletePayable} onEdit={props.onEditPayable} />

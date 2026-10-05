@@ -276,13 +276,13 @@ const PortalPage: React.FC = () => {
       } 
   };
 
-  if (view === 'loading') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center"><AnimatedLogo size={80} showFill={false} /><p className="text-text-disabled text-xs mt-6 font-medium animate-pulse">Autenticando...</p></div>;
-  if (view === 'error') return <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-status-danger/10 rounded-lg flex items-center justify-center mb-6 border border-status-danger/20"><ShieldAlert size={28} className="text-status-danger" /></div><h1 className="text-xl font-bold text-text-primary mb-2">Acceso restringido</h1><p className="text-text-muted text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
+  if (view === 'loading') return <div className="min-h-dvh bg-bg flex flex-col items-center justify-center"><AnimatedLogo size={80} showFill={false} /><p className="text-text-disabled text-xs mt-6 font-medium animate-pulse">Autenticando...</p></div>;
+  if (view === 'error') return <div className="min-h-dvh bg-bg flex flex-col items-center justify-center p-6 text-center"><div className="w-16 h-16 bg-status-danger/10 rounded-lg flex items-center justify-center mb-6 border border-status-danger/20"><ShieldAlert size={28} className="text-status-danger" /></div><h1 className="text-xl font-bold text-text-primary mb-2">Acceso restringido</h1><p className="text-text-muted text-sm max-w-[250px] mx-auto">{errorMessage}</p></div>;
 
   if (view === 'login' || view === 'setup_pin') {
       const isSetup = view === 'setup_pin';
       return (
-        <div className="min-h-screen h-screen bg-bg flex flex-col items-center justify-center p-4 overflow-hidden">
+        <div className="min-h-dvh h-dvh bg-bg flex flex-col items-center justify-center p-4 overflow-hidden">
             <div className="flex flex-col items-center w-full max-w-sm mx-auto animate-fade-in">
                 <div className="mb-6 text-center">
                     <div className="w-16 h-16 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-lg flex items-center justify-center mx-auto mb-4 shadow-glow p-px">
@@ -305,7 +305,7 @@ const PortalPage: React.FC = () => {
                     ))}
                     <div />
                     <button onClick={() => handleNum('0')} className="h-14 rounded-lg bg-surface-1 text-xl font-bold text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/10 transition-all border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm">0</button>
-                    <button onClick={handleBackspace} className="h-14 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary active:bg-[rgb(var(--fg-rgb))]/10 transition-all"><ChevronRight className="rotate-180" size={24} /></button>
+                    <button aria-label="Ver detalle" onClick={handleBackspace} className="h-14 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary active:bg-[rgb(var(--fg-rgb))]/10 transition-all"><ChevronRight className="rotate-180" size={24} /></button>
                 </div>
                 <button onClick={handleNextStep} disabled={loadingAction || pin.length < 4} className="w-full max-w-[280px] h-14 bg-white text-black rounded-lg font-bold text-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
                     {loadingAction ? <RefreshCw className="animate-spin" size={18} /> : (isSetup && !confirmPin ? 'Siguiente' : 'Acceder')} 
@@ -317,7 +317,7 @@ const PortalPage: React.FC = () => {
   }
 
   return (
-      <div className="min-h-screen h-screen bg-bg font-sans text-text-primary flex flex-col overflow-hidden selection:bg-brand-primary/30">
+      <div className="min-h-dvh h-dvh bg-bg font-sans text-text-primary flex flex-col overflow-hidden selection:bg-brand-primary/30">
           {/* Header Fijo */}
           <div className="relative pt-8 pb-12 px-6 bg-surface-1 rounded-b-2xl border-b border-[rgb(var(--fg-rgb))]/[0.08] overflow-hidden shadow-2xl z-10 shrink-0">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
@@ -326,7 +326,7 @@ const PortalPage: React.FC = () => {
                      {branding?.logo ? (<img src={branding.logo} alt="Logo" className="h-8 w-auto object-contain" />) : (<AnimatedLogo size={24} isStatic showFill={false} />)}
                      <span className="text-xs font-semibold text-text-primary tracking-[0.2em] uppercase">{branding?.name || 'Noova Suite'}</span>
                   </div>
-                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all"><LogOut size={18} /></button>
+                  <button aria-label="Cerrar sesión" onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all"><LogOut size={18} /></button>
               </div>
               <div className="relative z-10 flex items-center gap-5">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-glow"><div className="w-full h-full bg-surface-1 rounded-lg flex items-center justify-center overflow-hidden"><User size={32} className="text-white" /></div></div>

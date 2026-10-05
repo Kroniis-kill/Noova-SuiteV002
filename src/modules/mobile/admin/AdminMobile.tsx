@@ -116,7 +116,7 @@ const AdminMobile: React.FC = () => {
   if (activeTab === 'discounts') return (
     <div className="pb-32 pt-2 px-4 space-y-4">
       <div className="flex items-center gap-4 mb-2">
-        <button onClick={() => setActiveTab('overview')} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
+        <button aria-label="Volver" onClick={() => setActiveTab('overview')} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
           <ArrowLeft size={20} />
         </button>
         <h1 className="text-2xl font-black text-text-primary tracking-tight">Descuentos</h1>
@@ -126,7 +126,7 @@ const AdminMobile: React.FC = () => {
   );
 
   return (
-    <div className="pb-32 pt-3 text-text-primary min-h-screen bg-bg">
+    <div className="pb-32 pt-3 text-text-primary min-h-dvh bg-bg">
 
       {/* HEADER */}
       <div className="flex justify-between items-center mb-5 px-1">
@@ -140,13 +140,13 @@ const AdminMobile: React.FC = () => {
           </div>
         </div>
         <div className="flex gap-2">
-          <button
+          <button aria-label="Actualizar"
             onClick={loadData}
-            className={`w-9 h-9 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-text-muted active:scale-90 transition-all ${isSyncing ? 'animate-spin text-brand-primary' : ''}`}
+            className={`tap-44 w-9 h-9 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-text-muted active:scale-90 transition-all ${isSyncing ? 'animate-spin text-brand-primary' : ''}`}
           ><RefreshCw size={16} /></button>
-          <button
+          <button aria-label="Agregar"
             onClick={() => { setEditingSub(null); setIsModalOpen(true); }}
-            className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent text-white flex items-center justify-center shadow-glow active:scale-95 transition-all"
+            className="tap-44 w-9 h-9 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent text-white flex items-center justify-center shadow-glow active:scale-95 transition-all"
           ><Plus size={18} strokeWidth={2.5} /></button>
         </div>
       </div>
@@ -212,7 +212,7 @@ const AdminMobile: React.FC = () => {
           <motion.div key="users" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
-              <input
+              <input aria-label="Buscar usuario"
                 value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar usuario..."
                 className="w-full h-11 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
@@ -257,7 +257,7 @@ const AdminMobile: React.FC = () => {
         {activeTab === 'announcements' && (
           <motion.div key="announcements" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
             <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
-              <textarea
+              <textarea aria-label="Escribe un anuncio"
                 value={newAnnouncement}
                 onChange={e => setNewAnnouncement(e.target.value)}
                 placeholder="Escribe un anuncio..."
@@ -278,7 +278,7 @@ const AdminMobile: React.FC = () => {
             {announcements.map(a => (
               <div key={a.id} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] p-4 rounded-xl flex justify-between items-center gap-3">
                 <p className="text-sm text-text-secondary flex-1">{a.message}</p>
-                <button onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-text-disabled active:text-status-danger-soft">
+                <button aria-label="Eliminar" onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-text-disabled active:text-status-danger-soft">
                   <Trash2 size={15} />
                 </button>
               </div>
@@ -296,7 +296,7 @@ const AdminMobile: React.FC = () => {
                 <label className="text-tiny font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
                 <div className="relative">
                   <Smartphone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
-                  <input
+                  <input aria-label="WhatsApp de soporte"
                     value={tempPhone}
                     onChange={e => setTempPhone(e.target.value)}
                     className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
@@ -346,7 +346,7 @@ const AdminMobile: React.FC = () => {
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
             <div className="relative">
               <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
-              <input
+              <input aria-label="WhatsApp de soporte"
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
                 className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"

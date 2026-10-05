@@ -90,7 +90,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
           <label className={labelClass}>Identificación</label>
           <div className="relative flex items-center">
             <Tag size={18} className="absolute left-4 text-text-disabled" />
-            <input placeholder="Nombre de la Plataforma" value={name} onChange={e => setName(e.target.value)} className={inputClass} required />
+            <input aria-label="Identificación" placeholder="Nombre de la Plataforma" value={name} onChange={e => setName(e.target.value)} className={inputClass} required />
           </div>
         </div>
 
@@ -98,7 +98,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
           <label className={labelClass}>Imagen del Servicio</label>
           <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
               <div onClick={() => fileInputRef.current?.click()} className="w-20 h-20 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95">
-                {image_url ? <img src={image_url} className="w-full h-full object-cover" /> : <Camera size={24} className="text-text-disabled" />}
+                {image_url ? <img alt="Vista previa" src={image_url} className="w-full h-full object-cover" /> : <Camera size={24} className="text-text-disabled" />}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"><Upload size={20} className="text-white" /></div>
               </div>
               <div className="flex-1">
@@ -114,7 +114,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
             <label className={labelClass}>Modalidad</label>
             <div className="relative flex items-center">
               <Layers size={18} className="absolute left-4 text-text-disabled" />
-              <select value={type} onChange={(e) => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}>
+              <select aria-label="Modalidad" value={type} onChange={(e) => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}>
                 <option value="por_pantalla">Por Pantalla</option>
                 <option value="cuenta_completa">Completa</option>
                 <option value="usuario_unico">Usuario Único</option>
@@ -126,7 +126,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
             <label className={labelClass}>Cupos Máx.</label>
             <div className="relative flex items-center">
               <Hash size={18} className="absolute left-4 text-text-disabled" />
-              <input type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" required />
+              <input aria-label="Cupos Máx." type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" required />
             </div>
           </div>
         </div>
@@ -136,10 +136,10 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <label className={labelClass}>Inversión Total</label>
-                <div className="relative flex items-center"><DollarSign size={18} className="absolute left-4 text-text-disabled" /><input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+                <div className="relative flex items-center"><DollarSign size={18} className="absolute left-4 text-text-disabled" /><input aria-label="Inversión Total" type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" /></div>
               </div>
-              <div><label className={labelClass}>P. Público</label><input type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
-              <div><label className={labelClass}>P. Socio</label><input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+              <div><label className={labelClass}>P. Público</label><input aria-label="P. Público" type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+              <div><label className={labelClass}>P. Socio</label><input aria-label="P. Socio" type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
             </div>
             <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between"><span className="text-tiny font-semibold text-brand-primary uppercase">Costo Real Unitario</span><span className="text-lg font-bold text-text-primary">${calculatedCost.toFixed(2)}</span></div>
         </div>

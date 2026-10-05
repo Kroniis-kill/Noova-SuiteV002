@@ -106,7 +106,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
-    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled px-3 h-full outline-none font-medium rounded-sm",
     iconLeft: "pl-10",
     iconElement: "absolute left-3.5 text-text-disabled pointer-events-none",
   };
@@ -123,7 +123,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                 <div className="space-y-3">
                    <div className={styles.inputContainer}>
                       <Mail size={16} className={styles.iconElement} />
-                      <input 
+                      <input aria-label="Credenciales de Acceso" 
                         type="email" 
                         required
                         placeholder="Correo electrónico"
@@ -136,7 +136,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
                    {!initialData && (
                      <div className={styles.inputContainer}>
                         <Lock size={16} className={styles.iconElement} />
-                        <input 
+                        <input aria-label="Contraseña temporal" 
                           type="text" 
                           required
                           placeholder="Contraseña temporal"
@@ -169,7 +169,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
              <label className={styles.label}>Fecha de Vencimiento</label>
              <div className={styles.inputContainer}>
                 <Calendar size={16} className={styles.iconElement} />
-                <input 
+                <input aria-label="Fecha de Vencimiento" 
                   type="date"
                   required
                   value={expiryDate}

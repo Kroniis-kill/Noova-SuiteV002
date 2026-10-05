@@ -32,12 +32,12 @@ export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, on
                   <h3 className="text-text-primary font-black text-lg">Billetera</h3>
                   <p className="text-caption text-text-disabled font-medium">Selecciona cuenta de ingreso</p>
               </div>
-              <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
+              <button aria-label="Cerrar" onClick={onClose} className="tap-44 w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90"><X size={18} /></button>
           </div>
           <div className="p-4 space-y-3">
              <div className="relative">
                  <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-                 <input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium" />
+                 <input aria-label="Buscar cuenta" autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-disabled font-medium" />
              </div>
              <div className="space-y-2 overflow-y-auto max-h-[300px] custom-scrollbar pr-1">
                 <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
@@ -376,7 +376,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                         <h3 className="text-lg font-black text-text-primary leading-tight">Renovar servicio</h3>
                         <p className="text-caption text-text-disabled font-medium truncate">{subtitle}</p>
                     </div>
-                    <button onClick={() => { haptic('nav'); onClose(); }} className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
+                    <button aria-label="Cerrar" onClick={() => { haptic('nav'); onClose(); }} className="tap-44 w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 shrink-0"><X size={18} /></button>
                 </div>
 
                 {/* ───────── CONTENIDO ───────── */}
@@ -466,7 +466,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                             {/* Monto */}
                             <div className="h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                                 <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
-                                <input type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-faint`} placeholder="0.00" inputMode="decimal" />
+                                <input aria-label="0.00" type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`} placeholder="0.00" inputMode="decimal" />
                                 {selectedWallet && <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{selectedWallet.currency}</span>}
                             </div>
 

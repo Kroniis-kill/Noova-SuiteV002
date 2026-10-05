@@ -57,7 +57,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
             </div>
             <div>
                <p className="text-text-primary font-semibold text-caption leading-tight">{account.name}</p>
-               <p className="text-[7px] text-text-faint font-mono tracking-tighter uppercase">{account.currency}</p>
+               <p className="text-nano text-text-faint font-mono tracking-tighter uppercase">{account.currency}</p>
             </div>
          </div>
          <p className="text-caption font-semibold text-text-primary font-mono">{showBalance ? formatCurrency(account.balance) : '••••'}</p>
@@ -82,13 +82,13 @@ const AccountCard: React.FC<AccountCardProps> = ({
             </div>
             <div>
                <h3 className="text-caption font-semibold text-text-primary tracking-tight leading-none">{account.name}</h3>
-               <span className="text-[6px] font-black text-text-faint uppercase tracking-[0.2em] font-mono block leading-none mt-1">{account.currency}</span>
+               <span className="text-nano font-black text-text-faint uppercase tracking-[0.2em] font-mono block leading-none mt-1">{account.currency}</span>
             </div>
          </div>
 
-         <button 
+         <button aria-label="Mostrar u ocultar contraseña" 
            onClick={() => setShowBalance(!showBalance)}
-           className="w-6 h-6 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] hover:bg-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-text-disabled transition-all active:scale-90"
+           className="tap-44 w-6 h-6 rounded-full bg-[rgb(var(--fg-rgb))]/[0.03] hover:bg-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-text-disabled transition-all active:scale-90"
          >
             {showBalance ? <Eye size={12} /> : <EyeOff size={12} />}
          </button>
@@ -103,30 +103,30 @@ const AccountCard: React.FC<AccountCardProps> = ({
                </h2>
             </div>
             {isNotMain && showBalance && (
-               <p className="text-[7px] text-text-faint font-bold mt-0.5 opacity-50">
+               <p className="text-nano text-text-faint font-bold mt-0.5 opacity-50">
                   ≈ {formatCurrency(equivalent)} {settings.currency}
                </p>
             )}
          </div>
-         <p className="text-[6px] text-text-faint font-black uppercase tracking-[0.2em] mt-1">Saldo Neto Disponible</p>
+         <p className="text-nano text-text-faint font-black uppercase tracking-[0.2em] mt-1">Saldo Neto Disponible</p>
       </div>
 
       <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-[rgb(var(--fg-rgb))]/[0.03]">
          <button onClick={() => onFund(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-success/[0.02] text-status-success border border-status-success/10 active:scale-95 transition-all">
             <TrendingUp size={10} />
-            <span className="text-[5px] font-black uppercase tracking-widest">Entrada</span>
+            <span className="text-nano font-black uppercase tracking-widest">Entrada</span>
          </button>
          <button onClick={() => onWithdraw(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-danger/[0.02] text-status-danger border border-status-danger/10 active:scale-95 transition-all">
             <TrendingDown size={10} />
-            <span className="text-[5px] font-black uppercase tracking-widest">Salida</span>
+            <span className="text-nano font-black uppercase tracking-widest">Salida</span>
          </button>
          <button onClick={() => onTransfer(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-brand-primary/[0.02] text-brand-primary border border-brand-primary/10 active:scale-95 transition-all">
             <ArrowRightLeft size={10} />
-            <span className="text-[5px] font-black uppercase tracking-widest">Mover</span>
+            <span className="text-nano font-black uppercase tracking-widest">Mover</span>
          </button>
          <button onClick={() => onHistory(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.01] text-text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] active:scale-95 transition-all">
             <History size={10} />
-            <span className="text-[5px] font-black uppercase tracking-widest">Logs</span>
+            <span className="text-nano font-black uppercase tracking-widest">Logs</span>
          </button>
       </div>
     </motion.div>

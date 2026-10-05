@@ -44,7 +44,7 @@ const ExpensesDesktop: React.FC = () => {
           <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center">
              <h2 className="text-lg font-bold text-text-primary">Gastos y Compras</h2>
           </div>
-          <table className="w-full text-left">
+          <div className="overflow-x-auto"><table className="w-full text-left min-w-[40rem]">
              <thead>
                 <tr className="bg-[rgb(var(--fg-rgb))]/[0.02] border-b border-[rgb(var(--fg-rgb))]/5 text-xs font-semibold text-text-disabled uppercase tracking-wider">
                    <th className="p-6 pl-8">Tipo</th>
@@ -73,9 +73,9 @@ const ExpensesDesktop: React.FC = () => {
                          {settings.currency} {item.amount.toLocaleString()}
                       </td>
                       <td className="p-6 text-right pr-8">
-                         <button 
+                         <button aria-label="Eliminar" 
                            onClick={() => setItemToDelete({ id: item.id, type: item.type, name: item.label })}
-                           className="w-8 h-8 rounded-lg bg-status-danger/10 flex items-center justify-center text-status-danger-soft hover:bg-status-danger/20 transition-colors opacity-0 group-hover:opacity-100 ml-auto"
+                           className="tap-44 w-8 h-8 rounded-lg bg-status-danger/10 flex items-center justify-center text-status-danger-soft hover:bg-status-danger/20 transition-colors opacity-0 group-hover:opacity-100 ml-auto"
                          >
                             <Trash2 size={14} />
                          </button>
@@ -86,7 +86,7 @@ const ExpensesDesktop: React.FC = () => {
                     <tr><td colSpan={6} className="p-12 text-center text-text-disabled">No hay registros.</td></tr>
                 )}
              </tbody>
-          </table>
+          </table></div>
        </div>
 
        <ExpenseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

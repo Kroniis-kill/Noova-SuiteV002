@@ -74,15 +74,15 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
              </div>
              
              <div className="flex gap-1">
-                <button 
+                <button aria-label="Enviar por WhatsApp" 
                    onClick={handleWhatsApp}
-                   className="w-8 h-8 rounded-sm bg-brand-whatsapp/10 text-brand-whatsapp flex items-center justify-center border border-brand-whatsapp/20 active:scale-90 transition-all"
+                   className="tap-44 w-8 h-8 rounded-sm bg-brand-whatsapp/10 text-brand-whatsapp flex items-center justify-center border border-brand-whatsapp/20 active:scale-90 transition-all"
                 >
                    <MessageCircle size={14} />
                 </button>
-                <button 
+                <button aria-label="Actualizar" 
                    onClick={handleRenewClick}
-                   className="w-8 h-8 rounded-sm bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20 active:scale-90 transition-all"
+                   className="tap-44 w-8 h-8 rounded-sm bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20 active:scale-90 transition-all"
                 >
                    <RefreshCw size={14} />
                 </button>

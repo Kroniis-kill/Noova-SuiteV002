@@ -91,8 +91,9 @@ const ResellerCard: React.FC<ResellerCardProps> = ({ reseller, stats, onClick })
        {/* Telegram Quick Action */}
        {reseller.telegram && (
           <button 
+             aria-label="Enviar por Telegram"
              onClick={handleTelegram}
-             className="absolute top-4 right-14 w-8 h-8 flex items-center justify-center rounded-full bg-brand-telegram/10 text-brand-telegram hover:bg-brand-telegram/20 transition-colors z-20"
+             className="tap-44 absolute top-4 right-14 w-8 h-8 flex items-center justify-center rounded-full bg-brand-telegram/10 text-brand-telegram hover:bg-brand-telegram/20 transition-colors z-20"
           >
              <Send size={14} />
           </button>

@@ -33,13 +33,13 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
       <div className="flex flex-col h-[60vh] md:h-[450px] pt-1">
         <div className="relative mb-4 shrink-0">
            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-           <input 
+           <input aria-label="Buscar cuenta" 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder="Buscar cuenta..."
-             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-text-primary outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-text-faint font-medium"
+             className="w-full bg-surface-sunken rounded-md pl-11 pr-10 py-3.5 text-sm text-text-primary outline-none focus:ring-1 focus:ring-brand-primary/50 transition-all placeholder:text-text-disabled font-medium"
              autoFocus
            />
-           {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1 active:scale-90 transition-transform"><X size={14} /></button>}
+           {search && <button aria-label="Cerrar" onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1 active:scale-90 transition-transform"><X size={14} /></button>}
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
            {filtered.map(acc => (
@@ -151,7 +151,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-sm h-[44px] transition-all focus-within:ring-1 focus-within:ring-status-info/60",
-    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-faint px-3 h-full outline-none font-medium rounded-sm",
+    input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled px-3 h-full outline-none font-medium rounded-sm",
     select: "w-full bg-transparent text-body-sm text-text-primary px-3 pl-3 h-full outline-none appearance-none cursor-pointer font-medium rounded-sm",
     iconRight: "absolute right-3 text-text-disabled pointer-events-none",
   };
@@ -165,7 +165,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
                <label className={styles.label} style={{ textAlign: 'center', marginLeft: 0 }}>Monto ({account.currency})</label>
                <div className="flex items-center justify-center gap-1 mt-2">
                   <span className="text-3xl text-text-disabled font-light">$</span>
-                  <input type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className="bg-transparent text-5xl font-bold text-text-primary outline-none w-48 text-center placeholder:text-text-faint" placeholder="0.00" autoFocus required inputMode="decimal" />
+                  <input aria-label="0.00" type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className="bg-transparent text-5xl font-bold text-text-primary outline-none w-48 text-center placeholder:text-text-disabled" placeholder="0.00" autoFocus required inputMode="decimal" />
                </div>
             </div>
 
@@ -194,7 +194,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
                   <div>
                      <label className={styles.label}>Tasa Ref.</label>
                      <div className={styles.inputContainer}>
-                        <input type="number" step="0.01" value={rate} onChange={e => setRate(e.target.value)} className={styles.input} placeholder="0.00" inputMode="decimal" />
+                        <input aria-label="Tasa Ref." type="number" step="0.01" value={rate} onChange={e => setRate(e.target.value)} className={styles.input} placeholder="0.00" inputMode="decimal" />
                      </div>
                   </div>
                )}
@@ -203,7 +203,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
                   <div className={!isUSDLike ? "" : "col-span-2"}>
                      <label className={styles.label}>Método</label>
                      <div className={styles.inputContainer}>
-                        <select value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} className={styles.select}>
+                        <select aria-label="Método" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} className={styles.select}>
                            <option value="">Seleccionar...</option>
                            {account.paymentMethods.map(m => <option key={m.id} value={m.name}>{m.name}</option>)}
                            <option value="Efectivo">Efectivo</option>
@@ -218,7 +218,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
             <div>
                <label className={styles.label}>Nota</label>
                <div className={styles.inputContainer}>
-                  <input value={description} onChange={e => setSearchQuery(e.target.value)} className={styles.input} placeholder="Concepto (Opcional)" />
+                  <input aria-label="Nota" value={description} onChange={e => setSearchQuery(e.target.value)} className={styles.input} placeholder="Concepto (Opcional)" />
                </div>
             </div>
 

@@ -31,13 +31,13 @@ const ResellerSearchModal: React.FC<ResellerSearchModalProps> = ({ isOpen, onClo
       <div className="flex flex-col h-[50vh] md:h-[350px] pt-1">
         <div className="relative mb-3 shrink-0">
            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-           <input 
+           <input aria-label="Buscar socio" 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder="Buscar socio..."
-             className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-10 pr-10 h-10 lg:h-11 text-xs text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-faint font-medium"
+             className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-10 pr-10 h-10 lg:h-11 text-xs text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled font-medium"
              autoFocus
            />
-           {search && <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={14} /></button>}
+           {search && <button aria-label="Cerrar" onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={14} /></button>}
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-1.5 pr-1">
            <button onClick={() => { onSelect(null); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 transition-all group text-left">
@@ -106,7 +106,7 @@ const ContactoModal: React.FC<ContactoModalProps> = ({ isOpen, onClose, onSubmit
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1.5 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm h-10 lg:h-11 transition-all focus-within:border-brand-primary/60",
-    input: "w-full h-full bg-transparent text-xs text-text-primary placeholder:text-text-faint px-4 outline-none font-medium",
+    input: "w-full h-full bg-transparent text-xs text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium",
     iconLeft: "pl-11",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",
     textarea: "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm p-4 text-xs text-text-primary outline-none focus:border-brand-primary/60 font-medium resize-none",
@@ -120,20 +120,20 @@ const ContactoModal: React.FC<ContactoModalProps> = ({ isOpen, onClose, onSubmit
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <h4 className="text-text-faint text-micro font-black uppercase tracking-[0.2em] mb-3 flex items-center gap-2">Información de Perfil</h4>
-                <div><label className={styles.label}>Nombre Completo</label><div className={styles.inputContainer}><User size={16} className={styles.iconElement} /><input name="name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Ej. Juan Pérez" className={`${styles.input} ${styles.iconLeft}`} required autoFocus /></div></div>
+                <div><label className={styles.label}>Nombre Completo</label><div className={styles.inputContainer}><User size={16} className={styles.iconElement} /><input aria-label="Nombre Completo" name="name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Ej. Juan Pérez" className={`${styles.input} ${styles.iconLeft}`} required autoFocus /></div></div>
                 <div className="grid grid-cols-2 gap-3">
-                   <div><label className={styles.label}>WhatsApp</label><div className={styles.inputContainer}><Phone size={16} className={styles.iconElement} /><input name="phone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="Número" className={`${styles.input} ${styles.iconLeft}`} /></div></div>
-                   <div><label className={styles.label}>Telegram</label><div className={styles.inputContainer}><Send size={16} className={styles.iconElement} /><input name="telegram" value={formData.telegram} onChange={e => setFormData({...formData, telegram: e.target.value})} placeholder="@usuario" className={`${styles.input} ${styles.iconLeft}`} /></div></div>
+                   <div><label className={styles.label}>WhatsApp</label><div className={styles.inputContainer}><Phone size={16} className={styles.iconElement} /><input aria-label="WhatsApp" name="phone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="Número" className={`${styles.input} ${styles.iconLeft}`} /></div></div>
+                   <div><label className={styles.label}>Telegram</label><div className={styles.inputContainer}><Send size={16} className={styles.iconElement} /><input aria-label="Telegram" name="telegram" value={formData.telegram} onChange={e => setFormData({...formData, telegram: e.target.value})} placeholder="@usuario" className={`${styles.input} ${styles.iconLeft}`} /></div></div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                    <div><label className={styles.label}>Revendedor</label><div onClick={() => setIsResellerSearchOpen(true)} className={`${styles.inputContainer} cursor-pointer group hover:border-brand-primary/60`}><Briefcase size={16} className={styles.iconElement} /><div className={`${styles.input} ${styles.iconLeft} flex items-center pr-8`}><span className={`truncate ${formData.resellerId ? "text-text-primary" : "text-text-faint"}`}>{selectedReseller ? selectedReseller.name : "Directo"}</span></div><ChevronDown size={14} className="absolute right-4 text-text-disabled" /></div></div>
-                   <div><label className={styles.label}>Fecha Registro</label><div className={styles.inputContainer}><Calendar size={16} className={styles.iconElement} /><input type="date" name="registrationDate" value={formData.registrationDate} onChange={e => setFormData({...formData, registrationDate: e.target.value})} className={`${styles.input} ${styles.iconLeft} font-mono`} /></div></div>
+                   <div><label className={styles.label}>Fecha Registro</label><div className={styles.inputContainer}><Calendar size={16} className={styles.iconElement} /><input aria-label="Fecha Registro" type="date" name="registrationDate" value={formData.registrationDate} onChange={e => setFormData({...formData, registrationDate: e.target.value})} className={`${styles.input} ${styles.iconLeft} font-mono`} /></div></div>
                 </div>
               </div>
               <div className="space-y-4">
                 <h4 className="text-text-faint text-micro font-black uppercase tracking-[0.2em] mb-3 flex items-center gap-2">Estado y Notas</h4>
                 <div className={`p-4 rounded-md border flex items-center justify-between transition-all ${formData.isBlocked ? 'bg-status-danger/10 border-status-danger/20' : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5'}`}><div className="flex items-center gap-3"><div className={`w-9 h-9 rounded-full flex items-center justify-center ${formData.isBlocked ? 'bg-status-danger text-white shadow-glow-sm' : 'bg-[rgb(var(--fg-rgb))]/5 text-text-disabled'}`}><Ban size={16} /></div><div><h4 className={`text-xs font-semibold ${formData.isBlocked ? 'text-status-danger-soft' : 'text-text-secondary'}`}>{formData.isBlocked ? 'Bloqueado' : 'Acceso Libre'}</h4><p className="text-micro text-text-disabled leading-tight">Evita ventas accidentales.</p></div></div><button type="button" onClick={() => setFormData(prev => ({ ...prev, isBlocked: !prev.isBlocked }))} className={`w-10 h-5.5 rounded-full relative transition-colors duration-300 border ${formData.isBlocked ? 'bg-status-danger border-status-danger' : 'bg-zinc-800 border-zinc-700'}`}><div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-300 ${formData.isBlocked ? 'translate-x-4' : ''}`} /></button></div>
-                <div><label className={styles.label}>Notas Privadas</label><textarea name="notes" value={formData.notes} onChange={e => setFormData({...formData, notes: e.target.value})} rows={5} placeholder="Detalles extra del cliente..." className={styles.textarea} /></div>
+                <div><label className={styles.label}>Notas Privadas</label><textarea aria-label="Notas Privadas" name="notes" value={formData.notes} onChange={e => setFormData({...formData, notes: e.target.value})} rows={5} placeholder="Detalles extra del cliente..." className={styles.textarea} /></div>
               </div>
             </div>
             <div className="pt-4 border-t border-[rgb(var(--fg-rgb))]/5 flex justify-end"><button type="submit" className="btn-primary px-12 h-11 lg:h-12 rounded-md text-xs font-semibold uppercase tracking-widest flex items-center gap-2"><Check size={18} strokeWidth={3} /> {initialData ? 'Actualizar' : 'Registrar'} Contacto</button></div>

@@ -49,21 +49,21 @@ export const BusinessIdentitySection = () => {
                 <div className="space-y-5 mt-4">
                     <div>
                         <label className={styles.label}>Nombre Comercial</label>
-                        <input value={name} onChange={e => setName(e.target.value)} className={styles.input} placeholder="Ej. SimioNet" />
+                        <input aria-label="Nombre Comercial" value={name} onChange={e => setName(e.target.value)} className={styles.input} placeholder="Ej. SimioNet" />
                     </div>
                     <div>
                         <label className={styles.label}>WhatsApp Soporte</label>
-                        <input value={whatsapp} onChange={e => setWhatsapp(e.target.value)} className={styles.input} placeholder="58412..." />
+                        <input aria-label="WhatsApp Soporte" value={whatsapp} onChange={e => setWhatsapp(e.target.value)} className={styles.input} placeholder="58412..." />
                     </div>
                     <div>
                         <label className={styles.label}>Sitio Web (Opcional)</label>
-                        <input value={website} onChange={e => setWebsite(e.target.value)} className={styles.input} placeholder="https://tuweb.com" />
+                        <input aria-label="Sitio Web (Opcional)" value={website} onChange={e => setWebsite(e.target.value)} className={styles.input} placeholder="https://tuweb.com" />
                     </div>
                     <div>
                         <label className={styles.label}>Logo del Negocio</label>
                         <div className="flex gap-3">
-                            <input value={logo} onChange={e => setLogo(e.target.value)} className={styles.input} placeholder="URL de imagen o carga un archivo" />
-                            <button onClick={() => fileInputRef.current?.click()} className="w-[52px] h-[52px] rounded-xl bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary shrink-0 active:scale-90 transition-transform">
+                            <input aria-label="Logo del Negocio" value={logo} onChange={e => setLogo(e.target.value)} className={styles.input} placeholder="URL de imagen o carga un archivo" />
+                            <button aria-label="Importar" onClick={() => fileInputRef.current?.click()} className="w-[52px] h-[52px] rounded-xl bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary shrink-0 active:scale-90 transition-transform">
                                 <Upload size={20} />
                             </button>
                             <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
@@ -74,7 +74,7 @@ export const BusinessIdentitySection = () => {
                             <div className="mt-4 flex flex-col items-center">
                                 <div className="w-24 h-24 rounded-xl bg-black border border-border-subtle overflow-hidden p-2 relative group">
                                     <img src={logo} alt="Logo Preview" className="w-full h-full object-contain" />
-                                    <button onClick={() => setLogo('')} className="absolute top-1 right-1 p-1 bg-status-danger rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button aria-label="Cerrar" onClick={() => setLogo('')} className="absolute top-1 right-1 p-1 bg-status-danger rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
                                         <X size={12} />
                                     </button>
                                 </div>

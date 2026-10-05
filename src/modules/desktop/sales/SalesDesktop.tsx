@@ -110,7 +110,7 @@ const SalesDesktop: React.FC = () => {
           <div className="flex items-center gap-2">
               <div className="relative group mr-2">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-faint group-focus-within:text-brand-primary" size={18} />
-                <input placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input aria-label="Buscar cliente o servicio..." placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
               </div>
 
               {!viewFails && (
@@ -120,7 +120,7 @@ const SalesDesktop: React.FC = () => {
                 </>
               )}
 
-              <button onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}><ClipboardList size={20} /></button>
+              <button aria-label="Ver ventas fallidas" aria-pressed={viewFails} onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}><ClipboardList size={20} /></button>
               <button onClick={handleNewSale} className="h-12 px-6 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center gap-2 text-white font-bold text-sm shadow-glow active:scale-95"><Plus size={20} strokeWidth={2.5} /> Nueva Venta</button>
           </div>
       </div>
@@ -180,7 +180,7 @@ const SalesDesktop: React.FC = () => {
 
                     <div className="flex items-center gap-3">
                         <span className="text-text-disabled text-tiny font-semibold uppercase tracking-widest">Ordenar por:</span>
-                        <select className="bg-transparent border-none text-text-primary text-xs font-semibold outline-none cursor-pointer hover:text-brand-primary transition-colors">
+                        <select aria-label="Ordenar ventas" className="bg-transparent border-none text-text-primary text-xs font-semibold outline-none cursor-pointer hover:text-brand-primary transition-colors">
                             <option value="recent">Más Recientes</option>
                             <option value="oldest">Más Antiguos</option>
                             <option value="priority">Prioridad Alta</option>
@@ -223,7 +223,7 @@ const SalesDesktop: React.FC = () => {
                                                 <AlertCircle size={10} strokeWidth={3} className={`${isUrgent ? 'animate-pulse' : ''} -mt-[2px]`} />
                                             </div>
                                             {isUrgent && (
-                                                <div className="text-status-danger bg-status-danger/20 px-1.5 py-0.5 rounded-md text-[7px] font-black uppercase tracking-tighter border border-status-danger/30 -mt-[2px]">
+                                                <div className="text-status-danger bg-status-danger/20 px-1.5 py-0.5 rounded-md text-nano font-black uppercase tracking-tighter border border-status-danger/30 -mt-[2px]">
                                                     Urgente
                                                 </div>
                                             )}
@@ -281,7 +281,7 @@ const SalesDesktop: React.FC = () => {
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                                     <div className="w-10 h-10 rounded-xl bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-lg">
-                                                        {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={16} className="text-status-expiring-soft" />}
+                                                        {service?.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : <Database size={16} className="text-status-expiring-soft" />}
                                                     </div>
                                                     <div className="min-w-0">
                                                         <div className="flex items-center gap-2 mb-0.5">

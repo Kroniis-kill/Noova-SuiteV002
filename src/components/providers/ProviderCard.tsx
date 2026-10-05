@@ -73,14 +73,14 @@ const ProviderCard: React.FC<ProviderCardProps> = ({ provider, accountCount, onC
                 </div>
              </div>
           </div>
-          <div className="flex gap-1"><button onClick={handleEditClick} className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button></div>
+          <div className="flex gap-1"><button aria-label="Editar" onClick={handleEditClick} className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button></div>
        </div>
 
        <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/5 relative z-10">
           <div className="flex items-center gap-2"><div className="flex items-center justify-center w-6 h-6 rounded-full bg-status-info/10 text-status-info-soft border border-status-info/20"><Layers size={12} /></div><span className="text-caption font-medium text-text-muted"><strong className="text-text-secondary">{accountCount}</strong> Items</span></div>
           <div className="flex gap-2">
-             <button onClick={handleWhatsApp} className="w-8 h-8 rounded-sm bg-brand-whatsapp/10 text-brand-whatsapp border border-brand-whatsapp/20 flex items-center justify-center hover:bg-brand-whatsapp/20 transition-colors active:scale-95" title="WhatsApp"><MessageCircle size={14} /></button>
-             {provider.telegram && (<button onClick={handleTelegram} className="w-8 h-8 rounded-sm bg-brand-telegram/10 text-brand-telegram border border-brand-telegram/20 flex items-center justify-center hover:bg-brand-telegram/20 transition-colors active:scale-95" title="Telegram"><Send size={14} /></button>)}
+             <button onClick={handleWhatsApp} className="tap-44 w-8 h-8 rounded-sm bg-brand-whatsapp/10 text-brand-whatsapp border border-brand-whatsapp/20 flex items-center justify-center hover:bg-brand-whatsapp/20 transition-colors active:scale-95" title="WhatsApp"><MessageCircle size={14} /></button>
+             {provider.telegram && (<button onClick={handleTelegram} className="tap-44 w-8 h-8 rounded-sm bg-brand-telegram/10 text-brand-telegram border border-brand-telegram/20 flex items-center justify-center hover:bg-brand-telegram/20 transition-colors active:scale-95" title="Telegram"><Send size={14} /></button>)}
              <div className="w-8 h-8 flex items-center justify-center text-text-faint"><ChevronRight size={16} /></div>
           </div>
        </div>

@@ -92,7 +92,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
   };
 
   return (
-    <div className="pb-32 pt-2 px-4 font-sans text-text-primary min-h-screen">
+    <div className="pb-32 pt-2 px-4 font-sans text-text-primary min-h-dvh">
 
       {/* Header */}
       <div className="mb-5">
@@ -148,11 +148,11 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
 
           <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'flex-1' : 'w-[44px]'}`}>
             <div className={`flex items-center h-[44px] ${isSearchOpen ? 'bg-surface-sunken border border-border-subtle rounded-md px-3' : ''}`}>
-              <button onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 rounded-md transition-all ${isSearchOpen ? 'text-text-muted -ml-3' : 'bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary'}`}>
+              <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-[44px] h-[44px] flex items-center justify-center shrink-0 rounded-md transition-all ${isSearchOpen ? 'text-text-muted -ml-3' : 'bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary'}`}>
                 <Search size={18} />
               </button>
-              <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-body-sm text-text-primary outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
-              {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="p-1 text-text-disabled"><X size={16} /></button>}
+              <input aria-label="Buscar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar..." className={`bg-transparent text-body-sm text-text-primary outline-none w-full font-medium transition-all ${isSearchOpen ? 'opacity-100' : 'opacity-0 w-0'}`} />
+              {isSearchOpen && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }} className="p-1 text-text-disabled"><X size={16} /></button>}
             </div>
           </div>
         </div>
@@ -270,7 +270,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                           {isExpired ? `Venció hace ${Math.abs(days)}d` : days === 0 ? 'Expira hoy' : `${days} días restantes`}
                         </p>
                         <div className="flex gap-2">
-                          <button onClick={() => onDeleteAccount(acc)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft border border-border-subtle active:scale-90 transition-all">
+                          <button aria-label="Eliminar" onClick={() => onDeleteAccount(acc)} className="tap-44 w-8 h-8 flex items-center justify-center rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft border border-border-subtle active:scale-90 transition-all">
                             <Trash2 size={14} />
                           </button>
                           <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-tiny font-semibold flex items-center gap-1.5 active:scale-95 transition-all">

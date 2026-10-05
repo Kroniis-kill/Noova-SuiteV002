@@ -162,7 +162,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
   }, [isDetailOpen, isDeleteModalOpen, viewFails, selectedFailure, setBackAction]);
 
   return (
-    <div className="min-h-screen pb-32 pt-0 font-sans text-text-primary relative bg-bg flex flex-col overflow-x-hidden">
+    <div className="min-h-dvh pb-32 pt-0 font-sans text-text-primary relative bg-bg flex flex-col overflow-x-hidden">
 
       <div className="relative z-20 pt-safe px-4 mt-4">
          <div className="relative z-20 flex items-center justify-between mb-6">
@@ -173,13 +173,13 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
             <div className="flex gap-2">
                 {!viewFails && (
                     <>
-                        <button onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
+                        <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
                         <button onClick={() => setIsFilterModalOpen(true)} className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted'}`}><Filter size={16} />{statusFilter !== 'all' && <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_8px_#FF1493]" />}</button>
-                        <button onClick={() => setViewFails(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
-                        <button onClick={handleNewSale} className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
+                        <button aria-label="Ver ventas fallidas" onClick={() => setViewFails(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
+                        <button aria-label="Agregar" onClick={handleNewSale} className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
                     </>
                 )}
-                {viewFails && <button onClick={() => setViewFails(false)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
+                {viewFails && <button aria-label="Cerrar" onClick={() => setViewFails(false)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
             </div>
          </div>
 
@@ -187,8 +187,8 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
             <div className="mb-6 relative z-20">
                 <div className="relative h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-5 transition-all focus-within:border-brand-primary/50 shadow-sm pt-0 pl-2.5 pr-5">
                     <Search size={20} className="text-text-disabled shrink-0" />
-                    <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar cliente o servicio..." className="bg-transparent border-none outline-none text-label text-text-primary w-full ml-3 placeholder:text-text-faint font-normal" />
-                    {searchQuery && <button onClick={() => setSearchQuery('')} className="p-1"><X size={16} className="text-text-disabled" /></button>}
+                    <input aria-label="Buscar cliente o servicio" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar cliente o servicio..." className="bg-transparent border-none outline-none text-label text-text-primary w-full ml-3 placeholder:text-text-disabled font-normal" />
+                    {searchQuery && <button aria-label="Cerrar" onClick={() => setSearchQuery('')} className="p-1"><X size={16} className="text-text-disabled" /></button>}
                 </div>
             </div>
          )}
@@ -282,7 +282,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                             </div>
                                             <div className="text-center w-full">
                                                 <p className="text-micro text-text-disabled font-medium truncate px-1 not-italic">{client?.name || 'Cliente'}</p>
-                                                <div className="flex items-center justify-center gap-1 text-[7px] text-status-danger font-black uppercase mt-0.5">
+                                                <div className="flex items-center justify-center gap-1 text-nano text-status-danger font-black uppercase mt-0.5">
                                                     <AlertCircle size={7} strokeWidth={3} />
                                                     <span>En Falla</span>
                                                 </div>
@@ -292,14 +292,14 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                         <div className="mt-2 w-full flex justify-between gap-1.5 px-1">
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); onHandleNotifyFailure(failure); }} 
-                                                className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-brand-primary/20 active:text-brand-primary transition-all"
+                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-brand-primary/20 active:text-brand-primary transition-all"
                                                 title="Notificar Falla"
                                             >
                                                 <MessageCircle size={14} />
                                             </button>
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                                className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-status-danger/10 active:text-status-danger transition-all"
+                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-status-danger/10 active:text-status-danger transition-all"
                                                 title="Eliminar"
                                             >
                                                 <Trash2 size={14} />
@@ -329,7 +329,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                 <div className="flex items-center justify-between gap-3">
                                                     <div className="flex items-center gap-3 min-w-0 flex-1">
                                                         <div className="w-12 h-12 rounded-sm bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-sm">
-                                                            {service?.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : <Database size={20} className="text-status-expiring-soft" />}
+                                                            {service?.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : <Database size={20} className="text-status-expiring-soft" />}
                                                         </div>
                                                         <div className="min-w-0 flex-1">
                                                             <h4 className="text-sm font-bold text-text-primary truncate uppercase tracking-tight">
@@ -418,9 +418,9 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                                                 <p className="text-nano text-text-disabled font-medium truncate">Perfil {s?.assignedProfiles?.[0]?.name || '1'}</p>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <button 
+                                                                                        <button aria-label="Enviar por WhatsApp" 
                                                                                             onClick={(e) => { e.stopPropagation(); onHandleNotifyFailure(f); }}
-                                                                                            className="w-8 h-8 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20 active:scale-90 transition-all"
+                                                                                            className="tap-44 w-8 h-8 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20 active:scale-90 transition-all"
                                                                                         >
                                                                                             <MessageCircle size={14} />
                                                                                         </button>

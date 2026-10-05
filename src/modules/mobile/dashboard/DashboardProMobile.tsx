@@ -64,7 +64,7 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
   ];
 
   return (
-    <div className="min-h-screen pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
+    <div className="min-h-dvh pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
        <div className={`px-6 pt-safe ${isNative ? 'mt-3' : 'mt-6'} pb-4 relative z-10 flex justify-between items-center`}>
           <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-sm p-px shrink-0 bg-gradient-to-tr from-brand-primary to-brand-accent shadow-glow-primary-sm">

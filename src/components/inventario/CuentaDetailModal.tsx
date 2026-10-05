@@ -221,12 +221,12 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
               <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4 mb-8">
                   <div className="flex flex-col gap-1">
                       <label className="text-tiny font-bold text-text-faint uppercase tracking-[0.15em]">Correo de acceso</label>
-                      <div className="flex items-center justify-between"><span className="text-sm font-bold text-text-secondary truncate pr-2">{account.email}</span><button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary p-1"><Copy size={16} /></button></div>
+                      <div className="flex items-center justify-between"><span className="text-sm font-bold text-text-secondary truncate pr-2">{account.email}</span><button aria-label="Copiar" onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary p-1"><Copy size={16} /></button></div>
                   </div>
                   <div className="w-full h-px bg-[rgb(var(--fg-rgb))]/[0.03]" />
                   <div className="flex flex-col gap-1">
                       <label className="text-tiny font-bold text-text-faint uppercase tracking-[0.15em]">Contraseña archivada</label>
-                      <div className="flex items-center justify-between"><span className="text-sm font-mono text-text-secondary">{showPassword ? account.password : '••••••••'}</span><div className="flex items-center gap-2"><button onClick={() => setShowPassword(!showPassword)} className="text-text-faint hover:text-text-primary p-1">{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button><button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-text-faint hover:text-text-primary p-1"><Key size={16} /></button></div></div>
+                      <div className="flex items-center justify-between"><span className="text-sm font-mono text-text-secondary">{showPassword ? account.password : '••••••••'}</span><div className="flex items-center gap-2"><button aria-label="Mostrar u ocultar contraseña" onClick={() => setShowPassword(!showPassword)} className="text-text-faint hover:text-text-primary p-1">{showPassword ? <EyeOff size={16} /> : <Eye size={16} />}</button><button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-text-faint hover:text-text-primary p-1"><Key size={16} /></button></div></div>
                   </div>
               </div>
               <div className="flex flex-col items-center gap-4">
@@ -264,7 +264,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight truncate">{serviceObj?.name || 'Cuenta'}</h3>
                     <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
                 </div>
-                <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
+                <button aria-label="Cerrar" onClick={onClose} className="tap-44 w-8 h-8 flex items-center justify-center rounded-full bg-surface-2 text-text-muted hover:text-text-primary transition-all active:scale-90 shrink-0">
                     <X size={16} />
                 </button>
             </div>
@@ -344,7 +344,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                 <div className="text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-[5px]">Correo de acceso</div>
                                 <div className="flex items-center justify-between bg-surface-sunken rounded-md py-[9px] px-[11px]">
                                     <span className="text-body-sm font-semibold text-text-primary truncate pr-2 select-all">{account.email}</span>
-                                    <button onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary shrink-0"><Copy size={14} /></button>
+                                    <button aria-label="Copiar" onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary shrink-0"><Copy size={14} /></button>
                                 </div>
                             </div>
 
@@ -355,8 +355,8 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                 <div className="flex items-center justify-between bg-surface-sunken rounded-md py-[9px] px-[11px]">
                                     <span className="text-body-sm font-mono text-text-primary tracking-wide">{showPassword ? account.password : '••••••••'}</span>
                                     <div className="flex items-center gap-2 shrink-0">
-                                        <button onClick={() => setShowPassword(!showPassword)} className="text-text-faint hover:text-text-primary">{showPassword ? <EyeOff size={14} /> : <Eye size={14} />}</button>
-                                        <button onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-text-faint hover:text-text-primary"><Copy size={14} /></button>
+                                        <button aria-label="Mostrar u ocultar contraseña" onClick={() => setShowPassword(!showPassword)} className="text-text-faint hover:text-text-primary">{showPassword ? <EyeOff size={14} /> : <Eye size={14} />}</button>
+                                        <button aria-label="Copiar" onClick={() => copyToClipboard(account.password, 'Contraseña')} className="text-text-faint hover:text-text-primary"><Copy size={14} /></button>
                                     </div>
                                 </div>
                             </div>
@@ -440,7 +440,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 <button onClick={() => { onEdit(account); onClose(); }} className="h-11 px-4 rounded-2xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary font-bold text-caption uppercase active:scale-95 transition-all">
                     Editar
                 </button>
-                <button onClick={() => onDelete(account.id)} className="w-11 h-11 rounded-2xl bg-status-danger/10 border border-status-danger/20 text-status-danger flex items-center justify-center shrink-0 active:scale-95 transition-all">
+                <button aria-label="Eliminar" onClick={() => onDelete(account.id)} className="w-11 h-11 rounded-2xl bg-status-danger/10 border border-status-danger/20 text-status-danger flex items-center justify-center shrink-0 active:scale-95 transition-all">
                     <Trash2 size={17} />
                 </button>
             </div>

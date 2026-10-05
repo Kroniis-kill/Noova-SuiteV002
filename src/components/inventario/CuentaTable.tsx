@@ -19,7 +19,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
 
   return (
     <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl overflow-hidden shadow-lg">
-       <table className="w-full text-left border-collapse">
+       <div className="overflow-x-auto"><table className="w-full text-left border-collapse min-w-[40rem]">
           <thead>
              <tr className="border-b border-[rgb(var(--fg-rgb))]/5 text-tiny font-semibold text-text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
                 <th className="p-5 pl-8">Cuenta / Correo</th>
@@ -46,7 +46,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                                <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: provider.color }} title={provider.name} />
                             )}
                             {acc.email}
-                            <button 
+                            <button aria-label="Copiar" 
                               onClick={() => navigator.clipboard.writeText(acc.email)}
                               className="text-text-faint hover:text-text-primary opacity-0 group-hover/email:opacity-100 transition-opacity"
                             >
@@ -70,21 +70,21 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                          <div className="flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
                             <button 
                                onClick={() => onToggleFailure(acc)} 
-                               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-status-expiring/20 text-status-expiring border-status-expiring/20' : 'bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-expiring/10 text-text-muted hover:text-status-expiring-soft border-transparent'}`} 
+                               className={`tap-44 w-8 h-8 flex items-center justify-center rounded-lg transition-all border ${isFailing ? 'bg-status-expiring/20 text-status-expiring border-status-expiring/20' : 'bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-expiring/10 text-text-muted hover:text-status-expiring-soft border-transparent'}`} 
                                title={isFailing ? 'Quitar Reporte Falla' : 'Reportar Falla'}
                             >
                                <AlertTriangle size={14} />
                             </button>
-                            <button onClick={() => onRenew(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-brand-primary/20 text-text-muted hover:text-brand-primary rounded-lg transition-all border border-transparent hover:border-brand-primary/20" title="Renovar">
+                            <button onClick={() => onRenew(acc)} className="tap-44 w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-brand-primary/20 text-text-muted hover:text-brand-primary rounded-lg transition-all border border-transparent hover:border-brand-primary/20" title="Renovar">
                                <RefreshCw size={14} />
                             </button>
-                            <button onClick={() => onEdit(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary rounded-lg transition-all" title="Editar">
+                            <button onClick={() => onEdit(acc)} className="tap-44 w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary rounded-lg transition-all" title="Editar">
                                <Edit2 size={14} />
                             </button>
-                            <button onClick={() => onToggleStatus(acc)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-status-expiring-soft rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
+                            <button onClick={() => onToggleStatus(acc)} className="tap-44 w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-status-expiring-soft rounded-lg transition-all" title={acc.status === 'inactiva' ? 'Activar' : 'Pausar'}>
                                <Power size={14} />
                             </button>
-                            <button onClick={() => onDelete(acc.id)} className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/20 text-text-muted hover:text-status-danger-soft rounded-lg transition-all border border-transparent hover:border-status-danger/20" title="Eliminar">
+                            <button onClick={() => onDelete(acc.id)} className="tap-44 w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/20 text-text-muted hover:text-status-danger-soft rounded-lg transition-all border border-transparent hover:border-status-danger/20" title="Eliminar">
                                <Trash2 size={14} />
                             </button>
                          </div>
@@ -98,7 +98,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                 </tr>
              )}
           </tbody>
-       </table>
+       </table></div>
     </div>
   );
 };

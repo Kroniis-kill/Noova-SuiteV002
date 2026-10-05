@@ -31,7 +31,7 @@ export const AnnouncementNotification: React.FC = () => {
                     <h4 className="font-bold text-sm uppercase">Anuncio Importante</h4>
                     <p className="text-xs font-medium">{announcements[0].message}</p>
                 </div>
-                <button onClick={() => setVisible(false)}><X size={20} /></button>
+                <button aria-label="Cerrar" onClick={() => setVisible(false)}><X size={20} /></button>
             </motion.div>
         </AnimatePresence>
     );

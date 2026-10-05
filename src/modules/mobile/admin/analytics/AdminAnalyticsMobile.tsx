@@ -29,7 +29,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   return (
     <div className="pb-32 pt-2 px-4 space-y-6">
        <div className="flex items-center gap-4">
-          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
+          <button aria-label="Volver" onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
              <ArrowLeft size={20} />
           </button>
           <h1 className="text-2xl font-black text-text-primary tracking-tight">Estadísticas</h1>

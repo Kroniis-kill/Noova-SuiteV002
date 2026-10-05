@@ -55,7 +55,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
+    input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     iconLeft: "pl-12",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",
   };
@@ -69,7 +69,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
              <label className={styles.label}>Nombre</label>
              <div className={styles.inputContainer}>
                 <User size={18} className={styles.iconElement} />
-                <input 
+                <input aria-label="Nombre" 
                   value={name} onChange={e => setName(e.target.value)}
                   placeholder="Nombre del Proveedor"
                   className={`${styles.input} ${styles.iconLeft}`}
@@ -84,7 +84,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
              <label className={styles.label}>WhatsApp</label>
              <div className={styles.inputContainer}>
                 <Phone size={18} className={styles.iconElement} />
-                <input 
+                <input aria-label="WhatsApp" 
                   value={whatsapp} onChange={e => setWhatsapp(e.target.value)}
                   placeholder="Número de contacto"
                   className={`${styles.input} ${styles.iconLeft}`}
@@ -98,7 +98,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
              <label className={styles.label}>Telegram (Opcional)</label>
              <div className={styles.inputContainer}>
                 <Send size={18} className={styles.iconElement} />
-                <input 
+                <input aria-label="Telegram (Opcional)" 
                   value={telegram} onChange={e => setTelegram(e.target.value)}
                   placeholder="Usuario (Ej. @proveedor)"
                   className={`${styles.input} ${styles.iconLeft}`}

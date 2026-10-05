@@ -110,7 +110,7 @@ export const AccountSecuritySettings = () => {
 
                      <div>
                          <label className={styles.label}>Nombre Visible</label>
-                         <input value={name} onChange={e => setName(e.target.value)} className={styles.input} />
+                         <input aria-label="Nombre Visible" value={name} onChange={e => setName(e.target.value)} className={styles.input} />
                      </div>
 
                      <div className="bg-surface-sunken border border-hairline rounded-2xl p-4 space-y-4">
@@ -126,7 +126,7 @@ export const AccountSecuritySettings = () => {
                              <div className="animate-fade-in">
                                 <label className={styles.label}>URL Foto de Perfil</label>
                                 <div className="flex gap-2">
-                                    <input value={avatarUrl} onChange={e => setAvatarUrl(e.target.value)} className={styles.input} placeholder="https://..." />
+                                    <input aria-label="URL Foto de Perfil" value={avatarUrl} onChange={e => setAvatarUrl(e.target.value)} className={styles.input} placeholder="https://..." />
                                     <div className="w-[52px] h-[52px] rounded-xl bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted shrink-0">
                                         <Camera size={20} />
                                     </div>
@@ -137,7 +137,7 @@ export const AccountSecuritySettings = () => {
 
                      <div>
                          <label className={styles.label}>Correo Electrónico</label>
-                         <input value={user?.email} disabled className={`${styles.input} opacity-50 cursor-not-allowed`} />
+                         <input aria-label="Correo Electrónico" value={user?.email} disabled className={`${styles.input} opacity-50 cursor-not-allowed`} />
                      </div>
 
                      <button onClick={handleProfileUpdate} className="w-full h-[48px] bg-surface-sunken border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary rounded-md font-semibold text-xs transition-all active:scale-[0.98]">
@@ -151,11 +151,11 @@ export const AccountSecuritySettings = () => {
                  <div className="space-y-4 mt-4">
                      <div>
                          <label className={styles.label}>Nueva Contraseña</label>
-                         <input type="password" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="Mínimo 6 caracteres" className={styles.input} />
+                         <input aria-label="Nueva Contraseña" type="password" value={newPass} onChange={e => setNewPass(e.target.value)} placeholder="Mínimo 6 caracteres" className={styles.input} />
                      </div>
                      <div>
                          <label className={styles.label}>Confirmar Contraseña</label>
-                         <input type="password" value={confirmPass} onChange={e => setConfirmPass(e.target.value)} placeholder="Repetir contraseña" className={styles.input} />
+                         <input aria-label="Confirmar Contraseña" type="password" value={confirmPass} onChange={e => setConfirmPass(e.target.value)} placeholder="Repetir contraseña" className={styles.input} />
                      </div>
                      <button onClick={handleChangePassword} className={styles.buttonPrimary}>
                          Actualizar Clave

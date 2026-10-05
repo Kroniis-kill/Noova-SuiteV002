@@ -459,7 +459,7 @@ const DashboardDesktop: React.FC = () => {
           <button
             onClick={() => { haptic('nav'); setIsNotifOpen(true); }}
             aria-label="Notificaciones"
-            className="relative w-8 h-8 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
+            className="tap-44 relative w-8 h-8 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
           >
             <Bell size={15} />
             {sales.some(s => getDaysRemaining(s.expiryDate) <= 1) && (
@@ -502,7 +502,7 @@ const DashboardDesktop: React.FC = () => {
                 <button
                   onClick={toggleBalance}
                   aria-label={showBalance ? 'Ocultar balance' : 'Mostrar balance'}
-                  className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
+                  className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
                 >
                   {showBalance ? <Eye size={14} /> : <EyeOff size={14} />}
                 </button>
@@ -698,7 +698,7 @@ const DashboardDesktop: React.FC = () => {
                           <p className="text-tiny text-text-disabled truncate mt-0.5">{sale.serviceName}</p>
                         </div>
                         <span className={`text-micro font-bold px-1.5 py-0.5 rounded-full shrink-0 ${pill.cls}`}>{pill.label}</span>
-                        <button onClick={() => openRenew(sale)} aria-label={`Renovar ${sale.serviceName}`} className="w-6 h-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-brand-primary-hi flex items-center justify-center transition-all active:scale-90 shrink-0">
+                        <button onClick={() => openRenew(sale)} aria-label={`Renovar ${sale.serviceName}`} className="tap-44 w-6 h-6 rounded-lg bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-brand-primary-hi flex items-center justify-center transition-all active:scale-90 shrink-0">
                           <CalendarClock size={12} />
                         </button>
                       </div>
@@ -771,11 +771,11 @@ const DashboardDesktop: React.FC = () => {
         <div className="flex flex-col gap-3 pt-1">
           <div className="flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors">
             <Search size={16} className="text-text-faint shrink-0" />
-            <input
+            <input aria-label="Filtrar por plataforma"
               value={stockFilter}
               onChange={e => setStockFilter(e.target.value)}
               placeholder="Filtrar por plataforma..."
-              className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-faint`}
+              className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-disabled`}
             />
           </div>
           <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
@@ -824,7 +824,7 @@ const DashboardDesktop: React.FC = () => {
                 <button
                   onClick={() => { navigator.clipboard.writeText(`📧 ${acc.email}\n🔑 ${acc.password}`); showToast('Credenciales copiadas', 'success'); }}
                   aria-label="Copiar credenciales"
-                  className="w-9 h-9 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-text-disabled hover:text-text-primary transition-all active:scale-90 shrink-0"
+                  className="tap-44 w-9 h-9 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-text-disabled hover:text-text-primary transition-all active:scale-90 shrink-0"
                 >
                   <Copy size={15} />
                 </button>

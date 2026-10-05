@@ -50,7 +50,7 @@ const InstallBanner: React.FC = () => {
               </p>
             </div>
 
-            <button 
+            <button aria-label="Cerrar" 
               onClick={() => setIsDismissed(true)}
               className="p-2 text-text-faint hover:text-text-primary transition-colors"
             >

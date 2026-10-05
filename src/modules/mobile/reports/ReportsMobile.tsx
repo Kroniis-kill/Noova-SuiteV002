@@ -41,7 +41,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
   const formatMoney = (val: number) => val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
   return (
-    <div className="pb-32 font-sans text-text-primary min-h-screen">
+    <div className="pb-32 font-sans text-text-primary min-h-dvh">
        
        {/* 1. HEADER & DATE FILTER (Not sticky) */}
        <div className="pb-4 pt-2 px-4">
@@ -50,7 +50,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                 <h1 className="text-2xl font-black text-text-primary tracking-tight">Reportes</h1>
                 <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Resumen de rendimiento</p>
              </div>
-             <button 
+             <button aria-label="Descargar" 
                onClick={onExport}
                className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95"
              >

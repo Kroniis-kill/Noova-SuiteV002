@@ -211,12 +211,12 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
         </div>
         <div className="h-[60px] bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
           <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
-          <input
+          <input aria-label="Precio de venta"
             type="number"
             step="0.01"
             value={props.tempAmount}
             onChange={e => props.setTempAmount(e.target.value)}
-            className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-faint`}
+            className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`}
             placeholder="0.00"
             inputMode="decimal"
           />
@@ -230,8 +230,8 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           <div className="flex justify-between items-center px-1">
             <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Perfiles ({props.tempScreens})</label>
             <div className="flex gap-1.5">
-              <button type="button" aria-label="Quitar perfil" onClick={() => props.setTempScreens(Math.max(1, props.tempScreens - 1))} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Minus size={14} /></button>
-              <button type="button" aria-label="Agregar perfil" onClick={() => props.setTempScreens(props.tempScreens + 1)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Plus size={14} /></button>
+              <button type="button" aria-label="Quitar perfil" onClick={() => props.setTempScreens(Math.max(1, props.tempScreens - 1))} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Minus size={14} /></button>
+              <button type="button" aria-label="Agregar perfil" onClick={() => props.setTempScreens(props.tempScreens + 1)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><Plus size={14} /></button>
             </div>
           </div>
           <div className="space-y-2">
@@ -243,17 +243,17 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
                     value={p.name}
                     onChange={e => props.handleProfileChange(idx, 'name', e.target.value)}
                     placeholder={`Perfil ${idx + 1}`}
-                    className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
                 <div className={`${FIELD_BOX} w-[104px] shrink-0 !gap-2 !px-3`}>
                   <Hash size={14} className="text-text-faint shrink-0" />
-                  <input
+                  <input aria-label="PIN"
                     value={p.pin}
                     onChange={e => props.handleProfileChange(idx, 'pin', e.target.value)}
                     placeholder="PIN"
                     inputMode="numeric"
-                    className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
               </div>
@@ -271,20 +271,20 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
               <>
                 <div className={FIELD_BOX}>
                   <Mail size={16} className="text-text-disabled shrink-0" />
-                  <input
+                  <input aria-label="Credenciales de acceso"
                     value={props.tempInvitedEmail}
                     onChange={e => props.setTempInvitedEmail(e.target.value)}
                     placeholder="Correo del cliente"
-                    className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
                 <div className={FIELD_BOX}>
                   <Lock size={16} className="text-text-disabled shrink-0" />
-                  <input
+                  <input aria-label="Contraseña asignada"
                     value={props.tempInvitedPassword}
                     onChange={e => props.setTempInvitedPassword(e.target.value)}
                     placeholder="Contraseña asignada"
-                    className={`${CLEAN_INPUT} h-full font-mono font-medium text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full font-mono font-medium text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
               </>
@@ -292,11 +292,11 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
             {isFullAccount && (
               <div className={FIELD_BOX}>
                 <User size={16} className="text-text-disabled shrink-0" />
-                <input
+                <input aria-label="Nombre referencial"
                   value={props.tempProfiles[0]?.name || ''}
                   onChange={e => props.handleProfileChange(0, 'name', e.target.value)}
                   placeholder="Nombre referencial"
-                  className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-faint`}
+                  className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-disabled`}
                 />
               </div>
             )}

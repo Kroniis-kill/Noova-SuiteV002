@@ -40,7 +40,7 @@ const SIZE_CLASSES: Record<ButtonSize, string> = {
 };
 
 const ICON_SIZE_CLASSES: Record<ButtonSize, string> = {
-  sm: 'h-10 w-10',
+  sm: 'tap-44 h-10 w-10',
   md: 'h-11 w-11',
   lg: 'h-12 w-12',
 };

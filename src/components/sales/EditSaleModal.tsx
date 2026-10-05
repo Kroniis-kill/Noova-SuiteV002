@@ -330,7 +330,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             <label className={SECTION_LABEL}>Monto de venta</label>
             <div className="h-[60px] bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
               <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
-              <input
+              <input aria-label="Monto de venta"
                 type="number"
                 step="0.01"
                 inputMode="decimal"
@@ -339,7 +339,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   const value = parseFloat(e.target.value);
                   setFormData({ ...formData, amount: isNaN(value) ? 0 : value });
                 }}
-                className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-faint`}
+                className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`}
                 placeholder="0.00"
               />
               <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{settings.currency}</span>
@@ -355,21 +355,21 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   <div key={idx} className="flex gap-2">
                     <div className={`${FIELD_BOX} flex-1 min-w-0`}>
                       <User size={16} className="text-text-faint shrink-0" />
-                      <input
+                      <input aria-label="Nombre del perfil"
                         value={profile.name}
                         onChange={e => handleProfileChange(idx, 'name', e.target.value)}
                         placeholder="Nombre del perfil"
-                        className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-faint`}
+                        className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-disabled`}
                       />
                     </div>
                     <div className={`${FIELD_BOX} w-[104px] shrink-0 !gap-2 !px-3`}>
                       <Hash size={14} className="text-text-faint shrink-0" />
-                      <input
+                      <input aria-label="PIN"
                         value={profile.pin}
                         onChange={e => handleProfileChange(idx, 'pin', e.target.value)}
                         placeholder="PIN"
                         inputMode="numeric"
-                        className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-faint`}
+                        className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-disabled`}
                       />
                     </div>
                   </div>
@@ -385,20 +385,20 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-3 space-y-2">
                 <div className={FIELD_BOX}>
                   <Mail size={16} className="text-text-disabled shrink-0" />
-                  <input
+                  <input aria-label="Credenciales de acceso"
                     value={formData.invitedEmail || ''}
                     onChange={e => setFormData({ ...formData, invitedEmail: e.target.value })}
                     placeholder="Correo del cliente"
-                    className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full font-medium text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
                 <div className={FIELD_BOX}>
                   <Lock size={16} className="text-text-disabled shrink-0" />
-                  <input
+                  <input aria-label="Contraseña asignada"
                     value={formData.invitedPassword || ''}
                     onChange={e => setFormData({ ...formData, invitedPassword: e.target.value })}
                     placeholder="Contraseña asignada"
-                    className={`${CLEAN_INPUT} h-full font-mono font-medium text-text-primary placeholder:text-text-faint`}
+                    className={`${CLEAN_INPUT} h-full font-mono font-medium text-text-primary placeholder:text-text-disabled`}
                   />
                 </div>
               </div>
@@ -469,16 +469,16 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             <div className="px-5 pt-5 pb-3 space-y-3 shrink-0">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-black text-text-primary leading-tight">Cambiar cuenta</h3>
-                <button onClick={closeAccountSearch} aria-label="Cerrar" className="w-9 h-9 rounded-full bg-surface-3 hover:bg-surface-4 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-90"><X size={18} /></button>
+                <button onClick={closeAccountSearch} aria-label="Cerrar" className="tap-44 w-9 h-9 rounded-full bg-surface-3 hover:bg-surface-4 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-90"><X size={18} /></button>
               </div>
               <div className={FIELD_BOX}>
                 <Search size={16} className="text-text-faint shrink-0" />
-                <input
+                <input aria-label="Buscar cuenta"
                   autoFocus
                   value={accountSearch}
                   onChange={e => setAccountSearch(e.target.value)}
                   placeholder="Buscar cuenta..."
-                  className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-faint`}
+                  className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-disabled`}
                 />
               </div>
             </div>

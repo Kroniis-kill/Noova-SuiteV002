@@ -283,7 +283,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
 
              <button 
                 onClick={(e) => { e.stopPropagation(); haptic('heavy'); logout(); }} 
-                className={`${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-[rgb(var(--fg-rgb))]/5 shrink-0`}
+                className={`tap-44 ${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-[rgb(var(--fg-rgb))]/5 shrink-0`}
                 title="Cerrar Sesión"
              >
                 <LogOut size={isDesktop ? 16 : 18} />

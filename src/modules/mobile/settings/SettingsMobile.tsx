@@ -186,7 +186,7 @@ const SettingsMobile: React.FC = () => {
   const initials = displayName.trim().split(/\s+/).slice(0, 2).map((w) => w.charAt(0).toUpperCase()).join('') || 'NS';
 
   return (
-    <div className="w-full min-h-screen pb-10 font-sans relative text-text-primary px-6 pt-safe mt-2">
+    <div className="w-full min-h-dvh pb-10 font-sans relative text-text-primary px-6 pt-safe mt-2">
       <div className="fixed inset-0 bg-surface-sunken z-0" />
       <AnimatePresence mode="wait">
         {!activeTab && (
@@ -198,11 +198,11 @@ const SettingsMobile: React.FC = () => {
 
             <div className="relative">
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-              <input
+              <input aria-label="Buscar un ajuste"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar un ajuste"
-                className="w-full h-12 bg-surface-1 border border-border-subtle rounded-xl pl-11 pr-4 text-body-sm text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium"
+                className="w-full h-12 bg-surface-1 border border-border-subtle rounded-xl pl-11 pr-4 text-body-sm text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-disabled transition-all font-medium"
               />
             </div>
 

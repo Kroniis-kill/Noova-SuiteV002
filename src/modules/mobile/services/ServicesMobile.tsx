@@ -152,7 +152,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
           <label className={labelClass}>Identificación</label>
           <div className="relative flex items-center">
             <Tag size={18} className="absolute left-4 text-text-disabled" />
-            <input placeholder="Nombre de la Plataforma" value={name} onChange={e => setName(e.target.value)} className={inputClass} required />
+            <input aria-label="Identificación" placeholder="Nombre de la Plataforma" value={name} onChange={e => setName(e.target.value)} className={inputClass} required />
           </div>
         </div>
 
@@ -203,7 +203,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
             <label className={labelClass}>Modalidad</label>
             <div className="relative flex items-center">
               <Layers size={18} className="absolute left-4 text-text-disabled" />
-              <select value={type} onChange={(e) => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}>
+              <select aria-label="Modalidad" value={type} onChange={(e) => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}>
                 <option value="por_pantalla">Por Pantalla</option>
                 <option value="cuenta_completa">Completa</option>
                 <option value="usuario_unico">Usuario Único</option>
@@ -215,7 +215,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
             <label className={labelClass}>Cupos Máx.</label>
             <div className="relative flex items-center">
               <Hash size={18} className="absolute left-4 text-text-disabled" />
-              <input type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" required />
+              <input aria-label="Cupos Máx." type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" required />
             </div>
           </div>
         </div>
@@ -226,17 +226,17 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
           <label className={labelClass}>Inversión Total</label>
           <div className="relative flex items-center">
             <DollarSign size={18} className="absolute left-4 text-text-disabled" />
-            <input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
+            <input aria-label="Inversión Total" type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>P. Público</label>
-            <input type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" />
+            <input aria-label="P. Público" type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" />
           </div>
           <div>
             <label className={labelClass}>P. Socio</label>
-            <input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" />
+            <input aria-label="P. Socio" type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" />
           </div>
         </div>
         <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-md p-4 flex items-center justify-between">
@@ -248,13 +248,13 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
   );
 
   return (
-    <div className="min-h-screen pb-40">
+    <div className="min-h-dvh pb-40">
       <div className="relative z-20 flex items-center justify-between mb-4 px-2">
          <div>
             <h1 className="text-2xl font-black text-text-primary tracking-tight">Catálogo</h1>
             <p className="text-text-muted text-caption font-medium mt-0.5">Gestión de plataformas y precios</p>
          </div>
-         <button 
+         <button aria-label="Agregar" 
            onClick={() => { resetForm(); setIsAddModalOpen(true); }} 
            className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}
          >
@@ -265,14 +265,14 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
       <div className="mb-6 relative z-20 px-1">
           <div className="relative h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
               <Search size={18} className="text-text-disabled shrink-0" />
-              <input 
+              <input aria-label="Buscar servicio" 
                  value={searchTerm} 
                  onChange={e => setSearchTerm(e.target.value)} 
                  placeholder="Buscar servicio..." 
-                 className="bg-transparent border-none outline-none text-sm text-text-primary w-full ml-3 placeholder:text-text-faint font-medium" 
+                 className="bg-transparent border-none outline-none text-sm text-text-primary w-full ml-3 placeholder:text-text-disabled font-medium" 
               />
               {searchTerm && (
-                 <button onClick={() => setSearchTerm('')} className="p-1">
+                 <button aria-label="Cerrar" onClick={() => setSearchTerm('')} className="p-1">
                      <X size={14} className="text-text-disabled" />
                  </button>
               )}
@@ -295,7 +295,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                 <div className="flex justify-between items-start mb-4">
                    <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
-                        {svc.image_url ? <img src={svc.image_url} className="w-full h-full object-cover" /> : getTypeIcon(svc.type)}
+                        {svc.image_url ? <img alt="" src={svc.image_url} className="w-full h-full object-cover" /> : getTypeIcon(svc.type)}
                       </div>
                       <div>
                         <h4 className="text-text-primary font-bold text-base leading-tight">{svc.name}</h4>
@@ -303,8 +303,8 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={() => handleEditClick(svc)} className="w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted active:scale-90 transition-all"><Edit2 size={15} /></button>
-                      <button onClick={() => deleteService(svc.id)} className="w-9 h-9 rounded-sm bg-status-danger/10 flex items-center justify-center text-status-danger-soft active:scale-90 transition-all"><Trash2 size={15} /></button>
+                      <button aria-label="Editar" onClick={() => handleEditClick(svc)} className="tap-44 w-9 h-9 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted active:scale-90 transition-all"><Edit2 size={15} /></button>
+                      <button aria-label="Eliminar" onClick={() => deleteService(svc.id)} className="tap-44 w-9 h-9 rounded-sm bg-status-danger/10 flex items-center justify-center text-status-danger-soft active:scale-90 transition-all"><Trash2 size={15} /></button>
                    </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/5">

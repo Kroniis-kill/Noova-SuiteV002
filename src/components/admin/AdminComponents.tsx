@@ -57,6 +57,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
          </div>
          
          <button 
+           aria-label={sub.is_active ? 'Desactivar suscripción' : 'Activar suscripción'}
            onClick={onToggle}
            className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${sub.is_active ? 'bg-status-success/10 border-status-success/20 text-status-success-soft' : 'bg-status-danger/10 border-status-danger/20 text-status-danger-soft'}`}
          >

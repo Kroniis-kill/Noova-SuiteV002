@@ -255,14 +255,14 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                               <h2 className="text-2xl lg:text-3xl font-black text-text-primary truncate leading-tight tracking-tight">{group.clientName}</h2>
                               <button 
                                 onClick={handleSmartReminderClick}
-                                className="w-9 h-9 rounded-full bg-brand-whatsapp flex items-center justify-center text-black shadow-[0_0_15px_rgba(37,211,102,0.4)] active:scale-90 transition-all shrink-0"
+                                className="tap-44 w-9 h-9 rounded-full bg-brand-whatsapp flex items-center justify-center text-black shadow-[0_0_15px_rgba(37,211,102,0.4)] active:scale-90 transition-all shrink-0"
                                 title="Enviar recordatorio de vencimiento" aria-label="Enviar recordatorio de vencimiento"
                               >
                                   <BellRing size={16} fill="currentColor" />
                               </button>
                                <button 
                                  onClick={() => { haptic('nav'); setIsClientModalOpen(true); }}
-                                 className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all shrink-0 shadow-sm"
+                                 className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all shrink-0 shadow-sm"
                                  title="Ver historial del cliente" aria-label="Ver historial del cliente"
                                >
                                    <HistoryIcon size={16} />
@@ -318,14 +318,14 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                   <div className="h-px bg-[rgb(var(--fg-rgb))]/5 flex-1 min-w-0" />
                                   <div className="flex items-center gap-1.5 shrink-0">
                                       {salesInGroup.length > 1 && (
-                                          <button onClick={() => handleGroupMessage(salesInGroup)} className="w-8 h-8 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center border border-status-success/20 active:scale-90 transition-all hover:bg-status-success/20" title="Enviar mensaje consolidado" aria-label="Enviar mensaje consolidado"><WhatsAppIcon size={17} /></button>
+                                          <button onClick={() => handleGroupMessage(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center border border-status-success/20 active:scale-90 transition-all hover:bg-status-success/20" title="Enviar mensaje consolidado" aria-label="Enviar mensaje consolidado"><WhatsAppIcon size={17} /></button>
                                       )}
-                                      <button onClick={() => handleGroupRenew(salesInGroup)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Renovar grupo" aria-label="Renovar grupo"><CalendarClock size={17} /></button>
+                                      <button onClick={() => handleGroupRenew(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Renovar grupo" aria-label="Renovar grupo"><CalendarClock size={17} /></button>
                                       {salesInGroup.length > 1 && (
-                                        <button onClick={() => handleSendAccessData(salesInGroup)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-info-soft border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Enviar datos de acceso" aria-label="Enviar datos de acceso"><Unlock size={17} /></button>
+                                        <button onClick={() => handleSendAccessData(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-info-soft border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Enviar datos de acceso" aria-label="Enviar datos de acceso"><Unlock size={17} /></button>
                                       )}
-                                      <button onClick={() => handleReceiptClick(salesInGroup)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Ver comprobante" aria-label="Ver comprobante"><Receipt size={17} /></button>
-                                      <button onClick={() => handleReportFailClick(salesInGroup)} className="w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-warning border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Reportar falla" aria-label="Reportar falla"><AlertOctagon size={17} /></button>
+                                      <button onClick={() => handleReceiptClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Ver comprobante" aria-label="Ver comprobante"><Receipt size={17} /></button>
+                                      <button onClick={() => handleReportFailClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-warning border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Reportar falla" aria-label="Reportar falla"><AlertOctagon size={17} /></button>
                                   </div>
                               </div>
 
@@ -345,7 +345,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                               <div onClick={() => { haptic('nav'); setExpandedSaleId(isExpanded ? null : sale.id); }} className="p-4 flex items-center justify-between gap-3 cursor-pointer active:bg-[rgb(var(--fg-rgb))]/5">
                                                   <div className="flex items-center gap-3 min-w-0">
                                                       <div className="w-10 h-10 rounded-md bg-bg flex items-center justify-center shrink-0 overflow-hidden border border-[rgb(var(--fg-rgb))]/5">
-                                                          {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" /> : <Tv size={18} className="text-text-faint" />}
+                                                          {serviceObj?.image_url ? <img alt="" src={serviceObj.image_url} className="w-full h-full object-cover" /> : <Tv size={18} className="text-text-faint" />}
                                                       </div>
                                                       <div className="min-w-0">
                                                           <h4 className="text-body-sm font-bold text-text-primary truncate">{sale.serviceName}</h4>
@@ -493,11 +493,11 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                 <label className={SECTION_LABEL}>Detalle del problema</label>
                                 {/* El contenedor dibuja el borde y el foco; el textarea va limpio */}
                                 <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors p-4">
-                                    <textarea
+                                    <textarea aria-label="Detalle del problema"
                                         value={failNote}
                                         onChange={e => setFailNote(e.target.value)}
                                         placeholder="Describe la falla observada..."
-                                        className="w-full min-h-[100px] resize-none !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none text-text-primary placeholder:text-text-faint"
+                                        className="w-full min-h-[100px] resize-none !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none text-text-primary placeholder:text-text-disabled"
                                     />
                                 </div>
                             </div>

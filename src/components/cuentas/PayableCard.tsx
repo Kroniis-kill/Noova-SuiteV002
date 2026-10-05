@@ -40,7 +40,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
              <div className="min-w-0">
                 <h4 className="text-body-sm font-bold text-text-primary truncate pr-2 leading-tight">{item.title}</h4>
                 <div className="flex items-center gap-1.5 mt-1">
-                   <span className={`px-1.5 py-0.5 rounded-xs text-[7px] font-black uppercase tracking-widest border ${urgencyBg} ${urgencyColor}`}>
+                   <span className={`px-1.5 py-0.5 rounded-xs text-nano font-black uppercase tracking-widest border ${urgencyBg} ${urgencyColor}`}>
                       {statusText}
                    </span>
                    <span className="text-micro text-text-faint font-mono tracking-tighter">{item.dueDate}</span>
@@ -52,15 +52,15 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
              <span className="text-[15px] font-bold text-text-primary tracking-tighter font-mono">
                 {item.amount.toLocaleString()} 
              </span>
-             <span className="text-[7px] font-black text-text-faint uppercase tracking-widest">{item.currency}</span>
+             <span className="text-nano font-black text-text-faint uppercase tracking-widest">{item.currency}</span>
           </div>
        </div>
 
        <div className="flex items-center justify-end gap-2 pt-2 border-t border-[rgb(var(--fg-rgb))]/[0.03] pl-2">
-          <button onClick={() => onDelete(item.id)} className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.01] text-text-faint hover:text-status-danger-soft flex items-center justify-center transition-colors">
+          <button aria-label="Eliminar" onClick={() => onDelete(item.id)} className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.01] text-text-faint hover:text-status-danger-soft flex items-center justify-center transition-colors">
              <Trash2 size={13} />
           </button>
-          <button onClick={() => onEdit(item)} className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.01] text-text-faint hover:text-text-primary flex items-center justify-center transition-colors">
+          <button aria-label="Editar" onClick={() => onEdit(item)} className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.01] text-text-faint hover:text-text-primary flex items-center justify-center transition-colors">
              <Edit2 size={13} />
           </button>
           <button 

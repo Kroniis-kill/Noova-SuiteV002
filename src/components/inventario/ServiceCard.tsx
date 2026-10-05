@@ -46,7 +46,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
              <div className="flex justify-between items-start mb-3">
                 <div className="w-10 h-10 rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary shadow-inner overflow-hidden">
                    {service.image_url && !imgError ? (
-                     <img 
+                     <img
                        src={service.image_url} 
                        className="w-full h-full object-cover rounded-md" 
                        referrerPolicy="no-referrer" 
@@ -107,7 +107,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
         <div className="flex items-center gap-3 relative z-10">
             <div className={`p-1 rounded-xl w-8 h-8 flex items-center justify-center overflow-hidden ${isActive ? 'bg-[rgb(var(--fg-rgb))]/20' : 'bg-[rgb(var(--fg-rgb))]/5'}`}>
                 {service.image_url && !imgError ? (
-                    <img 
+                    <img alt="" 
                       src={service.image_url} 
                       className="w-full h-full object-cover rounded-md" 
                       loading="lazy"

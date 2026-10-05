@@ -649,7 +649,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
   }[syncState];
 
   return (
-    <div className="min-h-screen pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
+    <div className="min-h-dvh pb-32 bg-bg font-sans text-text-primary relative overflow-x-hidden">
 
       <div className={`px-[var(--mobile-side-pad)] pt-safe ${isNative ? 'mt-2' : 'mt-4'} relative z-10 space-y-6`}>
 
@@ -735,9 +735,9 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                         </div>
 
                         <div className="flex flex-col items-end gap-3">
-                             <button
+                             <button aria-label="Mostrar u ocultar contraseña"
                                onClick={toggleBalance}
-                               className="w-8 h-8 flex items-center justify-center text-white transition-all"
+                               className="tap-44 w-8 h-8 flex items-center justify-center text-white transition-all"
                              >
                                 {showBalance ? <Eye size={18} /> : <EyeOff size={18} />}
                              </button>
@@ -900,16 +900,16 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                       {settings.subCurrency || 'Bs'}
                     </span>
 
-                    <button
+                    <button aria-label="Confirmar"
                       onClick={handleSaveRate}
-                      className="w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90"
+                      className="tap-44 w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90"
                     >
                       <Check size={12} />
                     </button>
 
-                    <button
+                    <button aria-label="Cerrar"
                       onClick={() => setIsEditingRate(false)}
-                      className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center active:scale-90"
+                      className="tap-44 w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center active:scale-90"
                     >
                       <X size={12} />
                     </button>
@@ -1254,7 +1254,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                           e.stopPropagation();
                           deleteFailure(f.id);
                         }}
-                        className="w-7 h-7 rounded-lg bg-status-success/15 text-status-success-soft flex items-center justify-center shrink-0 active:scale-90 transition-all mt-0.5"
+                        className="tap-44 w-7 h-7 rounded-lg bg-status-success/15 text-status-success-soft flex items-center justify-center shrink-0 active:scale-90 transition-all mt-0.5"
                         title="Marcar como resuelto"
                       >
                         <Check size={14} />
@@ -1444,7 +1444,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                  size={16}
                />
 
-               <input
+               <input aria-label="Filtrar por plataforma..."
                  placeholder="Filtrar por plataforma..."
                  className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none"
                />
@@ -1529,17 +1529,17 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                                     {acc.available}
                                   </span>
 
-                                  <p className="text-[7px] text-text-faint font-bold uppercase text-right">
+                                  <p className="text-nano text-text-faint font-bold uppercase text-right">
                                     Cupos
                                   </p>
                               </div>
 
-                              <button 
+                              <button aria-label="Copiar" 
                                  onClick={() => {
                                    navigator.clipboard.writeText(`📧 ${acc.email}\n🔑 ${acc.password}`);
                                    showToast('Credenciales copiadas', 'success');
                                  }} 
-                                 className="w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-text-disabled hover:text-text-primary transition-all active:scale-90"
+                                 className="tap-44 w-8 h-8 flex items-center justify-center bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 rounded-lg text-text-disabled hover:text-text-primary transition-all active:scale-90"
                               >
                                  <Copy size={14}/>
                               </button>

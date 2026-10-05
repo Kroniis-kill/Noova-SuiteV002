@@ -91,7 +91,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
            {/* Left Group: Scroll Top Only */}
            <div className="flex gap-3 pointer-events-auto">
               {/* Scroll Top Button */}
-              <button 
+              <button aria-label="Volver arriba" 
                 onClick={scrollToTop}
                 className="w-12 h-12 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center justify-center text-text-primary shadow-lg active:scale-90 transition-transform"
               >
@@ -134,7 +134,7 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
               </AnimatePresence>
 
               {/* Main FAB */}
-              <button 
+              <button aria-label="Agregar" 
                 onClick={handleMainClick}
                 className={`w-14 h-14 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-lg flex items-center justify-center text-white shadow-[0_0_30px_-5px_rgba(106,44,255,0.6)] active:scale-90 transition-all border-2 border-surface-3 z-10 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
               >

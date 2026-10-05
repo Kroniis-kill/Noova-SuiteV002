@@ -120,7 +120,7 @@ const AdminDiscountCodesView: React.FC = () => {
         <form onSubmit={handleCreate} className="bg-surface-1 border border-border-subtle rounded-xl p-5 shadow-elev-sm grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Código</label>
-            <input
+            <input aria-label="Código"
               value={form.code}
               onChange={e => setForm(f => ({ ...f, code: e.target.value.toUpperCase() }))}
               placeholder="BIENVENIDA20"
@@ -129,7 +129,7 @@ const AdminDiscountCodesView: React.FC = () => {
           </div>
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Tipo</label>
-            <select
+            <select aria-label="Tipo"
               value={form.discount_type}
               onChange={e => setForm(f => ({ ...f, discount_type: e.target.value as DiscountCode['discount_type'] }))}
               className="w-full"
@@ -141,7 +141,7 @@ const AdminDiscountCodesView: React.FC = () => {
           </div>
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Valor</label>
-            <input
+            <input aria-label="Valor"
               type="number"
               min="0"
               step="any"
@@ -153,7 +153,7 @@ const AdminDiscountCodesView: React.FC = () => {
           </div>
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Usos máximos (opcional)</label>
-            <input
+            <input aria-label="Usos máximos (opcional)"
               type="number"
               min="1"
               value={form.max_uses}
@@ -164,7 +164,7 @@ const AdminDiscountCodesView: React.FC = () => {
           </div>
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Vence (opcional)</label>
-            <input
+            <input aria-label="Vence (opcional)"
               type="date"
               value={form.expires_at}
               onChange={e => setForm(f => ({ ...f, expires_at: e.target.value }))}
@@ -173,7 +173,7 @@ const AdminDiscountCodesView: React.FC = () => {
           </div>
           <div>
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wide mb-1 block">Nota interna (opcional)</label>
-            <input
+            <input aria-label="Nota interna (opcional)"
               value={form.note}
               onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
               placeholder="Para quién es este código"
@@ -200,7 +200,7 @@ const AdminDiscountCodesView: React.FC = () => {
             <p className="text-sm text-text-muted">Todavía no creaste ningún código de descuento.</p>
           </div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto"><table className="w-full text-sm min-w-[40rem]">
             <thead>
               <tr className="border-b border-hairline text-left">
                 <th className="p-3.5 text-caption font-semibold text-text-muted uppercase tracking-wide">Código</th>
@@ -233,10 +233,10 @@ const AdminDiscountCodesView: React.FC = () => {
                   </td>
                   <td className="p-3.5">
                     <div className="flex items-center justify-end gap-1">
-                      <button onClick={() => handleToggle(c)} className="w-8 h-8 rounded-sm flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors" title={c.is_active ? 'Desactivar' : 'Activar'}>
+                      <button onClick={() => handleToggle(c)} className="tap-44 w-8 h-8 rounded-sm flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors" title={c.is_active ? 'Desactivar' : 'Activar'}>
                         <Power size={14} />
                       </button>
-                      <button onClick={() => handleDelete(c)} className="w-8 h-8 rounded-sm flex items-center justify-center text-text-muted hover:text-status-danger-soft hover:bg-status-danger/10 transition-colors" title="Eliminar">
+                      <button onClick={() => handleDelete(c)} className="tap-44 w-8 h-8 rounded-sm flex items-center justify-center text-text-muted hover:text-status-danger-soft hover:bg-status-danger/10 transition-colors" title="Eliminar">
                         <Trash2 size={14} />
                       </button>
                     </div>
@@ -244,7 +244,7 @@ const AdminDiscountCodesView: React.FC = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
       </div>
     </div>

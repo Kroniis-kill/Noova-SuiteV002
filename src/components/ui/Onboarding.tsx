@@ -118,7 +118,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
         <button
           onClick={onFinish}
           aria-label="Omitir tutorial"
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors rounded-full active:scale-90"
+          className="tap-44 absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors rounded-full active:scale-90"
         >
           <X size={18} />
         </button>

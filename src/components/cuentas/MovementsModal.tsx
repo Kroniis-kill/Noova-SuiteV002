@@ -116,9 +116,9 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                                   <p className="text-tiny text-text-faint">≈ ${(mov.usdEquivalent || 0).toFixed(2)}</p>
                               )}
                            </div>
-                           <button 
+                           <button aria-label="Eliminar" 
                              onClick={() => handleDeleteClick(mov.id)}
-                             className="w-8 h-8 flex items-center justify-center text-text-faint hover:text-status-danger-soft bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 rounded-lg transition-colors"
+                             className="tap-44 w-8 h-8 flex items-center justify-center text-text-faint hover:text-status-danger-soft bg-[rgb(var(--fg-rgb))]/5 hover:bg-status-danger/10 rounded-lg transition-colors"
                            >
                               <Trash2 size={14} />
                            </button>

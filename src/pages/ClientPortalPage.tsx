@@ -354,7 +354,7 @@ const PortalPage: React.FC = () => {
 
   if (view === 'loading') {
     return (
-      <div className="min-h-screen bg-bg flex flex-col items-center justify-center">
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center">
          <AnimatedLogo size={80} showFill={false} />
          <p className="text-text-disabled text-xs mt-6 font-medium animate-pulse">Conectando seguro...</p>
       </div>
@@ -363,7 +363,7 @@ const PortalPage: React.FC = () => {
 
   if (view === 'error') {
     return (
-      <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center p-6 text-center">
          <div className="w-20 h-20 bg-status-danger/10 rounded-xl flex items-center justify-center mb-6 border border-status-danger/20 shadow-[0_0_40px_rgba(239,68,68,0.2)]">
             <ShieldAlert size={32} className="text-status-danger" />
          </div>
@@ -381,7 +381,7 @@ const PortalPage: React.FC = () => {
       const stepTitle = isSetup ? (!confirmPin ? 'Crea tu PIN' : 'Confirma tu PIN') : `Hola, ${clientData?.name?.split(' ')[0] || 'Cliente'}`;
 
       return (
-        <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-4">
+        <div className="min-h-dvh bg-bg flex flex-col items-center justify-center p-4">
             <div className="flex flex-col items-center w-full max-w-xs mx-auto animate-fade-in py-6">
                 <div className="mb-6 text-center">
                     <div className="w-20 h-20 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-xl flex items-center justify-center mx-auto mb-6 shadow-glow p-px">
@@ -411,7 +411,7 @@ const PortalPage: React.FC = () => {
                     ))}
                     <div />
                     <button onClick={() => handleNum('0')} className="h-16 rounded-xl bg-surface-3 text-2xl font-medium text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 active:scale-90 transition-all border border-[rgb(var(--fg-rgb))]/5 shadow-sm">0</button>
-                    <button onClick={handleBackspace} className="h-16 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><ChevronRight className="rotate-180" size={28} /></button>
+                    <button aria-label="Ver detalle" onClick={handleBackspace} className="h-16 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all"><ChevronRight className="rotate-180" size={28} /></button>
                 </div>
                 
                 <button 
@@ -430,7 +430,7 @@ const PortalPage: React.FC = () => {
   // --- DASHBOARD ---
   // Fix scrolling: use h-full overflow-y-auto instead of hidden
   return (
-      <div className="h-screen bg-bg font-sans text-text-primary flex flex-col selection:bg-brand-primary/30">
+      <div className="h-dvh bg-bg font-sans text-text-primary flex flex-col selection:bg-brand-primary/30">
           {/* Header */}
           <div className="relative pt-8 pb-12 px-6 bg-surface-1 rounded-b-2xl border-b border-[rgb(var(--fg-rgb))]/10 shadow-2xl z-10 shrink-0">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-primary/10 to-transparent pointer-events-none" />
@@ -444,7 +444,7 @@ const PortalPage: React.FC = () => {
                      )}
                      <span className="text-sm font-bold text-text-primary tracking-widest uppercase">{branding?.name || 'Portal'}</span>
                   </div>
-                  <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5">
+                  <button aria-label="Cerrar sesión" onClick={handleLogout} className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5">
                       <LogOut size={18} />
                   </button>
               </div>

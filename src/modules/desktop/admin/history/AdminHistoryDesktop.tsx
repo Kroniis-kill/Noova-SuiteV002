@@ -15,7 +15,7 @@ const AdminHistoryDesktop: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
        <div className="flex items-center gap-4 mb-8">
-          <button onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
+          <button aria-label="Volver" onClick={onBack} className="w-10 h-10 rounded-md bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors">
              <ArrowLeft size={20} />
           </button>
           <h1 className="text-3xl font-bold text-text-primary">Historial de Suscriptores</h1>

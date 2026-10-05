@@ -38,7 +38,7 @@ const elapsedDays = (saleDate: string) =>
 
 // Estilos que ya usa esta página (para que los campos nuevos se vean igual que los existentes)
 const INPUT =
-  'w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-faint outline-none focus:border-brand-primary/50';
+  'w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-disabled outline-none focus:border-brand-primary/50';
 
 const TAG_BRAND = 'bg-brand-primary/10 text-brand-primary border-brand-primary/20';
 const TAG_WARN = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20';
@@ -242,7 +242,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="pb-32 font-sans text-text-primary min-h-screen">
+    <div className="pb-32 font-sans text-text-primary min-h-dvh">
       <div className="px-[var(--mobile-side-pad)] pt-4 space-y-5 max-w-3xl mx-auto">
 
         {/* Hero */}

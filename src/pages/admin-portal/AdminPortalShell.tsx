@@ -31,7 +31,7 @@ const AdminPortalShell: React.FC = () => {
             <span className="text-xs text-text-disabled hidden sm:inline">{user?.email}</span>
             <button
               onClick={() => logout()}
-              className="w-9 h-9 rounded-md bg-surface-2 hover:bg-surface-3 text-text-muted hover:text-status-danger-soft flex items-center justify-center transition-colors"
+              className="tap-44 w-9 h-9 rounded-md bg-surface-2 hover:bg-surface-3 text-text-muted hover:text-status-danger-soft flex items-center justify-center transition-colors"
               title="Cerrar sesión"
             >
               <LogOut size={15} />

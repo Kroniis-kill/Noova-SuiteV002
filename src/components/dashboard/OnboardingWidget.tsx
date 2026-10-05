@@ -148,7 +148,7 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
                    <div className="text-right">
                        <span className="text-xs font-semibold text-brand-primary">{completedCount}/{steps.length}</span>
                    </div>
-                   <button onClick={handleDismiss} className="text-text-faint hover:text-text-muted transition-colors">
+                   <button aria-label="Cerrar" onClick={handleDismiss} className="text-text-faint hover:text-text-muted transition-colors">
                        <X size={16} />
                    </button>
                </div>

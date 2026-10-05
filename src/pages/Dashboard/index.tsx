@@ -17,7 +17,7 @@ const DashboardPage: React.FC<DashboardProps> = ({ setView }) => {
   const isMob = isMobile();
 
   return (
-    <div className="relative w-full h-full min-h-screen bg-bg">
+    <div className="relative w-full h-full min-h-dvh bg-bg">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -130,7 +130,7 @@ const SearchListModal: React.FC<SearchListModalProps> = ({ isOpen, onClose, item
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder={placeholder || "Buscar..."}
-             className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-faint`}
+             className={`${CLEAN_INPUT} h-full text-text-primary placeholder:text-text-disabled`}
              autoFocus
            />
         </div>
@@ -476,21 +476,21 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                     <div className="flex gap-2">
                                         <div className={`${FIELD_BOX} flex-1 min-w-0`}>
                                             <User size={16} className="text-text-faint shrink-0" />
-                                            <input
+                                            <input aria-label="Credenciales de perfil"
                                                 value={profileName}
                                                 onChange={(e) => setProfileName(e.target.value)}
                                                 placeholder="Nombre del perfil"
-                                                className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-faint`}
+                                                className={`${CLEAN_INPUT} h-full font-bold text-text-primary placeholder:text-text-disabled`}
                                             />
                                         </div>
                                         <div className={`${FIELD_BOX} w-[104px] shrink-0 !gap-2 !px-3`}>
                                             <Hash size={14} className="text-text-faint shrink-0" />
-                                            <input
+                                            <input aria-label="PIN"
                                                 value={profilePin}
                                                 onChange={(e) => setProfilePin(e.target.value)}
                                                 placeholder="PIN"
                                                 inputMode="numeric"
-                                                className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-faint`}
+                                                className={`${CLEAN_INPUT} h-full text-center font-mono font-bold text-text-primary placeholder:text-text-disabled`}
                                             />
                                         </div>
                                     </div>

@@ -37,7 +37,7 @@ const ExpenseList: React.FC = () => {
                       {item.label || 'Concepto'}
                    </h4>
                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className={`text-[7px] font-black uppercase px-1.5 py-0.5 rounded border ${item.type === 'expense' ? 'text-status-danger-soft/70 border-status-danger/10' : 'text-status-expiring-soft/70 border-status-expiring/10'}`}>
+                      <span className={`text-nano font-black uppercase px-1.5 py-0.5 rounded border ${item.type === 'expense' ? 'text-status-danger-soft/70 border-status-danger/10' : 'text-status-expiring-soft/70 border-status-expiring/10'}`}>
                         {item.displayCategory}
                       </span>
                       <span className="text-nano text-text-faint flex items-center gap-1 font-mono tracking-tighter">
@@ -52,14 +52,14 @@ const ExpenseList: React.FC = () => {
                    <span className="block text-body-sm font-bold text-text-primary font-mono tracking-tighter">
                       -{settings.currency}{formatMoney(item.amount)}
                    </span>
-                   <span className="text-[7px] font-black text-text-faint uppercase tracking-widest">
+                   <span className="text-nano font-black text-text-faint uppercase tracking-widest">
                       {item.paymentMethod}
                    </span>
                 </div>
                 
-                <button 
+                <button aria-label="Eliminar" 
                   onClick={() => item.type === 'expense' ? deleteExpense(item.id) : deleteSupply(item.id)}
-                  className="w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.02] text-text-faint hover:text-status-danger-soft transition-colors"
+                  className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.02] text-text-faint hover:text-status-danger-soft transition-colors"
                 >
                    <Trash2 size={14} />
                 </button>

@@ -204,7 +204,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
   const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
   return (
-    <div className="min-h-screen pb-32 pt-2 px-4 font-sans text-text-primary relative">
+    <div className="min-h-dvh pb-32 pt-2 px-4 font-sans text-text-primary relative">
        <div className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-brand-accent/10 to-transparent pointer-events-none" />
        <div className={`relative z-10 pt-safe ${isNative ? 'mt-2' : 'mt-4'}`}>
           <div className="flex justify-between items-center mb-4">
@@ -215,23 +215,23 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
                       <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
-                          <button onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
+                          <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
                               <Search size={18} />
                           </button>
-                          <input 
+                          <input aria-label="Buscar..." 
                             autoFocus={isSearchOpen} 
                             placeholder="Buscar..." 
                             value={searchQuery} 
                             onChange={e => setSearchQuery(e.target.value)} 
                             className={`bg-transparent text-sm text-text-primary outline-none w-full ml-1 font-medium ${isSearchOpen ? 'opacity-100' : 'opacity-0'}`} 
                           />
-                          {isSearchOpen && <button onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
+                          {isSearchOpen && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
                       </div>
                   </div>
-                  <button onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
+                  <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
                       <Upload size={20} />
                   </button>
-                  <button onClick={handleAdd} className="w-10 h-10 rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
+                  <button aria-label="Agregar" onClick={handleAdd} className="w-10 h-10 rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
                       <Plus size={22} strokeWidth={2.5} />
                   </button>
               </div>

@@ -28,12 +28,12 @@ const LegalPage: React.FC<LegalPageProps> = ({ type }) => {
   };
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary font-sans selection:bg-brand-primary/30">
+    <div className="min-h-dvh bg-bg text-text-primary font-sans selection:bg-brand-primary/30">
       
       {/* Header */}
       <div className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-[rgb(var(--fg-rgb))]/10">
          <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-4">
-             <button 
+             <button aria-label="Volver" 
                onClick={goBack}
                className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors active:scale-95"
              >

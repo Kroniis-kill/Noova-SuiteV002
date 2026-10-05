@@ -109,7 +109,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
             >
                 {/* Header */}
                 <div className="px-5 pt-[18px] pb-4 flex justify-end shrink-0">
-                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-surface-3 text-text-muted hover:text-text-primary transition-all active:scale-90">
+                    <button aria-label="Cerrar" onClick={onClose} className="tap-44 w-8 h-8 flex items-center justify-center rounded-full bg-surface-3 text-text-muted hover:text-text-primary transition-all active:scale-90">
                         <X size={16} />
                     </button>
                 </div>

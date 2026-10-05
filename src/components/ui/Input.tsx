@@ -187,7 +187,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
               type="button"
               onClick={onClear}
               aria-label="Borrar búsqueda"
-              className="-mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-pill text-text-muted transition-colors hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-primary"
+              className="tap-44 -mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-pill text-text-muted transition-colors hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-primary"
             >
               <X size={16} aria-hidden="true" />
             </button>

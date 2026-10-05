@@ -270,7 +270,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                  className="absolute inset-0 bg-surface-1 z-20 p-6 flex flex-col"
                >
                    <div className="flex items-center justify-between mb-8">
-                       <button onClick={() => setSelectedHealth(null)} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full text-text-muted hover:text-text-primary"><ChevronRight className="rotate-180" size={20} /></button>
+                       <button aria-label="Ver detalle" onClick={() => setSelectedHealth(null)} className="p-2 bg-[rgb(var(--fg-rgb))]/5 rounded-full text-text-muted hover:text-text-primary"><ChevronRight className="rotate-180" size={20} /></button>
                        <h3 className="text-lg font-bold text-text-primary">Detalle de Salud</h3>
                        <div className="w-10" />
                    </div>

@@ -95,7 +95,7 @@ export const NotificationSettings = () => {
                             <div>
                                 <label className={styles.label}>Intervalo (Horas)</label>
                                 <div className="bg-surface-sunken border border-border-subtle rounded-xl h-[52px]">
-                                    <select value={digest.interval_hours} onChange={e => setDigest({...digest, interval_hours: parseInt(e.target.value)})} className={styles.select}>
+                                    <select aria-label="Intervalo (Horas)" value={digest.interval_hours} onChange={e => setDigest({...digest, interval_hours: parseInt(e.target.value)})} className={styles.select}>
                                         <option value="1">Cada 1h</option>
                                         <option value="3">Cada 3h</option>
                                         <option value="5">Cada 5h</option>
@@ -106,7 +106,7 @@ export const NotificationSettings = () => {
                             <div>
                                 <label className={styles.label}>Máx. por Día</label>
                                 <div className="bg-surface-sunken border border-border-subtle rounded-xl h-[52px]">
-                                    <select value={digest.max_per_day} onChange={e => setDigest({...digest, max_per_day: parseInt(e.target.value)})} className={styles.select}>
+                                    <select aria-label="Máx. por Día" value={digest.max_per_day} onChange={e => setDigest({...digest, max_per_day: parseInt(e.target.value)})} className={styles.select}>
                                         <option value="1">1 vez</option>
                                         <option value="3">3 veces</option>
                                         <option value="5">5 veces</option>

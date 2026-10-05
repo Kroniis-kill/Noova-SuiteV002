@@ -97,7 +97,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
+    input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     select: "w-full h-full bg-transparent text-sm text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
     iconLeft: "pl-12",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",
@@ -112,7 +112,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            <label className={styles.label}>Nombre</label>
            <div className={styles.inputContainer}>
               <Wallet size={18} className={styles.iconElement} />
-              <input 
+              <input aria-label="Nombre" 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className={`${styles.input} ${styles.iconLeft}`}
@@ -126,7 +126,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            <div>
               <label className={styles.label}>Moneda</label>
               <div className={styles.inputContainer}>
-                 <select 
+                 <select aria-label="Moneda" 
                    value={currency}
                    onChange={(e) => handleCurrencyChange(e.target.value)}
                    className={styles.select}
@@ -138,7 +138,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
               </div>
               {isCustom && (
                 <div className={`${styles.inputContainer} mt-2`}>
-                  <input 
+                  <input aria-label="CÓDIGO" 
                     value={customCurrency}
                     onChange={(e) => setCustomCurrency(e.target.value)}
                     placeholder="CÓDIGO"
@@ -151,7 +151,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            <div>
               <label className={styles.label}>Saldo Inicial</label>
               <div className={styles.inputContainer}>
-                 <input 
+                 <input aria-label="Saldo Inicial" 
                    type="number"
                    step="0.01"
                    value={balance}
@@ -169,13 +169,13 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            </div>
            
            <div className="flex gap-2 mb-3">
-              <input 
+              <input aria-label="Nombre (Ej. Pago Móvil)" 
                 value={newMethodName}
                 onChange={(e) => setNewMethodName(e.target.value)}
                 className="w-full bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 px-4 h-[48px] text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all"
                 placeholder="Nombre (Ej. Pago Móvil)"
               />
-              <button 
+              <button aria-label="Agregar" 
                 type="button"
                 onClick={handleAddMethod}
                 className="bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary w-[48px] h-[48px] rounded-md transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0"
@@ -188,7 +188,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
               {methods.map(m => (
                  <div key={m.id} className="flex justify-between items-center bg-surface-zinc px-4 py-3 rounded-md border border-[rgb(var(--fg-rgb))]/5">
                     <span className="text-sm text-text-secondary font-semibold">{m.name}</span>
-                    <button type="button" onClick={() => handleRemoveMethod(m.id)} className="text-text-disabled hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
+                    <button aria-label="Eliminar" type="button" onClick={() => handleRemoveMethod(m.id)} className="text-text-disabled hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
                  </div>
               ))}
            </div>

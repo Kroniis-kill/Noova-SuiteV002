@@ -119,7 +119,7 @@ const ServicesDesktop: React.FC = () => {
         <div className="flex gap-4">
             <div className="relative group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" size={18} />
-                <input placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input aria-label="Filtrar catálogo..." placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
             </div>
             <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-brand-gradient text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
         </div>
@@ -135,7 +135,7 @@ const ServicesDesktop: React.FC = () => {
                         <div className="flex justify-between items-start mb-6">
                             <div className="flex items-center gap-4">
                                 <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
-                                    {service.image_url ? <img src={service.image_url} className="w-full h-full object-cover" /> : getTypeIcon(service.type)}
+                                    {service.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : getTypeIcon(service.type)}
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-text-primary leading-tight">{service.name}</h3>
@@ -143,8 +143,8 @@ const ServicesDesktop: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onClick={() => openEditModal(service)} className="w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button>
-                                <button onClick={() => deleteService(service.id)} className="w-9 h-9 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft border border-status-danger/10"><Trash2 size={14} /></button>
+                                <button aria-label="Editar" onClick={() => openEditModal(service)} className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button>
+                                <button aria-label="Eliminar" onClick={() => deleteService(service.id)} className="tap-44 w-9 h-9 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft border border-status-danger/10"><Trash2 size={14} /></button>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
@@ -177,7 +177,7 @@ const ServicesDesktop: React.FC = () => {
                    <label className={labelClass}>Identificación del Servicio</label>
                    <div className="relative flex items-center">
                       <Tag size={18} className="absolute left-4 text-text-disabled" />
-                      <input value={name} onChange={e => setName(e.target.value)} className={inputClass} required placeholder="Nombre (Ej. Netflix, YouTube Premium)" />
+                      <input aria-label="Identificación del Servicio" value={name} onChange={e => setName(e.target.value)} className={inputClass} required placeholder="Nombre (Ej. Netflix, YouTube Premium)" />
                    </div>
                 </div>
 
@@ -227,7 +227,7 @@ const ServicesDesktop: React.FC = () => {
                    <label className={labelClass}>Modalidad de Venta</label>
                    <div className="relative flex items-center">
                       <Layers size={18} className="absolute left-4 text-text-disabled" />
-                      <select value={type} onChange={e => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}><option value="por_pantalla">Por Pantalla</option><option value="cuenta_completa">Cuenta Completa</option><option value="usuario_unico">Usuario Único</option></select>
+                      <select aria-label="Modalidad de Venta" value={type} onChange={e => setType(e.target.value as ServiceType)} className={`${inputClass} appearance-none cursor-pointer`}><option value="por_pantalla">Por Pantalla</option><option value="cuenta_completa">Cuenta Completa</option><option value="usuario_unico">Usuario Único</option></select>
                       <ChevronDown className="absolute right-4 text-text-disabled pointer-events-none" size={16} />
                    </div>
                 </div>
@@ -235,7 +235,7 @@ const ServicesDesktop: React.FC = () => {
                    <label className={labelClass}>Cupos Disponibles</label>
                    <div className="relative flex items-center">
                       <Hash size={18} className="absolute left-4 text-text-disabled" />
-                      <input type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" />
+                      <input aria-label="Cupos Disponibles" type="number" value={screens} onChange={e => setScreens(e.target.value)} className={inputClass} placeholder="1" />
                    </div>
                 </div>
              </div>
@@ -246,7 +246,7 @@ const ServicesDesktop: React.FC = () => {
                       <label className={labelClass}>Inversión Total (Costo Cuenta)</label>
                       <div className="relative flex items-center">
                          <DollarSign size={18} className="absolute left-4 text-text-disabled" />
-                         <input type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
+                         <input aria-label="Inversión Total (Costo Cuenta)" type="number" step="0.01" value={investment} onChange={e => setInvestment(e.target.value)} className={inputClass} placeholder="0.00" />
                       </div>
                    </div>
                    <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-lg h-[52px] flex items-center justify-between px-6">
@@ -256,8 +256,8 @@ const ServicesDesktop: React.FC = () => {
                 </div>
              </div>
              <div className="grid grid-cols-2 gap-6">
-                <div><label className={labelClass}>Precio Venta Público</label><input type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
-                <div><label className={labelClass}>Precio Venta Socio</label><input type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+                <div><label className={labelClass}>Precio Venta Público</label><input aria-label="Precio Venta Público" type="number" step="0.01" value={publicPrice} onChange={e => setPublicPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
+                <div><label className={labelClass}>Precio Venta Socio</label><input aria-label="Precio Venta Socio" type="number" step="0.01" value={resellerPrice} onChange={e => setResellerPrice(e.target.value)} className={inputClass} placeholder="0.00" /></div>
              </div>
              <div className="pt-6">
                <button type="submit" className="w-full h-[60px] bg-brand-gradient text-white rounded-xl font-extrabold text-sm shadow-glow hover:scale-[1.01] transition-all active:scale-[0.98] flex items-center justify-center gap-3">

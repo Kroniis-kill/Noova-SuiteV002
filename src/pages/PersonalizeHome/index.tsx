@@ -43,11 +43,11 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
   };
 
   return (
-    <div className="pb-32 pt-2 px-4 font-sans text-text-primary min-h-screen">
+    <div className="pb-32 pt-2 px-4 font-sans text-text-primary min-h-dvh">
       <div className="flex items-center gap-3 mb-6">
-        <button
+        <button aria-label="Volver"
           onClick={onBack}
-          className="w-9 h-9 rounded-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95 transition-all"
+          className="tap-44 w-9 h-9 rounded-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95 transition-all"
         >
           <ArrowLeft size={16} />
         </button>
@@ -90,10 +90,10 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
                         className="w-24 h-7 px-2 rounded-md bg-surface-sunken border border-brand-primary/30 text-caption text-text-primary outline-none focus:ring-2 focus:ring-brand-primary/40"
                       />
                       <span className="text-tiny text-text-muted">{settings.subCurrency || 'Bs'}</span>
-                      <button onClick={handleSaveRate} className="w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90">
+                      <button aria-label="Confirmar" onClick={handleSaveRate} className="tap-44 w-6 h-6 rounded-md bg-status-success/15 text-status-success-soft flex items-center justify-center active:scale-90">
                         <Check size={12} />
                       </button>
-                      <button onClick={() => { setIsEditingRate(false); setRateInput(String(settings.exchangeRate || '')); }} className="w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center active:scale-90">
+                      <button aria-label="Cerrar" onClick={() => { setIsEditingRate(false); setRateInput(String(settings.exchangeRate || '')); }} className="tap-44 w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center active:scale-90">
                         <X size={12} />
                       </button>
                     </div>

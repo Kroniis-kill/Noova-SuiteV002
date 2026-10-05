@@ -192,14 +192,15 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
             {/* Quick Actions Bottom */}
             <div className="flex items-center justify-between gap-2 mt-2 w-full shrink-0">
                 <button 
+                  aria-label="Enviar recordatorio por WhatsApp"
                   onClick={handleSmartWhatsApp} 
-                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-90 ${isUrgent ? 'bg-brand-whatsapp border-brand-whatsapp text-black shadow-glow-sm' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/[0.05] text-text-disabled hover:text-text-primary'}`}
+                  className={`tap-44 w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-90 ${isUrgent ? 'bg-brand-whatsapp border-brand-whatsapp text-black shadow-glow-sm' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/[0.05] text-text-disabled hover:text-text-primary'}`}
                 >
                    {isUrgent ? <BellRing size={12} fill="currentColor" /> : <MessageCircle size={12} />}
                 </button>
-                <button 
+                <button aria-label="Eliminar" 
                   onClick={(e) => { e.stopPropagation(); onDelete(group); }} 
-                  className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-faint border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center hover:text-status-danger-soft transition-all active:scale-90"
+                  className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-faint border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center hover:text-status-danger-soft transition-all active:scale-90"
                 >
                    <Trash2 size={12} />
                 </button>
@@ -288,7 +289,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                   onClick={handleOpenRenew}
                   aria-label="Renovar"
                   title="Renovar"
-                  className="w-8 h-8 flex items-center justify-center shrink-0 text-[rgb(var(--fg-rgb))]/50 hover:text-[rgb(var(--fg-rgb))]/80 active:text-[rgb(var(--fg-rgb))]/90 transition-all active:scale-90"
+                  className="tap-44 w-8 h-8 flex items-center justify-center shrink-0 text-[rgb(var(--fg-rgb))]/50 hover:text-[rgb(var(--fg-rgb))]/80 active:text-[rgb(var(--fg-rgb))]/90 transition-all active:scale-90"
                 >
                   <RefreshCw size={18} strokeWidth={2} />
                 </button>
@@ -305,7 +306,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     {isUrgent ? <BellRing size={14} fill="currentColor" /> : <MessageCircle size={14} />}
                     {isUrgent ? 'Recordar' : 'WhatsApp'}
                   </button>
-                  <button onClick={(e) => { e.stopPropagation(); onDelete(group); }} className="h-9 w-9 rounded-full bg-status-danger/10 text-status-danger-soft border-status-danger/20 flex items-center justify-center hover:bg-status-danger/20 transition-colors active:scale-95"><Trash2 size={16} /></button>
+                  <button aria-label="Eliminar" onClick={(e) => { e.stopPropagation(); onDelete(group); }} className="tap-44 h-9 w-9 rounded-full bg-status-danger/10 text-status-danger-soft border-status-danger/20 flex items-center justify-center hover:bg-status-danger/20 transition-colors active:scale-95"><Trash2 size={16} /></button>
               </div>
             </div>
         </div>

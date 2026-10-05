@@ -195,7 +195,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
   }, [clients]);
 
   return (
-    <div className="min-h-screen pb-32 pt-2 font-sans text-text-primary relative">
+    <div className="min-h-dvh pb-32 pt-2 font-sans text-text-primary relative">
        <div className="relative z-20 pt-safe mt-4 px-4">
              <div className="flex justify-between items-center mb-4">
                  <div className="flex flex-col">
@@ -206,10 +206,10 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                      <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <RefreshCw size={16} className={isSyncing ? 'animate-spin text-brand-primary' : ''} />
                      </button>
-                     <button onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
+                     <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <Upload size={16} />
                      </button>
-                     <button onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
+                     <button aria-label="Agregar" onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
                         <Plus size={20} strokeWidth={3} />
                      </button>
                  </div>
@@ -237,11 +237,11 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
 
              <div className="relative mb-4 group">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" />
-                <input 
+                <input aria-label="Buscar por nombre o celular" 
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   placeholder="Buscar por nombre o celular..." 
-                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-label text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-faint transition-all font-medium" 
+                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-label text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-disabled transition-all font-medium" 
                 />
              </div>
        </div>

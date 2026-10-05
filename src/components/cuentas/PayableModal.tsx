@@ -70,7 +70,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
     inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
-    input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-faint px-4 outline-none font-medium rounded-md",
+    input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     select: "w-full h-full bg-transparent text-[14px] text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
     iconLeft: "pl-12",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",
@@ -86,7 +86,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
            <label className={styles.label}>Concepto</label>
            <div className={styles.inputContainer}>
               <Tag size={18} className={styles.iconElement} />
-              <input 
+              <input aria-label="Concepto" 
                 value={name} onChange={e => setName(e.target.value)}
                 className={`${styles.input} ${styles.iconLeft}`}
                 placeholder="Ej. Pago Proveedor"
@@ -101,7 +101,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
               <label className={styles.label}>Monto</label>
               <div className={styles.inputContainer}>
                  <DollarSign size={18} className={styles.iconElement} />
-                 <input 
+                 <input aria-label="Monto" 
                    type="number" value={amount} onChange={e => setAmount(e.target.value)}
                    className={`${styles.input} ${styles.iconLeft}`}
                    placeholder="0.00"
@@ -114,7 +114,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
            <div>
               <label className={styles.label}>Moneda</label>
               <div className={styles.inputContainer}>
-                 <select 
+                 <select aria-label="Moneda" 
                     value={currency} onChange={e => setCurrency(e.target.value)}
                     className={styles.select}
                  >
@@ -137,7 +137,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
                  <div className="absolute left-1 w-10 h-[44px] bg-surface-zinc rounded-sm flex items-center justify-center top-[3px] border border-[rgb(var(--fg-rgb))]/5">
                     <span className="text-micro font-bold text-text-disabled uppercase">MES</span>
                  </div>
-                 <input 
+                 <input aria-label="Vencimiento (Tiempo)" 
                    type="number" min="0"
                    value={months} 
                    onChange={e => setMonths(e.target.value)} 
@@ -182,7 +182,7 @@ const PayableModal: React.FC<PayableModalProps> = ({ isOpen, onClose, onSubmit, 
            <label className={styles.label}>Frecuencia (Opcional)</label>
            <div className={styles.inputContainer}>
               <Repeat size={18} className={styles.iconElement} />
-              <select 
+              <select aria-label="Frecuencia (Opcional)" 
                  value={recurrence} onChange={e => setRecurrence(e.target.value)}
                  className={`${styles.select} pl-12`}
               >

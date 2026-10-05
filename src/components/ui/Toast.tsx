@@ -100,7 +100,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             type="button"
             onClick={(e) => { e.stopPropagation(); onClose(id); }}
             aria-label="Cerrar aviso"
-            className="w-7 h-7 -mr-1 flex items-center justify-center rounded-full text-text-faint hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors shrink-0"
+            className="tap-44 w-7 h-7 -mr-1 flex items-center justify-center rounded-full text-text-faint hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/5 transition-colors shrink-0"
           >
             <X size={14} />
           </button>

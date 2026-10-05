@@ -203,6 +203,7 @@ const AdminDesktop: React.FC = () => {
               </div>
               <div className="flex gap-2 items-center">
                 <select
+                  aria-label="Filtrar por plan"
                   value={planFilter}
                   onChange={e => setPlanFilter(e.target.value as any)}
                   className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand-primary/50"
@@ -214,7 +215,7 @@ const AdminDesktop: React.FC = () => {
                 </select>
                 <div className="relative">
                   <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
-                  <input
+                  <input aria-label="Buscar usuario"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Buscar usuario..."
@@ -233,7 +234,7 @@ const AdminDesktop: React.FC = () => {
                   <p className="text-text-disabled text-sm">No hay usuarios que coincidan.</p>
                 </div>
               ) : (
-                <table className="w-full text-left">
+                <div className="overflow-x-auto"><table className="w-full text-left min-w-[40rem]">
                   <thead className="sticky top-0 bg-surface-1 z-10 border-b border-[rgb(var(--fg-rgb))]/[0.06]">
                     <tr className="text-tiny font-semibold text-text-disabled uppercase tracking-wider">
                       <th className="px-5 py-3">Usuario</th>
@@ -298,12 +299,12 @@ const AdminDesktop: React.FC = () => {
                             <div className="flex justify-end gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button
                                 onClick={(e) => { e.stopPropagation(); setExtensionTarget(sub); setIsExtensionModalOpen(true); }}
-                                className="w-8 h-8 rounded-md bg-status-success/10 text-status-success-soft hover:bg-status-success/20 flex items-center justify-center transition-all"
+                                className="tap-44 w-8 h-8 rounded-md bg-status-success/10 text-status-success-soft hover:bg-status-success/20 flex items-center justify-center transition-all"
                                 title="Extender"
                               ><PlusCircle size={14} /></button>
                               <button
                                 onClick={(e) => { e.stopPropagation(); setEditingSub(sub); setIsModalOpen(true); }}
-                                className="w-8 h-8 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:bg-[rgb(var(--fg-rgb))]/10 hover:text-text-primary flex items-center justify-center transition-all"
+                                className="tap-44 w-8 h-8 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:bg-[rgb(var(--fg-rgb))]/10 hover:text-text-primary flex items-center justify-center transition-all"
                                 title="Editar"
                               ><Edit2 size={14} /></button>
                             </div>
@@ -312,7 +313,7 @@ const AdminDesktop: React.FC = () => {
                       );
                     })}
                   </tbody>
-                </table>
+                </table></div>
               )}
             </div>
           </div>
@@ -398,7 +399,7 @@ const AdminDesktop: React.FC = () => {
             <Megaphone size={16} className="text-brand-primary" /> Anuncios globales
           </h3>
           <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
-            <textarea
+            <textarea aria-label="Escribe un anuncio importante para todos los usuarios"
               value={newAnnouncement}
               onChange={e => setNewAnnouncement(e.target.value)}
               placeholder="Escribe un anuncio importante para todos los usuarios..."
@@ -420,7 +421,7 @@ const AdminDesktop: React.FC = () => {
             {announcements.map(a => (
               <div key={a.id} className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/[0.06] p-4 rounded-lg flex justify-between items-center gap-3">
                 <p className="text-sm text-text-secondary flex-1">{a.message}</p>
-                <button
+                <button aria-label="Eliminar"
                   onClick={async () => { await deleteAnnouncement(a.id); loadData(); }}
                   className="text-text-disabled hover:text-status-danger-soft transition-colors"
                 ><Trash2 size={15} /></button>
@@ -450,7 +451,7 @@ const AdminDesktop: React.FC = () => {
             <label className="text-caption font-semibold text-text-muted uppercase tracking-wider mb-2 block">WhatsApp de soporte</label>
             <div className="relative">
               <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-disabled" />
-              <input
+              <input aria-label="WhatsApp de soporte"
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
                 placeholder="573000000000"

@@ -129,7 +129,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, zIndex,
                 type="button"
                 onClick={onClose}
                 aria-label="Cerrar"
-                className="w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-primary"
+                className="tap-44 w-9 h-9 flex items-center justify-center rounded-pill bg-surface-3 hover:bg-surface-4 text-text-muted hover:text-text-primary transition-all duration-150 ease-out-soft active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-primary"
               >
                 <X size={18} />
               </button>

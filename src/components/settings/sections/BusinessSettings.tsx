@@ -98,17 +98,17 @@ export const BusinessSettings = () => {
                             <div className="space-y-4">
                                 <div>
                                     <label className={styles.label}>Moneda Principal</label>
-                                    <input value={currency} onChange={e => setCurrency(e.target.value)} className={`${styles.input} uppercase`} placeholder="USD" />
+                                    <input aria-label="Moneda Principal" value={currency} onChange={e => setCurrency(e.target.value)} className={`${styles.input} uppercase`} placeholder="USD" />
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className={styles.label}>Secundaria</label>
-                                        <input value={subCurrency} onChange={e => setSubCurrency(e.target.value)} className={`${styles.input} uppercase`} placeholder="BS" />
+                                        <input aria-label="Secundaria" value={subCurrency} onChange={e => setSubCurrency(e.target.value)} className={`${styles.input} uppercase`} placeholder="BS" />
                                     </div>
                                     <div>
                                         <label className={styles.label}>Tasa Cambio</label>
-                                        <input type="number" value={exchangeRate} onChange={e => setExchangeRate(e.target.value)} className={styles.input} />
+                                        <input aria-label="Tasa Cambio" type="number" value={exchangeRate} onChange={e => setExchangeRate(e.target.value)} className={styles.input} />
                                     </div>
                                 </div>
                             </div>
@@ -179,8 +179,8 @@ export const BusinessSettings = () => {
                             <SectionHeading icon={Tag} title="Gestión de Categorías" colorClass="text-status-success-soft" />
 
                             <div className="flex gap-2">
-                                <input value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Nueva categoría..." className={styles.input} />
-                                <button onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-xl bg-surface-4 border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0 active:scale-[0.98]">
+                                <input aria-label="Nueva categoría" value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Nueva categoría..." className={styles.input} />
+                                <button aria-label="Agregar" onClick={handleAddCategory} className="w-[52px] h-[52px] rounded-xl bg-surface-4 border border-border-subtle flex items-center justify-center text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors shrink-0 active:scale-[0.98]">
                                     <Plus size={20} />
                                 </button>
                             </div>
@@ -195,7 +195,7 @@ export const BusinessSettings = () => {
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
                                             <span className="text-sm font-bold text-text-primary">{cat.name}</span>
                                         </div>
-                                        <button onClick={() => deleteCategory(cat.id)} className="text-text-faint hover:text-status-danger-soft transition-colors p-2">
+                                        <button aria-label="Eliminar" onClick={() => deleteCategory(cat.id)} className="text-text-faint hover:text-status-danger-soft transition-colors p-2">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

@@ -57,7 +57,7 @@ const MyPlanMobile: React.FC = () => {
   };
 
   return (
-    <div className="px-5 pt-safe mt-6 pb-24 font-sans min-h-screen relative overflow-hidden bg-bg">
+    <div className="px-5 pt-safe mt-6 pb-24 font-sans min-h-dvh relative overflow-hidden bg-bg">
        
        {/* Ambient Light */}
 
