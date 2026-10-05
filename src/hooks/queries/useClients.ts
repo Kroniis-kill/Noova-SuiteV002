@@ -89,7 +89,7 @@ export const useClients = () => {
       if (context?.previousClients) {
         queryClient.setQueryData(['clients', userId], context.previousClients);
       }
-      showToast(`Error al guardar cliente: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al guardar cliente: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       // Backup reconciliation: marks stale, no immediate refetch.
@@ -125,7 +125,7 @@ export const useClients = () => {
       if (context?.previousClients) {
         queryClient.setQueryData(['clients', userId], context.previousClients);
       }
-      showToast(`Error al actualizar cliente: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al actualizar cliente: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       scheduleReconcile(queryClient, ['clients', userId]);
@@ -161,7 +161,7 @@ export const useClients = () => {
       if (context?.previousClients) {
         queryClient.setQueryData(['clients', userId], context.previousClients);
       }
-      showToast(`Error al eliminar cliente: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al eliminar cliente: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       scheduleReconcile(queryClient, ['clients', userId]);

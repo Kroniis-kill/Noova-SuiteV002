@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../supabaseClient';
 import { withRetry } from '../../utils/supabaseUtils';
@@ -35,7 +36,7 @@ export function useSettings(userId: string | undefined) {
         // diferenciar "no hay settings guardados todavía" de "no se
         // pudieron leer los settings").
         console.error('Error fetching settings:', error);
-        showToast(`No se pudo cargar la configuración: ${error.message || 'error desconocido'}`, 'error');
+        showToast(`No se pudo cargar la configuración: ${getSupabaseErrorMessage(error)}`, 'error');
         throw error;
       }
       if (!data) return DEFAULT_SETTINGS;

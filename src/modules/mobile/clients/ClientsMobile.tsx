@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../../../utils/errorUtils';
 import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useContactos } from '../../../hooks/useContactos';
@@ -117,7 +118,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
         await deleteClient(id);
         showToast('Cliente eliminado', 'success');
     } catch(e: any) { 
-        setSyncError(e.message || 'Error al eliminar'); 
+        setSyncError(getSupabaseErrorMessage(e)); 
     } finally {
         setSyncing(false);
     }
@@ -137,7 +138,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
         }
         setIsModalOpen(false);
     } catch (e: any) { 
-        setSyncError(e.message || 'Error al procesar registro'); 
+        setSyncError(getSupabaseErrorMessage(e)); 
     } finally {
         setSyncing(false);
     }

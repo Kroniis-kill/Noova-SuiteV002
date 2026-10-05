@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../utils/errorUtils';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { formatDate } from '../utils/contactosUtils';
@@ -251,7 +252,7 @@ const PortalPage: React.FC = () => {
       }
       return data;
     } catch (err: any) {
-      setPinError(err.message || "Error al procesar solicitud");
+      setPinError(getSupabaseErrorMessage(err));
       throw err;
     } finally {
       setLoadingAction(false);

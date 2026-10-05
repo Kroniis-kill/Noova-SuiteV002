@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import React, { useState, useEffect, useMemo } from 'react';
 import Modal from '../ui/Modal';
 import { Sale, Account, Service } from '../../types';
@@ -349,7 +350,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
         }
         onClose();
     } catch (e: any) {
-        showToast(e.message || 'Error al procesar', 'error');
+        showToast(getSupabaseErrorMessage(e), 'error');
     } finally {
         setIsSubmitting(false);
     }

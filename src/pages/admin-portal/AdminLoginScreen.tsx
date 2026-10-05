@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import React, { useState } from 'react';
 import { ShieldCheck, Mail, Lock, Loader2, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -20,7 +21,7 @@ const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ deniedMessage }) =>
     try {
       await login(email, password);
     } catch (err: any) {
-      setError(err?.message === 'Invalid login credentials' ? 'Correo o contraseña incorrectos.' : (err?.message || 'No se pudo iniciar sesión.'));
+      setError(err?.message === 'Invalid login credentials' ? 'Correo o contraseña incorrectos.' : getSupabaseErrorMessage(err));
     } finally {
       setIsLoading(false);
     }

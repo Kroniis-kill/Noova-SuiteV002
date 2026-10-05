@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../supabaseClient';
 import { Account, Service, Provider } from '../../types';
@@ -94,7 +95,7 @@ export const useInventory = () => {
           if (context?.previousAccounts) {
               queryClient.setQueryData(['accounts', userId], context.previousAccounts);
           }
-          showToast(`Error al guardar cuenta: ${err.message || 'Error desconocido'}`, 'error');
+          showToast(`Error al guardar cuenta: ${getSupabaseErrorMessage(err)}`, 'error');
       },
       onSettled: () => {
          const fresh = queryClient.getQueryData<Account[]>(['accounts', userId]);
@@ -132,7 +133,7 @@ export const useInventory = () => {
           if (context?.previousAccounts) {
               queryClient.setQueryData(['accounts', userId], context.previousAccounts);
           }
-          showToast(`Error al actualizar cuenta: ${err.message || 'Error desconocido'}`, 'error');
+          showToast(`Error al actualizar cuenta: ${getSupabaseErrorMessage(err)}`, 'error');
       },
       onSettled: () => {
         const fresh = queryClient.getQueryData<Account[]>(['accounts', userId]);
@@ -170,7 +171,7 @@ export const useInventory = () => {
           if (context?.previousAccounts) {
               queryClient.setQueryData(['accounts', userId], context.previousAccounts);
           }
-          showToast(`Error al eliminar cuenta: ${err.message || 'Error desconocido'}`, 'error');
+          showToast(`Error al eliminar cuenta: ${getSupabaseErrorMessage(err)}`, 'error');
       },
       onSettled: () => {
          const fresh = queryClient.getQueryData<Account[]>(['accounts', userId]);

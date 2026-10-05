@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../../../utils/errorUtils';
 import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useData } from '../../../context/DataContext';
@@ -139,7 +140,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
       setIsModalOpen(false);
     } catch (error: any) {
       console.error("Error saving reseller:", error);
-      showToast(error?.message || 'Error al guardar', 'error');
+      showToast(getSupabaseErrorMessage(error), 'error');
     }
   };
 

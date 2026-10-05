@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../utils/errorUtils';
 import { QueryClient, MutationCache } from '@tanstack/react-query';
 import { showGlobalToast } from '../context/ToastContext';
 import { useSaveStatus } from '../store/saveStatusStore';
@@ -36,7 +37,7 @@ const mutationCache = new MutationCache({
   },
   onError: (error: any, _variables, _context, mutation) => {
     epochAtStart.delete((mutation as any).mutationId);
-    const message = error?.message || 'Ocurrió un error. Intenta de nuevo.';
+    const message = getSupabaseErrorMessage(error);
     useSaveStatus.getState().failMutation(message);
     if (mutation.options.meta?.skipGlobalErrorToast) return;
     showGlobalToast('No se pudo completar la acción', 'error', { description: message });

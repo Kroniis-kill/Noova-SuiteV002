@@ -66,6 +66,7 @@ const AdminDesktop: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<UserSubscription | null>(null);
   const [editingSub, setEditingSub] = useState<UserSubscription | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<UserSubscription | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [extensionTarget, setExtensionTarget] = useState<UserSubscription | null>(null);
   const [tempPhone, setTempPhone] = useState('');
   const [newAnnouncement, setNewAnnouncement] = useState('');
@@ -117,11 +118,18 @@ const AdminDesktop: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    if (!deleteConfirm) return;
-    const res = await deleteSubscription(deleteConfirm.user_id);
-    if (res.success) {
-      showToast('Usuario eliminado permanentemente', 'success');
-      setDeleteConfirm(null); loadData();
+    if (!deleteConfirm || isDeleting) return;   // evita doble envío
+    setIsDeleting(true);
+    try {
+      const res = await deleteSubscription(deleteConfirm.user_id);
+      if (res.success) {
+        showToast('Usuario eliminado permanentemente', 'success');
+        setDeleteConfirm(null); loadData();
+      } else {
+        showToast('No pudimos eliminar al usuario. Inténtalo de nuevo.', 'error');
+      }
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -487,6 +495,7 @@ const AdminDesktop: React.FC = () => {
         isOpen={!!deleteConfirm}
         onClose={() => setDeleteConfirm(null)}
         onConfirm={handleDelete}
+      loading={isDeleting}
         title="Eliminar usuario"
         message={<>¿Eliminar permanentemente a <strong className="text-text-primary">{deleteConfirm?.user_email}</strong>? Esta acción borra todos sus datos y es irreversible.</>}
         confirmLabel="Eliminar"

@@ -1,3 +1,4 @@
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -208,7 +209,7 @@ const AccountRenewModal: React.FC<AccountRenewModalProps> = ({ isOpen, onClose, 
         onClose();
     } catch (error: any) {
         console.error("Error renewing account:", error);
-        showToast(error.message || 'Error al renovar la cuenta', 'error');
+        showToast(getSupabaseErrorMessage(error), 'error');
     }
   };
 

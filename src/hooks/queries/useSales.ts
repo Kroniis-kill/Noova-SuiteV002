@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../supabaseClient';
 import { Sale } from '../../types';
@@ -115,7 +116,7 @@ export const useSales = () => {
       if (context?.previousSalesPages) {
           queryClient.setQueryData(['sales', userId], context.previousSalesPages);
       }
-      showToast(`Error al guardar venta: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al guardar venta: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       scheduleReconcile(queryClient, ['sales', userId]);
@@ -166,7 +167,7 @@ export const useSales = () => {
       if (context?.previousSalesPages) {
         queryClient.setQueryData(['sales', userId], context.previousSalesPages);
       }
-      showToast(`Error al actualizar venta: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al actualizar venta: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       scheduleReconcile(queryClient, ['sales', userId]);
@@ -224,7 +225,7 @@ export const useSales = () => {
       if (context?.previousSalesPages) {
         queryClient.setQueryData(['sales', userId], context.previousSalesPages);
       }
-      showToast(`Error al eliminar venta: ${err.message || 'Error desconocido'}`, 'error');
+      showToast(`Error al eliminar venta: ${getSupabaseErrorMessage(err)}`, 'error');
     },
     onSettled: () => {
       scheduleReconcile(queryClient, ['sales', userId]);

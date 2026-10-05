@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../utils/errorUtils';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { Service, Account, Client, Sale, FinancialAccount, Movement, Reseller, AppSettings, PayableExpense, Provider, Expense, SupplyPurchase, ActivityLog, LogAction, LogEntity, ScreenProfile, ProfileHistoryEntry, ExpenseCategory, ServiceFailure } from '../types';
@@ -230,7 +231,7 @@ export const useSupabaseData = (userId: string | undefined) => {
           showToast('Movimiento guardado localmente', 'info');
           return;
         }
-        showToast(`Error al guardar movimiento: ${error?.message || 'desconocido'}`, 'error');
+        showToast(`Error al guardar movimiento: ${getSupabaseErrorMessage(error)}`, 'error');
         throw error;
       }
     }, 
@@ -415,7 +416,7 @@ export const useSupabaseData = (userId: string | undefined) => {
           showToast('Gasto guardado localmente', 'info');
           return;
         }
-        showToast(`Error al guardar gasto: ${error?.message || 'desconocido'}`, 'error');
+        showToast(`Error al guardar gasto: ${getSupabaseErrorMessage(error)}`, 'error');
         throw error;
       }
     }, 

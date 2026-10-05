@@ -1,4 +1,5 @@
 
+import { getSupabaseErrorMessage } from '../../utils/errorUtils';
 import React, { useState, useEffect, useMemo } from 'react';
 import Modal from '../ui/Modal';
 import { FinancialAccount, Movement } from '../../types';
@@ -142,7 +143,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, ac
       onClose();
     } catch (error: any) {
       console.error('Error al guardar movimiento:', error);
-      showToast(`Error al guardar movimiento: ${error?.message || 'desconocido'}`, 'error');
+      showToast(`Error al guardar movimiento: ${getSupabaseErrorMessage(error)}`, 'error');
     } finally {
       setIsSubmitting(false);
     }
