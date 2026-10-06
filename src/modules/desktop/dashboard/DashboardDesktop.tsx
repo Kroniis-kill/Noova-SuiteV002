@@ -8,7 +8,7 @@ import { useOfflineSync } from '../../../hooks/useOfflineSync';
 import { useDashboardWidgets } from '../../../hooks/useDashboardWidgets';
 import {
   TrendingUp, TrendingDown, ShoppingCart, Layers, Receipt, Bell, Eye, EyeOff, Search,
-  ChevronRight, SlidersHorizontal, PiggyBank, RotateCcw, AlertOctagon, CheckCircle2,
+  Calculator, Package, Store, Users, Settings, ChevronRight, SlidersHorizontal, PiggyBank, RotateCcw, AlertOctagon, CheckCircle2,
   RefreshCw, User, Briefcase, Truck, UserPlus, BarChart3, ArrowLeft, Copy, Key,
   ArrowUpRight, ArrowDownRight, ClipboardList, Trash2, Box, Cloud, CloudOff, UploadCloud,
   CalendarClock, LineChart, ArrowRight
@@ -417,6 +417,11 @@ const DashboardDesktop: React.FC = () => {
     agenda: { label: 'Agenda', icon: ClipboardList, color: 'text-status-danger-soft', onClick: () => setView('agenda') },
     trash: { label: 'Papelera', icon: Trash2, color: 'text-text-disabled', onClick: () => setView('trash') },
     reports: { label: 'Reportes', icon: BarChart3, color: 'text-purple-400', onClick: () => setView('reports') },
+    refund: { label: 'Reembolso', icon: Calculator, color: 'text-status-warning-soft', onClick: () => setView('refund') },
+    inventory: { label: 'Inventario', icon: Package, color: 'text-indigo-400', onClick: () => setView('inventory') },
+    sales: { label: 'Ventas', icon: Store, color: 'text-status-success', onClick: () => setView('sales') },
+    contacts: { label: 'Contactos', icon: Users, color: 'text-status-info-soft', onClick: () => setView('contacts') },
+    settings: { label: 'Ajustes', icon: Settings, color: 'text-text-disabled', onClick: () => setView('settings') },
   };
   const renderedActions = (widgets.quickActions || []).map(id => quickActionsConfig[id]).filter(Boolean);
 

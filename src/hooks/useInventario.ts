@@ -17,7 +17,7 @@ export const useInventario = () => {
 
   // Group accounts by service for the main dashboard (Excluyendo Papelera)
   const serviceStats = useMemo(() => {
-    return services.map(service => {
+    const list = services.map(service => {
       const serviceAccounts = accounts.filter(a => a.serviceId === service.id && a.status !== 'trash');
       
       const stats: { 
@@ -55,6 +55,11 @@ export const useInventario = () => {
 
       return { service, stats };
     });
+
+    // Primero los servicios que tienen cuentas (activas, por vencer, vencidas,
+    // con fallas o pausadas); al final los que están vacíos. Array.sort es
+    // estable, así que dentro de cada grupo se conserva el orden original.
+    return list.sort((a, b) => Number(b.stats.total > 0) - Number(a.stats.total > 0));
   }, [services, accounts, warningThreshold]);
 
   // Filter accounts (Excluyendo Papelera por defecto)

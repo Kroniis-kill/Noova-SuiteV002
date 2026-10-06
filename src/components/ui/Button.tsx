@@ -46,7 +46,7 @@ const ICON_SIZE_CLASSES: Record<ButtonSize, string> = {
 };
 
 const BASE_CLASSES =
-  'inline-flex items-center justify-center rounded-md select-none whitespace-nowrap shrink-0 ' +
+  'inline-flex items-center justify-center rounded-md select-none whitespace-nowrap ' +
   'transition-all duration-150 ease-out-soft active:scale-[0.98] ' +
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary ' +
   'disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100 disabled:hover:brightness-100';
@@ -99,7 +99,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           BASE_CLASSES,
           VARIANT_CLASSES[variant],
           iconOnly ? ICON_SIZE_CLASSES[size] : SIZE_CLASSES[size],
-          fullWidth && 'w-full',
+          // fullWidth: w-full + min-w-0 y SIN shrink-0, para que dos botones lado a lado
+          // (Cancelar / Eliminar) se repartan el ancho en vez de desbordar el modal.
+          fullWidth ? 'w-full min-w-0 shrink' : 'shrink-0',
           className,
         )}
         {...rest}

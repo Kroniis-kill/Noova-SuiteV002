@@ -141,7 +141,13 @@ export const useExpiryEngine = ({
     type SaleGroup = { expired: string[]; soon: string[]; soonDays: number; expDays: number };
     const saleGroups = new Map<string, SaleGroup>();
 
+    // Ventas "huérfanas": su cliente ya no existe. La página de Ventas las oculta
+    // (agrupa por cliente), así que avisar de ellas genera notificaciones
+    // fantasma ("Cliente · venció hace 202 días") imposibles de abrir o borrar.
+    const clientIds = new Set(clients.map((c) => c.id));
+
     sales.forEach((s) => {
+      if (!clientIds.has(s.clientId)) return;
       const d = getDaysRemaining(s.expiryDate);
       if (d > MAX_WINDOW_DAYS) return;
 

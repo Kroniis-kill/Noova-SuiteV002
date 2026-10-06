@@ -19,8 +19,21 @@ const FOCUSABLE =
 
 interface Layer {
   z: number;
+  close?: () => void;
 }
 const stack: Layer[] = [];
+
+/**
+ * Cierra el diálogo que está encima de todos (lo usa el botón "atrás" del
+ * teléfono). Devuelve true si había un diálogo abierto — aunque no se pudo
+ * cerrar — para que la navegación no retroceda por debajo de él.
+ */
+export function closeTopDialog(): boolean {
+  const top = stack[stack.length - 1];
+  if (!top) return false;
+  top.close?.();
+  return true;
+}
 
 // Bloqueo de scroll del fondo: con contador para que varios diálogos apilados
 // no se pisen entre sí (solo se libera cuando se cierra el último).
@@ -71,7 +84,10 @@ export function useDialog({
   useLayoutEffect(() => {
     if (!isOpen) return;
     const top = stack.length ? Math.max(...stack.map((l) => l.z)) : 0;
-    const layer: Layer = { z: Math.max(requestedZ, top ? top + Z_LAYER_STEP : 0) };
+    const layer: Layer = {
+      z: Math.max(requestedZ, top ? top + Z_LAYER_STEP : 0),
+      close: () => onCloseRef.current?.(),
+    };
     stack.push(layer);
     layerRef.current = layer;
     setZ(layer.z);

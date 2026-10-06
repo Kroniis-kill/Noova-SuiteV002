@@ -14,7 +14,7 @@ import {
   Receipt, Bell, Eye, EyeOff, Search, MonitorPlay, Key, 
   ChevronRight, SlidersHorizontal, PiggyBank, HelpCircle, RotateCcw, UserMinus, AlertOctagon, CheckCircle2,
   RefreshCw, DollarSign, User, Briefcase, Truck, UserPlus, BarChart3, AlertTriangle, ArrowLeft, Copy,
-  ClipboardList, Trash2, X, Box, Cloud, CloudOff, UploadCloud, MessageCircle, Pencil, Check
+  ClipboardList, Trash2, Calculator, Package, Store, Users, Settings, X, Box, Cloud, CloudOff, UploadCloud, MessageCircle, Pencil, Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ViewState, Movement, FinancialAccount, Sale, Reseller, Provider, Client, PayableExpense } from '../../../types';
@@ -354,6 +354,36 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
           icon: BarChart3,
           color: 'text-purple-400 group-hover:bg-purple-400',
           onClick: () => setView('reports')
+        },
+        'refund': {
+          label: 'Reembolso',
+          icon: Calculator,
+          color: 'text-status-warning-soft group-hover:bg-status-warning-soft',
+          onClick: () => setView('refund')
+        },
+        'inventory': {
+          label: 'Inventario',
+          icon: Package,
+          color: 'text-indigo-400 group-hover:bg-indigo-400',
+          onClick: () => setView('inventory')
+        },
+        'sales': {
+          label: 'Ventas',
+          icon: Store,
+          color: 'text-status-success group-hover:bg-status-success',
+          onClick: () => setView('sales')
+        },
+        'contacts': {
+          label: 'Contactos',
+          icon: Users,
+          color: 'text-status-info-soft group-hover:bg-status-info-soft',
+          onClick: () => setView('contacts')
+        },
+        'settings': {
+          label: 'Ajustes',
+          icon: Settings,
+          color: 'text-text-disabled group-hover:bg-zinc-500',
+          onClick: () => setView('settings')
         },
       };
 

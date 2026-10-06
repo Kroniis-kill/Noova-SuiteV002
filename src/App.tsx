@@ -14,6 +14,9 @@ import { useExpiryNotifications } from "./hooks/useExpiryNotifications";
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/queryClient';
 import { App as CapacitorApp } from '@capacitor/app'; 
+import { useBrowserBackButton } from './hooks/useBrowserBackButton';
+import { closeTopDialog } from './hooks/useDialog';
+import { useToast } from './context/ToastContext';
 import { useUIStore } from './store/uiStore'; 
 import { isNativePlatform } from './utils/platformUtils'; 
 import { useThemeSync } from './hooks/useThemeSync';
@@ -98,6 +101,7 @@ const MainLayout: React.FC = () => {
   const globalView = useUIStore(state => state.currentView);
   const { notifications, isLoading, accounts, clients, settings } = useData(); 
   const { showAlert } = useAlert(); 
+  const { showToast } = useToast();
 
   useThemeSync(settings?.theme);
 
@@ -218,6 +222,20 @@ const MainLayout: React.FC = () => {
     if (isAuthenticated) setupBackListener();
     return () => { if (backListener) backListener.remove(); };
   }, [currentView, isMobileOpen, backAction, isAuthenticated, setGlobalView]);
+
+  // Botón atrás del teléfono en la versión web/PWA (la nativa usa el listener de arriba).
+  useBrowserBackButton({
+    enabled: isAuthenticated && !isNativePlatform(),
+    handleBack: () => {
+      if (closeTopDialog()) return true;
+      const { backAction: pageBack, goBack, currentView: view } = useUIStore.getState();
+      if (pageBack) { pageBack(); return true; }
+      if (isMobileOpen) { setIsMobileOpen(false); return true; }
+      if (view !== 'dashboard') { goBack(); return true; }
+      return false;
+    },
+    onExitHint: () => showToast('Presiona atrás otra vez para salir', 'info'),
+  });
 
   const toggleSidebar = () => setIsMobileOpen(!isMobileOpen);
   
