@@ -47,14 +47,14 @@ const CustomAlert: React.FC = () => {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 100, scale: 0.95 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
-              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-modal relative overflow-hidden"
+              className="pointer-events-auto w-full max-w-md bg-surface-3/95 backdrop-blur-2xl border border-border-subtle rounded-xl p-6 shadow-modal relative overflow-hidden"
               role={alertData.type === 'error' ? 'alert' : 'alertdialog'}
               aria-labelledby="custom-alert-title"
               aria-describedby="custom-alert-message"
             >
               <div className="relative z-10 flex flex-col">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2.5 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-[rgb(var(--fg-rgb))]/5 shadow-inner shrink-0">
+                  <div className="p-2.5 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-hairline shadow-inner shrink-0">
                     {getIcon()}
                   </div>
                   <h3 id="custom-alert-title" className={`text-lg font-bold tracking-tight leading-tight ${getTitleColor()}`}>

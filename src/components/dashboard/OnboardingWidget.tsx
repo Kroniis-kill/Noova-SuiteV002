@@ -134,7 +134,7 @@ const OnboardingWidget: React.FC<{ onNavigate?: (view: ViewState) => void }> = (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-lg overflow-hidden shadow-sm mb-6 relative"
+      className="bg-surface-1 border border-border-subtle rounded-lg overflow-hidden shadow-sm mb-6 relative"
     >
        <div className="p-5 pb-2">
            <div className="flex justify-between items-start mb-3">

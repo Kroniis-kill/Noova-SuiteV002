@@ -104,7 +104,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
             <motion.div
                 variants={sheetVariants}
                 initial="hidden" animate="visible" exit="exit"
-                className="pointer-events-auto bg-surface-1 rounded-t-xl border border-[rgb(var(--fg-rgb))]/5 w-full max-w-[400px] mx-auto md:rounded-xl md:bottom-6 md:relative overflow-hidden flex flex-col"
+                className="pointer-events-auto bg-surface-1 rounded-t-xl border border-hairline w-full max-w-[400px] mx-auto md:rounded-xl md:bottom-6 md:relative overflow-hidden flex flex-col"
                 style={{ maxHeight: '90dvh' }}
             >
                 {/* Header */}
@@ -118,7 +118,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                     <Avatar name={client.name} size={76} className="rounded-xl shadow-md mb-3" />
                     <h3 className="text-[19px] font-black text-text-primary text-center tracking-tight leading-tight">{client.name}</h3>
                     <div className="flex items-center gap-1.5 mt-2">
-                        <span className="text-caption font-mono text-text-muted bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 px-2.5 py-1 rounded-full">{client.phone}</span>
+                        <span className="text-caption font-mono text-text-muted bg-surface-3 border border-hairline px-2.5 py-1 rounded-full">{client.phone}</span>
                         {client.resellerId && (<span className="text-micro font-black text-status-warning-soft bg-status-warning/10 border border-status-warning/20 px-2 py-1 rounded-full flex items-center gap-1"><Briefcase size={9} /> Revendedor</span>)}
                     </div>
                 </div>
@@ -136,12 +136,12 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                     {activeTab === 'info' ? (
                         <div className="flex flex-col gap-3.5">
                             <div className="flex gap-2">
-                                <button onClick={handlePortalAction} className={`flex-1 h-11 rounded-xl flex items-center justify-center gap-2 font-bold text-label transition-all active:scale-[0.98] ${client.portalAlias ? 'bg-brand-primary/10 border border-brand-primary/20 text-brand-primary-hi hover:bg-brand-primary/20' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 text-text-primary hover:bg-surface-4'}`}>
+                                <button onClick={handlePortalAction} className={`flex-1 h-11 rounded-xl flex items-center justify-center gap-2 font-bold text-label transition-all active:scale-[0.98] ${client.portalAlias ? 'bg-brand-primary/10 border border-brand-primary/20 text-brand-primary-hi hover:bg-brand-primary/20' : 'bg-surface-3 border border-hairline text-text-primary hover:bg-surface-4'}`}>
                                     {client.portalAlias ? <Globe size={15} /> : <Zap size={15} />}
                                     {client.portalAlias ? 'Link Portal' : 'Activar Portal'}
                                 </button>
                                 {client.portalAlias && (
-                                    <button onClick={handleRegenerate} className="w-11 h-11 shrink-0 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95" title="Regenerar Token"><RefreshCw size={15} /></button>
+                                    <button onClick={handleRegenerate} className="w-11 h-11 shrink-0 bg-surface-3 border border-hairline rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95" title="Regenerar Token"><RefreshCw size={15} /></button>
                                 )}
                             </div>
 
@@ -155,7 +155,7 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                                   <span className="text-micro font-bold text-text-muted">Telegram</span>
                                </button>
                                <button onClick={() => { onEdit(client); }} className="flex flex-col items-center gap-1.5 group">
-                                  <div className="w-full aspect-square rounded-xl bg-surface-3 text-text-primary flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 group-active:scale-90 transition-transform"><Edit2 size={20} /></div>
+                                  <div className="w-full aspect-square rounded-xl bg-surface-3 text-text-primary flex items-center justify-center border border-hairline group-active:scale-90 transition-transform"><Edit2 size={20} /></div>
                                   <span className="text-micro font-bold text-text-muted">Editar</span>
                                </button>
                                <button onClick={() => { onDelete(client.id); onClose(); }} className="flex flex-col items-center gap-1.5 group">
@@ -164,8 +164,8 @@ const ContactoBottomSheet: React.FC<ContactoBottomSheetProps> = ({ client, onClo
                                </button>
                             </div>
 
-                            <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl">
-                                <div className="flex items-center justify-between p-3 border-b border-[rgb(var(--fg-rgb))]/5">
+                            <div className="bg-surface-3 border border-hairline rounded-xl">
+                                <div className="flex items-center justify-between p-3 border-b border-hairline">
                                     <div className="flex items-center gap-2.5 text-text-muted"><Layers size={15} /><span className="text-label font-semibold">Servicios Activos</span></div>
                                     <span className="text-label font-black text-text-primary bg-surface-sunken px-2.5 py-1 rounded-full">{client.activeServices}</span>
                                 </div>

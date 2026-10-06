@@ -10,7 +10,7 @@ interface StatCardProps {
 }
 
 export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
-  <div className="bg-surface-1 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 relative overflow-hidden group shadow-sm">
+  <div className="bg-surface-1 backdrop-blur-xl border border-border-subtle rounded-xl p-5 relative overflow-hidden group shadow-sm">
     <div className="relative z-10">
       <div className="flex justify-between items-start mb-4">
         <div className={`w-10 h-10 rounded-sm flex items-center justify-center text-text-primary shadow-lg ${color}`}>
@@ -32,7 +32,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
   const isExpired = new Date(sub.expires_at) < new Date();
   
   return (
-    <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+    <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white font-semibold text-xs">
            {sub.user_email ? sub.user_email.substring(0,2).toUpperCase() : 'U'}
@@ -40,7 +40,7 @@ export const SubscriptionRow: React.FC<SubscriptionRowProps> = ({ sub, onToggle 
         <div>
            <p className="text-text-primary font-bold text-sm">{sub.user_email || sub.user_id}</p>
            <div className="flex items-center gap-2 mt-1">
-              <span className="text-tiny bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5 text-text-muted">
+              <span className="text-tiny bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-hairline text-text-muted">
                  {PLAN_LABELS[sub.plan]}
               </span>
               <span className={`text-tiny px-2 py-0.5 rounded border ${isExpired ? 'bg-status-danger/10 text-status-danger-soft border-status-danger/20' : 'bg-status-success/10 text-status-success-soft border-status-success/20'}`}>

@@ -70,7 +70,7 @@ const WhatsAppSelector: React.FC = () => {
             className={`relative p-4 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all duration-200 ${
               selectedApp === 'personal'
                 ? 'bg-brand-whatsapp/10 border-brand-whatsapp ring-1 ring-brand-whatsapp/50'
-                : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60 hover:opacity-100'
+                : 'bg-surface-zinc border-hairline opacity-60 hover:opacity-100'
             }`}
           >
             {selectedApp === 'personal' && (
@@ -92,7 +92,7 @@ const WhatsAppSelector: React.FC = () => {
             className={`relative p-4 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all duration-200 ${
               selectedApp === 'business'
                 ? 'bg-brand-whatsapp/10 border-brand-whatsapp ring-1 ring-brand-whatsapp/50'
-                : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60 hover:opacity-100'
+                : 'bg-surface-zinc border-hairline opacity-60 hover:opacity-100'
             }`}
           >
             {selectedApp === 'business' && (
@@ -112,7 +112,7 @@ const WhatsAppSelector: React.FC = () => {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={handleJustOnce}
-            className="h-[50px] rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
+            className="h-[50px] rounded-md bg-surface-3 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-95"
           >
             <Zap size={16} className="text-text-disabled" /> Solo una vez
           </button>

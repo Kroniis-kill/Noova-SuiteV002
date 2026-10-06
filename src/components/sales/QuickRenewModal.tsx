@@ -60,7 +60,7 @@ interface StepperControlProps {
 }
 
 const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label }) => (
-  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+  <div className="bg-surface-sunken rounded-md border border-border-subtle p-1 flex items-center justify-between h-[52px] w-full focus-within:border-border-strong transition-colors">
     <button type="button" aria-label={`Menos ${label}`} onClick={() => onChange(Math.max(0, value - 1))} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
     <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full gap-0.5">
       <input
@@ -291,7 +291,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                       key={s.id}
                       type="button"
                       onClick={() => toggleSale(s.id)}
-                      className={`w-full text-left bg-surface-zinc rounded-xl p-4 border flex items-center gap-3 transition-all active:scale-[0.98] ${active ? 'border-brand-primary/40' : 'border-[rgb(var(--fg-rgb))]/5 opacity-60'}`}
+                      className={`w-full text-left bg-surface-zinc rounded-xl p-4 border flex items-center gap-3 transition-all active:scale-[0.98] ${active ? 'border-brand-primary/40' : 'border-hairline opacity-60'}`}
                     >
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center border shrink-0 ${active ? 'bg-brand-primary border-brand-primary text-white' : 'border-zinc-600'}`}>
                         {active && <Check size={12} strokeWidth={3} />}
@@ -327,7 +327,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                       key={m}
                       type="button"
                       onClick={() => { haptic('nav'); setMonths(m); setDays(0); }}
-                      className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                      className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
                     >
                       {m} {m === 1 ? 'mes' : 'meses'}
                     </button>
@@ -349,8 +349,8 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                 )}
               </div>
 
-              <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
-                <button type="button" onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4 flex items-center justify-between active:scale-[0.98] transition-all hover:border-[rgb(var(--fg-rgb))]/20 group">
+              <div className="bg-surface-zinc rounded-xl p-4 border border-hairline space-y-3">
+                <button type="button" onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken border border-border-subtle rounded-md h-[52px] px-4 flex items-center justify-between active:scale-[0.98] transition-all hover:border-border-strong group">
                   <div className="flex items-center gap-3 overflow-hidden">
                     {selectedWallet ? (
                       <>
@@ -370,7 +370,7 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
                   <ChevronDown size={16} className="text-text-disabled shrink-0 group-hover:text-text-primary transition-colors" />
                 </button>
 
-                <div className="h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+                <div className="h-[60px] bg-surface-sunken rounded-md border border-border-subtle flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                   <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
                   <input aria-label="0.00" type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`} placeholder="0.00" inputMode="decimal" />
                   {selectedWallet && <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{selectedWallet.currency}</span>}
@@ -385,8 +385,8 @@ const QuickRenewModal: React.FC<QuickRenewModalProps> = ({ isOpen, onClose, sale
           </div>
 
           {/* ───────── FOOTER ───────── */}
-          <div className="px-6 py-5 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-            <button onClick={() => handleRenew(false)} disabled={noneSelected || saving} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-40">
+          <div className="px-6 py-5 bg-surface-1 border-t border-hairline shrink-0 flex gap-3">
+            <button onClick={() => handleRenew(false)} disabled={noneSelected || saving} className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-40">
               <RefreshCw size={18} /> Renovar
             </button>
             <button onClick={() => handleRenew(true)} disabled={noneSelected || saving} className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2 disabled:opacity-40">

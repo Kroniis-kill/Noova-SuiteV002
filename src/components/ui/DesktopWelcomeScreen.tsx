@@ -60,7 +60,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
       <motion.div 
         variants={floatingVariants}
         animate="animate"
-        className="absolute left-[15%] top-[30%] w-20 h-20 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl hidden lg:flex"
+        className="absolute left-[15%] top-[30%] w-20 h-20 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-xl border border-border-subtle flex items-center justify-center shadow-2xl hidden lg:flex"
       >
          <LayoutGrid size={32} className="text-brand-primary" />
       </motion.div>
@@ -68,7 +68,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
       <motion.div 
         variants={floatingVariantsReverse}
         animate="animate"
-        className="absolute right-[15%] bottom-[30%] w-24 h-24 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-2xl border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl hidden lg:flex"
+        className="absolute right-[15%] bottom-[30%] w-24 h-24 bg-[rgb(var(--fg-rgb))]/5 backdrop-blur-md rounded-2xl border border-border-subtle flex items-center justify-center shadow-2xl hidden lg:flex"
       >
          <Zap size={40} className="text-brand-accent" />
       </motion.div>
@@ -115,7 +115,7 @@ const DesktopWelcomeScreen: React.FC<DesktopWelcomeScreenProps> = ({ onFinish })
          </motion.div>
 
          {/* Footer Note */}
-         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-text-faint text-xs font-medium uppercase tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-4 py-2 rounded-full border border-[rgb(var(--fg-rgb))]/5">
+         <motion.div variants={itemVariants} className="mt-16 flex items-center gap-2 text-text-faint text-xs font-medium uppercase tracking-widest bg-[rgb(var(--fg-rgb))]/5 px-4 py-2 rounded-full border border-hairline">
             <ShieldCheck size={12} />
             <span>Entorno Seguro & Sincronizado</span>
          </motion.div>

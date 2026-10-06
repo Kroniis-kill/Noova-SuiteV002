@@ -34,7 +34,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
               {activeSales.length > 0 ? (
                 <div className="space-y-2">
                   <p>Se han encontrado <strong>{activeSales.length}</strong> clientes activos en esta cuenta:</p>
-                  <div className="bg-surface-sunken rounded-xl p-3 border border-[rgb(var(--fg-rgb))]/5 max-h-[120px] overflow-y-auto space-y-1.5 custom-scrollbar">
+                  <div className="bg-surface-sunken rounded-xl p-3 border border-hairline max-h-[120px] overflow-y-auto space-y-1.5 custom-scrollbar">
                     {activeSales.map(sale => {
                       const client = clients.find(c => c.id === sale.clientId);
                       return (
@@ -69,7 +69,7 @@ const FailureAgendaModal: React.FC<FailureAgendaModalProps> = ({ isOpen, onClose
           
           <button 
             onClick={() => onConfirm(false)} 
-            className="w-full p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary font-bold text-sm flex justify-between items-center transition-all active:scale-95"
+            className="w-full p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/10 text-text-secondary font-bold text-sm flex justify-between items-center transition-all active:scale-95"
           >
             <div className="flex items-center gap-3">
               <X size={18} />

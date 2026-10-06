@@ -92,7 +92,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
       className={`relative flex flex-col items-center justify-center p-3 rounded-md border transition-all active:scale-95 ${
         plan === type 
           ? `bg-${color}-500/20 border-${color}-500 text-text-primary shadow-lg` 
-          : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/10 text-text-disabled hover:bg-[rgb(var(--fg-rgb))]/5 hover:text-text-secondary'
+          : 'bg-surface-zinc border-border-subtle text-text-disabled hover:bg-[rgb(var(--fg-rgb))]/5 hover:text-text-secondary'
       }`}
     >
       {plan === type && (
@@ -105,7 +105,7 @@ const AdminUserModal: React.FC<AdminUserModalProps> = ({ isOpen, onClose, onSubm
 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-1 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-border-subtle rounded-sm h-[48px] transition-all focus-within:border-brand-primary/60",
     input: "w-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled px-3 h-full outline-none font-medium rounded-sm",
     iconLeft: "pl-10",
     iconElement: "absolute left-3.5 text-text-disabled pointer-events-none",

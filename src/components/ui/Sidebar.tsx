@@ -83,7 +83,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, setView, closeMobile, isDesktop
         {isParentActive && !hasSubItems && (
           <motion.div 
             layoutId="sidebar-active-bg"
-            className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/[0.05] border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md z-0" 
+            className="absolute inset-0 bg-[rgb(var(--fg-rgb))]/[0.05] border border-border-subtle rounded-md z-0" 
           />
         )}
 
@@ -260,7 +260,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
 
       {/* Bottom User Profile */}
       <div className={`${isDesktop ? 'px-3' : 'p-4'} mt-auto shrink-0 pb-6`}>
-         <div className="bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group mb-2 shadow-inner">
+         <div className="bg-[rgb(var(--fg-rgb))]/[0.03] border border-hairline rounded-xl p-3 flex items-center gap-4 relative overflow-hidden group mb-2 shadow-inner">
             <div className="relative shrink-0 cursor-pointer" onClick={() => setView('settings')}>
                <div className={`${isDesktop ? 'w-8 h-8' : 'w-12 h-12'} rounded-full p-[1.5px] ${isAdmin ? 'bg-gradient-to-tr from-status-warning-soft to-orange-600' : 'bg-gradient-to-tr from-brand-primary to-brand-accent'}`}>
                   <Avatar 
@@ -283,7 +283,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
 
              <button 
                 onClick={(e) => { e.stopPropagation(); haptic('heavy'); logout(); }} 
-                className={`tap-44 ${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-[rgb(var(--fg-rgb))]/5 shrink-0`}
+                className={`tap-44 ${isDesktop ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft hover:bg-status-danger/10 transition-all active:scale-90 border border-hairline shrink-0`}
                 title="Cerrar Sesión"
              >
                 <LogOut size={isDesktop ? 16 : 18} />
@@ -300,7 +300,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isMobileOpen, c
   return (
     <>
       <aside className="hidden lg:flex fixed top-4 bottom-4 left-4 w-[210px] flex-col z-50">
-         <div className="h-full w-full bg-surface-sunken/95 backdrop-blur-3xl border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)] overflow-hidden">
+         <div className="h-full w-full bg-surface-sunken/95 backdrop-blur-3xl border border-border-subtle rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)] overflow-hidden">
             <SidebarContent isDesktop={true} />
          </div>
       </aside>

@@ -47,7 +47,7 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
       <div className="flex items-center gap-3 mb-6">
         <button aria-label="Volver"
           onClick={onBack}
-          className="tap-44 w-9 h-9 rounded-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95 transition-all"
+          className="tap-44 w-9 h-9 rounded-sm bg-surface-1 border border-border-subtle flex items-center justify-center text-text-primary active:scale-95 transition-all"
         >
           <ArrowLeft size={16} />
         </button>
@@ -68,7 +68,7 @@ const PersonalizeHomePage: React.FC<PersonalizeHomePageProps> = ({ onBack }) => 
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.03 }}
-              className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-center gap-3"
+              className="bg-surface-1 border border-border-subtle rounded-xl p-3 flex items-center gap-3"
             >
               <div className={`w-9 h-9 rounded-lg ${opt.bg} ${opt.color} flex items-center justify-center shrink-0`}>
                 <opt.icon size={17} />

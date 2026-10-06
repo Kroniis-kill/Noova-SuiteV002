@@ -28,7 +28,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = "Iniciando..." 
 
         <div className="flex flex-col items-center gap-4">
            <div className="flex flex-col items-center gap-3">
-               <div className="w-8 h-8 border-2 border-[rgb(var(--fg-rgb))]/10 border-t-brand-primary rounded-full animate-spin" />
+               <div className="w-8 h-8 border-2 border-border-subtle border-t-brand-primary rounded-full animate-spin" />
                <span className="text-tiny font-semibold text-text-disabled uppercase tracking-widest animate-pulse">
                  {message}
                </span>

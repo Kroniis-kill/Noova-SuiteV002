@@ -67,7 +67,7 @@ const PasswordChangeNotifyModal: React.FC<PasswordChangeNotifyModalProps> = ({
               if (!client) return null;
 
               return (
-                 <div key={sale.id} className="flex items-center justify-between p-3 bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 rounded-md">
+                 <div key={sale.id} className="flex items-center justify-between p-3 bg-surface-zinc border border-border-subtle rounded-md">
                     <div className="min-w-0 flex-1 mr-3">
                        <p className="text-sm font-bold text-text-primary truncate">{client.name}</p>
                        <p className="text-tiny text-text-disabled truncate flex items-center gap-1">

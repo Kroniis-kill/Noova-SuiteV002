@@ -207,18 +207,18 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
         {isOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 backdrop-blur-sm" style={{ zIndex: layerZ - 1 }} />
-            <motion.div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Cuenta en papelera" tabIndex={-1} style={{ zIndex: layerZ }} variants={modalVariants} initial="hidden" animate="visible" exit="exit" className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl border border-[rgb(var(--fg-rgb))]/5 p-6 pb-12 max-w-[400px] mx-auto md:bottom-6 md:rounded-xl flex flex-col overflow-hidden outline-none">
+            <motion.div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Cuenta en papelera" tabIndex={-1} style={{ zIndex: layerZ }} variants={modalVariants} initial="hidden" animate="visible" exit="exit" className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl border border-hairline p-6 pb-12 max-w-[400px] mx-auto md:bottom-6 md:rounded-xl flex flex-col overflow-hidden outline-none">
               <div className="w-12 h-1.5 bg-surface-4 rounded-full mx-auto mb-6 shrink-0" />
               <div className="flex items-center gap-4 mb-8">
-                 <div className="w-14 h-14 rounded-md bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
+                 <div className="w-14 h-14 rounded-md bg-surface-sunken flex items-center justify-center border border-hairline overflow-hidden shrink-0">
                     {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : <Trash2 size={24} className="text-text-faint" />}
                  </div>
                  <div className="min-w-0">
                     <h3 className="text-lg font-black text-text-primary truncate">{serviceObj?.name || 'Servicio Desconocido'}</h3>
-                    <div className="flex items-center gap-2 mt-1"><span className="px-2 py-0.5 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md text-tiny font-semibold text-text-disabled uppercase tracking-widest">En Papelera</span></div>
+                    <div className="flex items-center gap-2 mt-1"><span className="px-2 py-0.5 bg-surface-sunken border border-hairline rounded-md text-tiny font-semibold text-text-disabled uppercase tracking-widest">En Papelera</span></div>
                  </div>
               </div>
-              <div className="bg-surface-3 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4 mb-8">
+              <div className="bg-surface-3 rounded-xl p-5 border border-hairline space-y-4 mb-8">
                   <div className="flex flex-col gap-1">
                       <label className="text-tiny font-bold text-text-faint uppercase tracking-[0.15em]">Correo de acceso</label>
                       <div className="flex items-center justify-between"><span className="text-sm font-bold text-text-secondary truncate pr-2">{account.email}</span><button aria-label="Copiar" onClick={() => copyToClipboard(account.email, 'Correo')} className="text-text-faint hover:text-text-primary p-1"><Copy size={16} /></button></div>
@@ -256,10 +256,10 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             animate="visible" 
             exit="exit" 
             ref={dialogRef} role="dialog" aria-modal="true" aria-label="Detalle de la cuenta" tabIndex={-1} style={{ zIndex: layerZ }}
-            className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden outline-none"
+            className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-hairline overflow-hidden outline-none"
           >
             {/* Header */}
-            <div className="px-5 pt-[18px] pb-[14px] bg-surface-1 shrink-0 flex items-start justify-between border-b border-[rgb(var(--fg-rgb))]/5 z-10">
+            <div className="px-5 pt-[18px] pb-[14px] bg-surface-1 shrink-0 flex items-start justify-between border-b border-hairline z-10">
                 <div className="min-w-0">
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight truncate">{serviceObj?.name || 'Cuenta'}</h3>
                     <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1">{account.account_type === 'cuenta_completa' ? 'Cuenta Completa' : isSingleEntity ? 'Servicio Unipersonal' : 'Por Pantallas'}</p>
@@ -272,7 +272,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             {/* Hero: estado, dias restantes y cupo */}
             <div className="px-5 pt-4 shrink-0">
                 <div className="rounded-xl p-4 border border-brand-primary/25 bg-gradient-to-br from-brand-primary/[0.14] to-brand-accent/10 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary-hi shrink-0 overflow-hidden">
+                    <div className="w-11 h-11 rounded-md bg-surface-sunken border border-hairline flex items-center justify-center text-brand-primary-hi shrink-0 overflow-hidden">
                         {serviceObj?.image_url ? <img src={serviceObj.image_url} className="w-full h-full object-cover" alt="" /> : (account.account_type === 'cuenta_completa' ? <LayoutTemplate size={20} /> : <MonitorPlay size={20} />)}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -295,7 +295,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 <button 
                     onClick={handleSyncAccountStock}
                     disabled={isSyncing}
-                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary-hi' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary'}`}
+                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isSyncing ? 'border-brand-primary/50 bg-brand-primary/10 text-brand-primary-hi' : 'border-hairline bg-surface-3 text-text-muted hover:text-text-primary'}`}
                 >
                     {isSyncing ? <Loader2 size={18} className="animate-spin" /> : <RefreshCw size={18} />}
                     <span className="text-nano font-semibold uppercase tracking-[0.05em]">Sync</span>
@@ -303,7 +303,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 
                 <button 
                     onClick={() => onToggleFailure(account)}
-                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/25 text-status-expiring bg-status-expiring/10' : 'border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary'}`}
+                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isFailing ? 'border-status-expiring/25 text-status-expiring bg-status-expiring/10' : 'border-hairline bg-surface-3 text-text-muted hover:text-text-primary'}`}
                 >
                     {isFailing ? <ShieldAlert size={18} /> : <AlertTriangle size={18} />}
                     <span className="text-nano font-semibold uppercase tracking-[0.05em]">Falla</span>
@@ -311,7 +311,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                 <button 
                     onClick={() => onToggleStatus(account)} 
-                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isPaused ? 'border-[rgb(var(--fg-rgb))]/5 text-text-muted bg-surface-3' : 'border-status-success/25 text-status-success-soft bg-status-success/10'}`}
+                    className={`rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border transition-all active:scale-95 ${isPaused ? 'border-hairline text-text-muted bg-surface-3' : 'border-status-success/25 text-status-success-soft bg-status-success/10'}`}
                 >
                     {isPaused ? <Power size={18} /> : <ShieldCheck size={18} />}
                     <span className="text-nano font-semibold uppercase tracking-[0.05em]">{isPaused ? 'Activa' : 'Pausa'}</span>
@@ -319,7 +319,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
 
                 <button 
                     onClick={copyFullFormat} 
-                    className="rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 text-text-muted hover:text-text-primary active:scale-95 transition-all"
+                    className="rounded-xl py-[10px] px-1 flex flex-col items-center justify-center gap-[5px] border border-hairline bg-surface-3 text-text-muted hover:text-text-primary active:scale-95 transition-all"
                 >
                     <MessageSquare size={18} />
                     <span className="text-nano font-semibold uppercase tracking-[0.05em]">Copiar</span>
@@ -339,7 +339,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                 {activeTab === 'details' ? (
                     <div className="space-y-3 animate-fade-in">
                         {/* Credentials Card */}
-                        <div className="bg-surface-3 rounded-xl p-[14px] border border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-3">
+                        <div className="bg-surface-3 rounded-xl p-[14px] border border-hairline flex flex-col gap-3">
                             <div>
                                 <div className="text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-[5px]">Correo de acceso</div>
                                 <div className="flex items-center justify-between bg-surface-sunken rounded-md py-[9px] px-[11px]">
@@ -365,7 +365,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                         {/* Status / Profiles */}
                         {isSingleEntity ? (
                             isSoldSingle && (
-                                <div className="rounded-xl p-[14px] border border-[rgb(var(--fg-rgb))]/5 bg-surface-3 flex items-center gap-2">
+                                <div className="rounded-xl p-[14px] border border-hairline bg-surface-3 flex items-center gap-2">
                                     <div className="w-8 h-8 rounded-md bg-brand-primary/15 flex items-center justify-center text-brand-primary-hi shrink-0 text-caption font-bold">
                                         {clientNameSingle.trim().charAt(0).toUpperCase()}
                                     </div>
@@ -383,7 +383,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                         const isAvailable = !prof.name || prof.name.trim().toLowerCase() === 'disponible';
                                         const initial = isAvailable ? String(idx + 1) : prof.name.trim().charAt(0).toUpperCase();
                                         return (
-                                            <div key={idx} className={`flex items-center gap-2 p-[10px] rounded-xl border ${isAvailable ? 'bg-status-success/[0.06] border-status-success/15' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/5'}`}>
+                                            <div key={idx} className={`flex items-center gap-2 p-[10px] rounded-xl border ${isAvailable ? 'bg-status-success/[0.06] border-status-success/15' : 'bg-surface-3 border-hairline'}`}>
                                                 <div className={`w-7 h-7 rounded-md flex items-center justify-center text-caption font-bold shrink-0 ${isAvailable ? 'bg-status-success/15 text-status-success-soft' : 'bg-brand-primary/15 text-brand-primary-hi'}`}>
                                                     {initial}
                                                 </div>
@@ -399,7 +399,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                         )}
 
                         {account.notes && (
-                            <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px]">
+                            <div className="bg-surface-3 border border-hairline rounded-xl p-[14px]">
                                 <p className="text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-[6px] flex items-center gap-[6px]"><MessageSquare size={12} /> Notas internas</p>
                                 <p className="text-label text-text-muted leading-[1.5] whitespace-pre-wrap">{account.notes}</p>
                             </div>
@@ -418,7 +418,7 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
                                 <p className="text-micro font-bold uppercase tracking-[0.1em]">Sin historial registrado</p>
                             </div>
                         ) : (
-                            <div className="relative pl-[14px] border-l border-[rgb(var(--fg-rgb))]/10 ml-1">
+                            <div className="relative pl-[14px] border-l border-border-subtle ml-1">
                                 {combinedHistory.map((item, idx) => (
                                     <div key={idx} className="relative pb-[18px] last:pb-0">
                                         <span className={`absolute -left-[19px] top-[2px] w-2 h-2 rounded-full ${item.type === 'profile' ? 'bg-status-success' : item.type === 'system' ? 'bg-brand-primary-hi' : 'bg-text-faint'}`} />
@@ -433,11 +433,11 @@ const CuentaDetailModal: React.FC<CuentaDetailModalProps> = ({
             </div>
 
             {/* Footer Actions */}
-            <div className="p-5 pb-[18px] bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-2 z-10">
+            <div className="p-5 pb-[18px] bg-surface-1 border-t border-hairline shrink-0 flex gap-2 z-10">
                 <button onClick={() => { onRenew(account); }} className="flex-1 h-11 bg-gradient-to-r from-brand-primary to-brand-accent text-text-primary rounded-md font-bold text-label uppercase tracking-[0.05em] flex items-center justify-center gap-[6px] active:scale-95 transition-all hover:brightness-110">
                     <RefreshCw size={15} strokeWidth={2.5} /> Renovar
                 </button>
-                <button onClick={() => { onEdit(account); onClose(); }} className="h-11 px-4 rounded-2xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary font-bold text-caption uppercase active:scale-95 transition-all">
+                <button onClick={() => { onEdit(account); onClose(); }} className="h-11 px-4 rounded-2xl bg-surface-3 border border-border-subtle text-text-secondary font-bold text-caption uppercase active:scale-95 transition-all">
                     Editar
                 </button>
                 <button aria-label="Eliminar" onClick={() => onDelete(account.id)} className="w-11 h-11 rounded-2xl bg-status-danger/10 border border-status-danger/20 text-status-danger flex items-center justify-center shrink-0 active:scale-95 transition-all">

@@ -59,7 +59,7 @@ const MyPlanDesktop: React.FC = () => {
   const SupportCard = ({ icon: Icon, title, desc, color, bg, onClick }: any) => (
       <button 
         onClick={onClick}
-        className="flex flex-col items-start p-6 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl hover:border-[rgb(var(--fg-rgb))]/10 hover:bg-surface-1 transition-all group text-left h-full w-full shadow-sm"
+        className="flex flex-col items-start p-6 bg-surface-1 border border-border-subtle rounded-xl hover:border-border-subtle hover:bg-surface-1 transition-all group text-left h-full w-full shadow-sm"
       >
           <div className={`w-12 h-12 rounded-md flex items-center justify-center mb-4 ${bg} ${color}`}>
               <Icon size={24} />
@@ -86,12 +86,12 @@ const MyPlanDesktop: React.FC = () => {
              <motion.div 
                initial={{ opacity: 0, y: 10 }}
                animate={{ opacity: 1, y: 0 }}
-               className="relative rounded-xl overflow-hidden shadow-2xl border border-[rgb(var(--fg-rgb))]/[0.08] bg-surface-1 p-8"
+               className="relative rounded-xl overflow-hidden shadow-2xl border border-border-subtle bg-surface-1 p-8"
              >
                 
                 <div className="flex flex-col gap-6 relative z-10">
                    <div className="flex items-center gap-5">
-                      <div className={`w-20 h-20 rounded-xl flex items-center justify-center text-3xl shadow-lg border border-[rgb(var(--fg-rgb))]/10 ${isLifetime ? 'bg-gradient-to-br from-status-warning to-yellow-600 text-white' : isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent text-white' : 'bg-surface-4 text-text-muted'}`}>
+                      <div className={`w-20 h-20 rounded-xl flex items-center justify-center text-3xl shadow-lg border border-border-subtle ${isLifetime ? 'bg-gradient-to-br from-status-warning to-yellow-600 text-white' : isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent text-white' : 'bg-surface-4 text-text-muted'}`}>
                          {isLifetime ? <Crown size={32} fill="currentColor" /> : isPro ? <Star size={32} fill="currentColor" /> : <Zap size={32} />}
                       </div>
                       <div>
@@ -113,7 +113,7 @@ const MyPlanDesktop: React.FC = () => {
                    </div>
 
                    {/* Progress Bar Section */}
-                   <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-4">
+                   <div className="bg-surface-sunken rounded-xl p-5 border border-hairline flex flex-col gap-4">
                       <div className="flex justify-between items-end">
                          <div className="flex items-center gap-2 text-text-secondary text-sm font-medium">
                             <Users size={16} className="text-brand-primary" />
@@ -121,7 +121,7 @@ const MyPlanDesktop: React.FC = () => {
                          </div>
                          <span className="text-text-primary font-bold text-sm">{usageClients} <span className="text-text-disabled font-normal">/ {isPro ? '∞' : limitClients}</span></span>
                       </div>
-                      <div className="w-full h-2.5 bg-surface-3 rounded-full overflow-hidden border border-[rgb(var(--fg-rgb))]/5">
+                      <div className="w-full h-2.5 bg-surface-3 rounded-full overflow-hidden border border-hairline">
                           <div className={`h-full rounded-full transition-all duration-1000 ${isLifetime ? 'bg-gradient-to-r from-status-warning to-yellow-500' : 'bg-gradient-to-r from-brand-primary to-brand-primary-hi'}`} style={{ width: `${pctClients}%` }} />
                       </div>
                    </div>
@@ -163,7 +163,7 @@ const MyPlanDesktop: React.FC = () => {
           </div>
 
           {/* COL 2: INVOICE HISTORY */}
-          <div className="col-span-12 lg:col-span-5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl p-8 flex flex-col h-full shadow-lg">
+          <div className="col-span-12 lg:col-span-5 bg-surface-1 border border-border-subtle rounded-2xl p-8 flex flex-col h-full shadow-lg">
              <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
                 <Calendar size={18} className="text-text-muted" /> Historial de Pagos
              </h3>
@@ -177,7 +177,7 @@ const MyPlanDesktop: React.FC = () => {
                 ) : (
                     <div className="space-y-3">
                        {invoices.map((inv) => (
-                          <div key={inv.id} className="flex justify-between items-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/[0.05] transition-colors group">
+                          <div key={inv.id} className="flex justify-between items-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline hover:bg-[rgb(var(--fg-rgb))]/[0.05] transition-colors group">
                              <div>
                                 <p className="text-sm font-bold text-text-primary">{inv.plan_name}</p>
                                 <p className="text-xs text-text-disabled font-mono">{new Date(inv.created_at).toLocaleDateString()}</p>

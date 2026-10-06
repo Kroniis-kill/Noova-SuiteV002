@@ -110,10 +110,10 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({ isOpen, onClose, initialTab
 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-1.5 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-10 lg:h-11 transition-all focus-within:border-brand-primary/80 focus-within:ring-1 focus-within:ring-brand-primary/10",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-border-subtle rounded-md h-10 lg:h-11 transition-all focus-within:border-brand-primary/80 focus-within:ring-1 focus-within:ring-brand-primary/10",
     input: "w-full h-full bg-transparent text-xs text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none group-focus-within:text-brand-primary",
-    tabsContainer: "grid grid-cols-2 gap-2 mb-6 bg-surface-sunken p-1 rounded-md border border-[rgb(var(--fg-rgb))]/10 max-w-sm mx-auto shadow-inner",
+    tabsContainer: "grid grid-cols-2 gap-2 mb-6 bg-surface-sunken p-1 rounded-md border border-border-subtle max-w-sm mx-auto shadow-inner",
     tabButton: "flex items-center justify-center py-2.5 rounded-sm transition-all active:scale-[0.98] text-tiny font-semibold uppercase tracking-widest",
   };
 
@@ -141,7 +141,7 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({ isOpen, onClose, initialTab
                    <div className="lg:col-span-2"><label className={styles.label}>Pagar con Billetera</label><div className={styles.inputContainer}><Wallet size={16} className={styles.iconElement} /><select aria-label="Pagar con Billetera" className="w-full bg-transparent text-xs text-text-primary px-11 outline-none appearance-none cursor-pointer" value={selectedAccountId} onChange={e => setSelectedAccountId(e.target.value)}><option value="">No descontar</option>{financialAccounts.filter(f => f.isActive !== false).map(acc => (<option key={acc.id} value={acc.id}>{acc.name} ({acc.currency})</option>))}</select><ChevronDown size={14} className="absolute right-4 text-text-disabled" /></div></div>
                 </div>
              )}
-             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border-t border-[rgb(var(--fg-rgb))]/5 pt-6">
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border-t border-hairline pt-6">
                 <div><label className={styles.label}>Fecha Operación</label><div className={styles.inputContainer}><Calendar size={16} className={styles.iconElement} /><input aria-label="Fecha Operación" type="date" className={`${styles.input} pl-11 font-mono`} value={date} onChange={e => setDate(e.target.value)} required /></div></div>
                 <div><label className={styles.label}>Medio de Pago</label><div className={styles.inputContainer}><CreditCard size={16} className={styles.iconElement} /><select aria-label="Medio de Pago" className="w-full bg-transparent text-xs text-text-primary px-11 outline-none appearance-none cursor-pointer" value={method} onChange={e => setMethod(e.target.value)}><option value="efectivo">Efectivo</option><option value="transferencia">Banco</option><option value="binance">Cripto</option><option value="zelle">Zelle</option></select><ChevronDown size={14} className="absolute right-4 text-text-disabled" /></div></div>
              </div>

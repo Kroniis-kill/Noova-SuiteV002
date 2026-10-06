@@ -67,7 +67,7 @@ const Avatar: React.FC<AvatarProps> = React.memo(({
   // 2. SVG Mode (Local - Instant, No Network)
   return (
     <div 
-      className={`relative flex items-center justify-center overflow-hidden shadow-inner border border-[rgb(var(--fg-rgb))]/10 ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden shadow-inner border border-border-subtle ${className}`}
       style={{ 
         ...style,
         background: `linear-gradient(135deg, ${bgStart}, ${bgEnd})` 

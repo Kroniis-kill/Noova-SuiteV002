@@ -102,14 +102,14 @@ const SyncIndicator: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -10, scale: 0.92, filter: 'blur(4px)' }}
             transition={{ type: 'spring', stiffness: 380, damping: 30, mass: 0.8 }}
-            className="pointer-events-auto flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-full border border-[rgb(var(--fg-rgb))]/[0.08] backdrop-blur-xl shadow-[0_12px_32px_-14px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.06)] max-w-[92vw]"
+            className="pointer-events-auto flex items-center gap-2.5 pl-1.5 pr-3 py-1.5 rounded-full border border-border-subtle backdrop-blur-xl shadow-[0_12px_32px_-14px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.06)] max-w-[92vw]"
             style={{ background: 'linear-gradient(180deg, rgba(24,24,28,0.88) 0%, rgba(12,12,14,0.9) 100%)' }}
           >
             {view.key === 'saving' && (
               <>
                 <span className={`${bubble} bg-brand-primary/15`}>
                   <span className="relative w-3.5 h-3.5">
-                    <span className="absolute inset-0 rounded-full border-2 border-[rgb(var(--fg-rgb))]/10" />
+                    <span className="absolute inset-0 rounded-full border-2 border-border-subtle" />
                     <span className="absolute inset-0 rounded-full border-2 border-transparent border-t-brand-lime animate-spin" />
                   </span>
                 </span>

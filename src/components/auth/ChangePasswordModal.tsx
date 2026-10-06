@@ -92,7 +92,7 @@ const ChangePasswordModal: React.FC = () => {
                    placeholder="Nueva Contraseña"
                    value={newPassword}
                    onChange={(e) => setNewPassword(e.target.value)}
-                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
+                   className="w-full bg-surface-sunken border border-border-subtle rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
                    required
                  />
               </div>
@@ -103,7 +103,7 @@ const ChangePasswordModal: React.FC = () => {
                    placeholder="Confirmar Contraseña"
                    value={confirmPassword}
                    onChange={(e) => setConfirmPassword(e.target.value)}
-                   className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
+                   className="w-full bg-surface-sunken border border-border-subtle rounded-md px-4 pl-11 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled"
                    required
                  />
               </div>

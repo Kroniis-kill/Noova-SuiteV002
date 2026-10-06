@@ -119,7 +119,7 @@ const SyncIconButton: React.FC = () => {
         transition={{ type: 'spring', stiffness: 500, damping: 26 }}
         onClick={() => { haptic('nav'); setOpen(o => !o); }}
         aria-label={`Estado de guardado: ${title}`}
-        className="relative w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] border border-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center transition-colors hover:bg-[rgb(var(--fg-rgb))]/10"
+        className="relative w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/[0.06] border border-border-subtle flex items-center justify-center transition-colors hover:bg-[rgb(var(--fg-rgb))]/10"
       >
         <Icon size={16} className={`${iconColor} ${spinning ? 'animate-spin' : ''}`} strokeWidth={2.2} />
 
@@ -140,7 +140,7 @@ const SyncIconButton: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.16, ease: 'easeOut' }}
-            className="absolute right-0 top-[calc(100%+8px)] z-dropdown w-[272px] origin-top-right rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-modal p-4"
+            className="absolute right-0 top-[calc(100%+8px)] z-dropdown w-[272px] origin-top-right rounded-xl bg-surface-3 border border-border-subtle shadow-modal p-4"
           >
             <div className="flex items-center gap-3">
               <Icon size={18} className={`${iconColor} shrink-0 ${spinning ? 'animate-spin' : ''}`} />
@@ -151,7 +151,7 @@ const SyncIconButton: React.FC = () => {
             </div>
 
             {showList && (
-              <div className="mt-3 pt-2 border-t border-[rgb(var(--fg-rgb))]/[0.07]">
+              <div className="mt-3 pt-2 border-t border-border-subtle">
                 {shown.map((item) => (
                   <div key={item.id} className="flex items-center justify-between gap-3 py-1.5 text-label">
                     <span className="text-text-secondary truncate">

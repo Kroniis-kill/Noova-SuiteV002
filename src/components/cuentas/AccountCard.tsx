@@ -77,7 +77,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
 
       <div className="relative z-10 flex justify-between items-start">
          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-xs bg-[rgb(var(--fg-rgb))]/[0.03] border border-[rgb(var(--fg-rgb))]/[0.06] flex items-center justify-center text-text-muted">
+            <div className="w-7 h-7 rounded-xs bg-[rgb(var(--fg-rgb))]/[0.03] border border-hairline flex items-center justify-center text-text-muted">
                <CreditCard size={14} strokeWidth={1.5} />
             </div>
             <div>
@@ -111,7 +111,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
          <p className="text-nano text-text-faint font-black uppercase tracking-[0.2em] mt-1">Saldo Neto Disponible</p>
       </div>
 
-      <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-[rgb(var(--fg-rgb))]/[0.03]">
+      <div className="relative z-10 grid grid-cols-4 gap-1 pt-2.5 border-t border-hairline">
          <button onClick={() => onFund(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-status-success/[0.02] text-status-success border border-status-success/10 active:scale-95 transition-all">
             <TrendingUp size={10} />
             <span className="text-nano font-black uppercase tracking-widest">Entrada</span>
@@ -124,7 +124,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
             <ArrowRightLeft size={10} />
             <span className="text-nano font-black uppercase tracking-widest">Mover</span>
          </button>
-         <button onClick={() => onHistory(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.01] text-text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] active:scale-95 transition-all">
+         <button onClick={() => onHistory(account)} className="flex flex-col items-center justify-center gap-1 py-1.5 rounded-sm bg-[rgb(var(--fg-rgb))]/[0.01] text-text-disabled border border-hairline active:scale-95 transition-all">
             <History size={10} />
             <span className="text-nano font-black uppercase tracking-widest">Logs</span>
          </button>

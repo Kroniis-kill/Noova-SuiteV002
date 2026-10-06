@@ -88,7 +88,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
             ) : (
                <div className="space-y-2 flex-1 overflow-y-auto max-h-[60vh] custom-scrollbar pr-1">
                   {accountMovements.map(mov => (
-                     <div key={mov.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-2xl flex items-center justify-between active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group">
+                     <div key={mov.id} className="bg-surface-3 border border-hairline p-3 rounded-2xl flex items-center justify-between active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group">
                         <div className="flex items-center gap-3">
                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${getStyle(mov.type)}`}>
                               {getIcon(mov.type)}
@@ -100,7 +100,7 @@ const MovementsModal: React.FC<MovementsModalProps> = ({ isOpen, onClose, accoun
                               <div className="flex items-center gap-2 text-tiny text-text-disabled mt-0.5">
                                  <span>{new Date(mov.date).toLocaleDateString()}</span>
                                  {mov.paymentMethod && (
-                                    <span className="bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">{mov.paymentMethod}</span>
+                                    <span className="bg-[rgb(var(--fg-rgb))]/5 px-1.5 py-0.5 rounded border border-hairline">{mov.paymentMethod}</span>
                                  )}
                               </div>
                            </div>

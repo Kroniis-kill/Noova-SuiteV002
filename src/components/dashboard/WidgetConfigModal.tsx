@@ -53,7 +53,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                 <button
                   key={opt.key}
                   onClick={() => toggleWidget(opt.key)}
-                  className="w-full flex items-center justify-between p-3 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 active:scale-[0.99] transition-all hover:bg-surface-3"
+                  className="w-full flex items-center justify-between p-3 rounded-xl bg-surface-zinc border border-hairline active:scale-[0.99] transition-all hover:bg-surface-3"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center ${opt.color}`}>
@@ -83,7 +83,7 @@ const WidgetConfigModal: React.FC<WidgetConfigModalProps> = ({ isOpen, onClose, 
                             <button 
                                 key={btn.id}
                                 onClick={() => toggleQuickAction(btn.id)}
-                                className={`flex items-center gap-2 p-3 rounded-md border text-left transition-all active:scale-95 ${isActive ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 opacity-60'}`}
+                                className={`flex items-center gap-2 p-3 rounded-md border text-left transition-all active:scale-95 ${isActive ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-hairline opacity-60'}`}
                             >
                                 <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isActive ? 'bg-brand-primary text-white' : 'bg-zinc-700 text-text-muted'}`}>
                                     {isActive ? <CheckSquare size={12} /> : <btn.icon size={12} />}

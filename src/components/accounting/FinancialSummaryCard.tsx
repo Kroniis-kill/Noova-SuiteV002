@@ -34,7 +34,7 @@ const FinancialSummaryCard: React.FC = () => {
   const margin = summary.income > 0 ? (summary.netProfit / summary.income) * 100 : 0;
 
   return (
-    <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-5 shadow-2xl relative overflow-hidden flex flex-col">
+    <div className="bg-surface-sunken border border-hairline rounded-xl p-5 shadow-2xl relative overflow-hidden flex flex-col">
 
        <div className="flex justify-between items-start mb-6 relative z-10">
           <div>
@@ -45,7 +45,7 @@ const FinancialSummaryCard: React.FC = () => {
              <p className="text-text-faint text-nano font-black uppercase tracking-[0.2em] mt-1">Análisis de Flujo</p>
           </div>
           
-          <div className="flex bg-bg p-1 rounded-sm border border-[rgb(var(--fg-rgb))]/[0.05]">
+          <div className="flex bg-bg p-1 rounded-sm border border-hairline">
              {['week', 'month', 'year'].map((p) => (
                 <button
                   key={p}
@@ -59,7 +59,7 @@ const FinancialSummaryCard: React.FC = () => {
        </div>
 
        <div className="grid grid-cols-3 gap-3 mb-6 relative z-10">
-          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
+          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-hairline">
              <div className="flex items-center gap-1.5 text-status-success mb-1">
                 <ArrowUpRight size={12} strokeWidth={3} />
                 <span className="text-nano font-black uppercase tracking-widest">Ingresos</span>
@@ -67,7 +67,7 @@ const FinancialSummaryCard: React.FC = () => {
              <p className="text-sm font-bold text-text-primary font-mono">{currency}{summary.income.toLocaleString()}</p>
           </div>
 
-          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-[rgb(var(--fg-rgb))]/[0.03]">
+          <div className="bg-surface-3/40 rounded-xl p-3.5 border border-hairline">
              <div className="flex items-center gap-1.5 text-status-danger mb-1">
                 <ArrowDownRight size={12} strokeWidth={3} />
                 <span className="text-nano font-black uppercase tracking-widest">Egresos</span>
@@ -104,7 +104,7 @@ const FinancialSummaryCard: React.FC = () => {
           </ResponsiveContainer>
        </div>
 
-       <div className="mt-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/[0.03] flex items-center justify-between relative z-10">
+       <div className="mt-2 pt-4 border-t border-hairline flex items-center justify-between relative z-10">
           <div className="flex items-center gap-3">
              <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shadow-inner ${margin >= 20 ? 'bg-status-success/5 text-status-success border-status-success/10' : 'bg-status-warning/5 text-status-warning border-status-warning/10'}`}>
                 <PieChart size={16} strokeWidth={2} />

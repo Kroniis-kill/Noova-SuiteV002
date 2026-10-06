@@ -22,7 +22,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
 
   if (clientSales.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-text-disabled opacity-60 bg-[rgb(var(--fg-rgb))]/[0.01] border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl">
+      <div className="flex flex-col items-center justify-center p-12 text-text-disabled opacity-60 bg-[rgb(var(--fg-rgb))]/[0.01] border border-dashed border-hairline rounded-2xl">
         <ShoppingCart size={40} className="mb-4 stroke-[1.5]" />
         <p className="text-sm font-medium">No se registran compras</p>
         <p className="text-tiny mt-1 uppercase tracking-widest font-black text-center">El historial incluye todas las suscripciones registradas hasta la fecha</p>
@@ -38,13 +38,13 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
         const displayEmail = sale.invitedEmail || account?.email || 'Sin correo asociado';
         
         return (
-          <div key={sale.id} className="group relative bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 transition-all hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/20 shadow-sm overflow-hidden">
+          <div key={sale.id} className="group relative bg-surface-1 border border-border-subtle rounded-xl p-4 transition-all hover:bg-surface-3 hover:border-border-strong shadow-sm overflow-hidden">
             {/* Background Decorative Gradient */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/5 to-transparent pointer-events-none" />
             
             <div className="flex justify-between items-start mb-4 relative z-10">
                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary shadow-inner overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                  <div className="w-14 h-14 rounded-2xl bg-surface-sunken border border-hairline flex items-center justify-center text-brand-primary shadow-inner overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
                      {service?.image_url ? (
                          <img src={service.image_url} alt={sale.serviceName} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                      ) : (
@@ -56,7 +56,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                      <p className="text-caption text-text-muted font-mono truncate selection:bg-brand-primary/30">{displayEmail}</p>
                      
                      <div className="flex items-center gap-2 mt-2">
-                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-micro font-bold text-text-disabled uppercase border border-[rgb(var(--fg-rgb))]/5">
+                        <span className="px-1.5 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-micro font-bold text-text-disabled uppercase border border-hairline">
                             {sale.saleType.replace('_', ' ')}
                         </span>
                         {sale.screensCount && sale.screensCount > 1 && (
@@ -78,9 +78,9 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/[0.03] relative z-10">
+            <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-hairline relative z-10">
                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5">
+                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-hairline">
                       <Calendar size={14} />
                   </div>
                   <div className="min-w-0">
@@ -89,7 +89,7 @@ const ClientPurchaseHistory: React.FC<ClientPurchaseHistoryProps> = ({ clientId 
                   </div>
                </div>
                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5">
+                  <div className="w-8 h-8 rounded-xl bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-faint border border-hairline">
                       <Clock size={14} />
                   </div>
                   <div className="min-w-0">

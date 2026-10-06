@@ -34,7 +34,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
 
        <div className="flex justify-between items-start pl-2">
           <div className="flex items-start gap-3 min-w-0">
-             <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 border border-[rgb(var(--fg-rgb))]/5 bg-[rgb(var(--fg-rgb))]/[0.02] ${iconColor}`}>
+             <div className={`w-9 h-9 rounded-sm flex items-center justify-center shrink-0 border border-hairline bg-[rgb(var(--fg-rgb))]/[0.02] ${iconColor}`}>
                 {item.type === 'inventory' ? <Tag size={16} /> : <Calendar size={16} />}
              </div>
              <div className="min-w-0">
@@ -56,7 +56,7 @@ const PayableCard: React.FC<PayableCardProps> = ({ item, onPay, onDelete, onEdit
           </div>
        </div>
 
-       <div className="flex items-center justify-end gap-2 pt-2 border-t border-[rgb(var(--fg-rgb))]/[0.03] pl-2">
+       <div className="flex items-center justify-end gap-2 pt-2 border-t border-hairline pl-2">
           <button aria-label="Eliminar" onClick={() => onDelete(item.id)} className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.01] text-text-faint hover:text-status-danger-soft flex items-center justify-center transition-colors">
              <Trash2 size={13} />
           </button>

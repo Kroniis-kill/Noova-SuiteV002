@@ -25,7 +25,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
               <p className="text-text-secondary text-xs leading-relaxed">
                  Hemos encontrado <strong>{duplicates.length} cuentas</strong> que ya existen en tu inventario (coinciden por correo y servicio).
               </p>
-              <div className="mt-2 text-tiny text-text-muted bg-black/20 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+              <div className="mt-2 text-tiny text-text-muted bg-black/20 p-2 rounded-lg border border-hairline">
                  Adicionalmente se crearán <strong>{newEntries.length}</strong> cuentas nuevas.
               </div>
            </div>
@@ -36,7 +36,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
             
             <button 
                onClick={() => onResolve('update')}
-               className="w-full p-4 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
+               className="w-full p-4 rounded-xl bg-surface-zinc border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-border-strong transition-all text-left group flex items-center gap-4"
             >
                 <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft border border-status-info/20 group-hover:scale-110 transition-transform">
                     <RefreshCw size={18} />
@@ -49,7 +49,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
 
             <button 
                onClick={() => onResolve('skip')}
-               className="w-full p-4 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-[rgb(var(--fg-rgb))]/20 transition-all text-left group flex items-center gap-4"
+               className="w-full p-4 rounded-xl bg-surface-zinc border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 hover:border-border-strong transition-all text-left group flex items-center gap-4"
             >
                 <div className="w-10 h-10 rounded-full bg-zinc-500/10 flex items-center justify-center text-text-muted border border-zinc-500/20 group-hover:scale-110 transition-transform">
                     <SkipForward size={18} />
@@ -61,7 +61,7 @@ const ImportConflictModal: React.FC<ImportConflictModalProps> = ({ isOpen, onClo
             </button>
         </div>
         
-        <div className="pt-2 border-t border-[rgb(var(--fg-rgb))]/5 flex justify-end">
+        <div className="pt-2 border-t border-hairline flex justify-end">
             <button onClick={onClose} className="text-text-disabled text-xs hover:text-text-primary font-medium transition-colors">
                 Cancelar Importación
             </button>

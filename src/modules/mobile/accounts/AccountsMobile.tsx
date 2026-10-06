@@ -25,7 +25,7 @@ import { useToast } from '../../../context/ToastContext';
 import { generateUUID } from '../../../utils/uuid';
 
 const ServiceSkeleton = () => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl h-[130px] flex flex-col justify-between">
+  <div className="bg-surface-1 border border-hairline p-4 rounded-xl h-[130px] flex flex-col justify-between">
     <div className="flex justify-between items-start">
       <Skeleton className="w-10 h-10 rounded-md" />
       <Skeleton className="w-8 h-6 rounded-md" />
@@ -268,17 +268,17 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
                     <>
-                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
-                        <button aria-label="Eliminar" onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
+                        <button onClick={() => setIsHealthCheckOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-status-success-soft active:scale-95 shadow-sm" title="Auditoría"><Activity size={18} /></button>
+                        <button aria-label="Eliminar" onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
-                <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
-                <button aria-label="Agregar" onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
+                <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
+                <button aria-label="Agregar" onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-border-subtle flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
             </div>
         </div>
 
         <div className="relative z-20 mb-6">
-            <div className="relative w-full h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
+            <div className="relative w-full h-[43px] bg-surface-3 border border-border-subtle rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
                 <Search size={18} className="text-text-disabled shrink-0" />
                 <input aria-label="Buscar cuenta o servicio" 
                     value={searchQuery} 
@@ -336,9 +336,9 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                             if (viewLevel === 'trash') {
                                 const svc = services.find(s => s.id === acc.serviceId);
                                 return (
-                                    <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex items-center justify-between shadow-sm active:scale-95 transition-all">
+                                    <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-hairline p-4 rounded-xl flex items-center justify-between shadow-sm active:scale-95 transition-all">
                                         <div className="flex items-center gap-3 flex-1 min-w-0">
-                                            <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Monitor size={18} /></div>
+                                            <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-hairline shrink-0"><Monitor size={18} /></div>
                                             <div className="min-w-0">
                                                 <h4 className="text-sm font-bold text-text-primary truncate">{svc?.name || 'Servicio'}</h4>
                                                 <p className="text-tiny text-text-disabled truncate">{acc.email}</p>
@@ -427,7 +427,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
               </div>
               <div className="flex flex-col gap-3">
                 {viewLevel !== 'trash' && (
-                  <button onClick={handleMoveToTrash} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
+                  <button onClick={handleMoveToTrash} className="w-full p-4 rounded-xl bg-surface-1 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-all group">
                     <div>
                       <span className="block text-text-primary font-bold text-sm">Archivar en Papelera</span>
                       <span className="block text-text-disabled text-tiny">Podrás recuperarla más tarde si la necesitas.</span>

@@ -113,7 +113,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="relative w-full max-w-sm bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-xl shadow-2xl flex flex-col items-center text-center p-6 pt-5"
+        className="relative w-full max-w-sm bg-surface-1 border border-border-subtle rounded-xl shadow-2xl flex flex-col items-center text-center p-6 pt-5"
       >
         <button
           onClick={onFinish}
@@ -131,7 +131,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.15 } }}
               transition={{ duration: 0.25 }}
-              className="w-32 h-32 rounded-2xl border border-[rgb(var(--fg-rgb))]/10 bg-bg flex items-center justify-center"
+              className="w-32 h-32 rounded-2xl border border-border-subtle bg-bg flex items-center justify-center"
             >
               <IllustrationComponent />
             </motion.div>
@@ -151,7 +151,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onFinish }) => {
           </AnimatePresence>
         </div>
 
-        <div className="w-full flex items-center justify-between mt-5 pt-5 border-t border-[rgb(var(--fg-rgb))]/5">
+        <div className="w-full flex items-center justify-between mt-5 pt-5 border-t border-hairline">
           <div className="flex gap-2">
             {slides.map((s, idx) => (
               <div

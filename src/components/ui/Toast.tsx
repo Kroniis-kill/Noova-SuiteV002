@@ -69,7 +69,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           pointer-events-auto relative overflow-hidden w-full max-w-[350px]
           flex items-center gap-3 pl-[18px] pr-3 py-3
           bg-surface-3/95 backdrop-blur-xl
-          border border-[rgb(var(--fg-rgb))]/[0.08]
+          border border-border-subtle
           rounded-xl shadow-elev-md
           
           ${onClick ? 'cursor-pointer active:scale-[0.98] transition-transform' : ''}

@@ -32,8 +32,8 @@ const ItemConfigPanel: React.FC<ItemConfigPanelProps> = (props) => {
           </div>
 
           {/* ───────── FOOTER ───────── */}
-          <div className="px-6 py-5 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-            <button onClick={props.onClose} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">
+          <div className="px-6 py-5 bg-surface-1 border-t border-hairline shrink-0 flex gap-3">
+            <button onClick={props.onClose} className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">
               Cancelar
             </button>
             <button onClick={() => { haptic('nav'); props.handleAddItem(); }} className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2">

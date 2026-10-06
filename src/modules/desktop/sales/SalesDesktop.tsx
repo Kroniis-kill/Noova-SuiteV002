@@ -110,17 +110,17 @@ const SalesDesktop: React.FC = () => {
           <div className="flex items-center gap-2">
               <div className="relative group mr-2">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-faint group-focus-within:text-brand-primary" size={18} />
-                <input aria-label="Buscar cliente o servicio..." placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input aria-label="Buscar cliente o servicio..." placeholder="Buscar cliente o servicio..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-72 bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
               </div>
 
               {!viewFails && (
                 <>
-                  <button onClick={() => setIsImportModalOpen(true)} className="w-12 h-12 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-95 transition-all shadow-sm" title="Importar Ventas desde Excel"><Upload size={20} /></button>
-                  <button onClick={() => setIsFilterModalOpen(true)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`} title="Filtrar por estado"><Filter size={20} />{statusFilter !== 'all' && <div className="absolute top-3 right-3 w-2 h-2 bg-brand-accent rounded-full" />}</button>
+                  <button onClick={() => setIsImportModalOpen(true)} className="w-12 h-12 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline flex items-center justify-center text-text-muted hover:text-text-primary active:scale-95 transition-all shadow-sm" title="Importar Ventas desde Excel"><Upload size={20} /></button>
+                  <button onClick={() => setIsFilterModalOpen(true)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline text-text-muted hover:text-text-primary'}`} title="Filtrar por estado"><Filter size={20} />{statusFilter !== 'all' && <div className="absolute top-3 right-3 w-2 h-2 bg-brand-accent rounded-full" />}</button>
                 </>
               )}
 
-              <button aria-label="Ver ventas fallidas" aria-pressed={viewFails} onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary'}`}><ClipboardList size={20} /></button>
+              <button aria-label="Ver ventas fallidas" aria-pressed={viewFails} onClick={() => setViewFails(!viewFails)} className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all shadow-sm ${viewFails ? 'bg-status-warning/10 border-status-warning text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline text-text-muted hover:text-text-primary'}`}><ClipboardList size={20} /></button>
               <button onClick={handleNewSale} className="h-12 px-6 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center gap-2 text-white font-bold text-sm shadow-glow active:scale-95"><Plus size={20} strokeWidth={2.5} /> Nueva Venta</button>
           </div>
       </div>
@@ -130,7 +130,7 @@ const SalesDesktop: React.FC = () => {
             <div className="space-y-8 mb-8 relative z-10">
                 {/* Stats Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
+                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-status-danger/10 flex items-center justify-center text-status-danger shadow-inner">
                             <AlertCircle size={28} strokeWidth={2.5} />
                         </div>
@@ -139,7 +139,7 @@ const SalesDesktop: React.FC = () => {
                             <h4 className="text-3xl font-black text-text-primary mt-1 tabular-nums">{serviceFailures.length}</h4>
                         </div>
                     </div>
-                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
+                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-status-warning/10 flex items-center justify-center text-status-warning shadow-inner">
                             <AlertTriangle size={28} strokeWidth={2.5} />
                         </div>
@@ -148,7 +148,7 @@ const SalesDesktop: React.FC = () => {
                             <h4 className="text-3xl font-black text-text-primary mt-1 tabular-nums">{accounts.filter(a => a.status === 'fallando').length}</h4>
                         </div>
                     </div>
-                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
+                    <div className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline rounded-2xl p-6 flex items-center gap-5 shadow-sm group hover:bg-[rgb(var(--fg-rgb))]/[0.04] transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary shadow-inner">
                             <CheckCircle2 size={28} strokeWidth={2.5} />
                         </div>
@@ -161,7 +161,7 @@ const SalesDesktop: React.FC = () => {
 
                 {/* Sub-navigation Tabs */}
                 <div className="flex items-center justify-between">
-                    <div className="flex p-1 bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/5 rounded-md w-fit">
+                    <div className="flex p-1 bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline rounded-md w-fit">
                         <button 
                             onClick={() => { haptic('nav'); setFailsSubView('clients'); }}
                             className={`flex items-center gap-2 py-3 px-8 rounded-sm text-xs font-semibold uppercase tracking-widest transition-all ${failsSubView === 'clients' ? 'bg-brand-primary text-white shadow-glow-sm' : 'text-text-disabled hover:text-text-secondary'}`}
@@ -208,7 +208,7 @@ const SalesDesktop: React.FC = () => {
                                 <div 
                                     key={failure.id} 
                                     onClick={() => setSelectedFailure(failure)} 
-                                    className="relative bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 h-[150px] cursor-pointer flex flex-col justify-between group active:scale-95 transition-all duration-300 overflow-hidden hover:border-[rgb(var(--fg-rgb))]/[0.15] shadow-sm"
+                                    className="relative bg-surface-1 border border-border-subtle rounded-xl p-4 h-[150px] cursor-pointer flex flex-col justify-between group active:scale-95 transition-all duration-300 overflow-hidden hover:border-border-strong shadow-sm"
                                 >
                                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-status-danger" />
                                     
@@ -233,7 +233,7 @@ const SalesDesktop: React.FC = () => {
                                     {/* Central Identity Section */}
                                     <div className="flex-1 flex flex-col items-center justify-center gap-2 mt-1 pl-2">
                                         <div className="relative">
-                                           <Avatar name={client?.name || 'Cliente'} image={service?.image_url} size={44} className="rounded-full shadow-md border border-[rgb(var(--fg-rgb))]/5" />
+                                           <Avatar name={client?.name || 'Cliente'} image={service?.image_url} size={44} className="rounded-full shadow-md border border-hairline" />
                                         </div>
                                         
                                         <div className="text-center w-full space-y-1">
@@ -247,7 +247,7 @@ const SalesDesktop: React.FC = () => {
                                     <div className="mt-2 w-full shrink-0 pl-2">
                                         <button 
                                           onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                          className="w-full h-[31px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center gap-2 hover:text-status-danger hover:bg-status-danger/10 hover:border-status-danger/20 transition-all active:scale-95 text-caption"
+                                          className="w-full h-[31px] rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-disabled border border-hairline flex items-center justify-center gap-2 hover:text-status-danger hover:bg-status-danger/10 hover:border-status-danger/20 transition-all active:scale-95 text-caption"
                                         >
                                            <Trash2 size={11} />
                                            <span className="text-nano font-black uppercase tracking-widest">Eliminar Reporte</span>
@@ -273,14 +273,14 @@ const SalesDesktop: React.FC = () => {
                                 return (
                                     <div 
                                         key={account.id} 
-                                        className={`relative w-full p-4 rounded-xl border transition-all duration-300 cursor-pointer group overflow-hidden shadow-sm bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.08] hover:border-[rgb(var(--fg-rgb))]/[0.15] active:scale-[0.99]`}
+                                        className={`relative w-full p-4 rounded-xl border transition-all duration-300 cursor-pointer group overflow-hidden shadow-sm bg-surface-1 border-border-subtle hover:border-border-strong active:scale-[0.99]`}
                                     >
                                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-status-expiring" />
 
                                         <div className="flex flex-col gap-4 pl-3">
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                                                    <div className="w-10 h-10 rounded-xl bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-lg">
+                                                    <div className="w-10 h-10 rounded-xl bg-surface-sunken flex items-center justify-center border border-hairline overflow-hidden shrink-0 shadow-lg">
                                                         {service?.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : <Database size={16} className="text-status-expiring-soft" />}
                                                     </div>
                                                     <div className="min-w-0">
@@ -291,7 +291,7 @@ const SalesDesktop: React.FC = () => {
                                                             <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />
                                                         </div>
                                                         <div className="flex items-center gap-2">
-                                                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08]">
+                                                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-border-subtle">
                                                                 <Lock size={10} className="text-text-faint" />
                                                                 <span className="text-caption font-mono text-text-muted truncate">{account.password}</span>
                                                             </div>
@@ -300,12 +300,12 @@ const SalesDesktop: React.FC = () => {
                                                 </div>
 
                                                 <div className="flex items-center gap-6 shrink-0">
-                                                    <div className="flex flex-col items-end gap-1 min-w-[100px] h-[52px] justify-center bg-surface-sunken/50 px-4 rounded-md border border-[rgb(var(--fg-rgb))]/[0.03]">
+                                                    <div className="flex flex-col items-end gap-1 min-w-[100px] h-[52px] justify-center bg-surface-sunken/50 px-4 rounded-md border border-hairline">
                                                         <div className="flex items-center gap-1.5 text-caption text-text-muted">
                                                             <Users size={12} />
                                                             <span className="font-medium">{account.usedScreens} / {account.maxScreens}</span>
                                                         </div>
-                                                        <div className="w-full h-2 bg-surface-sunken rounded-full overflow-hidden border border-[rgb(var(--fg-rgb))]/[0.08]">
+                                                        <div className="w-full h-2 bg-surface-sunken rounded-full overflow-hidden border border-border-subtle">
                                                             <div 
                                                                 className={`h-full rounded-full transition-all duration-500 ${occupancy >= 100 ? 'bg-status-danger' : 'bg-status-expiring'}`} 
                                                                 style={{ width: `${occupancy}%` }} 
@@ -317,7 +317,7 @@ const SalesDesktop: React.FC = () => {
                                                 <div className="flex items-center gap-2">
                                                     <button 
                                                         onClick={(e) => { e.stopPropagation(); haptic('nav'); setExpandedAccountId(isExpanded ? null : account.id); }}
-                                                        className={`h-[35px] px-4 rounded-md border flex items-center justify-center gap-2 transition-all active:scale-90 ${isExpanded ? 'bg-white text-black font-bold' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/[0.05] text-text-muted hover:text-text-primary'}`}
+                                                        className={`h-[35px] px-4 rounded-md border flex items-center justify-center gap-2 transition-all active:scale-90 ${isExpanded ? 'bg-white text-black font-bold' : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline text-text-muted hover:text-text-primary'}`}
                                                     >
                                                         <ChevronDown size={14} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                                                         <span className="text-tiny font-semibold uppercase tracking-widest">{isExpanded ? 'Cerrar' : 'Detalles'}</span>
@@ -341,7 +341,7 @@ const SalesDesktop: React.FC = () => {
                                                         exit={{ height: 0, opacity: 0 }}
                                                         className="overflow-hidden"
                                                     >
-                                                        <div className="pt-2 border-t border-[rgb(var(--fg-rgb))]/[0.05]">
+                                                        <div className="pt-2 border-t border-hairline">
                                                             <div className="bg-status-expiring/5 rounded-md p-4 border border-status-expiring/10">
                                                                 <div className="flex items-center gap-2 mb-2">
                                                                     <AlertCircle size={14} className="text-status-expiring" />
@@ -407,7 +407,7 @@ const SalesDesktop: React.FC = () => {
       <SaleDetailPage isOpen={isDetailOpen} onClose={() => setIsDetailOpen(false)} group={mobileSelectedGroup} onEdit={handleEditSale} onDelete={handleDeleteSingleSale} />
       <ImportGuideModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} onConfirm={() => fileInputRef.current?.click()} title="Importar Ventas" type="sales" />
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />
-      <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filtrar Ventas"><div className="space-y-3 pt-2">{filterOptions.map(opt => (<button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/5'}`}><span className={`text-sm font-bold ${statusFilter === opt.id ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>{opt.label}</span>{statusFilter === opt.id && <Check size={18} className="text-brand-primary" strokeWidth={3} />}</button>))}</div></Modal>
+      <Modal isOpen={isFilterModalOpen} onClose={() => setIsFilterModalOpen(false)} title="Filtrar Ventas"><div className="space-y-3 pt-2">{filterOptions.map(opt => (<button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-hairline hover:bg-[rgb(var(--fg-rgb))]/5'}`}><span className={`text-sm font-bold ${statusFilter === opt.id ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>{opt.label}</span>{statusFilter === opt.id && <Check size={18} className="text-brand-primary" strokeWidth={3} />}</button>))}</div></Modal>
       <ConfirmDialog
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}

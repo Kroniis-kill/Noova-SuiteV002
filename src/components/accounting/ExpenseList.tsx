@@ -26,7 +26,7 @@ const ExpenseList: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.02 }}
             key={`${item.type}_${item.id}`} 
-            className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.04] rounded-lg p-3.5 flex items-center justify-between group active:scale-[0.99] transition-all"
+            className="bg-surface-1 border border-hairline rounded-lg p-3.5 flex items-center justify-between group active:scale-[0.99] transition-all"
           >
              <div className="flex items-center gap-3.5 min-w-0">
                 <div className={`w-9 h-9 rounded-sm flex items-center justify-center border shrink-0 ${item.type === 'expense' ? 'bg-status-danger/5 text-status-danger-soft border-status-danger/10' : 'bg-status-expiring/5 text-status-expiring-soft border-status-expiring/10'}`}>

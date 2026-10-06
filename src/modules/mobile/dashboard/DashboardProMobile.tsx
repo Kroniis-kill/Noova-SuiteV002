@@ -76,34 +76,34 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
           </div>
           <div className="flex gap-2 items-center">
              <SyncIconButton />
-             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setDashboardMode('lite')} className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-brand-primary shadow-sm"><LayoutGrid size={18} /></motion.button>
-             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setIsNotifOpen(true)} className="w-10 h-10 rounded-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted relative shadow-sm"><Activity size={18} />{stockUrgent > 0 && (<span className="absolute top-2.5 right-3 w-2 h-2 bg-status-danger rounded-full" />)}</motion.button>
+             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setDashboardMode('lite')} className="w-10 h-10 rounded-full bg-surface-3 border border-border-subtle flex items-center justify-center text-brand-primary shadow-sm"><LayoutGrid size={18} /></motion.button>
+             <motion.button whileTap={{ scale: 0.9 }} onClick={() => setIsNotifOpen(true)} className="w-10 h-10 rounded-full bg-surface-3 border border-border-subtle flex items-center justify-center text-text-muted relative shadow-sm"><Activity size={18} />{stockUrgent > 0 && (<span className="absolute top-2.5 right-3 w-2 h-2 bg-status-danger rounded-full" />)}</motion.button>
           </div>
        </div>
        <div className="px-6 space-y-6">
-          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 relative overflow-hidden shadow-2xl">
+          <div className="bg-surface-3 border border-border-subtle rounded-xl p-6 relative overflow-hidden shadow-2xl">
              <div className="flex flex-col items-center text-center">
-                <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 rounded-full text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
+                <span className="px-3 py-1 bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle rounded-full text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-4">Patrimonio Global</span>
                 <h1 className="text-5xl font-extrabold text-text-primary tracking-tighter mb-1"><span className="text-2xl text-text-faint mr-1">$</span>{formatMoney(totalBalance)}</h1>
                 <div className="flex items-center gap-2 mt-4"><div className="px-3 py-1.5 bg-status-success/10 border border-status-success/20 rounded-full flex items-center gap-1.5"><ArrowUpRight size={14} className="text-status-success-soft" /><span className="text-caption font-semibold text-status-success-soft">Rendimiento Pro</span></div></div>
              </div>
-             <div className="mt-8 pt-6 border-t border-[rgb(var(--fg-rgb))]/5 flex justify-between">
-                <div className="text-center px-4 border-r border-[rgb(var(--fg-rgb))]/5 flex-1"><p className="text-micro font-bold text-text-disabled uppercase mb-1">Ingresos Mes</p><p className="text-sm font-bold text-text-primary">+{formatMoney(monthlySales)}</p></div>
+             <div className="mt-8 pt-6 border-t border-hairline flex justify-between">
+                <div className="text-center px-4 border-r border-hairline flex-1"><p className="text-micro font-bold text-text-disabled uppercase mb-1">Ingresos Mes</p><p className="text-sm font-bold text-text-primary">+{formatMoney(monthlySales)}</p></div>
                 <div className="text-center px-4 flex-1"><p className="text-micro font-bold text-text-disabled uppercase mb-1">Egresos Mes</p><p className="text-sm font-bold text-status-danger-soft">-{formatMoney(expenses.reduce((acc,e) => acc + e.amount, 0))}</p></div>
              </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
              {stats.map((s, i) => (
-                <div key={i} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex flex-col justify-between h-[110px] relative overflow-hidden group active:scale-95 transition-all">
-                   <div className={`w-9 h-9 rounded-md ${s.bg} ${s.color} flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5`}><s.icon size={18} /></div>
+                <div key={i} className="bg-surface-zinc border border-hairline rounded-xl p-4 flex flex-col justify-between h-[110px] relative overflow-hidden group active:scale-95 transition-all">
+                   <div className={`w-9 h-9 rounded-md ${s.bg} ${s.color} flex items-center justify-center border border-hairline`}><s.icon size={18} /></div>
                    <div className="mt-auto"><p className="text-micro font-bold text-text-disabled uppercase tracking-wider">{s.label}</p><p className="text-lg font-extrabold text-text-primary">{s.value}</p></div>
                 </div>
              ))}
           </div>
           <div className="space-y-3">
              <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em] px-1">Alertas Pro</h3>
-             <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden">
-                <button onClick={() => setView('expired')} className="w-full flex items-center justify-between p-5 border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-danger/10 text-status-danger flex items-center justify-center"><AlertTriangle size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Renovaciones Críticas</h4><p className="text-tiny text-text-disabled">{stockUrgent} clientes por vencer</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
+             <div className="bg-surface-3 border border-border-subtle rounded-xl overflow-hidden">
+                <button onClick={() => setView('expired')} className="w-full flex items-center justify-between p-5 border-b border-hairline active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-danger/10 text-status-danger flex items-center justify-center"><AlertTriangle size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Renovaciones Críticas</h4><p className="text-tiny text-text-disabled">{stockUrgent} clientes por vencer</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
                 <button onClick={() => setView('inventory')} className="w-full flex items-center justify-between p-5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"><div className="flex items-center gap-4"><div className="w-10 h-10 rounded-md bg-status-warning/10 text-status-warning flex items-center justify-center"><Layers size={20} /></div><div className="text-left"><h4 className="text-sm font-bold text-text-primary">Stock e Inventario</h4><p className="text-tiny text-text-disabled">Gestión de cupos activos</p></div></div><ChevronRight size={18} className="text-text-faint" /></button>
              </div>
           </div>

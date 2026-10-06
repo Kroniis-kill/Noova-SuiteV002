@@ -256,7 +256,7 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                       <div className="flex justify-between items-start">
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/10 text-text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
+                            <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-border-subtle text-text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
                             {provider && <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
                           </div>
                           <h4 className="text-body-sm font-bold text-text-primary truncate">{acc.email}</h4>

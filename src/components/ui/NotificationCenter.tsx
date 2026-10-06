@@ -116,7 +116,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
           <span className="text-xs font-semibold uppercase tracking-widest">Volver al listado</span>
         </button>
 
-        <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-6 shadow-xl relative overflow-hidden">
+        <div className="bg-surface-3 border border-border-subtle rounded-xl p-6 shadow-xl relative overflow-hidden">
           
           <div className="flex items-start gap-4 mb-6 relative z-10">
             <div className={`w-14 h-14 rounded-lg flex items-center justify-center shrink-0 shadow-inner ${n.priority === 'high' ? 'bg-status-danger/10 border border-status-danger/20' : 'bg-brand-primary/10 border border-brand-primary/20'}`}>
@@ -125,21 +125,21 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2 mb-1.5">
                 {getPriorityBadge(n.priority)}
-                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-micro font-black uppercase tracking-widest border border-[rgb(var(--fg-rgb))]/10">{n.type}</span>
+                <span className="px-2 py-0.5 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-micro font-black uppercase tracking-widest border border-border-subtle">{n.type}</span>
               </div>
               <h3 className="text-lg font-black text-text-primary leading-tight">{n.title}</h3>
               <p className="text-tiny text-text-disabled font-mono mt-1 uppercase tracking-wider">{new Date(n.date).toLocaleString()}</p>
             </div>
           </div>
 
-          <div className="bg-black/20 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 mb-6 relative z-10">
+          <div className="bg-black/20 rounded-lg p-4 border border-hairline mb-6 relative z-10">
             <p className="text-sm text-text-secondary leading-relaxed font-medium">
               {n.message}
             </p>
           </div>
 
           {(client || account) && (
-            <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 border border-[rgb(var(--fg-rgb))]/5 mb-6 animate-in fade-in zoom-in-95 duration-500">
+            <div className="bg-[rgb(var(--fg-rgb))]/5 rounded-lg p-4 border border-hairline mb-6 animate-in fade-in zoom-in-95 duration-500">
               <h4 className="text-tiny font-bold text-text-disabled uppercase tracking-[0.2em] mb-3">Información Relevante</h4>
               {client && (
                 <div className="flex items-center gap-3">
@@ -194,7 +194,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
           {!selectedNotification && (
             <div className="space-y-4 shrink-0 mb-4 animate-in fade-in slide-in-from-top-2 duration-300">
                {/* Elegant Category Filters */}
-               <div className="flex bg-black/20 p-1 rounded-md border border-[rgb(var(--fg-rgb))]/5 overflow-x-auto no-scrollbar">
+               <div className="flex bg-black/20 p-1 rounded-md border border-hairline overflow-x-auto no-scrollbar">
                   {[
                     { id: 'all', label: 'Todo', icon: Bell },
                     { id: 'expiry', label: 'Ventas', icon: Calendar },
@@ -209,7 +209,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                         onClick={() => setCategoryFilter(cat.id as CategoryFilter)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-sm whitespace-nowrap text-caption font-semibold uppercase transition-all ${
                           isActive 
-                            ? 'bg-surface-3 text-text-primary shadow-lg border border-[rgb(var(--fg-rgb))]/10' 
+                            ? 'bg-surface-3 text-text-primary shadow-lg border border-border-subtle' 
                             : 'text-text-disabled hover:text-text-secondary'
                         }`}
                       >
@@ -235,7 +235,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                         className={`flex-1 py-2 rounded-sm text-tiny font-semibold uppercase tracking-widest transition-all border ${
                           isActive 
                             ? 'bg-brand-primary/10 text-brand-primary border-brand-primary/20' 
-                            : 'bg-transparent border-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:border-[rgb(var(--fg-rgb))]/10'
+                            : 'bg-transparent border-hairline text-text-disabled hover:border-border-subtle'
                         }`}
                       >
                         {t.label}
@@ -252,7 +252,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
              ) : (
                <div className="space-y-2.5 pb-4 animate-in fade-in duration-500">
                   {filtered.length === 0 ? (
-                      <div className="h-full flex flex-col items-center justify-center text-text-disabled py-20 px-6 border border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
+                      <div className="h-full flex flex-col items-center justify-center text-text-disabled py-20 px-6 border border-dashed border-hairline rounded-2xl bg-[rgb(var(--fg-rgb))]/[0.01]">
                         <div className="w-16 h-16 bg-[rgb(var(--fg-rgb))]/5 rounded-xl flex items-center justify-center mb-4"><Check size={32} className="text-status-success/40" /></div>
                         <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Sin pendientes</h3>
                         <p className="text-xs mt-1 text-text-disabled italic text-center">No hay notificaciones que coincidan con los filtros seleccionados.</p>
@@ -262,7 +262,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                         <button
                           key={item.id}
                           onClick={() => { markNotificationRead(item.id); setSelectedNotification(item); }}
-                          className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.98] group relative overflow-hidden flex items-start gap-4 bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-3 hover:border-[rgb(var(--fg-rgb))]/20 shadow-sm ${item.read ? 'opacity-60' : ''}`}
+                          className={`w-full text-left p-4 rounded-xl border transition-all active:scale-[0.98] group relative overflow-hidden flex items-start gap-4 bg-surface-1 border-hairline hover:bg-surface-3 hover:border-border-strong shadow-sm ${item.read ? 'opacity-60' : ''}`}
                         >
                             {item.priority === 'high' && <div className="absolute left-0 top-3 bottom-3 w-1 bg-status-danger rounded-r-full" />}
                             {!item.read && <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-brand-primary" />}
@@ -270,7 +270,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, onClose
                             <div className={`w-11 h-11 rounded-md flex items-center justify-center shrink-0 border transition-all ${
                               item.priority === 'high' 
                                 ? 'bg-status-danger/10 border-status-danger/20 text-status-danger' 
-                                : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted group-hover:text-text-primary'
+                                : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline text-text-muted group-hover:text-text-primary'
                             }`}>
                               {getIcon(item.type, item.priority)}
                             </div>

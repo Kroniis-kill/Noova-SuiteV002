@@ -47,7 +47,7 @@ const NotificationPermissionModal: React.FC = () => {
           
           {/* Icon */}
           <div className="relative mb-6">
-             <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-status-info to-brand-primary-hi flex items-center justify-center shadow-glow border border-[rgb(var(--fg-rgb))]/10">
+             <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-status-info to-brand-primary-hi flex items-center justify-center shadow-glow border border-border-subtle">
                 <Bell size={40} className="text-text-primary fill-white/20" />
              </div>
              <div className="absolute -top-2 -right-2 w-8 h-8 bg-status-danger rounded-full border-[4px] border-surface-zinc flex items-center justify-center text-white font-semibold text-xs">
@@ -73,7 +73,7 @@ const NotificationPermissionModal: React.FC = () => {
              
              <button 
                onClick={handleDismiss}
-               className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-muted font-bold text-body-sm hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
+               className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle text-text-muted font-bold text-body-sm hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
              >
                 Quizás más tarde
              </button>

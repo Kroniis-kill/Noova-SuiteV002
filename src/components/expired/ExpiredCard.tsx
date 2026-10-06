@@ -17,7 +17,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
   const firstSale = sales[0];
   const daysRemaining = getDaysRemaining(firstSale.expiryDate);
   
-  let statusConfig = { label: `${daysRemaining}d`, color: 'text-text-muted', border: 'border-[rgb(var(--fg-rgb))]/10', bg: 'bg-[rgb(var(--fg-rgb))]/5' };
+  let statusConfig = { label: `${daysRemaining}d`, color: 'text-text-muted', border: 'border-border-subtle', bg: 'bg-[rgb(var(--fg-rgb))]/5' };
   
   if (daysRemaining < 0) {
      statusConfig = { label: 'Vencido', color: 'text-status-danger-soft', border: 'border-status-danger/30', bg: 'bg-status-danger/10' };
@@ -47,7 +47,7 @@ const ExpiredCard: React.FC<ExpiredCardProps> = ({ sales, client, settings, onRe
        <div className="flex items-center gap-3 p-3 pl-4">
           {/* Avatar más pequeño */}
           <div className="relative shrink-0">
-             <Avatar name={client.name} size={40} className="rounded-sm shadow-sm border border-[rgb(var(--fg-rgb))]/5" />
+             <Avatar name={client.name} size={40} className="rounded-sm shadow-sm border border-hairline" />
              {sales.length > 1 && (
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-primary rounded-full border-2 border-surface-1 flex items-center justify-center text-nano font-bold text-white">
                    {sales.length}

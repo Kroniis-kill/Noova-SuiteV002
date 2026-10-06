@@ -38,11 +38,11 @@ const elapsedDays = (saleDate: string) =>
 
 // Estilos que ya usa esta página (para que los campos nuevos se vean igual que los existentes)
 const INPUT =
-  'w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-disabled outline-none focus:border-brand-primary/50';
+  'w-full bg-surface-sunken border border-border-subtle rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-disabled outline-none focus:border-brand-primary/50';
 
 const TAG_BRAND = 'bg-brand-primary/10 text-brand-primary border-brand-primary/20';
 const TAG_WARN = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20';
-const TAG_NEUTRAL = 'bg-[rgb(var(--fg-rgb))]/5 text-text-muted border-[rgb(var(--fg-rgb))]/10';
+const TAG_NEUTRAL = 'bg-[rgb(var(--fg-rgb))]/5 text-text-muted border-border-subtle';
 
 interface Combo {
   key: string;
@@ -248,7 +248,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
         {/* Hero */}
         <motion.div
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-brand-primary/15 via-surface-3 to-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]"
+          className="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-brand-primary/15 via-surface-3 to-surface-3 border border-border-subtle"
         >
           <div className="flex items-center gap-3 relative z-10">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center shadow-glow-sm">
@@ -270,7 +270,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               <button
                 type="button"
                 onClick={() => { haptic('nav'); setIsClientPickerOpen(true); }}
-                className="w-full h-[60px] px-3 bg-surface-sunken rounded-xl border border-[rgb(var(--fg-rgb))]/10 flex items-center gap-3 text-left active:scale-[0.99] transition-all group hover:border-[rgb(var(--fg-rgb))]/20"
+                className="w-full h-[60px] px-3 bg-surface-sunken rounded-xl border border-border-subtle flex items-center gap-3 text-left active:scale-[0.99] transition-all group hover:border-border-strong"
               >
                 <div className="w-9 h-9 rounded-md bg-brand-primary/15 flex items-center justify-center text-brand-primary shrink-0 border border-brand-primary/20">
                   <User size={18} />
@@ -286,7 +286,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </p>
             </>
           ) : (
-            <div className="flex items-start justify-between gap-3 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl px-3 py-3">
+            <div className="flex items-start justify-between gap-3 bg-surface-sunken border border-border-subtle rounded-xl px-3 py-3">
               <div className="flex items-start gap-3 min-w-0">
                 <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-[14px] font-bold shrink-0">
                   {selectedClient?.name.charAt(0).toUpperCase()}
@@ -308,7 +308,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </div>
               <button
                 onClick={handleReset}
-                className="text-caption text-text-muted hover:text-text-primary px-2.5 py-1.5 rounded-md border border-[rgb(var(--fg-rgb))]/10 shrink-0"
+                className="text-caption text-text-muted hover:text-text-primary px-2.5 py-1.5 rounded-md border border-border-subtle shrink-0"
               >
                 Cambiar
               </button>
@@ -320,7 +320,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
         {clientId && (
           <Section icon={<Package size={14} />} title="2. Qué reembolsar">
             {activeSales.length === 0 ? (
-              <div className="text-center py-6 px-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06]">
+              <div className="text-center py-6 px-3 rounded-xl bg-surface-sunken border border-hairline">
                 <AlertTriangle size={20} className="mx-auto text-status-warning-soft mb-2" />
                 <p className="text-xs text-text-muted">Este cliente no tiene servicios activos.</p>
               </div>
@@ -338,7 +338,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                     return (
                       <div
                         key={combo.key}
-                        className={`rounded-xl border overflow-hidden transition-colors ${count > 0 ? 'border-brand-primary/40' : 'border-[rgb(var(--fg-rgb))]/[0.06]'} bg-surface-sunken`}
+                        className={`rounded-xl border overflow-hidden transition-colors ${count > 0 ? 'border-brand-primary/40' : 'border-hairline'} bg-surface-sunken`}
                       >
                         <div className="flex items-center justify-between gap-2 px-3 py-2.5">
                           <div className="flex items-center gap-2.5 min-w-0">
@@ -356,7 +356,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                             <button
                               type="button"
                               onClick={() => toggleCombo(combo)}
-                              className={`h-8 px-3 rounded-full border text-caption font-bold flex items-center gap-1 shrink-0 transition-all active:scale-95 ${all ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-3 border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                              className={`h-8 px-3 rounded-full border text-caption font-bold flex items-center gap-1 shrink-0 transition-all active:scale-95 ${all ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-3 border-border-subtle text-text-muted hover:text-text-primary'}`}
                             >
                               {all && <Check size={12} strokeWidth={3} />} Combo completo
                             </button>
@@ -370,7 +370,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                               key={s.id}
                               type="button"
                               onClick={() => toggleSale(s)}
-                              className="w-full flex items-center gap-3 px-3 py-3 border-t border-[rgb(var(--fg-rgb))]/[0.06] text-left active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"
+                              className="w-full flex items-center gap-3 px-3 py-3 border-t border-hairline text-left active:bg-[rgb(var(--fg-rgb))]/5 transition-colors"
                             >
                               <span className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${on ? 'bg-brand-primary border-brand-primary text-white' : 'border-zinc-600'}`}>
                                 {on && <Check size={12} strokeWidth={3} />}
@@ -408,7 +408,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                 const items = combo.items.filter(s => selected[s.id]);
                 if (items.length === 0) return null;
                 return (
-                  <div key={combo.key} className="rounded-xl border border-[rgb(var(--fg-rgb))]/[0.06] bg-surface-sunken p-3">
+                  <div key={combo.key} className="rounded-xl border border-hairline bg-surface-sunken p-3">
                     <p className="text-body-sm font-bold text-text-primary mb-3">
                       {combo.items.length > 1 ? `Combo · vence el ${shortDate(combo.expiry)}` : items[0].serviceName}
                     </p>
@@ -425,7 +425,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                         <button
                           type="button"
                           onClick={() => { haptic('nav'); setUsedByCombo(p => ({ ...p, [combo.key]: String(elapsedDays(items[0].date)) })); touch(); }}
-                          className="h-[44px] px-3 rounded-md border border-[rgb(var(--fg-rgb))]/10 bg-surface-3 text-caption font-bold text-text-muted hover:text-text-primary flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
+                          className="h-[44px] px-3 rounded-md border border-border-subtle bg-surface-3 text-caption font-bold text-text-muted hover:text-text-primary flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
                         >
                           <Calendar size={12} /> Transcurridos: {elapsedDays(items[0].date)} d
                         </button>
@@ -436,7 +436,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
                       const p = getPaid(s);
                       const dur = daysBetween(s.date, s.expiryDate);
                       return (
-                        <div key={s.id} className="mt-3 pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.06]">
+                        <div key={s.id} className="mt-3 pt-3 border-t border-hairline">
                           <div className="flex justify-between items-baseline gap-2 mb-2">
                             <span className="text-body-sm font-semibold text-text-primary truncate">{s.serviceName}</span>
                             <span className="text-tiny text-text-disabled shrink-0">
@@ -480,7 +480,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               </button>
               <button
                 onClick={handleReset}
-                className="px-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary"
+                className="px-3 rounded-xl bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary"
                 title="Reiniciar"
               >
                 <RotateCcw size={16} />
@@ -513,7 +513,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
 
               <div className="relative z-10 space-y-1.5">
                 {result.rows.map((r, i) => (
-                  <div key={i} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-[rgb(var(--fg-rgb))]/[0.05]">
+                  <div key={i} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-hairline">
                     <div className="min-w-0">
                       <p className="text-body-sm font-bold text-text-primary truncate">{r.name}</p>
                       <p className="text-tiny text-text-disabled">{r.used} usados · {r.remaining} restantes de {r.duration} d</p>
@@ -535,13 +535,13 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
               <div className="relative z-10 flex gap-2 mt-4">
                 <button
                   onClick={() => setResult(null)}
-                  className="flex-1 h-11 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary text-sm font-semibold active:scale-[0.98] transition"
+                  className="flex-1 h-11 rounded-xl bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary text-sm font-semibold active:scale-[0.98] transition"
                 >
                   Ajustar datos
                 </button>
                 <button
                   onClick={handleReset}
-                  className="flex-1 h-11 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary text-sm font-semibold active:scale-[0.98] transition"
+                  className="flex-1 h-11 rounded-xl bg-surface-sunken border border-border-subtle text-text-muted hover:text-text-primary text-sm font-semibold active:scale-[0.98] transition"
                 >
                   Nuevo cálculo
                 </button>
@@ -570,9 +570,9 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
           r.client.name.toLowerCase().includes(q) || (r.client.phone || '').toLowerCase().includes(q)
         }
         renderItem={(r: { client: Client; count: number; nearest: number }) => (
-          <div className="p-4 rounded-xl border mb-2 flex items-center justify-between gap-3 transition-all bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-zinc active:scale-[0.98]">
+          <div className="p-4 rounded-xl border mb-2 flex items-center justify-between gap-3 transition-all bg-surface-1 border-hairline hover:bg-surface-zinc active:scale-[0.98]">
             <div className="flex items-center gap-4 min-w-0">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-[rgb(var(--fg-rgb))]/10 shrink-0">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-border-subtle shrink-0">
                 {r.client.name.substring(0, 2).toUpperCase()}
               </div>
               <div className="min-w-0">
@@ -598,7 +598,7 @@ const RefundPage: React.FC<RefundPageProps> = ({ onBack }) => {
 const Section: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
   <motion.div
     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-    className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-2xl p-4"
+    className="bg-surface-3 border border-border-subtle rounded-2xl p-4"
   >
     <div className="flex items-center gap-2 mb-3">
       <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary flex items-center justify-center">{icon}</div>
@@ -621,7 +621,7 @@ const ResultRow: React.FC<{
 }> = ({ icon, label, value, sub, tone, bold }) => {
   const valueColor = tone === 'red' ? 'text-red-300' : tone === 'emerald' ? 'text-emerald-300' : 'text-text-primary';
   return (
-    <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-[rgb(var(--fg-rgb))]/[0.05] ${bold ? 'border-status-success/30' : ''}`}>
+    <div className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-surface-sunken/60 border border-hairline ${bold ? 'border-status-success/30' : ''}`}>
       <div className="flex items-center gap-2.5 min-w-0">
         <span className="text-base">{icon}</span>
         <span className="text-label text-text-secondary font-medium truncate">{label}</span>

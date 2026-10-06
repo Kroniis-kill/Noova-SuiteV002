@@ -98,7 +98,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
           <div className="flex flex-col gap-5">
 
             {/* 1. RESUMEN */}
-            <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+            <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
               <div className="w-11 h-11 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20 overflow-hidden">
                 {service?.image_url ? <img src={service.image_url} alt="" className="w-full h-full object-cover" /> : <Tv size={20} />}
               </div>
@@ -116,7 +116,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
             {/* 2. MOTIVO REPORTADO */}
             <div className="space-y-3">
               <label className={SECTION_LABEL}>Motivo reportado</label>
-              <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 flex gap-3">
+              <div className="bg-surface-zinc rounded-xl border border-hairline p-4 flex gap-3">
                 <div className="w-[3px] rounded-full bg-status-warning shrink-0" />
                 <div className="min-w-0">
                   <p className="text-sm text-text-secondary leading-relaxed font-medium">{failure.notes || 'Sin descripción detallada.'}</p>
@@ -132,7 +132,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
             {isUnique && (
               <div className="space-y-3">
                 <label className={SECTION_LABEL}>Cuenta del cliente</label>
-                <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+                <div className="bg-surface-zinc rounded-xl border border-hairline overflow-hidden">
                   <CopyRow
                     icon={<Mail size={15} />}
                     iconClass="bg-status-info/10 text-status-info-soft"
@@ -158,7 +158,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
             {/* 4. CUENTA MAESTRA */}
             <div className="space-y-3">
               <label className={SECTION_LABEL}>Cuenta maestra</label>
-              <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+              <div className="bg-surface-zinc rounded-xl border border-hairline overflow-hidden">
                 <CopyRow
                   icon={<Mail size={15} />}
                   label="Correo"
@@ -178,7 +178,7 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
           </div>
 
           {/* 5. ACCIONES (quedan pegadas abajo al hacer scroll) */}
-          <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex flex-col gap-2.5">
+          <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-hairline flex flex-col gap-2.5">
             <button
               onClick={() => onSolve(failure, true)}
               className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2"
@@ -188,13 +188,13 @@ const FailureManageModal: React.FC<FailureManageModalProps> = ({ failure, onClos
             <div className="flex gap-2.5">
               <button
                 onClick={() => onNotify(failure)}
-                className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
               >
                 <Megaphone size={18} className="text-status-warning-soft" /> Avisar falla
               </button>
               <button
                 onClick={() => onSolve(failure, false)}
-                className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
               >
                 <CheckCircle2 size={18} className="text-status-success-soft" /> Solo resolver
               </button>

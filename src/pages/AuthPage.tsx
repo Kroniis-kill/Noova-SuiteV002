@@ -42,7 +42,7 @@ const FieldInput: React.FC<{
             onChange={onChange}
             autoComplete={autoComplete}
             placeholder={placeholder}
-            className={`w-full h-12 sm:h-13 bg-bg border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pl-11 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled text-sm ${rightSlot ? 'pr-12' : 'pr-4'}`}
+            className={`w-full h-12 sm:h-13 bg-bg border border-border-subtle rounded-2xl pl-11 text-text-primary outline-none focus:border-brand-primary/50 transition-all placeholder:text-text-disabled text-sm ${rightSlot ? 'pr-12' : 'pr-4'}`}
         />
         {rightSlot}
     </div>
@@ -105,7 +105,7 @@ const MobileLogin: React.FC<LoginProps> = ({
                 <motion.div
                     initial={{ opacity: 0, scale: 0.96, y: 12 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl pt-6 px-6 pb-6 flex flex-col shadow-2xl gap-5"
+                    className="w-full bg-surface-1 border border-border-subtle rounded-2xl pt-6 px-6 pb-6 flex flex-col shadow-2xl gap-5"
                 >
                     {isRecovering && (
                         <button aria-label="Volver"
@@ -221,10 +221,10 @@ const DesktopLogin: React.FC<LoginProps> = (props) => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="relative z-10 w-full max-w-[860px] h-[560px] bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl shadow-2xl overflow-hidden flex"
+                className="relative z-10 w-full max-w-[860px] h-[560px] bg-surface-1 border border-border-subtle rounded-2xl shadow-2xl overflow-hidden flex"
             >
                 {/* Branding Side */}
-                <div className="w-2/5 bg-surface-sunken border-r border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center justify-center p-8 relative overflow-hidden text-center">
+                <div className="w-2/5 bg-surface-sunken border-r border-hairline flex flex-col items-center justify-center p-8 relative overflow-hidden text-center">
                     <div className="absolute top-0 left-0 w-32 h-32 bg-brand-primary/10 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2" />
 
                     <div className="relative z-10 flex flex-col items-center">

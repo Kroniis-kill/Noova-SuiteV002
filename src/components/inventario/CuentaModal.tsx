@@ -47,7 +47,7 @@ function SearchListModal<T>({ isOpen, onClose, items, onSelect, title, placehold
            <input 
              value={search} onChange={(e) => setSearch(e.target.value)}
              placeholder={placeholder}
-             className="w-full bg-surface-zinc rounded-md pl-12 pr-10 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/5 focus:border-brand-primary/40 transition-all placeholder:text-text-disabled font-medium"
+             className="w-full bg-surface-zinc rounded-md pl-12 pr-10 h-[52px] text-sm text-text-primary outline-none border border-hairline focus:border-brand-primary/40 transition-all placeholder:text-text-disabled font-medium"
              autoFocus
            />
            {search && <button aria-label="Cerrar" onClick={() => setSearch('')} className="absolute right-6 top-1/2 -translate-y-1/2 text-text-disabled hover:text-text-primary p-1"><X size={16} /></button>}
@@ -187,7 +187,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
     sectionLabel: "text-micro font-bold text-text-faint uppercase tracking-[0.1em] mb-2 pl-[2px] block",
     inputContainer: "relative flex items-center bg-surface-sunken rounded-md h-[46px] transition-all",
     input: "w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled px-3 outline-none border-none appearance-none font-semibold [color-scheme:dark] [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0",
-    cardDark: "bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-[14px]",
+    cardDark: "bg-surface-3 border border-hairline rounded-xl p-[14px]",
     toggleBtn: "w-[38px] h-[22px] rounded-full relative transition-all duration-300 shrink-0",
   };
 
@@ -212,10 +212,10 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                 animate="visible"
                 exit="exit"
                 ref={dialogRef} role="dialog" aria-modal="true" aria-label={initialData ? 'Editar cuenta' : 'Nueva cuenta'} tabIndex={-1} style={{ zIndex: layerZ }}
-                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden outline-none"
+                className="fixed bottom-0 left-0 right-0 bg-surface-1 rounded-t-xl flex flex-col max-h-[90dvh] max-w-[400px] mx-auto md:bottom-6 md:rounded-xl border border-hairline overflow-hidden outline-none"
               >
                 {/* Header */}
-                <div className="px-5 pt-[18px] pb-[14px] flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 shrink-0">
+                <div className="px-5 pt-[18px] pb-[14px] flex items-center justify-between border-b border-hairline shrink-0">
                   <div className="min-w-0">
                     <h3 className="text-[17px] font-bold text-text-primary leading-tight">{initialData ? 'Editar cuenta' : 'Nueva cuenta'}</h3>
                     <p className="text-micro text-text-faint font-bold uppercase tracking-[0.15em] mt-1 truncate">{selectedService?.name || 'Agregar al inventario'}</p>
@@ -232,7 +232,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <button
                       type="button"
                       onClick={() => { if (!initialData || !serviceId) setIsServiceSearchOpen(true); }}
-                      className={`bg-surface-3 border rounded-xl p-[10px] flex items-center gap-2 text-left ${formData.serviceId ? 'border-[rgb(var(--fg-rgb))]/5' : 'border-dashed border-[rgb(var(--fg-rgb))]/[0.15]'} ${initialData && serviceId ? 'opacity-60' : ''}`}
+                      className={`bg-surface-3 border rounded-xl p-[10px] flex items-center gap-2 text-left ${formData.serviceId ? 'border-hairline' : 'border-dashed border-border-strong'} ${initialData && serviceId ? 'opacity-60' : ''}`}
                     >
                       <div className="w-[30px] h-[30px] rounded-lg bg-surface-sunken flex items-center justify-center shrink-0 text-text-faint">
                         <Layers size={15} />
@@ -246,7 +246,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <button
                       type="button"
                       onClick={() => setIsProviderSearchOpen(true)}
-                      className={`relative bg-surface-3 border rounded-xl p-[10px] flex items-center gap-2 text-left ${formData.providerId ? 'border-[rgb(var(--fg-rgb))]/5' : 'border-dashed border-[rgb(var(--fg-rgb))]/[0.15]'}`}
+                      className={`relative bg-surface-3 border rounded-xl p-[10px] flex items-center gap-2 text-left ${formData.providerId ? 'border-hairline' : 'border-dashed border-border-strong'}`}
                     >
                       <div className="w-[30px] h-[30px] rounded-lg bg-surface-sunken flex items-center justify-center shrink-0 text-text-faint">
                         <Truck size={15} />
@@ -266,14 +266,14 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                   {/* CREDENCIALES MAESTRAS */}
                   <div className={styles.cardDark}>
                     <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
+                      <div className="flex items-center gap-2 bg-surface-sunken border border-hairline rounded-md h-10 px-3">
                         <Mail size={15} className="text-text-faint shrink-0" />
                         <input aria-label="correo@ejemplo.com" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder="correo@ejemplo.com" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled outline-none border-none font-medium" required />
                       </div>
                     </div>
                     <div className="h-px bg-[rgb(var(--fg-rgb))]/5 my-3" />
                     <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-md h-10 px-3">
+                      <div className="flex items-center gap-2 bg-surface-sunken border border-hairline rounded-md h-10 px-3">
                         <Key size={15} className="text-text-faint shrink-0" />
                         <input aria-label="Contraseña" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Contraseña" className="w-full h-full bg-transparent text-body-sm text-text-primary placeholder:text-text-disabled outline-none border-none font-mono" required />
                         <button aria-label="Actualizar" type="button" onClick={handleGeneratePassword} className="shrink-0 text-brand-primary-hi">
@@ -288,7 +288,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                     <label className={styles.sectionLabel}>Perfiles ({profiles.length})</label>
                     <div className="flex flex-col gap-[6px]">
                       {profiles.map((prof, idx) => (
-                        <div key={idx} className="flex gap-2 items-center bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md h-[46px] pl-2 pr-2">
+                        <div key={idx} className="flex gap-2 items-center bg-surface-3 border border-hairline rounded-md h-[46px] pl-2 pr-2">
                           <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center text-tiny font-bold shrink-0">
                             {idx + 1}
                           </div>
@@ -365,7 +365,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
                       value={formData.notes || ''}
                       onChange={e => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Escribe detalles adicionales sobre esta cuenta..."
-                      className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md p-[14px] text-label text-text-muted outline-none placeholder:text-text-disabled min-h-[90px] resize-none leading-[1.5]"
+                      className="w-full bg-surface-3 border border-hairline rounded-md p-[14px] text-label text-text-muted outline-none placeholder:text-text-disabled min-h-[90px] resize-none leading-[1.5]"
                     />
                   </div>
 
@@ -395,8 +395,8 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={handleServiceSelect}
         filterFn={(s, q) => s.name.toLowerCase().includes(q)}
         renderItem={(s) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
-              <div className="w-11 h-11 rounded-md bg-surface-sunken flex items-center justify-center text-text-faint border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0">
+          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-hairline hover:border-brand-primary/40 transition-all text-left">
+              <div className="w-11 h-11 rounded-md bg-surface-sunken flex items-center justify-center text-text-faint border border-hairline overflow-hidden shrink-0">
                 {s.image_url ? <img alt="Vista previa" src={s.image_url} className="w-full h-full object-cover" /> : <Layers size={22} />}
               </div>
               <div className="flex-1 min-w-0">
@@ -417,7 +417,7 @@ const CuentaModal: React.FC<CuentaModalProps> = ({ isOpen, onClose, onSubmit, in
         onSelect={(p) => setFormData(prev => ({ ...prev, providerId: p?.id || '' }))}
         filterFn={(p, q) => p.name.toLowerCase().includes(q)}
         renderItem={(p) => (
-          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:border-brand-primary/40 transition-all text-left">
+          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface-3 border border-hairline hover:border-brand-primary/40 transition-all text-left">
               <div className="w-11 h-11 rounded-md flex items-center justify-center text-text-primary font-semibold text-xs shrink-0" style={{ backgroundColor: p.color }}>
                 {p.name.substring(0,2).toUpperCase()}
               </div>

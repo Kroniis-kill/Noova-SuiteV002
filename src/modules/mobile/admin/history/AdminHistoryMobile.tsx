@@ -33,7 +33,7 @@ const AdminHistoryMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 <HistoryItem key={item.id} item={item} />
              ))}
              {history.length === 0 && (
-                <div className="py-12 text-center border-2 border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-xl">
+                <div className="py-12 text-center border-2 border-dashed border-hairline rounded-xl">
                    <p className="text-text-disabled text-xs">No hay registros de historial.</p>
                 </div>
              )}

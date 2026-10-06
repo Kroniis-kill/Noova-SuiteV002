@@ -27,7 +27,7 @@ const QUICK_MONTHS = [1, 2, 3, 6];
 const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0";
 
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
-const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
+const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-border-subtle focus-within:border-brand-primary/40 transition-colors";
 
 const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
@@ -48,7 +48,7 @@ interface StepperControlProps {
 }
 
 const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label, min = 0 }) => (
-  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+  <div className="bg-surface-sunken rounded-md border border-border-subtle p-1 flex items-center justify-between h-[52px] w-full focus-within:border-border-strong transition-colors">
     <button type="button" aria-label={`Menos ${label}`} onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
     <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full gap-0.5">
       <input
@@ -101,11 +101,11 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
       {/* 1. ORIGEN: PLATAFORMA Y CUENTA */}
       <div className="space-y-3">
         <label className={SECTION_LABEL}>Origen</label>
-        <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+        <div className="bg-surface-zinc rounded-xl border border-hairline overflow-hidden">
           <button
             type="button"
             onClick={() => { haptic('nav'); props.openServiceSearch(); }}
-            className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group"
+            className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-hairline active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group"
           >
             <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><Monitor size={18} /></div>
             <div className="flex-1 min-w-0">
@@ -167,7 +167,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
                 key={m}
                 type="button"
                 onClick={() => { haptic('nav'); props.setTempMonths(m); props.setTempDays(0); }}
-                className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
               >
                 {m} {m === 1 ? 'mes' : 'meses'}
               </button>
@@ -179,7 +179,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           <StepperControl value={props.tempDays} onChange={props.setTempDays} label="DÍAS" />
         </div>
 
-        <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
+        <div className="bg-surface-zinc rounded-xl border border-hairline p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
           <div className="min-w-0 flex-1">
             <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
               <Calendar size={12} /> {props.isEditing ? 'Vence actualmente' : 'Inicio'}
@@ -209,7 +209,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Precio de venta</label>
           {props.isResellerClient && <span className="text-micro bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase">Tarifa socio</span>}
         </div>
-        <div className="h-[60px] bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+        <div className="h-[60px] bg-surface-zinc rounded-xl border border-hairline flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
           <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
           <input aria-label="Precio de venta"
             type="number"
@@ -266,7 +266,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
       {(isUniqueUser || isFullAccount) && (
         <div className="space-y-3">
           <label className={SECTION_LABEL}>Credenciales de acceso</label>
-          <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-3 space-y-2">
+          <div className="bg-surface-zinc rounded-xl border border-hairline p-3 space-y-2">
             {isUniqueUser && (
               <>
                 <div className={FIELD_BOX}>

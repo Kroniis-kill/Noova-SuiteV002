@@ -91,7 +91,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 variants={modalVariants}
                 initial="hidden" animate="visible" exit="exit"
                 className={`
-                    pointer-events-auto bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-2xl flex flex-col overflow-hidden
+                    pointer-events-auto bg-surface-3 border border-border-subtle shadow-2xl flex flex-col overflow-hidden
                     ${isMobile 
                         ? 'w-full rounded-t-xl max-h-[85dvh]' 
                         : 'w-[800px] h-[650px] rounded-xl'
@@ -99,7 +99,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 `}
             >
                 {/* Header / Cover */}
-                <div className="relative shrink-0 p-6 pb-6 border-b border-[rgb(var(--fg-rgb))]/5">
+                <div className="relative shrink-0 p-6 pb-6 border-b border-hairline">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
                     
                     {isMobile && <div className="w-12 h-1.5 bg-[rgb(var(--fg-rgb))]/10 rounded-full mx-auto mb-6 cursor-grab active:cursor-grabbing" onClick={onClose} />}
@@ -107,7 +107,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                     <div className="flex justify-between items-start relative z-10">
                         <div className="flex items-center gap-5">
                             <div 
-                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-text-primary shadow-glow border border-[rgb(var(--fg-rgb))]/10"
+                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-text-primary shadow-glow border border-border-subtle"
                                 style={{ backgroundColor: reseller.color }}
                             >
                                 {getInitials(reseller.name)}
@@ -115,7 +115,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                             <div>
                                 <h2 className="text-2xl font-bold text-text-primary tracking-tight">{reseller.name}</h2>
                                 <div className="flex items-center gap-2 mt-1.5">
-                                    <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-caption font-mono text-text-muted">
+                                    <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-hairline text-caption font-mono text-text-muted">
                                         {reseller.code}
                                     </span>
                                 </div>
@@ -156,7 +156,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                          )}
 
                          {!hasWhatsApp && !hasTelegram && (
-                            <div className="w-full h-11 rounded-md bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled text-xs font-medium">
+                            <div className="w-full h-11 rounded-md bg-surface-zinc border border-hairline flex items-center justify-center text-text-disabled text-xs font-medium">
                                Sin métodos de contacto registrados
                             </div>
                          )}
@@ -164,12 +164,12 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-[rgb(var(--fg-rgb))]/5">
-                    <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
+                <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-hairline">
+                    <div className="p-4 text-center border-r border-hairline">
                         <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Total Generado</p>
                         <p className="text-lg font-bold text-status-success-soft">${totalRevenue.toLocaleString()}</p>
                     </div>
-                    <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
+                    <div className="p-4 text-center border-r border-hairline">
                         <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Clientes Activos</p>
                         <p className="text-lg font-bold text-text-primary">{activeClientsCount}</p>
                     </div>
@@ -186,7 +186,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                     </h3>
 
                     {assignedClients.length === 0 ? (
-                        <div className="h-40 flex flex-col items-center justify-center border-2 border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-xl">
+                        <div className="h-40 flex flex-col items-center justify-center border-2 border-dashed border-hairline rounded-xl">
                             <p className="text-text-disabled text-xs">Este revendedor no tiene clientes.</p>
                         </div>
                     ) : (
@@ -195,7 +195,7 @@ const ResellerDetailSheet: React.FC<ResellerDetailSheetProps> = ({
                                 <button 
                                     key={client.id} 
                                     onClick={() => onClientClick(client)}
-                                    className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-xl flex items-center justify-between hover:bg-surface-4 hover:border-[rgb(var(--fg-rgb))]/10 cursor-pointer transition-all group w-full text-left"
+                                    className="bg-surface-3 border border-hairline p-3 rounded-xl flex items-center justify-between hover:bg-surface-4 hover:border-border-subtle cursor-pointer transition-all group w-full text-left"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-xs font-semibold text-text-muted group-hover:text-text-primary transition-colors">

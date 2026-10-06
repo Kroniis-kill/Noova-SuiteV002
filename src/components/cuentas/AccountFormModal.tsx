@@ -96,7 +96,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-border-subtle rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
     input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     select: "w-full h-full bg-transparent text-sm text-text-primary px-4 outline-none appearance-none cursor-pointer font-medium rounded-md",
     iconLeft: "pl-12",
@@ -163,7 +163,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
            </div>
         </div>
 
-        <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4">
+        <div className="bg-surface-sunken border border-border-subtle rounded-xl p-4">
            <div className="flex items-center justify-between mb-4">
               <span className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Métodos de Pago</span>
            </div>
@@ -172,13 +172,13 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
               <input aria-label="Nombre (Ej. Pago Móvil)" 
                 value={newMethodName}
                 onChange={(e) => setNewMethodName(e.target.value)}
-                className="w-full bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 px-4 h-[48px] text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all"
+                className="w-full bg-surface-zinc rounded-md border border-hairline px-4 h-[48px] text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all"
                 placeholder="Nombre (Ej. Pago Móvil)"
               />
               <button aria-label="Agregar" 
                 type="button"
                 onClick={handleAddMethod}
-                className="bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary w-[48px] h-[48px] rounded-md transition-colors border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center shrink-0"
+                className="bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-primary w-[48px] h-[48px] rounded-md transition-colors border border-hairline flex items-center justify-center shrink-0"
               >
                  <Plus size={18} />
               </button>
@@ -186,7 +186,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
 
            <div className="space-y-2 max-h-[140px] overflow-y-auto custom-scrollbar pr-1">
               {methods.map(m => (
-                 <div key={m.id} className="flex justify-between items-center bg-surface-zinc px-4 py-3 rounded-md border border-[rgb(var(--fg-rgb))]/5">
+                 <div key={m.id} className="flex justify-between items-center bg-surface-zinc px-4 py-3 rounded-md border border-hairline">
                     <span className="text-sm text-text-secondary font-semibold">{m.name}</span>
                     <button aria-label="Eliminar" type="button" onClick={() => handleRemoveMethod(m.id)} className="text-text-disabled hover:text-status-danger-soft transition-colors"><Trash2 size={16} /></button>
                  </div>
@@ -195,7 +195,7 @@ const AccountFormModal: React.FC<AccountFormModalProps> = ({ isOpen, onClose, on
         </div>
 
         <div className="flex gap-3 pt-4">
-           <button type="button" onClick={onClose} className="flex-1 h-[52px] bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-sm font-bold text-text-muted transition-colors border border-[rgb(var(--fg-rgb))]/5">Cancelar</button>
+           <button type="button" onClick={onClose} className="flex-1 h-[52px] bg-[rgb(var(--fg-rgb))]/5 rounded-lg text-sm font-bold text-text-muted transition-colors border border-hairline">Cancelar</button>
            <button onClick={handleSubmit} className="btn-primary flex-1 h-[52px] rounded-lg text-sm">
              {initialData ? 'Guardar' : 'Crear'}
            </button>

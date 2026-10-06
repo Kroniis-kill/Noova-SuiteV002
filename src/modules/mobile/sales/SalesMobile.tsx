@@ -28,7 +28,7 @@ import { formatDate, sendWhatsAppMessage } from '../../../utils/contactosUtils';
 import { getCombinedWhatsAppTemplate, SalesGroup } from '../../../utils/salesUtils';
 
 const SaleSkeleton = () => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 h-[132px] flex flex-col justify-between">
+  <div className="bg-surface-1 border border-hairline rounded-xl p-4 h-[132px] flex flex-col justify-between">
     <div className="flex flex-col items-center gap-2 mt-2">
       <Skeleton variant="circle" className="w-12 h-12" />
       <Skeleton variant="text" className="w-20 h-3" />
@@ -173,19 +173,19 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
             <div className="flex gap-2">
                 {!viewFails && (
                     <>
-                        <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
-                        <button onClick={() => setIsFilterModalOpen(true)} className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 text-text-muted'}`}><Filter size={16} />{statusFilter !== 'all' && <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_8px_#FF1493]" />}</button>
-                        <button aria-label="Ver ventas fallidas" onClick={() => setViewFails(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
+                        <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><Upload size={16} /></button>
+                        <button onClick={() => setIsFilterModalOpen(true)} className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all active:scale-95 shadow-sm relative ${statusFilter !== 'all' ? 'bg-brand-primary/20 border-brand-primary text-brand-primary' : 'bg-surface-3 border border-border-subtle text-text-muted'}`}><Filter size={16} />{statusFilter !== 'all' && <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-accent rounded-full shadow-[0_0_8px_#FF1493]" />}</button>
+                        <button aria-label="Ver ventas fallidas" onClick={() => setViewFails(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 transition-all shadow-sm"><ClipboardList size={16} /></button>
                         <button aria-label="Agregar" onClick={handleNewSale} className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all mt-0 ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={18} strokeWidth={2.5} /></button>
                     </>
                 )}
-                {viewFails && <button aria-label="Cerrar" onClick={() => setViewFails(false)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
+                {viewFails && <button aria-label="Cerrar" onClick={() => setViewFails(false)} className="w-10 h-10 rounded-md bg-surface-3 border border-border-subtle flex items-center justify-center text-text-primary active:scale-95"><X size={16} /></button>}
             </div>
          </div>
 
          {!viewFails && (
             <div className="mb-6 relative z-20">
-                <div className="relative h-[43px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-5 transition-all focus-within:border-brand-primary/50 shadow-sm pt-0 pl-2.5 pr-5">
+                <div className="relative h-[43px] bg-surface-3 border border-border-subtle rounded-md flex items-center px-5 transition-all focus-within:border-brand-primary/50 shadow-sm pt-0 pl-2.5 pr-5">
                     <Search size={20} className="text-text-disabled shrink-0" />
                     <input aria-label="Buscar cliente o servicio" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar cliente o servicio..." className="bg-transparent border-none outline-none text-label text-text-primary w-full ml-3 placeholder:text-text-disabled font-normal" />
                     {searchQuery && <button aria-label="Cerrar" onClick={() => setSearchQuery('')} className="p-1"><X size={16} className="text-text-disabled" /></button>}
@@ -194,7 +194,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
          )}
 
          {viewFails && (
-            <div className="flex p-1 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md mb-6 relative z-20">
+            <div className="flex p-1 bg-surface-3 border border-hairline rounded-md mb-6 relative z-20">
                 <button 
                     onClick={() => { haptic('nav'); setFailsSubView('clients'); }}
                     className={`flex-1 py-3 rounded-md text-tiny font-semibold uppercase tracking-widest transition-all ${failsSubView === 'clients' ? 'bg-bg text-text-primary' : 'bg-surface-3 text-text-disabled'}`}
@@ -263,7 +263,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                     <div 
                                         key={failure.id} 
                                         onClick={() => handleFailureClick(failure)} 
-                                        className="relative bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md p-3 h-[150px] flex flex-col justify-between active:scale-95 transition-all overflow-hidden shadow-sm"
+                                        className="relative bg-surface-1 border border-border-subtle rounded-md p-3 h-[150px] flex flex-col justify-between active:scale-95 transition-all overflow-hidden shadow-sm"
                                     >
                                         
                                         <div className="flex justify-between items-center w-full">
@@ -278,7 +278,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
 
                                         <div className="flex flex-col items-center gap-1.5 mt-1">
                                             <div className="relative">
-                                                <Avatar name={client?.name || 'Cliente'} image={service?.image_url} size={44} className="rounded-full border border-[rgb(var(--fg-rgb))]/5 shadow-md" />
+                                                <Avatar name={client?.name || 'Cliente'} image={service?.image_url} size={44} className="rounded-full border border-hairline shadow-md" />
                                             </div>
                                             <div className="text-center w-full">
                                                 <p className="text-micro text-text-disabled font-medium truncate px-1 not-italic">{client?.name || 'Cliente'}</p>
@@ -292,14 +292,14 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                         <div className="mt-2 w-full flex justify-between gap-1.5 px-1">
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); onHandleNotifyFailure(failure); }} 
-                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-brand-primary/20 active:text-brand-primary transition-all"
+                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center border border-hairline active:bg-brand-primary/20 active:text-brand-primary transition-all"
                                                 title="Notificar Falla"
                                             >
                                                 <MessageCircle size={14} />
                                             </button>
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); deleteFailure(failure.id); }} 
-                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:bg-status-danger/10 active:text-status-danger transition-all"
+                                                className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-disabled flex items-center justify-center border border-hairline active:bg-status-danger/10 active:text-status-danger transition-all"
                                                 title="Eliminar"
                                             >
                                                 <Trash2 size={14} />
@@ -321,14 +321,14 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                         <div 
                                             key={account.id} 
                                             onClick={() => { haptic('nav'); setExpandedAccountId(isExpanded ? null : account.id); }}
-                                            className="relative w-full bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 transition-all duration-300 overflow-hidden cursor-pointer active:bg-[rgb(var(--fg-rgb))]/[0.02]"
+                                            className="relative w-full bg-surface-1 border border-border-subtle rounded-xl p-4 transition-all duration-300 overflow-hidden cursor-pointer active:bg-[rgb(var(--fg-rgb))]/[0.02]"
                                         >
                                             
                                             <div className="flex flex-col gap-4">
                                                 {/* Main Row - Always Visible (Icon, Name, Email) */}
                                                 <div className="flex items-center justify-between gap-3">
                                                     <div className="flex items-center gap-3 min-w-0 flex-1">
-                                                        <div className="w-12 h-12 rounded-sm bg-surface-sunken flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 overflow-hidden shrink-0 shadow-sm">
+                                                        <div className="w-12 h-12 rounded-sm bg-surface-sunken flex items-center justify-center border border-hairline overflow-hidden shrink-0 shadow-sm">
                                                             {service?.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : <Database size={20} className="text-status-expiring-soft" />}
                                                         </div>
                                                         <div className="min-w-0 flex-1">
@@ -364,17 +364,17 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                             exit={{ height: 0, opacity: 0 }}
                                                             className="overflow-hidden"
                                                         >
-                                                            <div className="pt-4 border-t border-[rgb(var(--fg-rgb))]/5 space-y-4">
+                                                            <div className="pt-4 border-t border-hairline space-y-4">
                                                                 {/* Info Row (Password & Status) */}
                                                                 <div className="grid grid-cols-2 gap-3">
-                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-[rgb(var(--fg-rgb))]/5">
+                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-hairline">
                                                                         <span className="text-nano font-bold text-text-faint uppercase tracking-widest block mb-1">Contraseña</span>
                                                                         <div className="flex items-center gap-2 text-xs font-mono font-bold text-text-secondary">
                                                                             <Lock size={10} className="text-text-faint" />
                                                                             <span className="truncate">{account.password}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-[rgb(var(--fg-rgb))]/5">
+                                                                    <div className="bg-surface-sunken rounded-xl p-3 border border-hairline">
                                                                         <span className="text-nano font-bold text-text-faint uppercase tracking-widest block mb-1">Estado</span>
                                                                         <div className="flex items-center gap-2 text-tiny font-bold text-status-expiring uppercase">
                                                                             <AlertCircle size={10} />
@@ -391,7 +391,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                             {serviceFailures.filter(f => sales.find(s => s.id === f.saleId)?.accountId === account.id).length} en Agenda
                                                                         </span>
                                                                     </div>
-                                                                    <div className="bg-surface-sunken rounded-md p-2 border border-[rgb(var(--fg-rgb))]/5 space-y-1.5 max-h-[160px] overflow-y-auto custom-scrollbar">
+                                                                    <div className="bg-surface-sunken rounded-md p-2 border border-hairline space-y-1.5 max-h-[160px] overflow-y-auto custom-scrollbar">
                                                                         {(() => {
                                                                             const affectedFailures = serviceFailures.filter(f => {
                                                                                 const s = sales.find(sale => sale.id === f.saleId);
@@ -410,9 +410,9 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
                                                                                 const s = sales.find(sale => sale.id === f.saleId);
                                                                                 const c = clients.find(client => client.id === s?.clientId);
                                                                                 return (
-                                                                                    <div key={f.id} className="flex items-center justify-between gap-2 bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                                                                                    <div key={f.id} className="flex items-center justify-between gap-2 bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-xl border border-hairline">
                                                                                         <div className="flex items-center gap-2 min-w-0">
-                                                                                            <Avatar name={c?.name || 'Cliente'} size={24} className="rounded-full border border-[rgb(var(--fg-rgb))]/10" />
+                                                                                            <Avatar name={c?.name || 'Cliente'} size={24} className="rounded-full border border-border-subtle" />
                                                                                             <div className="min-w-0">
                                                                                                 <p className="text-tiny font-semibold text-text-primary truncate">{c?.name || 'Cliente'}</p>
                                                                                                 <p className="text-nano text-text-disabled font-medium truncate">Perfil {s?.assignedProfiles?.[0]?.name || '1'}</p>
@@ -484,7 +484,7 @@ const SalesMobile: React.FC<SalesMobileProps> = ({ onBack, initialView = 'sales'
         <div className="space-y-3 pt-2">
             <p className="text-text-disabled text-tiny font-semibold uppercase tracking-widest ml-1 mb-4">Estado de Suscripción</p>
             {filterOptions.map(opt => (
-                <button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/5'}`}>
+                <button key={opt.id} onClick={() => { haptic('nav'); setStatusFilter(opt.id as any); setIsFilterModalOpen(false); }} className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all group ${statusFilter === opt.id ? 'bg-brand-primary/10 border-brand-primary/40' : 'bg-transparent border border-hairline hover:bg-[rgb(var(--fg-rgb))]/5'}`}>
                     <span className={`text-sm font-bold ${statusFilter === opt.id ? 'text-text-primary' : 'text-text-muted group-hover:text-text-primary'}`}>{opt.label}</span>
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center border transition-all ${statusFilter === opt.id ? 'bg-brand-primary border-brand-primary text-white shadow-glow-sm' : 'border-zinc-800'}`}>{statusFilter === opt.id && <Check size={12} strokeWidth={3} />}</div>
                 </button>

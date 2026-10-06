@@ -24,7 +24,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
   const date = new Date(item.timestamp).toLocaleString();
 
   return (
-    <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex gap-4 items-start hover:bg-surface-zinc transition-colors">
+    <div className="bg-surface-zinc/60 border border-hairline rounded-xl p-4 flex gap-4 items-start hover:bg-surface-zinc transition-colors">
       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${bg} ${color} shrink-0`}>
         <Icon size={18} />
       </div>
@@ -38,7 +38,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
         </p>
         
         {(item.old_plan || item.new_plan) && (
-           <div className="mt-2 text-caption bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-lg border border-[rgb(var(--fg-rgb))]/5">
+           <div className="mt-2 text-caption bg-[rgb(var(--fg-rgb))]/5 p-2 rounded-lg border border-hairline">
               {item.old_plan && <span className="text-text-disabled">{item.old_plan}</span>}
               {item.old_plan && item.new_plan && <span className="mx-2 text-text-faint">→</span>}
               {item.new_plan && <span className="text-status-success-soft font-bold">{item.new_plan}</span>}

@@ -54,7 +54,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-border-subtle rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
     input: "w-full h-full bg-transparent text-[14px] text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     iconLeft: "pl-12",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",
@@ -109,7 +109,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           {/* Quality Score */}
           <div>
              <label className={styles.label}>Calificación / Calidad</label>
-             <div className="flex items-center gap-2 bg-surface-sunken p-3 rounded-md border border-[rgb(var(--fg-rgb))]/10 justify-center">
+             <div className="flex items-center gap-2 bg-surface-sunken p-3 rounded-md border border-border-subtle justify-center">
                 {[1, 2, 3, 4, 5].map((star) => (
                    <button
                      key={star}
@@ -126,7 +126,7 @@ const ProviderModal: React.FC<ProviderModalProps> = ({ isOpen, onClose, onSubmit
           {/* Color */}
           <div>
              <label className={styles.label}><Palette size={12} className="inline mr-1 mb-0.5"/> Color Identificador</label>
-             <div className="bg-surface-sunken rounded-xl p-4 flex gap-4 overflow-x-auto no-scrollbar border border-[rgb(var(--fg-rgb))]/10">
+             <div className="bg-surface-sunken rounded-xl p-4 flex gap-4 overflow-x-auto no-scrollbar border border-border-subtle">
                 {['#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#f43f5e', '#06b6d4'].map(c => (
                    <button
                      key={c}

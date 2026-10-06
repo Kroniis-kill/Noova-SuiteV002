@@ -1,3 +1,5 @@
+import PageHeader from '../../../components/ui/PageHeader';
+import Button from '../../../components/ui/Button';
 import EmptyState from '../../../components/ui/EmptyState';
 import React, { useState, useEffect, useRef } from 'react';
 import { useData } from '../../../context/DataContext';
@@ -141,7 +143,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
 
   const filteredServices = services.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-border-subtle rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
   const isHighlighted = useHighlightAction('services');
 
@@ -158,10 +160,10 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
 
         <div>
           <label className={labelClass}>Imagen del Servicio</label>
-          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-hairline">
               <div 
                 onClick={() => fileInputRef.current?.click()}
-                className="w-20 h-20 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center overflow-hidden cursor-pointer relative group active:scale-95 transition-transform"
+                className="w-20 h-20 rounded-lg bg-surface-3 border border-border-subtle flex items-center justify-center overflow-hidden cursor-pointer relative group active:scale-95 transition-transform"
               >
                 {image_url ? (
                   <img src={image_url} className="w-full h-full object-cover" alt="Preview" />
@@ -220,7 +222,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
           </div>
         </div>
       </div>
-      <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
+      <div className="bg-surface-sunken rounded-xl p-5 border border-hairline space-y-4">
         <h4 className="text-caption font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
         <div>
           <label className={labelClass}>Inversión Total</label>
@@ -249,21 +251,26 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-dvh pb-40">
-      <div className="relative z-20 flex items-center justify-between mb-4 px-2">
-         <div>
-            <h1 className="text-2xl font-black text-text-primary tracking-tight">Catálogo</h1>
-            <p className="text-text-muted text-caption font-medium mt-0.5">Gestión de plataformas y precios</p>
-         </div>
-         <button aria-label="Agregar" 
-           onClick={() => { resetForm(); setIsAddModalOpen(true); }} 
-           className={`w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-95 transition-all ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}
-         >
-           <Plus size={22} strokeWidth={2.5} />
-         </button>
-      </div>
+      <PageHeader
+        compact
+        className="px-2"
+        title="Catálogo"
+        subtitle="Plataformas y precios"
+        actions={
+          <Button
+            iconOnly
+            size="sm"
+            aria-label="Agregar servicio"
+            onClick={() => { resetForm(); setIsAddModalOpen(true); }}
+            className={isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}
+          >
+            <Plus size={22} strokeWidth={2.5} />
+          </Button>
+        }
+      />
 
       <div className="mb-6 relative z-20 px-1">
-          <div className="relative h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
+          <div className="relative h-[48px] bg-surface-3 border border-border-subtle rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
               <Search size={18} className="text-text-disabled shrink-0" />
               <input aria-label="Buscar servicio" 
                  value={searchTerm} 
@@ -291,10 +298,10 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
         )}
         <AnimatePresence mode='popLayout'>
             {filteredServices.map((svc, idx) => (
-              <motion.div key={svc.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: idx * 0.05 }} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 shadow-lg relative overflow-hidden">
+              <motion.div key={svc.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: idx * 0.05 }} className="bg-surface-3 border border-border-subtle rounded-xl p-5 shadow-lg relative overflow-hidden">
                 <div className="flex justify-between items-start mb-4">
                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+                      <div className="w-12 h-12 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary border border-hairline overflow-hidden">
                         {svc.image_url ? <img alt="" src={svc.image_url} className="w-full h-full object-cover" /> : getTypeIcon(svc.type)}
                       </div>
                       <div>
@@ -307,7 +314,7 @@ const ServicesMobile: React.FC<ServicesMobileProps> = ({ onBack }) => {
                       <button aria-label="Eliminar" onClick={() => deleteService(svc.id)} className="tap-44 w-9 h-9 rounded-sm bg-status-danger/10 flex items-center justify-center text-status-danger-soft active:scale-90 transition-all"><Trash2 size={15} /></button>
                    </div>
                 </div>
-                <div className="grid grid-cols-3 gap-2 pt-4 border-t border-[rgb(var(--fg-rgb))]/5">
+                <div className="grid grid-cols-3 gap-2 pt-4 border-t border-hairline">
                    <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Costo</p><p className="text-text-secondary font-bold text-sm mt-0.5">${svc.cost || 0}</p></div>
                    <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Venta</p><p className="text-status-success-soft font-bold text-sm mt-0.5">${svc.publicPrice || 0}</p></div>
                    <div className="text-center"><p className="text-micro font-bold text-text-disabled uppercase">Utilidad</p><p className="text-brand-primary font-bold text-sm mt-0.5">${((svc.publicPrice || 0) - (svc.cost || 0)).toFixed(1)}</p></div>

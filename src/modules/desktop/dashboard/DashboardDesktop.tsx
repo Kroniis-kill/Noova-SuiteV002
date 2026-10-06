@@ -40,7 +40,7 @@ import WidgetConfigModal from '../../../components/dashboard/WidgetConfigModal';
 // de un contenedor con su propio estilo (el contenedor dibuja el borde y el foco).
 const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none";
 
-const CARD = "bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl transition-colors";
+const CARD = "bg-surface-zinc border border-hairline rounded-xl transition-colors";
 
 const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest";
 
@@ -132,9 +132,9 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                         )}
                     </div>
                 </div>
-                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 space-y-4 shadow-sm">
+                <div className="bg-surface-1 border border-border-subtle rounded-xl p-5 space-y-4 shadow-sm">
                     {clientName && (
-                        <div className="flex justify-between items-center border-b border-[rgb(var(--fg-rgb))]/5 pb-3">
+                        <div className="flex justify-between items-center border-b border-hairline pb-3">
                             <span className="text-text-disabled text-xs font-semibold uppercase flex items-center gap-1"><User size={12}/> Cliente</span>
                             <span className="text-text-primary text-sm font-bold text-right">{clientName}</span>
                         </div>
@@ -158,7 +158,7 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                         <span className="text-text-primary text-xs font-semibold bg-[rgb(var(--fg-rgb))]/10 px-3 py-1 rounded-full capitalize">{movement.paymentMethod || 'Manual'}</span>
                     </div>
                 </div>
-                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted font-semibold text-xs hover:text-text-primary transition-colors active:scale-95 shadow-sm">
+                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-border-subtle rounded-md text-text-muted font-semibold text-xs hover:text-text-primary transition-colors active:scale-95 shadow-sm">
                     Cerrar
                 </button>
             </div>
@@ -459,7 +459,7 @@ const DashboardDesktop: React.FC = () => {
           <button
             onClick={() => { haptic('nav'); setIsNotifOpen(true); }}
             aria-label="Notificaciones"
-            className="tap-44 relative w-8 h-8 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
+            className="tap-44 relative w-8 h-8 rounded-md bg-surface-3 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary transition-colors"
           >
             <Bell size={15} />
             {sales.some(s => getDaysRemaining(s.expiryDate) <= 1) && (
@@ -502,12 +502,12 @@ const DashboardDesktop: React.FC = () => {
                 <button
                   onClick={toggleBalance}
                   aria-label={showBalance ? 'Ocultar balance' : 'Mostrar balance'}
-                  className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
+                  className="tap-44 w-7 h-7 rounded-full bg-[rgb(var(--fg-rgb))]/[0.04] border border-border-subtle flex items-center justify-center text-text-disabled hover:text-text-primary transition-colors"
                 >
                   {showBalance ? <Eye size={14} /> : <EyeOff size={14} />}
                 </button>
               </div>
-              <div className="mt-3 pt-2.5 border-t border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
+              <div className="mt-3 pt-2.5 border-t border-hairline flex items-center justify-between">
                 <span className="text-caption text-text-disabled flex items-center gap-1.5">
                   <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-status-success' : 'bg-status-danger'}`} />
                   {activeWalletsCount} {activeWalletsCount === 1 ? 'billetera activa' : 'billeteras activas'}
@@ -593,7 +593,7 @@ const DashboardDesktop: React.FC = () => {
                     <button
                       key={index}
                       onClick={() => { haptic('nav'); action.onClick(); }}
-                      className="h-[60px] rounded-lg bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.06] flex flex-col items-center justify-center gap-1 text-text-disabled hover:text-text-primary hover:border-[rgb(var(--fg-rgb))]/[0.16] active:scale-95 transition-all group"
+                      className="h-[60px] rounded-lg bg-surface-sunken border border-hairline flex flex-col items-center justify-center gap-1 text-text-disabled hover:text-text-primary hover:border-border-strong active:scale-95 transition-all group"
                     >
                       <div className={`w-6 h-6 rounded-md bg-[rgb(var(--fg-rgb))]/[0.04] flex items-center justify-center transition-transform group-hover:scale-105 ${action.color}`}>
                         <action.icon size={13} strokeWidth={2.5} />
@@ -621,7 +621,7 @@ const DashboardDesktop: React.FC = () => {
 
             {monthlyMovements.length > 0 ? (
               <>
-                <div className="grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-1 border-t border-[rgb(var(--fg-rgb))]/5">
+                <div className="grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-1 border-t border-hairline">
                   <span />
                   <span className={SECTION_LABEL}>Concepto</span>
                   <span className={SECTION_LABEL}>Fecha</span>
@@ -634,7 +634,7 @@ const DashboardDesktop: React.FC = () => {
                     <button
                       key={mov.id}
                       onClick={() => setSelectedMovement(mov)}
-                      className="w-full grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-2 border-t border-[rgb(var(--fg-rgb))]/5 text-left hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors"
+                      className="w-full grid grid-cols-[32px_minmax(0,1fr)_88px_92px_88px] gap-2 items-center px-3.5 py-2 border-t border-hairline text-left hover:bg-[rgb(var(--fg-rgb))]/[0.02] transition-colors"
                     >
                       <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isIncome ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
                         {isIncome ? <ArrowUpRight size={11} /> : <ArrowDownRight size={11} />}
@@ -651,7 +651,7 @@ const DashboardDesktop: React.FC = () => {
                 })}
               </>
             ) : (
-              <div className="py-8 text-center text-text-disabled text-xs border-t border-[rgb(var(--fg-rgb))]/5">
+              <div className="py-8 text-center text-text-disabled text-xs border-t border-hairline">
                 No hay movimientos este mes.
               </div>
             )}
@@ -691,7 +691,7 @@ const DashboardDesktop: React.FC = () => {
                     const clientName = clients.find(c => c.id === sale.clientId)?.name || 'Cliente';
                     const pill = getExpiryPill(days);
                     return (
-                      <div key={sale.id} className="flex items-center gap-2 px-3.5 py-2 border-t border-[rgb(var(--fg-rgb))]/5">
+                      <div key={sale.id} className="flex items-center gap-2 px-3.5 py-2 border-t border-hairline">
                         <div className="w-6 h-6 rounded-full bg-surface-3 flex items-center justify-center text-micro font-bold shrink-0">{clientName.substring(0, 2).toUpperCase()}</div>
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-semibold truncate">{clientName}</p>
@@ -705,7 +705,7 @@ const DashboardDesktop: React.FC = () => {
                     );
                   })
                 ) : (
-                  <div className="py-6 flex flex-col items-center gap-1.5 text-text-disabled border-t border-[rgb(var(--fg-rgb))]/5">
+                  <div className="py-6 flex flex-col items-center gap-1.5 text-text-disabled border-t border-hairline">
                     <CheckCircle2 size={20} strokeWidth={1.5} className="text-status-success-soft" />
                     <p className="text-caption">Nada por vencer esta semana.</p>
                   </div>
@@ -769,7 +769,7 @@ const DashboardDesktop: React.FC = () => {
       {/* CONSULTA DE STOCK */}
       <Modal isOpen={isStockFinderOpen} onClose={() => setIsStockFinderOpen(false)} title="Consulta de stock">
         <div className="flex flex-col gap-3 pt-1">
-          <div className="flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors">
+          <div className="flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-border-subtle focus-within:border-brand-primary/40 transition-colors">
             <Search size={16} className="text-text-faint shrink-0" />
             <input aria-label="Filtrar por plataforma"
               value={stockFilter}
@@ -783,7 +783,7 @@ const DashboardDesktop: React.FC = () => {
               <button
                 key={s.id}
                 onClick={() => setSelectedStockService(s)}
-                className="w-full p-3 rounded-xl bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 text-left hover:border-status-success/40 transition-all active:scale-[0.98]"
+                className="w-full p-3 rounded-xl bg-surface-zinc border border-hairline flex items-center gap-3 text-left hover:border-status-success/40 transition-all active:scale-[0.98]"
               >
                 <div className="w-10 h-10 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20 shrink-0"><Layers size={18} /></div>
                 <span className="flex-1 min-w-0 text-sm font-bold text-text-primary truncate">{s.name}</span>
@@ -809,7 +809,7 @@ const DashboardDesktop: React.FC = () => {
           <p className="text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1">Cuentas con cupo libre</p>
           <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar pr-1">
             {selectedStockService?.accounts.map((acc: any) => (
-              <div key={acc.id} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 p-3 rounded-xl flex items-center gap-3">
+              <div key={acc.id} className="bg-surface-zinc border border-hairline p-3 rounded-xl flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="text-body-sm font-bold text-text-primary truncate">{acc.email}</p>
                   <div className="flex items-center gap-1.5 mt-1">
@@ -831,7 +831,7 @@ const DashboardDesktop: React.FC = () => {
               </div>
             ))}
           </div>
-          <button onClick={() => setSelectedStockService(null)} className="w-full h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] mt-2">
+          <button onClick={() => setSelectedStockService(null)} className="w-full h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] mt-2">
             <ArrowLeft size={16} /> Volver a la lista
           </button>
         </div>

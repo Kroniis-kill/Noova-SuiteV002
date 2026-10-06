@@ -204,10 +204,10 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                     <p className="text-text-muted text-micro font-bold uppercase tracking-[0.15em]">{clients.length} en cartera</p>
                  </div>
                  <div className="flex gap-2">
-                     <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
+                     <button onClick={handleSync} disabled={isSyncing} className="w-10 h-10 rounded-md bg-surface-3 border border-hairline flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <RefreshCw size={16} className={isSyncing ? 'animate-spin text-brand-primary' : ''} />
                      </button>
-                     <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
+                     <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-3 border border-hairline flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95">
                         <Upload size={16} />
                      </button>
                      <button aria-label="Agregar" onClick={() => { setEditingClient(null); setIsModalOpen(true); }} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow-md active:scale-95 transition-all ${isHighlighted ? 'ring-2 ring-white' : ''}`}>
@@ -242,7 +242,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   placeholder="Buscar por nombre o celular..." 
-                  className="relative w-full h-11 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-5 text-label text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-disabled transition-all font-medium" 
+                  className="relative w-full h-11 bg-surface-3 border border-hairline rounded-md pl-11 pr-5 text-label text-text-primary outline-none focus:border-brand-primary/40 placeholder:text-text-disabled transition-all font-medium" 
                 />
              </div>
        </div>
@@ -286,7 +286,7 @@ const ClientsMobile: React.FC<ClientsMobileProps> = ({ onBack }) => {
                       className={`flex flex-col items-center rounded-xl bg-surface-1 border border-border-subtle p-3 pt-3.5 text-center active:scale-[0.96] transition-all duration-150 ease-out-soft outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/60 ${isActive ? '' : 'opacity-60'}`}
                    >
                       <div className="relative w-14 h-14">
-                         <Avatar name={client.name} size={56} className="rounded-full shadow-md border border-[rgb(var(--fg-rgb))]/10" />
+                         <Avatar name={client.name} size={56} className="rounded-full shadow-md border border-border-subtle" />
                          {badge && (
                             <span className={`absolute -right-1 -bottom-1 w-7 h-7 rounded-full border-[2.5px] border-surface-1 flex items-center justify-center shadow-md ${badge.className}`}>
                                <badge.icon size={14} strokeWidth={2.5} className="text-white" aria-hidden="true" />

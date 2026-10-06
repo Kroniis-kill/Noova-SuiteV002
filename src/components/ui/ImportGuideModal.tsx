@@ -42,7 +42,7 @@ const ImportGuideModal: React.FC<ImportGuideModalProps> = ({ isOpen, onClose, on
         <div className="grid grid-cols-2 gap-3 pt-2">
            <button 
              onClick={handleDownload}
-             className="w-full h-[48px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary rounded-md font-bold transition-all flex items-center justify-center gap-2 text-label active:scale-95"
+             className="w-full h-[48px] bg-surface-3 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 text-text-secondary rounded-md font-bold transition-all flex items-center justify-center gap-2 text-label active:scale-95"
            >
               <Download size={16} /> Bajar Plantilla
            </button>

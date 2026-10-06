@@ -70,10 +70,10 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                 initial="hidden" 
                 animate="visible" 
                 exit="exit" 
-                className={`pointer-events-auto bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 shadow-2xl flex flex-col overflow-hidden ${isMobile ? 'w-full rounded-t-xl max-h-[90dvh]' : 'w-[800px] h-[650px] rounded-xl'}`}
+                className={`pointer-events-auto bg-surface-3 border border-border-subtle shadow-2xl flex flex-col overflow-hidden ${isMobile ? 'w-full rounded-t-xl max-h-[90dvh]' : 'w-[800px] h-[650px] rounded-xl'}`}
             >
                 {/* Header / Cover Style similar to Resellers */}
-                <div className="relative shrink-0 p-6 pb-6 border-b border-[rgb(var(--fg-rgb))]/5">
+                <div className="relative shrink-0 p-6 pb-6 border-b border-hairline">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
                     
                     {isMobile && <div className="w-12 h-1.5 bg-[rgb(var(--fg-rgb))]/10 rounded-full mx-auto mb-6 cursor-grab active:cursor-grabbing" onClick={onClose} />}
@@ -81,7 +81,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                     <div className="flex justify-between items-start relative z-10">
                         <div className="flex items-center gap-5">
                             <div 
-                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-text-primary shadow-glow border border-[rgb(var(--fg-rgb))]/10"
+                                className="w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold text-text-primary shadow-glow border border-border-subtle"
                                 style={{ backgroundColor: provider.color }}
                             >
                                 {provider.name.substring(0, 2).toUpperCase()}
@@ -90,12 +90,12 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                 <h2 className="text-2xl font-bold text-text-primary tracking-tight">{provider.name}</h2>
                                 <div className="flex items-center gap-2 mt-1.5">
                                     {provider.whatsapp && (
-                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
+                                        <button onClick={() => sendWhatsAppMessage(provider.whatsapp, '')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-hairline hover:bg-brand-whatsapp/10 hover:text-brand-whatsapp transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
                                             <MessageCircle size={12} /> {provider.whatsapp}
                                         </button>
                                     )}
                                     {provider.telegram && (
-                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
+                                        <button onClick={() => window.open(`https://t.me/${provider.telegram?.replace('@','')}`, '_blank')} className="px-2.5 py-1 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-hairline hover:bg-brand-telegram/10 hover:text-brand-telegram transition-colors flex items-center gap-1.5 text-caption font-medium text-text-muted">
                                             <Send size={12} /> Telegram
                                         </button>
                                     )}
@@ -120,12 +120,12 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-[rgb(var(--fg-rgb))]/5">
-                    <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
+                <div className="grid grid-cols-3 gap-1 p-1 bg-surface-sunken border-b border-hairline">
+                    <div className="p-4 text-center border-r border-hairline">
                         <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Cuentas Totales</p>
                         <p className="text-lg font-bold text-text-primary">{providerAccounts.length}</p>
                     </div>
-                    <div className="p-4 text-center border-r border-[rgb(var(--fg-rgb))]/5">
+                    <div className="p-4 text-center border-r border-hairline">
                         <p className="text-tiny text-text-disabled font-semibold uppercase tracking-wider mb-1">Stock Activo</p>
                         <p className="text-lg font-bold text-status-success-soft">{activeCount}</p>
                     </div>
@@ -142,7 +142,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                     </h3>
                     
                     {providerAccounts.length === 0 ? (
-                        <div className="h-40 flex flex-col items-center justify-center border-2 border-dashed border-[rgb(var(--fg-rgb))]/5 rounded-xl opacity-50">
+                        <div className="h-40 flex flex-col items-center justify-center border-2 border-dashed border-hairline rounded-xl opacity-50">
                             <Truck size={32} className="text-text-faint mb-2" />
                             <p className="text-text-disabled text-xs">No hay cuentas registradas.</p>
                         </div>
@@ -154,12 +154,12 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                 const StatusIcon = statusStyle.icon;
                                 
                                 return (
-                                    <div key={acc.id} onClick={() => onAccountClick(acc)} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl hover:bg-surface-4 cursor-pointer transition-all group hover:border-[rgb(var(--fg-rgb))]/10">
+                                    <div key={acc.id} onClick={() => onAccountClick(acc)} className="bg-surface-3 border border-hairline p-4 rounded-xl hover:bg-surface-4 cursor-pointer transition-all group hover:border-border-subtle">
                                         <div className="flex justify-between items-start mb-3">
                                             <div>
                                                 <h4 className="text-text-primary font-bold text-sm truncate max-w-[180px]">{acc.email}</h4>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-tiny text-text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-[rgb(var(--fg-rgb))]/5">
+                                                    <span className="text-tiny text-text-muted font-bold bg-[rgb(var(--fg-rgb))]/5 px-2 py-0.5 rounded border border-hairline">
                                                         {service?.name || 'Servicio'}
                                                     </span>
                                                 </div>
@@ -168,7 +168,7 @@ const ProviderDetailSheet: React.FC<ProviderDetailSheetProps> = ({
                                                 <StatusIcon size={12} />
                                             </div>
                                         </div>
-                                        <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/5">
+                                        <div className="flex items-center justify-between pt-3 border-t border-hairline">
                                             <div className="flex items-center gap-1.5 text-text-disabled text-caption">
                                                 <Calendar size={12} />
                                                 <span>Vence: <span className="text-text-secondary font-mono">{formatDate(acc.endDate)}</span></span>

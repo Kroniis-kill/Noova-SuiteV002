@@ -1,3 +1,4 @@
+import PageHeader, { PAGE_SHELL } from '../../../components/ui/PageHeader';
 import React from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { useSubscription } from '../../../context/SubscriptionContext';
@@ -57,19 +58,13 @@ const MyPlanMobile: React.FC = () => {
   };
 
   return (
-    <div className="px-5 pt-safe mt-6 pb-24 font-sans min-h-dvh relative overflow-hidden bg-bg">
-       
-       {/* Ambient Light */}
-
-       <div className="relative z-10 mb-8">
-          <h1 className="text-2xl font-black text-text-primary tracking-tight">Mi Membresía</h1>
-          <p className="text-text-muted text-sm mt-1">Estado de tu cuenta y recursos.</p>
-       </div>
+    <div className={`${PAGE_SHELL} overflow-x-hidden`}>
+       <PageHeader title="Mi Membresía" subtitle="Estado de tu cuenta y recursos" className="mb-6" />
 
        {/* --- STATUS CARD --- */}
        <motion.div 
          initial="hidden" animate="visible" variants={cardVariants}
-         className="relative w-full aspect-[2.2] rounded-2xl overflow-hidden shadow-2xl border border-[rgb(var(--fg-rgb))]/10 group mb-6"
+         className="relative w-full aspect-[2.2] rounded-2xl overflow-hidden shadow-2xl border border-border-subtle group mb-6"
        >
           <div className={`absolute inset-0 bg-gradient-to-br ${getCardGradient()}`} />
           
@@ -96,7 +91,7 @@ const MyPlanMobile: React.FC = () => {
                       </div>
                       <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">{planLabel}</h2>
                   </div>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-md ${isBlocked ? 'bg-status-danger/20 border-status-danger/30' : 'bg-[rgb(var(--fg-rgb))]/10 border-[rgb(var(--fg-rgb))]/10'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border backdrop-blur-md ${isBlocked ? 'bg-status-danger/20 border-status-danger/30' : 'bg-[rgb(var(--fg-rgb))]/10 border-border-subtle'}`}>
                       {isBlocked ? <AlertTriangle size={18} className="text-status-danger" /> : <Shield size={18} className="text-text-primary" />}
                   </div>
               </div>
@@ -163,9 +158,9 @@ const MyPlanMobile: React.FC = () => {
           
           <div className="grid grid-cols-2 gap-4">
              {/* Clientes Card */}
-             <div className="bg-surface-1 p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
+             <div className="bg-surface-1 p-5 rounded-xl border border-border-subtle shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
                 
-                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-status-info-soft border border-[rgb(var(--fg-rgb))]/5 shadow-sm relative z-10">
+                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-status-info-soft border border-hairline shadow-sm relative z-10">
                     <Users size={20} />
                 </div>
                 
@@ -176,9 +171,9 @@ const MyPlanMobile: React.FC = () => {
              </div>
 
              {/* Ventas Card */}
-             <div className="bg-surface-1 p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.08] shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
+             <div className="bg-surface-1 p-5 rounded-xl border border-border-subtle shadow-sm flex flex-col justify-between h-[120px] relative overflow-hidden group">
                 
-                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-purple-400 border border-[rgb(var(--fg-rgb))]/5 shadow-sm relative z-10">
+                <div className="w-10 h-10 rounded-md bg-surface-sunken flex items-center justify-center text-purple-400 border border-hairline shadow-sm relative z-10">
                     <TrendingUp size={20} />
                 </div>
                 
@@ -194,12 +189,12 @@ const MyPlanMobile: React.FC = () => {
        <div className="space-y-4">
           <h3 className="text-sm font-bold text-text-primary px-1">Centro de Ayuda</h3>
           
-          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl overflow-hidden shadow-sm">
+          <div className="bg-surface-1 border border-border-subtle rounded-xl overflow-hidden shadow-sm">
              
              {!isLifetime && (
                  <button 
                     onClick={() => handleSupport('renew')} 
-                    className="w-full p-5 flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group"
+                    className="w-full p-5 flex items-center justify-between border-b border-hairline active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group"
                  >
                      <div className="flex items-center gap-4">
                          <div className="w-12 h-12 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20">
@@ -216,7 +211,7 @@ const MyPlanMobile: React.FC = () => {
 
              <button 
                 onClick={() => handleSupport('tech')} 
-                className="w-full p-5 flex items-center justify-between border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group"
+                className="w-full p-5 flex items-center justify-between border-b border-hairline active:bg-[rgb(var(--fg-rgb))]/5 transition-colors group"
              >
                  <div className="flex items-center gap-4">
                      <div className="w-12 h-12 rounded-md bg-status-info/10 flex items-center justify-center text-status-info-soft border border-status-info/20">

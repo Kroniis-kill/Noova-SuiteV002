@@ -44,7 +44,7 @@ const ServiceCard: React.FC<ServiceCardProps> = React.memo(({ service, stats, on
         >
           <div className="relative z-10 w-full">
              <div className="flex justify-between items-start mb-3">
-                <div className="w-10 h-10 rounded-md bg-surface-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary shadow-inner overflow-hidden">
+                <div className="w-10 h-10 rounded-md bg-surface-4 border border-hairline flex items-center justify-center text-text-secondary shadow-inner overflow-hidden">
                    {service.image_url && !imgError ? (
                      <img
                        src={service.image_url} 

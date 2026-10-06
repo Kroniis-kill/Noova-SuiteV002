@@ -26,11 +26,11 @@ const AccessBlocked: React.FC = () => {
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
            transition={{ duration: 0.5, type: 'spring' }}
-           className="relative z-10 max-w-md w-full bg-surface-1/80 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-8 shadow-2xl flex flex-col items-center"
+           className="relative z-10 max-w-md w-full bg-surface-1/80 backdrop-blur-xl border border-border-subtle rounded-2xl p-8 shadow-2xl flex flex-col items-center"
         >
             <div className="mb-6 relative">
                  <div className="absolute inset-0 bg-status-danger/20 blur-[40px] rounded-full" />
-                 <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-surface-3 to-black border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-2xl relative z-10">
+                 <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-surface-3 to-black border border-border-subtle flex items-center justify-center shadow-2xl relative z-10">
                      <Lock size={40} className="text-status-danger" />
                  </div>
                  <div className="absolute -top-2 -right-2 w-10 h-10 bg-status-danger rounded-full flex items-center justify-center border-4 border-surface-1 z-20">
@@ -53,7 +53,7 @@ const AccessBlocked: React.FC = () => {
                 
                 <button 
                   onClick={logout}
-                  className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 text-text-muted font-semibold text-xs hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
+                  className="w-full h-[48px] rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-hairline text-text-muted font-semibold text-xs hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all"
                 >
                     Cerrar Sesión
                 </button>

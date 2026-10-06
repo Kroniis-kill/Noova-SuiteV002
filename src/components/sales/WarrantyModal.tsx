@@ -25,7 +25,7 @@ import { getDaysRemaining } from '../../utils/expiredUtils';
 const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0";
 
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
-const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
+const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-border-subtle focus-within:border-brand-primary/40 transition-colors";
 
 const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
@@ -64,7 +64,7 @@ interface StepperControlProps {
 
 // Fuera del modal para no remontarse en cada render (si no, el input pierde el foco al escribir)
 const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label }) => (
-  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+  <div className="bg-surface-sunken rounded-md border border-border-subtle p-1 flex items-center justify-between h-[52px] w-full focus-within:border-border-strong transition-colors">
     <button type="button" aria-label="Menos días" onClick={() => onChange(value - 1)} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
     <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full gap-0.5">
       <input
@@ -91,7 +91,7 @@ interface PickerRowProps {
 
 // Fila que se ve dentro de las listas de búsqueda (cuenta, plataforma, servicio destino)
 const PickerRow: React.FC<PickerRowProps> = ({ icon, iconClass, title, subtitle, selected }) => (
-  <div className={`flex items-center gap-3 p-3 rounded-xl border transition-all text-left ${selected ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4'}`}>
+  <div className={`flex items-center gap-3 p-3 rounded-xl border transition-all text-left ${selected ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-zinc border-hairline hover:bg-surface-4'}`}>
     <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
     <div className="flex-1 min-w-0">
       <p className="text-sm font-bold text-text-primary truncate">{title}</p>
@@ -385,7 +385,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
             <div className="flex flex-col gap-5">
 
                 {/* 1. RESUMEN DEL SERVICIO CON FALLA */}
-                <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
                     <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20"><ShieldCheck size={18} /></div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
@@ -395,7 +395,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                 </div>
 
                 {/* 2. MODO */}
-                <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
+                <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-border-subtle rounded-xl">
                     <button
                         type="button"
                         onClick={() => setWarrantyMode('replace')}
@@ -419,8 +419,8 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                             {/* 3A. ORIGEN: PLATAFORMA Y CUENTA */}
                             <div className="space-y-3">
                                 <label className={SECTION_LABEL}>Origen</label>
-                                <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
-                                    <button type="button" onClick={() => setModalSearch('service')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-[rgb(var(--fg-rgb))]/5 active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
+                                <div className="bg-surface-zinc rounded-xl border border-hairline overflow-hidden">
+                                    <button type="button" onClick={() => setModalSearch('service')} className="w-full h-[60px] px-3 flex items-center gap-3 text-left border-b border-hairline active:bg-[rgb(var(--fg-rgb))]/[0.03] transition-colors group">
                                         <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><Monitor size={18} /></div>
                                         <div className="flex-1 min-w-0">
                                             <span className="block text-tiny font-semibold text-text-disabled uppercase">Plataforma destino</span>
@@ -449,7 +449,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                             key={n}
                                             type="button"
                                             onClick={() => setDaysToAdd(n)}
-                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${daysToAdd === n ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${daysToAdd === n ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
                                         >
                                             {n === 0 ? 'Sin días' : `+${n} días`}
                                         </button>
@@ -457,7 +457,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
                                     <StepperControl value={daysToAdd} onChange={setDaysToAdd} label="DÍAS MANUALES" />
-                                    <div className="bg-surface-zinc rounded-md border border-[rgb(var(--fg-rgb))]/5 h-[52px] px-4 flex flex-col justify-center min-w-0">
+                                    <div className="bg-surface-zinc rounded-md border border-hairline h-[52px] px-4 flex flex-col justify-center min-w-0">
                                         <span className="text-micro font-bold text-text-faint uppercase tracking-wide leading-none">Nuevo vencimiento</span>
                                         <span className={`text-[15px] font-bold leading-tight mt-1 ${totalAdj > 0 ? 'text-status-success-soft' : 'text-text-primary'}`}>{formatLongDate(newExpiryDate)}</span>
                                     </div>
@@ -507,7 +507,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                             key={value}
                                             type="button"
                                             onClick={() => setReason(value)}
-                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${reason === value ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                            className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${reason === value ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
                                         >
                                             {label}
                                         </button>
@@ -527,7 +527,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                             {/* 4B. SERVICIO DESTINO */}
                             <div className="space-y-3">
                                 <label className={SECTION_LABEL}>Servicio destino</label>
-                                <button type="button" onClick={() => setModalSearch('target_sale')} className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 text-left active:scale-[0.99] transition-all group">
+                                <button type="button" onClick={() => setModalSearch('target_sale')} className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-hairline flex items-center gap-3 text-left active:scale-[0.99] transition-all group">
                                     <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-brand-primary shrink-0"><ShoppingCart size={18} /></div>
                                     <div className="flex-1 min-w-0">
                                         <span className="block text-tiny font-semibold text-text-disabled uppercase">Servicio activo</span>
@@ -541,7 +541,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
 
                             {/* 4C. RESULTADO DEL ABONO */}
                             {targetSale && (
-                                <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4">
+                                <div className="bg-surface-zinc rounded-xl border border-hairline p-4">
                                     <div className="flex items-center justify-center gap-5">
                                         <div className="flex flex-col items-center min-w-0">
                                             <div className="w-11 h-11 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft mb-1.5 border border-status-danger/20"><Layers size={20} /></div>
@@ -555,7 +555,7 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
                                             <span className="text-xs font-bold text-text-primary truncate max-w-[110px]">{targetSale.serviceName}</span>
                                         </div>
                                     </div>
-                                    <div className="mt-4 pt-4 border-t border-[rgb(var(--fg-rgb))]/5 text-center">
+                                    <div className="mt-4 pt-4 border-t border-hairline text-center">
                                         <p className="text-tiny font-bold text-text-disabled uppercase tracking-widest">Equivalencia a abonar</p>
                                         <p className="text-4xl font-black text-status-success-soft leading-tight mt-1">+{prorataAdjustment} días</p>
                                         <p className="text-xs text-text-muted mt-2">Nueva fecha del destino: <span className="text-text-primary font-bold">{formatLongDate(targetNewDate)}</span></p>
@@ -568,10 +568,10 @@ const WarrantyModal: React.FC<WarrantyModalProps> = ({ isOpen, onClose, sale, zI
             </div>
 
             {/* 5. ACCIONES (quedan pegadas abajo al hacer scroll) */}
-            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex gap-3">
+            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-hairline flex gap-3">
                 <button
                     onClick={onClose}
-                    className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]"
+                    className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]"
                 >
                     Cerrar
                 </button>

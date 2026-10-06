@@ -31,11 +31,11 @@ const LegalPage: React.FC<LegalPageProps> = ({ type }) => {
     <div className="min-h-dvh bg-bg text-text-primary font-sans selection:bg-brand-primary/30">
       
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-[rgb(var(--fg-rgb))]/10">
+      <div className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-border-subtle">
          <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-4">
              <button aria-label="Volver" 
                onClick={goBack}
-               className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors active:scale-95"
+               className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 border border-hairline flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors active:scale-95"
              >
                 <ArrowLeft size={20} />
              </button>
@@ -61,7 +61,7 @@ const LegalPage: React.FC<LegalPageProps> = ({ type }) => {
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ delay: idx * 0.05 }}
-                   className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-6 md:p-8"
+                   className="bg-surface-3 border border-hairline rounded-xl p-6 md:p-8"
                  >
                      <h3 className="text-xl font-bold text-text-primary mb-4">{section.title}</h3>
                      <p className="text-text-muted text-sm leading-relaxed whitespace-pre-wrap">
@@ -71,7 +71,7 @@ const LegalPage: React.FC<LegalPageProps> = ({ type }) => {
              ))}
          </div>
 
-         <div className="mt-12 pt-8 border-t border-[rgb(var(--fg-rgb))]/10 text-center">
+         <div className="mt-12 pt-8 border-t border-border-subtle text-center">
              <p className="text-text-faint text-xs">
                  &copy; {new Date().getFullYear()} Noova Suite. Todos los derechos reservados.
              </p>

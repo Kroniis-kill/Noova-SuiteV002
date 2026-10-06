@@ -158,7 +158,7 @@ const AdminDesktop: React.FC = () => {
         <div className="flex gap-2">
           <button
             onClick={() => { setTempPhone(supportNumber); setIsConfigOpen(true); }}
-            className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] text-text-secondary hover:text-text-primary hover:bg-surface-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
+            className="bg-surface-1 border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
           >
             <Settings size={16} /> Configuración
           </button>
@@ -172,7 +172,7 @@ const AdminDesktop: React.FC = () => {
       </div>
 
       {/* TABS */}
-      <div className="flex gap-1 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-1 w-fit">
+      <div className="flex gap-1 bg-surface-1 border border-border-subtle rounded-xl p-1 w-fit">
         {(Object.keys(TAB_LABELS) as AdminTab[]).map(tab => {
           const Icon = TAB_ICONS[tab];
           const active = activeTab === tab;
@@ -203,8 +203,8 @@ const AdminDesktop: React.FC = () => {
       {activeTab === 'main' && (
         <div className="grid grid-cols-12 gap-6">
           {/* TABLA */}
-          <div className="col-span-12 xl:col-span-8 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl overflow-hidden shadow-sm">
-            <div className="p-5 border-b border-[rgb(var(--fg-rgb))]/[0.06] flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="col-span-12 xl:col-span-8 bg-surface-1 border border-border-subtle rounded-xl overflow-hidden shadow-sm">
+            <div className="p-5 border-b border-hairline flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <h3 className="text-base font-semibold text-text-primary">Suscripciones</h3>
                 <span className="px-2 py-0.5 rounded-md bg-[rgb(var(--fg-rgb))]/5 text-text-muted text-tiny font-semibold">{filteredSubs.length}</span>
@@ -214,7 +214,7 @@ const AdminDesktop: React.FC = () => {
                   aria-label="Filtrar por plan"
                   value={planFilter}
                   onChange={e => setPlanFilter(e.target.value as any)}
-                  className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand-primary/50"
+                  className="bg-surface-sunken border border-border-subtle rounded-md px-3 py-2 text-xs text-text-secondary outline-none focus:border-brand-primary/50"
                 >
                   <option value="all">Todos los planes</option>
                   {(Object.keys(PLAN_LABELS) as PlanType[]).map(p => (
@@ -227,7 +227,7 @@ const AdminDesktop: React.FC = () => {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Buscar usuario..."
-                    className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-9 pr-3 py-2 text-xs text-text-primary outline-none w-64 focus:border-brand-primary/50"
+                    className="bg-surface-sunken border border-border-subtle rounded-md pl-9 pr-3 py-2 text-xs text-text-primary outline-none w-64 focus:border-brand-primary/50"
                   />
                 </div>
               </div>
@@ -243,7 +243,7 @@ const AdminDesktop: React.FC = () => {
                 </div>
               ) : (
                 <div className="overflow-x-auto"><table className="w-full text-left min-w-[40rem]">
-                  <thead className="sticky top-0 bg-surface-1 z-10 border-b border-[rgb(var(--fg-rgb))]/[0.06]">
+                  <thead className="sticky top-0 bg-surface-1 z-10 border-b border-hairline">
                     <tr className="text-tiny font-semibold text-text-disabled uppercase tracking-wider">
                       <th className="px-5 py-3">Usuario</th>
                       <th className="px-5 py-3">Plan</th>
@@ -266,7 +266,7 @@ const AdminDesktop: React.FC = () => {
                         >
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-3">
-                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-xs ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
+                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-xs ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-border-subtle'}`}>
                                 {(sub.full_name || sub.user_email || 'U').substring(0, 2).toUpperCase()}
                               </div>
                               <div className="min-w-0">
@@ -330,7 +330,7 @@ const AdminDesktop: React.FC = () => {
           <div className="col-span-12 xl:col-span-4 space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-6 shadow-sm relative overflow-hidden"
+              className="bg-surface-1 border border-border-subtle rounded-xl p-6 shadow-sm relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-4 relative z-10">
                 <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
@@ -353,7 +353,7 @@ const AdminDesktop: React.FC = () => {
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
-              <div className="mt-4 pt-4 border-t border-[rgb(var(--fg-rgb))]/[0.06] flex gap-2 relative z-10">
+              <div className="mt-4 pt-4 border-t border-hairline flex gap-2 relative z-10">
                 <button onClick={() => setActiveTab('analytics')} className="flex-1 text-xs font-medium text-text-secondary bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 py-2 rounded-lg transition-all flex items-center justify-center gap-2">
                   <BarChart3 size={13} /> Analíticas
                 </button>
@@ -363,7 +363,7 @@ const AdminDesktop: React.FC = () => {
               </div>
             </motion.div>
 
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-6 shadow-sm">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
                 <Server size={15} className="text-status-success-soft" /> Estado del sistema
               </h3>
@@ -379,14 +379,14 @@ const AdminDesktop: React.FC = () => {
       )}
 
       {activeTab === 'feedback' && (
-        <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-6 shadow-sm space-y-3">
+        <div className="bg-surface-1 border border-border-subtle rounded-xl p-6 shadow-sm space-y-3">
           <h3 className="text-base font-semibold text-text-primary flex items-center gap-2 mb-4">
             <MessageSquare size={16} className="text-brand-primary" /> Mensajes recibidos
           </h3>
           {feedback.length === 0 ? (
             <p className="text-text-disabled text-sm text-center py-12">No hay feedback aún.</p>
           ) : feedback.map(f => (
-            <div key={f.id} className={`p-4 rounded-lg border ${f.status === 'read' ? 'bg-[rgb(var(--fg-rgb))]/[0.02] border-[rgb(var(--fg-rgb))]/[0.06]' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
+            <div key={f.id} className={`p-4 rounded-lg border ${f.status === 'read' ? 'bg-[rgb(var(--fg-rgb))]/[0.02] border-hairline' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
               <div className="flex justify-between items-start mb-2">
                 <span className="text-xs font-semibold text-text-muted">{f.user_email}</span>
                 {f.status === 'pending' && (
@@ -402,11 +402,11 @@ const AdminDesktop: React.FC = () => {
       )}
 
       {activeTab === 'announcements' && (
-        <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-6 shadow-sm space-y-4">
+        <div className="bg-surface-1 border border-border-subtle rounded-xl p-6 shadow-sm space-y-4">
           <h3 className="text-base font-semibold text-text-primary flex items-center gap-2">
             <Megaphone size={16} className="text-brand-primary" /> Anuncios globales
           </h3>
-          <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
+          <div className="bg-surface-sunken border border-border-subtle rounded-xl p-4">
             <textarea aria-label="Escribe un anuncio importante para todos los usuarios"
               value={newAnnouncement}
               onChange={e => setNewAnnouncement(e.target.value)}
@@ -427,7 +427,7 @@ const AdminDesktop: React.FC = () => {
           </div>
           <div className="space-y-2">
             {announcements.map(a => (
-              <div key={a.id} className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-[rgb(var(--fg-rgb))]/[0.06] p-4 rounded-lg flex justify-between items-center gap-3">
+              <div key={a.id} className="bg-[rgb(var(--fg-rgb))]/[0.02] border border-hairline p-4 rounded-lg flex justify-between items-center gap-3">
                 <p className="text-sm text-text-secondary flex-1">{a.message}</p>
                 <button aria-label="Eliminar"
                   onClick={async () => { await deleteAnnouncement(a.id); loadData(); }}
@@ -463,7 +463,7 @@ const AdminDesktop: React.FC = () => {
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
                 placeholder="573000000000"
-                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
             <p className="text-caption text-text-disabled mt-2">Se mostrará a usuarios bloqueados o con suscripción expirada.</p>
@@ -506,7 +506,7 @@ const AdminDesktop: React.FC = () => {
 };
 
 const KPICard = ({ title, value, icon: Icon, accent, bg }: any) => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 shadow-sm hover:border-[rgb(var(--fg-rgb))]/[0.14] transition-colors">
+  <div className="bg-surface-1 border border-border-subtle rounded-xl p-5 shadow-sm hover:border-border-strong transition-colors">
     <div className="flex items-start justify-between mb-3">
       <div className={`w-10 h-10 rounded-lg ${bg} ${accent} flex items-center justify-center`}>
         <Icon size={18} />

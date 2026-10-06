@@ -68,7 +68,7 @@ const ResellerModal: React.FC<ResellerModalProps> = ({ isOpen, onClose, onSubmit
 
   const styles = {
     label: "text-tiny font-semibold text-text-disabled uppercase tracking-wider mb-2 block ml-1",
-    inputContainer: "relative flex items-center bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
+    inputContainer: "relative flex items-center bg-surface-sunken border border-border-subtle rounded-md h-[52px] transition-all focus-within:border-brand-primary/60 focus-within:ring-1 focus-within:ring-brand-primary/30",
     input: "w-full h-full bg-transparent text-sm text-text-primary placeholder:text-text-disabled px-4 outline-none font-medium rounded-md",
     iconLeft: "pl-12",
     iconElement: "absolute left-4 text-text-disabled pointer-events-none",

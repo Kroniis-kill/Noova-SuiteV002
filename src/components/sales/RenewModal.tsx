@@ -27,7 +27,7 @@ export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, on
   return createPortal(
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end lg:items-center justify-center p-4" style={{ zIndex: zIndex || 10000 }} onClick={onClose}>
        <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 30 }} className="bg-surface-1 border border-border-subtle rounded-xl w-full max-w-md overflow-hidden flex flex-col max-h-[80vh] shadow-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex items-center justify-between">
+          <div className="p-6 border-b border-hairline flex items-center justify-between">
               <div>
                   <h3 className="text-text-primary font-black text-lg">Billetera</h3>
                   <p className="text-caption text-text-disabled font-medium">Selecciona cuenta de ingreso</p>
@@ -37,15 +37,15 @@ export const WalletSearchModal: React.FC<WalletSearchModalProps> = ({ isOpen, on
           <div className="p-4 space-y-3">
              <div className="relative">
                  <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />
-                 <input aria-label="Buscar cuenta" autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-[rgb(var(--fg-rgb))]/10 focus:border-brand-primary/50 transition-all placeholder:text-text-disabled font-medium" />
+                 <input aria-label="Buscar cuenta" autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar cuenta..." className="w-full bg-surface-sunken rounded-md pl-11 pr-4 h-[52px] text-sm text-text-primary outline-none border border-border-subtle focus:border-brand-primary/50 transition-all placeholder:text-text-disabled font-medium" />
              </div>
              <div className="space-y-2 overflow-y-auto max-h-[300px] custom-scrollbar pr-1">
-                <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
-                    <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-[rgb(var(--fg-rgb))]/5 shrink-0"><X size={18} /></div>
+                <button onClick={() => { onSelect(null); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-hairline flex items-center gap-3 transition-colors group active:scale-[0.98]">
+                    <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary transition-colors border border-hairline shrink-0"><X size={18} /></div>
                     <span className="text-sm font-bold text-text-muted group-hover:text-text-primary">No registrar pago</span>
                 </button>
                 {filtered.map(acc => (
-                    <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 transition-colors group active:scale-[0.98]">
+                    <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full text-left p-3 rounded-xl hover:bg-[rgb(var(--fg-rgb))]/5 border border-hairline flex items-center gap-3 transition-colors group active:scale-[0.98]">
                         <div className="w-10 h-10 rounded-sm bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20 shrink-0"><Wallet size={18} /></div>
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center">
@@ -114,7 +114,7 @@ interface StepperControlProps {
 }
 
 const StepperControl: React.FC<StepperControlProps> = ({ value, onChange, label, min = 0 }) => (
-  <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 p-1 flex items-center justify-between h-[52px] w-full focus-within:border-[rgb(var(--fg-rgb))]/20 transition-colors">
+  <div className="bg-surface-sunken rounded-md border border-border-subtle p-1 flex items-center justify-between h-[52px] w-full focus-within:border-border-strong transition-colors">
     <button type="button" aria-label={`Menos ${label}`} onClick={() => onChange(Math.max(min, value - 1))} className="w-10 h-full shrink-0 rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary flex items-center justify-center active:scale-90 transition-all"><Minus size={16} /></button>
     <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full gap-0.5">
       <input
@@ -383,7 +383,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                 <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-6 pt-2 flex flex-col gap-5">
 
                     {/* 1. SERVICIO A RENOVAR */}
-                    <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+                    <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
                         <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20">
                             <RefreshCw size={18} />
                         </div>
@@ -405,7 +405,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                                         key={m}
                                         type="button"
                                         onClick={() => { haptic('nav'); setMonths(m); setDays(0); }}
-                                        className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary'}`}
+                                        className={`h-9 px-4 rounded-full border text-body-sm font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
                                     >
                                         {m} {m === 1 ? 'mes' : 'meses'}
                                     </button>
@@ -419,7 +419,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                     </div>
 
                     {/* 3. NUEVO VENCIMIENTO */}
-                    <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 focus-within:border-brand-primary/40 flex items-center justify-between gap-3 transition-colors">
+                    <div className="bg-surface-zinc rounded-xl p-4 border border-hairline focus-within:border-brand-primary/40 flex items-center justify-between gap-3 transition-colors">
                         <div className="min-w-0 flex-1">
                             <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest flex items-center gap-1.5">
                                 <Calendar size={12} /> Nuevo vencimiento
@@ -441,9 +441,9 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                             {isConversionActive && (<span className="text-micro bg-status-warning/10 text-status-warning px-2 py-0.5 rounded border border-status-warning/20 font-bold uppercase flex items-center gap-1"><RefreshCcw size={10} /> Tasa: {settings.exchangeRate}</span>)}
                         </div>
 
-                        <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3">
+                        <div className="bg-surface-zinc rounded-xl p-4 border border-hairline space-y-3">
                             {/* Selector de billetera */}
-                            <button type="button" onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md h-[52px] px-4 flex items-center justify-between active:scale-[0.98] transition-all hover:border-[rgb(var(--fg-rgb))]/20 group">
+                            <button type="button" onClick={() => setIsWalletSearchOpen(true)} className="w-full bg-surface-sunken border border-border-subtle rounded-md h-[52px] px-4 flex items-center justify-between active:scale-[0.98] transition-all hover:border-border-strong group">
                                 <div className="flex items-center gap-3 overflow-hidden">
                                     {selectedWallet ? (
                                         <>
@@ -464,7 +464,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                             </button>
 
                             {/* Monto */}
-                            <div className="h-[60px] bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+                            <div className="h-[60px] bg-surface-sunken rounded-md border border-border-subtle flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
                                 <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
                                 <input aria-label="0.00" type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`} placeholder="0.00" inputMode="decimal" />
                                 {selectedWallet && <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{selectedWallet.currency}</span>}
@@ -485,8 +485,8 @@ const RenewModal: React.FC<RenewModalProps> = ({ isOpen, onClose, salesToRenew, 
                 </div>
 
                 {/* ───────── FOOTER ───────── */}
-                <div className="px-6 py-5 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 shrink-0 flex gap-3">
-                    <button onClick={() => handleRenew(false)} className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                <div className="px-6 py-5 bg-surface-1 border-t border-hairline shrink-0 flex gap-3">
+                    <button onClick={() => handleRenew(false)} className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
                         <Check size={18} /> Guardar
                     </button>
                     <button onClick={() => handleRenew(true)} className="btn-primary flex-[2] h-[52px] rounded-md text-sm flex items-center justify-center gap-2">

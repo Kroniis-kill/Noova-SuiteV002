@@ -1,4 +1,7 @@
 
+import PageHeader, { PAGE_SHELL } from '../../../components/ui/PageHeader';
+import SegmentedTabs, { SegmentedTab } from '../../../components/ui/SegmentedTabs';
+import Button from '../../../components/ui/Button';
 import React, { useState } from 'react';
 import { 
   TrendingUp, TrendingDown, Wallet, Users, Layers, 
@@ -22,6 +25,13 @@ interface ReportsMobileProps {
   currency: string;
 }
 
+const RANGE_TABS: SegmentedTab<DateRangeType>[] = [
+  { id: 'current_month', label: 'Este Mes' },
+  { id: 'last_month', label: 'Mes Pasado' },
+  { id: 'year', label: 'Año' },
+  { id: 'all', label: 'Histórico' },
+];
+
 const ReportsMobile: React.FC<ReportsMobileProps> = ({
   metrics, trendData, topServices, topClients, breakdown,
   range, setRange, onExport, currency
@@ -41,50 +51,35 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
   const formatMoney = (val: number) => val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
   return (
-    <div className="pb-32 font-sans text-text-primary min-h-dvh">
-       
-       {/* 1. HEADER & DATE FILTER (Not sticky) */}
-       <div className="pb-4 pt-2 px-4">
-          <div className="flex justify-between items-center mb-4">
-             <div>
-                <h1 className="text-2xl font-black text-text-primary tracking-tight">Reportes</h1>
-                <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Resumen de rendimiento</p>
-             </div>
-             <button aria-label="Descargar" 
-               onClick={onExport}
-               className="w-10 h-10 rounded-md bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors active:scale-95"
-             >
+    <div className={PAGE_SHELL}>
+       <PageHeader
+          title="Reportes"
+          subtitle="Resumen de rendimiento"
+          actions={
+             <Button iconOnly size="sm" variant="secondary" aria-label="Descargar reporte" onClick={onExport}>
                 <Download size={18} />
-             </button>
-          </div>
-          
-          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-             {['current_month', 'last_month', 'year', 'all'].map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setRange(r as DateRangeType)}
-                  className={`px-4 py-2 rounded-md text-caption font-semibold whitespace-nowrap border transition-all ${
-                    range === r 
-                      ? 'bg-gradient-to-r from-brand-primary to-brand-accent text-white border-transparent shadow-lg shadow-brand-primary/20' 
-                      : 'bg-surface-zinc border-[rgb(var(--fg-rgb))]/10 text-text-disabled'
-                  }`}
-                >
-                   {r === 'current_month' ? 'Este Mes' : r === 'last_month' ? 'Mes Pasado' : r === 'year' ? 'Año' : 'Histórico'}
-                </button>
-             ))}
-          </div>
-       </div>
+             </Button>
+          }
+       />
+
+       <SegmentedTabs
+          variant="chips"
+          ariaLabel="Rango de fechas"
+          tabs={RANGE_TABS}
+          value={range}
+          onChange={setRange}
+       />
 
        <motion.div 
          variants={containerVariants}
          initial="hidden"
          animate="visible"
-         className="px-4 mt-6 space-y-6"
+         className="mt-4 space-y-6"
        >
           
           {/* 2. KPI CARDS (Swipeable Look) */}
           <div className="grid grid-cols-2 gap-3">
-             <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
+             <motion.div variants={itemVariants} className="bg-surface-1 border border-border-subtle rounded-xl p-4 relative overflow-hidden">
                 <div className="flex items-center gap-2 mb-2 text-status-success-soft">
                    <Wallet size={16} />
                    <span className="text-tiny font-semibold uppercase tracking-wider">Ganancia Neta</span>
@@ -98,7 +93,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
                 </div>
              </motion.div>
 
-             <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 relative overflow-hidden">
+             <motion.div variants={itemVariants} className="bg-surface-1 border border-border-subtle rounded-xl p-4 relative overflow-hidden">
                 <div className="flex items-center gap-2 mb-2 text-brand-primary">
                    <TrendingUp size={16} />
                    <span className="text-tiny font-semibold uppercase tracking-wider">Ventas</span>
@@ -114,7 +109,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
           </div>
 
           {/* 3. CHART SECTION */}
-          <motion.div variants={itemVariants} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-5 shadow-lg">
+          <motion.div variants={itemVariants} className="bg-surface-1 border border-border-subtle rounded-xl p-5 shadow-lg">
              <div className="flex justify-between items-center mb-6">
                 <h3 className="text-sm font-bold text-text-primary flex items-center gap-2">
                    <BarChart3 size={16} className="text-text-muted" /> Rendimiento
@@ -161,7 +156,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Top Servicios</h3>
              <div className="space-y-2">
                 {topServices.map((item, idx) => (
-                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
+                   <div key={item.id} className="bg-surface-3 border border-hairline rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                          <div className="w-8 h-8 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary text-tiny font-semibold border border-brand-primary/20">
                             #{idx + 1}
@@ -182,7 +177,7 @@ const ReportsMobile: React.FC<ReportsMobileProps> = ({
              <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em] mb-3 px-2">Mejores Clientes</h3>
              <div className="space-y-2">
                 {topClients.map((item, idx) => (
-                   <div key={item.id} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-3 flex items-center justify-between">
+                   <div key={item.id} className="bg-surface-3 border border-hairline rounded-xl p-3 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                          <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success-soft text-tiny font-semibold border border-status-success/20">
                             <Users size={14} />

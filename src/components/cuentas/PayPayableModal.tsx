@@ -37,8 +37,8 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
            {filtered.map(acc => (
-              <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-zinc/40 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left">
-                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
+              <button key={acc.id} onClick={() => { onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-zinc/40 border border-hairline hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left">
+                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-hairline shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.name}</p>
                     <p className="text-tiny text-text-disabled">Saldo: {acc.balance} {acc.currency}</p>
@@ -137,7 +137,7 @@ const PayPayableModal: React.FC<PayPayableModalProps> = ({ isOpen, onClose, paya
       <Modal isOpen={isOpen} onClose={onClose} title="Procesar Pago">
          <form onSubmit={handleSubmit} className="space-y-4 pt-1">
             
-            <div className="bg-surface-zinc p-3 rounded-md border border-[rgb(var(--fg-rgb))]/5 mb-2">
+            <div className="bg-surface-zinc p-3 rounded-md border border-hairline mb-2">
                <div className="flex justify-between items-center mb-1">
                   <span className="text-text-muted text-caption font-medium">Concepto:</span>
                   <span className="text-text-primary text-sm font-bold">{payable.name}</span>

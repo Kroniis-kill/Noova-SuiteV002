@@ -175,7 +175,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
             {/* Central Identity Section */}
             <div className="flex-1 flex flex-col items-center justify-center gap-1 mt-1">
                 <div className="relative">
-                   <Avatar name={group.clientName} size={36} className="rounded-full shadow-md border border-[rgb(var(--fg-rgb))]/5" />
+                   <Avatar name={group.clientName} size={36} className="rounded-full shadow-md border border-hairline" />
                 </div>
                 
                 <div className="text-center w-full space-y-0.5">
@@ -194,13 +194,13 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 <button 
                   aria-label="Enviar recordatorio por WhatsApp"
                   onClick={handleSmartWhatsApp} 
-                  className={`tap-44 w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-90 ${isUrgent ? 'bg-brand-whatsapp border-brand-whatsapp text-black shadow-glow-sm' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/[0.05] text-text-disabled hover:text-text-primary'}`}
+                  className={`tap-44 w-8 h-8 rounded-full border flex items-center justify-center transition-all active:scale-90 ${isUrgent ? 'bg-brand-whatsapp border-brand-whatsapp text-black shadow-glow-sm' : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline text-text-disabled hover:text-text-primary'}`}
                 >
                    {isUrgent ? <BellRing size={12} fill="currentColor" /> : <MessageCircle size={12} />}
                 </button>
                 <button aria-label="Eliminar" 
                   onClick={(e) => { e.stopPropagation(); onDelete(group); }} 
-                  className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-faint border border-[rgb(var(--fg-rgb))]/[0.05] flex items-center justify-center hover:text-status-danger-soft transition-all active:scale-90"
+                  className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 text-text-faint border border-hairline flex items-center justify-center hover:text-status-danger-soft transition-all active:scale-90"
                 >
                    <Trash2 size={12} />
                 </button>
@@ -219,7 +219,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                                     key={s.id}
                                     onClick={() => toggleSale(s.id)}
                                     className={`w-full p-3 rounded-md border flex items-center justify-between transition-all ${
-                                        selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 opacity-60'
+                                        selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline opacity-60'
                                     }`}
                                 >
                                     <span className={`text-xs font-semibold ${selectedIds.includes(s.id) ? 'text-text-primary' : 'text-text-muted'}`}>{s.serviceName}</span>
@@ -232,11 +232,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                     </div>
                 )}
                 
-                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 text-center">
+                <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 text-center">
                     <p className="text-sm text-text-secondary font-medium mb-4">Selecciona la moneda</p>
                     <div className="grid grid-cols-2 gap-3">
-                      <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
-                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
+                      <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
+                      <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
                     </div>
                 </div>
                 <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-text-disabled text-xs font-semibold">Cancelar</button>
@@ -259,7 +259,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
         <div className="p-5 pl-7 relative z-10">
             <div className="flex items-center gap-4 mb-4">
               <div className="relative shrink-0">
-                  <Avatar name={group.clientName} size={48} className="rounded-full shadow-lg border border-[rgb(var(--fg-rgb))]/[0.08]" />
+                  <Avatar name={group.clientName} size={48} className="rounded-full shadow-lg border border-border-subtle" />
                   <div className="absolute -top-1 -right-1 flex gap-1">
                       {hasFailingAccount && (
                           <div className="bg-status-expiring text-black p-1 rounded-full border-2 border-surface-1 animate-pulse">
@@ -296,7 +296,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
               )}
               <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-disabled group-hover:text-text-primary group-hover:bg-[rgb(var(--fg-rgb))]/10 transition-colors"><ChevronRight size={16} /></div>
             </div>
-            <div className="flex items-center justify-between pt-3 border-t border-[rgb(var(--fg-rgb))]/[0.08]">
+            <div className="flex items-center justify-between pt-3 border-t border-border-subtle">
               <div className="flex flex-col">
                   <span className="text-micro font-semibold text-text-disabled uppercase tracking-wider">Total</span>
                   <span className="text-sm font-medium text-text-primary">${allSales.reduce((a,c)=>a+c.amount,0).toLocaleString()}</span>
@@ -323,7 +323,7 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                                 key={s.id}
                                 onClick={() => toggleSale(s.id)}
                                 className={`w-full p-3 rounded-md border flex items-center justify-between transition-all ${
-                                    selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 opacity-60'
+                                    selectedIds.includes(s.id) ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline opacity-60'
                                 }`}
                             >
                                 <span className={`text-xs font-semibold ${selectedIds.includes(s.id) ? 'text-text-primary' : 'text-text-muted'}`}>{s.serviceName}</span>
@@ -336,11 +336,11 @@ const SaleCard: React.FC<SaleCardProps> = React.memo(({ group, onClick, onWhatsA
                 </div>
             )}
             
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 text-center">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 text-center">
                 <p className="text-sm text-text-secondary font-medium mb-4">Selecciona la moneda</p>
                 <div className="grid grid-cols-2 gap-3">
-                  <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
-                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/[0.08] transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
+                  <button onClick={() => handleConfirmCurrency(false)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle transition-all active:scale-95 disabled:opacity-30"><DollarSign size={20} className="text-brand-primary mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.currency}</span></button>
+                  <button onClick={() => handleConfirmCurrency(true)} disabled={selectedIds.length === 0} className="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-3 hover:bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle transition-all active:scale-95 disabled:opacity-30"><RefreshCw size={20} className="text-status-success-soft mb-2" /><span className="text-xs font-semibold text-text-primary uppercase">{settings.subCurrency}</span></button>
                 </div>
             </div>
             <button onClick={() => setShowCurrencyModal(false)} className="w-full py-3 text-text-disabled text-xs font-semibold">Cancelar</button>

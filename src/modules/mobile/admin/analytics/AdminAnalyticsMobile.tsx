@@ -15,7 +15,7 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   if (!data) return <div className="p-8 text-center text-text-disabled">Cargando estadísticas...</div>;
 
   const StatBox = ({ label, value, icon: Icon, color }: any) => (
-     <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 flex flex-col justify-between h-[100px]">
+     <div className="bg-surface-zinc/60 border border-border-subtle rounded-xl p-4 flex flex-col justify-between h-[100px]">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${color} bg-[rgb(var(--fg-rgb))]/5`}>
            <Icon size={16} />
         </div>
@@ -44,9 +44,9 @@ const AdminAnalyticsMobile: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
        <AnalyticsCharts data={data} />
 
-       <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-5 space-y-4">
+       <div className="bg-surface-zinc/60 border border-border-subtle rounded-xl p-5 space-y-4">
           <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Detalles Críticos</h3>
-          <div className="flex justify-between items-center py-2 border-b border-[rgb(var(--fg-rgb))]/5">
+          <div className="flex justify-between items-center py-2 border-b border-hairline">
              <span className="text-xs text-text-muted">Próximo a expirar</span>
              <span className="text-xs font-semibold text-status-warning-soft text-right">
                 {data.nextToExpire ? `${data.nextToExpire.email} (${new Date(data.nextToExpire.date).toLocaleDateString()})` : 'N/A'}

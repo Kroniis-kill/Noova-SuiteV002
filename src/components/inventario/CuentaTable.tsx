@@ -18,10 +18,10 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
   const { providers } = useData();
 
   return (
-    <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-2xl overflow-hidden shadow-lg">
+    <div className="bg-surface-3 backdrop-blur-xl border border-border-subtle rounded-2xl overflow-hidden shadow-lg">
        <div className="overflow-x-auto"><table className="w-full text-left border-collapse min-w-[40rem]">
           <thead>
-             <tr className="border-b border-[rgb(var(--fg-rgb))]/5 text-tiny font-semibold text-text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
+             <tr className="border-b border-hairline text-tiny font-semibold text-text-disabled uppercase tracking-wider bg-[rgb(var(--fg-rgb))]/[0.02]">
                 <th className="p-5 pl-8">Cuenta / Correo</th>
                 <th className="p-5">Contraseña</th>
                 <th className="p-5">Vencimiento</th>
@@ -57,7 +57,7 @@ const CuentaTable: React.FC<CuentaTableProps> = ({ accounts, onEdit, onDelete, o
                       <td className="p-5 font-mono text-text-muted tracking-wider text-xs">{acc.password}</td>
                       <td className="p-5 text-text-secondary font-medium">{acc.endDate}</td>
                       <td className="p-5 text-text-secondary">
-                         <span className="bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md border border-[rgb(var(--fg-rgb))]/5 text-xs font-semibold text-text-muted">
+                         <span className="bg-[rgb(var(--fg-rgb))]/5 px-2 py-1 rounded-md border border-hairline text-xs font-semibold text-text-muted">
                             {usage}
                          </span>
                       </td>

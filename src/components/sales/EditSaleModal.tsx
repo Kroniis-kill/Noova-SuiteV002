@@ -26,7 +26,7 @@ import SearchListModal from './SearchListModal';
 const CLEAN_INPUT = "w-full min-w-0 !bg-transparent !border-0 !ring-0 focus:!ring-0 !rounded-none !p-0 !m-0 outline-none appearance-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0";
 
 // Contenedor estándar de un campo de texto (el borde y el foco los dibuja este contenedor).
-const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors";
+const FIELD_BOX = "flex items-center gap-3 h-[50px] px-4 bg-surface-sunken rounded-md border border-border-subtle focus-within:border-brand-primary/40 transition-colors";
 
 const SECTION_LABEL = "text-tiny font-bold text-text-disabled uppercase tracking-widest ml-1 block";
 
@@ -214,7 +214,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         <div className="flex flex-col gap-5">
 
           {/* 1. RESUMEN (solo lectura) */}
-          <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+          <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
             <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20">
               <Layers size={18} />
             </div>
@@ -231,9 +231,9 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             <button
               type="button"
               onClick={() => { haptic('nav'); setIsClientSearchOpen(true); }}
-              className={`w-full h-[60px] px-3 bg-surface-zinc rounded-xl border flex items-center gap-3 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+              className={`w-full h-[60px] px-3 bg-surface-zinc rounded-xl border flex items-center gap-3 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-hairline'}`}
             >
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-caption font-bold shrink-0 border border-[rgb(var(--fg-rgb))]/10">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-caption font-bold shrink-0 border border-border-subtle">
                 {(selectedClient?.name || '?').substring(0, 2).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
@@ -261,7 +261,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             <button
               type="button"
               onClick={() => { haptic('nav'); setIsAccountSearchOpen(true); }}
-              className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3 text-left active:scale-[0.99] transition-all group"
+              className="w-full h-[60px] px-3 bg-surface-zinc rounded-xl border border-hairline flex items-center gap-3 text-left active:scale-[0.99] transition-all group"
             >
               <div className="w-9 h-9 rounded-md bg-surface-sunken flex items-center justify-center text-status-success shrink-0"><Mail size={18} /></div>
               <div className="flex-1 min-w-0">
@@ -284,14 +284,14 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   key={label}
                   type="button"
                   onClick={() => extendExpiry(months, days)}
-                  className="h-9 px-4 rounded-full border text-body-sm font-semibold bg-surface-sunken border-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary"
+                  className="h-9 px-4 rounded-full border text-body-sm font-semibold bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary"
                 >
                   {label}
                 </button>
               ))}
             </div>
 
-            <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
+            <div className="bg-surface-zinc rounded-xl border border-hairline p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
               <div className="min-w-0 flex-1">
                 <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
                 <input
@@ -328,7 +328,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           {/* 4. MONTO */}
           <div className="space-y-3">
             <label className={SECTION_LABEL}>Monto de venta</label>
-            <div className="h-[60px] bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+            <div className="h-[60px] bg-surface-zinc rounded-xl border border-hairline flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
               <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
               <input aria-label="Monto de venta"
                 type="number"
@@ -382,7 +382,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
           {hasCredentials && (
             <div className="space-y-3">
               <label className={SECTION_LABEL}>Credenciales de acceso</label>
-              <div className="bg-surface-zinc rounded-xl border border-[rgb(var(--fg-rgb))]/5 p-3 space-y-2">
+              <div className="bg-surface-zinc rounded-xl border border-hairline p-3 space-y-2">
                 <div className={FIELD_BOX}>
                   <Mail size={16} className="text-text-disabled shrink-0" />
                   <input aria-label="Credenciales de acceso"
@@ -407,10 +407,10 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         </div>
 
         {/* 6. ACCIONES (quedan pegadas abajo al hacer scroll) */}
-        <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5 flex gap-3">
+        <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 mt-5 py-3 bg-surface-1 border-t border-hairline flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]"
+            className="flex-1 h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]"
           >
             Cancelar
           </button>
@@ -437,9 +437,9 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
         renderItem={(c: Client) => {
           const isCurrent = c.id === formData.clientId;
           return (
-            <div className={`p-4 rounded-xl border mb-2 flex items-center justify-between transition-all ${c.isBlocked ? 'bg-status-danger/10 border-status-danger/20 opacity-50' : isCurrent ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-1 border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-zinc active:scale-[0.98]'}`}>
+            <div className={`p-4 rounded-xl border mb-2 flex items-center justify-between transition-all ${c.isBlocked ? 'bg-status-danger/10 border-status-danger/20 opacity-50' : isCurrent ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-1 border-hairline hover:bg-surface-zinc active:scale-[0.98]'}`}>
               <div className="flex items-center gap-4 min-w-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-[rgb(var(--fg-rgb))]/10 shrink-0">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-sm font-bold shadow-lg border border-border-subtle shrink-0">
                   {c.name.substring(0, 2).toUpperCase()}
                 </div>
                 <div className="min-w-0">

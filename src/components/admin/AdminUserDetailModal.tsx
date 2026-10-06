@@ -27,7 +27,7 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
   const isBanned = user.status === 'banned';
 
   const DetailItem = ({ label, value, icon: Icon }: any) => (
-    <div className="flex items-center gap-3 p-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/5">
+    <div className="flex items-center gap-3 p-3 rounded-md bg-[rgb(var(--fg-rgb))]/5 border border-hairline">
       <div className="w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted">
         <Icon size={16} />
       </div>
@@ -72,28 +72,28 @@ const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
         <div className="grid grid-cols-2 gap-3 pt-2">
           <button 
             onClick={() => onEdit(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <Edit2 size={20} className="mb-2 text-status-info-soft" />
             <span className="text-tiny font-semibold uppercase">Editar</span>
           </button>
           <button 
             onClick={() => onExtend(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <History size={20} className="mb-2 text-status-success-soft" />
             <span className="text-tiny font-semibold uppercase">Extender</span>
           </button>
           <button 
             onClick={() => onBlock(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             {isBanned ? <CheckCircle2 size={20} className="mb-2 text-status-success-soft" /> : <Ban size={20} className="mb-2 text-status-warning-soft" />}
             <span className="text-tiny font-semibold uppercase">{isBanned ? 'Desbloquear' : 'Bloquear'}</span>
           </button>
           <button 
             onClick={() => onDelete(user)}
-            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
+            className="flex flex-col items-center justify-center p-4 rounded-lg bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle text-text-secondary hover:bg-[rgb(var(--fg-rgb))]/10 transition-all active:scale-95"
           >
             <ShieldAlert size={20} className="mb-2 text-status-danger-soft" />
             <span className="text-tiny font-semibold uppercase">Eliminar</span>

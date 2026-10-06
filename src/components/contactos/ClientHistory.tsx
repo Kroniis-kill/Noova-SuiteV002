@@ -86,13 +86,13 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
             const isBlock = entry.notes?.toLowerCase().includes('bloqueo');
             
             return (
-                <div key={entry.id} className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 relative overflow-hidden group">
+                <div key={entry.id} className="bg-surface-zinc border border-hairline rounded-xl p-4 relative overflow-hidden group">
                     {/* Indicador lateral */}
                     <div className={`absolute left-0 top-0 bottom-0 w-1 ${isBlock ? 'bg-status-warning' : 'bg-[rgb(var(--fg-rgb))]/10'}`} />
                     
                     <div className="flex justify-between items-start pl-3">
                         <div className="flex items-start gap-3">
-                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-status-warning/10 border-status-warning/20 text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/5 border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
+                            <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 border ${isBlock ? 'bg-status-warning/10 border-status-warning/20 text-status-warning' : 'bg-[rgb(var(--fg-rgb))]/5 border-hairline text-text-muted'}`}>
                                 {isBlock ? <AlertTriangle size={14} /> : <MonitorPlay size={14} />}
                             </div>
                             
@@ -105,7 +105,7 @@ const ClientHistory: React.FC<ClientHistoryProps> = ({ clientId, clientName }) =
                                 </p>
                                 
                                 {entry.notes && (
-                                    <div className={`mt-2 text-caption p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5 text-text-muted'}`}>
+                                    <div className={`mt-2 text-caption p-2 rounded-xs border inline-block max-w-full ${isBlock ? 'bg-status-warning/5 border-status-warning/10 text-amber-200/80' : 'bg-surface-sunken border-hairline text-text-muted'}`}>
                                         {entry.notes}
                                     </div>
                                 )}

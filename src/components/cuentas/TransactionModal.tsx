@@ -44,8 +44,8 @@ const AccountSearchModal: React.FC<AccountSearchModalProps> = ({ isOpen, onClose
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-1">
            {filtered.map(acc => (
-              <button key={acc.id} onClick={() => { haptic('nav'); onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-zinc/40 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left active:scale-[0.98]">
-                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5 shrink-0"><Wallet size={18} /></div>
+              <button key={acc.id} onClick={() => { haptic('nav'); onSelect(acc); onClose(); }} className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-zinc/40 border border-hairline hover:bg-surface-4 hover:border-brand-primary/30 transition-all group text-left active:scale-[0.98]">
+                 <div className="w-10 h-10 rounded-sm bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted group-hover:text-text-primary border border-hairline shrink-0"><Wallet size={18} /></div>
                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-bold text-text-secondary group-hover:text-text-primary truncate">{acc.name}</p>
                     <p className="text-tiny text-text-disabled">{acc.currency}</p>

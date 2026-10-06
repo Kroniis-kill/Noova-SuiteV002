@@ -28,7 +28,7 @@ const ExpiredSubscriptionPage: React.FC = () => {
           
           <button 
             onClick={logout}
-            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary font-bold rounded-md transition-all border border-[rgb(var(--fg-rgb))]/5"
+            className="w-full h-[52px] bg-[rgb(var(--fg-rgb))]/5 hover:bg-[rgb(var(--fg-rgb))]/10 text-text-muted hover:text-text-primary font-bold rounded-md transition-all border border-hairline"
           >
              Cerrar Sesión
           </button>

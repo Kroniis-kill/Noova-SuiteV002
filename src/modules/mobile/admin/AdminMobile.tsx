@@ -1,5 +1,8 @@
 import ConfirmDialog from '../../../components/ui/ConfirmDialog';
 import React, { useEffect, useState, useMemo } from 'react';
+import PageHeader, { PAGE_SHELL } from '../../../components/ui/PageHeader';
+import SegmentedTabs from '../../../components/ui/SegmentedTabs';
+import Button from '../../../components/ui/Button';
 import { useSubscription } from '../../../context/SubscriptionContext';
 import { UserSubscription, PLAN_LABELS, PlanType, PLAN_PRICES } from '../../../types/subscriptionTypes';
 import { Feedback, Announcement } from '../../../types/adminTypes';
@@ -134,49 +137,24 @@ const AdminMobile: React.FC = () => {
   );
 
   return (
-    <div className="pb-32 pt-3 text-text-primary min-h-dvh bg-bg">
+    <div className={PAGE_SHELL}>
+      <PageHeader
+        icon={<Shield size={18} />}
+        title="Panel Admin"
+        subtitle="Gestión de suscripciones"
+        actions={
+          <>
+            <Button iconOnly size="sm" variant="secondary" aria-label="Actualizar" onClick={loadData}>
+              <RefreshCw size={16} className={isSyncing ? 'animate-spin' : ''} />
+            </Button>
+            <Button iconOnly size="sm" aria-label="Agregar suscripción" onClick={() => { setEditingSub(null); setIsModalOpen(true); }}>
+              <Plus size={18} strokeWidth={2.5} />
+            </Button>
+          </>
+        }
+      />
 
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-5 px-1">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow">
-            <Shield size={18} />
-          </div>
-          <div>
-            <h1 className="text-2xl font-black text-text-primary tracking-tight">Panel Admin</h1>
-            <p className="text-text-disabled text-tiny">Gestión de suscripciones</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <button aria-label="Actualizar"
-            onClick={loadData}
-            className={`tap-44 w-9 h-9 rounded-lg bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] flex items-center justify-center text-text-muted active:scale-90 transition-all ${isSyncing ? 'animate-spin text-brand-primary' : ''}`}
-          ><RefreshCw size={16} /></button>
-          <button aria-label="Agregar"
-            onClick={() => { setEditingSub(null); setIsModalOpen(true); }}
-            className="tap-44 w-9 h-9 rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent text-white flex items-center justify-center shadow-glow active:scale-95 transition-all"
-          ><Plus size={18} strokeWidth={2.5} /></button>
-        </div>
-      </div>
-
-      {/* TABS */}
-      <div className="flex gap-1 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-1 mb-5 overflow-x-auto custom-scrollbar">
-        {TABS.map(tab => {
-          const active = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 min-w-[70px] py-2 px-2 rounded-lg text-tiny font-semibold flex flex-col items-center justify-center gap-1 transition-all ${
-                active ? 'bg-brand-primary text-white' : 'text-text-muted'
-              }`}
-            >
-              <tab.icon size={14} />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+      <SegmentedTabs ariaLabel="Secciones del panel" tabs={TABS} value={activeTab} onChange={setActiveTab} className="mb-5" />
 
       <AnimatePresence mode="wait">
         {activeTab === 'overview' && (
@@ -199,7 +177,7 @@ const AdminMobile: React.FC = () => {
             </div>
 
             {/* Recent users preview */}
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-4">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-sm font-semibold text-text-primary">Últimos usuarios</h3>
                 <button onClick={() => setActiveTab('users')} className="text-caption font-semibold text-brand-primary">Ver todos</button>
@@ -223,7 +201,7 @@ const AdminMobile: React.FC = () => {
               <input aria-label="Buscar usuario"
                 value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Buscar usuario..."
-                className="w-full h-11 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full h-11 bg-surface-1 border border-border-subtle rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
             <div className="space-y-2">
@@ -247,7 +225,7 @@ const AdminMobile: React.FC = () => {
                 <p className="text-text-disabled text-sm">No hay mensajes.</p>
               </div>
             ) : feedback.map(f => (
-              <div key={f.id} className={`p-4 rounded-xl border ${f.status === 'read' ? 'bg-surface-1 border-[rgb(var(--fg-rgb))]/[0.06]' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
+              <div key={f.id} className={`p-4 rounded-xl border ${f.status === 'read' ? 'bg-surface-1 border-hairline' : 'bg-brand-primary/5 border-brand-primary/20'}`}>
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-caption font-semibold text-text-muted">{f.user_email}</span>
                   {f.status === 'pending' && (
@@ -264,7 +242,7 @@ const AdminMobile: React.FC = () => {
 
         {activeTab === 'announcements' && (
           <motion.div key="announcements" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} className="space-y-3">
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-4">
               <textarea aria-label="Escribe un anuncio"
                 value={newAnnouncement}
                 onChange={e => setNewAnnouncement(e.target.value)}
@@ -284,7 +262,7 @@ const AdminMobile: React.FC = () => {
               </button>
             </div>
             {announcements.map(a => (
-              <div key={a.id} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] p-4 rounded-xl flex justify-between items-center gap-3">
+              <div key={a.id} className="bg-surface-1 border border-hairline p-4 rounded-xl flex justify-between items-center gap-3">
                 <p className="text-sm text-text-secondary flex-1">{a.message}</p>
                 <button aria-label="Eliminar" onClick={async () => { await deleteAnnouncement(a.id); loadData(); }} className="text-text-disabled active:text-status-danger-soft">
                   <Trash2 size={15} />
@@ -296,7 +274,7 @@ const AdminMobile: React.FC = () => {
 
         {activeTab === 'system' && (
           <motion.div key="system" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 space-y-4">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-5 space-y-4">
               <h3 className="text-sm font-semibold text-text-primary flex items-center gap-2">
                 <Settings size={15} className="text-brand-primary" /> Configuración global
               </h3>
@@ -307,7 +285,7 @@ const AdminMobile: React.FC = () => {
                   <input aria-label="WhatsApp de soporte"
                     value={tempPhone}
                     onChange={e => setTempPhone(e.target.value)}
-                    className="w-full h-11 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                    className="w-full h-11 bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 text-sm text-text-primary outline-none focus:border-brand-primary/50"
                   />
                 </div>
                 <p className="text-tiny text-text-disabled mt-1.5">Visible para usuarios bloqueados o expirados.</p>
@@ -357,7 +335,7 @@ const AdminMobile: React.FC = () => {
               <input aria-label="WhatsApp de soporte"
                 value={tempPhone}
                 onChange={e => setTempPhone(e.target.value)}
-                className="w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
+                className="w-full bg-surface-sunken border border-border-subtle rounded-md pl-10 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50"
               />
             </div>
           </div>
@@ -389,7 +367,7 @@ const AdminMobile: React.FC = () => {
 };
 
 const MetricCard = ({ label, value, icon: Icon, accent, bg }: any) => (
-  <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4">
+  <div className="bg-surface-1 border border-border-subtle rounded-xl p-4">
     <div className={`w-8 h-8 rounded-lg ${bg} ${accent} flex items-center justify-center mb-3`}>
       <Icon size={15} />
     </div>
@@ -401,7 +379,7 @@ const MetricCard = ({ label, value, icon: Icon, accent, bg }: any) => (
 const ShortcutCard = ({ label, icon: Icon, onClick }: any) => (
   <button
     onClick={onClick}
-    className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center gap-3 active:scale-[0.97] transition-all"
+    className="bg-surface-1 border border-border-subtle rounded-xl p-4 flex items-center gap-3 active:scale-[0.97] transition-all"
   >
     <div className="w-9 h-9 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-secondary">
       <Icon size={16} />
@@ -420,10 +398,10 @@ const UserRow = ({ sub, onClick }: { sub: UserSubscription; onClick: () => void 
   return (
     <div
       onClick={onClick}
-      className={`bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl p-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-all ${isBanned ? 'opacity-50' : ''}`}
+      className={`bg-surface-1 border border-hairline rounded-xl p-3 flex items-center justify-between gap-3 active:scale-[0.98] transition-all ${isBanned ? 'opacity-50' : ''}`}
     >
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-caption shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold text-caption shrink-0 ${isPro ? 'bg-gradient-to-br from-brand-primary to-brand-accent' : 'bg-surface-3 border border-border-subtle'}`}>
           {displayName.substring(0, 2).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">

@@ -98,7 +98,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
                   {isFailing && <AlertTriangle size={14} className="text-status-expiring animate-pulse shrink-0" />}
                </div>
                <div className={`flex items-center gap-2 ${isFailing ? 'opacity-40' : ''}`}>
-                   <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.08]">
+                   <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-sunken border border-border-subtle">
                       <Lock size={10} className="text-text-faint" />
                       <span className="text-tiny font-mono text-text-muted truncate max-w-[100px]">{account.password}</span>
                    </div>
@@ -123,7 +123,7 @@ const CuentaCard: React.FC<CuentaCardProps> = React.memo(({ account, onClick, is
                    <Users size={10} />
                    <span>{usedSlots}/{totalSlots}</span>
                 </div>
-                <div className="w-16 h-1.5 bg-surface-sunken rounded-full overflow-hidden border border-[rgb(var(--fg-rgb))]/[0.08]">
+                <div className="w-16 h-1.5 bg-surface-sunken rounded-full overflow-hidden border border-border-subtle">
                    <div 
                      className={`h-full rounded-full transition-all duration-500 ${progressColor}`} 
                      style={{ width: `${progress}%` }} 

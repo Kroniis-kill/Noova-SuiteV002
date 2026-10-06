@@ -153,7 +153,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
           <div className="flex flex-col gap-5">
 
             {/* 1. CLIENTE */}
-            <div className="flex items-center gap-3 bg-surface-3 p-3 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+            <div className="flex items-center gap-3 bg-surface-3 p-3 rounded-xl border border-hairline">
               <div className="w-11 h-11 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
                 {clientName.substring(0, 2).toUpperCase()}
               </div>
@@ -179,7 +179,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                       key={sale.id}
                       type="button"
                       onClick={() => toggleSale(sale.id)}
-                      className={`w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 text-left active:scale-[0.98] transition-all ${isSelected ? '' : 'opacity-55'}`}
+                      className={`w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-hairline text-left active:scale-[0.98] transition-all ${isSelected ? '' : 'opacity-55'}`}
                     >
                       <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Layers size={18} /></div>
                       <div className="flex-1 min-w-0">
@@ -189,7 +189,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                           {isFailing && <span className="text-status-warning-soft flex items-center gap-0.5"><Zap size={10} className="fill-current" /> con falla</span>}
                         </p>
                       </div>
-                      <div className={`w-[22px] h-[22px] rounded-full border-[1.5px] flex items-center justify-center shrink-0 transition-all ${isSelected ? 'bg-brand-primary border-brand-primary text-white' : 'border-[rgb(var(--fg-rgb))]/20'}`}>
+                      <div className={`w-[22px] h-[22px] rounded-full border-[1.5px] flex items-center justify-center shrink-0 transition-all ${isSelected ? 'bg-brand-primary border-brand-primary text-white' : 'border-border-strong'}`}>
                         {isSelected && <Check size={13} strokeWidth={3} />}
                       </div>
                     </button>
@@ -208,7 +208,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                     type="button"
                     onClick={() => handleTemplateClick(opt.id as WhatsAppTemplateType)}
                     disabled={noneSelected}
-                    className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 text-left hover:border-[rgb(var(--fg-rgb))]/10 active:scale-[0.98] transition-all disabled:opacity-40 group"
+                    className="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-sunken border border-hairline text-left hover:border-border-subtle active:scale-[0.98] transition-all disabled:opacity-40 group"
                   >
                     <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${opt.bg} ${opt.color}`}><opt.icon size={18} /></div>
                     <div className="flex-1 min-w-0">
@@ -242,7 +242,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
 
             {/* 1. RESUMEN */}
             {chosenOption && (
-              <div className="bg-surface-zinc rounded-xl p-4 border border-[rgb(var(--fg-rgb))]/5 flex items-center gap-3">
+              <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 ${chosenOption.bg} ${chosenOption.color}`}><chosenOption.icon size={18} /></div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-text-primary truncate">{chosenOption.label}</p>
@@ -254,7 +254,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
             {/* 2. FORMATO DE PRECIOS */}
             <div className="space-y-3">
               <label className={SECTION_LABEL}>Formato de precios</label>
-              <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-xl">
+              <div className="grid grid-cols-2 gap-1 p-1 bg-surface-sunken border border-border-subtle rounded-xl">
                 <button
                   type="button"
                   onClick={() => setUseSecondaryCurrency(false)}
@@ -280,7 +280,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
                 role="switch"
                 aria-checked={includeReceipt}
                 onClick={() => setIncludeReceipt(!includeReceipt)}
-                className={`w-full p-3 rounded-xl bg-surface-zinc border flex items-center gap-3 text-left transition-all active:scale-[0.99] ${includeReceipt ? 'border-brand-primary/50' : 'border-[rgb(var(--fg-rgb))]/5'}`}
+                className={`w-full p-3 rounded-xl bg-surface-zinc border flex items-center gap-3 text-left transition-all active:scale-[0.99] ${includeReceipt ? 'border-brand-primary/50' : 'border-hairline'}`}
               >
                 <div className={`w-10 h-10 rounded-md flex items-center justify-center shrink-0 transition-colors ${includeReceipt ? 'bg-brand-primary/20 text-brand-primary-hi' : 'bg-surface-sunken text-text-faint'}`}><ImagePlus size={19} /></div>
                 <div className="flex-1 min-w-0">
@@ -294,7 +294,7 @@ const WhatsAppMenu: React.FC<WhatsAppMenuProps> = ({ isOpen, onClose, sales, cli
             </div>
 
             {/* 4. ENVIAR (queda pegado abajo al hacer scroll) */}
-            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 pt-3 pb-3 bg-surface-1 border-t border-[rgb(var(--fg-rgb))]/5">
+            <div className="sticky bottom-0 z-10 -mx-3 lg:-mx-6 px-3 lg:px-6 pt-3 pb-3 bg-surface-1 border-t border-hairline">
               <button
                 onClick={() => selectedType && executeSend(selectedType, useSecondaryCurrency, includeReceipt)}
                 className="btn-primary w-full h-[52px] rounded-md text-sm flex items-center justify-center gap-2"

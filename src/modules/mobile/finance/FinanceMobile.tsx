@@ -1,4 +1,7 @@
 
+import PageHeader, { PAGE_SHELL } from '../../../components/ui/PageHeader';
+import SegmentedTabs, { SegmentedTab } from '../../../components/ui/SegmentedTabs';
+import Button from '../../../components/ui/Button';
 import React, { useState } from 'react';
 import { FinancialAccount, Movement, PayableExpense, Sale, Client } from '../../../types';
 import AccountCard from '../../../components/cuentas/AccountCard';
@@ -45,12 +48,14 @@ export interface FinanceProps {
   initialTab?: 'summary' | 'wallets' | 'movements' | 'payables';
 }
 
+type FinanceTab = 'summary' | 'wallets' | 'movements' | 'payables';
+
 const FinanceMobile: React.FC<FinanceProps> = (props) => {
-  const [activeTab, setActiveTab] = useState<'summary' | 'wallets' | 'movements' | 'payables'>(props.initialTab || 'summary');
+  const [activeTab, setActiveTab] = useState<FinanceTab>(props.initialTab || 'summary');
   const isHighlighted = useHighlightAction('accounts');
   const sortedAccounts = [...props.financialAccounts].sort((a, b) => (b.isActive !== false ? 1 : 0) - (a.isActive !== false ? 1 : 0));
 
-  const TABS = [
+  const TABS: SegmentedTab<FinanceTab>[] = [
     { id: 'summary', label: 'Reportes', icon: PieChart },
     { id: 'wallets', label: 'Billeteras', icon: Wallet },
     { id: 'movements', label: 'Movimientos', icon: Receipt },
@@ -93,42 +98,24 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
   };
 
   return (
-    <div className="pb-40 font-sans text-text-primary min-h-dvh px-4">
-       <div className="pt-safe mt-6 mb-6 flex justify-between items-center relative z-10">
-          <div>
-             <h1 className="text-2xl font-black text-text-primary tracking-tight">Finanzas</h1>
-             <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Capital Management</p>
-          </div>
-          <button 
-             aria-label="Nuevo gasto"
-             onClick={props.onNewExpense}
-             className="w-10 h-10 bg-brand-accent rounded-md flex items-center justify-center text-white shadow-glow active:scale-90 transition-all shadow-brand-accent/20"
-          >
-             <Receipt size={18} strokeWidth={2.5} />
-          </button>
-       </div>
+    <div className={PAGE_SHELL}>
+       <PageHeader
+          title="Finanzas"
+          subtitle="Control de capital"
+          actions={
+             <Button iconOnly size="sm" aria-label="Nuevo gasto" onClick={props.onNewExpense}>
+                <Receipt size={18} strokeWidth={2.5} />
+             </Button>
+          }
+       />
 
-       <div className="mb-8 sticky top-4 z-40">
-          <div className="bg-surface-1/90 backdrop-blur-xl p-1 rounded-md flex border border-[rgb(var(--fg-rgb))]/[0.05] shadow-2xl">
-             {TABS.map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 py-3 rounded-sm text-nano font-black uppercase tracking-widest flex flex-col items-center gap-1 transition-all relative ${activeTab === tab.id ? 'text-text-primary' : 'text-text-faint'}`}
-                >
-                   {activeTab === tab.id && (
-                       <motion.div 
-                        layoutId="activeTabFinanceMicro"
-                        className="absolute inset-0 bg-surface-4 rounded-sm border border-[rgb(var(--fg-rgb))]/5"
-                        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
-                       />
-                   )}
-                   <tab.icon size={14} className="relative z-10" />
-                   <span className="relative z-10">{tab.label}</span>
-                </button>
-             ))}
-          </div>
-       </div>
+       <SegmentedTabs
+          ariaLabel="Secciones de finanzas"
+          tabs={TABS}
+          value={activeTab}
+          onChange={setActiveTab}
+          className="mb-6"
+       />
 
        <div className="relative z-10">
           <AnimatePresence mode='wait'>
@@ -145,7 +132,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                         { label: 'Mensual', val: monthlyProfit, icon: TrendingUp },
                         { label: 'Total', val: totalProfit, icon: TrendingUp },
                       ].map((kpi, i) => (
-                        <div key={i} className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4 flex flex-col justify-between h-24">
+                        <div key={i} className="bg-surface-1 border border-hairline rounded-xl p-4 flex flex-col justify-between h-24">
                            <div className="flex justify-between items-start">
                               <span className="text-tiny font-bold text-text-disabled uppercase tracking-wider">{kpi.label}</span>
                               <kpi.icon size={14} className="text-brand-primary" />
@@ -156,7 +143,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                    </div>
 
                    {/* FILTER ROW */}
-                   <div className="flex items-center justify-between bg-black/40 border border-[rgb(var(--fg-rgb))]/5 p-1 rounded-full">
+                   <div className="flex items-center justify-between bg-black/40 border border-hairline p-1 rounded-full">
                       {['current_month', 'last_month', 'year', 'all'].map(r => (
                         <button 
                           key={r}
@@ -170,14 +157,14 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
 
                    <div className="grid grid-cols-1 gap-4">
                       {/* TOP VENTAS */}
-                      <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-5">
+                      <div className="bg-surface-sunken border border-hairline rounded-xl p-5">
                          <div className="flex items-center gap-2 mb-4">
                             <Target size={14} className="text-brand-primary" />
                             <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Top Ventas</h3>
                          </div>
                          <div className="space-y-3">
                             {(props.reportData?.topServicesProfit || []).slice(0, 3).map((svc: any) => (
-                               <div key={svc.id} className="flex justify-between items-center p-3 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-[rgb(var(--fg-rgb))]/5">
+                               <div key={svc.id} className="flex justify-between items-center p-3 bg-[rgb(var(--fg-rgb))]/5 rounded-2xl border border-hairline">
                                   <span className="text-xs font-semibold text-text-primary">{svc.name}</span>
                                   <span className="text-caption font-mono font-black text-status-success-soft">{formatCurrency(svc.value)}</span>
                                </div>
@@ -240,7 +227,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                       {allMovements.map(mov => {
                          const isInc = mov.type === 'funding' || mov.type === 'transfer_in';
                          return (
-                            <div key={mov.id} className="flex items-center justify-between p-4 bg-surface-1 rounded-xl border border-[rgb(var(--fg-rgb))]/[0.05]">
+                            <div key={mov.id} className="flex items-center justify-between p-4 bg-surface-1 rounded-xl border border-hairline">
                                <div className="flex items-center gap-4">
                                   <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${isInc ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
                                      {isInc ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
@@ -270,7 +257,7 @@ const FinanceMobile: React.FC<FinanceProps> = (props) => {
                 >
                    <div className="flex justify-between items-center px-1">
                       <h3 className="text-tiny font-black text-text-faint uppercase tracking-[0.2em]">Pagos Pendientes</h3>
-                      <button aria-label="Agregar" onClick={props.onNewPayable} className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-primary"><Plus size={14} /></button>
+                      <button aria-label="Agregar" onClick={props.onNewPayable} className="tap-44 w-8 h-8 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle flex items-center justify-center text-text-primary"><Plus size={14} /></button>
                    </div>
                    {props.combinedPayables.map(item => (
                      <PayableCard key={item.id} item={item} onPay={props.onPayPayable} onDelete={props.onDeletePayable} onEdit={props.onEditPayable} />

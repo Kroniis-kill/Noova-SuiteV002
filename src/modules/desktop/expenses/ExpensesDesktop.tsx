@@ -40,13 +40,13 @@ const ExpensesDesktop: React.FC = () => {
           </button>
        </div>
 
-       <div className="bg-surface-3 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl overflow-hidden shadow-sm">
-          <div className="p-6 border-b border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center">
+       <div className="bg-surface-3 backdrop-blur-xl border border-border-subtle rounded-xl overflow-hidden shadow-sm">
+          <div className="p-6 border-b border-hairline flex justify-between items-center">
              <h2 className="text-lg font-bold text-text-primary">Gastos y Compras</h2>
           </div>
           <div className="overflow-x-auto"><table className="w-full text-left min-w-[40rem]">
              <thead>
-                <tr className="bg-[rgb(var(--fg-rgb))]/[0.02] border-b border-[rgb(var(--fg-rgb))]/5 text-xs font-semibold text-text-disabled uppercase tracking-wider">
+                <tr className="bg-[rgb(var(--fg-rgb))]/[0.02] border-b border-hairline text-xs font-semibold text-text-disabled uppercase tracking-wider">
                    <th className="p-6 pl-8">Tipo</th>
                    <th className="p-6">Descripción</th>
                    <th className="p-6">Fecha</th>

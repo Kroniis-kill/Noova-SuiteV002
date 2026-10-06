@@ -244,12 +244,12 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
           <div className="flex justify-between items-center mb-4">
               <div>
                   <h1 className="text-2xl font-black text-text-primary tracking-tight">Proveedores</h1>
-                  <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
+                  <p className="text-text-muted text-micro font-bold uppercase tracking-[0.15em] mt-1">Gestión de suministros</p>
               </div>
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
-                      <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
-                          <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
+                      <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-border-subtle rounded-md pr-2' : ''}`}>
+                          <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-border-subtle rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
                               <Search size={18} />
                           </button>
                           <input aria-label="Buscar..." 
@@ -262,7 +262,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                           {isSearchOpen && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
                       </div>
                   </div>
-                  <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
+                  <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
                       <Upload size={20} />
                   </button>
                   <button aria-label="Agregar" onClick={handleAdd} className="w-10 h-10 rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
@@ -273,7 +273,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
        </div>
 
        <div className="mb-6 relative z-10">
-          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
+          <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-status-info/10 flex items-center justify-center text-status-info-soft">
                       <Layers size={20} />
@@ -324,7 +324,7 @@ const ProvidersMobile: React.FC<ProvidersMobileProps> = ({ onBack }) => {
                  <div><h4 className="text-text-primary font-bold text-sm">Atención</h4><p className="text-text-muted text-xs mt-1 leading-relaxed">El proveedor <strong>{deleteConfirm?.name}</strong> tiene cuentas asociadas.</p></div>
              </div>
              <div className="flex flex-col gap-3">
-                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
+                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors shadow-sm">
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Cuentas</span><span className="block text-text-disabled text-tiny">Las cuentas quedarán sin proveedor.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>

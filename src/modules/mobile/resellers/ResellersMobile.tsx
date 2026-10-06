@@ -206,17 +206,16 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-dvh pb-32 pt-2 px-4 font-sans text-text-primary relative">
-       <div className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-brand-accent/10 to-transparent pointer-events-none" />
        <div className={`relative z-10 pt-safe ${isNative ? 'mt-2' : 'mt-4'}`}>
           <div className="flex justify-between items-center mb-4">
               <div>
                   <h1 className="text-2xl font-black text-text-primary tracking-tight">Socios</h1>
-                  <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Gestión de revendedores</p>
+                  <p className="text-text-muted text-micro font-bold uppercase tracking-[0.15em] mt-1">Gestión de revendedores</p>
               </div>
               <div className="flex gap-2">
                   <div className={`relative transition-all duration-300 ease-out ${isSearchOpen ? 'w-[160px]' : 'w-10'}`}>
-                      <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 rounded-md pr-2' : ''}`}>
-                          <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
+                      <div className={`flex items-center h-10 overflow-hidden ${isSearchOpen ? 'bg-surface-1 border border-border-subtle rounded-md pr-2' : ''}`}>
+                          <button aria-label="Buscar" onClick={() => setIsSearchOpen(true)} className={`w-10 h-10 flex items-center justify-center shrink-0 ${!isSearchOpen && 'bg-surface-1 border border-border-subtle rounded-md text-text-muted active:scale-95 transition-transform shadow-sm'}`}>
                               <Search size={18} />
                           </button>
                           <input aria-label="Buscar..." 
@@ -229,7 +228,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
                           {isSearchOpen && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); setIsSearchOpen(false); }}><X size={14} className="text-text-disabled" /></button>}
                       </div>
                   </div>
-                  <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
+                  <button aria-label="Importar" onClick={() => setIsImportModalOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-95 shadow-sm">
                       <Upload size={20} />
                   </button>
                   <button aria-label="Agregar" onClick={handleAdd} className="w-10 h-10 rounded-md bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white shadow-glow active:scale-95 transition-all">
@@ -240,7 +239,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
        </div>
 
        <div className="mb-6 relative z-10">
-          <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
+          <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 flex items-center justify-between relative overflow-hidden shadow-sm">
               <div className="flex items-center gap-3 relative z-10">
                   <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
                       <Users size={20} />
@@ -291,7 +290,7 @@ const ResellersMobile: React.FC<ResellersMobileProps> = ({ onBack }) => {
                  </div>
              </div>
              <div className="flex flex-col gap-3">
-                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors">
+                <button onClick={() => handleDeleteConfirm('unlink')} className="w-full p-4 rounded-xl bg-surface-1 border border-border-subtle hover:bg-[rgb(var(--fg-rgb))]/5 text-left flex justify-between items-center transition-colors">
                    <div><span className="block text-text-primary font-bold text-sm">Desvincular Clientes</span><span className="block text-text-disabled text-tiny">Los clientes pasarán a ser directos.</span></div>
                    <ChevronRight size={16} className="text-text-faint" />
                 </button>

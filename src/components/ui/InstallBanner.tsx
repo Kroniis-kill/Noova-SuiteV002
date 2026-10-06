@@ -33,11 +33,11 @@ const InstallBanner: React.FC = () => {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed bottom-[80px] left-4 right-4 z-40 md:hidden"
       >
-        <div className="bg-surface-zinc/95 backdrop-blur-xl border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)] relative overflow-hidden">
+        <div className="bg-surface-zinc/95 backdrop-blur-xl border border-border-subtle rounded-xl p-4 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9)] relative overflow-hidden">
           
 
           <div className="flex items-center gap-4 relative z-10">
-            <div className="w-12 h-12 rounded-md bg-surface-1 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center shadow-lg shrink-0 overflow-hidden">
+            <div className="w-12 h-12 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center shadow-lg shrink-0 overflow-hidden">
                <img src="/logo.svg" className="w-8 h-8" alt="Logo Noova" />
             </div>
 
@@ -81,7 +81,7 @@ const InstallBanner: React.FC = () => {
                 </button>
                 <button 
                   onClick={() => setIsDismissed(true)}
-                  className="h-11 px-6 bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary rounded-md text-xs font-semibold border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all"
+                  className="h-11 px-6 bg-[rgb(var(--fg-rgb))]/5 text-text-muted hover:text-text-primary rounded-md text-xs font-semibold border border-hairline active:scale-95 transition-all"
                 >
                   Luego
                 </button>

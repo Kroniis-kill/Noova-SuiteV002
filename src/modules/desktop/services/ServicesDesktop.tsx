@@ -103,7 +103,7 @@ const ServicesDesktop: React.FC = () => {
   };
 
   const filtered = services.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
-  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-border-subtle rounded-md pl-12 pr-4 py-3.5 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-caption font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
@@ -119,7 +119,7 @@ const ServicesDesktop: React.FC = () => {
         <div className="flex gap-4">
             <div className="relative group">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-brand-primary transition-colors" size={18} />
-                <input aria-label="Filtrar catálogo..." placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
+                <input aria-label="Filtrar catálogo..." placeholder="Filtrar catálogo..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-72 bg-surface-3 border border-hairline rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none focus:border-brand-primary/50 transition-all" />
             </div>
             <button onClick={() => { setEditingService(null); resetForm(); setIsModalOpen(true); }} className="bg-brand-gradient text-white px-8 py-3 rounded-lg font-bold text-sm shadow-glow hover:scale-105 transition-all flex items-center gap-2"><Plus size={20} /> Nuevo Servicio</button>
         </div>
@@ -131,10 +131,10 @@ const ServicesDesktop: React.FC = () => {
                 const profit = (service.publicPrice || 0) - (service.cost || 0);
                 const margin = service.publicPrice > 0 ? (profit / service.publicPrice) * 100 : 0;
                 return (
-                    <motion.div key={service.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} whileHover={{ y: -5 }} className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+                    <motion.div key={service.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} whileHover={{ y: -5 }} className="bg-surface-3 border border-border-subtle rounded-2xl p-6 shadow-xl relative overflow-hidden group">
                         <div className="flex justify-between items-start mb-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 overflow-hidden">
+                                <div className="w-14 h-14 rounded-lg bg-surface-sunken flex items-center justify-center text-brand-primary border border-hairline overflow-hidden">
                                     {service.image_url ? <img alt="" src={service.image_url} className="w-full h-full object-cover" /> : getTypeIcon(service.type)}
                                 </div>
                                 <div>
@@ -143,16 +143,16 @@ const ServicesDesktop: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button aria-label="Editar" onClick={() => openEditModal(service)} className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-[rgb(var(--fg-rgb))]/5"><Edit2 size={14} /></button>
+                                <button aria-label="Editar" onClick={() => openEditModal(service)} className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted hover:text-text-primary border border-hairline"><Edit2 size={14} /></button>
                                 <button aria-label="Eliminar" onClick={() => deleteService(service.id)} className="tap-44 w-9 h-9 rounded-full bg-status-danger/10 flex items-center justify-center text-status-danger-soft border border-status-danger/10"><Trash2 size={14} /></button>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
+                            <div className="bg-surface-sunken border border-hairline rounded-xl p-4">
                                 <span className="text-tiny font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><TrendingUp size={10} /> Costo Unit.</span>
                                 <p className="text-xl font-bold text-text-primary font-mono">${service.cost}</p>
                             </div>
-                            <div className="bg-surface-sunken border border-[rgb(var(--fg-rgb))]/5 rounded-xl p-4">
+                            <div className="bg-surface-sunken border border-hairline rounded-xl p-4">
                                 <span className="text-tiny font-semibold text-text-disabled uppercase flex items-center gap-1.5 mb-1"><ShoppingBag size={10} /> Venta Público</span>
                                 <p className="text-xl font-bold text-status-success-soft font-mono">${service.publicPrice}</p>
                             </div>
@@ -183,10 +183,10 @@ const ServicesDesktop: React.FC = () => {
 
                 <div className="col-span-2">
                    <label className={labelClass}>Imagen del Servicio</label>
-                   <div className="flex items-center gap-6 bg-surface-sunken p-6 rounded-xl border border-[rgb(var(--fg-rgb))]/10">
+                   <div className="flex items-center gap-6 bg-surface-sunken p-6 rounded-xl border border-border-subtle">
                       <div 
                         onClick={() => fileInputRef.current?.click()}
-                        className="w-28 h-28 rounded-xl bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95"
+                        className="w-28 h-28 rounded-xl bg-surface-3 border border-border-subtle flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95"
                       >
                          {image_url ? (
                             <img src={image_url} className="w-full h-full object-cover" alt="Preview" />
@@ -239,7 +239,7 @@ const ServicesDesktop: React.FC = () => {
                    </div>
                 </div>
              </div>
-             <div className="bg-surface-sunken rounded-xl p-6 border border-[rgb(var(--fg-rgb))]/5">
+             <div className="bg-surface-sunken rounded-xl p-6 border border-hairline">
                 <div className="flex items-center gap-3 mb-6"><div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary border border-brand-primary/20"><Calculator size={20} /></div><h4 className="text-text-primary font-bold text-sm">Calculadora Financiera</h4></div>
                 <div className="grid grid-cols-2 gap-6 items-end">
                    <div>

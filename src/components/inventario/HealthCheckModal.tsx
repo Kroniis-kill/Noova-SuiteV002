@@ -175,24 +175,24 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
           </div>
 
           <div className="grid grid-cols-3 gap-2 mb-4 shrink-0">
-              <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
+              <div className="bg-surface-zinc border border-border-subtle p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><CheckCircle2 size={18} className="text-status-success-soft" /></div>
                   <p className="text-tiny text-text-disabled font-bold uppercase">Rentables</p>
                   <p className="text-lg font-bold text-text-primary">{stats.verde}</p>
               </div>
-              <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
+              <div className="bg-surface-zinc border border-border-subtle p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><AlertTriangle size={18} className="text-status-warning-soft" /></div>
                   <p className="text-tiny text-text-disabled font-bold uppercase">En Riesgo</p>
                   <p className="text-lg font-bold text-text-primary">{stats.amarillo}</p>
               </div>
-              <div className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/10 p-3 rounded-md text-center">
+              <div className="bg-surface-zinc border border-border-subtle p-3 rounded-md text-center">
                   <div className="flex justify-center mb-1"><XCircle size={18} className="text-status-danger-soft" /></div>
                   <p className="text-tiny text-text-disabled font-bold uppercase">Pérdida</p>
                   <p className="text-lg font-bold text-text-primary">{stats.rojo}</p>
               </div>
           </div>
 
-          <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl p-4 mb-4 flex justify-between items-center shrink-0">
+          <div className="bg-surface-3 border border-border-subtle rounded-xl p-4 mb-4 flex justify-between items-center shrink-0">
               <div>
                   <p className="text-tiny text-text-disabled font-bold uppercase">Balance Estimado</p>
                   <p className={`text-xl font-bold ${stats.totalProfit + stats.totalLoss >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>
@@ -213,7 +213,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                     className={`px-4 py-2 rounded-full text-caption font-semibold uppercase border transition-all ${
                         filter === f 
                         ? 'bg-white text-black border-white' 
-                        : 'bg-surface-zinc text-text-disabled border-[rgb(var(--fg-rgb))]/10 hover:text-text-primary'
+                        : 'bg-surface-zinc text-text-disabled border-border-subtle hover:text-text-primary'
                     }`}
                   >
                       {f}
@@ -227,7 +227,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                     layout
                     key={item.accountId}
                     onClick={() => setSelectedHealth(item)}
-                    className="bg-surface-zinc border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-surface-3 transition-colors group"
+                    className="bg-surface-zinc border border-hairline p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-surface-3 transition-colors group"
                   >
                       <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
@@ -288,7 +288,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                            </span>
                        </div>
 
-                       <div className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 p-5 rounded-xl">
+                       <div className="bg-surface-3 border border-border-subtle p-5 rounded-xl">
                            <h4 className="text-text-muted text-xs font-semibold uppercase mb-2 flex items-center gap-2">
                                <Activity size={14} /> Diagnóstico Inteligente
                            </h4>
@@ -298,21 +298,21 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                        </div>
 
                        <div className="grid grid-cols-2 gap-4">
-                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-hairline">
                                <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Ingresos</p>
                                <p className="text-lg font-bold text-status-success-soft">{settings.currency} {formatMoney(selectedHealth.revenue)}</p>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-hairline">
                                <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Costo Base</p>
                                <p className="text-lg font-bold text-status-danger-soft">{settings.currency} {formatMoney(selectedHealth.cost)}</p>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-hairline">
                                <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Días Activos</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Calendar size={16} className="text-status-info-soft" /> {selectedHealth.daysActive}d
                                </div>
                            </div>
-                           <div className="bg-surface-zinc p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                           <div className="bg-surface-zinc p-4 rounded-xl border border-hairline">
                                <p className="text-tiny text-text-disabled font-bold uppercase mb-1">Ocupación</p>
                                <div className="flex items-center gap-2 text-text-primary font-bold">
                                    <Users size={16} className="text-purple-400" /> {selectedHealth.occupancy}
@@ -320,7 +320,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
                            </div>
                        </div>
 
-                       <div className="bg-surface-zinc p-5 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
+                       <div className="bg-surface-zinc p-5 rounded-xl border border-hairline">
                            <div className="flex justify-between mb-2">
                                <span className="text-xs font-semibold text-text-muted">Retorno de Inversión (ROI)</span>
                                <span className={`text-xs font-semibold ${selectedHealth.roi >= 0 ? 'text-status-success-soft' : 'text-status-danger-soft'}`}>{selectedHealth.roi.toFixed(1)}%</span>

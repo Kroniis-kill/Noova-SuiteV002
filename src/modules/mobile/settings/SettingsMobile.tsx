@@ -1,3 +1,4 @@
+import PageHeader from '../../../components/ui/PageHeader';
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   AccountSecuritySettings, BusinessSettings, MessagesSection, 
@@ -186,15 +187,12 @@ const SettingsMobile: React.FC = () => {
   const initials = displayName.trim().split(/\s+/).slice(0, 2).map((w) => w.charAt(0).toUpperCase()).join('') || 'NS';
 
   return (
-    <div className="w-full min-h-dvh pb-10 font-sans relative text-text-primary px-6 pt-safe mt-2">
+    <div className="w-full min-h-dvh pb-10 font-sans relative text-text-primary px-4 pt-safe mt-4">
       <div className="fixed inset-0 bg-surface-sunken z-0" />
       <AnimatePresence mode="wait">
         {!activeTab && (
           <motion.div key="menu" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6 relative z-10" >
-            <div className="mt-6 mb-5">
-               <h1 className="text-2xl font-black text-text-primary tracking-tight">Ajustes</h1>
-               <p className="text-text-muted text-caption font-semibold uppercase tracking-[0.15em] mt-1">Personaliza tu Noova</p>
-            </div>
+            <PageHeader compact title="Ajustes" subtitle="Personaliza tu Noova" className="mb-2" />
 
             <div className="relative">
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-disabled" />

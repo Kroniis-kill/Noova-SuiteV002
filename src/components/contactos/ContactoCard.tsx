@@ -61,7 +61,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
 
       <div className="flex items-center gap-4 relative z-10">
          <div className="relative shrink-0">
-            <Avatar name={client.name} size={48} className={`rounded-full shadow-lg border ${client.isBlocked ? 'border-status-danger/30' : 'border-[rgb(var(--fg-rgb))]/[0.08]'}`} />
+            <Avatar name={client.name} size={48} className={`rounded-full shadow-lg border ${client.isBlocked ? 'border-status-danger/30' : 'border-border-subtle'}`} />
             <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-[3px] ${isActive ? 'border-surface-zinc' : 'border-surface-1'} flex items-center justify-center bg-surface-1`}>
                {client.isBlocked ? (<div className="w-full h-full rounded-full bg-status-danger flex items-center justify-center"><Ban size={8} className="text-white" /></div>) : (<div className={`w-2 h-2 rounded-full ${client.activeServices > 0 ? 'bg-status-success shadow-dot-success-sm' : 'bg-zinc-600'}`} />)}
             </div>
@@ -93,7 +93,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
                 <button 
                 onClick={handleHistory}
                 className={`tap-44 
-                    w-8 h-8 rounded-sm flex items-center justify-center transition-all bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-primary hover:bg-brand-primary/10 border border-[rgb(var(--fg-rgb))]/[0.08]
+                    w-8 h-8 rounded-sm flex items-center justify-center transition-all bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-primary hover:bg-brand-primary/10 border border-border-subtle
                 `}
                 title="Historial de compras"
                 >
@@ -106,7 +106,7 @@ const ContactoCard: React.FC<ContactoCardProps> = React.memo(({ client, onClick,
                     w-8 h-8 rounded-sm flex items-center justify-center transition-all shrink-0
                     ${isActive 
                         ? 'bg-brand-whatsapp text-black shadow-lg hover:brightness-110' 
-                        : 'bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-whatsapp hover:bg-brand-whatsapp/10 border border-[rgb(var(--fg-rgb))]/[0.08]'
+                        : 'bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-brand-whatsapp hover:bg-brand-whatsapp/10 border border-border-subtle'
                     }
                 `}
             >

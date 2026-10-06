@@ -262,7 +262,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                               </button>
                                <button 
                                  onClick={() => { haptic('nav'); setIsClientModalOpen(true); }}
-                                 className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all shrink-0 shadow-sm"
+                                 className="tap-44 w-9 h-9 rounded-full bg-[rgb(var(--fg-rgb))]/5 border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-primary active:scale-90 transition-all shrink-0 shadow-sm"
                                  title="Ver historial del cliente" aria-label="Ver historial del cliente"
                                >
                                    <HistoryIcon size={16} />
@@ -280,11 +280,11 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                   </div>
 
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
+                      <div className="bg-surface-1 rounded-xl p-5 border border-hairline flex flex-col items-center shadow-sm">
                           <span className="text-caption font-bold text-text-faint uppercase tracking-widest mb-1">Activos</span>
                           <span className="text-2xl font-black text-text-primary">{allGroupSales.length}</span>
                       </div>
-                      <div className="bg-surface-1 rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 flex flex-col items-center shadow-sm">
+                      <div className="bg-surface-1 rounded-xl p-5 border border-hairline flex flex-col items-center shadow-sm">
                           <span className="text-caption font-bold text-text-faint uppercase tracking-widest mb-1">Inversión</span>
                           <span className="text-2xl font-black text-status-success-soft">{settings.currency}{totalAmount.toLocaleString()}</span>
                       </div>
@@ -320,12 +320,12 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                       {salesInGroup.length > 1 && (
                                           <button onClick={() => handleGroupMessage(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-status-success/10 text-status-success flex items-center justify-center border border-status-success/20 active:scale-90 transition-all hover:bg-status-success/20" title="Enviar mensaje consolidado" aria-label="Enviar mensaje consolidado"><WhatsAppIcon size={17} /></button>
                                       )}
-                                      <button onClick={() => handleGroupRenew(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Renovar grupo" aria-label="Renovar grupo"><CalendarClock size={17} /></button>
+                                      <button onClick={() => handleGroupRenew(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-brand-primary border border-hairline active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Renovar grupo" aria-label="Renovar grupo"><CalendarClock size={17} /></button>
                                       {salesInGroup.length > 1 && (
-                                        <button onClick={() => handleSendAccessData(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-info-soft border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Enviar datos de acceso" aria-label="Enviar datos de acceso"><Unlock size={17} /></button>
+                                        <button onClick={() => handleSendAccessData(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-info-soft border border-hairline active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Enviar datos de acceso" aria-label="Enviar datos de acceso"><Unlock size={17} /></button>
                                       )}
-                                      <button onClick={() => handleReceiptClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Ver comprobante" aria-label="Ver comprobante"><Receipt size={17} /></button>
-                                      <button onClick={() => handleReportFailClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-warning border border-[rgb(var(--fg-rgb))]/5 active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Reportar falla" aria-label="Reportar falla"><AlertOctagon size={17} /></button>
+                                      <button onClick={() => handleReceiptClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-text-muted border border-hairline active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Ver comprobante" aria-label="Ver comprobante"><Receipt size={17} /></button>
+                                      <button onClick={() => handleReportFailClick(salesInGroup)} className="tap-44 w-8 h-8 rounded-lg bg-[rgb(var(--fg-rgb))]/5 flex items-center justify-center text-status-warning border border-hairline active:scale-90 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Reportar falla" aria-label="Reportar falla"><AlertOctagon size={17} /></button>
                                   </div>
                               </div>
 
@@ -341,10 +341,10 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                       const profit = calculateProfit(sale, serviceObj);
 
                                       return (
-                                          <div key={sale.id} className={`bg-surface-1 border transition-all duration-300 rounded-md overflow-hidden h-fit ${isFailing ? 'border-status-info/40 shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-[rgb(var(--fg-rgb))]/[0.08]'}`}>
+                                          <div key={sale.id} className={`bg-surface-1 border transition-all duration-300 rounded-md overflow-hidden h-fit ${isFailing ? 'border-status-info/40 shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-border-subtle'}`}>
                                               <div onClick={() => { haptic('nav'); setExpandedSaleId(isExpanded ? null : sale.id); }} className="p-4 flex items-center justify-between gap-3 cursor-pointer active:bg-[rgb(var(--fg-rgb))]/5">
                                                   <div className="flex items-center gap-3 min-w-0">
-                                                      <div className="w-10 h-10 rounded-md bg-bg flex items-center justify-center shrink-0 overflow-hidden border border-[rgb(var(--fg-rgb))]/5">
+                                                      <div className="w-10 h-10 rounded-md bg-bg flex items-center justify-center shrink-0 overflow-hidden border border-hairline">
                                                           {serviceObj?.image_url ? <img alt="" src={serviceObj.image_url} className="w-full h-full object-cover" /> : <Tv size={18} className="text-text-faint" />}
                                                       </div>
                                                       <div className="min-w-0">
@@ -370,7 +370,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                                   {isExpanded && (
                                                       <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
                                                           <div className="px-4 pb-5 space-y-4">
-                                                              <div className={`bg-bg rounded-md p-4 border border-[rgb(var(--fg-rgb))]/5 space-y-3 relative overflow-hidden ${isFailing && 'grayscale-[0.5]'}`}>
+                                                              <div className={`bg-bg rounded-md p-4 border border-hairline space-y-3 relative overflow-hidden ${isFailing && 'grayscale-[0.5]'}`}>
                                                                   <div className="space-y-2.5 relative z-10">
                                                                       {(isScreen || isFull) && (
                                                                         <>
@@ -427,11 +427,11 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                                                           <div className="pt-2 space-y-2">
                                                                               {sale.assignedProfiles.map((profile, pIdx) => (
                                                                                   <div key={pIdx} className="flex gap-2">
-                                                                                      <div className="flex-1 min-w-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-[rgb(var(--fg-rgb))]/5 cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.name, 'Perfil')}>
+                                                                                      <div className="flex-1 min-w-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-hairline cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.name, 'Perfil')}>
                                                                                           <span className="text-tiny font-semibold text-text-faint flex items-center gap-1 mb-0.5"><UserCircle size={12} /> Perfil {sale.assignedProfiles!.length > 1 ? pIdx + 1 : ''}</span>
                                                                                           <span className="text-body-sm font-semibold text-text-secondary truncate block">{profile.name}</span>
                                                                                       </div>
-                                                                                      <div className="w-[72px] shrink-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-[rgb(var(--fg-rgb))]/5 text-center cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.pin, 'PIN')}>
+                                                                                      <div className="w-[72px] shrink-0 bg-[rgb(var(--fg-rgb))]/[0.02] rounded-md p-2 border border-hairline text-center cursor-pointer active:scale-[0.98] transition-transform" onClick={() => handleCopy(profile.pin, 'PIN')}>
                                                                                           <span className="text-tiny font-semibold text-text-faint block mb-0.5">PIN</span>
                                                                                           <span className="text-body-sm font-semibold text-text-secondary font-mono">{profile.pin || '0000'}</span>
                                                                                       </div>
@@ -442,10 +442,10 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                                                                   </div>
                                                               </div>
                                                               <div className="grid grid-cols-5 gap-2">
-                                                                  <button onClick={() => handleIndividualRenew(sale)} className="h-10 rounded-md bg-surface-3 text-brand-primary flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all hover:bg-brand-primary/10" title="Renovar" aria-label="Renovar"><CalendarClock size={18} /></button>
-                                                                  <button onClick={() => handleIndividualMessage(sale)} className="h-10 rounded-md bg-surface-3 text-status-success flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all hover:bg-status-success/10" title="Enviar mensaje" aria-label="Enviar mensaje"><WhatsAppIcon size={18} /></button>
-                                                                  <button onClick={() => handleWarrantyClick(sale)} className="h-10 rounded-md bg-surface-3 text-purple-400 flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all hover:bg-purple-400/10" title="Garantía" aria-label="Garantía"><ShieldCheck size={18} /></button>
-                                                                  <button onClick={() => { haptic('nav'); onEdit(sale); }} className="h-10 rounded-md bg-surface-3 text-text-disabled flex items-center justify-center border border-[rgb(var(--fg-rgb))]/5 active:scale-95 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Editar" aria-label="Editar"><Pencil size={18} /></button>
+                                                                  <button onClick={() => handleIndividualRenew(sale)} className="h-10 rounded-md bg-surface-3 text-brand-primary flex items-center justify-center border border-hairline active:scale-95 transition-all hover:bg-brand-primary/10" title="Renovar" aria-label="Renovar"><CalendarClock size={18} /></button>
+                                                                  <button onClick={() => handleIndividualMessage(sale)} className="h-10 rounded-md bg-surface-3 text-status-success flex items-center justify-center border border-hairline active:scale-95 transition-all hover:bg-status-success/10" title="Enviar mensaje" aria-label="Enviar mensaje"><WhatsAppIcon size={18} /></button>
+                                                                  <button onClick={() => handleWarrantyClick(sale)} className="h-10 rounded-md bg-surface-3 text-purple-400 flex items-center justify-center border border-hairline active:scale-95 transition-all hover:bg-purple-400/10" title="Garantía" aria-label="Garantía"><ShieldCheck size={18} /></button>
+                                                                  <button onClick={() => { haptic('nav'); onEdit(sale); }} className="h-10 rounded-md bg-surface-3 text-text-disabled flex items-center justify-center border border-hairline active:scale-95 transition-all hover:bg-[rgb(var(--fg-rgb))]/10" title="Editar" aria-label="Editar"><Pencil size={18} /></button>
                                                                   <button onClick={() => handleDeleteRequest(sale.id)} className="h-10 rounded-md bg-status-danger/10 text-status-danger-soft flex items-center justify-center border border-status-danger/10 active:scale-95 transition-all hover:bg-status-danger/20" title="Eliminar" aria-label="Eliminar"><Trash2 size={18} /></button>
                                                               </div>
                                                           </div>
@@ -476,7 +476,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                             {salesInCurrentReportingGroup.map(s => {
                                 const isPicked = failingSale?.id === s.id;
                                 return (
-                                    <button key={s.id} onClick={() => setFailingSale(s)} className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left transition-all active:scale-[0.98] ${isPicked ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-sunken border-[rgb(var(--fg-rgb))]/5'}`}>
+                                    <button key={s.id} onClick={() => setFailingSale(s)} className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left transition-all active:scale-[0.98] ${isPicked ? 'bg-brand-primary/10 border-brand-primary/30' : 'bg-surface-sunken border-hairline'}`}>
                                         <div className="w-10 h-10 rounded-md bg-brand-primary/15 text-brand-primary-hi flex items-center justify-center shrink-0"><Tv size={18} /></div>
                                         <span className={`flex-1 min-w-0 truncate text-sm font-bold ${isPicked ? 'text-text-primary' : 'text-text-muted'}`}>{s.serviceName}</span>
                                         {isPicked && <Check size={16} className="text-brand-primary shrink-0" strokeWidth={3} />}
@@ -492,7 +492,7 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                             <div className="space-y-3">
                                 <label className={SECTION_LABEL}>Detalle del problema</label>
                                 {/* El contenedor dibuja el borde y el foco; el textarea va limpio */}
-                                <div className="bg-surface-sunken rounded-md border border-[rgb(var(--fg-rgb))]/10 focus-within:border-brand-primary/40 transition-colors p-4">
+                                <div className="bg-surface-sunken rounded-md border border-border-subtle focus-within:border-brand-primary/40 transition-colors p-4">
                                     <textarea aria-label="Detalle del problema"
                                         value={failNote}
                                         onChange={e => setFailNote(e.target.value)}
@@ -516,19 +516,19 @@ const SaleDetailPage: React.FC<SaleDetailPageProps> = ({ isOpen, group, onClose,
                     <div className="space-y-3">
                         <label className={SECTION_LABEL}>Moneda del recordatorio</label>
                         <div className="grid grid-cols-2 gap-3">
-                            <button onClick={() => handleConfirmSmartReminder(false)} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
+                            <button onClick={() => handleConfirmSmartReminder(false)} className="h-[88px] bg-surface-3 border border-border-subtle rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
                                 <DollarSign size={22} className="text-brand-primary mb-0.5" />
                                 <span className="text-sm font-bold text-text-primary">{settings.currency || 'USD'}</span>
                                 <span className="text-caption text-text-disabled">Principal</span>
                             </button>
-                            <button onClick={() => handleConfirmSmartReminder(true)} className="h-[88px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
+                            <button onClick={() => handleConfirmSmartReminder(true)} className="h-[88px] bg-surface-3 border border-border-subtle rounded-xl flex flex-col items-center justify-center gap-1 hover:border-brand-primary/40 active:scale-95 transition-all">
                                 <RefreshCw size={22} className="text-status-success-soft mb-0.5" />
                                 <span className="text-sm font-bold text-text-primary">{settings.subCurrency || 'SEC'}</span>
                                 <span className="text-caption text-text-disabled">Secundaria</span>
                             </button>
                         </div>
                     </div>
-                    <button onClick={() => setShowCurrencyModal(false)} className="w-full h-[52px] bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">Cancelar</button>
+                    <button onClick={() => setShowCurrencyModal(false)} className="w-full h-[52px] bg-surface-3 border border-hairline hover:bg-surface-4 text-text-secondary hover:text-text-primary rounded-md font-semibold text-sm transition-all active:scale-[0.98]">Cancelar</button>
                 </div>
             </Modal>
           )}

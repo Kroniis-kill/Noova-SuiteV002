@@ -80,7 +80,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
     onClose();
   };
 
-  const inputClass = "w-full bg-surface-sunken border border-[rgb(var(--fg-rgb))]/10 rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
+  const inputClass = "w-full bg-surface-sunken border border-border-subtle rounded-md pl-11 pr-4 py-4 text-text-primary text-sm outline-none focus:border-brand-primary transition-all font-medium";
   const labelClass = "text-tiny font-semibold text-text-disabled uppercase tracking-widest mb-2 block ml-1";
 
   return (
@@ -96,8 +96,8 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
 
         <div>
           <label className={labelClass}>Imagen del Servicio</label>
-          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-[rgb(var(--fg-rgb))]/5">
-              <div onClick={() => fileInputRef.current?.click()} className="w-20 h-20 rounded-lg bg-surface-3 border border-[rgb(var(--fg-rgb))]/10 flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95">
+          <div className="flex items-center gap-4 bg-surface-sunken p-4 rounded-xl border border-hairline">
+              <div onClick={() => fileInputRef.current?.click()} className="w-20 h-20 rounded-lg bg-surface-3 border border-border-subtle flex items-center justify-center overflow-hidden cursor-pointer relative group transition-transform active:scale-95">
                 {image_url ? <img alt="Vista previa" src={image_url} className="w-full h-full object-cover" /> : <Camera size={24} className="text-text-disabled" />}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"><Upload size={20} className="text-white" /></div>
               </div>
@@ -131,7 +131,7 @@ const ServiceFormModal: React.FC<ServiceFormModalProps> = ({ isOpen, onClose, in
           </div>
         </div>
 
-        <div className="bg-surface-sunken rounded-xl p-5 border border-[rgb(var(--fg-rgb))]/5 space-y-4">
+        <div className="bg-surface-sunken rounded-xl p-5 border border-hairline space-y-4">
             <h4 className="text-caption font-semibold text-text-muted uppercase flex items-center gap-2"><Calculator size={14} className="text-brand-primary" /> Estructura de Costos</h4>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">

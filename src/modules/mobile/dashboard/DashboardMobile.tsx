@@ -108,9 +108,9 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                     </div>
                 </div>
 
-                <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-5 space-y-4 shadow-sm">
+                <div className="bg-surface-1 border border-border-subtle rounded-xl p-5 space-y-4 shadow-sm">
                     {clientName && (
-                        <div className="flex justify-between items-center border-b border-[rgb(var(--fg-rgb))]/5 pb-3">
+                        <div className="flex justify-between items-center border-b border-hairline pb-3">
                             <span className="text-text-disabled text-xs font-semibold uppercase flex items-center gap-1"><User size={12}/> Cliente</span>
                             <span className="text-text-primary text-sm font-bold text-right">{clientName}</span>
                         </div>
@@ -135,7 +135,7 @@ const MovementDetailModal: React.FC<{ isOpen: boolean; onClose: () => void; move
                     </div>
                 </div>
 
-                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-md text-text-muted font-semibold text-xs hover:text-text-primary transition-colors active:scale-95 shadow-sm">
+                <button onClick={onClose} className="w-full py-3.5 bg-surface-1 border border-border-subtle rounded-md text-text-muted font-semibold text-xs hover:text-text-primary transition-colors active:scale-95 shadow-sm">
                     Cerrar
                 </button>
             </div>
@@ -532,7 +532,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
               return 'bg-status-warning/[0.06] border border-status-warning shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]';
 
           default:
-              return 'bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] shadow-lg';
+              return 'bg-surface-1 border border-border-subtle shadow-lg';
       }
   };
 
@@ -776,7 +776,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
               <motion.div 
                 whileHover={{ y: -2 }}
-                className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
+                className="bg-surface-1/50 border border-hairline rounded-xl p-3 shadow-sm hover:border-status-success/30 transition-all group overflow-hidden relative"
               >
                 <div className="flex items-center gap-2 mb-2">
                    <div className="w-7 h-7 rounded-sm bg-status-success/10 text-status-success-soft flex items-center justify-center transition-transform group-hover:scale-105">
@@ -801,7 +801,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
               <motion.div 
                  whileHover={{ y: -2 }}
-                 className="bg-surface-1/50 border border-[rgb(var(--fg-rgb))]/[0.05] rounded-xl p-3 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
+                 className="bg-surface-1/50 border border-hairline rounded-xl p-3 shadow-sm hover:border-rose-500/30 transition-all group overflow-hidden relative"
               >
                 <div className="flex items-center gap-2 mb-2">
                    <div className="w-7 h-7 rounded-sm bg-rose-500/10 text-rose-400 flex items-center justify-center transition-transform group-hover:scale-105">
@@ -875,7 +875,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
           {/* Tasa de cambio */}
           {widgets.showExchangeRate && (
-            <div className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3.5 flex items-center gap-3 shadow-sm">
+            <div className="bg-surface-1 border border-border-subtle rounded-xl p-3.5 flex items-center gap-3 shadow-sm">
               <div className="w-9 h-9 rounded-lg bg-[rgb(var(--fg-rgb))]/5 text-text-muted flex items-center justify-center shrink-0">
                 <RefreshCw size={16} />
               </div>
@@ -1023,7 +1023,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                     <div
                       key={acc.id}
                       onClick={() => setView('expired')}
-                      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-center gap-3 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+                      className="bg-surface-1 border border-border-subtle rounded-xl p-3 flex items-center gap-3 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
                     >
                       <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 overflow-hidden ${isExpired ? 'bg-status-danger/10 text-status-danger-soft' : 'bg-status-warning/10 text-status-warning-soft'}`}>
                         {service?.image_url ? (
@@ -1113,7 +1113,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                         }
                       : {
                           bg: 'bg-surface-1',
-                          border: 'border-[rgb(var(--fg-rgb))]/[0.08]',
+                          border: 'border-border-subtle',
                           chip: 'bg-status-success/10 text-status-success-soft',
                           text: 'text-status-success-soft',
                           label: 'Disponible'
@@ -1221,7 +1221,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   return (
                     <div
                       key={f.id}
-                      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-start gap-3 shadow-sm"
+                      className="bg-surface-1 border border-border-subtle rounded-xl p-3 flex items-start gap-3 shadow-sm"
                     >
                       <div
                         onClick={() => setView('agenda')}
@@ -1298,7 +1298,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                     <div
                       key={mov.id}
                       onClick={() => setSelectedMovement(mov)}
-                      className="bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.08] rounded-xl p-3 flex items-center justify-between active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+                      className="bg-surface-1 border border-border-subtle rounded-xl p-3 flex items-center justify-between active:scale-[0.98] transition-all cursor-pointer shadow-sm"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isIncome ? 'bg-status-success/10 text-status-success-soft' : 'bg-status-danger/10 text-status-danger-soft'}`}>
@@ -1330,7 +1330,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                 })}
 
                 {monthlyMovements.length === 0 && (
-                  <div className="py-12 text-center text-text-disabled text-xs bg-surface-1 border border-[rgb(var(--fg-rgb))]/[0.06] rounded-xl">
+                  <div className="py-12 text-center text-text-disabled text-xs bg-surface-1 border border-hairline rounded-xl">
                     No hay movimientos este mes.
                   </div>
                 )}
@@ -1340,7 +1340,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
           <button
             onClick={() => setView('personalize_home')}
-            className="w-full py-3 rounded-xl border border-dashed border-[rgb(var(--fg-rgb))]/15 text-text-disabled hover:text-text-primary hover:border-brand-primary/40 transition-all flex items-center justify-center gap-2 text-caption font-semibold uppercase tracking-wide"
+            className="w-full py-3 rounded-xl border border-dashed border-border-strong text-text-disabled hover:text-text-primary hover:border-brand-primary/40 transition-all flex items-center justify-center gap-2 text-caption font-semibold uppercase tracking-wide"
           >
             <Plus size={14} /> Agregar widgets
           </button>
@@ -1446,7 +1446,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
                <input aria-label="Filtrar por plataforma..."
                  placeholder="Filtrar por plataforma..."
-                 className="w-full bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none"
+                 className="w-full bg-surface-3 border border-hairline rounded-md pl-11 pr-4 py-3 text-sm text-text-primary outline-none"
                />
             </div>
 
@@ -1455,7 +1455,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   <button 
                      key={s.id} 
                      onClick={() => setSelectedStockService(s)}
-                     className="w-full p-4 rounded-xl bg-surface-1 border border-[rgb(var(--fg-rgb))]/5 flex justify-between items-center hover:border-status-success/40 transition-all active:scale-[0.98]"
+                     className="w-full p-4 rounded-xl bg-surface-1 border border-hairline flex justify-between items-center hover:border-status-success/40 transition-all active:scale-[0.98]"
                   >
                      <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-md bg-status-success/10 flex items-center justify-center text-status-success-soft border border-status-success/20">
@@ -1507,7 +1507,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
                   {selectedStockService?.accounts.map((acc: any) => (
                       <div
                         key={acc.id}
-                        className="bg-surface-3 border border-[rgb(var(--fg-rgb))]/5 p-4 rounded-xl flex justify-between items-center group relative overflow-hidden"
+                        className="bg-surface-3 border border-hairline p-4 rounded-xl flex justify-between items-center group relative overflow-hidden"
                       >
                           <div className="min-w-0 pr-2">
                               <p className="text-xs font-semibold text-text-primary truncate">

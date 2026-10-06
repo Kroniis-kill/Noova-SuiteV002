@@ -269,7 +269,7 @@ const MainLayout: React.FC = () => {
         setIsMobileOpen={setIsMobileOpen}
       >
         <ErrorBoundary scope="la página">
-          <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-8 h-8 border-2 border-[rgb(var(--fg-rgb))]/10 border-t-brand-primary rounded-full animate-spin" /></div>}>
+          <Suspense fallback={<div className="w-full h-full flex items-center justify-center"><div className="w-8 h-8 border-2 border-border-subtle border-t-brand-primary rounded-full animate-spin" /></div>}>
             {(() => {
               switch (currentView) {
                 case 'dashboard': return <DashboardPage setView={setGlobalView} />;

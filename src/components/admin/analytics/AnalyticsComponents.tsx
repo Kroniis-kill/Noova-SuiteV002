@@ -15,7 +15,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
   return (
     <div className="space-y-6">
        {/* Plans Distribution */}
-       <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6">
+       <div className="bg-surface-zinc/60 border border-border-subtle rounded-2xl p-6">
           <h3 className="text-lg font-bold text-text-primary mb-6">Distribución de Planes</h3>
           <div className="h-[250px] w-full relative">
              <ResponsiveContainer width="99%" height="100%">
@@ -52,7 +52,7 @@ export const AnalyticsCharts: React.FC<AnalyticsDashboardProps> = ({ data }) => 
        </div>
 
        {/* Monthly Growth */}
-       <div className="bg-surface-zinc/60 border border-[rgb(var(--fg-rgb))]/10 rounded-2xl p-6">
+       <div className="bg-surface-zinc/60 border border-border-subtle rounded-2xl p-6">
           <h3 className="text-lg font-bold text-text-primary mb-6">Nuevos Usuarios (Último Año)</h3>
           <div className="h-[250px] w-full relative">
              <ResponsiveContainer width="99%" height="100%">
