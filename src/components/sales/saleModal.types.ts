@@ -15,6 +15,9 @@ export interface CartItem {
   profiles: ScreenProfile[];
   invitedEmail?: string;
   invitedPassword?: string;
+  /** Plan prepagado: ya pagó; el usuario renueva la cuenta cada N meses. */
+  isPrepaid?: boolean;
+  renewEveryMonths?: number;
 }
 
 export interface SaleModalProps {
@@ -55,4 +58,8 @@ export interface ItemConfigPanelProps {
   openAccountSearch: () => void;
   onAutoAssign: () => void;
   isEditing?: boolean;
+  tempIsPrepaid?: boolean;
+  tempRenewEvery?: number;
+  setTempIsPrepaid?: (val: boolean) => void;
+  setTempRenewEvery?: (val: number) => void;
 }

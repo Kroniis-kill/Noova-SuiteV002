@@ -3,10 +3,11 @@ import { Sale, Account, Client, Reseller } from '../../../types';
 import { SalesGroup, getCombinedWhatsAppTemplate } from '../../../utils/salesUtils';
 import { getDaysRemaining } from '../../../utils/expiredUtils';
 import ExpiredCard from '../../../components/expired/ExpiredCard';
+import ExpiredAccountCard from '../../../components/expired/ExpiredAccountCard';
 import Modal from '../../../components/ui/Modal';
 import { useData } from '../../../context/DataContext';
 import { openWhatsAppBusiness } from '../../../utils/contactosUtils';
-import { Search, AlertOctagon, Layers, Users, TrendingUp, Wallet, Filter, CheckCircle2, X, DollarSign, MessageCircle, AlertCircle, Clock, ChevronDown, Truck, Trash2, RefreshCw, Check, ChevronRight } from 'lucide-react';
+import { Search, AlertOctagon, Layers, Users, TrendingUp, Wallet, Filter, CheckCircle2, X, DollarSign, MessageCircle, AlertCircle, Clock, CalendarClock, ChevronDown, Truck, Trash2, RefreshCw, Check, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 
@@ -16,6 +17,8 @@ interface ExpiredMobileProps {
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   groupedSales: SalesGroup[];
+  groupedRenewals?: SalesGroup[];
+  onMarkRenewed?: (sales: Sale[]) => void;
   expiredAccounts: Account[];
   totalRevenue: number;
   totalProfit: number;
@@ -25,6 +28,7 @@ interface ExpiredMobileProps {
   onRenewSale: (sales: Sale[]) => void;
   onRenewAccount: (acc: Account) => void;
   onDeleteAccount: (acc: Account) => void;
+  onAccountClick: (acc: Account) => void;
   onCardClick: (group: SalesGroup) => void;
   filterService: string;
   setFilterService: (s: string) => void;
@@ -35,8 +39,8 @@ interface ExpiredMobileProps {
 }
 
 const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
-  activeTab, setActiveTab, searchQuery, setSearchQuery, groupedSales, expiredAccounts,
-  totalRevenue, totalProfit, overdueRevenue = 0, overdueCount = 0, currency, onRenewSale, onRenewAccount, onDeleteAccount, onCardClick,
+  activeTab, setActiveTab, searchQuery, setSearchQuery, groupedSales, groupedRenewals = [] as SalesGroup[], onMarkRenewed, expiredAccounts,
+  totalRevenue, totalProfit, overdueRevenue = 0, overdueCount = 0, currency, onRenewSale, onRenewAccount, onDeleteAccount, onAccountClick, onCardClick,
   filterService, setFilterService, servicesList, providers, services, onBack
 }) => {
 
@@ -230,7 +234,25 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                 </div>
               )}
 
-              {groupedSales.length === 0 && (
+              {groupedRenewals.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 ml-1">
+                    <div className="w-7 h-7 rounded-lg bg-status-success/15 text-status-success-soft flex items-center justify-center">
+                      <CalendarClock size={13} />
+                    </div>
+                    <h3 className="text-tiny font-semibold text-status-success-soft uppercase tracking-[0.2em]">Renovar cuenta · prepagado</h3>
+                  </div>
+                  <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
+                    {groupedRenewals.map((group, idx) => (
+                      <motion.div key={group.clientId} className="h-full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
+                        <ExpiredCard sales={group.renewalGroups.flatMap(g => g.sales)} client={{ id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 }} settings={settings} onRenew={onRenewSale} onClick={() => onCardClick(group)} variant="grid" renewalMode onMarkRenewed={onMarkRenewed} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {groupedSales.length === 0 && groupedRenewals.length === 0 && (
                 <div className="py-24 flex flex-col items-center justify-center opacity-50">
                   <CheckCircle2 size={48} className="text-status-success mb-4" />
                   <h3 className="text-lg font-bold text-text-primary">Todo en orden</h3>
@@ -240,59 +262,18 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
           )}
 
           {activeTab === 'inventory' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              {expiredAccounts.map((acc, idx) => {
-                const service = services.find(s => s.id === acc.serviceId);
-                const provider = acc.providerId ? providers.find(p => p.id === acc.providerId) : null;
-                const days = getDaysRemaining(acc.endDate);
-                const isExpired = days < 0;
-
-                let statusColor = 'bg-zinc-500';
-                let statusBadge = 'bg-zinc-500/10 text-text-muted border-zinc-500/20';
-                if (days < 0) { statusColor = 'bg-status-danger'; statusBadge = 'bg-status-danger/10 text-status-danger-soft border-status-danger/20'; }
-                else if (days === 0) { statusColor = 'bg-status-expiring'; statusBadge = 'bg-status-expiring/10 text-status-expiring-soft border-status-expiring/20'; }
-                else { statusColor = 'bg-status-warning'; statusBadge = 'bg-status-warning/10 text-status-warning-soft border-status-warning/20'; }
-
-                return (
-                  <motion.div
-                    key={acc.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ delay: idx * 0.03 }}
-                    className="bg-surface-1 border border-border-subtle rounded-lg relative overflow-hidden shadow-sm"
-                  >
-                    <div className={`absolute top-0 left-0 bottom-0 w-1 ${statusColor}`} />
-                    <div className="flex flex-col gap-3 p-4 pl-5">
-                      <div className="flex justify-between items-start">
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-[rgb(var(--fg-rgb))]/5 border-border-subtle text-text-muted uppercase tracking-wide">{service?.name || 'Servicio'}</span>
-                            {provider && <span className="text-tiny font-semibold px-2 py-0.5 rounded border bg-status-info/10 border-status-info/20 text-status-info-soft uppercase tracking-wide flex items-center gap-1"><Truck size={10} /> {provider.name}</span>}
-                          </div>
-                          <h4 className="text-body-sm font-bold text-text-primary truncate">{acc.email}</h4>
-                        </div>
-                        <span className={`text-micro font-bold px-2 py-0.5 rounded border uppercase tracking-wide shrink-0 ${statusBadge}`}>
-                          {isExpired ? 'Vencida' : days === 0 ? 'Hoy' : 'Por vencer'}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
-                        <p className={`text-caption font-mono font-medium ${isExpired ? 'text-status-danger-soft' : 'text-text-muted'}`}>
-                          {isExpired ? `Venció hace ${Math.abs(days)}d` : days === 0 ? 'Expira hoy' : `${days} días restantes`}
-                        </p>
-                        <div className="flex gap-2">
-                          <button aria-label="Eliminar" onClick={() => onDeleteAccount(acc)} className="tap-44 w-8 h-8 flex items-center justify-center rounded-sm bg-[rgb(var(--fg-rgb))]/5 text-text-disabled hover:text-status-danger-soft border border-border-subtle active:scale-90 transition-all">
-                            <Trash2 size={14} />
-                          </button>
-                          <button onClick={() => onRenewAccount(acc)} className="h-8 px-3 rounded-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-tiny font-semibold flex items-center gap-1.5 active:scale-95 transition-all">
-                            <RefreshCw size={12} /> Renovar
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+            <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 pb-24">
+              {expiredAccounts.map((acc, idx) => (
+                <motion.div key={acc.id} className="h-full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.03 }}>
+                  <ExpiredAccountCard
+                    account={acc}
+                    service={services.find(s => s.id === acc.serviceId)}
+                    onClick={onAccountClick}
+                    onRenew={onRenewAccount}
+                    onDelete={onDeleteAccount}
+                  />
+                </motion.div>
+              ))}
 
               {expiredAccounts.length === 0 && (
                 <div className="col-span-full py-24 flex flex-col items-center justify-center opacity-50">

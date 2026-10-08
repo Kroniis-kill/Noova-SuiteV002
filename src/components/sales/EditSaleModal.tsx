@@ -7,7 +7,7 @@ import { useHaptic } from '../../hooks/useHaptic';
 import { useDialog } from '../../hooks/useDialog';
 import {
   Check, X, Mail, Lock, DollarSign, User, Hash, Layers,
-  ChevronDown, Search, ArrowRight, Loader2, ArrowLeftRight, RotateCcw, Ban, ChevronRight
+  ChevronDown, Search, ArrowRight, Loader2, ArrowLeftRight, RotateCcw, Ban, ChevronRight, CalendarClock, BellRing
 } from 'lucide-react';
 import { getLocalDateISO, addTime, parseLocalISO } from '../../utils/contactosUtils';
 import { calculateOccupancy } from '../../utils/inventarioUtils';
@@ -195,6 +195,23 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
   const hasCredentials = sale.saleType === 'usuario_unico' || sale.saleType === 'cuenta_completa';
 
   // Extiende el vencimiento actual (o desde hoy si la venta no tiene fecha)
+  const isPrepaid = !!formData.isPrepaid;
+  const renewEvery = formData.renewEveryMonths || 1;
+
+  const togglePrepaid = () => {
+    haptic('nav');
+    if (isPrepaid) {
+      setFormData({ ...formData, isPrepaid: false, renewalDate: null, renewEveryMonths: null });
+    } else {
+      setFormData({ ...formData, isPrepaid: true, renewEveryMonths: renewEvery, renewalDate: formData.renewalDate || addTime(getLocalDateISO(), renewEvery, 0) });
+    }
+  };
+
+  const changeRenewEvery = (m: number) => {
+    haptic('nav');
+    setFormData({ ...formData, renewEveryMonths: m, renewalDate: addTime(getLocalDateISO(), m, 0) });
+  };
+
   const extendExpiry = (months: number, days: number) => {
     haptic('nav');
     const base = endDate || getLocalDateISO();
@@ -331,6 +348,58 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
                   ? `Duración total: ${durationDays} ${durationDays === 1 ? 'día' : 'días'}`
                   : 'El vencimiento no puede ser anterior al inicio'}
               </p>
+            )}
+          </div>
+
+          {/* 3b. PLAN PREPAGADO (el cliente ya pagó; tú renuevas la cuenta) */}
+          <div className={`rounded-xl border p-3 space-y-3 transition-colors ${isPrepaid ? 'border-brand-primary/40 bg-brand-primary/5' : 'border-hairline bg-surface-zinc/60'}`}>
+            <button type="button" role="switch" aria-checked={isPrepaid} onClick={togglePrepaid} className="w-full flex items-center gap-3 text-left active:scale-[0.99] transition-transform">
+              <div className="w-9 h-9 rounded-md bg-brand-primary/15 text-brand-primary-hi border border-brand-primary/20 flex items-center justify-center shrink-0">
+                <CalendarClock size={17} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="block text-body-sm font-bold text-text-primary">Plan prepagado</span>
+                <span className="block text-tiny text-text-disabled">El cliente ya pagó. Yo renuevo la cuenta.</span>
+              </div>
+              <span className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${isPrepaid ? 'bg-brand-primary' : 'bg-surface-4'}`}>
+                <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${isPrepaid ? 'left-[18px]' : 'left-0.5'}`} />
+              </span>
+            </button>
+
+            {isPrepaid && (
+              <div className="space-y-3 pt-3 border-t border-hairline">
+                <div className="space-y-2">
+                  <label className={SECTION_LABEL}>Renovar la cuenta cada</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[1, 2, 3, 6].map(m => (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => changeRenewEvery(m)}
+                        className={`h-9 rounded-full border text-caption font-semibold transition-all active:scale-95 ${renewEvery === m ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
+                      >
+                        {m} {m === 1 ? 'mes' : 'meses'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-surface-sunken rounded-lg border border-hairline px-3 py-2 focus-within:border-brand-primary/40 transition-colors">
+                  <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Próxima renovación</span>
+                  <input
+                    type="date"
+                    aria-label="Próxima renovación de la cuenta"
+                    value={dateOnly(formData.renewalDate)}
+                    onChange={e => { if (e.target.value) setFormData({ ...formData, renewalDate: e.target.value }); }}
+                    className={`${CLEAN_INPUT} h-7 text-left !text-[14px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-left`}
+                  />
+                </div>
+                <div className="flex items-start gap-2 px-1">
+                  <BellRing size={13} className="text-brand-primary-hi shrink-0 mt-0.5" />
+                  <p className="text-caption text-text-disabled leading-relaxed">
+                    Pagado hasta {formatLongDate(formData.expiryDate)}. No aparece como cobro pendiente hasta entonces.
+                  </p>
+                </div>
+              </div>
             )}
           </div>
 

@@ -154,7 +154,10 @@ export const mappers = {
       invitedPassword: d.invited_password,
       resellerId: d.reseller_id,
       notes: d.notes,
-      investment_cost: d.investment_cost || d.cost || 0
+      investment_cost: d.investment_cost || d.cost || 0,
+      isPrepaid: !!d.is_prepaid,
+      renewalDate: d.renewal_date || null,
+      renewEveryMonths: d.renew_every_months ?? null
     }),
     toDb: (s: Sale, userId: string) => ({
       id: s.id,
@@ -174,7 +177,10 @@ export const mappers = {
       invited_email: s.invitedEmail || null,
       invited_password: s.invitedPassword || null,
       reseller_id: s.resellerId || null,
-      notes: s.notes || null
+      notes: s.notes || null,
+      is_prepaid: !!s.isPrepaid,
+      renewal_date: s.isPrepaid ? (s.renewalDate || null) : null,
+      renew_every_months: s.isPrepaid ? (s.renewEveryMonths || null) : null
     })
   },
   financial: {

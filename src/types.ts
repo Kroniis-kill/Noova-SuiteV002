@@ -103,6 +103,12 @@ export interface Sale {
   resellerId?: string;
   notes?: string;
   investment_cost?: number;
+  /** Plan prepagado: el cliente ya pagó hasta `expiryDate`; el usuario renueva la cuenta periódicamente. */
+  isPrepaid?: boolean;
+  /** Próxima fecha en que el usuario debe renovar la cuenta (solo prepagados). */
+  renewalDate?: string | null;
+  /** Cada cuántos meses se renueva la cuenta (solo prepagados). */
+  renewEveryMonths?: number | null;
 }
 
 // Fix: Added PaymentMethod interface

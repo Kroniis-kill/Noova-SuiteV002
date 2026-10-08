@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   ChevronRight, ChevronDown, Minus, Plus, Wand2, Mail, Lock, User,
-  Monitor, Hash, DollarSign, ArrowRight, Calendar
+  Monitor, Hash, DollarSign, ArrowRight, Calendar, CalendarClock, BellRing
 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
 import { useHaptic } from '../../hooks/useHaptic';
@@ -94,6 +94,7 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
   // En edición la vigencia se EXTIENDE desde el vencimiento actual; al crear, arranca en la fecha de inicio.
   const baseDate = props.isEditing ? props.currentExpiry : props.tempStartDate;
   const endDate = baseDate ? addTime(baseDate, props.tempMonths, props.tempDays) : '';
+  const firstRenewal = props.tempStartDate ? addTime(props.tempStartDate, props.tempRenewEvery || 1, 0) : '';
 
   return (
     <div className="flex flex-col gap-5">
@@ -202,6 +203,59 @@ const ItemConfigForm: React.FC<ItemConfigFormProps> = (props) => {
           </div>
         </div>
       </div>
+
+      {/* 2b. PLAN PREPAGADO (el cliente ya pagó; tú renuevas la cuenta cada cierto tiempo) */}
+      {!props.isEditing && props.setTempIsPrepaid && (
+        <div className={`rounded-xl border p-3 space-y-3 transition-colors ${props.tempIsPrepaid ? 'border-brand-primary/40 bg-brand-primary/5' : 'border-hairline bg-surface-zinc'}`}>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={!!props.tempIsPrepaid}
+            onClick={() => { haptic('nav'); props.setTempIsPrepaid?.(!props.tempIsPrepaid); }}
+            className="w-full flex items-center gap-3 text-left active:scale-[0.99] transition-transform"
+          >
+            <div className="w-9 h-9 rounded-md bg-brand-primary/15 text-brand-primary-hi border border-brand-primary/20 flex items-center justify-center shrink-0">
+              <CalendarClock size={17} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="block text-body-sm font-bold text-text-primary">Plan prepagado</span>
+              <span className="block text-tiny text-text-disabled">El cliente ya pagó. Yo renuevo la cuenta.</span>
+            </div>
+            <span className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${props.tempIsPrepaid ? 'bg-brand-primary' : 'bg-surface-4'}`}>
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${props.tempIsPrepaid ? 'left-[18px]' : 'left-0.5'}`} />
+            </span>
+          </button>
+
+          {props.tempIsPrepaid && (
+            <div className="space-y-3 pt-3 border-t border-hairline">
+              <div className="space-y-2">
+                <label className="text-tiny font-bold text-text-disabled uppercase tracking-widest block">Renovar la cuenta cada</label>
+                <div className="grid grid-cols-4 gap-2">
+                  {QUICK_MONTHS.map(m => {
+                    const active = (props.tempRenewEvery || 1) === m;
+                    return (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => { haptic('nav'); props.setTempRenewEvery?.(m); }}
+                        className={`h-9 rounded-full border text-caption font-semibold transition-all active:scale-95 ${active ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
+                      >
+                        {m} {m === 1 ? 'mes' : 'meses'}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="flex items-start gap-2 bg-surface-sunken rounded-lg px-3 py-2">
+                <BellRing size={14} className="text-brand-primary-hi shrink-0 mt-0.5" />
+                <p className="text-caption text-text-disabled leading-relaxed">
+                  Pagado hasta <span className="text-text-secondary font-semibold">{formatLongDate(endDate)}</span>. Primer recordatorio de renovación el <span className="text-text-secondary font-semibold">{formatLongDate(firstRenewal)}</span>. No aparecerá como cobro pendiente.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* 3. PRECIO */}
       <div className="space-y-3">

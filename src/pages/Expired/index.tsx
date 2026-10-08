@@ -7,6 +7,7 @@ import { Sale, Account } from '../../types';
 import { getDaysRemaining, calculateProfit } from '../../utils/expiredUtils';
 import { groupSalesByClientAndDate } from '../../utils/salesUtils';
 import { useToast } from '../../context/ToastContext';
+import { addTime, getLocalDateISO } from '../../utils/contactosUtils';
 
 // Modules
 // #10: ExpiredDesktop era un wrapper trivial — unificado a ExpiredMobile.
@@ -16,6 +17,10 @@ import ExpiredMobile from '../../modules/mobile/expired/ExpiredMobile';
 import RenewModal from '../../components/sales/RenewModal';
 import AccountRenewModal from '../../components/inventario/AccountRenewModal';
 import SaleDetailPage from '../../components/sales/SaleDetailPage';
+import CuentaDetailModal from '../../components/inventario/CuentaDetailModal';
+import CuentaModal from '../../components/inventario/CuentaModal';
+import FailureAgendaModal from '../../components/inventario/FailureAgendaModal';
+import { generateUUID } from '../../utils/uuid';
 
 interface ExpiredPageProps {
   onBack?: () => void;
@@ -23,8 +28,8 @@ interface ExpiredPageProps {
 
 const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
   
-  const { sales, clients, services, accounts, providers, resellers, settings, deleteSale, deleteAccount, pendingAction, setPendingAction } = useData();
-  const { showToast } = useToast();
+  const { sales, clients, services, accounts, providers, resellers, settings, deleteSale, updateSale, deleteAccount, updateAccount, addFailure, pendingAction, setPendingAction } = useData();
+  const { showToast, showUndo } = useToast();
 
   // --- GLOBAL STATE ---
   const [activeTab, setActiveTab] = useState<'sales' | 'inventory'>('sales');
@@ -40,6 +45,12 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
 
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<any>(null);
+
+  // --- MODAL DE CUENTA (Stock) ---
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
+  const [isAccountDetailOpen, setIsAccountDetailOpen] = useState(false);
+  const [isAccountFormOpen, setIsAccountFormOpen] = useState(false);
+  const [isFailureAgendaOpen, setIsFailureAgendaOpen] = useState(false);
 
   // --- DELETE STATE ---
   const [saleToDelete, setSaleToDelete] = useState<Sale | null>(null); // For single sale delete inside details
@@ -139,6 +150,53 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
   }, [expiredSales, services]);
 
   // ==========================================
+  // LOGIC 1B: RENOVAR CUENTA (planes prepagados)
+  // El cliente ya pagó (expiryDate = "pagado hasta"); aquí solo se te recuerda
+  // renovar la cuenta. Si "pagado hasta" ya está por vencer, la venta sale
+  // arriba como cobro normal y no se duplica aquí.
+  // ==========================================
+  const groupedRenewals = useMemo(() => {
+     const due = sales.filter(s =>
+        s.isPrepaid && !!s.renewalDate &&
+        getDaysRemaining(s.renewalDate) <= warningDays &&
+        getDaysRemaining(s.expiryDate) > warningDays
+     );
+     let groups = groupSalesByClientAndDate(due, clients, resellers);
+     if (searchQuery) {
+        const lowerQ = searchQuery.toLowerCase();
+        groups = groups.filter(g => g.clientName.toLowerCase().includes(lowerQ) || g.reseller?.name.toLowerCase().includes(lowerQ));
+     }
+     const minRenewal = (g: typeof groups[number]) =>
+        Math.min(...g.renewalGroups.flatMap(rg => rg.sales).map(s => getDaysRemaining(s.renewalDate || s.expiryDate)));
+     return groups.sort((a, b) => minRenewal(a) - minRenewal(b));
+  }, [sales, clients, resellers, searchQuery, warningDays]);
+
+  // "Ya renové": mueve la próxima renovación (hoy o la fecha prevista, la que sea más tarde) + N meses.
+  const handleMarkRenewed = async (renewedSales: Sale[]) => {
+    const today = getLocalDateISO();
+    const previous = renewedSales.map(s => ({ ...s }));
+    try {
+      let nextLabel = '';
+      for (const sale of renewedSales) {
+        const current = (sale.renewalDate || '').split('T')[0];
+        const base = current && current > today ? current : today;
+        const next = addTime(base, sale.renewEveryMonths || 1, 0);
+        nextLabel = next.split('-').reverse().join('/');
+        await updateSale({ ...sale, renewalDate: next });
+      }
+      showUndo(`Cuenta renovada · próxima: ${nextLabel}`, async () => {
+        try {
+          for (const prev of previous) await updateSale(prev);
+        } catch {
+          showToast('No se pudo deshacer', 'error');
+        }
+      });
+    } catch {
+      showToast('No se pudo registrar la renovación', 'error');
+    }
+  };
+
+  // ==========================================
   // LOGIC 2: INVENTORY (ACCOUNTS)
   // ==========================================
 
@@ -181,6 +239,50 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
     setIsAccountRenewModalOpen(true);
   };
 
+  const handleAccountClick = (acc: Account) => {
+    setSelectedAccount(acc);
+    setIsAccountDetailOpen(true);
+  };
+
+  const handleAccountFormSubmit = async (data: Partial<Account>) => {
+    if (!selectedAccount) return;
+    try {
+      await updateAccount({ ...selectedAccount, ...data } as Account);
+      showToast('Cuenta actualizada', 'success');
+      setIsAccountFormOpen(false);
+    } catch {
+      showToast('Error al guardar datos', 'error');
+    }
+  };
+
+  const handleConfirmFailureReport = async (addToAgenda: boolean) => {
+    if (!selectedAccount || selectedAccount.status === 'fallando') return;
+    try {
+      await updateAccount({ ...selectedAccount, status: 'fallando', failure_started_at: new Date().toISOString() });
+      if (addToAgenda) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const activeSales = sales.filter(s => s.accountId === selectedAccount.id && s.expiryDate >= todayStr);
+        for (const sale of activeSales) {
+          await addFailure({
+            id: generateUUID(),
+            userId: '',
+            saleId: sale.id,
+            notes: `Falla masiva reportada en cuenta ${selectedAccount.email}`,
+            createdAt: new Date().toISOString()
+          });
+        }
+        showToast(`Falla reportada y ${activeSales.length} clientes agregados a la agenda`, 'success');
+      } else {
+        showToast('Falla reportada correctamente', 'info');
+      }
+    } catch {
+      showToast('Error al procesar reporte', 'error');
+    } finally {
+      setIsFailureAgendaOpen(false);
+      setIsAccountDetailOpen(false);
+    }
+  };
+
   const handleDeleteAccountRequest = (acc: Account) => {
     setAccountToDelete(acc);
   };
@@ -214,10 +316,13 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
     totalProfit,
     overdueRevenue,
     overdueCount,
+    groupedRenewals,
+    onMarkRenewed: handleMarkRenewed,
     currency: settings.currency,
     onRenewSale: handleRenewSale,
     onRenewAccount: handleRenewAccount,
     onDeleteAccount: handleDeleteAccountRequest,
+    onAccountClick: handleAccountClick,
     onCardClick: handleCardClick,
     filterService,
     setFilterService,
@@ -254,6 +359,48 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
          group={selectedGroup}
          onEdit={() => {}} 
          onDelete={handleDeleteSingleSale}
+      />
+
+      <CuentaDetailModal
+        isOpen={isAccountDetailOpen}
+        onClose={() => setIsAccountDetailOpen(false)}
+        account={selectedAccount}
+        onEdit={() => { setIsAccountDetailOpen(false); setIsAccountFormOpen(true); }}
+        onRenew={(acc) => { setIsAccountDetailOpen(false); handleRenewAccount(acc); }}
+        onToggleStatus={(acc) => {
+          const isPaused = acc.status === 'inactiva';
+          updateAccount({ ...acc, status: isPaused ? 'activa' : 'inactiva' });
+          showToast(isPaused ? 'Cuenta activada' : 'Cuenta pausada', 'info');
+        }}
+        onToggleFailure={(acc) => {
+          if (acc.status === 'fallando') {
+            updateAccount({ ...acc, status: 'activa', failure_started_at: undefined });
+            showToast('Falla resuelta', 'info');
+          } else {
+            setSelectedAccount(acc);
+            setIsFailureAgendaOpen(true);
+          }
+        }}
+        onDelete={(id) => {
+          const acc = accounts.find(a => a.id === id);
+          if (acc) { setIsAccountDetailOpen(false); setAccountToDelete(acc); }
+        }}
+      />
+
+      <FailureAgendaModal
+        isOpen={isFailureAgendaOpen}
+        onClose={() => setIsFailureAgendaOpen(false)}
+        account={selectedAccount}
+        onConfirm={handleConfirmFailureReport}
+      />
+
+      <CuentaModal
+        isOpen={isAccountFormOpen}
+        onClose={() => setIsAccountFormOpen(false)}
+        onSubmit={handleAccountFormSubmit}
+        serviceId={selectedAccount?.serviceId ?? null}
+        services={services}
+        initialData={selectedAccount}
       />
 
       {/* DELETE ACCOUNT CONFIRMATION */}

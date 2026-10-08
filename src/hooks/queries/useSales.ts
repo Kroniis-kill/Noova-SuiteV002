@@ -30,7 +30,7 @@ export const useSales = () => {
       const { data, error } = await withRetry(() => 
         supabase
           .from('sales')
-          .select('id, client_id, account_id, service_name, sale_type, amount, date, expiry_date, screens_count, assigned_profiles, exchange_rate, is_partial, initial_payment, invited_email, invited_password, reseller_id, notes')
+          .select('id, client_id, account_id, service_name, sale_type, amount, date, expiry_date, screens_count, assigned_profiles, exchange_rate, is_partial, initial_payment, invited_email, invited_password, reseller_id, notes, is_prepaid, renewal_date, renew_every_months')
           .eq('user_id', userId)
           .order('date', { ascending: false })
           .range(from, to)

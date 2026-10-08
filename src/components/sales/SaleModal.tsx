@@ -53,6 +53,8 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
   const [tempType, setTempType] = useState<ServiceType>('por_pantalla');
   const [tempInvitedEmail, setTempInvitedEmail] = useState('');
   const [tempInvitedPassword, setTempInvitedPassword] = useState('');
+  const [tempIsPrepaid, setTempIsPrepaid] = useState(false);
+  const [tempRenewEvery, setTempRenewEvery] = useState(1);
   const [walletId, setWalletId] = useState('');
   const [addToWallet, setAddToWallet] = useState(true);
   const [totalToPay, setTotalToPay] = useState(0);
@@ -157,6 +159,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
       setTempServiceId(''); setTempAccountId(''); setTempStartDate(getLocalDateISO());
       setTempMonths(1); setTempDays(0); setTempScreens(1); setTempAmount('');
       setTempProfiles([]); setTempType('por_pantalla'); setTempInvitedEmail(''); setTempInvitedPassword('');
+      setTempIsPrepaid(false); setTempRenewEvery(1);
   };
   
   const selectedClient = useMemo(() => clients.find(c => c.id === selectedClientId), [selectedClientId, clients]);
@@ -301,7 +304,9 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
           amount: parseFloat(tempAmount) || 0, 
           profiles: tempProfiles, 
           invitedEmail: tempInvitedEmail, 
-          invitedPassword: tempInvitedPassword 
+          invitedPassword: tempInvitedPassword,
+          isPrepaid: tempIsPrepaid,
+          renewEveryMonths: tempRenewEvery
       };
       if (initialData) setCart([newItem]); else setCart([...cart, newItem]);
       setIsItemConfigOpen(false);
@@ -342,7 +347,12 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
                  isPartial: false, 
                  invitedEmail: item.invitedEmail, 
                  invitedPassword: item.invitedPassword, 
-                 resellerId: currentResellerId 
+                 resellerId: currentResellerId,
+                 ...(initialData
+                    ? { isPrepaid: initialData.isPrepaid, renewalDate: initialData.renewalDate, renewEveryMonths: initialData.renewEveryMonths }
+                    : item.isPrepaid
+                      ? { isPrepaid: true, renewEveryMonths: item.renewEveryMonths || 1, renewalDate: addTime(item.startDate, item.renewEveryMonths || 1, 0) }
+                      : {})
              };
              
              if (initialData) await updateSale(saleData); else await addSale(saleData);
@@ -387,6 +397,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
       setTempMonths(item.months); setTempDays(item.days); setTempScreens(item.screens);
       setTempAmount(item.amount.toString()); setTempProfiles(item.profiles); setTempType(item.saleType);
       setTempInvitedEmail(item.invitedEmail || ''); setTempInvitedPassword(item.invitedPassword || '');
+      setTempIsPrepaid(!!item.isPrepaid); setTempRenewEvery(item.renewEveryMonths || 1);
       setIsItemConfigOpen(true);
   };
 
@@ -414,6 +425,7 @@ const SaleModal: React.FC<SaleModalProps> = ({ isOpen, onClose, initialData, zIn
       tempStartDate, tempMonths, tempDays, tempScreens, tempAmount, tempProfiles, tempType,
       tempInvitedEmail, tempInvitedPassword, setTempInvitedEmail, setTempInvitedPassword,
       isResellerClient, setTempStartDate, setTempMonths, setTempDays, setTempScreens, setTempAmount,
+      tempIsPrepaid, tempRenewEvery, setTempIsPrepaid, setTempRenewEvery,
       handleProfileChange,
       openServiceSearch: () => setModalSearch('service'),
       openAccountSearch: () => { if (tempServiceId) setModalSearch('account'); else showToast('Selecciona servicio', 'error'); },
