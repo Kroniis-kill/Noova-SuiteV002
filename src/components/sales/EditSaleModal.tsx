@@ -126,6 +126,11 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
       showToast('El cliente seleccionado ya no existe', 'error');
       return;
     }
+    if (formData.date && formData.expiryDate && dateOnly(formData.expiryDate) < dateOnly(formData.date)) {
+      haptic('error');
+      showToast('El vencimiento no puede ser anterior al inicio', 'error');
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -159,7 +164,10 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
       }
       onClose();
     } catch (error) {
-      showToast('Error al actualizar la venta', 'error');
+      // El toast con el motivo ya lo muestra useSales (onError) y deja la venta como estaba.
+      // Antes aquí se mostraba OTRO toast genérico encima: se veían dos errores a la vez.
+      haptic('error');
+      console.error('[EditSaleModal] no se pudo guardar la venta:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -230,7 +238,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
 
         <div className="flex flex-col gap-4">
 
-          {/* 1. SERVICIO + CLIENTE (grilla de 2 para que el modal sea más corto) */}
+          {/* 1. QUIÉN: servicio + cliente */}
           <div className="space-y-2">
             <div className="grid grid-cols-2 gap-2.5">
               {/* Servicio (solo lectura) */}
@@ -278,7 +286,7 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             )}
           </div>
 
-          {/* 2. CUENTA */}
+          {/* 2. CUENTA Y ACCESO: cuenta asignada + perfiles/credenciales juntos */}
           <div className="space-y-3">
             <label className={SECTION_LABEL}>Cuenta</label>
             <button
@@ -295,133 +303,6 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               </div>
               <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
             </button>
-          </div>
-
-          {/* 3. VIGENCIA (compacta y sutil) */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <label className={SECTION_LABEL}>Vigencia</label>
-              <div className="flex items-center gap-1.5">
-                {EXTEND_OPTIONS.map(([label, months, days]) => (
-                  <button
-                    key={label}
-                    type="button"
-                    onClick={() => extendExpiry(months, days)}
-                    className="h-7 px-2.5 rounded-full border text-xs font-semibold bg-surface-sunken border-border-subtle text-text-disabled hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary whitespace-nowrap"
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-surface-zinc/60 rounded-xl border border-hairline px-3 py-2 flex items-center justify-between gap-2 focus-within:border-brand-primary/40 transition-colors">
-              <div className="min-w-0 flex-1">
-                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
-                <input
-                  type="date"
-                  aria-label="Fecha de inicio"
-                  value={startDate}
-                  onChange={e => {
-                    if (!e.target.value) return;
-                    setFormData({ ...formData, date: new Date(e.target.value).toISOString() });
-                  }}
-                  className={`${CLEAN_INPUT} h-6 text-left !text-[13px] font-semibold text-text-secondary [&::-webkit-date-and-time-value]:text-left`}
-                />
-              </div>
-              <ArrowRight size={14} className="text-text-faint shrink-0" />
-              <div className="min-w-0 flex-1">
-                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
-                <input
-                  type="date"
-                  aria-label="Fecha de vencimiento"
-                  value={endDate}
-                  onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
-                  className={`${CLEAN_INPUT} h-6 text-right !text-[13px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-right`}
-                />
-              </div>
-            </div>
-
-            {durationDays !== null && (
-              <p className={`text-tiny ml-1 ${durationDays >= 0 ? 'text-text-faint' : 'text-status-danger-soft'}`}>
-                {durationDays >= 0
-                  ? `Duración total: ${durationDays} ${durationDays === 1 ? 'día' : 'días'}`
-                  : 'El vencimiento no puede ser anterior al inicio'}
-              </p>
-            )}
-          </div>
-
-          {/* 3b. PLAN PREPAGADO (el cliente ya pagó; tú renuevas la cuenta) */}
-          <div className={`rounded-xl border p-3 space-y-3 transition-colors ${isPrepaid ? 'border-brand-primary/40 bg-brand-primary/5' : 'border-hairline bg-surface-zinc/60'}`}>
-            <button type="button" role="switch" aria-checked={isPrepaid} onClick={togglePrepaid} className="w-full flex items-center gap-3 text-left active:scale-[0.99] transition-transform">
-              <div className="w-9 h-9 rounded-md bg-brand-primary/15 text-brand-primary-hi border border-brand-primary/20 flex items-center justify-center shrink-0">
-                <CalendarClock size={17} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <span className="block text-body-sm font-bold text-text-primary">Plan prepagado</span>
-                <span className="block text-tiny text-text-disabled">El cliente ya pagó. Yo renuevo la cuenta.</span>
-              </div>
-              <span className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${isPrepaid ? 'bg-brand-primary' : 'bg-surface-4'}`}>
-                <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${isPrepaid ? 'left-[18px]' : 'left-0.5'}`} />
-              </span>
-            </button>
-
-            {isPrepaid && (
-              <div className="space-y-3 pt-3 border-t border-hairline">
-                <div className="space-y-2">
-                  <label className={SECTION_LABEL}>Renovar la cuenta cada</label>
-                  <div className="grid grid-cols-4 gap-2">
-                    {[1, 2, 3, 6].map(m => (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => changeRenewEvery(m)}
-                        className={`h-9 rounded-full border text-caption font-semibold transition-all active:scale-95 ${renewEvery === m ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
-                      >
-                        {m} {m === 1 ? 'mes' : 'meses'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="bg-surface-sunken rounded-lg border border-hairline px-3 py-2 focus-within:border-brand-primary/40 transition-colors">
-                  <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Próxima renovación</span>
-                  <input
-                    type="date"
-                    aria-label="Próxima renovación de la cuenta"
-                    value={dateOnly(formData.renewalDate)}
-                    onChange={e => { if (e.target.value) setFormData({ ...formData, renewalDate: e.target.value }); }}
-                    className={`${CLEAN_INPUT} h-7 text-left !text-[14px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-left`}
-                  />
-                </div>
-                <div className="flex items-start gap-2 px-1">
-                  <BellRing size={13} className="text-brand-primary-hi shrink-0 mt-0.5" />
-                  <p className="text-caption text-text-disabled leading-relaxed">
-                    Pagado hasta {formatLongDate(formData.expiryDate)}. No aparece como cobro pendiente hasta entonces.
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 4. MONTO */}
-          <div className="space-y-3">
-            <label className={SECTION_LABEL}>Monto de venta</label>
-            <div className="h-[60px] bg-surface-zinc rounded-xl border border-hairline flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
-              <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
-              <input aria-label="Monto de venta"
-                type="number"
-                step="0.01"
-                inputMode="decimal"
-                value={formData.amount || ''}
-                onChange={e => {
-                  const value = parseFloat(e.target.value);
-                  setFormData({ ...formData, amount: isNaN(value) ? 0 : value });
-                }}
-                className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`}
-                placeholder="0.00"
-              />
-              <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{settings.currency}</span>
-            </div>
           </div>
 
           {/* 5A. PERFILES (por pantalla) */}
@@ -482,6 +363,133 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
               </div>
             </div>
           )}
+
+          {/* 3. COBRO: monto primero, luego vigencia (el prepago depende de ambos) */}
+          <div className="space-y-3">
+            <label className={SECTION_LABEL}>Monto de venta</label>
+            <div className="h-[60px] bg-surface-zinc rounded-xl border border-hairline flex items-center px-5 focus-within:border-brand-primary/50 focus-within:ring-1 focus-within:ring-brand-primary/20 transition-all">
+              <DollarSign size={24} className="text-status-success mr-2 shrink-0" />
+              <input aria-label="Monto de venta"
+                type="number"
+                step="0.01"
+                inputMode="decimal"
+                value={formData.amount || ''}
+                onChange={e => {
+                  const value = parseFloat(e.target.value);
+                  setFormData({ ...formData, amount: isNaN(value) ? 0 : value });
+                }}
+                className={`${CLEAN_INPUT} h-full !text-2xl font-black text-text-primary placeholder:text-text-disabled`}
+                placeholder="0.00"
+              />
+              <span className="text-xs font-semibold text-text-disabled shrink-0 ml-3">{settings.currency}</span>
+            </div>
+          </div>
+
+          {/* 4. VIGENCIA */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <label className={SECTION_LABEL}>Vigencia</label>
+              <div className="flex items-center gap-1.5">
+                {EXTEND_OPTIONS.map(([label, months, days]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => extendExpiry(months, days)}
+                    className="h-7 px-2.5 rounded-full border text-xs font-semibold bg-surface-sunken border-border-subtle text-text-disabled hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary whitespace-nowrap"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-surface-zinc/60 rounded-xl border border-hairline px-3 py-2 flex items-center justify-between gap-2 focus-within:border-brand-primary/40 transition-colors">
+              <div className="min-w-0 flex-1">
+                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
+                <input
+                  type="date"
+                  aria-label="Fecha de inicio"
+                  value={startDate}
+                  onChange={e => {
+                    if (!e.target.value) return;
+                    setFormData({ ...formData, date: new Date(e.target.value).toISOString() });
+                  }}
+                  className={`${CLEAN_INPUT} h-6 text-left !text-[13px] font-semibold text-text-secondary [&::-webkit-date-and-time-value]:text-left`}
+                />
+              </div>
+              <ArrowRight size={14} className="text-text-faint shrink-0" />
+              <div className="min-w-0 flex-1">
+                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
+                <input
+                  type="date"
+                  aria-label="Fecha de vencimiento"
+                  value={endDate}
+                  onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
+                  className={`${CLEAN_INPUT} h-6 text-right !text-[13px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-right`}
+                />
+              </div>
+            </div>
+
+            {durationDays !== null && (
+              <p className={`text-tiny ml-1 ${durationDays >= 0 ? 'text-text-faint' : 'text-status-danger-soft'}`}>
+                {durationDays >= 0
+                  ? `Duración total: ${durationDays} ${durationDays === 1 ? 'día' : 'días'}`
+                  : 'El vencimiento no puede ser anterior al inicio'}
+              </p>
+            )}
+          </div>
+
+          {/* 5. PLAN PREPAGADO (al final: solo se despliega si se activa) */}
+          <div className={`rounded-xl border p-3 space-y-3 transition-colors ${isPrepaid ? 'border-brand-primary/40 bg-brand-primary/5' : 'border-hairline bg-surface-zinc/60'}`}>
+            <button type="button" role="switch" aria-checked={isPrepaid} onClick={togglePrepaid} className="w-full flex items-center gap-3 text-left active:scale-[0.99] transition-transform">
+              <div className="w-9 h-9 rounded-md bg-brand-primary/15 text-brand-primary-hi border border-brand-primary/20 flex items-center justify-center shrink-0">
+                <CalendarClock size={17} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="block text-body-sm font-bold text-text-primary">Plan prepagado</span>
+                <span className="block text-tiny text-text-disabled">El cliente ya pagó. Yo renuevo la cuenta.</span>
+              </div>
+              <span className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${isPrepaid ? 'bg-brand-primary' : 'bg-surface-4'}`}>
+                <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${isPrepaid ? 'left-[18px]' : 'left-0.5'}`} />
+              </span>
+            </button>
+
+            {isPrepaid && (
+              <div className="space-y-3 pt-3 border-t border-hairline">
+                <div className="space-y-2">
+                  <label className={SECTION_LABEL}>Renovar la cuenta cada</label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[1, 2, 3, 6].map(m => (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => changeRenewEvery(m)}
+                        className={`h-9 rounded-full border text-caption font-semibold transition-all active:scale-95 ${renewEvery === m ? 'bg-brand-primary/20 border-brand-primary text-text-primary' : 'bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary'}`}
+                      >
+                        {m} {m === 1 ? 'mes' : 'meses'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-surface-sunken rounded-lg border border-hairline px-3 py-2 focus-within:border-brand-primary/40 transition-colors">
+                  <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Próxima renovación</span>
+                  <input
+                    type="date"
+                    aria-label="Próxima renovación de la cuenta"
+                    value={dateOnly(formData.renewalDate)}
+                    onChange={e => { if (e.target.value) setFormData({ ...formData, renewalDate: e.target.value }); }}
+                    className={`${CLEAN_INPUT} h-7 text-left !text-[14px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-left`}
+                  />
+                </div>
+                <div className="flex items-start gap-2 px-1">
+                  <BellRing size={13} className="text-brand-primary-hi shrink-0 mt-0.5" />
+                  <p className="text-caption text-text-disabled leading-relaxed">
+                    Pagado hasta {formatLongDate(formData.expiryDate)}. No aparece como cobro pendiente hasta entonces.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 6. ACCIONES (quedan pegadas abajo al hacer scroll) */}

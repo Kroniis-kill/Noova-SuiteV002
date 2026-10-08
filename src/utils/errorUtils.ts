@@ -10,7 +10,9 @@
 const TECHNICAL = /fetch|network|jwt|pgrst|postgres|sql|relation|column|violates|syntax|constraint|schema|undefined|null value|timeout|abort|cors|supabase/i;
 
 export const getSupabaseErrorMessage = (error: any): string => {
-  if (import.meta.env.DEV && error) console.error('[error]', error);
+  // Siempre se deja el detalle técnico en la consola (antes solo en DEV, y en producción
+  // el error real quedaba oculto detrás del mensaje genérico).
+  if (error) console.error('[error]', { code: error.code, message: error.message, details: error.details, hint: error.hint, error });
 
   if (!error) return 'Ocurrió un error inesperado. Inténtalo de nuevo.';
   if (typeof error === 'string') return TECHNICAL.test(error) ? 'Ocurrió un error inesperado. Inténtalo de nuevo.' : error;
@@ -56,5 +58,7 @@ export const getSupabaseErrorMessage = (error: any): string => {
   // Error de la propia app con texto legible: se muestra tal cual.
   if (message && !error.code && !TECHNICAL.test(message)) return message;
 
-  return 'No pudimos completar la acción. Inténtalo de nuevo.';
+  // Mensaje genérico + código corto (sin datos sensibles) para poder diagnosticar el caso.
+  const ref = error.code ? ` (cód. ${error.code})` : '';
+  return `No pudimos completar la acción. Inténtalo de nuevo.${ref}`;
 };
