@@ -19,6 +19,8 @@ interface ExpiredMobileProps {
   expiredAccounts: Account[];
   totalRevenue: number;
   totalProfit: number;
+  overdueRevenue?: number;
+  overdueCount?: number;
   currency: string;
   onRenewSale: (sales: Sale[]) => void;
   onRenewAccount: (acc: Account) => void;
@@ -34,7 +36,7 @@ interface ExpiredMobileProps {
 
 const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
   activeTab, setActiveTab, searchQuery, setSearchQuery, groupedSales, expiredAccounts,
-  totalRevenue, totalProfit, currency, onRenewSale, onRenewAccount, onDeleteAccount, onCardClick,
+  totalRevenue, totalProfit, overdueRevenue = 0, overdueCount = 0, currency, onRenewSale, onRenewAccount, onDeleteAccount, onCardClick,
   filterService, setFilterService, servicesList, providers, services, onBack
 }) => {
 
@@ -102,25 +104,34 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
         </p>
       </div>
 
-      {/* Resumen */}
+      {/* Resumen (compacto): lo vencido va aparte y no suma al total por cobrar */}
       {activeTab === 'sales' && (
-        <div className="bg-surface-1 border border-border-subtle rounded-xl p-4 mb-5 shadow-sm">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-lg bg-brand-primary/15 text-brand-primary flex items-center justify-center">
-              <Wallet size={14} />
+        <div className="bg-surface-1 border border-border-subtle rounded-xl px-4 py-3 mb-4 shadow-sm">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="w-6 h-6 rounded-md bg-brand-primary/15 text-brand-primary flex items-center justify-center shrink-0">
+                <Wallet size={13} />
+              </div>
+              <p className="text-tiny font-semibold text-text-disabled uppercase tracking-widest truncate">Por cobrar</p>
             </div>
-            <p className="text-tiny font-semibold text-text-disabled uppercase tracking-widest">Total por cobrar</p>
-          </div>
-          <p className="text-4xl font-extrabold text-text-primary tracking-tight leading-none mb-3">
-            <span className="text-lg text-text-disabled font-medium mr-1 align-top relative top-1">{currency}</span>
-            {totalRevenue.toLocaleString()}
-          </p>
-          <div className="inline-flex items-center gap-2 bg-status-success/10 border border-status-success/20 px-3 py-1.5 rounded-full">
-            <TrendingUp size={12} className="text-status-success-soft" />
-            <span className="text-tiny font-semibold text-status-success-soft uppercase tracking-wide">
-              Ganancia est.: {currency} {totalProfit.toLocaleString()}
+            <span className="inline-flex items-center gap-1 text-tiny font-medium text-status-success-soft/80 shrink-0">
+              <TrendingUp size={11} />
+              Gan. {currency} {totalProfit.toLocaleString()}
             </span>
           </div>
+          <p className="text-3xl font-extrabold text-text-primary tracking-tight leading-none mt-2">
+            <span className="text-base text-text-disabled font-medium mr-1 align-top relative top-0.5">{currency}</span>
+            {totalRevenue.toLocaleString()}
+          </p>
+          {overdueCount > 0 && (
+            <div className="mt-2.5 pt-2 border-t border-hairline flex items-center justify-between gap-3 text-tiny">
+              <span className="flex items-center gap-1.5 text-text-disabled min-w-0 truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-status-danger shrink-0" />
+                Vencidos (aparte) · {overdueCount} {overdueCount === 1 ? 'servicio' : 'servicios'}
+              </span>
+              <span className="font-semibold text-status-danger-soft shrink-0">{currency} {overdueRevenue.toLocaleString()}</span>
+            </div>
+          )}
         </div>
       )}
 
@@ -191,10 +202,10 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                     </div>
                     <h3 className="text-tiny font-semibold text-status-danger-soft uppercase tracking-[0.2em]">Ya vencidos</h3>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
                     {vencidos.map((group, idx) => (
-                      <motion.div key={group.clientId} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
-                        <ExpiredCard sales={group.renewalGroups.flatMap(g => g.sales)} client={{ id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 }} settings={settings} onRenew={onRenewSale} onClick={() => onCardClick(group)} onMessageClick={handleMessageClick} />
+                      <motion.div key={group.clientId} className="h-full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
+                        <ExpiredCard sales={group.renewalGroups.flatMap(g => g.sales)} client={{ id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 }} settings={settings} onRenew={onRenewSale} onClick={() => onCardClick(group)} onMessageClick={handleMessageClick} variant="grid" />
                       </motion.div>
                     ))}
                   </div>
@@ -209,10 +220,10 @@ const ExpiredMobile: React.FC<ExpiredMobileProps> = ({
                     </div>
                     <h3 className="text-tiny font-semibold text-status-expiring-soft uppercase tracking-[0.2em]">Vencen hoy / pronto</h3>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
                     {vencenHoy.map((group, idx) => (
-                      <motion.div key={group.clientId} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
-                        <ExpiredCard sales={group.renewalGroups.flatMap(g => g.sales)} client={{ id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 }} settings={settings} onRenew={onRenewSale} onClick={() => onCardClick(group)} onMessageClick={handleMessageClick} />
+                      <motion.div key={group.clientId} className="h-full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
+                        <ExpiredCard sales={group.renewalGroups.flatMap(g => g.sales)} client={{ id: group.clientId, name: group.clientName, phone: group.clientPhone, registrationDate: '', activeServices: 0 }} settings={settings} onRenew={onRenewSale} onClick={() => onCardClick(group)} onMessageClick={handleMessageClick} variant="grid" />
                       </motion.div>
                     ))}
                   </div>

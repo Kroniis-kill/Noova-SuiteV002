@@ -122,13 +122,20 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
      });
   }, [expiredSales, clients, resellers, searchQuery]);
 
-  const { totalRevenue, totalProfit } = useMemo(() => {
+  // "Por cobrar" = lo que vence hoy o pronto. Lo ya vencido se muestra aparte
+  // (muchos vencidos son renovaciones que te tocan a ti, no deudas del cliente).
+  const { totalRevenue, totalProfit, overdueRevenue, overdueCount } = useMemo(() => {
     return expiredSales.reduce((acc, sale) => {
        const svc = services.find(s => s.name === sale.serviceName);
-       acc.totalRevenue += sale.amount || 0;
-       acc.totalProfit += calculateProfit(sale, svc);
+       if (getDaysRemaining(sale.expiryDate) < 0) {
+          acc.overdueRevenue += sale.amount || 0;
+          acc.overdueCount += 1;
+       } else {
+          acc.totalRevenue += sale.amount || 0;
+          acc.totalProfit += calculateProfit(sale, svc);
+       }
        return acc;
-    }, { totalRevenue: 0, totalProfit: 0 });
+    }, { totalRevenue: 0, totalProfit: 0, overdueRevenue: 0, overdueCount: 0 });
   }, [expiredSales, services]);
 
   // ==========================================
@@ -205,6 +212,8 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
     expiredAccounts,
     totalRevenue,
     totalProfit,
+    overdueRevenue,
+    overdueCount,
     currency: settings.currency,
     onRenewSale: handleRenewSale,
     onRenewAccount: handleRenewAccount,

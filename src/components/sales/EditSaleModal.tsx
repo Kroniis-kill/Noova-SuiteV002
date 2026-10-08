@@ -207,41 +207,47 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
     <Modal isOpen={isOpen} onClose={onClose} title="Editar servicio" zIndex={zIndex || 60000}>
       <div className="flex flex-col animate-fade-in pt-1">
 
-        <p className="text-caption text-text-disabled font-medium mb-4 truncate">
-          {[client?.name, SALE_TYPE_LABELS[sale.saleType] || sale.saleType].filter(Boolean).join(' · ')}
+        <p className="text-caption text-text-disabled font-medium mb-3 truncate">
+          {SALE_TYPE_LABELS[sale.saleType] || sale.saleType}
         </p>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
 
-          {/* 1. RESUMEN (solo lectura) */}
-          <div className="bg-surface-zinc rounded-xl p-4 border border-hairline flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20">
-              <Layers size={18} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-text-primary truncate">{sale.serviceName}</p>
-              <p className="text-caption text-text-muted font-medium mt-0.5">Vence el {formatLongDate(formData.expiryDate)}</p>
-            </div>
-            <span className={`text-tiny font-bold px-2.5 py-1 rounded-full border shrink-0 ${expiryBadge.cls}`}>{expiryBadge.label}</span>
-          </div>
+          {/* 1. SERVICIO + CLIENTE (grilla de 2 para que el modal sea más corto) */}
+          <div className="space-y-2">
+            <div className="grid grid-cols-2 gap-2.5">
+              {/* Servicio (solo lectura) */}
+              <div className="bg-surface-zinc rounded-xl p-3 border border-hairline flex flex-col justify-between gap-3 min-h-[92px] min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="w-9 h-9 rounded-md bg-brand-primary/15 flex items-center justify-center shrink-0 text-brand-primary-hi border border-brand-primary/20">
+                    <Layers size={17} />
+                  </div>
+                  <span className={`text-micro font-bold px-2 py-0.5 rounded-full border shrink-0 whitespace-nowrap ${expiryBadge.cls}`}>{expiryBadge.label}</span>
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-tiny font-semibold text-text-disabled truncate">Vence el {formatLongDate(formData.expiryDate)}</span>
+                  <span className="block text-body-sm font-bold text-text-primary truncate">{sale.serviceName}</span>
+                </div>
+              </div>
 
-          {/* 1B. CLIENTE (permite pasar la venta a otro cliente sin borrarla) */}
-          <div className="space-y-3">
-            <label className={SECTION_LABEL}>Cliente</label>
-            <button
-              type="button"
-              onClick={() => { haptic('nav'); setIsClientSearchOpen(true); }}
-              className={`w-full h-[60px] px-3 bg-surface-zinc rounded-xl border flex items-center gap-3 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-hairline'}`}
-            >
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-caption font-bold shrink-0 border border-border-subtle">
-                {(selectedClient?.name || '?').substring(0, 2).toUpperCase()}
-              </div>
-              <div className="flex-1 min-w-0">
-                <span className="block text-tiny font-semibold text-text-disabled uppercase">Cliente de la venta</span>
-                <span className="block text-body-sm font-bold truncate text-text-primary">{selectedClient?.name || 'Seleccionar cliente...'}</span>
-              </div>
-              <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0" />
-            </button>
+              {/* Cliente (permite pasar la venta a otro cliente sin borrarla) */}
+              <button
+                type="button"
+                onClick={() => { haptic('nav'); setIsClientSearchOpen(true); }}
+                className={`bg-surface-zinc rounded-xl p-3 border flex flex-col justify-between gap-3 min-h-[92px] min-w-0 text-left active:scale-[0.99] transition-all group ${clientChanged ? 'border-brand-primary/40' : 'border-hairline'}`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-caption font-bold shrink-0 border border-border-subtle">
+                    {(selectedClient?.name || '?').substring(0, 2).toUpperCase()}
+                  </div>
+                  <ChevronDown size={16} className="text-text-faint group-hover:text-text-primary shrink-0 mt-2" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-tiny font-semibold text-text-disabled truncate">Cliente</span>
+                  <span className="block text-body-sm font-bold truncate text-text-primary">{selectedClient?.name || 'Seleccionar...'}</span>
+                </div>
+              </button>
+            </div>
             {clientChanged && (
               <div className="flex items-start justify-between gap-3 px-1">
                 <p className="text-xs text-brand-primary-hi flex items-start gap-1.5 min-w-0">
@@ -274,50 +280,53 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ isOpen, onClose, sale, zI
             </button>
           </div>
 
-          {/* 3. VIGENCIA */}
-          <div className="space-y-3">
-            <label className={SECTION_LABEL}>Vigencia</label>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs text-text-disabled mr-0.5">Extender</span>
-              {EXTEND_OPTIONS.map(([label, months, days]) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => extendExpiry(months, days)}
-                  className="h-9 px-4 rounded-full border text-body-sm font-semibold bg-surface-sunken border-border-subtle text-text-muted hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary"
-                >
-                  {label}
-                </button>
-              ))}
+          {/* 3. VIGENCIA (compacta y sutil) */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <label className={SECTION_LABEL}>Vigencia</label>
+              <div className="flex items-center gap-1.5">
+                {EXTEND_OPTIONS.map(([label, months, days]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => extendExpiry(months, days)}
+                    className="h-7 px-2.5 rounded-full border text-xs font-semibold bg-surface-sunken border-border-subtle text-text-disabled hover:text-text-primary transition-all active:scale-95 active:bg-brand-primary/20 active:border-brand-primary whitespace-nowrap"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="bg-surface-zinc rounded-xl border border-hairline p-4 flex items-center justify-between gap-3 focus-within:border-brand-primary/40 transition-colors">
+            <div className="bg-surface-zinc/60 rounded-xl border border-hairline px-3 py-2 flex items-center justify-between gap-2 focus-within:border-brand-primary/40 transition-colors">
               <div className="min-w-0 flex-1">
-                <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
+                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block">Inicio</span>
                 <input
                   type="date"
+                  aria-label="Fecha de inicio"
                   value={startDate}
                   onChange={e => {
                     if (!e.target.value) return;
                     setFormData({ ...formData, date: new Date(e.target.value).toISOString() });
                   }}
-                  className={`${CLEAN_INPUT} h-8 mt-1 text-left !text-[15px] font-bold text-text-primary [&::-webkit-date-and-time-value]:text-left`}
+                  className={`${CLEAN_INPUT} h-6 text-left !text-[13px] font-semibold text-text-secondary [&::-webkit-date-and-time-value]:text-left`}
                 />
               </div>
-              <ArrowRight size={18} className="text-text-faint shrink-0" />
+              <ArrowRight size={14} className="text-text-faint shrink-0" />
               <div className="min-w-0 flex-1">
-                <span className="text-tiny font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
+                <span className="text-micro font-bold text-text-disabled uppercase tracking-widest block text-right">Vence</span>
                 <input
                   type="date"
+                  aria-label="Fecha de vencimiento"
                   value={endDate}
                   onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
-                  className={`${CLEAN_INPUT} h-8 mt-1 text-right !text-[15px] font-bold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-right`}
+                  className={`${CLEAN_INPUT} h-6 text-right !text-[13px] font-semibold text-brand-primary-hi [&::-webkit-date-and-time-value]:text-right`}
                 />
               </div>
             </div>
 
             {durationDays !== null && (
-              <p className={`text-xs ml-1 ${durationDays >= 0 ? 'text-text-disabled' : 'text-status-danger-soft'}`}>
+              <p className={`text-tiny ml-1 ${durationDays >= 0 ? 'text-text-faint' : 'text-status-danger-soft'}`}>
                 {durationDays >= 0
                   ? `Duración total: ${durationDays} ${durationDays === 1 ? 'día' : 'días'}`
                   : 'El vencimiento no puede ser anterior al inicio'}
