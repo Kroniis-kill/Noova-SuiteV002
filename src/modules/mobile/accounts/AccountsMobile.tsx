@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso';
 import { useInventario } from '../../../hooks/useInventario';
 import { Account } from '../../../types';
-import { Plus, Box, Layers, Search, Activity, Upload, Trash2, X, RefreshCcw, Monitor, Mail, Key, RotateCcw, Filter, Info } from 'lucide-react';
+import { Plus, Box, Layers, Search, Activity, Upload, Trash2, X, RefreshCcw, Monitor, Mail, Key, RotateCcw, Filter, Info, Archive } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollFloatingActions from '../../../components/ui/ScrollFloatingActions';
 import EmptyState from '../../../components/ui/EmptyState';
@@ -20,6 +20,9 @@ import HealthCheckModal from '../../../components/inventario/HealthCheckModal';
 import ImportGuideModal from '../../../components/ui/ImportGuideModal';
 import AccountRenewModal from '../../../components/inventario/AccountRenewModal';
 import Modal from '../../../components/ui/Modal';
+import ConfirmDialog from '../../../components/ui/ConfirmDialog';
+import TrashAccountCard from '../../../components/inventario/TrashAccountCard';
+import { getDaysRemaining } from '../../../utils/inventarioUtils';
 import { loadXlsx } from '../../../utils/lazyXlsx';
 import { useToast } from '../../../context/ToastContext';
 import { generateUUID } from '../../../utils/uuid';
@@ -87,15 +90,31 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
   const deferredSearchQuery = React.useDeferredValue(searchQuery);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [accountToDelete, setAccountToDelete] = useState<Account | null>(null);
+  const [trashServiceFilter, setTrashServiceFilter] = useState<string>('all');
 
   useEffect(() => {
     if (initialView) setViewLevel(initialView);
   }, [initialView]);
 
+  // Cuentas archivadas (todas, sin filtros): sirven para el contador y los chips por servicio.
+  const trashAccounts = useMemo(() => accounts.filter(a => a.status === 'trash'), [accounts]);
+
+  const trashServiceChips = useMemo(() => {
+      const counts = new Map<string, number>();
+      trashAccounts.forEach(a => counts.set(a.serviceId, (counts.get(a.serviceId) || 0) + 1));
+      return Array.from(counts.entries())
+          .map(([id, count]) => ({ id, count, name: services.find(sv => sv.id === id)?.name || 'Servicio' }))
+          .sort((a, b) => a.name.localeCompare(b.name));
+  }, [trashAccounts, services]);
+
+  // Si el servicio filtrado se quedó sin cuentas (p. ej. se restauró la última), se vuelve a "Todos".
+  const activeTrashFilter = trashServiceChips.some(c => c.id === trashServiceFilter) ? trashServiceFilter : 'all';
+
   const globalFilteredAccounts = useMemo(() => {
       let list = accounts;
       if (viewLevel === 'trash') {
-          list = accounts.filter(a => a.status === 'trash');
+          list = trashAccounts;
+          if (activeTrashFilter !== 'all') list = list.filter(a => a.serviceId === activeTrashFilter);
       } else if (viewLevel === 'accounts') {
           list = filteredAccounts; 
       } else if (viewLevel === 'all_accounts') {
@@ -104,10 +123,20 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
 
       if (deferredSearchQuery) {
           const q = deferredSearchQuery.toLowerCase();
-          list = list.filter(a => a.email.toLowerCase().includes(q) || a.notes?.toLowerCase().includes(q));
+          list = list.filter(a =>
+              a.email.toLowerCase().includes(q) ||
+              a.notes?.toLowerCase().includes(q) ||
+              (viewLevel === 'trash' && (services.find(sv => sv.id === a.serviceId)?.name || '').toLowerCase().includes(q))
+          );
+      }
+
+      // Papelera: agrupadas por servicio y luego por correo, para que sea fácil de recorrer.
+      if (viewLevel === 'trash') {
+          const nameOf = (id: string) => services.find(sv => sv.id === id)?.name || '';
+          list = [...list].sort((a, b) => nameOf(a.serviceId).localeCompare(nameOf(b.serviceId)) || a.email.localeCompare(b.email));
       }
       return list;
-  }, [accounts, viewLevel, filteredAccounts, deferredSearchQuery]);
+  }, [accounts, trashAccounts, viewLevel, filteredAccounts, deferredSearchQuery, activeTrashFilter, services]);
 
   const onHandleAccountClick = useCallback((acc: Account) => {
       haptic('nav');
@@ -127,11 +156,18 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
     setSelectedServiceId(null);
     setIsSearchOpen(false);
     setSearchQuery('');
+    setTrashServiceFilter('all');
   }, [haptic, setSelectedServiceId]);
 
   const handleRestore = (acc: Account) => {
       updateAccount({ ...acc, status: 'activa' });
-      showToast('Cuenta restaurada al inventario', 'success');
+      setIsDetailOpen(false);
+      // Al restaurar, el vencimiento vuelve a contar: si ya pasó, avisar para que se renueve.
+      if (getDaysRemaining(acc.endDate) <= 0) {
+          showToast('Cuenta restaurada. Su fecha de vencimiento ya pasó: renuévala.', 'info');
+      } else {
+          showToast('Cuenta restaurada al inventario', 'success');
+      }
   };
 
   const handleMoveToTrash = () => {
@@ -263,7 +299,11 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                     viewLevel === 'all_accounts' ? 'Todas las Cuentas' :
                     services.find(s => s.id === selectedServiceId)?.name}
                </h1>
-               <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">Control de suministros</p>
+               <p className="text-text-muted text-tiny font-semibold uppercase tracking-[0.15em] mt-1">
+                   {viewLevel === 'trash'
+                       ? `${trashAccounts.length} ${trashAccounts.length === 1 ? 'cuenta archivada' : 'cuentas archivadas'}`
+                       : 'Control de suministros'}
+               </p>
             </div>
             <div className="flex gap-2">
                 {viewLevel === 'services' && (
@@ -272,24 +312,59 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                         <button aria-label="Eliminar" onClick={() => setViewLevel('trash')} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 shadow-sm relative"><Trash2 size={18} /></button>
                     </>
                 )}
+                {viewLevel !== 'trash' && <>
                 <button aria-label="Importar" onClick={() => setIsImportOpen(true)} className="w-10 h-10 rounded-md bg-surface-1 border border-border-subtle flex items-center justify-center text-text-muted active:scale-95 shadow-sm"><Upload size={18} /></button>
                 <button aria-label="Agregar" onClick={handleAddNew} className={`w-10 h-10 rounded-md bg-gradient-to-tr from-brand-primary to-brand-accent border border-border-subtle flex items-center justify-center text-white active:scale-95 shadow-glow ${isHighlighted ? 'ring-4 ring-white animate-pulse' : ''}`}><Plus size={22} strokeWidth={2.5} /></button>
+                </>}
             </div>
         </div>
+
+        {viewLevel === 'trash' && (
+            <>
+                <div className="relative z-20 mb-4 flex gap-3 items-start p-3.5 rounded-xl bg-brand-primary/10 border border-brand-primary/20">
+                    <div className="w-8 h-8 shrink-0 rounded-full bg-brand-primary/20 text-brand-primary-hi flex items-center justify-center"><Archive size={15} /></div>
+                    <p className="text-caption text-text-secondary leading-relaxed pt-0.5">
+                        Las cuentas archivadas no cuentan como vencidas ni ocupan stock. Su fecha de vencimiento queda congelada hasta que las restaures.
+                    </p>
+                </div>
+            </>
+        )}
 
         <div className="relative z-20 mb-6">
             <div className="relative w-full h-[43px] bg-surface-3 border border-border-subtle rounded-md flex items-center px-4 transition-all focus-within:border-brand-primary/50 shadow-sm">
                 <Search size={18} className="text-text-disabled shrink-0" />
-                <input aria-label="Buscar cuenta o servicio" 
+                <input aria-label={viewLevel === 'trash' ? 'Buscar en papelera' : 'Buscar cuenta o servicio'} 
                     value={searchQuery} 
                     onChange={e => { setSearchQuery(e.target.value); if(viewLevel === 'services') setViewLevel('all_accounts'); }} 
-                    placeholder="Buscar cuenta o servicio..." 
+                    placeholder={viewLevel === 'trash' ? 'Buscar en papelera...' : 'Buscar cuenta o servicio...'} 
                     className="bg-transparent border-none outline-none text-label leading-[18px] h-[15px] text-text-primary w-full ml-3 placeholder:text-text-disabled font-medium" 
                 />
                 {searchQuery && <button aria-label="Cerrar" onClick={() => { setSearchQuery(''); if(viewLevel === 'all_accounts') setViewLevel('services'); }} className="p-1"><X size={14} className="text-text-disabled" /></button>}
             </div>
         </div>
         
+        {viewLevel === 'trash' && trashServiceChips.length > 1 && (
+            <div className="relative z-20 -mt-2 mb-5 flex gap-2 overflow-x-auto no-scrollbar pb-1">
+                <button
+                    onClick={() => setTrashServiceFilter('all')}
+                    className={`shrink-0 px-3 py-1.5 rounded-full text-caption font-semibold border transition-all flex items-center gap-1.5 ${activeTrashFilter === 'all' ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
+                >
+                    <Filter size={11} /> Todos
+                    <span className="text-micro opacity-70">{trashAccounts.length}</span>
+                </button>
+                {trashServiceChips.map(chip => (
+                    <button
+                        key={chip.id}
+                        onClick={() => setTrashServiceFilter(chip.id)}
+                        className={`shrink-0 px-3 py-1.5 rounded-full text-caption font-semibold border transition-all flex items-center gap-1.5 ${activeTrashFilter === chip.id ? 'bg-brand-primary/15 border-brand-primary/30 text-brand-primary' : 'bg-surface-sunken border-border-subtle text-text-disabled'}`}
+                    >
+                        {chip.name}
+                        <span className="text-micro opacity-70">{chip.count}</span>
+                    </button>
+                ))}
+            </div>
+        )}
+
         <div className="flex-1 relative z-10">
             <AnimatePresence mode="wait">
                 {isLoading ? (
@@ -324,9 +399,13 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                       {globalFilteredAccounts.length === 0 ? (
                         <div className="col-span-1 md:col-span-2 lg:col-span-3">
                           <EmptyState 
-                            title={viewLevel === 'trash' ? "Papelera vacía" : "Sin cuentas"}
-                            description={viewLevel === 'trash' ? "No hay cuentas archivadas por ahora." : "No se encontraron registros para tu búsqueda."}
-                            icon={Layers}
+                            title={viewLevel === 'trash' ? (trashAccounts.length === 0 ? "Papelera vacía" : "Sin resultados") : "Sin cuentas"}
+                            description={viewLevel === 'trash'
+                                ? (trashAccounts.length === 0
+                                    ? "Las cuentas que archives aparecerán aquí y podrás restaurarlas cuando quieras."
+                                    : "No hay cuentas archivadas que coincidan con tu búsqueda.")
+                                : "No se encontraron registros para tu búsqueda."}
+                            icon={viewLevel === 'trash' ? Archive : Layers}
                             actionLabel={viewLevel !== 'trash' ? "Nueva Cuenta" : undefined}
                             onAction={viewLevel !== 'trash' ? handleAddNew : undefined}
                           />
@@ -334,21 +413,15 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
                       ) : (
                         globalFilteredAccounts.map(acc => {
                             if (viewLevel === 'trash') {
-                                const svc = services.find(s => s.id === acc.serviceId);
                                 return (
-                                    <div key={acc.id} onClick={() => onHandleAccountClick(acc)} className="bg-surface-1 border border-hairline p-4 rounded-xl flex items-center justify-between shadow-sm active:scale-95 transition-all">
-                                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                                            <div className="w-10 h-10 rounded-sm bg-surface-sunken flex items-center justify-center text-text-disabled border border-hairline shrink-0"><Monitor size={18} /></div>
-                                            <div className="min-w-0">
-                                                <h4 className="text-sm font-bold text-text-primary truncate">{svc?.name || 'Servicio'}</h4>
-                                                <p className="text-tiny text-text-disabled truncate">{acc.email}</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <button onClick={(e) => { e.stopPropagation(); handleRestore(acc); }} className="p-2 rounded-lg bg-status-success/10 text-status-success-soft border border-status-success/20 active:scale-90" title="Restaurar"><RotateCcw size={16} /></button>
-                                            <button onClick={(e) => { e.stopPropagation(); setAccountToDelete(acc); }} className="p-2 rounded-lg bg-status-danger/10 text-status-danger-soft border border-status-danger/20 active:scale-90" title="Borrar para siempre"><Trash2 size={16} /></button>
-                                        </div>
-                                    </div>
+                                    <TrashAccountCard
+                                        key={acc.id}
+                                        account={acc}
+                                        service={services.find(sv => sv.id === acc.serviceId)}
+                                        onOpen={onHandleAccountClick}
+                                        onRestore={handleRestore}
+                                        onDeleteForever={setAccountToDelete}
+                                    />
                                 );
                             }
                             return <CuentaCard key={acc.id} account={acc} onClick={onHandleAccountClick} />;
@@ -359,7 +432,7 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
             </AnimatePresence>
         </div>
 
-        <ScrollFloatingActions onAdd={handleAddNew} onBack={viewLevel !== 'services' ? handleBackToServices : onBack} />
+        <ScrollFloatingActions onAdd={viewLevel === 'trash' ? undefined : handleAddNew} onBack={viewLevel !== 'services' ? handleBackToServices : onBack} />
         
         <CuentaDetailModal 
           isOpen={isDetailOpen} 
@@ -414,7 +487,18 @@ const AccountsMobile: React.FC<AccountsMobileProps> = ({ onBack, initialView = '
         <ImportGuideModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} onConfirm={() => fileInputRef.current?.click()} type="inventory" title="Importar Inventario" />
         <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".xlsx,.xls,.csv" />
 
-        <Modal isOpen={!!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro">
+        {/* En la papelera solo hay una salida (borrar para siempre): confirmación simple. */}
+        <ConfirmDialog
+          isOpen={viewLevel === 'trash' && !!accountToDelete}
+          onClose={() => setAccountToDelete(null)}
+          onConfirm={confirmDelete}
+          title="Eliminar para siempre"
+          message={<>Se borrará definitivamente la cuenta <strong className="text-text-primary">{accountToDelete?.email}</strong>. Esta acción no se puede deshacer.</>}
+          confirmLabel="Eliminar"
+          tone="danger"
+        />
+
+        <Modal isOpen={viewLevel !== 'trash' && !!accountToDelete} onClose={() => setAccountToDelete(null)} title="Eliminar Registro">
           <div className="space-y-5 pt-2">
               <div className="bg-status-danger/10 border border-status-danger/20 p-4 rounded-md flex gap-4 items-start">
                   <div className="bg-status-danger/20 p-3 rounded-full shrink-0"><Trash2 size={24} className="text-status-danger" /></div>

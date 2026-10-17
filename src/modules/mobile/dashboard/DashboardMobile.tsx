@@ -247,7 +247,7 @@ const DashboardMobile: React.FC<DashboardMobileProps> = ({ setView }) => {
 
   const expiringAccountsList = useMemo(() => {
     return accounts
-      .filter(acc => acc.status !== 'inactiva' && getDaysRemaining(acc.endDate) <= warningDays)
+      .filter(acc => acc.status !== 'inactiva' && acc.status !== 'trash' && getDaysRemaining(acc.endDate) <= warningDays)
       .sort((a, b) => getDaysRemaining(a.endDate) - getDaysRemaining(b.endDate));
   }, [accounts, warningDays]);
 

@@ -28,7 +28,7 @@ export const buildAccountExpiryNotifications = (
 
   accounts.forEach((acc) => {
     const days = getDaysRemaining(acc.endDate);
-    if (acc.status === "inactiva") return;
+    if (acc.status === "inactiva" || acc.status === "trash") return;
 
     // Por vencer (2 o 1 días)
     if (days === 2 || days === 1) {

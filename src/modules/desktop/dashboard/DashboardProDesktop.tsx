@@ -38,7 +38,7 @@ const DashboardProDesktop: React.FC = () => {
   // 1. Métricas Globales
   const totalRevenue = useMemo(() => sales.reduce((acc, s) => acc + s.amount, 0), [sales]);
   const stockAvailable = useMemo(() => {
-    return accounts.reduce((acc, a) => acc + (a.maxScreens - calculateOccupancy(a)), 0);
+    return accounts.reduce((acc, a) => a.status === 'trash' ? acc : acc + (a.maxScreens - calculateOccupancy(a)), 0);
   }, [accounts]);
   
   // 2. Gráfico de Tendencia

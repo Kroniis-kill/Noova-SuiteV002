@@ -23,7 +23,7 @@ const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ isOpen, onClose }) 
   // Calcular salud de todas las cuentas activas
   const healthData = useMemo(() => {
     return accounts
-      .filter(acc => acc.status !== 'inactiva') 
+      .filter(acc => acc.status !== 'inactiva' && acc.status !== 'trash')
       .map(acc => {
         const svc = services.find(s => s.id === acc.serviceId);
         return calculateAccountHealth(acc, sales, svc);

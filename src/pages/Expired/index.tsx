@@ -202,7 +202,8 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
 
   const expiredAccounts = useMemo(() => {
     let result = accounts.filter(acc => {
-       if (acc.status === 'inactiva') return false;
+       // Papelera e inactivas no cuentan: su fecha de vencimiento queda congelada.
+       if (acc.status === 'inactiva' || acc.status === 'trash') return false;
        const days = getDaysRemaining(acc.endDate);
        // Usa el mismo umbral configurado en Configuración > Preferencia de Venta
        return days <= warningDays; 
@@ -221,7 +222,7 @@ const ExpiredPage: React.FC<ExpiredPageProps> = ({ onBack }) => {
   }, [accounts, searchQuery, services, filterService, warningDays]);
 
   const uniqueInventoryServices = useMemo(() => {
-     const ids = new Set(accounts.map(a => a.serviceId));
+     const ids = new Set(accounts.filter(a => a.status !== 'trash').map(a => a.serviceId));
      return services.filter(s => ids.has(s.id)).map(s => s.name).sort();
   }, [accounts, services]);
 

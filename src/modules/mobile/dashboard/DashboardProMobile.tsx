@@ -54,12 +54,12 @@ const DashboardProMobile: React.FC<DashboardProMobileProps> = ({ setView }) => {
     }).reduce((acc, s) => acc + s.amount, 0);
   }, [sales]);
 
-  const stockUrgent = useMemo(() => accounts.filter(a => getDaysRemaining(a.endDate) <= 3).length, [accounts]);
-
+  const stockUrgent = useMemo(() => accounts.filter(a => a.status !== 'trash' && getDaysRemaining(a.endDate) <= 3).length, [accounts]);
+  
   const stats = [
     { label: 'Ventas Mes', value: `${currency}${formatMoney(monthlySales)}`, icon: ShoppingCart, color: 'text-brand-primary', bg: 'bg-brand-primary/10' },
     { label: 'Clientes', value: clients.length, icon: Users, color: 'text-status-info-soft', bg: 'bg-status-info/10' },
-    { label: 'Stock Disp.', value: accounts.reduce((acc, a) => acc + (a.maxScreens - calculateOccupancy(a)), 0), icon: Layers, color: 'text-status-success-soft', bg: 'bg-status-success/10' },
+    { label: 'Stock Disp.', value: accounts.reduce((acc, a) => a.status === 'trash' ? acc : acc + (a.maxScreens - calculateOccupancy(a)), 0)
     { label: 'Vencimientos', value: stockUrgent, icon: Clock, color: 'text-status-danger-soft', bg: 'bg-status-danger/10' },
   ];
 

@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { MotionConfig } from 'framer-motion';
 import App from './App';
 import AdminPortalApp from './pages/admin-portal/AdminPortalApp';
+import { Capacitor } from '@capacitor/core';
 import './index.css'; 
 
 // Register Service Worker for Push Notifications
-if ('serviceWorker' in navigator) {
+// En la app nativa (Capacitor) no se registra el SW: los assets ya van empaquetados.
+if ('serviceWorker' in navigator && !Capacitor.isNativePlatform()) {
   const allowedDomains = ['localhost', '127.0.0.1', 'noova-suite.vercel.app'];
   if (allowedDomains.includes(window.location.hostname)) {
     window.addEventListener('load', () => {

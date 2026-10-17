@@ -133,13 +133,15 @@ const ScrollFloatingActions: React.FC<ScrollFloatingActionsProps> = ({ onAdd, ac
                 )}
               </AnimatePresence>
 
-              {/* Main FAB */}
-              <button aria-label="Agregar" 
-                onClick={handleMainClick}
-                className={`w-14 h-14 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-lg flex items-center justify-center text-white shadow-[0_0_30px_-5px_rgba(106,44,255,0.6)] active:scale-90 transition-all border-2 border-surface-3 z-10 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
-              >
-                 <Plus size={28} strokeWidth={2.5} />
-              </button>
+              {/* Main FAB: solo si hay algo que agregar (si no, sería un botón muerto) */}
+              {(onAdd || (actions && actions.length > 0)) && (
+                <button aria-label="Agregar" 
+                  onClick={handleMainClick}
+                  className={`w-14 h-14 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-lg flex items-center justify-center text-white shadow-[0_0_30px_-5px_rgba(106,44,255,0.6)] active:scale-90 transition-all border-2 border-surface-3 z-10 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
+                >
+                   <Plus size={28} strokeWidth={2.5} />
+                </button>
+              )}
            </div>
         </motion.div>
       )}
